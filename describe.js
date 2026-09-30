@@ -6,7 +6,11 @@
 
 import { TAXONOMY } from './taxonomy.js';
 
+const MAX_HEDGES = 2; // 설명문 속 불확실성 언급은 최대 2번 (나머지는 막대그래프로 확인)
+let hedgeBudget = MAX_HEDGES;
+
 export function compose(category, attributes) {
+  hedgeBudget = MAX_HEDGES;
   const a = Object.fromEntries(attributes.map((x) => [x.group, x]));
   const out = COMPOSERS[category](a);
   const tags = uniq([
@@ -65,7 +69,9 @@ const SKIP_ALT = new Set(['확인 불가']);
 function hedge(attr) {
   const alts = attr.alternatives.filter((x) => !SKIP_ALT.has(x.label));
   const alt = alts[0];
-  if (!alt) return '';
+  if (!alt || hedgeBudget <= 0) return '';
+  if (attr.level === 'high' || (attr.level === 'mid' && alt.score < attr.score * 0.7)) return '';
+  hedgeBudget--;
   if (attr.level === 'mid') {
     if (alt.score < attr.score * 0.7) return '';
     return `${alt.label}일 가능성도 있습니다(${pct(attr.score)} 대 ${pct(alt.score)}).`;

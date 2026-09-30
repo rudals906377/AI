@@ -72,14 +72,23 @@ function splitSentences(text) {
   return text.replace(/\s+/g, ' ').match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map((s) => s.trim()).filter(Boolean) ?? [];
 }
 
-export async function createDescriber({ device = 'webgpu', onProgress } = {}) {
+export async function createDescriber({ device = 'webgpu', fp16 = true, onProgress } = {}) {
   const progress_callback = (p) => onProgress?.(p);
-  const dtype = device === 'webgpu'
-    ? { embed_tokens: 'fp16', vision_encoder: 'fp16', decoder_model_merged: 'q4f16' }
-    : { embed_tokens: 'q8', vision_encoder: 'q8', decoder_model_merged: 'q4' };
+  // 런타임별 후보 정밀도 (앞에서부터 시도). 브라우저 WASM 은 q8 임베딩(GatherBlockQuantized)을 지원하지 않는다.
+  // (WebGPU 라도 shader-f16 이 없으면 fp16 조합은 건너뛴다)
+  const candidates = device === 'webgpu'
+    ? [...(fp16 ? [{ embed_tokens: 'fp16', vision_encoder: 'fp16', decoder_model_merged: 'q4f16' }] : []),
+       { embed_tokens: 'fp32', vision_encoder: 'fp32', decoder_model_merged: 'q4' }]
+    : [{ embed_tokens: 'fp16', vision_encoder: 'q8', decoder_model_merged: 'q4' },
+       { embed_tokens: 'fp32', vision_encoder: 'q8', decoder_model_merged: 'q4' }];
 
   const processor = await AutoProcessor.from_pretrained(VLM_MODEL, { progress_callback });
-  const model = await AutoModelForImageTextToText.from_pretrained(VLM_MODEL, { device, dtype, progress_callback });
+  let model, lastErr;
+  for (const dtype of candidates) {
+    try { model = await AutoModelForImageTextToText.from_pretrained(VLM_MODEL, { device, dtype, progress_callback }); break; }
+    catch (e) { lastErr = e; console.warn('[advanced] 정밀도 조합 실패, 다음 후보로 재시도', dtype, e.message); }
+  }
+  if (!model) throw lastErr;
 
   async function generate(messages, image, { maxTokens, onToken }) {
     const prompt = processor.apply_chat_template(messages, { add_generation_prompt: true });
@@ -100,7 +109,7 @@ export async function createDescriber({ device = 'webgpu', onProgress } = {}) {
     return processor.batch_decode(out.slice(null, [inputs.input_ids.dims.at(-1), null]), { skip_special_tokens: true })[0].trim();
   }
 
-  async function describe(source, category, { onEnglish, onKorean, translate = true } = {}) {
+  async function describe(source, category, { onEnglish, onKorean, onPhase, translate = true } = {}) {
     const image = source instanceof RawImage ? source : await RawImage.read(source);
     const t0 = Date.now();
 
@@ -115,6 +124,7 @@ export async function createDescriber({ device = 'webgpu', onProgress } = {}) {
     // 2) 문장 단위 한국어 번역 (짧게 끊어야 소형 모델이 덜 틀린다)
     let ko = '';
     if (translate) {
+      onPhase?.('한국어로 번역 중');
       for (const sentence of splitSentences(en)) {
         const part = await generate(
           [{ role: 'system', content: TRANSLATE_SYSTEM }, { role: 'user', content: applyGlossary(sentence) }],

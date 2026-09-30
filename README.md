@@ -7,56 +7,92 @@ sdk: static
 app_file: index.html
 pinned: false
 license: mit
+custom_headers:
+  cross-origin-embedder-policy: require-corp
+  cross-origin-opener-policy: same-origin
+  cross-origin-resource-policy: cross-origin
 ---
 
 # 뷰티 스타일 AI 설명기
 
 헤어스타일 · 네일아트 · 메이크업 · 타투 사진을 올리면 **브라우저 안에서** AI가 스타일을 자세한 한국어 문장과 태그로 설명합니다.
-서버 없음 · 사진 외부 전송 없음 · Transformers.js 로 모델을 브라우저에서 직접 실행합니다.
+서버가 없고 사진이 외부로 전송되지 않습니다. 모델은 Transformers.js 로 브라우저에서 직접 실행됩니다.
 
-> **한 줄 정의** — 뷰티 사진을 넣으면, 어떤 스타일인지 항목별로 짚어 주는 상세 한국어 설명 + 속성 태그(JSON)가 나온다.
+> **무엇을 넣으면 무엇이 나오나** — 뷰티 사진을 넣으면, 스타일을 항목별로 짚은 상세 한국어 설명 · 속성별 신뢰도 · 해시태그 · JSON 이 나온다.
+> 예) 네일 사진 → "롱 길이의 아몬드 셰이프 네일… 베이스 컬러는 누드·베이지… 디자인 기법은 프렌치…"
 
 ## 동작 구조
 
 ```
-사진 ─▶ [1] 카테고리 판별 ─▶ [2] 속성 그룹별 제로샷 분류 ─▶ [3] 한국어 문장 조립 + 태그
-          (CLIP)                (CLIP, 그룹당 1회)              (템플릿 + 신뢰도 규칙)
-                                                        └▶ [고급 모드] 소형 VLM 이 사진을 보고 자유 서술
+사진 ─▶ ① 카테고리 판별 ─▶ ② 속성 그룹별 제로샷 분류 ─▶ ③ 한국어 문장 조립 + 태그 + JSON
+          (CLIP)              (CLIP, 이미지 임베딩 1회)        (조사 처리 · 신뢰도별 어미)
+      └▶ [고급 모드] 소형 VLM 이 사진을 직접 보고 전문가처럼 영어로 서술 → 용어집 + 한국어 번역
 ```
 
-| 단계 | 모델 | 비고 |
+| 단계 | 모델 (모두 Transformers.js 태그) | 다운로드 |
 |---|---|---|
-| 기본 분석 | `Xenova/clip-vit-large-patch14` (정밀) 또는 `Xenova/clip-vit-base-patch16` (빠름) | Transformers.js · zero-shot-image-classification |
-| 고급 모드 | `onnx-community/LFM2.5-VL-450M-ONNX` | 한국어 지원 VLM · WebGPU 권장 · 약 540MB |
+| 기본 · 정밀 (기본값) | `Xenova/clip-vit-large-patch14` | 약 194MB (WebGPU, q4) / 307MB (CPU, q8) |
+| 기본 · 빠름 | `Xenova/clip-vit-base-patch16` | 약 88MB (q8) |
+| 고급 모드 | `onnx-community/LFM2.5-VL-450M-ONNX` | 약 420MB (WebGPU) ~ 640MB (CPU) |
 
-- 모델 로드 시 속성 사전(약 130개 라벨)의 텍스트 임베딩을 **한 번만** 계산해 두고, 사진 1장당 비전 임베딩 **1번**만 수행합니다.
-- 신뢰도 규칙: 60% 이상 단정 / 40~60% "~로 보이며, ~일 가능성도" / 40% 미만 "판단이 어려움 + 후보 나열".
+- **라벨 임베딩 사전 계산**: 속성 사전의 라벨 157개 문장 임베딩을 fp32 텍스트 모델로 미리 계산해 `embeddings/` 에 넣었습니다. 브라우저는 비전 모델만 받으면 됩니다.
+- **프롬프트 앙상블**: 라벨마다 문장 틀 2개를 평균해 정확도를 높였습니다.
+- **신뢰도 규칙**: 60% 이상이면 단정합니다. 40~60%면 "~로 보입니다"라고 쓰고, 2위가 가까우면 함께 적습니다. 40% 미만이면 "추정됩니다"라고 쓰고 다른 후보를 제시합니다. 설명문 속 불확실성 언급은 최대 2번이며, 나머지는 막대그래프로 보여 줍니다.
+- **고급 모드**: 이 소형 VLM은 한국어로 직접 쓰면 옷·배경 이야기로 새는 경향이 있습니다. 그래서 영어로 먼저 자세히 관찰하게 한 뒤 문장 단위로 번역합니다. 영어 원문도 함께 보여 줍니다.
+
+## 측정 결과 (예시 사진 33장, Node · CPU)
+
+| 모델 · 정밀도 | 카테고리 정확도 | fp32 대비 속성 일치율 | 브라우저 CPU 분석 시간 |
+|---|---|---|---|
+| ViT-L/14 · q4 | 30/33 | 88% | 약 5초 |
+| ViT-L/14 · q8 | 30/33 | 83% | 약 2.5초 |
+| ViT-B/16 · q8 | 31/33 | 77% | 약 1.5초 |
+
+틀린 경우는 헤어 사진인데 얼굴이 크게 나온 사진이 메이크업으로 분류된 경우입니다. 화면의 카테고리 버튼으로 직접 고를 수 있습니다.
 
 ## 파일 구성
 
 | 파일 | 역할 |
 |---|---|
-| `index.html` · `style.css` · `app.js` | UI (업로드 · 예시 사진 · 결과 카드 · JSON) |
+| `index.html` · `style.css` · `app.js` | UI (업로드 · 붙여넣기 · 예시 사진 · 결과 카드 · JSON) |
 | `analyzer.js` | 핵심 분석 모듈 (UI 의존 없음, Node 에서도 동작) |
-| `taxonomy.js` | 카테고리별 속성 사전 (라벨 · 영어 프롬프트 · 한국어 표시명) |
-| `describe.js` | 한국어 문장 조립 (조사 처리 · 신뢰도별 어미 · 조합 코멘트) |
-| `advanced.js` | 고급 모드 (VLM 자유 서술) |
-| `samples/` | 예시 사진 (Wikimedia Commons, 출처는 `samples/CREDITS.md`) |
-| `PLAN.md` | 개발 계획서 |
+| `taxonomy.js` | 카테고리별 속성 사전 (헤어 6 · 네일 5 · 메이크업 6 · 타투 5 그룹) |
+| `describe.js` | 한국어 문장 조립 (받침에 따른 조사 · 신뢰도별 어미 · 조합 코멘트) |
+| `advanced.js` | 고급 모드 (VLM 서술 + 용어집 번역) |
+| `embeddings/` | 사전 계산된 라벨 임베딩 |
+| `tools/build-embeddings.mjs` | `taxonomy.js` 수정 후 임베딩 재생성 |
+| `samples/` | 예시 사진 (Wikimedia Commons 자유 라이선스, 출처는 `samples/CREDITS.md`) |
+| `REPORT.md` | 제출용 보고서 1장 초안 |
+
+## URL 옵션
+
+| 옵션 | 뜻 |
+|---|---|
+| `?model=base` | 빠름 모델로 시작 (느린 PC · 느린 인터넷용) |
+| `?device=wasm` | WebGPU 대신 CPU 강제 |
+| `?dtype=q8` | 비전 모델 정밀도 강제 |
 
 ## 로컬 실행
-
-정적 파일이므로 아무 정적 서버로 열면 됩니다.
 
 ```bash
 python3 -m http.server 8000   # → http://localhost:8000
 ```
 
+## 속성 사전을 고쳤다면
+
+```bash
+npm i @huggingface/transformers
+node tools/build-embeddings.mjs
+```
+
+재생성하지 않아도 동작합니다. 이 경우 브라우저가 텍스트 모델을 추가로 받아 직접 계산하므로 로딩이 느려집니다.
+
 ## Hugging Face Space 배포
 
-Static Space 를 만들고 이 저장소의 파일을 그대로 올리면 됩니다 (`README.md` 의 front matter 가 Space 설정입니다).
+1. Hugging Face 에서 **New Space** 를 누르고 SDK 로 **Static** 을 고릅니다.
+2. 이 저장소의 파일을 그대로 올립니다. `README.md` 맨 위의 설정 블록이 Space 설정입니다.
 
 ```bash
 git remote add space https://huggingface.co/spaces/<계정>/<스페이스이름>
-git push space main
+git push space claude/inspiring-faraday-1o6w9q:main
 ```

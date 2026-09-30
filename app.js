@@ -13,7 +13,8 @@ const MODELS = {
 // [모델][런타임] → { dtype, MB }  (라벨 임베딩은 미리 계산해 두었으므로 비전 모델만 내려받는다)
 const RUNTIME = {
   // 측정: ViT-L q4 는 fp32 대비 속성 일치율 88% (q8 은 83%) 이면서 더 작다 → q4 로 통일
-  large: { webgpu_f16: { dtype: 'q4', mb: 194 }, webgpu: { dtype: 'q4', mb: 194 }, wasm: { dtype: 'q4', mb: 194 } },
+  // WASM(CPU) 에서는 q8 이 q4 보다 약 2배 빠르다 → WASM 은 q8
+  large: { webgpu_f16: { dtype: 'q4', mb: 194 }, webgpu: { dtype: 'q4', mb: 194 }, wasm: { dtype: 'q8', mb: 307 } },
   base:  { webgpu_f16: { dtype: 'fp16', mb: 173 }, webgpu: { dtype: 'q8', mb: 88 },  wasm: { dtype: 'q8', mb: 88 } },
 };
 // URL 로 시작 모델 지정 가능: ?model=base (발표 PC 사정에 맞춰 빠르게 전환)
@@ -73,7 +74,7 @@ async function init() {
     webgpu = !!adapter;
     f16 = !!adapter?.features?.has('shader-f16');
   } catch { webgpu = false; f16 = false; }
-  if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 매우 느릴 수 있습니다.';
+  if (!webgpu) els.advNote.textContent += ' ⚠️ 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 CPU 로 실행됩니다 (사진 1장에 수 분). 발표 PC 에서는 Chrome/Edge 최신 버전을 권장합니다.';
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
@@ -82,7 +83,11 @@ async function init() {
 
 function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
-  return { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
+  const rt = { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
+  // 고급 사용자용 URL 옵션: ?device=wasm&dtype=q8
+  if (params.get('device')) rt.device = params.get('device');
+  if (params.get('dtype')) { rt.dtype = params.get('dtype'); rt.mb = '?'; }
+  return rt;
 }
 const embeddingsCache = {};
 async function loadEmbeddings(modelId) {
@@ -97,7 +102,7 @@ async function loadAnalyzer(key) {
   const m = MODELS[key];
   let rt = runtimeFor(key);
   els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-  els.modelNote.textContent = `${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'} · 약 ${rt.mb}MB (처음 한 번만 내려받고 브라우저에 캐시됩니다)`;
+  els.modelNote.textContent = `${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'} · ${rt.mb === '?' ? '' : `약 ${rt.mb}MB · `}처음 한 번만 내려받고 브라우저에 캐시됩니다`;
   analyzerLoading = (async () => {
     try {
       try {
@@ -184,31 +189,41 @@ els.model.addEventListener('click', async (e) => {
   await loadAnalyzer(modelKey);
 });
 els.run.addEventListener('click', run);
-els.advanced.addEventListener('change', () => { if (els.advanced.checked) ensureDescriber(); });
+els.advanced.addEventListener('change', () => { if (els.advanced.checked) ensureDescriber().catch(() => {}); });
 
 // ---- 분석 실행 ----------------------------------------------------------------
+let busy = false;     // 분석 중 새 요청이 오면 끝난 뒤 마지막 것 하나만 이어서 실행
+let pending = false;
+let runSeq = 0;
 async function run() {
   if (!analyzer || !currentBlob) return;
+  if (busy) { pending = true; return; }
+  busy = true;
+  const seq = ++runSeq;
   els.run.disabled = true;
   els.run.textContent = '분석 중…';
   try {
     const result = await analyzer.analyze(currentBlob, { category: currentCategory });
+    result.run_id = seq;
     lastResult = result;
     render(result);
-    if (els.advanced.checked) await runAdvanced(result);
+    if (window.innerWidth < 900) $('resultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (els.advanced.checked && !pending) await runAdvanced(result);
   } catch (e) {
     console.error(e);
-    alert(`분석 중 오류: ${e.message}`);
+    setStatus(`분석 중 오류: ${e.message}`, 0, 'error');
   } finally {
+    busy = false;
     els.run.textContent = '분석하기';
     updateRunButton();
+    if (pending) { pending = false; run(); }
   }
 }
 
 async function ensureDescriber() {
   if (describer) return describer;
   if (!describerLoading) {
-    describerLoading = createDescriber({ device: webgpu ? 'webgpu' : 'wasm', onProgress: makeProgress('고급 모델') })
+    describerLoading = createDescriber({ device: webgpu ? 'webgpu' : 'wasm', fp16: f16, onProgress: makeProgress('고급 모델') })
       .then((d) => { describer = d; setStatus('기본 + 고급 모델 준비 완료', 100, 'ready'); return d; })
       .catch((e) => { console.error(e); setStatus(`고급 모델 로드 실패: ${e.message}`, 0, 'error'); els.advanced.checked = false; describerLoading = null; throw e; });
   }
@@ -221,14 +236,18 @@ async function runAdvanced(result) {
   els.vlmEn.textContent = '';
   els.vlm.classList.add('thinking');
   els.vlmMeta.textContent = describer ? '· 영어로 관찰 중…' : '· 모델 내려받는 중…';
+  let phase = '영어로 관찰 중';
+  const t0 = Date.now();
+  const timer = setInterval(() => { if (describer) els.vlmMeta.textContent = `· ${phase}… ${Math.round((Date.now() - t0) / 1000)}초`; }, 500);
   try {
     const d = await ensureDescriber();
-    els.vlmMeta.textContent = '· 영어로 관찰 중…';
     els.vlmEnBox.open = true;
     const out = await d.describe(currentBlob, result.category, {
       onEnglish: (t) => { els.vlmEn.textContent += t; },
-      onKorean: (ko) => { els.vlmMeta.textContent = '· 한국어로 번역 중…'; els.vlm.textContent = ko; },
+      onKorean: (ko) => { els.vlm.textContent = ko; },
+      onPhase: (p) => { phase = p; },
     });
+    clearInterval(timer);
     els.vlm.textContent = out.ko || out.en;
     els.vlmEn.textContent = out.en;
     els.vlmEnBox.open = false;
@@ -239,6 +258,7 @@ async function runAdvanced(result) {
     console.error(e);
     els.vlm.textContent = `고급 모드 실패: ${e.message}`;
   } finally {
+    clearInterval(timer);
     els.vlm.classList.remove('thinking');
   }
 }
@@ -268,6 +288,7 @@ function render(r) {
     </div>`).join('');
 
   els.tags.innerHTML = r.tags.map((t) => `<span class="chip">#${esc(t)}</span>`).join('');
+  els.result.dataset.run = r.run_id ?? '';
   els.meta.textContent = `분석 ${r.elapsed_ms}ms · 평균 신뢰도 ${pct(r.confidence)} · ${r.image_size.width}×${r.image_size.height}px`;
   els.json.textContent = JSON.stringify(slim(r), null, 2);
 }
