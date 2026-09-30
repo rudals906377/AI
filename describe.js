@@ -10,9 +10,11 @@ import { TAXONOMY, TONE_WORDS, CONFIDENCE } from './taxonomy.js';
 
 const MAX_HEDGES = 2; // 설명문 속 불확실성 언급은 최대 2번 (나머지는 막대그래프로 확인)
 let hedgeBudget = MAX_HEDGES;
+let omitted = 0; // 확실하지 않아 문장에서 뺀 세부 항목 수
 
 export function compose(category, attributes) {
   hedgeBudget = MAX_HEDGES;
+  omitted = 0;
   const a = Object.fromEntries(attributes.map((x) => [x.group, x]));
   const P = (group, label) => a[group]?.all.find((i) => i.label === label)?.score ?? 0;
   const out = COMPOSERS[category](a, P);
@@ -22,6 +24,7 @@ export function compose(category, attributes) {
     ...attributes.flatMap((x) => tagFor(category, x)),
   ]).slice(0, 12);
   const sentences = out.sentences.filter(Boolean);
+  if (omitted >= 2) sentences.push('나머지 항목은 사진만으로 확실하지 않아 아래 속성별 후보로 보여 드려요.');
   return { headline: out.headline, genre: out.genre, sentences, description: sentences.join(' '), tags, trends };
 }
 
@@ -83,6 +86,15 @@ function hedge(attr) {
 }
 const sure = (attr, min = CONFIDENCE.mid) => attr && attr.score >= min; // 보정 확률 0.5 이상 ≈ 82% 적중
 const TREND_MIN = CONFIDENCE.mid; // 트렌드 키워드는 칩으로 단정해 보이므로 같은 기준을 쓴다
+// 여러 속성을 한 문장에 담을 때는 가장 불확실한 속성의 신뢰도로 말투를 정한다
+const LV = { high: 2, mid: 1, low: 0 };
+const weakest = (...attrs) => attrs.filter(Boolean).reduce((m, x) => (LV[x.level] < LV[m.level] ? x : m));
+// 세부 문장: 확실하면 단정, 중간이면 부드럽게, 낮으면 문장으로 말하지 않고 막대그래프 후보로만 보여 준다
+const detail = (attr, sure, soft) => {
+  if (!attr) return '';
+  if (attr.level === 'low') { omitted++; return ''; }
+  return attr.level === 'high' ? sure : soft;
+};
 const uniq = (arr) => [...new Set(arr.filter(Boolean))];
 const uniqBy = (arr, f) => { const s = new Set(); return arr.filter((x) => (s.has(f(x)) ? false : s.add(f(x)))); };
 const trend = (name, why) => ({ name, why });
@@ -130,21 +142,22 @@ const COMPOSERS = {
     const tone = toneOf(a);
     const s = [];
     const permPhrase = perm.label === '생머리' ? '매끈한 생머리' : perm.label === '내추럴 곱슬' ? '내추럴 곱슬머리' : josa(perm.label, '을/를') + ' 더한';
-    if (perm.label === '생머리' || perm.label === '내추럴 곱슬') s.push(`${length.label} 기장의 ${cut.label}, ${said(`${permPhrase} 스타일`, cut)}.`);
-    else s.push(`${length.label} 기장의 ${cut.label}에 ${permPhrase} ${said('스타일', cut)}.`);
+    const mainLv = weakest(cut, length, perm);
+    if (perm.label === '생머리' || perm.label === '내추럴 곱슬') s.push(`${length.label} 기장의 ${cut.label}, ${said(`${permPhrase} 스타일`, mainLv)}.`);
+    else s.push(`${length.label} 기장의 ${cut.label}에 ${permPhrase} ${said('스타일', mainLv)}.`);
     s.push(hedge(cut));
     s.push(hedge(length));
 
-    if (bangs.label === '확인 불가') s.push('뒷모습 사진이라 앞머리는 확인되지 않아요.');
-    else if (bangs.label === '앞머리 없음') s.push('앞머리 없이 이마를 드러내 깔끔한 인상이에요.');
-    else s.push(`앞머리는 ${josa(bangs.label, '으로/로')} 내려 얼굴선을 자연스럽게 감싸 줘요.`);
+    if (bangs.label === '확인 불가') s.push(detail(bangs, '뒷모습 사진이라 앞머리는 확인되지 않아요.', '앞머리는 사진에서 잘 보이지 않아요.'));
+    else if (bangs.label === '앞머리 없음') s.push(detail(bangs, '앞머리 없이 이마를 드러내 깔끔한 인상이에요.', '앞머리 없이 이마를 드러낸 스타일로 보여요.'));
+    else s.push(detail(bangs, `앞머리는 ${josa(bangs.label, '으로/로')} 내려 얼굴선을 자연스럽게 감싸 줘요.`, `앞머리는 ${josa(bangs.label, '으로/로')} 보여요.`));
 
     const colorName = tone?.sure ? `${tone.adj} ${tone.label}의 ${color.label}` : color.label;
-    s.push(`컬러는 ${said(colorName, color)}.`);
+    s.push(`컬러는 ${said(colorName, tone?.sure ? weakest(color, a.tone) : color)}.`);
     s.push(hedge(color));
-    if (colorTech.label !== '전체 염색' && sure(colorTech)) s.push(`${colorTech.label} 기법으로 컬러에 포인트를 줬어요.`);
-    if (styling.label !== '풀어내린 머리' && sure(styling)) s.push(`${josa(styling.label, '으로/로')} 연출해 분위기를 살렸어요.`);
-    s.push(`전체적으로 ${mood.label} 무드가 느껴지는 헤어예요.`);
+    if (colorTech.label !== '전체 염색') s.push(detail(colorTech, `${colorTech.label} 기법으로 컬러에 포인트를 줬어요.`, `${colorTech.label} 기법으로 포인트를 준 것으로 보여요.`));
+    if (styling.label !== '풀어내린 머리') s.push(detail(styling, `${josa(styling.label, '으로/로')} 연출해 분위기를 살렸어요.`, `${josa(styling.label, '으로/로')} 연출한 것으로 보여요.`));
+    s.push(detail(mood, `전체적으로 ${mood.label} 무드가 느껴지는 헤어예요.`, `전체적으로 ${mood.label} 무드에 가까워요.`));
 
     // SNS 트렌드 이름 (속성 조합)
     const T = [];
@@ -174,16 +187,16 @@ const COMPOSERS = {
     const { shape, length, color, design, finish, mood } = a;
     const s = [];
     const lenPhrase = { 숏네일: '짧고 깔끔한 숏네일', 미디엄: '적당한 미디엄 길이', 롱네일: '길게 연장한 롱네일' }[length.label];
-    s.push(`${lenPhrase}에 ${shape.label} 쉐입, ${color.label} 컬러를 올린 ${said(`${design.label} 네일`, design)}.`);
+    s.push(`${lenPhrase}에 ${shape.label} 쉐입, ${color.label} 컬러를 올린 ${said(`${design.label} 네일`, weakest(design, shape, length, color))}.`);
     s.push(hedge(design));
     s.push(hedge(shape));
     const second = design.all[1];
-    if (second && second.score >= 0.2 && second.score >= design.score * 0.5) s.push(`여기에 ${second.label} 느낌도 더해졌어요.`);
+    if (second && second.score >= 0.2 && second.score >= design.score * 0.5) s.push(`${second.label} 느낌도 함께 보여요.`);
     const finishPhrase = {
       유광: '반짝이는 유광', 매트: '보송한 매트', 메탈릭: '거울처럼 반사되는 메탈릭', '투명·쉬어': '속이 비치는 맑은', '펄·쉬머': '은은하게 빛나는 펄',
     }[finish.label];
-    s.push(`마감은 ${finishPhrase} 마감이에요.`);
-    s.push(`전체적으로 ${mood.label} 무드의 네일이에요.`);
+    s.push(detail(finish, `마감은 ${finishPhrase} 마감이에요.`, `마감은 ${finishPhrase} 마감으로 보여요.`));
+    s.push(detail(mood, `전체적으로 ${mood.label} 무드의 네일이에요.`, `전체적으로 ${mood.label} 무드에 가까워요.`));
 
     // 트렌드: 쇠맛 = 크롬/실버/메탈릭/쇠맛 무드 중 하나라도 뚜렷하면
     const T = [];
@@ -199,7 +212,7 @@ const COMPOSERS = {
     if (mood.label === '오피스' && sure(mood)) T.push(trend('오피스 네일', '출근룩에도 무난한'));
     if (mood.label === '웨딩' && sure(mood)) T.push(trend('웨딩 네일', '웨딩 촬영·본식용'));
     const lead = T.find((t) => /쇠맛|자석|오로라|글레이즈드|시럽|치크/.test(t.name));
-    if (lead) s.push(`요즘 SNS에서 '${lead.name}'로 불리는 ${lead.why} 스타일이에요.`);
+    if (lead) s.push(`요즘 SNS에서 '${lead.name}'로 불리는 ${lead.why} 스타일에 가까워요.`);
 
     const ct = color.all[0].tone;
     if (ct === 'cool' && sure(color)) s.push('컬러가 쿨톤 계열이라 여름·겨울 쿨톤에게 잘 어울려요.');
@@ -225,13 +238,14 @@ const COMPOSERS = {
     s.push(`${said(`${moodPhrase} 메이크업`, mood)}.`);
     s.push(hedge(mood));
     const basePhrase = { 물광: '물기를 머금은 듯 촉촉한 물광', 윤광: '은은하게 빛나는 윤광', 세미매트: '자연스러운 세미매트', '보송 매트': '보송하게 정돈한 매트' }[base.label];
-    s.push(`피부는 ${basePhrase} 피부로 표현했어요.`);
-    s.push(`눈은 ${josa(eye.label, '으로/로')} 포인트를 줬어요.`);
-    s.push(hedge(eye));
+    s.push(detail(base, `피부는 ${basePhrase} 피부로 표현했어요.`, `피부는 ${basePhrase} 피부에 가까워요.`));
+    s.push(detail(eye, `눈은 ${josa(eye.label, '으로/로')} 포인트를 줬어요.`, `눈은 ${josa(eye.label, '으로/로')} 포인트를 준 것으로 보여요.`));
+    if (eye.level !== 'low') s.push(hedge(eye));
     const texPhrase = { 글로시: '촉촉한 글로시', 매트: '벨벳 같은 매트', 블러립: '경계를 흐린 블러립', 그라데이션립: '안쪽부터 번지는 그라데이션립', 오버립: '입술선을 살짝 넘긴 오버립' }[lipTexture.label];
-    s.push(`입술은 ${lip.label} 컬러를 ${josa(texPhrase, '으로/로')} 연출했어요.`);
-    s.push(hedge(lip));
-    if (cheek.label !== '미니멀') s.push(`볼에는 ${josa(cheek.label, '을/를')} 더했어요.`);
+    if (lipTexture.level === 'low') s.push(detail(lip, `입술은 ${lip.label} 컬러예요.`, `입술은 ${lip.label} 컬러로 보여요.`));
+    else s.push(detail(weakest(lip, lipTexture), `입술은 ${lip.label} 컬러를 ${josa(texPhrase, '으로/로')} 연출했어요.`, `입술은 ${lip.label} 컬러를 ${josa(texPhrase, '으로/로')} 연출한 것으로 보여요.`));
+    if (lip.level !== 'low') s.push(hedge(lip));
+    if (cheek.label !== '미니멀') s.push(detail(cheek, `볼에는 ${josa(cheek.label, '을/를')} 더했어요.`, `볼에는 ${josa(cheek.label, '을/를')} 더한 것으로 보여요.`));
     if (tone?.sure && tone.label !== '뉴트럴') {
       s.push(`전체 컬러가 ${tone.label} 계열이라 ${tone.label === '쿨톤' ? '여름·겨울 쿨톤' : '봄·가을 웜톤'}에게 잘 어울려요.`);
     }
@@ -269,10 +283,17 @@ const COMPOSERS = {
     const second = style.all[1];
     if (second && second.score >= 0.2 && second.score >= style.score * 0.5) s.push(`${second.label} 요소도 함께 보여요(${pct(style.score)} 대 ${pct(second.score)}).`);
     else s.push(hedge(style));
-    s.push(`${placement.label}에 새긴 ${size.label} 크기이고, ${COLOR_PHRASE[color.label]} 작업했어요.`);
-    s.push(hedge(placement));
-    s.push(`도안은 ${subject.label} 모티프예요.`);
-    s.push(hedge(subject));
+    if (placement.level !== 'low' && size.level !== 'low' && color.level !== 'low') {
+      const w = weakest(placement, size, color);
+      s.push(`${placement.label}에 새긴 ${size.label} 크기이고, ${COLOR_PHRASE[color.label]} ${w.level === 'high' ? '작업했어요' : '작업한 것으로 보여요'}.`);
+    } else {
+      s.push(detail(placement, `부위는 ${josa(placement.label, '이에요/예요')}.`, `부위는 ${josa(placement.label, '으로/로')} 보여요.`));
+      s.push(detail(size, `크기는 ${josa(size.label, '이에요/예요')}.`, `크기는 ${size.label} 정도로 보여요.`));
+      s.push(detail(color, `${COLOR_PHRASE[color.label]} 작업했어요.`, `${COLOR_PHRASE[color.label]} 작업한 것으로 보여요.`));
+    }
+    if (placement.level !== 'low') s.push(hedge(placement));
+    s.push(detail(subject, `도안은 ${subject.label} 모티프예요.`, `도안은 ${subject.label} 모티프로 보여요.`));
+    if (subject.level !== 'low') s.push(hedge(subject));
     return {
       genre: genreOf(style, `${style.label} 타투`, { sub: `${placement.label} · ${subject.label} · ${color.label}`, info: GENRE_INFO[style.label] }),
       headline: `${style.label} 타투 · ${placement.label} · ${subject.label} · ${color.label}`,

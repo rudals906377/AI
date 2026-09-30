@@ -53,14 +53,15 @@ def softmax(z):
     return e / e.sum(-1, keepdims=True)
 
 
-def fit(V, S, T, lam, present, steps=150, lr=0.03, smooth=0.05):
-    """V: N×D, S: N×C 0/1 정답 후보 마스크, T: C×D 초기(라벨 문장) 가중치."""
+def fit(V, S, T, lam, present, steps=150, lr=0.03, smooth=0.05, sw=None):
+    """V: N×D, S: N×C 0/1 정답 후보 마스크, T: C×D 초기(라벨 문장) 가중치. sw: 행별 추가 가중치 (없으면 모두 1)."""
     N, D = V.shape; C = T.shape[0]
     D_ = np.zeros_like(T); b = np.zeros(C); logt = np.log(SCALE)
     mask = np.full(C, -1e9); mask[present] = 0.0            # 학습 데이터에 없는 라벨은 제외
     # 클래스 불균형 보정: 각 샘플 가중치 = 1 / (정답 후보들의 평균 빈도)
     freq = S.sum(0) / max(S.sum(), 1)
     w = 1.0 / np.maximum((S * freq).sum(1) / np.maximum(S.sum(1), 1), 1e-3)
+    if sw is not None: w = w * sw  # 예: 실제 사용 환경과 비슷한 사진(한국 스타일 · 사용자 피드백)에 더 큰 가중치
     w = w / w.mean()
     m = {k: 0.0 for k in ("D", "b", "t")}; v2 = {k: 0.0 for k in ("D", "b", "t")}
     for step in range(1, steps + 1):
@@ -93,7 +94,7 @@ def acc_sets(P, S):
     return float(np.mean(S[np.arange(len(S)), P.argmax(1)] > 0)) if len(S) else float("nan")
 
 
-def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas=(0.0, 0.25, 0.5, 0.75, 1.0), k=3, seed=0):
+def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas=(0.0, 0.25, 0.5, 0.75, 1.0), k=3, seed=0, sw=None):
     """출처 단위 교차 검증: 같은 검색어·분류에서 온 사진은 같은 폴드에만 둔다.
     (같은 작가·앨범 사진이 학습과 검증에 나뉘면 성능이 부풀려 보이기 때문)"""
     rng = np.random.default_rng(seed)
@@ -111,7 +112,7 @@ def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas
             tr = np.where(fid != fid[f[0]])[0]
             pres = sorted(set(np.where(S[tr].sum(0) > 0)[0]))
             if len(pres) < 2: continue
-            W, b = fit(V[tr], S[tr], T, lam, pres)
+            W, b = fit(V[tr], S[tr], T, lam, pres, sw=None if sw is None else sw[tr])
             for a in alphas: preds[a][f] = predict(V[f], W, b, T, a)
         for a in alphas:
             acc = acc_sets(preds[a], S)
@@ -142,6 +143,10 @@ def main():
     ap.add_argument("--min-samples", type=int, default=15)
     ap.add_argument("--commercial", action="store_true",
                     help="상업 이용과 개작이 모두 허용된 라이선스(CC0 · 퍼블릭 도메인 · BY · BY-SA)의 사진만 학습에 쓴다")
+    ap.add_argument("--include-user-provided", action="store_true",
+                    help="--commercial 이어도 사용자가 올린 사진(license=user-provided, 권리 미확인)을 학습에 넣는다")
+    ap.add_argument("--user-weight", type=float, default=1.0,
+                    help="실제 사용 환경 사진(user-provided · 앱 피드백)의 학습 가중치 배수. 한국 스타일 사진 교차 검증에서 3 이 가장 나았다")
     ap.add_argument("--feedback", nargs="*", default=[],
                     help="앱에서 내보낸 피드백 파일(JSONL). 사진 없이 특징값과 사용자가 고친 라벨로 학습한다")
     args = ap.parse_args()
@@ -150,7 +155,9 @@ def main():
     tl = json.load(open(args.train_list)); el = json.load(open(args.eval_list))
     if args.commercial:
         # ND(개작 금지) · NC(비영리) 는 뺀다. 라이선스 정보가 없는 사진도 뺀다.
-        free = lambda l: bool(l) and l != "?" and not re.search(r"(^|[-\s])(nd|nc)([-\s]|$)", l.lower())
+        # 사용자가 올린 사진(user-provided)은 권리를 확인하기 전까지 기본으로 뺀다
+        free = lambda l: (bool(l) and l != "?" and l != "user-provided" and not re.search(r"(^|[-\s])(nd|nc)([-\s]|$)", l.lower())) \
+            or (l == "user-provided" and args.include_user_provided)
         n0 = len(tl); tl = [r for r in tl if free(r.get("license"))]
         print(f"commercial filter: keep {len(tl)} of {n0}", file=sys.stderr)
     Xtr, rtr = load_emb(args.train, args.train_meta, tl)
@@ -242,7 +249,9 @@ def main():
                 continue
             V = Xtr[rows]; S = np.array(S)
             present = sorted(set(np.where(S.sum(0) > 0)[0]))
-            (cv_acc, lam, alpha), zs_cv, oof = cv_select(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows])
+            real = lambda r: tl[r].get("license") in ("user-provided", "user-feedback")
+            sw = np.array([args.user_weight if real(rtr[i]) else 1.0 for i in rows])
+            (cv_acc, lam, alpha), zs_cv, oof = cv_select(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows], sw=sw)
             # 출처가 다른 사진에서 이득이 없거나, 헤드 자체가 너무 부정확하면(40% 미만) 쓰지 않는다
             use_head = not (cv_acc <= zs_cv + 0.01 or alpha == 0.0 or cv_acc < 0.4)
             # 확률 보정: 폴드 밖 예측(헤드를 안 쓰면 제로샷)으로 온도를 맞춘다
@@ -254,7 +263,7 @@ def main():
                 ze_c = acc_sets(temper(softmax(SCALE * Ve @ T.T), temp), ES) if len(ES) else float("nan")
                 report.append((key, len(rows), zs_cv, cv_acc, lam, 0.0, len(ES), zs_ev, ze_c))
                 continue
-            W, b = fit(V, S, T, lam, present)
+            W, b = fit(V, S, T, lam, present, sw=sw)
             heads[key] = (W, b, alpha)
             tr_ev = acc_sets(predict(Ve, W, b, T, alpha), ES) if len(ES) else float("nan")
             report.append((key, len(rows), zs_cv, cv_acc, lam, alpha, len(ES), zs_ev, tr_ev))
@@ -272,11 +281,11 @@ def main():
     if reliab:
         conf = np.concatenate([r[0] for r in reliab]); hit = np.concatenate([r[1] for r in reliab])
         print(f"\nCALIBRATION (폴드 밖 예측 {len(conf)}개, 보정 후 1위 확률 기준)")
-        for t in (0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+        for t in (0.4, 0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95):
             m = conf >= t
-            print(f"  p ≥ {t:.1f}: 비율 {m.mean()*100:5.1f}%  정확도 {hit[m].mean()*100 if m.any() else float('nan'):5.1f}%")
+            print(f"  p ≥ {t:.2f}: 비율 {m.mean()*100:5.1f}%  정확도 {hit[m].mean()*100 if m.any() else float('nan'):5.1f}%")
         # 문장 말투 구간별 (taxonomy.js CONFIDENCE 와 같은 기준)
-        for name, lo, hi in (("단정 (≥0.75)", 0.75, 1.01), ("보입니다 (0.5~0.75)", 0.5, 0.75), ("추정 (<0.5)", 0.0, 0.5)):
+        for name, lo, hi in (("단정 (≥0.9)", 0.9, 1.01), ("보입니다 (0.5~0.9)", 0.5, 0.9), ("추정 (<0.5)", 0.0, 0.5)):
             m = (conf >= lo) & (conf < hi)
             print(f"  {name}: 비율 {m.mean()*100:5.1f}%  정확도 {hit[m].mean()*100 if m.any() else float('nan'):5.1f}%")
 
