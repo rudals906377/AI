@@ -96,8 +96,10 @@ def main():
             it = json.loads(line)
             lab = dict(it["labels"]); cat = lab.pop("category")
             labels = {}
+            if cat == "other":  # 뷰티가 아닌 사진 (뷰티 판별 학습용 음성 예시)
+                lab = {}
             for g, l in lab.items():
-                if g in valid[cat] and l in valid[cat][g]:
+                if cat in valid and g in valid[cat] and l in valid[cat][g]:
                     labels.setdefault(g, []).append(l)
                 elif (cat, g, l) in OLD:
                     ng, nl = OLD[(cat, g, l)]
@@ -105,7 +107,9 @@ def main():
                 else:
                     unmapped[(cat, g, l)] = unmapped.get((cat, g, l), 0) + 1
             path = it["file"] if os.path.isabs(it["file"]) else os.path.join(os.path.dirname(os.path.abspath(fn)), it["file"])
-            rows.append({"file": path, "category": cat, "labels": labels, "key": it["key"],
+            # 출처 묶음 (검색어 또는 Commons 분류) — 교차 검증을 출처 단위로 나눌 때 쓴다
+            source_group = it.get("query") or it.get("root") or it["key"]
+            rows.append({"file": path, "category": cat, "labels": labels, "key": it["key"], "group": source_group,
                          "license": it.get("license"), "page": it.get("page"), "creator": it.get("creator") or "",
                          "title": it.get("title")})
     json.dump(rows, open(a.out, "w"), ensure_ascii=False)

@@ -83,6 +83,11 @@ export async function createAnalyzer({
       const otherSim = Math.max(...index.other.map((e) => dot(vec, e)));
       beautyScore = softmax([Math.max(...detectSims), otherSim].map((x) => x * LOGIT_SCALE))[0];
     }
+    if (headIndex.beauty) { // 학습된 뷰티 판별 헤드 (뷰티 vs 기타)
+      const h = headIndex.beauty;
+      const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
+      beautyScore = h.alpha * hp[0] + (1 - h.alpha) * beautyScore;
+    }
     const chosen = category === 'auto' ? catRanked[0].key : category;
     const def = TAXONOMY[chosen];
 

@@ -31,6 +31,8 @@ def load_index(path, tax):
         for g in tax["groups"][c]:
             n = L["groups"][g["key"]]; groups[g["key"]] = buf[k:k + n]; k += n
         idx[c] = {"detect": det, "groups": groups}
+    if j["layout"].get("other"):
+        idx["other"] = buf[k:k + j["layout"]["other"]]
     return j, idx
 
 
@@ -51,7 +53,7 @@ def softmax(z):
     return e / e.sum(-1, keepdims=True)
 
 
-def fit(V, S, T, lam, present, steps=300, lr=0.02, smooth=0.05):
+def fit(V, S, T, lam, present, steps=150, lr=0.03, smooth=0.05):
     """V: N×D, S: N×C 0/1 정답 후보 마스크, T: C×D 초기(라벨 문장) 가중치."""
     N, D = V.shape; C = T.shape[0]
     D_ = np.zeros_like(T); b = np.zeros(C); logt = np.log(SCALE)
@@ -91,27 +93,35 @@ def acc_sets(P, S):
     return float(np.mean(S[np.arange(len(S)), P.argmax(1)] > 0)) if len(S) else float("nan")
 
 
-def cv_select(V, S, T, present, lams=(0.3, 1.0, 3.0, 10.0), alphas=(0.25, 0.5, 0.75, 1.0), k=4, seed=0):
+def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas=(0.0, 0.25, 0.5, 0.75, 1.0), k=3, seed=0):
+    """출처 단위 교차 검증: 같은 검색어·분류에서 온 사진은 같은 폴드에만 둔다.
+    (같은 작가·앨범 사진이 학습과 검증에 나뉘면 성능이 부풀려 보이기 때문)"""
     rng = np.random.default_rng(seed)
-    order = rng.permutation(len(V)); folds = np.array_split(order, k)
+    if groups is None: groups = np.arange(len(V))
+    uniq = np.array(sorted(set(groups))); rng.shuffle(uniq)
+    fold_of = {g: i % k for i, g in enumerate(uniq)}
+    fid = np.array([fold_of[g] for g in groups])
+    folds = [np.where(fid == f)[0] for f in range(k)]
     best = (-1, None, None)
     for lam in lams:
         preds = {a: np.zeros((len(V), T.shape[0])) for a in alphas}
         for f in folds:
-            tr = np.setdiff1d(order, f)
+            if not len(f): continue
+            tr = np.where(fid != fid[f[0]])[0]
             pres = sorted(set(np.where(S[tr].sum(0) > 0)[0]))
+            if len(pres) < 2: continue
             W, b = fit(V[tr], S[tr], T, lam, pres)
             for a in alphas: preds[a][f] = predict(V[f], W, b, T, a)
         for a in alphas:
             acc = acc_sets(preds[a], S)
-            if acc > best[0]: best = (acc, lam, a)
+            if acc > best[0] + 1e-9: best = (acc, lam, a)
     zs = acc_sets(softmax(SCALE * V @ T.T), S)
     return best, zs
 
 
 def main():
     ap = argparse.ArgumentParser()
-    for a in ("tax", "labels", "train", "train-meta", "train-list", "eval", "eval-meta", "eval-list", "out"):
+    for a in ("tax", "labels", "train", "train-meta", "train-list", "eval", "eval-meta", "eval-list", "out", "junk", "junk-meta"):
         ap.add_argument("--" + a)
     ap.add_argument("--min-samples", type=int, default=15)
     args = ap.parse_args()
@@ -129,17 +139,44 @@ def main():
     print(f"train {len(Xtr)} → dedup vs eval {keep.sum()}", file=sys.stderr)
     Xtr = Xtr[keep]; rtr = [r for r, k in zip(rtr, keep) if k]
 
-    # ── 카테고리 헤드
-    Tcat = np.stack([idx[c]["detect"].mean(0) / np.linalg.norm(idx[c]["detect"].mean(0)) for c in cats])
-    Scat = np.zeros((len(Xtr), len(cats)))
-    for i, r in enumerate(rtr): Scat[i, cats.index(tl[r]["category"])] = 1
-    (cv_acc, lam, alpha), zs_cv = cv_select(Xtr, Scat, Tcat, list(range(len(cats))))
-    W, b = fit(Xtr, Scat, Tcat, lam, list(range(len(cats))))
+    def unit(v): return v / np.linalg.norm(v)
+    Tcat = np.stack([unit(idx[c]["detect"].mean(0)) for c in cats])
+    is_other = np.array([tl[r]["category"] not in cats for r in rtr])
+
+    # 잡음 제거: 라벨 카테고리의 제로샷 확률이 아주 낮은 뷰티 사진은 뺀다 (예: 매니큐어 분류에 섞인 일반 인물 사진)
+    zcat = softmax(SCALE * np.stack([(Xtr @ idx[c]["detect"].T).max(1) for c in cats], 1))
+    lab_p = np.array([zcat[i, cats.index(tl[r]["category"])] if not is_other[i] else 1.0 for i, r in enumerate(rtr)])
+    clean = lab_p >= 0.15
+    print(f"noise filter: drop {(~clean).sum()} of {(~is_other).sum()} beauty rows", file=sys.stderr)
+    Xtr = Xtr[clean]; rtr = [r for r, k in zip(rtr, clean) if k]; is_other = is_other[clean]
+
+    # ── 뷰티 판별 헤드 (뷰티 사진 vs 기타 사진)
+    if is_other.sum() >= 30 and "other" in idx:
+        Tb = np.stack([unit(np.concatenate([idx[c]["detect"] for c in cats]).mean(0)), unit(idx["other"].mean(0))])
+        Sb = np.stack([~is_other, is_other], 1).astype(float)
+        (cv_acc, lam, alpha), zs_cv = cv_select(Xtr, Sb, Tb, [0, 1], groups=[tl[r].get("group", r) for r in rtr])
+        W, b = fit(Xtr, Sb, Tb, lam, [0, 1])
+        heads["beauty"] = (W, b, alpha)
+        Xb = Xev; Sbe = np.tile([1.0, 0.0], (len(Xev), 1))
+        if args.junk:
+            Xj, _ = load_emb(args.junk, args.junk_meta)
+            Xb = np.concatenate([Xev, Xj]); Sbe = np.concatenate([Sbe, np.tile([0.0, 1.0], (len(Xj), 1))])
+        zs_ev = acc_sets(softmax(SCALE * Xb @ Tb.T), Sbe); tr_ev = acc_sets(predict(Xb, W, b, Tb, alpha), Sbe)
+        report.append(("beauty", len(Xtr), zs_cv, cv_acc, lam, alpha, len(Xb), zs_ev, tr_ev))
+
+    # ── 카테고리 헤드 (뷰티 사진만)
+    Xc = Xtr[~is_other]; rc = [r for r, o in zip(rtr, is_other) if not o]
+    Scat = np.zeros((len(Xc), len(cats)))
+    for i, r in enumerate(rc): Scat[i, cats.index(tl[r]["category"])] = 1
+    (cv_acc, lam, alpha), zs_cv = cv_select(Xc, Scat, Tcat, list(range(len(cats))), groups=[tl[r].get("group", r) for r in rc])
+    W, b = fit(Xc, Scat, Tcat, lam, list(range(len(cats))))
     heads["category"] = (W, b, alpha)
     Sev = np.zeros((len(Xev), len(cats)))
     for i, r in enumerate(rev): Sev[i, cats.index(el[r]["category"])] = 1
-    zs_ev = acc_sets(softmax(SCALE * Xev @ Tcat.T), Sev); tr_ev = acc_sets(predict(Xev, W, b, Tcat, alpha), Sev)
-    report.append(("category", len(Xtr), zs_cv, cv_acc, lam, alpha, int(Sev.sum()), zs_ev, tr_ev))
+    # 카테고리 제로샷 기준은 앱과 같게 '문장별 최대 유사도'로 잰다
+    zs_ev = acc_sets(softmax(SCALE * np.stack([(Xev @ idx[c]["detect"].T).max(1) for c in cats], 1)), Sev)
+    tr_ev = acc_sets(predict(Xev, W, b, Tcat, alpha), Sev)
+    report.append(("category", len(Xc), zs_cv, cv_acc, lam, alpha, int(Sev.sum()), zs_ev, tr_ev))
 
     # ── 속성 그룹 헤드
     for c in cats:
@@ -164,8 +201,8 @@ def main():
                 continue
             V = Xtr[rows]; S = np.array(S)
             present = sorted(set(np.where(S.sum(0) > 0)[0]))
-            (cv_acc, lam, alpha), zs_cv = cv_select(V, S, T, present)
-            if cv_acc <= zs_cv:  # 교차 검증에서 이득이 없으면 헤드를 쓰지 않는다
+            (cv_acc, lam, alpha), zs_cv = cv_select(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows])
+            if cv_acc <= zs_cv + 0.01 or alpha == 0.0:  # 출처가 다른 사진에서 이득이 없으면 헤드를 쓰지 않는다
                 report.append((key, len(rows), zs_cv, cv_acc, lam, 0.0, len(ES), zs_ev, zs_ev))
                 continue
             W, b = fit(V, S, T, lam, present)
@@ -177,6 +214,11 @@ def main():
     for k, n, zc, hc, lam, a, ne, ze, he in report:
         f = lambda x: "  -  " if x != x else f"{x*100:5.1f}"
         print(f"{k:22s} {n:7d} {f(zc):>6s} {f(hc):>7s} {str(lam):>5s} {str(a):>5s} | {ne:6d} {f(ze):>7s} {f(he):>9s}")
+
+    ne_tot = sum(ne for k, n, zc, hc, lam, a, ne, ze, he in report if "." in k and ne and ze == ze)
+    zs_tot = sum(ne * ze for k, n, zc, hc, lam, a, ne, ze, he in report if "." in k and ne and ze == ze)
+    hd_tot = sum(ne * he for k, n, zc, hc, lam, a, ne, ze, he in report if "." in k and ne and he == he)
+    print(f"\nATTRIBUTES (eval, n={ne_tot}): zero-shot {zs_tot / ne_tot * 100:.1f}%  →  with heads {hd_tot / ne_tot * 100:.1f}%")
 
     if args.out:
         out = {"model": lj["model"], "hash": tax["hash"], "dim": lj["dim"], "groups": {}}
