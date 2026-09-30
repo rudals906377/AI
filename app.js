@@ -5,21 +5,20 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY } from './taxonomy.js';
 
 // ---- 설정 -------------------------------------------------------------------
-// 기본 분석 모델 후보. 실행 환경(WebGPU 여부)에 따라 dtype 을 고른다.
+// 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
 const MODELS = {
-  large: { id: 'Xenova/clip-vit-large-patch14', label: '정밀 · CLIP ViT-L/14' },
-  base:  { id: 'Xenova/clip-vit-base-patch16',  label: '빠름 · CLIP ViT-B/16' },
+  base:  { id: 'Marqo/marqo-fashionSigLIP',      label: '기본 · FashionSigLIP' },
+  large: { id: 'Xenova/siglip-large-patch16-384', label: '정밀 · SigLIP-L/384' },
 };
-// [모델][런타임] → { dtype, MB }  (라벨 임베딩은 미리 계산해 두었으므로 비전 모델만 내려받는다)
+// [모델][런타임] → { dtype, MB }  (라벨 문장 임베딩은 미리 계산해 두었으므로 비전 모델만 내려받는다)
 const RUNTIME = {
-  // 측정: ViT-L q4 는 fp32 대비 속성 일치율 88% (q8 은 83%) 이면서 더 작다 → q4 로 통일
-  // WASM(CPU) 에서는 q8 이 q4 보다 약 2배 빠르다 → WASM 은 q8
-  large: { webgpu_f16: { dtype: 'q4', mb: 194 }, webgpu: { dtype: 'q4', mb: 194 }, wasm: { dtype: 'q8', mb: 307 } },
-  base:  { webgpu_f16: { dtype: 'fp16', mb: 173 }, webgpu: { dtype: 'q8', mb: 88 },  wasm: { dtype: 'q8', mb: 88 } },
+  base:  { webgpu_f16: { dtype: 'q8', mb: 94 },  webgpu: { dtype: 'q8', mb: 94 },  wasm: { dtype: 'q8', mb: 94 } },
+  // 정밀 모델: WebGPU 는 q4(208MB, 빠름), CPU 는 q8(329MB, 정확도 가장 높음)
+  large: { webgpu_f16: { dtype: 'q4', mb: 208 }, webgpu: { dtype: 'q4', mb: 208 }, wasm: { dtype: 'q8', mb: 329 } },
 };
 // URL 로 시작 모델 지정 가능: ?model=base (발표 PC 사정에 맞춰 빠르게 전환)
 const params = new URLSearchParams(location.search);
-let modelKey = MODELS[params.get('model')] ? params.get('model') : 'large';
+let modelKey = MODELS[params.get('model')] ? params.get('model') : 'base';
 env.allowLocalModels = false;
 
 // ---- DOM ----------------------------------------------------------------------
@@ -30,7 +29,7 @@ const els = {
   samples: $('samples'), category: $('category'), run: $('run'), advanced: $('advanced'), advNote: $('advNote'),
   model: $('model'), modelNote: $('modelNote'),
   empty: $('empty'), result: $('result'), catChips: $('catChips'), headline: $('headline'), desc: $('desc'),
-  attrs: $('attrs'), tags: $('tags'), vlmBlock: $('vlmBlock'), vlm: $('vlm'), vlmMeta: $('vlmMeta'), vlmEn: $('vlmEn'), vlmEnBox: $('vlmEnBox'),
+  attrs: $('attrs'), tags: $('tags'), trends: $('trends'), trendBlock: $('trendBlock'), genreLabel: $('genreLabel'), genreName: $('genreName'), genreSub: $('genreSub'), vlmBlock: $('vlmBlock'), vlm: $('vlm'), vlmMeta: $('vlmMeta'), vlmEn: $('vlmEn'), vlmEnBox: $('vlmEnBox'),
   copyText: $('copyText'), copyJson: $('copyJson'), meta: $('meta'), json: $('json'), clipName: $('clipName'),
 };
 // ---- 상태 ---------------------------------------------------------------------
@@ -89,12 +88,16 @@ function runtimeFor(key) {
   if (params.get('dtype')) { rt.dtype = params.get('dtype'); rt.mb = '?'; }
   return rt;
 }
-const embeddingsCache = {};
-async function loadEmbeddings(modelId) {
-  const url = `./embeddings/${modelId.split('/').pop()}.json`;
-  try { return embeddingsCache[url] ??= await (await fetch(url)).json(); }
-  catch (e) { console.warn('사전 계산 임베딩 없음 → 텍스트 모델로 계산', e); return undefined; }
+const jsonCache = {};
+async function loadJson(url, what) {
+  try {
+    if (!(url in jsonCache)) { const r = await fetch(url); jsonCache[url] = r.ok ? await r.json() : undefined; }
+    return jsonCache[url];
+  } catch (e) { console.warn(`${what} 없음`, e); return undefined; }
 }
+// 라벨 문장 임베딩(사전 계산) · 학습된 분류 헤드 — 모델 이름으로 찾는다
+const loadEmbeddings = (modelId) => loadJson(`./embeddings/${modelId.split('/').pop()}.json`, '사전 계산 임베딩');
+const loadHeads = (modelId) => loadJson(`./heads/${modelId.split('/').pop()}.json`, '학습된 헤드');
 
 async function loadAnalyzer(key) {
   if (analyzerLoading) return analyzerLoading;
@@ -106,16 +109,16 @@ async function loadAnalyzer(key) {
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), onProgress: makeProgress('기본 모델') });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), onProgress: makeProgress('기본 모델') });
       }
       await prev?.dispose?.();
-      setStatus(`준비 완료 · ${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}`, 100, 'ready');
+      setStatus(`준비 완료 · ${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
     } catch (e) {
       console.error(e);
       setStatus(`모델 로드 실패: ${e.message}`, 0, 'error');
@@ -275,7 +278,15 @@ function render(r) {
     .join('') + (r.category_auto ? '' : `<span class="chip muted">카테고리 수동 선택: ${r.category_label}</span>`);
   if (r.category_auto && top.key !== r.category) els.catChips.innerHTML += '';
 
+  if (!r.is_beauty) els.catChips.innerHTML = `<span class="chip warn">⚠️ 뷰티 사진이 아닐 수 있어요 (${pct(1 - r.beauty_score)})</span>` + els.catChips.innerHTML;
   els.headline.textContent = r.headline;
+  // 장르 (크게) + 옆에 트렌드 키워드
+  const g = r.genre;
+  els.genreLabel.textContent = `${TAXONOMY[r.category].label} 장르 · ${g.group} ${pct(g.score)}`;
+  els.genreName.textContent = g.name;
+  els.genreSub.textContent = [g.second ? `${g.second} 요소도 보임` : '', g.sub, g.info].filter(Boolean).join(' · ');
+  els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
+  els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = r.sentences
     .map((s) => (/가능성도|단정하기 어렵|추정/.test(s) ? `<span class="hedge">${esc(s)}</span>` : esc(s)))
     .join(' ');
@@ -297,17 +308,17 @@ function render(r) {
 function slim(r) {
   return {
     category: r.category, category_label: r.category_label, category_ranking: r.category_ranking.map((c) => ({ key: c.key, score: round(c.score) })),
-    headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
+    genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level,
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
-    tags: r.tags, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
+    trends: r.trends, tags: r.tags, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
   };
 }
 const pct = (x) => `${Math.round(x * 100)}%`;
 const round = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}${lastResult.description_vlm ? `\n\n[AI 자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}` : ''));
+els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[AI 자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) { try { await navigator.clipboard.writeText(text); setStatus('복사했습니다', 100, 'ready'); } catch { /* ignore */ } }
 

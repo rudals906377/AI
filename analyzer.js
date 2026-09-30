@@ -1,85 +1,98 @@
 // 핵심 분석 모듈 — UI 에 의존하지 않는다 (브라우저 · Node 둘 다 동작)
 //
-//   const analyzer = await createAnalyzer({ onProgress });
+//   const analyzer = await createAnalyzer({ model, labelEmbeddings, heads, onProgress });
 //   const result   = await analyzer.analyze(fileOrUrl, { category: 'auto' });
 //
 // 동작 원리
-//   1) 모델 로드 시 속성 사전의 모든 라벨 문장을 CLIP 텍스트 임베딩으로 한 번만 계산
-//   2) 사진 1장 = CLIP 비전 임베딩 1번
-//   3) 카테고리 → 그룹별 코사인 유사도 → 소프트맥스 → 한국어 문장 조립
+//   1) 속성 사전의 라벨 문장 임베딩은 미리 계산한 파일을 쓴다 (없으면 텍스트 모델로 계산)
+//   2) 사진 1장 = 비전 임베딩 1번 (선택: 좌우 반전 평균)
+//   3) 그룹마다 학습된 헤드가 있으면 헤드로, 없으면 제로샷(코사인 유사도)으로 확률 계산
+//   4) 톤은 컬러 라벨이 가진 톤 정보와 사진에서 직접 읽은 톤을 합쳐 판단
+//   5) 한국어 문장 · 해시태그 · SNS 트렌드 키워드 조립 (describe.js)
 
-import {
-  AutoTokenizer,
-  AutoProcessor,
-  CLIPTextModelWithProjection,
-  CLIPVisionModelWithProjection,
-  RawImage,
-} from '@huggingface/transformers';
-
-import { TAXONOMY, CATEGORY_ORDER, CONFIDENCE } from './taxonomy.js';
+import { RawImage } from '@huggingface/transformers';
+import { TAXONOMY, CATEGORY_ORDER, CONFIDENCE, OTHER_DETECT } from './taxonomy.js';
+import { loadVisionEncoder, loadTextEncoder, flipHorizontal, normalize } from './encoders.js';
 import { compose } from './describe.js';
 
-export const DEFAULT_MODEL = 'Xenova/clip-vit-base-patch16';
-const LOGIT_SCALE = 100; // CLIP 의 exp(logit_scale)
+export const DEFAULT_MODEL = 'Xenova/clip-vit-large-patch14';
+const LOGIT_SCALE = 100; // 제로샷 소프트맥스 온도 (CLIP 의 exp(logit_scale))
 
 export async function createAnalyzer({
   model = DEFAULT_MODEL,
   device,          // 'webgpu' | 'wasm' | undefined(자동)
-  dtype,           // 'q8' | 'fp16' | 'fp32' | undefined(자동)
+  dtype,           // 'q4' | 'q8' | 'fp16' | 'fp32' | undefined(자동)
   labelEmbeddings, // buildLabelIndex() 결과(JSON). 있으면 텍스트 모델을 내려받지 않는다
+  heads,           // tools/train-heads.py 결과(JSON). 있으면 학습된 분류 헤드를 쓴다
+  tta = false,     // true 면 좌우 반전 이미지까지 평균 (정확도 ↑, 시간 2배)
   onProgress,
 } = {}) {
   const progress = (p) => onProgress?.(p);
-  const opts = { progress_callback: progress };
-  if (device) opts.device = device;
-  if (dtype) opts.dtype = dtype;
-
   const hash = taxonomyHash();
   const usePrecomputed = labelEmbeddings && labelEmbeddings.hash === hash && labelEmbeddings.model === model;
   if (labelEmbeddings && !usePrecomputed) console.warn('[analyzer] 사전 계산 임베딩이 현재 속성 사전과 달라 직접 계산합니다.');
+  const useHeads = heads && heads.hash === hash && heads.model === model;
+  if (heads && !useHeads) console.warn('[analyzer] 학습된 헤드가 현재 속성 사전·모델과 달라 제로샷으로만 판단합니다.');
 
-  const [processor, visionModel] = await Promise.all([
-    AutoProcessor.from_pretrained(model, { progress_callback: progress }),
-    CLIPVisionModelWithProjection.from_pretrained(model, opts),
-  ]);
+  const vision = await loadVisionEncoder(model, { device, dtype, progress_callback: progress });
 
-  // ---- 1) 라벨 임베딩: 사전 계산 파일 사용, 없으면 텍스트 모델로 계산 -----------
   let index;
-  if (usePrecomputed) {
-    index = decodeIndex(labelEmbeddings);
-  } else {
+  if (usePrecomputed) index = decodeIndex(labelEmbeddings);
+  else {
     progress({ status: 'embedding-labels' });
-    index = (await buildLabelIndex({ model, dtype, device, onProgress })).index;
+    index = (await buildLabelIndex({ model, onProgress })).index;
   }
+  const headIndex = useHeads ? decodeHeads(heads) : {};
   progress({ status: 'ready' });
 
-  // ---- 2) 이미지 임베딩 ---------------------------------------------------
   async function embedImage(source) {
     const image = source instanceof RawImage ? source : await RawImage.read(source);
-    const inputs = await processor(image);
-    const { image_embeds } = await visionModel(inputs);
-    return { image, vec: normalize(image_embeds.tolist()[0]) };
+    const [v] = await vision.embed(image);
+    if (!tta) return { image, vec: v };
+    const [w] = await vision.embed(flipHorizontal(image));
+    return { image, vec: normalize(v.map((x, i) => x + w[i])) };
   }
 
-  // ---- 3) 분석 -------------------------------------------------------------
+  // 한 그룹의 확률 분포: 학습 헤드가 있으면 (헤드와 제로샷을 alpha 로 섞어) 사용
+  function groupProbs(key, vec, textEmbs) {
+    const zs = softmax(textEmbs.map((e) => dot(vec, e) * LOGIT_SCALE));
+    const h = headIndex[key];
+    if (!h) return zs;
+    const logits = h.W.map((row, i) => dot(vec, row) + h.b[i]);
+    const hp = softmax(logits);
+    return hp.map((p, i) => h.alpha * p + (1 - h.alpha) * zs[i]);
+  }
+
   async function analyze(source, { category = 'auto', topk = 3 } = {}) {
     const t0 = now();
     const { image, vec } = await embedImage(source);
 
-    // 카테고리 판별: 카테고리별 detect 문장 중 최대 유사도 → 소프트맥스
-    const catSims = CATEGORY_ORDER.map((cat) => Math.max(...index[cat].detect.map((e) => dot(vec, e))));
-    const catProbs = softmax(catSims.map((s) => s * LOGIT_SCALE));
+    // 카테고리 판별 (학습 헤드 'category' 가 있으면 함께 사용)
+    const detectSims = CATEGORY_ORDER.map((cat) => Math.max(...index[cat].detect.map((e) => dot(vec, e))));
+    let catProbs = softmax(detectSims.map((s) => s * LOGIT_SCALE));
+    if (headIndex.category) {
+      const h = headIndex.category;
+      const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
+      catProbs = catProbs.map((p, i) => h.alpha * hp[i] + (1 - h.alpha) * p);
+    }
     const catRanked = CATEGORY_ORDER.map((cat, i) => ({ key: cat, label: TAXONOMY[cat].label, score: catProbs[i] }))
       .sort((a, b) => b.score - a.score);
+    // 뷰티 사진 여부: 가장 가까운 뷰티 카테고리 문장 vs '기타' 문장
+    let beautyScore = 1;
+    if (index.other?.length) {
+      const otherSim = Math.max(...index.other.map((e) => dot(vec, e)));
+      beautyScore = softmax([Math.max(...detectSims), otherSim].map((x) => x * LOGIT_SCALE))[0];
+    }
     const chosen = category === 'auto' ? catRanked[0].key : category;
-
-    // 그룹별 속성
     const def = TAXONOMY[chosen];
+
+    const dist = {};
+    for (const g of def.groups) dist[g.key] = groupProbs(`${chosen}.${g.key}`, vec, index[chosen].groups[g.key]);
+    fuseTone(def, dist);
+
     const attributes = def.groups.map((g) => {
-      const sims = index[chosen].groups[g.key].map((e) => dot(vec, e));
-      const probs = softmax(sims.map((s) => s * LOGIT_SCALE));
       const items = g.labels
-        .map((l, i) => ({ label: l.ko, label_en: l.en, score: probs[i], sim: sims[i] }))
+        .map((l, i) => ({ label: l.ko, label_en: l.en, score: dist[g.key][i], hidden: !!l.hidden, tone: l.tone }))
         .sort((a, b) => b.score - a.score);
       const top = items[0];
       const level = top.score >= CONFIDENCE.high ? 'high' : top.score >= CONFIDENCE.mid ? 'mid' : 'low';
@@ -103,15 +116,20 @@ export async function createAnalyzer({
       category_label: def.label,
       category_auto: category === 'auto',
       category_ranking: catRanked,
+      is_beauty: beautyScore >= 0.5,
+      beauty_score: beautyScore,
       attributes,
       headline: text.headline,
+      genre: text.genre,
       description_ko: text.description,
       sentences: text.sentences,
       tags: text.tags,
+      trends: text.trends,
       confidence,
       elapsed_ms: Math.round(now() - t0),
       image_size: { width: image.width, height: image.height },
       model,
+      trained_heads: Object.keys(headIndex).length,
     };
   }
 
@@ -119,34 +137,35 @@ export async function createAnalyzer({
     analyze,
     model,
     precomputed: !!usePrecomputed,
-    dispose: async () => { await visionModel.dispose?.(); },
+    trainedHeads: Object.keys(headIndex).length,
+    dispose: () => vision.dispose?.(),
   };
 }
 
+// 톤 판정 = 사진에서 직접 읽은 톤(제로샷) 50% + 컬러 라벨이 가진 톤 50%
+// (헤어는 '컬러' 그룹, 메이크업은 '립 컬러' 그룹의 tone 정보를 쓴다)
+const TONE_KEYS = { cool: '쿨톤', warm: '웜톤', neutral: '뉴트럴' };
+export function fuseTone(def, dist) {
+  const toneGroup = def.groups.find((g) => g.key === 'tone');
+  if (!toneGroup) return;
+  const src = def.groups.find((g) => g.key !== 'tone' && g.labels.some((l) => l.tone));
+  if (!src) return;
+  const prior = { 쿨톤: 0, 웜톤: 0, 뉴트럴: 0 };
+  src.labels.forEach((l, i) => { if (l.tone) prior[TONE_KEYS[l.tone]] += dist[src.key][i]; });
+  const zs = dist.tone;
+  const fused = toneGroup.labels.map((l, i) => 0.5 * zs[i] + 0.5 * (prior[l.ko] ?? 0));
+  const s = fused.reduce((a, b) => a + b, 0) || 1;
+  dist.tone = fused.map((x) => x / s);
+}
+
 // ---- 라벨 임베딩 계산 (오프라인 사전 계산 스크립트와 브라우저 폴백이 공유) ------
-export async function buildLabelIndex({ model = DEFAULT_MODEL, dtype, device, onProgress } = {}) {
-  const progress = (p) => onProgress?.(p);
-  const opts = { progress_callback: progress };
-  if (device) opts.device = device;
-  if (dtype) opts.dtype = dtype;
-  const [tokenizer, textModel] = await Promise.all([
-    AutoTokenizer.from_pretrained(model, { progress_callback: progress }),
-    CLIPTextModelWithProjection.from_pretrained(model, opts),
-  ]);
-  async function embedTexts(texts) {
-    const out = [];
-    for (let i = 0; i < texts.length; i += 32) {
-      const inputs = tokenizer(texts.slice(i, i + 32), { padding: true, truncation: true });
-      const { text_embeds } = await textModel(inputs);
-      out.push(...text_embeds.tolist().map(normalize));
-    }
-    return out;
-  }
+export async function buildLabelIndex({ model = DEFAULT_MODEL, dtype = 'fp32', device, onProgress } = {}) {
+  const text = await loadTextEncoder(model, { dtype, device, progress_callback: (p) => onProgress?.(p) });
   // 여러 템플릿 문장의 임베딩을 평균 → 정규화 (prompt ensembling)
   async function embedLabelSet(templates, labelsEn) {
     const prompts = [];
     for (const en of labelsEn) for (const t of templates) prompts.push(t.replace('{}', en));
-    const embs = await embedTexts(prompts);
+    const embs = await text.embed(prompts);
     return labelsEn.map((_, i) => normalize(meanVec(embs.slice(i * templates.length, (i + 1) * templates.length))));
   }
   const index = {};
@@ -154,15 +173,16 @@ export async function buildLabelIndex({ model = DEFAULT_MODEL, dtype, device, on
     const def = TAXONOMY[cat];
     const groups = {};
     for (const g of def.groups) groups[g.key] = await embedLabelSet(g.templates, g.labels.map((l) => l.en));
-    index[cat] = { detect: await embedTexts(def.detect), groups };
+    index[cat] = { detect: await text.embed(def.detect), groups };
   }
-  await textModel.dispose?.();
+  index.other = await text.embed(OTHER_DETECT);
+  await text.dispose?.();
   return { index, json: encodeIndex(index, model) };
 }
 
-// 속성 사전이 바뀌면 사전 계산 파일을 무효화하기 위한 해시
+// 속성 사전이 바뀌면 사전 계산 파일 · 학습 헤드를 무효화하기 위한 해시
 export function taxonomyHash() {
-  const src = JSON.stringify(CATEGORY_ORDER.map((c) => [TAXONOMY[c].detect, TAXONOMY[c].groups.map((g) => [g.key, g.templates, g.labels.map((l) => l.en)])]));
+  const src = JSON.stringify([OTHER_DETECT, CATEGORY_ORDER.map((c) => [TAXONOMY[c].detect, TAXONOMY[c].groups.map((g) => [g.key, g.templates, g.labels.map((l) => l.en)])])]);
   let h = 2166136261;
   for (let i = 0; i < src.length; i++) { h ^= src.charCodeAt(i); h = Math.imul(h, 16777619); }
   return (h >>> 0).toString(16);
@@ -175,16 +195,16 @@ function encodeIndex(index, model) {
   for (const cat of CATEGORY_ORDER) {
     layout[cat] = { detect: index[cat].detect.length, groups: {} };
     vecs.push(...index[cat].detect);
-    for (const [k, arr] of Object.entries(index[cat].groups)) { layout[cat].groups[k] = arr.length; vecs.push(...arr); }
+    for (const g of TAXONOMY[cat].groups) { layout[cat].groups[g.key] = index[cat].groups[g.key].length; vecs.push(...index[cat].groups[g.key]); }
   }
+  if (index.other) { layout.other = index.other.length; vecs.push(...index.other); } // 맨 끝에 붙인다
   const dim = vecs[0].length;
   const buf = new Float32Array(vecs.length * dim);
   vecs.forEach((v, i) => buf.set(v, i * dim));
   return { model, hash: taxonomyHash(), dim, count: vecs.length, layout, data: toBase64(new Uint8Array(buf.buffer)) };
 }
 function decodeIndex(json) {
-  const bytes = fromBase64(json.data);
-  const buf = new Float32Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 4);
+  const buf = f32FromBase64(json.data);
   let k = 0;
   const take = () => Array.from(buf.subarray(k * json.dim, ++k * json.dim));
   const index = {};
@@ -195,23 +215,33 @@ function decodeIndex(json) {
     for (const g of TAXONOMY[cat].groups) groups[g.key] = Array.from({ length: L.groups[g.key] }, take);
     index[cat] = { detect, groups };
   }
+  if (json.layout.other) index.other = Array.from({ length: json.layout.other }, take);
   return index;
+}
+// 학습 헤드: { groups: { "hair.color": { rows, W(base64 f32 rows×dim), b:[...], alpha } } }
+function decodeHeads(json) {
+  const out = {};
+  for (const [key, h] of Object.entries(json.groups)) {
+    const buf = f32FromBase64(h.W);
+    const W = Array.from({ length: h.rows }, (_, i) => Array.from(buf.subarray(i * json.dim, (i + 1) * json.dim)));
+    out[key] = { W, b: h.b, alpha: h.alpha ?? 1 };
+  }
+  return out;
 }
 function toBase64(u8) {
   if (typeof Buffer !== 'undefined') return Buffer.from(u8).toString('base64');
   let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode(...u8.subarray(i, i + 0x8000));
   return btoa(s);
 }
-function fromBase64(b64) {
-  if (typeof Buffer !== 'undefined') return new Uint8Array(Buffer.from(b64, 'base64'));
-  const s = atob(b64); const u8 = new Uint8Array(s.length);
-  for (let i = 0; i < s.length; i++) u8[i] = s.charCodeAt(i);
-  return u8;
+function f32FromBase64(b64) {
+  let u8;
+  if (typeof Buffer !== 'undefined') u8 = new Uint8Array(Buffer.from(b64, 'base64'));
+  else { const s = atob(b64); u8 = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u8[i] = s.charCodeAt(i); }
+  return new Float32Array(u8.buffer, u8.byteOffset, u8.byteLength / 4);
 }
 
 // ---- 수학 유틸 ----------------------------------------------------------------
 function dot(a, b) { let s = 0; for (let i = 0; i < a.length; i++) s += a[i] * b[i]; return s; }
-function normalize(v) { const n = Math.sqrt(dot(v, v)) || 1; return v.map((x) => x / n); }
 function meanVec(rows) {
   const out = new Array(rows[0].length).fill(0);
   for (const r of rows) for (let i = 0; i < r.length; i++) out[i] += r[i];

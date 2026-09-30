@@ -41,8 +41,8 @@
 
         <h3>분석 모델</h3>
         <div class="seg" id="model">
-          <button data-model="large" class="active">정밀 · CLIP ViT-L/14</button>
-          <button data-model="base">빠름 · CLIP ViT-B/16</button>
+          <button data-model="base" class="active">기본 · FashionSigLIP</button>
+          <button data-model="large">정밀 · SigLIP-L/384</button>
         </div>
         <p class="note" id="modelNote"></p>
 
@@ -69,13 +69,24 @@
 
         <div id="result" class="hidden">
           <div class="chips" id="catChips"></div>
-          <div class="headline" id="headline"></div>
+          <div class="genre-row">
+            <div class="genre">
+              <small id="genreLabel">장르</small>
+              <strong id="genreName"></strong>
+              <span id="genreSub"></span>
+            </div>
+            <div class="genre-trends" id="trendBlock">
+              <small>트렌드 키워드</small>
+              <div class="trends" id="trends"></div>
+            </div>
+          </div>
+          <div class="headline hidden" id="headline"></div>
           <p class="desc" id="desc"></p>
 
           <h3>속성별 판단 근거</h3>
           <div class="attrs" id="attrs"></div>
 
-          <h3>태그</h3>
+          <h3>해시태그</h3>
           <div class="chips" id="tags"></div>
 
           <div id="vlmBlock" class="hidden">
@@ -101,7 +112,7 @@
     </div>
 
     <footer>
-      기본 분석: <code id="clipName"></code> (CLIP 제로샷) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3 ·
+      기본 분석: <code id="clipName"></code> (제로샷 + 학습 헤드) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3 ·
       사진은 서버로 전송되지 않습니다. 예시 사진 출처: <a href="./samples/CREDITS.md" target="_blank">CREDITS</a>
     </footer>
   </div>
