@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>뷰티 스타일 AI 설명기</title>
+  <meta name="description" content="헤어·네일·메이크업·타투 사진을 올리면 브라우저 안에서 AI가 스타일을 자세한 한국어 문장으로 설명합니다." />
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    { "imports": { "@huggingface/transformers": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0/dist/transformers.min.js" } }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <h1>뷰티 스타일 <span>AI 설명기</span></h1>
+        <p>헤어스타일 · 네일아트 · 메이크업 · 타투 사진을 올리면 스타일을 자세한 문장으로 설명합니다. 모델은 100% 브라우저에서 실행됩니다.</p>
+      </div>
+      <div class="status" id="status">
+        <span class="dot"></span>
+        <span id="statusText">모델 준비 중…</span>
+        <span class="progress"><i id="statusBar"></i></span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- 입력 -->
+      <section class="card">
+        <h2>1. 사진 올리기</h2>
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept="image/*" />
+          <img id="preview" class="hidden" alt="미리보기" />
+          <div class="hint" id="dropHint">
+            <strong>클릭 · 드래그 · 붙여넣기(Ctrl+V)</strong><br />로 사진을 올려 주세요
+          </div>
+        </label>
+
+        <h3>예시 사진으로 바로 해보기</h3>
+        <div class="samples" id="samples"></div>
+
+        <h3>분석 모델</h3>
+        <div class="seg" id="model">
+          <button data-model="large" class="active">정밀 · CLIP ViT-L/14</button>
+          <button data-model="base">빠름 · CLIP ViT-B/16</button>
+        </div>
+        <p class="note" id="modelNote"></p>
+
+        <h3>카테고리</h3>
+        <div class="seg" id="category">
+          <button data-cat="auto" class="active">자동 판별</button>
+          <button data-cat="hair">💇 헤어</button>
+          <button data-cat="nail">💅 네일</button>
+          <button data-cat="makeup">💄 메이크업</button>
+          <button data-cat="tattoo">🖋️ 타투</button>
+        </div>
+
+        <div class="row">
+          <button class="primary" id="run" disabled>분석하기</button>
+          <label class="toggle"><input type="checkbox" id="advanced" /> 고급 모드 — AI 자유 서술</label>
+        </div>
+        <p class="note" id="advNote">고급 모드는 소형 VLM(LFM2.5-VL-450M, 약 420~630MB)을 추가로 내려받아 사진을 직접 보고 전문가처럼 서술한 뒤 한국어로 번역합니다. WebGPU 지원 브라우저(Chrome·Edge 최신)에서 권장.</p>
+      </section>
+
+      <!-- 결과 -->
+      <section class="card" id="resultCard">
+        <h2>2. 분석 결과</h2>
+        <div class="result-empty" id="empty">사진을 올리고 <b>분석하기</b>를 누르면 여기에 설명이 나타납니다.</div>
+
+        <div id="result" class="hidden">
+          <div class="chips" id="catChips"></div>
+          <div class="headline" id="headline"></div>
+          <p class="desc" id="desc"></p>
+
+          <h3>속성별 판단 근거</h3>
+          <div class="attrs" id="attrs"></div>
+
+          <h3>태그</h3>
+          <div class="chips" id="tags"></div>
+
+          <div id="vlmBlock" class="hidden">
+            <h3>AI 자유 서술 <small id="vlmMeta"></small></h3>
+            <div class="vlm" id="vlm"></div>
+            <details id="vlmEnBox" class="en-box">
+              <summary>영어 원문 보기 (모델이 직접 관찰한 내용 · 번역은 자동 번역이라 일부 어색할 수 있어요)</summary>
+              <div class="vlm en" id="vlmEn"></div>
+            </details>
+          </div>
+
+          <div class="row">
+            <button class="ghost small" id="copyText">설명 복사</button>
+            <button class="ghost small" id="copyJson">JSON 복사</button>
+            <span class="note" id="meta"></span>
+          </div>
+          <details>
+            <summary>JSON 보기</summary>
+            <pre class="json" id="json"></pre>
+          </details>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      기본 분석: <code id="clipName"></code> (CLIP 제로샷) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3 ·
+      사진은 서버로 전송되지 않습니다. 예시 사진 출처: <a href="./samples/CREDITS.md" target="_blank">CREDITS</a>
+    </footer>
+  </div>
+
+  <script type="module" src="./app.js" onerror="document.getElementById('statusText').textContent='스크립트 로드 실패 — 인터넷 연결을 확인하고 새로고침하세요'"></script>
+  <script>
+    // CDN(Transformers.js) 로드 실패 등으로 앱이 시작되지 않으면 20초 뒤 안내
+    setTimeout(function () {
+      var t = document.getElementById('statusText');
+      if (!window.__appStarted && t && /준비 중/.test(t.textContent)) t.textContent = '라이브러리 로드 실패 — 인터넷 연결을 확인하고 새로고침하세요';
+    }, 20000);
+  </script>
+</body>
+</html>
