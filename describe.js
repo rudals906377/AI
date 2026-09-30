@@ -76,9 +76,12 @@ function hedge(attr) {
   const alt = alts[0];
   if (!alt || hedgeBudget <= 0) return '';
   if (attr.level === 'high' || (attr.level === 'mid' && alt.score < attr.score * 0.7)) return '';
+  const first = hedgeBudget === MAX_HEDGES;
   hedgeBudget--;
   if (attr.level === 'mid') return `${alt.label}일 가능성도 있어요(${pct(attr.score)} 대 ${pct(alt.score)}).`;
   const cands = alts.slice(0, 2).map((x) => x.label).join(' 또는 ');
+  // 두 번째 보충 문장은 '다만 …' 이 반복되지 않게 표현을 바꾼다
+  if (!first) return `${attr.group_label}도 확실하지 않아 ${cands}일 가능성이 있어요.`;
   return `다만 ${josa(attr.group_label, '은/는')} 사진만으로 단정하기 어려워 ${cands}일 수도 있어요.`;
 }
 const sure = (attr, min = 0.4) => attr && attr.score >= min;

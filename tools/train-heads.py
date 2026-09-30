@@ -14,7 +14,7 @@
       --train train.f32 --train-meta train.json --train-list train_list.json \
       --eval eval.f32 --eval-meta eval.json --eval-list eval_list.json --out heads.json
 """
-import argparse, base64, json, sys
+import argparse, base64, json, re, sys
 import numpy as np
 
 SCALE = 100.0
@@ -124,10 +124,17 @@ def main():
     for a in ("tax", "labels", "train", "train-meta", "train-list", "eval", "eval-meta", "eval-list", "out", "junk", "junk-meta"):
         ap.add_argument("--" + a)
     ap.add_argument("--min-samples", type=int, default=15)
+    ap.add_argument("--commercial", action="store_true",
+                    help="상업 이용과 개작이 모두 허용된 라이선스(CC0 · 퍼블릭 도메인 · BY · BY-SA)의 사진만 학습에 쓴다")
     args = ap.parse_args()
     tax = json.load(open(args.tax))
     lj, idx = load_index(args.labels, tax)
     tl = json.load(open(args.train_list)); el = json.load(open(args.eval_list))
+    if args.commercial:
+        # ND(개작 금지) · NC(비영리) 는 뺀다. 라이선스 정보가 없는 사진도 뺀다.
+        free = lambda l: bool(l) and l != "?" and not re.search(r"(^|[-\s])(nd|nc)([-\s]|$)", l.lower())
+        n0 = len(tl); tl = [r for r in tl if free(r.get("license"))]
+        print(f"commercial filter: keep {len(tl)} of {n0}", file=sys.stderr)
     Xtr, rtr = load_emb(args.train, args.train_meta, tl)
     Xev, rev = load_emb(args.eval, args.eval_meta, el)
     cats = tax["categories"]
