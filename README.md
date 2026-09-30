@@ -194,10 +194,21 @@ python3 tools/train-heads.py --commercial --tax taxonomy.json --labels embedding
 
 ## Hugging Face Space 배포
 
-1. Hugging Face 에서 **New Space** 를 누르고 SDK 로 **Static** 을 고릅니다.
-2. 이 저장소의 파일을 그대로 올립니다. `README.md` 맨 위의 설정 블록이 Space 설정입니다.
+**자동 배포 (권장)**: `main` 브랜치가 바뀔 때마다 GitHub Actions 가 Space 로 올립니다 (`.github/workflows/deploy-space.yml`).
+
+1. https://huggingface.co/settings/tokens 에서 **Write** 권한 토큰을 만듭니다.
+2. GitHub 저장소 **Settings → Secrets and variables → Actions** 에서
+   - **Secrets** 에 `HF_TOKEN` = 방금 만든 토큰
+   - (선택) **Variables** 에 `HF_SPACE` = `내계정/스페이스이름`. 없으면 `내계정/beauty-style-ai` 로 만듭니다.
+3. PR 을 `main` 에 병합하거나, **Actions → Deploy to Hugging Face Space → Run workflow** 를 누릅니다.
+4. 몇 분 뒤 `https://huggingface.co/spaces/내계정/스페이스이름` 에서 열립니다. 스페이스가 없으면 Static Space 로 새로 만듭니다.
+
+**직접 배포**: 내 PC 에서 한 번에 올릴 수도 있습니다.
 
 ```bash
-git remote add space https://huggingface.co/spaces/<계정>/<스페이스이름>
-git push space claude/inspiring-faraday-1o6w9q:main
+pip install huggingface_hub
+HF_TOKEN=<쓰기 토큰> python3 tools/deploy-space.py 내계정/beauty-style-ai
+python3 tools/deploy-space.py --dry-run   # 올릴 파일 목록만 확인 (앱 실행에 필요한 37개 파일, 약 8MB)
 ```
+
+배포 스크립트는 앱 실행에 필요한 파일 · 예시 사진 · 학습 데이터 출처 기록만 올립니다. 학습 스크립트와 문서는 올리지 않습니다.

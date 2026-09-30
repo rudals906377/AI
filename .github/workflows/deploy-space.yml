@@ -1,0 +1,30 @@
+# main 브랜치가 바뀌면 Hugging Face Static Space 로 자동 배포한다.
+# 준비 (한 번만): 저장소 Settings → Secrets and variables → Actions
+#   - Secrets 에 HF_TOKEN  : Hugging Face 쓰기(Write) 토큰
+#   - Variables 에 HF_SPACE: 배포할 스페이스 (예: 내계정/beauty-style-ai). 없으면 '<토큰 계정>/beauty-style-ai'
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install huggingface_hub
+      - name: Upload app files to the Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE: ${{ vars.HF_SPACE }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "::warning::HF_TOKEN 시크릿이 없어 배포를 건너뜁니다 (Settings → Secrets and variables → Actions 에서 추가)"
+            exit 0
+          fi
+          python3 tools/deploy-space.py
