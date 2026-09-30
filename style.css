@@ -125,3 +125,24 @@ footer { margin-top: 28px; color: var(--muted); font-size: 0.85rem; text-align: 
 .genre span { font-size: 0.82rem; opacity: .9; }
 .genre-trends { border: 1px dashed var(--line); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
 .genre-trends > small { color: var(--muted); font-size: 0.78rem; }
+
+/* 피드백 (틀린 결과 고치기) */
+.attr { grid-template-columns: 96px 1fr 32px; }
+.attr .alts { grid-column: 2 / 4; }
+.attr .fix { width: 32px; height: 26px; border: 1px solid var(--line); background: var(--card); color: var(--muted); border-radius: 8px; cursor: pointer; font-size: 0.9rem; padding: 0; }
+.attr .fix:hover { color: var(--accent); border-color: var(--accent); }
+.attr select.fix-sel { grid-column: 2 / 4; font: inherit; font-size: 0.88rem; padding: 4px 6px; border-radius: 8px; border: 1px solid var(--accent); background: var(--card); color: var(--text); }
+.attr .fixed { grid-column: 2 / 4; font-size: 0.82rem; color: var(--accent); font-weight: 600; margin-top: -4px; }
+.feedback { margin-top: 12px; padding: 10px 12px; border: 1px dashed var(--line); border-radius: 12px; display: grid; gap: 6px; font-size: 0.88rem; }
+.feedback .fb-row { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.feedback small { color: var(--muted); }
+.feedback .fb-cat { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); }
+.feedback select { font: inherit; font-size: 0.85rem; padding: 3px 6px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); }
+.feedback .fb-actions { display: inline-flex; gap: 6px; }
+@media (max-width: 560px) { .attr { grid-template-columns: 72px 1fr 32px; } }
+
+/* 함께 보이는 스타일 (2위 카테고리) */
+.secondary { margin-top: 12px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--bg); }
+.secondary summary { color: var(--text); font-weight: 600; font-size: 0.92rem; }
+.secondary summary small { color: var(--muted); font-weight: 500; margin-left: 6px; }
+.secondary .desc { font-size: 0.95rem; margin: 8px 0; }

@@ -102,9 +102,10 @@ def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas
     fold_of = {g: i % k for i, g in enumerate(uniq)}
     fid = np.array([fold_of[g] for g in groups])
     folds = [np.where(fid == f)[0] for f in range(k)]
-    best = (-1, None, None)
+    best = (-1, None, None); oof = None
+    zsP = softmax(SCALE * V @ T.T)
     for lam in lams:
-        preds = {a: np.zeros((len(V), T.shape[0])) for a in alphas}
+        preds = {a: zsP.copy() for a in alphas}
         for f in folds:
             if not len(f): continue
             tr = np.where(fid != fid[f[0]])[0]
@@ -114,9 +115,24 @@ def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas
             for a in alphas: preds[a][f] = predict(V[f], W, b, T, a)
         for a in alphas:
             acc = acc_sets(preds[a], S)
-            if acc > best[0] + 1e-9: best = (acc, lam, a)
-    zs = acc_sets(softmax(SCALE * V @ T.T), S)
-    return best, zs
+            if acc > best[0] + 1e-9: best = (acc, lam, a); oof = preds[a]
+    zs = acc_sets(zsP, S)
+    return best, zs, oof
+
+
+def calibrate(P, S, grid=np.exp(np.linspace(np.log(0.25), np.log(4.0), 61))):
+    """확률 보정용 온도 T: p_i ∝ p_i^(1/T). 폴드 밖 예측에서 '정답 후보 확률'의 로그우도가 가장 큰 T 를 고른다."""
+    best_t, best_nll = 1.0, np.inf
+    L = np.log(np.maximum(P, 1e-12))
+    for t in grid:
+        Q = softmax(L / t)
+        nll = -np.mean(np.log(np.maximum((Q * S).sum(1), 1e-12)))
+        if nll < best_nll: best_t, best_nll = float(t), nll
+    return best_t
+
+
+def temper(P, t):
+    return softmax(np.log(np.maximum(P, 1e-12)) / t)
 
 
 def main():
@@ -126,6 +142,8 @@ def main():
     ap.add_argument("--min-samples", type=int, default=15)
     ap.add_argument("--commercial", action="store_true",
                     help="상업 이용과 개작이 모두 허용된 라이선스(CC0 · 퍼블릭 도메인 · BY · BY-SA)의 사진만 학습에 쓴다")
+    ap.add_argument("--feedback", nargs="*", default=[],
+                    help="앱에서 내보낸 피드백 파일(JSONL). 사진 없이 특징값과 사용자가 고친 라벨로 학습한다")
     args = ap.parse_args()
     tax = json.load(open(args.tax))
     lj, idx = load_index(args.labels, tax)
@@ -137,8 +155,24 @@ def main():
         print(f"commercial filter: keep {len(tl)} of {n0}", file=sys.stderr)
     Xtr, rtr = load_emb(args.train, args.train_meta, tl)
     Xev, rev = load_emb(args.eval, args.eval_meta, el)
+    fb_rows = set()
+    if args.feedback:
+        fx = []
+        for fp in args.feedback:
+            for line in open(fp):
+                if not line.strip(): continue
+                r = json.loads(line)
+                if r.get("model") != lj["model"] or r.get("hash") != tax["hash"]: continue  # 다른 모델 · 사전의 피드백은 못 쓴다
+                if not r.get("labels") and r.get("category") == r.get("predicted"): continue  # 고친 것이 없음
+                v = np.frombuffer(base64.b64decode(r["emb"]), dtype=np.float32)
+                if len(v) != Xtr.shape[1]: continue
+                tl.append({"file": f"feedback:{r['id']}", "category": r["category"], "labels": r.get("labels") or {},
+                           "group": f"fb:{r['id']}", "license": "user-feedback"})
+                fx.append(v / np.linalg.norm(v)); rtr.append(len(tl) - 1); fb_rows.add(len(tl) - 1)
+        if fx: Xtr = np.concatenate([Xtr, np.stack(fx).astype(np.float32)])
+        print(f"feedback rows: {len(fx)}", file=sys.stderr)
     cats = tax["categories"]
-    heads, report = {}, []
+    heads, report, calib, reliab = {}, [], {}, []
 
     # 평가 세트와 거의 같은 사진은 학습에서 뺀다 (정보 누수 방지)
     sim = Xtr @ Xev.T
@@ -153,7 +187,7 @@ def main():
     # 잡음 제거: 라벨 카테고리의 제로샷 확률이 아주 낮은 뷰티 사진은 뺀다 (예: 매니큐어 분류에 섞인 일반 인물 사진)
     zcat = softmax(SCALE * np.stack([(Xtr @ idx[c]["detect"].T).max(1) for c in cats], 1))
     lab_p = np.array([zcat[i, cats.index(tl[r]["category"])] if not is_other[i] else 1.0 for i, r in enumerate(rtr)])
-    clean = lab_p >= 0.15
+    clean = (lab_p >= 0.15) | np.array([r in fb_rows for r in rtr])  # 사용자가 고친 사진은 모델이 틀린 사례라 거르지 않는다
     print(f"noise filter: drop {(~clean).sum()} of {(~is_other).sum()} beauty rows", file=sys.stderr)
     Xtr = Xtr[clean]; rtr = [r for r, k in zip(rtr, clean) if k]; is_other = is_other[clean]
 
@@ -161,7 +195,7 @@ def main():
     if is_other.sum() >= 30 and "other" in idx:
         Tb = np.stack([unit(np.concatenate([idx[c]["detect"] for c in cats]).mean(0)), unit(idx["other"].mean(0))])
         Sb = np.stack([~is_other, is_other], 1).astype(float)
-        (cv_acc, lam, alpha), zs_cv = cv_select(Xtr, Sb, Tb, [0, 1], groups=[tl[r].get("group", r) for r in rtr])
+        (cv_acc, lam, alpha), zs_cv, _ = cv_select(Xtr, Sb, Tb, [0, 1], groups=[tl[r].get("group", r) for r in rtr])
         W, b = fit(Xtr, Sb, Tb, lam, [0, 1])
         heads["beauty"] = (W, b, alpha)
         Xb = Xev; Sbe = np.tile([1.0, 0.0], (len(Xev), 1))
@@ -175,7 +209,7 @@ def main():
     Xc = Xtr[~is_other]; rc = [r for r, o in zip(rtr, is_other) if not o]
     Scat = np.zeros((len(Xc), len(cats)))
     for i, r in enumerate(rc): Scat[i, cats.index(tl[r]["category"])] = 1
-    (cv_acc, lam, alpha), zs_cv = cv_select(Xc, Scat, Tcat, list(range(len(cats))), groups=[tl[r].get("group", r) for r in rc])
+    (cv_acc, lam, alpha), zs_cv, _ = cv_select(Xc, Scat, Tcat, list(range(len(cats))), groups=[tl[r].get("group", r) for r in rc])
     W, b = fit(Xc, Scat, Tcat, lam, list(range(len(cats))))
     heads["category"] = (W, b, alpha)
     Sev = np.zeros((len(Xev), len(cats)))
@@ -208,9 +242,17 @@ def main():
                 continue
             V = Xtr[rows]; S = np.array(S)
             present = sorted(set(np.where(S.sum(0) > 0)[0]))
-            (cv_acc, lam, alpha), zs_cv = cv_select(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows])
-            if cv_acc <= zs_cv + 0.01 or alpha == 0.0:  # 출처가 다른 사진에서 이득이 없으면 헤드를 쓰지 않는다
-                report.append((key, len(rows), zs_cv, cv_acc, lam, 0.0, len(ES), zs_ev, zs_ev))
+            (cv_acc, lam, alpha), zs_cv, oof = cv_select(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows])
+            # 출처가 다른 사진에서 이득이 없거나, 헤드 자체가 너무 부정확하면(40% 미만) 쓰지 않는다
+            use_head = not (cv_acc <= zs_cv + 0.01 or alpha == 0.0 or cv_acc < 0.4)
+            # 확률 보정: 폴드 밖 예측(헤드를 안 쓰면 제로샷)으로 온도를 맞춘다
+            P_oof = oof if use_head else softmax(SCALE * V @ T.T)
+            temp = calibrate(P_oof, S); calib[key] = temp
+            Pc = temper(P_oof, temp)
+            reliab.append((Pc.max(1), S[np.arange(len(S)), Pc.argmax(1)] > 0))
+            if not use_head:
+                ze_c = acc_sets(temper(softmax(SCALE * Ve @ T.T), temp), ES) if len(ES) else float("nan")
+                report.append((key, len(rows), zs_cv, cv_acc, lam, 0.0, len(ES), zs_ev, ze_c))
                 continue
             W, b = fit(V, S, T, lam, present)
             heads[key] = (W, b, alpha)
@@ -227,8 +269,20 @@ def main():
     hd_tot = sum(ne * he for k, n, zc, hc, lam, a, ne, ze, he in report if "." in k and ne and he == he)
     print(f"\nATTRIBUTES (eval, n={ne_tot}): zero-shot {zs_tot / ne_tot * 100:.1f}%  →  with heads {hd_tot / ne_tot * 100:.1f}%")
 
+    if reliab:
+        conf = np.concatenate([r[0] for r in reliab]); hit = np.concatenate([r[1] for r in reliab])
+        print(f"\nCALIBRATION (폴드 밖 예측 {len(conf)}개, 보정 후 1위 확률 기준)")
+        for t in (0.4, 0.5, 0.6, 0.7, 0.8, 0.9):
+            m = conf >= t
+            print(f"  p ≥ {t:.1f}: 비율 {m.mean()*100:5.1f}%  정확도 {hit[m].mean()*100 if m.any() else float('nan'):5.1f}%")
+        # 문장 말투 구간별 (taxonomy.js CONFIDENCE 와 같은 기준)
+        for name, lo, hi in (("단정 (≥0.75)", 0.75, 1.01), ("보입니다 (0.5~0.75)", 0.5, 0.75), ("추정 (<0.5)", 0.0, 0.5)):
+            m = (conf >= lo) & (conf < hi)
+            print(f"  {name}: 비율 {m.mean()*100:5.1f}%  정확도 {hit[m].mean()*100 if m.any() else float('nan'):5.1f}%")
+
     if args.out:
-        out = {"model": lj["model"], "hash": tax["hash"], "dim": lj["dim"], "groups": {}}
+        out = {"model": lj["model"], "hash": tax["hash"], "dim": lj["dim"], "groups": {},
+               "calib": {k: round(v, 4) for k, v in calib.items()}}
         for key, (W, b, alpha) in heads.items():
             out["groups"][key] = {"rows": int(W.shape[0]), "W": base64.b64encode(W.astype(np.float32).tobytes()).decode(),
                                   "b": [round(float(x), 5) for x in b], "alpha": float(alpha)}

@@ -3,6 +3,7 @@ import { env } from '@huggingface/transformers';
 import { createAnalyzer } from './analyzer.js';
 import { createDescriber } from './advanced.js';
 import { TAXONOMY } from './taxonomy.js';
+import { josa } from './describe.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -31,6 +32,8 @@ const els = {
   empty: $('empty'), result: $('result'), catChips: $('catChips'), headline: $('headline'), desc: $('desc'),
   attrs: $('attrs'), tags: $('tags'), trends: $('trends'), trendBlock: $('trendBlock'), genreLabel: $('genreLabel'), genreName: $('genreName'), genreSub: $('genreSub'), vlmBlock: $('vlmBlock'), vlm: $('vlm'), vlmMeta: $('vlmMeta'), vlmEn: $('vlmEn'), vlmEnBox: $('vlmEnBox'),
   copyText: $('copyText'), copyJson: $('copyJson'), meta: $('meta'), json: $('json'), clipName: $('clipName'),
+  fbCat: $('fbCat'), fbExport: $('fbExport'), fbClear: $('fbClear'), fbInfo: $('fbInfo'),
+  secondary: $('secondary'), secTitle: $('secTitle'), secDesc: $('secDesc'), secTags: $('secTags'),
 };
 // ---- 상태 ---------------------------------------------------------------------
 let analyzer = null;      // CLIP
@@ -279,6 +282,16 @@ function render(r) {
   if (r.category_auto && top.key !== r.category) els.catChips.innerHTML += '';
 
   if (!r.is_beauty) els.catChips.innerHTML = `<span class="chip warn">⚠️ 뷰티 사진이 아닐 수 있어요 (${pct(1 - r.beauty_score)})</span>` + els.catChips.innerHTML;
+  for (const w of r.warnings || []) els.catChips.innerHTML += `<span class="chip warn">⚠️ ${esc(w)}</span>`;
+  // 함께 보이는 스타일 (예: 헤어 사진 속 메이크업)
+  const sec = r.secondary;
+  els.secondary.classList.toggle('hidden', !sec);
+  if (sec) {
+    els.secTitle.innerHTML = `${TAXONOMY[sec.category].icon} 함께 보이는 ${esc(sec.category_label)}: <b>${esc(sec.genre.name)}</b><small>${pct(sec.score)}</small>`;
+    els.secDesc.textContent = sec.description_ko;
+    els.secTags.innerHTML = [...(sec.trends || []).map((t) => t.name), ...sec.tags].slice(0, 8).map((t) => `<span class="chip">#${esc(t.replace(/[\s·()]/g, ''))}</span>`).join('');
+    els.secondary.open = false;
+  }
   els.headline.textContent = r.headline;
   // 장르 (크게) + 옆에 트렌드 키워드
   const g = r.genre;
@@ -292,17 +305,113 @@ function render(r) {
     .join(' ');
 
   els.attrs.innerHTML = r.attributes.map((a) => `
-    <div class="attr ${a.level}">
+    <div class="attr ${a.level}" data-g="${esc(a.group)}">
       <div class="g">${esc(a.group_label)}</div>
       <div class="bar"><i style="width:${Math.max(4, a.score * 100)}%"></i><b><span>${esc(a.label)}</span><small>${pct(a.score)}</small></b></div>
+      <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">✎</button>
       <div class="alts">다음 후보: ${a.alternatives.map((x) => `${esc(x.label)} ${pct(x.score)}`).join(' · ')}</div>
     </div>`).join('');
+  renderFeedback(r);
 
   els.tags.innerHTML = r.tags.map((t) => `<span class="chip">#${esc(t)}</span>`).join('');
   els.result.dataset.run = r.run_id ?? '';
   els.meta.textContent = `분석 ${r.elapsed_ms}ms · 평균 신뢰도 ${pct(r.confidence)} · ${r.image_size.width}×${r.image_size.height}px`;
   els.json.textContent = JSON.stringify(slim(r), null, 2);
 }
+
+// ---- 피드백: 틀린 결과 고치기 ------------------------------------------------------
+// 사진은 저장하지 않고, 모델이 뽑은 특징값(임베딩)과 고친 라벨만 이 브라우저에 저장한다.
+// 내보낸 파일은 tools/train-heads.py --feedback 으로 바로 다시 학습할 수 있다.
+const FB_KEY = 'beauty-feedback-v1';
+const FB_CATS = [...Object.keys(TAXONOMY).map((k) => [k, `${TAXONOMY[k].icon} ${TAXONOMY[k].label}`]), ['other', '🚫 뷰티 사진 아님']];
+function fbLoad() { try { return JSON.parse(localStorage.getItem(FB_KEY) || '[]'); } catch { return []; } }
+function fbSave(list) {
+  try { localStorage.setItem(FB_KEY, JSON.stringify(list)); return true; }
+  catch { setStatus('피드백을 저장하지 못했어요 (브라우저 저장 공간 부족 또는 차단)', 0, 'error'); return false; }
+}
+function b64f32(vec) {
+  const u8 = new Uint8Array(Float32Array.from(vec).buffer);
+  let bin = ''; for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode(...u8.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+function fbRecord(r) {
+  const list = fbLoad();
+  let rec = list.find((x) => x.id === r.fb_id);
+  if (!rec) {
+    r.fb_id = `${Date.now().toString(36)}-${r.run_id}`;
+    rec = { id: r.fb_id, ts: new Date().toISOString(), app: 'beauty-style-describer/1', model: r.model, hash: r.taxonomy_hash,
+      predicted: r.category, category: r.category, labels: {}, emb: b64f32(r.embedding) };
+    list.push(rec);
+  }
+  return { list, rec };
+}
+function fbUpdateInfo() {
+  const n = fbLoad().length;
+  els.fbInfo.textContent = `${n ? `저장된 피드백 ${n}건 · ` : ''}고친 내용은 사진 없이 특징값만 이 브라우저에 저장됩니다.`;
+  els.fbExport.disabled = els.fbClear.disabled = !n;
+}
+function renderFeedback(r) {
+  els.fbCat.innerHTML = FB_CATS.map(([k, label]) => `<option value="${k}" ${k === r.category ? 'selected' : ''}>${label}</option>`).join('');
+  const rec = fbLoad().find((x) => x.id === r.fb_id);
+  if (rec) {
+    els.fbCat.value = rec.category;
+    for (const [g, [label]] of Object.entries(rec.labels)) markFixed(g, label);
+  }
+  fbUpdateInfo();
+}
+function markFixed(group, label) {
+  const row = els.attrs.querySelector(`.attr[data-g="${CSS.escape(group)}"]`);
+  if (!row) return;
+  row.querySelector('.fixed')?.remove();
+  row.insertAdjacentHTML('beforeend', `<div class="fixed">✓ ${esc(josa(label, "으로/로"))} 고침</div>`);
+}
+els.attrs.addEventListener('click', (e) => {
+  const btn = e.target.closest('.fix');
+  if (!btn || !lastResult) return;
+  const row = btn.closest('.attr'); const key = row.dataset.g;
+  if (row.querySelector('select')) { row.querySelector('select').remove(); return; }
+  const group = TAXONOMY[lastResult.category].groups.find((g) => g.key === key);
+  const current = lastResult.attributes.find((a) => a.group === key)?.label;
+  const opts = group.labels.filter((l) => !l.hidden || l.ko === '확인 불가')
+    .map((l) => `<option value="${esc(l.ko)}" ${l.ko === current ? 'selected' : ''}>${esc(l.ko)}</option>`).join('');
+  row.insertAdjacentHTML('beforeend', `<select class="fix-sel" aria-label="${esc(group.label)} 정답 고르기"><option value="">정답을 골라 주세요</option>${opts}</select>`);
+  const sel = row.querySelector('select'); sel.focus();
+  sel.addEventListener('change', () => {
+    if (!sel.value) return;
+    const { list, rec } = fbRecord(lastResult);
+    if (rec.category !== lastResult.category) { sel.remove(); return; } // 카테고리를 바꾼 뒤에는 이 속성들은 맞지 않음
+    rec.labels[key] = [sel.value];
+    if (fbSave(list)) { markFixed(key, sel.value); fbUpdateInfo(); }
+    sel.remove();
+  });
+});
+els.fbCat.addEventListener('change', () => {
+  if (!lastResult) return;
+  const { list, rec } = fbRecord(lastResult);
+  rec.category = els.fbCat.value;
+  if (rec.category !== lastResult.category) {
+    rec.labels = {}; // 다른 카테고리의 속성 라벨은 버린다
+    els.attrs.querySelectorAll('.fixed').forEach((x) => x.remove());
+    setStatus(rec.category === 'other' ? '뷰티 사진이 아니라고 저장했어요' : '카테고리를 고쳤어요. 왼쪽 카테고리 버튼으로 다시 분석하면 속성도 고칠 수 있어요', 100, 'ready');
+  }
+  if (fbSave(list)) fbUpdateInfo();
+});
+els.fbExport.addEventListener('click', () => {
+  const list = fbLoad();
+  if (!list.length) return;
+  const blob = new Blob([list.map((x) => JSON.stringify(x)).join('\n') + '\n'], { type: 'application/x-ndjson' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `beauty-feedback-${new Date().toISOString().slice(0, 10)}.jsonl`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+els.fbClear.addEventListener('click', () => {
+  if (!confirm('이 브라우저에 저장된 피드백을 모두 지울까요?')) return;
+  try { localStorage.removeItem(FB_KEY); } catch { /* ignore */ }
+  els.attrs.querySelectorAll('.fixed').forEach((x) => x.remove());
+  fbUpdateInfo();
+});
 
 // JSON 출력용: 화면 전용 필드 정리
 function slim(r) {
@@ -312,6 +421,10 @@ function slim(r) {
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level,
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
     trends: r.trends, tags: r.tags, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
+    secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,
+      description_ko: r.secondary.description_ko, trends: r.secondary.trends, tags: r.secondary.tags,
+      attributes: r.secondary.attributes.map((a) => ({ group: a.group, label: a.label, score: round(a.score), level: a.level })) },
+    warnings: r.warnings,
   };
 }
 const pct = (x) => `${Math.round(x * 100)}%`;

@@ -6,7 +6,7 @@
 // 를 만든다.
 // 신뢰도 high : 단정 ("~입니다") / mid : "~로 보입니다" / low : "~로 추정됩니다" + 다른 후보
 
-import { TAXONOMY, TONE_WORDS } from './taxonomy.js';
+import { TAXONOMY, TONE_WORDS, CONFIDENCE } from './taxonomy.js';
 
 const MAX_HEDGES = 2; // 설명문 속 불확실성 언급은 최대 2번 (나머지는 막대그래프로 확인)
 let hedgeBudget = MAX_HEDGES;
@@ -26,15 +26,12 @@ export function compose(category, attributes) {
 }
 
 // ---------------------------------------------------------------------------
-// 해시태그: 1위 라벨(확실하면) + 근소한 2위
+// 해시태그: 1위 라벨 (확실할 때만)
 function tagFor(category, attr) {
   const g = TAXONOMY[category].groups.find((x) => x.key === attr.group);
-  const pick = [attr.all[0]];
-  // 여러 개가 동시에 성립할 수 있는 그룹만 근소한 2위도 태그로 (예: 디자인, 장르, 도안)
-  const multi = ['design', 'style', 'subject', 'eye', 'cheek', 'colorTech'].includes(attr.group);
-  if (multi && attr.all[1] && attr.all[1].score >= 0.3 && attr.all[1].score >= attr.all[0].score * 0.7) pick.push(attr.all[1]);
-  return pick
-    .filter((i) => !i.hidden && i.score >= 0.2)
+  // 태그는 1위 라벨만, 트렌드 칩과 같은 기준으로 (보정 확률 0.5 이상)
+  return [attr.all[0]]
+    .filter((i) => !i.hidden && i.score >= CONFIDENCE.mid)
     .map((i) => {
       const def = g.labels.find((l) => l.ko === i.label);
       if (def?.tag === '') return '';
@@ -84,7 +81,8 @@ function hedge(attr) {
   if (!first) return `${attr.group_label}도 확실하지 않아 ${cands}일 가능성이 있어요.`;
   return `다만 ${josa(attr.group_label, '은/는')} 사진만으로 단정하기 어려워 ${cands}일 수도 있어요.`;
 }
-const sure = (attr, min = 0.4) => attr && attr.score >= min;
+const sure = (attr, min = CONFIDENCE.mid) => attr && attr.score >= min; // 보정 확률 0.5 이상 ≈ 82% 적중
+const TREND_MIN = CONFIDENCE.mid; // 트렌드 키워드는 칩으로 단정해 보이므로 같은 기준을 쓴다
 const uniq = (arr) => [...new Set(arr.filter(Boolean))];
 const uniqBy = (arr, f) => { const s = new Set(); return arr.filter((x) => (s.has(f(x)) ? false : s.add(f(x)))); };
 const trend = (name, why) => ({ name, why });
@@ -101,7 +99,7 @@ function toneOf(a) {
   const t = a.tone;
   if (!t) return null;
   const w = TONE_WORDS[t.label];
-  return { ...w, label: t.label, score: t.score, sure: t.score >= 0.45 && t.label !== '뉴트럴' };
+  return { ...w, label: t.label, score: t.score, sure: t.score >= CONFIDENCE.mid && t.label !== '뉴트럴' };
 }
 
 // 타투 장르 설명 (장르 판정 뒤에 한 줄로 덧붙인다)
@@ -151,11 +149,11 @@ const COMPOSERS = {
     // SNS 트렌드 이름 (속성 조합)
     const T = [];
     if (tone?.sure && /브라운|블론드/.test(color.label)) T.push(trend(`${tone.adj} ${color.label}`, '컬러 + 톤'));
-    if (cut.label === '레이어드컷' && /C컬|S컬|빌드/.test(perm.label)) T.push(trend('레이어드펌', '레이어드컷 + 펌'));
-    if (cut.label === '태슬컷' && perm.label === '생머리') T.push(trend('칼단발', '태슬컷 + 생머리'));
-    if (length.label === '단발' && perm.label === 'C컬펌') T.push(trend('단발 C컬펌', '단발 + C컬'));
-    if (cut.label === '허쉬컷' && perm.label !== '생머리') T.push(trend('허쉬컷 펌', '허쉬컷 + 펌'));
-    if (color.label === '흑발' && perm.label === '생머리' && length.label === '긴머리') T.push(trend('흑발 생머리', '청순 헤어의 대명사'));
+    if (cut.label === '레이어드컷' && /C컬|S컬|빌드/.test(perm.label) && sure(cut) && sure(perm)) T.push(trend('레이어드펌', '레이어드컷 + 펌'));
+    if (cut.label === '태슬컷' && perm.label === '생머리' && sure(cut) && sure(perm)) T.push(trend('칼단발', '태슬컷 + 생머리'));
+    if (length.label === '단발' && perm.label === 'C컬펌' && sure(length) && sure(perm)) T.push(trend('단발 C컬펌', '단발 + C컬'));
+    if (cut.label === '허쉬컷' && perm.label !== '생머리' && sure(cut)) T.push(trend('허쉬컷 펌', '허쉬컷 + 펌'));
+    if (color.label === '흑발' && perm.label === '생머리' && length.label === '긴머리' && sure(color) && sure(perm) && sure(length)) T.push(trend('흑발 생머리', '청순 헤어의 대명사'));
     if (/빌드펌|히피펌/.test(perm.label) && sure(perm)) T.push(trend(perm.label, '펌'));
     if (/히메컷|허쉬컷|태슬컷|울프컷/.test(cut.label) && sure(cut)) T.push(trend(cut.label, '커트'));
     if (colorTech.label === '이너컬러' && sure(colorTech)) T.push(trend('이너컬러', '컬러 기법'));
@@ -191,13 +189,13 @@ const COMPOSERS = {
     const T = [];
     // 반사광 마감만으로는 부족하고, 크롬 디자인 · 실버 컬러 · 쇠맛 무드 중 하나가 뚜렷해야 한다
     const soemat = Math.max(P('design', '크롬'), P('color', '실버'), P('mood', '쇠맛')) + 0.3 * P('finish', '메탈릭');
-    if (soemat >= 0.45) T.push(trend('쇠맛 네일', '차갑고 메탈릭한 크롬·실버'));
-    if (P('design', '자석') >= 0.3) T.push(trend('자석 네일', '빛에 따라 움직이는 캣아이'));
-    if (P('design', '오로라') >= 0.3) T.push(trend('오로라 네일', '각도마다 색이 바뀌는 오로라'));
-    if (P('design', '글레이즈드') >= 0.3) T.push(trend('글레이즈드 네일', '도넛처럼 은은한 펄 광택'));
-    if (P('design', '시럽') >= 0.3 || P('finish', '투명·쉬어') >= 0.5) T.push(trend('시럽 네일', '맑게 비치는 젤리 컬러'));
-    if (P('design', '치크') >= 0.3) T.push(trend('치크 네일', '볼터치처럼 물든 컬러'));
-    if (/프렌치|그라데이션|마블|원컬러|글리터|파츠|드로잉|체크|플라워/.test(design.label) && sure(design, 0.3)) T.push(trend(`${design.label} 네일`, '디자인'));
+    if (soemat >= TREND_MIN) T.push(trend('쇠맛 네일', '차갑고 메탈릭한 크롬·실버'));
+    if (P('design', '자석') >= TREND_MIN) T.push(trend('자석 네일', '빛에 따라 움직이는 캣아이'));
+    if (P('design', '오로라') >= TREND_MIN) T.push(trend('오로라 네일', '각도마다 색이 바뀌는 오로라'));
+    if (P('design', '글레이즈드') >= TREND_MIN) T.push(trend('글레이즈드 네일', '도넛처럼 은은한 펄 광택'));
+    if (P('design', '시럽') >= TREND_MIN || P('finish', '투명·쉬어') >= 0.6) T.push(trend('시럽 네일', '맑게 비치는 젤리 컬러'));
+    if (P('design', '치크') >= TREND_MIN) T.push(trend('치크 네일', '볼터치처럼 물든 컬러'));
+    if (/프렌치|그라데이션|마블|원컬러|글리터|파츠|드로잉|체크|플라워/.test(design.label) && sure(design)) T.push(trend(`${design.label} 네일`, '디자인'));
     if (mood.label === '오피스' && sure(mood)) T.push(trend('오피스 네일', '출근룩에도 무난한'));
     if (mood.label === '웨딩' && sure(mood)) T.push(trend('웨딩 네일', '웨딩 촬영·본식용'));
     const lead = T.find((t) => /쇠맛|자석|오로라|글레이즈드|시럽|치크/.test(t.name));
@@ -239,17 +237,17 @@ const COMPOSERS = {
     }
 
     const T = [];
-    if (P('mood', '쇠맛') >= 0.3) T.push(trend('쇠맛 메이크업', '차갑고 메탈릭한 사이버 무드'));
-    if (P('base', '물광') >= 0.45) T.push(trend('물광 메이크업', '촉촉한 물광 피부'));
-    if (P('base', '윤광') >= 0.45) T.push(trend('윤광 메이크업', '은은한 윤광 피부'));
-    if (P('mood', '과즙') >= 0.3) T.push(trend('과즙 메이크업', '생기 있는 볼과 입술'));
-    if (P('mood', '음영') >= 0.3) T.push(trend('음영 메이크업', '브라운 음영'));
-    if (P('mood', '청순') >= 0.3) T.push(trend('청순 메이크업', '맑은 피부와 핑크 톤'));
-    if (P('cheek', '홍조 블러셔') >= 0.4) T.push(trend('홍조 메이크업', '코와 볼에 번진 블러셔'));
-    if (P('lipTexture', '블러립') >= 0.35) T.push(trend('블러립', '경계를 흐린 입술'));
-    if (P('lipTexture', '그라데이션립') >= 0.35) T.push(trend('그라데이션립', '안쪽부터 번지는 입술'));
-    if (P('eye', '캣아이라인') >= 0.35) T.push(trend('고양이 눈매', '올려 뺀 아이라인'));
-    if (P('eye', '강아지 눈매') >= 0.35) T.push(trend('강아지 눈매', '처지게 뺀 아이라인'));
+    if (P('mood', '쇠맛') >= TREND_MIN) T.push(trend('쇠맛 메이크업', '차갑고 메탈릭한 사이버 무드'));
+    if (P('base', '물광') >= TREND_MIN) T.push(trend('물광 메이크업', '촉촉한 물광 피부'));
+    if (P('base', '윤광') >= TREND_MIN) T.push(trend('윤광 메이크업', '은은한 윤광 피부'));
+    if (P('mood', '과즙') >= TREND_MIN) T.push(trend('과즙 메이크업', '생기 있는 볼과 입술'));
+    if (P('mood', '음영') >= TREND_MIN) T.push(trend('음영 메이크업', '브라운 음영'));
+    if (P('mood', '청순') >= TREND_MIN) T.push(trend('청순 메이크업', '맑은 피부와 핑크 톤'));
+    if (P('cheek', '홍조 블러셔') >= TREND_MIN) T.push(trend('홍조 메이크업', '코와 볼에 번진 블러셔'));
+    if (P('lipTexture', '블러립') >= TREND_MIN) T.push(trend('블러립', '경계를 흐린 입술'));
+    if (P('lipTexture', '그라데이션립') >= TREND_MIN) T.push(trend('그라데이션립', '안쪽부터 번지는 입술'));
+    if (P('eye', '캣아이라인') >= TREND_MIN) T.push(trend('고양이 눈매', '올려 뺀 아이라인'));
+    if (P('eye', '강아지 눈매') >= TREND_MIN) T.push(trend('강아지 눈매', '처지게 뺀 아이라인'));
     if (tone?.sure && tone.label !== '뉴트럴') T.push(trend(`${tone.label} 메이크업`, '퍼스널컬러'));
     const lead = T[0];
     if (lead && !/톤 메이크업/.test(lead.name)) s.push(`요즘 SNS에서 말하는 '${lead.name}'에 가까워요.`);

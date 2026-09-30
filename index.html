@@ -82,9 +82,29 @@
           </div>
           <div class="headline hidden" id="headline"></div>
           <p class="desc" id="desc"></p>
+          <details class="secondary hidden" id="secondary">
+            <summary><span id="secTitle"></span></summary>
+            <p class="desc" id="secDesc"></p>
+            <div class="chips" id="secTags"></div>
+          </details>
 
           <h3>속성별 판단 근거</h3>
           <div class="attrs" id="attrs"></div>
+          <div class="feedback" id="feedback">
+            <div class="fb-row">
+              <span>결과가 틀렸나요? 항목 옆 <b>✎</b> 로 고쳐 주세요.</span>
+              <label class="fb-cat">카테고리
+                <select id="fbCat"></select>
+              </label>
+            </div>
+            <div class="fb-row">
+              <small id="fbInfo">고친 내용은 사진 없이 특징값만 이 브라우저에 저장됩니다.</small>
+              <span class="fb-actions">
+                <button class="ghost small" id="fbExport" disabled>피드백 내보내기</button>
+                <button class="ghost small" id="fbClear" disabled>지우기</button>
+              </span>
+            </div>
+          </div>
 
           <h3>해시태그</h3>
           <div class="chips" id="tags"></div>

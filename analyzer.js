@@ -15,8 +15,10 @@ import { TAXONOMY, CATEGORY_ORDER, CONFIDENCE, OTHER_DETECT } from './taxonomy.j
 import { loadVisionEncoder, loadTextEncoder, flipHorizontal, normalize } from './encoders.js';
 import { compose } from './describe.js';
 
-export const DEFAULT_MODEL = 'Xenova/clip-vit-large-patch14';
+export const DEFAULT_MODEL = 'Marqo/marqo-fashionSigLIP'; // 권장 기본 모델 (heads/ · embeddings/ 와 짝)
 const LOGIT_SCALE = 100; // 제로샷 소프트맥스 온도 (CLIP 의 exp(logit_scale))
+
+const SECONDARY_MIN = 0.25; // 2위 카테고리 확률이 이 이상이면 '함께 보이는 스타일'로 함께 설명
 
 export async function createAnalyzer({
   model = DEFAULT_MODEL,
@@ -43,6 +45,8 @@ export async function createAnalyzer({
     index = (await buildLabelIndex({ model, onProgress })).index;
   }
   const headIndex = useHeads ? decodeHeads(heads) : {};
+  // 확률 보정 온도 (학습 때 폴드 밖 예측으로 맞춘 값). 표시 확률이 실제 적중률에 가깝도록 한다
+  const calib = useHeads ? heads.calib || {} : {};
   progress({ status: 'ready' });
 
   async function embedImage(source) {
@@ -57,10 +61,30 @@ export async function createAnalyzer({
   function groupProbs(key, vec, textEmbs) {
     const zs = softmax(textEmbs.map((e) => dot(vec, e) * LOGIT_SCALE));
     const h = headIndex[key];
-    if (!h) return zs;
-    const logits = h.W.map((row, i) => dot(vec, row) + h.b[i]);
-    const hp = softmax(logits);
-    return hp.map((p, i) => h.alpha * p + (1 - h.alpha) * zs[i]);
+    let p = zs;
+    if (h) {
+      const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
+      p = hp.map((x, i) => h.alpha * x + (1 - h.alpha) * zs[i]);
+    }
+    const t = calib[key];
+    return t ? softmax(p.map((x) => Math.log(Math.max(x, 1e-12)) / t)) : p;
+  }
+
+  // 한 카테고리의 속성 그룹별 결과 (확률 높은 순 후보 · 신뢰도 단계)
+  function attributesFor(cat, vec, topk) {
+    const def = TAXONOMY[cat];
+    const dist = {};
+    for (const g of def.groups) dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key]);
+    fuseTone(def, dist);
+    return def.groups.map((g) => {
+      const items = g.labels
+        .map((l, i) => ({ label: l.ko, label_en: l.en, score: dist[g.key][i], hidden: !!l.hidden, tone: l.tone }))
+        .sort((a, b) => b.score - a.score);
+      const top = items[0];
+      const level = top.score >= CONFIDENCE.high ? 'high' : top.score >= CONFIDENCE.mid ? 'mid' : 'low';
+      return { group: g.key, group_label: g.label, label: top.label, label_en: top.label_en, score: top.score, level,
+        alternatives: items.slice(1, topk), all: items };
+    });
   }
 
   async function analyze(source, { category = 'auto', topk = 3 } = {}) {
@@ -70,6 +94,7 @@ export async function createAnalyzer({
     // 카테고리 판별 (학습 헤드 'category' 가 있으면 함께 사용)
     const detectSims = CATEGORY_ORDER.map((cat) => Math.max(...index[cat].detect.map((e) => dot(vec, e))));
     let catProbs = softmax(detectSims.map((s) => s * LOGIT_SCALE));
+    const zsCatProbs = catProbs; // 제로샷 카테고리 확률 (함께 보이는 스타일 판단용: 카테고리마다 따로 보이는 정도)
     if (headIndex.category) {
       const h = headIndex.category;
       const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
@@ -90,31 +115,25 @@ export async function createAnalyzer({
     }
     const chosen = category === 'auto' ? catRanked[0].key : category;
     const def = TAXONOMY[chosen];
-
-    const dist = {};
-    for (const g of def.groups) dist[g.key] = groupProbs(`${chosen}.${g.key}`, vec, index[chosen].groups[g.key]);
-    fuseTone(def, dist);
-
-    const attributes = def.groups.map((g) => {
-      const items = g.labels
-        .map((l, i) => ({ label: l.ko, label_en: l.en, score: dist[g.key][i], hidden: !!l.hidden, tone: l.tone }))
-        .sort((a, b) => b.score - a.score);
-      const top = items[0];
-      const level = top.score >= CONFIDENCE.high ? 'high' : top.score >= CONFIDENCE.mid ? 'mid' : 'low';
-      return {
-        group: g.key,
-        group_label: g.label,
-        label: top.label,
-        label_en: top.label_en,
-        score: top.score,
-        level,
-        alternatives: items.slice(1, topk),
-        all: items,
-      };
-    });
-
+    const attributes = attributesFor(chosen, vec, topk);
     const text = compose(chosen, attributes);
     const confidence = attributes.reduce((s, a) => s + a.score, 0) / attributes.length;
+
+    // 함께 보이는 스타일: 얼굴 사진에는 헤어와 메이크업이 같이 나오는 경우가 많다.
+    // 2위 카테고리도 충분히 뚜렷하면 같은 임베딩으로 한 번 더 분석한다 (추가 비용 거의 없음)
+    let secondary = null;
+    // 학습된 카테고리 헤드는 '주제 하나'를 고르도록 학습돼 2위 확률이 매우 낮다. 그래서 제로샷 확률로 판단한다
+    const second = CATEGORY_ORDER.map((key, i) => ({ key, score: zsCatProbs[i] })).filter((c) => c.key !== chosen)
+      .sort((a, b) => b.score - a.score)[0];
+    if (category === 'auto' && second && second.score >= SECONDARY_MIN) {
+      const attrs2 = attributesFor(second.key, vec, topk);
+      const t2 = compose(second.key, attrs2);
+      secondary = { category: second.key, category_label: TAXONOMY[second.key].label, score: second.score, attributes: attrs2,
+        genre: t2.genre, headline: t2.headline, description_ko: t2.description, sentences: t2.sentences, tags: t2.tags, trends: t2.trends };
+    }
+    // 사진 품질 안내: 너무 작은 사진은 세부 속성을 읽기 어렵다
+    const warnings = [];
+    if (Math.min(image.width, image.height) < 224) warnings.push('사진이 작아 세부 판단이 부정확할 수 있어요. 더 큰 사진을 권장합니다.');
 
     return {
       category: chosen,
@@ -131,10 +150,15 @@ export async function createAnalyzer({
       tags: text.tags,
       trends: text.trends,
       confidence,
+      secondary,
+      warnings,
       elapsed_ms: Math.round(now() - t0),
       image_size: { width: image.width, height: image.height },
       model,
       trained_heads: Object.keys(headIndex).length,
+      // 피드백 학습용 특징값 (사진 대신 저장한다). JSON 출력에는 넣지 않는다
+      embedding: vec,
+      taxonomy_hash: hash,
     };
   }
 
