@@ -30,9 +30,14 @@ If a photo on a sheet is clearly a different beauty category than the sheet's ca
   Hair down → omit styling. `bangs` = "확인 불가" for back views or when the forehead is hidden.
   `tone` only for dyed/colored hair that clearly leans cool (ash, blue, violet) or warm (gold, orange, red).
 - makeup: judge the face. `base` only if skin finish is clearly visible. `lipTexture`, `cheek`, `tone`
-  only if clearly visible. `eye` describes the dominant eye makeup. Bare face with no visible makeup → "x".
-- nail: `shape` and `length` only if nail tips are clearly visible. `design` is the main technique;
-  plain single color = "원컬러". Toe nails are allowed (skip shape/length for toes).
+  only if clearly visible. Bare face with no visible makeup → "x".
+  `eye` = eyeshadow only (섀도 없음 for bare lids), `eyeLine` = eyeliner only (내추럴 라인 when thin or none),
+  `lash` = lashes (내추럴 속눈썹 unless clearly emphasized), `brow` = 일자 / 아치 / 탈색 when the brows are visible,
+  `detail` = face gems or drawn freckles (포인트 없음 when the face clearly has neither).
+  `cheek`: 홍조 블러셔 spreads across the cheeks and over the nose bridge; 숙취 블러셔 sits high, right under the eyes.
+- nail: `part` is always 핸드 or 패디. `shape` and `length` only if nail tips are clearly visible. `design` is the main
+  technique; plain single color = "원컬러". `layout` (동일디자인 / 원포인트 / 퐁당퐁당 / 오마카세) only when 3 or more nails
+  are visible. Toe nails are allowed (skip shape/length for toes).
 - tattoo: `style` is the genre; `color` is ink color; `placement` only if the body part is identifiable;
   `size` relative to the body part. Henna, scars, body paint, stickers → "x". A tattoo artist at work
   where the tattoo is not visible → "x".
@@ -50,4 +55,9 @@ If a photo on a sheet is clearly a different beauty category than the sheet's ca
 - `labeler: "claude"` — labeled by Claude viewing each photo (batches 1, 2, 4).
 - `labeler: "claude-agent"` — labeled by assistant agents following these rules (batch 3); used only for the attribute
   groups where it improved accuracy on held-out claude labels.
+- `review: "v2"` — after the label set grew from 215 to 324 labels (see `docs/LABEL_RESEARCH.md`), every photo was
+  reviewed again by assistant agents against the v2 list, starting from its v1 labels. Renamed or split v1 labels are
+  kept as candidate sets when a group was not reviewed (for example 등 → 등 / 날개뼈 / 척추 / 허리·골반).
+- `batch: "6"` — photos found in the unlabeled crawl pool as candidates for v2 labels that had no training photos,
+  labeled by assistant agents (171 kept of 644 candidates; the rest were not usable beauty photos).
 - No labels have been reviewed by human beauty professionals yet.

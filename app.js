@@ -301,7 +301,7 @@ function render(r) {
   els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = r.sentences
-    .map((s) => (/가능성도|단정하기 어렵|추정|확실하지 않/.test(s) ? `<span class="hedge">${esc(s)}</span>` : esc(s)))
+    .map((s) => (/가능성|단정하기 어렵|추정|확실하지 않|헷갈릴/.test(s) ? `<span class="hedge">${esc(s)}</span>` : esc(s)))
     .join(' ');
 
   els.attrs.innerHTML = r.attributes.map((a) => `
