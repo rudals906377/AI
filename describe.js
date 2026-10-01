@@ -121,18 +121,27 @@ const GENRE_INFO = {
   미니멀: '작고 단순한 선과 면으로 상징만 남기는 장르',
   블랙워크: '검은 잉크로 면을 넓게 채워 강한 대비를 주는 장르',
   블랙앤그레이: '검정과 회색 음영만으로 입체감을 살리는 장르',
-  '컬러 리얼리즘': '사진처럼 사실적인 묘사를 컬러로 표현하는 장르',
+  리얼리즘: '사진처럼 사실적인 빛과 질감을 살리는 장르',
+  두들: '낙서한 듯 삐뚤빼뚤한 선으로 가볍게 그리는 장르',
+  블랙아웃: '넓은 면을 검은 잉크로 꽉 채우는 장르',
+  치카노: '부드러운 회색 음영과 필기체 레터링이 특징인 멕시코계 미국 장르',
+  애니: '애니메이션 캐릭터를 깔끔한 선과 평면 채색으로 옮기는 장르',
+  동양화: '먹의 번짐과 붓 터치를 살린 수묵화 느낌의 장르',
+  지오메트릭: '직선 · 원 · 삼각형을 정교하게 맞춰 짜는 기하학 장르',
+  오너멘탈: '레이스나 장신구처럼 좌우 대칭의 장식 문양을 새기는 장르',
+  네오트라이벌: '가시처럼 뾰족하게 끝나는 굵은 검은 곡선의 Y2K 감성 장르',
+  트래쉬폴카: '검은 사실 묘사에 붉은 잉크 번짐을 콜라주처럼 더하는 장르',
   올드스쿨: '굵은 외곽선과 빨강·초록·노랑 같은 원색을 쓰는 미국 전통 장르',
   네오트래디셔널: '올드스쿨의 굵은 선에 풍부한 색감과 장식적 디테일을 더한 장르',
   뉴스쿨: '만화처럼 과장된 형태와 강렬한 컬러가 특징인 장르',
   이레즈미: '용·잉어·파도·모란 같은 소재를 넓은 부위에 새기는 일본 전통 장르',
   수채화: '물감이 번진 듯한 색 번짐과 붓 터치를 살린 장르',
   일러스트: '펜 드로잉이나 스케치 같은 그림체를 살린 장르',
-  도트워크: '수많은 점을 찍어 만다라나 기하학 패턴을 만드는 장르',
+  도트워크: '수많은 작은 점으로 음영과 무늬를 만드는 장르',
   트라이벌: '폴리네시아·마오리 같은 부족 문양을 굵은 검은 패턴으로 표현하는 장르',
   사이버시길리즘: '가시처럼 날카롭고 가느다란 곡선이 흐르는 사이버 감성 장르',
 };
-const COLOR_PHRASE = { 블랙: '검은 잉크 선 위주로', 블랙앤그레이: '블랙앤그레이 음영으로', 풀컬러: '선명한 풀컬러로', 포인트컬러: '블랙에 포인트 컬러를 더해' };
+const COLOR_PHRASE = { 블랙: '검은 잉크 선 위주로', 블랙앤그레이: '블랙앤그레이 음영으로', 풀컬러: '선명한 풀컬러로', 포인트컬러: '블랙에 포인트 컬러를 더해', 레드: '붉은 잉크만으로', 파스텔: '부드러운 파스텔 컬러로' };
 
 // ---------------------------------------------------------------------------
 const COMPOSERS = {
@@ -186,7 +195,7 @@ const COMPOSERS = {
   nail(a, P) {
     const { shape, length, color, design, finish, mood } = a;
     const s = [];
-    const lenPhrase = { 숏네일: '짧고 깔끔한 숏네일', 미디엄: '적당한 미디엄 길이', 롱네일: '길게 연장한 롱네일' }[length.label];
+    const lenPhrase = { 숏네일: '짧고 깔끔한 숏네일', 미디엄: '적당한 미디엄 길이', 롱네일: '길게 연장한 롱네일' }[length.label] ?? length.label;
     s.push(`${lenPhrase}에 ${shape.label} 쉐입, ${color.label} 컬러를 올린 ${said(`${design.label} 네일`, weakest(design, shape, length, color))}.`);
     s.push(hedge(design));
     s.push(hedge(shape));
@@ -194,7 +203,7 @@ const COMPOSERS = {
     if (second && second.score >= 0.2 && second.score >= design.score * 0.5) s.push(`${second.label} 느낌도 함께 보여요.`);
     const finishPhrase = {
       유광: '반짝이는 유광', 매트: '보송한 매트', 메탈릭: '거울처럼 반사되는 메탈릭', '투명·쉬어': '속이 비치는 맑은', '펄·쉬머': '은은하게 빛나는 펄',
-    }[finish.label];
+    }[finish.label] ?? finish.label;
     s.push(detail(finish, `마감은 ${finishPhrase} 마감이에요.`, `마감은 ${finishPhrase} 마감으로 보여요.`));
     s.push(detail(mood, `전체적으로 ${mood.label} 무드의 네일이에요.`, `전체적으로 ${mood.label} 무드에 가까워요.`));
 
@@ -234,14 +243,17 @@ const COMPOSERS = {
     const moodPhrase = {
       데일리: '힘을 뺀 데일리', 청순: '맑고 깨끗한 청순', 음영: '브라운 톤으로 입체감을 준 음영', 과즙: '생기가 도는 과즙', 글램: '화려한 글램',
       스모키: '깊고 강렬한 스모키', 쇠맛: '차갑고 메탈릭한 쇠맛', 레트로: '클래식한 레트로', 웨딩: '우아한 웨딩', 아트: '개성 강한 아트',
-    }[mood.label];
+      걸크러시: '당당하고 강렬한 걸크러시', Y2K: '반짝이는 2000년대 감성의 Y2K', 갸루: '눈매를 크게 키운 갸루', '고딕·뱀파이어': '어둡고 퇴폐적인 고딕·뱀파이어',
+      '할로윈·특수분장': '특수효과를 더한 할로윈', '남자 메이크업': '자연스럽게 다듬은 남자',
+    }[mood.label] ?? mood.label;
     s.push(`${said(`${moodPhrase} 메이크업`, mood)}.`);
     s.push(hedge(mood));
-    const basePhrase = { 물광: '물기를 머금은 듯 촉촉한 물광', 윤광: '은은하게 빛나는 윤광', 세미매트: '자연스러운 세미매트', '보송 매트': '보송하게 정돈한 매트' }[base.label];
+    const basePhrase = { 물광: '물기를 머금은 듯 촉촉한 물광', 윤광: '은은하게 빛나는 윤광', 세미매트: '자연스러운 세미매트', '보송 매트': '보송하게 정돈한 매트' }[base.label] ?? base.label;
     s.push(detail(base, `피부는 ${basePhrase} 피부로 표현했어요.`, `피부는 ${basePhrase} 피부에 가까워요.`));
     s.push(detail(eye, `눈은 ${josa(eye.label, '으로/로')} 포인트를 줬어요.`, `눈은 ${josa(eye.label, '으로/로')} 포인트를 준 것으로 보여요.`));
     if (eye.level !== 'low') s.push(hedge(eye));
-    const texPhrase = { 글로시: '촉촉한 글로시', 매트: '벨벳 같은 매트', 블러립: '경계를 흐린 블러립', 그라데이션립: '안쪽부터 번지는 그라데이션립', 오버립: '입술선을 살짝 넘긴 오버립' }[lipTexture.label];
+    const texPhrase = { 글로시: '촉촉한 글로시', 매트: '벨벳 같은 매트', 블러립: '경계를 흐린 블러립', 그라데이션립: '안쪽부터 번지는 그라데이션립', 오버립: '입술선을 살짝 넘긴 오버립',
+      '립라인 강조': '라이너로 테두리를 살린 립라인', '프로스티드 립': '펄이 도는 프로스티드' }[lipTexture.label] ?? lipTexture.label;
     if (lipTexture.level === 'low') s.push(detail(lip, `입술은 ${lip.label} 컬러예요.`, `입술은 ${lip.label} 컬러로 보여요.`));
     else s.push(detail(weakest(lip, lipTexture), `입술은 ${lip.label} 컬러를 ${josa(texPhrase, '으로/로')} 연출했어요.`, `입술은 ${lip.label} 컬러를 ${josa(texPhrase, '으로/로')} 연출한 것으로 보여요.`));
     if (lip.level !== 'low') s.push(hedge(lip));
@@ -260,8 +272,8 @@ const COMPOSERS = {
     if (P('cheek', '홍조 블러셔') >= TREND_MIN) T.push(trend('홍조 메이크업', '코와 볼에 번진 블러셔'));
     if (P('lipTexture', '블러립') >= TREND_MIN) T.push(trend('블러립', '경계를 흐린 입술'));
     if (P('lipTexture', '그라데이션립') >= TREND_MIN) T.push(trend('그라데이션립', '안쪽부터 번지는 입술'));
-    if (P('eye', '캣아이라인') >= TREND_MIN) T.push(trend('고양이 눈매', '올려 뺀 아이라인'));
-    if (P('eye', '강아지 눈매') >= TREND_MIN) T.push(trend('강아지 눈매', '처지게 뺀 아이라인'));
+    if (P('eyeLine', '캣아이라인') >= TREND_MIN) T.push(trend('고양이 눈매', '올려 뺀 아이라인'));
+    if (P('eyeLine', '강아지 라인') >= TREND_MIN) T.push(trend('강아지 눈매', '처지게 뺀 아이라인'));
     if (tone?.sure && tone.label !== '뉴트럴') T.push(trend(`${tone.label} 메이크업`, '퍼스널컬러'));
     const lead = T[0];
     if (lead && !/톤 메이크업/.test(lead.name)) s.push(`요즘 SNS에서 말하는 '${lead.name}'에 가까워요.`);
