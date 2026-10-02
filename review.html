@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>전문가 검수 도구 · 뷰티 스타일 AI 설명기</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f4efe8" />
+  <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    .rv-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; align-items: end; }
+    .rv-top label { display: grid; gap: 4px; font-size: 0.82rem; color: var(--muted); }
+    .rv-top input, .rv-top select { width: 100%; min-width: 0; font: inherit; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--card); color: var(--text); }
+    .rv-grid { display: grid; grid-template-columns: 200px minmax(0, 1fr) 320px; gap: 16px; margin-top: 16px; align-items: start; }
+    @media (max-width: 1100px) { .rv-grid { grid-template-columns: 1fr; } }
+    .rv-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 6px; max-height: 70vh; overflow: auto; }
+    .rv-list button { position: relative; aspect-ratio: 1; padding: 0; border: 0; border-radius: 6px; overflow: hidden; background: var(--bg-2); cursor: pointer; font-size: 0.7rem; color: var(--muted); }
+    .rv-list button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .rv-list button.cur { box-shadow: 0 0 0 2.5px var(--mocha); }
+    .rv-list button.done::after { content: "완료"; position: absolute; right: 2px; bottom: 2px; background: var(--accent); color: var(--on-accent); font-size: 0.62rem; padding: 1px 4px; border-radius: 4px; }
+    .rv-photo { width: 100%; max-height: 52vh; object-fit: contain; border-radius: 8px; background: var(--bg-2); display: block; }
+    .rv-missing { padding: 40px 12px; text-align: center; color: var(--muted); background: var(--bg-2); border-radius: 8px; font-size: 0.9rem; }
+    .rv-cat { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 12px 0 4px; font-size: 0.9rem; }
+    .rv-cat select { font: inherit; padding: 6px 8px; border-radius: 7px; border: 1px solid var(--line-2); background: var(--card); color: var(--text); }
+    .rv-row { display: grid; grid-template-columns: 90px minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; padding: 9px 0; border-top: 1px solid var(--line); }
+    .rv-row .g { color: var(--muted); font-size: 0.84rem; }
+    .rv-row .p b { font-size: 0.95rem; }
+    .rv-row .p small { color: var(--muted); margin-left: 6px; font-variant-numeric: tabular-nums; }
+    .rv-row .p .lv { font-size: 0.72rem; padding: 1px 6px; border-radius: 4px; background: var(--bg-2); color: var(--muted); margin-left: 6px; }
+    .rv-row .d { grid-column: 2 / 4; color: var(--muted); font-size: 0.78rem; }
+    .rv-row .v { display: inline-flex; gap: 4px; }
+    .rv-row .v button { font: inherit; font-size: 0.8rem; padding: 5px 9px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--card); color: var(--text); cursor: pointer; }
+    .rv-row .v button.on[data-v="ok"] { background: var(--ok); border-color: var(--ok); color: #fff; }
+    .rv-row .v button.on[data-v="wrong"] { background: #a8584a; border-color: #a8584a; color: #fff; }
+    .rv-row .v button.on[data-v="skip"] { background: var(--bg-2); color: var(--muted); }
+    .rv-row select { grid-column: 2 / 4; font: inherit; font-size: 0.88rem; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--card); color: var(--text); }
+    .rv-stats table { width: 100%; border-collapse: collapse; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+    .rv-stats th, .rv-stats td { padding: 5px 4px; border-bottom: 1px solid var(--line); text-align: right; }
+    .rv-stats th:first-child, .rv-stats td:first-child { text-align: left; }
+    .rv-stats .big { font-size: 1.6rem; font-weight: 800; }
+    .rv-help { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    kbd { font: inherit; font-size: 0.74rem; border: 1px solid var(--line-2); border-radius: 4px; padding: 0 4px; background: var(--card); }
+  </style>
+  <script type="importmap">
+    { "imports": { "@huggingface/transformers": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0/dist/transformers.min.js" } }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <h1>전문가 검수 도구</h1>
+        <p>디자이너 · 네일리스트 · 메이크업 아티스트 · 타투이스트가 AI 결과를 항목별로 맞음 · 틀림으로 표시합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
+      </div>
+      <div class="status" id="status"><span class="dot"></span><span id="statusText">모델 준비 중…</span><span class="progress"><i id="statusBar"></i></span></div>
+    </header>
+
+    <section class="card">
+      <div class="rv-top">
+        <label>검수자 이름 <input id="reviewer" placeholder="예: 김OO 원장" autocomplete="name" /></label>
+        <label>전문 분야
+          <select id="field"><option value="">선택</option><option value="hair">헤어</option><option value="nail">네일</option><option value="makeup">메이크업</option><option value="tattoo">타투</option></select>
+        </label>
+        <label>카테고리
+          <select id="catMode"><option value="auto">자동 판별</option><option value="hair">헤어</option><option value="nail">네일</option><option value="makeup">메이크업</option><option value="tattoo">타투</option></select>
+        </label>
+        <label>분석 모델
+          <select id="model"><option value="base">기본 · FashionSigLIP</option><option value="large">정밀 · SigLIP-L/384</option></select>
+        </label>
+        <div class="row" style="margin:0">
+          <button class="primary" id="add" type="button">사진 여러 장 추가</button>
+          <input type="file" id="files" accept="image/*" multiple hidden />
+        </div>
+      </div>
+      <p class="rv-help">검수 기록은 이 브라우저에 저장됩니다 (사진은 저장하지 않고 특징값만). 새로 고침한 뒤에는 같은 사진을 다시 추가하면 이어서 볼 수 있어요.
+        단축키: <kbd>1</kbd> 맞음 · <kbd>2</kbd> 틀림 · <kbd>3</kbd> 판단 불가 (위에서부터 비어 있는 항목) · <kbd>Enter</kbd> 남은 항목 모두 맞음 후 다음 · <kbd>←</kbd> <kbd>→</kbd> 이동</p>
+    </section>
+
+    <div class="rv-grid">
+      <section class="card"><h2>사진 <small id="count"></small></h2><div class="rv-list" id="list"></div></section>
+      <section class="card" id="main"><h2>검수</h2><p class="note">사진을 추가하면 차례대로 분석합니다.</p></section>
+      <section class="card rv-stats">
+        <h2>정확도</h2>
+        <div id="stats"><p class="note">아직 검수한 항목이 없어요.</p></div>
+        <div class="row">
+          <button class="ghost small" id="exportJsonl" type="button">학습용 JSONL</button>
+          <button class="ghost small" id="exportCsv" type="button">항목별 CSV</button>
+          <button class="ghost small" id="exportSum" type="button">요약 CSV</button>
+          <button class="ghost small" id="clear" type="button">기록 지우기</button>
+        </div>
+        <p class="rv-help">학습용 JSONL 은 <code>python3 tools/train-heads.py ... --feedback 파일.jsonl</code> 로 바로 다시 학습할 수 있어요. 요약 CSV 는 성능 보고서(docs/MODEL_CARD.md)에 붙일 수 있어요.</p>
+      </section>
+    </div>
+    <footer><a href="./">설명기로 돌아가기</a></footer>
+  </div>
+  <script type="module" src="./review.js"></script>
+</body>
+</html>

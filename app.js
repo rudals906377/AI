@@ -4,6 +4,8 @@ import { createAnalyzer } from './analyzer.js';
 import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
+import { buildOrder, swatchText } from './order.js';
+import { extractColors, COLOR_TARGETS } from './colors.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -35,7 +37,11 @@ const els = {
   copyText: $('copyText'), copyJson: $('copyJson'), meta: $('meta'), json: $('json'), clipName: $('clipName'),
   fbCat: $('fbCat'), fbExport: $('fbExport'), fbClear: $('fbClear'), fbInfo: $('fbInfo'),
   secondary: $('secondary'), secTitle: $('secTitle'), secDesc: $('secDesc'), secTags: $('secTags'),
-  inputCard: $('inputCard'), resultCard: $('resultCard'), fab: $('fab'), toast: $('toast'),
+  inputCard: $('inputCard'), resultCard: $('resultCard'), fab: $('fab'), toast: $('toast'), genreDef: $('genreDef'),
+  colorBlock: $('colorBlock'), colorMeta: $('colorMeta'), swatches: $('swatches'),
+  orderBlock: $('orderBlock'), orderTo: $('orderTo'), orderGenre: $('orderGenre'), orderRows: $('orderRows'),
+  orderChecks: $('orderChecks'), orderNotes: $('orderNotes'), orderCopy: $('orderCopy'), orderSave: $('orderSave'),
+  similarBlock: $('similarBlock'), similar: $('similar'),
 };
 // ---- 상태 ---------------------------------------------------------------------
 let analyzer = null;      // CLIP
@@ -45,6 +51,8 @@ let describerLoading = null;
 let currentBlob = null;   // 현재 선택된 이미지 (Blob)
 let currentCategory = 'auto';
 let lastResult = null;
+let lastOrder = null;     // 시술 요청서 (복사 · 이미지 저장용)
+let samples = [];         // 예시 사진 목록 (manifest)
 let webgpu = false;       // WebGPU 사용 가능 여부
 let f16 = false;          // WebGPU shader-f16 지원 여부
 
@@ -138,7 +146,7 @@ async function loadAnalyzer(key) {
 
 async function loadSamples() {
   try {
-    const list = await (await fetch('./samples/manifest.json')).json();
+    const list = samples = await (await fetch('./samples/manifest.json')).json();
     const cats = CATEGORY_ORDER.filter((c) => list.some((s) => s.category === c));
     // 카테고리 탭: 한 번에 한 카테고리의 예시만 보여 준다 (사진이 많아도 화면이 길어지지 않게)
     const show = (cat) => {
@@ -160,17 +168,23 @@ async function loadSamples() {
       // 일반 img 요청은 막힌다. CORS 모드로 받으면 CDN 이 허용 헤더를 주므로 정상 표시된다.
       // 목록에는 작은 사진(thumb)을 쓰고, 누르면 분석용 사진을 받는다
       b.innerHTML = `<img src="./${s.thumb || s.file}" alt="${b.title}" loading="lazy" crossorigin="anonymous" />`;
-      b.addEventListener('click', async () => {
-        document.querySelectorAll('.samples button').forEach((x) => x.classList.remove('active'));
-        b.classList.add('active');
-        const blob = await (await fetch(`./${s.file}`)).blob();
-        await setImage(blob);
-        if (analyzer) run();
-      });
+      b.dataset.file = s.file;
+      b.addEventListener('click', () => openSample(s));
       els.samples.appendChild(b);
     }
+    showSampleTab = show;
     if (cats.length) show(cats[0]);
   } catch (e) { console.warn('samples not available', e); }
+}
+
+let showSampleTab = () => {};
+// 예시 사진 열기 (예시 목록 · 비슷한 스타일에서 공통)
+async function openSample(s) {
+  showSampleTab(s.category);
+  document.querySelectorAll('.samples button').forEach((x) => x.classList.toggle('active', x.dataset.file === s.file));
+  const blob = await (await fetch(`./${s.file}`)).blob();
+  await setImage(blob);
+  if (analyzer) run();
 }
 
 // ---- 입력 처리 ----------------------------------------------------------------
@@ -341,6 +355,9 @@ function render(r) {
   els.genreLabel.textContent = `${TAXONOMY[r.category].label} 장르 · ${g.group} ${pct(g.score)}`;
   els.genreName.textContent = g.name;
   els.genreSub.textContent = [g.second ? `${g.second} 요소도 보임` : '', g.sub, g.info].filter(Boolean).join(' · ');
+  // 장르 이름이 된 속성의 용어 설명
+  const ga = r.attributes.find((a) => a.group_label === g.group && g.name.includes(a.label));
+  els.genreDef.textContent = ga ? defOf(r.category, ga.group, ga.label) : '';
   els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = r.sentences
@@ -352,6 +369,7 @@ function render(r) {
       <div class="g">${esc(a.group_label)}</div>
       <div class="bar"><i style="width:${Math.max(4, a.score * 100)}%"></i><b><span>${esc(a.label)}</span><small>${pct(a.score)}</small></b></div>
       <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">수정</button>
+      ${a.level !== 'low' && defOf(r.category, a.group, a.label) ? `<div class="def">${esc(defOf(r.category, a.group, a.label))}</div>` : ''}
       <div class="alts">다음 후보: ${a.alternatives.map((x) => `${esc(x.label)} ${pct(x.score)}`).join(' · ')}</div>
     </div>`).join('');
   renderFeedback(r);
@@ -360,7 +378,193 @@ function render(r) {
   els.result.dataset.run = r.run_id ?? '';
   els.meta.textContent = `분석 ${r.elapsed_ms}ms · 평균 신뢰도 ${pct(r.confidence)} · ${r.image_size.width}×${r.image_size.height}px`;
   els.json.textContent = JSON.stringify(slim(r), null, 2);
+
+  renderOrder(r, {});
+  renderSimilar(r);
+  startColors(r);
 }
+
+// ---- 용어 설명 ------------------------------------------------------------------
+function defOf(cat, group, label) {
+  return TAXONOMY[cat]?.groups.find((g) => g.key === group)?.labels.find((l) => l.ko === label)?.def || '';
+}
+
+// ---- 사진 속 색 ------------------------------------------------------------------
+const PART = { hair: '머리카락', lip: '입술', eye: '눈두덩', nail: '손톱' };
+const NO_COLOR = {
+  hair: '머리카락 부분을 찾지 못했어요.',
+  makeup: '얼굴을 찾지 못했어요. 정면에 가까운 얼굴 사진에서 색을 뽑을 수 있어요.',
+  nail: '손을 찾지 못해 손톱 색을 뽑지 못했어요. 손가락 전체가 보이게 찍으면 뽑을 수 있어요.',
+};
+async function startColors(r) {
+  const targets = COLOR_TARGETS[r.category];
+  els.colorBlock.classList.toggle('hidden', !targets || !r.is_beauty);
+  if (!targets || !r.is_beauty) return;
+  const blob = currentBlob, id = r.run_id;
+  els.swatches.innerHTML = '<span class="note">색을 뽑는 중…</span>';
+  els.colorMeta.textContent = '';
+  let c = {};
+  try { c = await extractColors(blob, r.category); } catch (e) { console.warn('색 추출 실패', e); c = null; }
+  if (lastResult?.run_id !== id) return; // 그새 다른 사진을 분석했다
+  if (!c) { els.swatches.innerHTML = '<span class="note">색을 뽑지 못했어요 (부위 인식 모델을 불러오지 못함).</span>'; return; }
+  lastResult.colors = c;
+  const items = [];
+  for (const key of targets) {
+    const x = c[key];
+    if (!x) continue;
+    // 대표색 + (여러 색이 섞여 있으면) 비율별 색 묶음
+    const pal = x.palette?.length > 1 ? x.palette : [];
+    items.push(`<div class="sw">
+      <i style="background:${x.hex}"></i>
+      <span><b>${PART[key]}</b>${x.name ? ` ${esc(x.name)} 계열` : ''}
+      <small>${x.hex}${x.level ? ` · 약 ${x.level}레벨` : ''}</small>
+      ${pal.length ? `<em class="pal">${pal.map((p) => `<i style="background:${p.hex}" title="${p.hex}${p.name ? ` ${esc(p.name)}` : ''}"></i>${pct(p.share)}`).join(' ')}</em>` : ''}</span>
+    </div>`);
+  }
+  els.swatches.innerHTML = items.join('') || `<span class="note">${NO_COLOR[r.category]}</span>`;
+  els.json.textContent = JSON.stringify(slim(lastResult), null, 2);
+  renderOrder(lastResult, { hair: c.hair, lip: c.lip, eye: c.eye, nail: c.nail });
+}
+
+// ---- 시술 요청서 ---------------------------------------------------------------
+function renderOrder(r, colors) {
+  els.orderBlock.classList.toggle('hidden', !r.is_beauty);
+  const o = lastOrder = buildOrder(r, colors);
+  els.orderTitle.textContent = o.title;
+  els.orderTo.textContent = `${o.to}에게 보여 주세요`;
+  els.orderGenre.innerHTML = o.genre ? `<small>원하는 스타일</small><b>${esc(o.genre)}</b>` : '';
+  els.orderRows.innerHTML = o.rows.map((x) => `<div class="${x.sure ? 'sure' : 'mid'}">
+    <dt>${esc(x.label)}</dt>
+    <dd>${esc(x.value)}${x.measured ? ' <small>사진 속 색 기준</small>' : ''}${x.extra ? ` <small>${esc(x.extra)}</small>` : ''}${x.alt ? ` <small class="alt">또는 ${esc(x.alt)}</small>` : ''}${x.swatch ? `<span class="mini"><i style="background:${x.swatch.hex}"></i>${esc(swatchText(x.measured ? { ...x.swatch, name: null } : x.swatch))}</span>` : ''}</dd>
+  </div>`).join('');
+  els.orderChecks.innerHTML = o.checks.length ? `<b>상담 때 정할 것</b><ul>${o.checks.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : '';
+  els.orderNotes.innerHTML = o.notes.length ? `<b>참고</b><ul>${o.notes.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : '';
+}
+els.orderTitle = $('orderTitle');
+els.orderCopy.addEventListener('click', () => lastOrder && copy(lastOrder.text));
+els.orderSave.addEventListener('click', async () => {
+  if (!lastOrder || !currentBlob) return;
+  try {
+    const blob = await orderImage(lastOrder, currentBlob);
+    const name = `시술요청서-${new Date().toISOString().slice(0, 10)}.png`;
+    const file = new File([blob], name, { type: 'image/png' });
+    // 휴대폰: 공유 시트(카카오톡 · 메시지 등)로 바로 보낸다
+    if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) {
+      await navigator.share({ files: [file], title: lastOrder.title }).catch(() => {});
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('이미지로 저장했어요');
+  } catch (e) { console.error(e); toast('이미지를 만들지 못했어요'); }
+});
+
+// 요청서 이미지: 사진 + 항목 표를 한 장에 그린다 (매장에 보여 주거나 메시지로 보내기 좋게)
+async function orderImage(o, photo) {
+  await document.fonts?.ready;
+  const W = 1080, P = 72, INNER = W - P * 2;
+  const FONT = '"Pretendard Variable", Pretendard, system-ui, sans-serif';
+  const C = { bg: '#fbf8f3', text: '#2e2622', muted: '#74665a', accent: '#8f6654', line: '#e5dccf' };
+  const bmp = await createImageBitmap(photo);
+  const s = Math.min(INNER / bmp.width, 900 / bmp.height);
+  const iw = Math.round(bmp.width * s), ih = Math.round(bmp.height * s);
+  const date = new Date().toLocaleDateString('ko-KR');
+  const LABEL_W = 230;
+
+  function wrap(ctx, text, max) {
+    const out = []; let line = '';
+    for (const ch of text) {
+      if (ctx.measureText(line + ch).width > max && line) { out.push(line); line = ch.trimStart(); } else line += ch;
+    }
+    if (line) out.push(line);
+    return out;
+  }
+  // 한 번은 높이만 재고, 한 번은 실제로 그린다
+  function draw(ctx, paint) {
+    let y = P;
+    const text = (t, size, weight, color, x, maxW, lh = 1.45) => {
+      ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+      const lines = wrap(ctx, t, maxW);
+      lines.forEach((l, i) => paint && ctx.fillText(l, x, y + i * size * lh));
+      return lines.length * size * lh;
+    };
+    y += text(o.title, 46, 700, C.text, P, INNER) + 4;
+    y += text(`뷰티 스타일 AI 설명기 · ${date} · ${o.to}에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 28;
+    if (paint) {
+      ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip();
+      ctx.drawImage(bmp, P + (INNER - iw) / 2, y, iw, ih); ctx.restore();
+    }
+    y += ih + 36;
+    if (o.genre) {
+      y += text('원하는 스타일', 24, 600, C.accent, P, INNER) + 2;
+      y += text(o.genre, 40, 700, C.text, P, INNER) + 24;
+    }
+    for (const x of o.rows) {
+      if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+      y += 18;
+      const top = y;
+      text(x.label, 27, 500, C.muted, P, LABEL_W);
+      let v = x.value + (x.measured ? ' (사진 속 색 기준)' : '') + (x.extra ? ` (${x.extra})` : '') + (x.alt ? ` / ${x.alt}일 수도 있음` : '');
+      let h = text(v, 30, 600, C.text, P + LABEL_W, INNER - LABEL_W);
+      if (x.swatch) {
+        y = top + h + 6;
+        if (paint) { ctx.fillStyle = x.swatch.hex; ctx.beginPath(); ctx.roundRect(P + LABEL_W, y + 2, 30, 30, 8); ctx.fill(); }
+        const sh = text(swatchText(x.measured ? { ...x.swatch, name: null } : x.swatch), 24, 400, C.muted, P + LABEL_W + 42, INNER - LABEL_W - 42);
+        h += 6 + Math.max(sh, 34);
+      }
+      y = top + Math.max(h, 40) + 14;
+    }
+    for (const [head, list] of [['상담 때 정할 것', o.checks], ['참고', o.notes]]) {
+      if (!list.length) continue;
+      y += 24;
+      y += text(head, 28, 700, C.text, P, INNER) + 8;
+      for (const c of list) y += text(`· ${c}`, 25, 400, C.text, P, INNER) + 6;
+    }
+    y += 30;
+    if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+    y += 22;
+    y += text('사진을 AI 로 분석한 참고용 요약입니다. 실제 시술은 상담 후 정해 주세요.', 22, 400, C.muted, P, INNER);
+    return y + P;
+  }
+  const probe = document.createElement('canvas').getContext('2d');
+  const H = Math.ceil(draw(probe, false));
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  draw(ctx, true);
+  bmp.close?.();
+  return await new Promise((res) => c.toBlob(res, 'image/png'));
+}
+
+// ---- 비슷한 스타일 ---------------------------------------------------------------
+// 예시 사진의 특징값(tools/make-similar.mjs)과 지금 사진의 특징값이 가까운 순서로 3장
+const loadSimilar = (modelId) => loadJson(`./samples/similar/${modelId.split('/').pop()}.json`, '예시 사진 특징값');
+async function renderSimilar(r) {
+  els.similarBlock.classList.add('hidden');
+  const data = await loadSimilar(r.model);
+  if (!data || data.model !== r.model || lastResult?.run_id !== r.run_id || !r.is_beauty) return;
+  data.q ??= new Int8Array(Uint8Array.from(atob(data.data), (ch) => ch.charCodeAt(0)).buffer);
+  const v = r.embedding, D = data.dim;
+  const byFile = new Map(samples.map((s) => [s.file, s]));
+  const top = data.files.map((f, i) => {
+    let d = 0;
+    for (let j = 0; j < D; j++) d += v[j] * data.q[i * D + j];
+    return { s: byFile.get(f), score: d * data.scale[i] };
+  }).filter((x) => x.s && x.s.category === r.category && x.score < 0.97) // 0.97 이상은 같은 사진
+    .sort((a, b) => b.score - a.score).slice(0, 3);
+  if (!top.length) return;
+  els.similar.innerHTML = top.map(({ s }) => `<button type="button" data-file="${esc(s.file)}" title="이 예시 사진 분석하기">
+    <img src="./${esc(s.thumb || s.file)}" alt="비슷한 ${esc(TAXONOMY[s.category].label)} 예시" loading="lazy" crossorigin="anonymous" /></button>`).join('');
+  els.similarBlock.classList.remove('hidden');
+}
+els.similar.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  const s = samples.find((x) => x.file === b.dataset.file);
+  if (s) openSample(s);
+});
 
 // ---- 피드백: 틀린 결과 고치기 ------------------------------------------------------
 // 사진은 저장하지 않고, 모델이 뽑은 특징값(임베딩)과 고친 라벨만 이 브라우저에 저장한다.
@@ -459,6 +663,7 @@ els.fbClear.addEventListener('click', () => {
 // JSON 출력용: 화면 전용 필드 정리
 function slim(r) {
   return {
+    ai_generated: true, generator: '뷰티 스타일 AI 설명기', generative_model: r.vlm_model,
     category: r.category, category_label: r.category_label, category_ranking: r.category_ranking.map((c) => ({ key: c.key, score: round(c.score) })),
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level,
@@ -468,13 +673,15 @@ function slim(r) {
       description_ko: r.secondary.description_ko, trends: r.secondary.trends, tags: r.secondary.tags,
       attributes: r.secondary.attributes.map((a) => ({ group: a.group, label: a.label, score: round(a.score), level: a.level })) },
     warnings: r.warnings,
+    colors: r.colors && Object.fromEntries(Object.entries(r.colors).filter(([, v]) => v).map(([k, v]) => [k, { hex: v.hex, name: v.name, level: v.level,
+      palette: v.palette?.map((p) => ({ hex: p.hex, name: p.name, share: p.share })) }])),
   };
 }
 const pct = (x) => `${Math.round(x * 100)}%`;
 const round = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}` : ''));
+els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 설명기가 사진을 보고 만든 설명이라 틀릴 수 있어요)` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) {
   try { await navigator.clipboard.writeText(text); toast('복사했어요'); } catch { toast('복사하지 못했어요'); }
