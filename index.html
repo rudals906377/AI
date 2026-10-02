@@ -90,6 +90,7 @@
               <small id="genreLabel">장르</small>
               <strong id="genreName"></strong>
               <span id="genreSub"></span>
+              <span class="def" id="genreDef"></span>
             </div>
             <div class="genre-trends" id="trendBlock">
               <small>트렌드 키워드</small>
@@ -103,6 +104,32 @@
             <p class="desc" id="secDesc"></p>
             <div class="chips" id="secTags"></div>
           </details>
+
+          <div class="colors hidden" id="colorBlock">
+            <h3>사진 속 색 <small id="colorMeta"></small></h3>
+            <div class="swatches" id="swatches"></div>
+            <p class="note">사진에서 해당 부위만 골라 뽑은 색이에요. 조명과 보정에 따라 실제 색과 다를 수 있어요.</p>
+          </div>
+
+          <section class="order" id="orderBlock" aria-labelledby="orderTitle">
+            <div class="order-head">
+              <h3 id="orderTitle">시술 요청서</h3>
+              <small id="orderTo"></small>
+            </div>
+            <p class="order-genre" id="orderGenre"></p>
+            <dl class="order-rows" id="orderRows"></dl>
+            <div class="order-sub" id="orderChecks"></div>
+            <div class="order-sub" id="orderNotes"></div>
+            <div class="row order-actions">
+              <button class="primary small" id="orderCopy" type="button">요청서 복사</button>
+              <button class="ghost small" id="orderSave" type="button">이미지로 저장</button>
+            </div>
+          </section>
+
+          <div class="similar-block hidden" id="similarBlock">
+            <h3>비슷한 스타일 <small>예시 사진 중에서</small></h3>
+            <div class="similar" id="similar"></div>
+          </div>
 
           <h3>속성별 판단 근거</h3>
           <div class="attrs" id="attrs"></div>
@@ -126,7 +153,7 @@
           <div class="chips" id="tags"></div>
 
           <div id="vlmBlock" class="hidden">
-            <h3>자유 서술 <small id="vlmMeta"></small></h3>
+            <h3>자유 서술 <small>생성형 AI 가 쓴 글 · 사실과 다를 수 있어요</small> <small id="vlmMeta"></small></h3>
             <div class="vlm" id="vlm"></div>
             <details id="vlmEnBox" class="en-box">
               <summary>영어 원문 보기 (모델이 직접 관찰한 내용 · 번역은 자동 번역이라 일부 어색할 수 있어요)</summary>
@@ -151,6 +178,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <footer>
+      <p class="ai-notice">이 결과는 AI 가 사진을 보고 자동으로 만든 참고용 정보이며 실제와 다를 수 있습니다. <a href="./notice.html">AI 이용 안내</a> · <a href="./review.html">전문가 검수 도구</a></p>
       기본 분석: <code id="clipName"></code> (제로샷 + 학습 헤드) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3 ·
       사진은 서버로 전송되지 않습니다. 예시 사진 출처: <a href="./samples/CREDITS.md" target="_blank">CREDITS</a>
     </footer>
