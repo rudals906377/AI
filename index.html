@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>뷰티 스타일 AI 설명기</title>
   <meta name="description" content="헤어·네일·메이크업·타투 사진을 올리면 브라우저 안에서 AI가 스타일을 자세한 한국어 문장으로 설명합니다." />
-  <meta name="theme-color" content="#faf6f4" />
+  <meta name="theme-color" content="#f4efe8" />
   <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="./style.css" />
   <script type="importmap">
@@ -16,11 +16,8 @@
   <div class="wrap">
     <header class="top">
       <div class="brand">
-        <span class="mark" aria-hidden="true">✦</span>
-        <div>
-          <h1>뷰티 스타일 <span>AI 설명기</span></h1>
-          <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 자세한 문장으로 설명해요. 사진은 내 브라우저 밖으로 나가지 않아요.</p>
-        </div>
+        <h1>뷰티 스타일 AI 설명기</h1>
+        <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 설명합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
       </div>
       <div class="status" id="status">
         <span class="dot"></span>
@@ -32,28 +29,27 @@
     <div class="grid">
       <!-- 입력 -->
       <section class="card" id="inputCard">
-        <h2><span class="step">1</span>사진 고르기</h2>
+        <h2>사진</h2>
         <label class="drop" id="drop">
           <input type="file" id="file" accept="image/*" />
           <img id="preview" class="hidden" alt="미리보기" />
           <div class="hint" id="dropHint">
-            <span class="hint-icon" aria-hidden="true">＋</span>
             <strong>사진을 끌어다 놓거나 눌러서 올려 주세요</strong>
-            <small>붙여넣기(Ctrl+V)도 돼요</small>
+            <small>붙여넣기(Ctrl+V)도 됩니다</small>
           </div>
         </label>
         <div class="row upload-row">
-          <button type="button" class="primary" id="pickBtn">📁 내 사진 올리기</button>
-          <button type="button" class="ghost" id="cameraBtn" hidden>📷 사진 찍기</button>
+          <button type="button" class="primary" id="pickBtn">내 사진 올리기</button>
+          <button type="button" class="ghost" id="cameraBtn" hidden>사진 찍기</button>
           <input type="file" id="camera" accept="image/*" capture="environment" hidden />
         </div>
 
-        <h3>예시 사진으로 바로 해 보기</h3>
+        <h3>예시 사진</h3>
         <div class="seg sample-tabs" id="sampleTabs"></div>
         <div class="samples" id="samples"></div>
 
         <details class="settings">
-          <summary>분석 설정 <small>모델 · 카테고리 · 고급 모드</small></summary>
+          <summary>분석 설정 <small>모델, 카테고리, 고급 모드</small></summary>
         <h3>분석 모델</h3>
         <div class="seg" id="model">
           <button data-model="base" class="active">기본 · FashionSigLIP</button>
@@ -64,15 +60,15 @@
         <h3>카테고리</h3>
         <div class="seg" id="category">
           <button data-cat="auto" class="active">자동 판별</button>
-          <button data-cat="hair">💇 헤어</button>
-          <button data-cat="nail">💅 네일</button>
-          <button data-cat="makeup">💄 메이크업</button>
-          <button data-cat="tattoo">🖋️ 타투</button>
+          <button data-cat="hair">헤어</button>
+          <button data-cat="nail">네일</button>
+          <button data-cat="makeup">메이크업</button>
+          <button data-cat="tattoo">타투</button>
         </div>
 
         <h3>고급 모드</h3>
-        <label class="toggle"><input type="checkbox" id="advanced" /> AI 자유 서술 켜기</label>
-        <p class="note" id="advNote">사진을 직접 보고 자유롭게 서술하는 소형 AI(LFM2.5-VL-450M, 약 420~630MB)를 추가로 받아요. Chrome · Edge 최신 버전에서 권장해요.</p>
+        <label class="toggle"><input type="checkbox" id="advanced" /> 자유 서술 켜기</label>
+        <p class="note" id="advNote">사진을 보고 자유 형식으로 서술하는 소형 모델(LFM2.5-VL-450M, 약 420~630MB)을 추가로 내려받습니다. Chrome · Edge 최신 버전을 권장합니다.</p>
         <div class="row">
           <button class="ghost" id="run" disabled>다시 분석하기</button>
         </div>
@@ -81,11 +77,10 @@
 
       <!-- 결과 -->
       <section class="card" id="resultCard">
-        <h2><span class="step">2</span>분석 결과</h2>
+        <h2>분석 결과</h2>
         <div class="result-empty" id="empty">
-          <div class="empty-icons" aria-hidden="true"><span>💇</span><span>💅</span><span>💄</span><span>🖋️</span></div>
-          <strong>사진을 올리거나 예시를 고르면 바로 분석해요</strong>
-          <small>장르 · 트렌드 키워드 · 자세한 설명 · 속성별 근거가 여기에 나타나요</small>
+          <strong>사진을 올리거나 예시를 고르면 바로 분석합니다</strong>
+          <small>장르, 트렌드 키워드, 설명, 속성별 근거가 여기에 나옵니다</small>
         </div>
 
         <div id="result" class="hidden">
@@ -113,7 +108,7 @@
           <div class="attrs" id="attrs"></div>
           <div class="feedback" id="feedback">
             <div class="fb-row">
-              <span>결과가 틀렸나요? 항목 옆 <b>✎</b> 로 고쳐 주세요.</span>
+              <span>결과가 틀렸다면 항목 옆 <b>수정</b>을 눌러 고쳐 주세요.</span>
               <label class="fb-cat">카테고리
                 <select id="fbCat"></select>
               </label>
@@ -131,7 +126,7 @@
           <div class="chips" id="tags"></div>
 
           <div id="vlmBlock" class="hidden">
-            <h3>AI 자유 서술 <small id="vlmMeta"></small></h3>
+            <h3>자유 서술 <small id="vlmMeta"></small></h3>
             <div class="vlm" id="vlm"></div>
             <details id="vlmEnBox" class="en-box">
               <summary>영어 원문 보기 (모델이 직접 관찰한 내용 · 번역은 자동 번역이라 일부 어색할 수 있어요)</summary>
@@ -152,7 +147,7 @@
       </section>
     </div>
 
-    <button class="fab hidden" id="fab" type="button">↑ 다른 사진 해 보기</button>
+    <button class="fab hidden" id="fab" type="button">다른 사진 고르기</button>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <footer>
