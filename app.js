@@ -139,7 +139,9 @@ async function loadSamples() {
     for (const s of list) {
       const b = document.createElement('button');
       b.title = `${TAXONOMY[s.category]?.label ?? s.category} 예시`;
-      b.innerHTML = `<img src="./${s.file}" alt="${b.title}" loading="lazy" />`;
+      // 정적 Space 는 일부 파일을 다른 도메인(CDN)으로 넘겨 주는데, 이 페이지는 교차 출처 격리(COEP) 상태라
+      // 일반 img 요청은 막힌다. CORS 모드로 받으면 CDN 이 허용 헤더를 주므로 정상 표시된다.
+      b.innerHTML = `<img src="./${s.file}" alt="${b.title}" loading="lazy" crossorigin="anonymous" />`;
       b.addEventListener('click', async () => {
         document.querySelectorAll('.samples button').forEach((x) => x.classList.remove('active'));
         b.classList.add('active');
