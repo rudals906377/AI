@@ -2,7 +2,7 @@
 import { env } from '@huggingface/transformers';
 import { createAnalyzer } from './analyzer.js';
 import { createDescriber } from './advanced.js';
-import { TAXONOMY } from './taxonomy.js';
+import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 
 // ---- 설정 -------------------------------------------------------------------
@@ -27,7 +27,8 @@ const $ = (id) => document.getElementById(id);
 const els = {
   status: $('status'), statusText: $('statusText'), statusBar: $('statusBar'),
   drop: $('drop'), file: $('file'), preview: $('preview'), dropHint: $('dropHint'),
-  samples: $('samples'), category: $('category'), run: $('run'), advanced: $('advanced'), advNote: $('advNote'),
+  pickBtn: $('pickBtn'), cameraBtn: $('cameraBtn'), camera: $('camera'),
+  samples: $('samples'), sampleTabs: $('sampleTabs'), category: $('category'), run: $('run'), advanced: $('advanced'), advNote: $('advNote'),
   model: $('model'), modelNote: $('modelNote'),
   empty: $('empty'), result: $('result'), catChips: $('catChips'), headline: $('headline'), desc: $('desc'),
   attrs: $('attrs'), tags: $('tags'), trends: $('trends'), trendBlock: $('trendBlock'), genreLabel: $('genreLabel'), genreName: $('genreName'), genreSub: $('genreSub'), vlmBlock: $('vlmBlock'), vlm: $('vlm'), vlmMeta: $('vlmMeta'), vlmEn: $('vlmEn'), vlmEnBox: $('vlmEnBox'),
@@ -136,12 +137,27 @@ async function loadAnalyzer(key) {
 async function loadSamples() {
   try {
     const list = await (await fetch('./samples/manifest.json')).json();
+    const cats = CATEGORY_ORDER.filter((c) => list.some((s) => s.category === c));
+    // 카테고리 탭: 한 번에 한 카테고리의 예시만 보여 준다 (사진이 많아도 화면이 길어지지 않게)
+    const show = (cat) => {
+      els.sampleTabs.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.cat === cat));
+      els.samples.querySelectorAll('button').forEach((x) => { x.hidden = x.dataset.cat !== cat; });
+    };
+    for (const c of cats) {
+      const t = document.createElement('button');
+      t.dataset.cat = c;
+      t.textContent = `${TAXONOMY[c].label} ${list.filter((s) => s.category === c).length}`;
+      t.addEventListener('click', () => show(c));
+      els.sampleTabs.appendChild(t);
+    }
     for (const s of list) {
       const b = document.createElement('button');
+      b.dataset.cat = s.category;
       b.title = `${TAXONOMY[s.category]?.label ?? s.category} 예시`;
       // 정적 Space 는 일부 파일을 다른 도메인(CDN)으로 넘겨 주는데, 이 페이지는 교차 출처 격리(COEP) 상태라
       // 일반 img 요청은 막힌다. CORS 모드로 받으면 CDN 이 허용 헤더를 주므로 정상 표시된다.
-      b.innerHTML = `<img src="./${s.file}" alt="${b.title}" loading="lazy" crossorigin="anonymous" />`;
+      // 목록에는 작은 사진(thumb)을 쓰고, 누르면 분석용 사진을 받는다
+      b.innerHTML = `<img src="./${s.thumb || s.file}" alt="${b.title}" loading="lazy" crossorigin="anonymous" />`;
       b.addEventListener('click', async () => {
         document.querySelectorAll('.samples button').forEach((x) => x.classList.remove('active'));
         b.classList.add('active');
@@ -151,6 +167,7 @@ async function loadSamples() {
       });
       els.samples.appendChild(b);
     }
+    if (cats.length) show(cats[0]);
   } catch (e) { console.warn('samples not available', e); }
 }
 
@@ -177,13 +194,27 @@ async function downscale(blob, max) {
 }
 function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
 
-els.file.addEventListener('change', () => setImage(els.file.files[0]));
+// 사용자가 올린 사진은 예시 사진처럼 바로 분석한다 (모델이 준비된 경우)
+async function pickImage(blob) {
+  await setImage(blob);
+  if (analyzer && currentBlob) run();
+}
+for (const input of [els.file, els.camera]) {
+  input.addEventListener('change', () => {
+    pickImage(input.files[0]);
+    input.value = ''; // 같은 사진을 다시 골라도 동작하게
+  });
+}
+els.pickBtn.addEventListener('click', () => els.file.click());
+els.cameraBtn.addEventListener('click', () => els.camera.click());
+// 휴대폰 · 태블릿에서는 카메라로 바로 찍는 버튼도 보여 준다
+els.cameraBtn.hidden = !matchMedia('(pointer: coarse)').matches;
 ['dragenter', 'dragover'].forEach((ev) => els.drop.addEventListener(ev, (e) => { e.preventDefault(); els.drop.classList.add('over'); }));
 ['dragleave', 'drop'].forEach((ev) => els.drop.addEventListener(ev, (e) => { e.preventDefault(); els.drop.classList.remove('over'); }));
-els.drop.addEventListener('drop', (e) => setImage(e.dataTransfer.files[0]));
+els.drop.addEventListener('drop', (e) => pickImage(e.dataTransfer.files[0]));
 window.addEventListener('paste', (e) => {
   const item = [...(e.clipboardData?.items ?? [])].find((i) => i.type.startsWith('image/'));
-  if (item) setImage(item.getAsFile());
+  if (item) pickImage(item.getAsFile());
 });
 els.category.addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;

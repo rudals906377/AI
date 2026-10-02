@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 # 앱 실행에 필요한 파일 + 예시 사진 출처 + 학습 데이터 출처 기록 (CC BY 출처 표시)
 ALLOW = ["README.md", "index.html", "style.css", "app.js", "analyzer.js", "encoders.js", "describe.js", "taxonomy.js", "advanced.js",
-         "embeddings/*.json", "heads/*.json", "samples/*", "data/labels_clean.jsonl"]
+         "embeddings/*.json", "heads/*.json", "samples/*", "samples/thumbs/*", "data/labels_clean.jsonl"]
 
 
 def files():
