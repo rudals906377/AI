@@ -2,127 +2,169 @@
  {
   "file": "samples/hair-01.jpg",
   "category": "hair",
-  "title": "Woman with long bob haircut from behind.png",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "레이어드컷 + S컬펌",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/hair-02.jpg",
   "category": "hair",
-  "title": "Red pixie cut.jpg",
-  "license": "CC BY 2.0"
+  "title": "사용자 제공 사진",
+  "style": "숏컷 생머리",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/hair-03.jpg",
   "category": "hair",
-  "title": "Woman with blonde curly hair putting on makeup. (51537231895).jpg",
-  "license": "CC BY 2.0"
+  "title": "사용자 제공 사진",
+  "style": "태슬컷",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/hair-04.jpg",
   "category": "hair",
-  "title": "Pink Ombre..jpg",
-  "license": "CC BY 2.0"
+  "title": "사용자 제공 사진",
+  "style": "댄디컷",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/hair-05.jpg",
   "category": "hair",
-  "title": "Big Haired Beckham, Brighton Pride 2013 (9429166639).jpg",
-  "license": "CC BY-SA 2.0"
+  "title": "사용자 제공 사진",
+  "style": "숏컷 내추럴 곱슬",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/hair-06.jpg",
   "category": "hair",
-  "title": "Woman with a pixie haircut.jpg",
-  "license": "CC BY-SA 2.0"
+  "title": "사용자 제공 사진",
+  "style": "허쉬컷 + S컬펌",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/nail-01.jpg",
   "category": "nail",
-  "title": "Acrylic nail art with crystal.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "크롬 네일",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/nail-02.jpg",
   "category": "nail",
-  "title": "French Manicure with Glitter nail art on ring finger.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "자석 네일",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/nail-03.jpg",
   "category": "nail",
-  "title": "Swirly purple konad nail art.jpg",
-  "license": "CC BY 2.0"
+  "title": "사용자 제공 사진",
+  "style": "시럽 네일",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/nail-04.jpg",
   "category": "nail",
-  "title": "Acrylic nails, Salon Sagesse.jpg",
-  "license": "CC BY 4.0"
+  "title": "사용자 제공 사진",
+  "style": "그라데이션 네일",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/nail-05.jpg",
   "category": "nail",
-  "title": "Snowman Red Glitter 2.jpg",
-  "license": "CC BY-SA 2.0"
+  "title": "사용자 제공 사진",
+  "style": "오로라 네일",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/nail-06.jpg",
   "category": "nail",
-  "title": "Професионална Ноктопластика.JPG",
-  "license": "CC BY 4.0"
+  "title": "사용자 제공 사진",
+  "style": "별 네일",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/makeup-01.jpg",
   "category": "makeup",
-  "title": "Bridal makeup .jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "청순 메이크업",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/makeup-02.jpg",
   "category": "makeup",
-  "title": "Bridal makeup in calabar.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "과즙 메이크업",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/makeup-03.jpg",
   "category": "makeup",
-  "title": "Hd bridal makeup look at patna.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "음영 메이크업",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/makeup-04.jpg",
   "category": "makeup",
-  "title": "Bridal makeup for Indian Wedding.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "쇠맛 메이크업",
+  "license": "사용자 제공"
+ },
+ {
+  "file": "samples/makeup-05.jpg",
+  "category": "makeup",
+  "title": "사용자 제공 사진",
+  "style": "남자 메이크업",
+  "license": "사용자 제공"
+ },
+ {
+  "file": "samples/makeup-06.jpg",
+  "category": "makeup",
+  "title": "사용자 제공 사진",
+  "style": "데일리 메이크업",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/tattoo-01.jpg",
   "category": "tattoo",
-  "title": "Close-up Phoenix full sleeve tattoo by Maaika.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "올드스쿨 타투",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/tattoo-02.jpg",
   "category": "tattoo",
-  "title": "Tattoo Sleeve Done In Belfast Northern Ireland.jpg",
-  "license": "CC BY 4.0"
+  "title": "사용자 제공 사진",
+  "style": "파인라인 타투",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/tattoo-03.jpg",
   "category": "tattoo",
-  "title": "Ambigram tattoo New York Rich Man.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "블랙앤그레이 타투",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/tattoo-04.jpg",
   "category": "tattoo",
-  "title": "Man with a full back tattoo. Color.jpg",
-  "license": "CC BY-SA 4.0"
+  "title": "사용자 제공 사진",
+  "style": "블랙워크 타투",
+  "license": "사용자 제공"
  },
  {
   "file": "samples/tattoo-05.jpg",
   "category": "tattoo",
-  "title": "Phoenix full sleeve tattoo by Maaika.jpg",
-  "license": "CC BY-SA 3.0"
+  "title": "사용자 제공 사진",
+  "style": "두들 타투",
+  "license": "사용자 제공"
+ },
+ {
+  "file": "samples/tattoo-06.jpg",
+  "category": "tattoo",
+  "title": "사용자 제공 사진",
+  "style": "리얼리즘 타투",
+  "license": "사용자 제공"
  }
 ]
