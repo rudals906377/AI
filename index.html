@@ -35,8 +35,14 @@
             <strong>클릭 · 드래그 · 붙여넣기(Ctrl+V)</strong><br />로 사진을 올려 주세요
           </div>
         </label>
+        <div class="row upload-row">
+          <button type="button" class="primary" id="pickBtn">📁 내 사진 올리기</button>
+          <button type="button" class="ghost" id="cameraBtn" hidden>📷 사진 찍기</button>
+          <input type="file" id="camera" accept="image/*" capture="environment" hidden />
+        </div>
 
         <h3>예시 사진으로 바로 해보기</h3>
+        <div class="seg sample-tabs" id="sampleTabs"></div>
         <div class="samples" id="samples"></div>
 
         <h3>분석 모델</h3>

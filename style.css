@@ -59,8 +59,13 @@ header.top p { margin: 4px 0 0; color: var(--muted); }
 .drop .hint { color: var(--muted); font-size: 0.9rem; }
 .drop .hint strong { color: var(--text); }
 .drop input { display: none; }
+.upload-row { margin-top: 10px; }
+.upload-row .primary, .upload-row .ghost { flex: 1 1 auto; }
 
-.samples { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.sample-tabs { margin-top: 8px; }
+.sample-tabs button { padding: 5px 11px; font-size: 0.85rem; }
+.samples { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; max-height: 232px; overflow-y: auto; padding: 2px; }
+.samples button[hidden] { display: none; }
 .samples button { padding: 0; border: 2px solid transparent; border-radius: 10px; overflow: hidden; background: none; cursor: pointer; width: 64px; height: 64px; }
 .samples button img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .samples button:hover, .samples button.active { border-color: var(--accent); }
