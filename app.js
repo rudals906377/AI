@@ -78,7 +78,7 @@ async function init() {
     webgpu = !!adapter;
     f16 = !!adapter?.features?.has('shader-f16');
   } catch { webgpu = false; f16 = false; }
-  if (!webgpu) els.advNote.textContent += ' ⚠️ 이 브라우저는 WebGPU 가 없어 고급 모드가 느려요 (사진 1장에 수 분).';
+  if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
@@ -180,6 +180,9 @@ async function setImage(blob) {
   els.preview.src = URL.createObjectURL(currentBlob);
   els.preview.classList.remove('hidden');
   els.dropHint.classList.add('hidden');
+  // 미리보기가 다 그려져 화면 높이가 정해진 뒤에 분석한다
+  // (그 전에 결과로 스크롤하면 사진 칸이 커지면서 스크롤이 중간에 멈춘다)
+  await els.preview.decode().catch(() => {});
   updateRunButton();
 }
 // 큰 사진은 긴 변 기준으로 줄여서 처리 (속도·메모리)
@@ -317,17 +320,17 @@ function render(r) {
 
   const top = r.category_ranking[0];
   els.catChips.innerHTML = r.category_ranking
-    .map((c, i) => `<span class="chip ${i ? 'muted' : ''}">${TAXONOMY[c.key].icon} ${c.label} ${pct(c.score)}</span>`)
+    .map((c, i) => `<span class="chip ${i ? 'muted' : ''}">${c.label} ${pct(c.score)}</span>`)
     .join('') + (r.category_auto ? '' : `<span class="chip muted">카테고리 수동 선택: ${r.category_label}</span>`);
   if (r.category_auto && top.key !== r.category) els.catChips.innerHTML += '';
 
-  if (!r.is_beauty) els.catChips.innerHTML = `<span class="chip warn">⚠️ 뷰티 사진이 아닐 수 있어요 (${pct(1 - r.beauty_score)})</span>` + els.catChips.innerHTML;
-  for (const w of r.warnings || []) els.catChips.innerHTML += `<span class="chip warn">⚠️ ${esc(w)}</span>`;
+  if (!r.is_beauty) els.catChips.innerHTML = `<span class="chip warn">뷰티 사진이 아닐 수 있어요 (${pct(1 - r.beauty_score)})</span>` + els.catChips.innerHTML;
+  for (const w of r.warnings || []) els.catChips.innerHTML += `<span class="chip warn">${esc(w)}</span>`;
   // 함께 보이는 스타일 (예: 헤어 사진 속 메이크업)
   const sec = r.secondary;
   els.secondary.classList.toggle('hidden', !sec);
   if (sec) {
-    els.secTitle.innerHTML = `${TAXONOMY[sec.category].icon} 함께 보이는 ${esc(sec.category_label)}: <b>${esc(sec.genre.name)}</b><small>${pct(sec.score)}</small>`;
+    els.secTitle.innerHTML = `함께 보이는 ${esc(sec.category_label)}: <b>${esc(sec.genre.name)}</b><small>${pct(sec.score)}</small>`;
     els.secDesc.textContent = sec.description_ko;
     els.secTags.innerHTML = [...(sec.trends || []).map((t) => t.name), ...sec.tags].slice(0, 8).map((t) => `<span class="chip">#${esc(t.replace(/[\s·()]/g, ''))}</span>`).join('');
     els.secondary.open = false;
@@ -348,7 +351,7 @@ function render(r) {
     <div class="attr ${a.level}" data-g="${esc(a.group)}">
       <div class="g">${esc(a.group_label)}</div>
       <div class="bar"><i style="width:${Math.max(4, a.score * 100)}%"></i><b><span>${esc(a.label)}</span><small>${pct(a.score)}</small></b></div>
-      <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">✎</button>
+      <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">수정</button>
       <div class="alts">다음 후보: ${a.alternatives.map((x) => `${esc(x.label)} ${pct(x.score)}`).join(' · ')}</div>
     </div>`).join('');
   renderFeedback(r);
@@ -363,7 +366,7 @@ function render(r) {
 // 사진은 저장하지 않고, 모델이 뽑은 특징값(임베딩)과 고친 라벨만 이 브라우저에 저장한다.
 // 내보낸 파일은 tools/train-heads.py --feedback 으로 바로 다시 학습할 수 있다.
 const FB_KEY = 'beauty-feedback-v1';
-const FB_CATS = [...Object.keys(TAXONOMY).map((k) => [k, `${TAXONOMY[k].icon} ${TAXONOMY[k].label}`]), ['other', '🚫 뷰티 사진 아님']];
+const FB_CATS = [...Object.keys(TAXONOMY).map((k) => [k, TAXONOMY[k].label]), ['other', '뷰티 사진 아님']];
 function fbLoad() { try { return JSON.parse(localStorage.getItem(FB_KEY) || '[]'); } catch { return []; } }
 function fbSave(list) {
   try { localStorage.setItem(FB_KEY, JSON.stringify(list)); return true; }
@@ -403,7 +406,7 @@ function markFixed(group, label) {
   const row = els.attrs.querySelector(`.attr[data-g="${CSS.escape(group)}"]`);
   if (!row) return;
   row.querySelector('.fixed')?.remove();
-  row.insertAdjacentHTML('beforeend', `<div class="fixed">✓ ${esc(josa(label, "으로/로"))} 고침</div>`);
+  row.insertAdjacentHTML('beforeend', `<div class="fixed">${esc(josa(label, "으로/로"))} 고침</div>`);
 }
 els.attrs.addEventListener('click', (e) => {
   const btn = e.target.closest('.fix');
@@ -471,7 +474,7 @@ const pct = (x) => `${Math.round(x * 100)}%`;
 const round = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[AI 자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}` : ''));
+els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) {
   try { await navigator.clipboard.writeText(text); toast('복사했어요'); } catch { toast('복사하지 못했어요'); }
