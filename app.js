@@ -35,6 +35,7 @@ const els = {
   copyText: $('copyText'), copyJson: $('copyJson'), meta: $('meta'), json: $('json'), clipName: $('clipName'),
   fbCat: $('fbCat'), fbExport: $('fbExport'), fbClear: $('fbClear'), fbInfo: $('fbInfo'),
   secondary: $('secondary'), secTitle: $('secTitle'), secDesc: $('secDesc'), secTags: $('secTags'),
+  inputCard: $('inputCard'), resultCard: $('resultCard'), fab: $('fab'), toast: $('toast'),
 };
 // ---- 상태 ---------------------------------------------------------------------
 let analyzer = null;      // CLIP
@@ -77,7 +78,7 @@ async function init() {
     webgpu = !!adapter;
     f16 = !!adapter?.features?.has('shader-f16');
   } catch { webgpu = false; f16 = false; }
-  if (!webgpu) els.advNote.textContent += ' ⚠️ 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 CPU 로 실행됩니다 (사진 1장에 수 분). 발표 PC 에서는 Chrome/Edge 최신 버전을 권장합니다.';
+  if (!webgpu) els.advNote.textContent += ' ⚠️ 이 브라우저는 WebGPU 가 없어 고급 모드가 느려요 (사진 1장에 수 분).';
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
@@ -123,6 +124,7 @@ async function loadAnalyzer(key) {
       }
       await prev?.dispose?.();
       setStatus(`준비 완료 · ${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
+      if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
     } catch (e) {
       console.error(e);
       setStatus(`모델 로드 실패: ${e.message}`, 0, 'error');
@@ -220,6 +222,7 @@ els.category.addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   currentCategory = b.dataset.cat;
   els.category.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
+  if (analyzer && currentBlob) run();
 });
 els.model.addEventListener('click', async (e) => {
   const b = e.target.closest('button'); if (!b || b.dataset.model === modelKey || analyzerLoading) return;
@@ -241,19 +244,21 @@ async function run() {
   const seq = ++runSeq;
   els.run.disabled = true;
   els.run.textContent = '분석 중…';
+  els.resultCard.classList.add('busy');
   try {
     const result = await analyzer.analyze(currentBlob, { category: currentCategory });
     result.run_id = seq;
     lastResult = result;
     render(result);
-    if (window.innerWidth < 900) $('resultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.innerWidth < 900) els.resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (els.advanced.checked && !pending) await runAdvanced(result);
   } catch (e) {
     console.error(e);
     setStatus(`분석 중 오류: ${e.message}`, 0, 'error');
   } finally {
     busy = false;
-    els.run.textContent = '분석하기';
+    els.resultCard.classList.remove('busy');
+    els.run.textContent = '다시 분석하기';
     updateRunButton();
     if (pending) { pending = false; run(); }
   }
@@ -305,7 +310,9 @@ async function runAdvanced(result) {
 // ---- 렌더링 -------------------------------------------------------------------
 function render(r) {
   els.empty.classList.add('hidden');
-  els.result.classList.remove('hidden');
+  els.result.classList.remove('hidden', 'enter');
+  void els.result.offsetWidth; // 애니메이션을 다시 시작하려고 한 번 그리게 한다
+  els.result.classList.add('enter');
   els.vlmBlock.classList.toggle('hidden', !els.advanced.checked);
 
   const top = r.category_ranking[0];
@@ -466,6 +473,24 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 
 els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[AI 자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
-async function copy(text) { try { await navigator.clipboard.writeText(text); setStatus('복사했습니다', 100, 'ready'); } catch { /* ignore */ } }
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); toast('복사했어요'); } catch { toast('복사하지 못했어요'); }
+}
+let toastTimer;
+function toast(text) {
+  els.toast.textContent = text;
+  els.toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => els.toast.classList.remove('show'), 1800);
+}
+
+// 휴대폰: 결과를 보다가 위로 올라가지 않고도 다른 사진을 고를 수 있게 떠 있는 버튼
+if ('IntersectionObserver' in window) {
+  let inputVisible = true;
+  const updateFab = () => els.fab.classList.toggle('hidden', inputVisible || window.innerWidth >= 900 || !lastResult);
+  new IntersectionObserver(([e]) => { inputVisible = e.isIntersecting; updateFab(); }, { threshold: 0.05 }).observe(els.inputCard);
+  window.addEventListener('resize', updateFab);
+  els.fab.addEventListener('click', () => els.inputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+}
 
 init();
