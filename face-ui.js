@@ -57,7 +57,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     const show = r && r.is_beauty && (r.category === 'hair' || r.category === 'makeup');
     els.cta.classList.toggle('hidden', !show);
     if (!show) return;
-    els.ctaTitle.textContent = r.category === 'hair' ? '내 얼굴형에도 어울릴까요?' : '내 얼굴에 맞는 메이크업이 궁금하다면';
+    els.ctaTitle.textContent = r.category === 'hair' ? '내 얼굴형에도 어울릴까요?' : '내 얼굴형에 맞는 메이크업은?';
     els.ctaBtn.dataset.purpose = r.category;
     if (last?.ok) render(); // 궁합 문장 갱신
   }
@@ -156,7 +156,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     els.result.classList.remove('hidden', 'enter');
     void els.result.offsetWidth;
     els.result.classList.add('enter');
-    els.shapeLabel.textContent = purpose === 'hair' ? '내 얼굴형' : '내 얼굴형 · 메이크업 기준';
+    els.shapeLabel.textContent = '내 얼굴형';
     els.shape.textContent = report.headline;
     // '긴 편' 처럼 꾸밈말과 '편' 사이에서 줄이 나뉘지 않게
     els.summary.innerHTML = report.summary.map((s) => `<span class="s">${esc(s).replace(/ (편|중간)/g, '&nbsp;$1')}</span>`).join(' ');
