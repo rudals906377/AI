@@ -324,7 +324,7 @@ function poseFrom(mat) {
 function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, hairline, others }) {
   const out = [];
   const add = (key, level, title, fix) => out.push({ key, level, title, fix });
-  const hairNeeds = purpose === 'hair';
+  // 얼굴형은 헤어 · 메이크업 모두에서 쓰므로 이마 · 헤어라인 점검 기준이 같다
   // 화면 밖 · 크기
   const margin = 0.01 * Math.min(w, h);
   if (oval.some(([x, y]) => x < margin || y < margin || x > w - margin || y > h - margin)) add('frame', 'block', '얼굴 일부가 사진 밖으로 나갔어요', '이마 위부터 턱 아래까지 얼굴 전체가 들어오게 찍어 주세요.');
@@ -352,7 +352,7 @@ function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, ha
   // 가림
   if (cover.forehead) {
     const f = cover.forehead.hair;
-    if (f > 0.2) add('bangs', hairNeeds ? 'block' : 'warn', `앞머리가 이마를 ${Math.round(f * 100)}% 가리고 있어요`, '앞머리를 위로 넘기거나 핀 · 헤어밴드로 고정해 이마와 헤어라인이 보이게 찍어 주세요. 이마 너비와 이마 높이를 재야 얼굴형을 정확히 알 수 있어요.');
+    if (f > 0.2) add('bangs', 'block', `앞머리가 이마를 ${Math.round(f * 100)}% 가리고 있어요`, '앞머리를 위로 넘기거나 핀 · 헤어밴드로 고정해 이마와 헤어라인이 보이게 찍어 주세요. 이마 너비와 이마 높이를 재야 얼굴형을 정확히 알 수 있어요.');
     if (cover.forehead.other > 0.3) add('hat', 'block', '모자나 헤어밴드가 이마를 가려요', '모자를 벗고 이마가 보이게 찍어 주세요.');
   }
   const sides = [];
@@ -374,7 +374,7 @@ function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, ha
   if (cover.inner?.body > 0.04 || handSide) add('hand', 'block', `손이 ${handSide && !(cover.inner?.body > 0.04) ? '얼굴선을' : '얼굴을'} 가리고 있어요`, '손을 얼굴에서 떼고 턱선까지 다 보이게 찍어 주세요.');
   if (cover.eyes?.other > 0.18) add('glasses', purpose === 'makeup' ? 'block' : 'warn', '안경을 쓰고 있어요', '안경테가 눈썹과 눈매를 가려요. 안경을 벗고 찍으면 더 정확해요.');
   if (cover.inner?.other > 0.15 && !(cover.eyes?.other > 0.18)) add('mask', 'block', '얼굴에 가린 물건이 있어요', '마스크나 소품을 치우고 찍어 주세요.');
-  if (hairNeeds && !hairline && !out.some((x) => x.key === 'bangs' || x.key === 'hat')) add('hairline', 'warn', '헤어라인을 찾지 못했어요', '이마 높이는 평균 비율로 어림했어요. 이마가 다 보이게 머리를 넘기면 더 정확해요.');
+  if (!hairline && !out.some((x) => x.key === 'bangs' || x.key === 'hat')) add('hairline', 'warn', '헤어라인을 찾지 못했어요', '이마 높이는 평균 비율로 어림했어요. 이마가 다 보이게 머리를 넘기면 더 정확해요.');
   return out.sort((a, b) => (a.level === b.level ? 0 : a.level === 'block' ? -1 : 1));
 }
 

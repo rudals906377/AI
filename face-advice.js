@@ -158,36 +158,42 @@ function hairAdvice(f, t) {
 // ---- 메이크업 추천 ------------------------------------------------------------------
 const MAKEUP = {
   oval: {
+    idea: '균형이 좋은 얼굴형이라 윤곽을 바꾸기보다 입체감만 살리면 돼요. 어떤 메이크업도 잘 받는 편이에요.',
     shading: '윤곽을 크게 바꿀 필요가 없어요. 광대 아래와 턱선 끝에 아주 연하게만 넣어 주세요.',
     highlight: '이마 가운데 · 콧대 · 광대 위 · 턱끝에 가볍게 올려 입체감을 살려요.',
     blush: '웃을 때 올라오는 볼 가운데에 둥글게 넣어 주세요. 어떤 모양도 무난해요.',
     brow: '자연스러운 아치 눈썹과 일자 눈썹 모두 잘 어울려요.',
   },
   round: {
+    idea: '세로 라인을 만들어 얼굴이 길고 갸름해 보이게 하는 것이 핵심이에요. 얼굴 바깥은 어둡게, 가운데는 세로로 밝게 해 주세요.',
     shading: '관자놀이에서 광대 아래를 지나 턱선까지, 얼굴 바깥쪽을 따라 세로로 넣어 볼 폭을 줄여 주세요.',
     highlight: '이마 가운데에서 콧대까지 세로로 길게, 턱끝에도 살짝 올려 얼굴이 길어 보이게 해요.',
     blush: '볼 가운데보다 조금 바깥에서 관자놀이 쪽으로 사선으로 길게 올려 주세요.',
     brow: '눈썹 산이 살짝 있는 아치형으로, 꼬리를 너무 내리지 않게 그려 세로감을 주세요.',
   },
   long: {
+    idea: '가로 라인을 만들어 얼굴 길이를 줄여 보이게 하는 것이 핵심이에요. 위아래 끝은 어둡게, 볼은 가로로 넓게 채워 주세요.',
     shading: '헤어라인(이마 위)과 턱끝 아래를 가로로 쉐딩해 위아래 길이를 줄여 주세요.',
     highlight: '눈 밑 광대 위에 가로로 짧게 올리고, 콧대 하이라이트는 짧게 끊어 주세요.',
     blush: '볼 가운데에서 바깥쪽으로 가로로 넓게 펴 바르면 얼굴 길이가 짧아 보여요.',
     brow: '산을 낮춘 일자 눈썹을 길게 그리면 가로 라인이 생겨요.',
   },
   square: {
+    idea: '곡선으로 턱 모서리의 각을 부드럽게 만드는 것이 핵심이에요. 모서리는 어둡게, 블러셔와 눈썹은 둥글게 해 주세요.',
     shading: '턱 모서리(귀 아래 각진 부분)와 이마 양쪽 모서리를 둥글게 깎듯이 쉐딩해 주세요.',
     highlight: '이마 가운데 · 콧대 · 턱끝에 올려 시선을 얼굴 가운데로 모아요.',
     blush: '광대 가운데에 둥글게 넣어 곡선을 더해 주세요.',
     brow: '각지지 않은 부드러운 아치 눈썹이 턱의 직선을 중화해요.',
   },
   heart: {
+    idea: '넓은 이마는 줄여 보이게 하고 좁은 턱 쪽은 밝게 채워 위아래 균형을 맞추는 것이 핵심이에요.',
     shading: '이마 양옆(관자놀이)을 쉐딩해 이마 폭을 줄이고, 뾰족한 턱끝은 아주 살짝만 눌러 주세요.',
     highlight: '턱 양옆과 눈 밑에 하이라이트를 넣어 좁은 아래 얼굴을 채워 보이게 해요.',
     blush: '광대 바로 아래에 가로로 둥글게 넣어 얼굴 아래쪽에 시선이 가게 해 주세요.',
     brow: '산이 완만하고 둥근 눈썹이 좋아요. 너무 진하거나 각진 눈썹은 이마를 넓어 보이게 해요.',
   },
   diamond: {
+    idea: '튀어나온 광대는 줄여 보이게 하고 좁은 이마와 턱 쪽은 밝게 넓혀 주는 것이 핵심이에요.',
     shading: '가장 튀어나온 광대 바깥쪽에 넣어 폭을 줄여 주세요. 턱 · 이마에는 넣지 않아요.',
     highlight: '이마 양옆과 턱 양옆을 밝혀 좁은 위아래를 넓어 보이게 해요.',
     blush: '광대 꼭대기보다 안쪽(눈 밑 앞쪽)에 가로로 넣어 광대가 덜 도드라져 보이게 해요.',
@@ -196,6 +202,7 @@ const MAKEUP = {
 };
 function makeupAdvice(f, t) {
   const M = MAKEUP[f.shape.probs[0].key];
+  const near = f.shape.probs[1];
   const eye = [], lip = [], base = [];
   // 눈매
   if (t.eyeUp >= 0.8) eye.push(`눈꼬리가 올라간 편이라 아이라인 꼬리를 수평이나 살짝 아래로 빼는 강아지 라인을 그리면 순한 인상이 돼요. ${EYE_LINE['강아지 라인']}`);
@@ -220,9 +227,19 @@ function makeupAdvice(f, t) {
   if (t.lower >= 0.8) base.push('하안부가 긴 편이라 턱끝 아래를 쉐딩하고, 윗입술을 또렷하게 그려 시선을 위로 올려 주세요.');
   if (t.upper >= 0.8) base.push('이마가 긴 편이라 헤어라인을 따라 쉐딩을 가볍게 넣으면 이마가 줄어 보여요.');
   if (t.noseW >= 0.8) base.push('콧볼이 넓은 편이라 콧볼 양옆에 세로로 노즈 쉐딩을 넣고, 하이라이트는 콧대에 가늘게 올려 주세요.');
+  // 얼굴형 이름만으로는 빠지는 특징 (예: 계란형인데 턱이 넓은 편)
+  const top = f.shape.probs[0].key, shapeExtra = [];
+  if (t.foreheadW >= 0.8 && top !== 'heart') shapeExtra.push('이마가 넓은 편이라 이마 양옆 헤어라인을 따라 쉐딩을 조금 더해 주세요.');
+  if (t.jawW >= 0.8 && top !== 'square') shapeExtra.push('턱이 넓은 편이라 귀 아래 턱선 바깥에 쉐딩을 조금 더해 주세요.');
+  if (t.chinW <= -0.8 && top !== 'heart') shapeExtra.push('턱끝이 뾰족한 편이라 턱끝 쉐딩은 빼고 턱 양옆을 밝게 해 주세요.');
+  if (t.long >= 0.8 && top !== 'long') shapeExtra.push('얼굴이 긴 편이라 블러셔를 가로로 넣으면 길이가 짧아 보여요.');
+  else if (t.long <= -0.8 && top !== 'round') shapeExtra.push('얼굴이 짧은 편이라 콧대와 이마 가운데 하이라이트를 세로로 길게 올려 주세요.');
+  const BLUSH_SHORT = { oval: '볼 가운데 둥근 블러셔', round: '관자놀이 쪽으로 올리는 사선 블러셔', long: '가로로 넓게 펴는 블러셔', square: '광대 가운데 둥근 블러셔', heart: '광대 아래 가로 블러셔', diamond: '눈 밑 안쪽 가로 블러셔' };
+  if (near && near.p >= 0.25) shapeExtra.push(`${short(near.label)}에도 가까워서 ${BLUSH_SHORT[near.key]}도 잘 어울려요.`);
   // 피부 톤 (사진 조명 영향이 커서 참고용)
   const tone = f.skin && skinHint(f.skin);
   return [
+    { key: 'idea', title: `얼굴형 메이크업 핵심 · ${short(f.shape.probs[0].label)}`, text: [M.idea, ...shapeExtra].join(' ') },
     { key: 'shading', title: '쉐딩 (윤곽)', text: M.shading, zone: 'shade' },
     { key: 'highlight', title: '하이라이터', text: M.highlight, zone: 'light' },
     { key: 'blush', title: '블러셔', text: M.blush, zone: 'blush' },
