@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 # 앱 실행에 필요한 파일 + 예시 사진 출처 + 학습 데이터 출처 기록 (CC BY 출처 표시)
 ALLOW = ["README.md", "index.html", "style.css", "app.js", "analyzer.js", "encoders.js", "describe.js", "taxonomy.js", "advanced.js",
-         "order.js", "colors.js", "suits.js", "review.html", "review.js", "notice.html",
+         "order.js", "colors.js", "suits.js", "face.js", "face-advice.js", "face-ui.js", "review.html", "review.js", "notice.html",
          "embeddings/*.json", "heads/*.json", "samples/*", "samples/thumbs/*", "samples/similar/*.json", "models/mediapipe/*",
          "data/labels_clean.jsonl"]
 # docs/legal/ 의 초안(약관 · 개인정보처리방침 등)은 법률 검토 메모가 들어 있어 올리지 않는다. 화면용 안내는 notice.html

@@ -7,6 +7,7 @@ import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
 import { extractColors, COLOR_TARGETS } from './colors.js';
 import { suitsFor } from './suits.js';
+import { initFaceUI } from './face-ui.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -363,6 +364,7 @@ function render(r) {
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = paragraphsHtml(r);
   renderSuits(r);
+  faceUI.styleChanged(r);
 
   els.attrs.innerHTML = r.attributes.map((a) => `
     <div class="attr ${a.level}" data-g="${esc(a.group)}">
@@ -725,10 +727,15 @@ function toast(text) {
 // 휴대폰: 결과를 보다가 위로 올라가지 않고도 다른 사진을 고를 수 있게 떠 있는 버튼
 if ('IntersectionObserver' in window) {
   let inputVisible = true;
-  const updateFab = () => els.fab.classList.toggle('hidden', inputVisible || window.innerWidth >= 900 || !lastResult);
+  const updateFab = () => els.fab.classList.toggle('hidden', inputVisible || window.innerWidth >= 900 || !lastResult || document.body.dataset.mode === 'face');
   new IntersectionObserver(([e]) => { inputVisible = e.isIntersecting; updateFab(); }, { threshold: 0.05 }).observe(els.inputCard);
   window.addEventListener('resize', updateFab);
+  window.addEventListener('modechange', updateFab);
   els.fab.addEventListener('click', () => els.inputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 }
+
+// 내 얼굴 분석 (셀카 → 얼굴형 · 맞춤 헤어 · 메이크업). 스타일 분석 결과와 사진을 넘겨 궁합을 본다
+const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), toast, copy });
+if (params.get('mode') === 'face') faceUI.setMode('face', { scroll: false });
 
 init();

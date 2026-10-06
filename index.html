@@ -17,7 +17,7 @@
     <header class="top">
       <div class="brand">
         <h1>뷰티 스타일 AI 분석</h1>
-        <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 설명합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
+        <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 설명하고, 셀카로 내 얼굴형에 맞는 헤어 · 메이크업을 추천합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
       </div>
       <div class="status" id="status">
         <span class="dot"></span>
@@ -26,7 +26,12 @@
       </div>
     </header>
 
-    <div class="grid">
+    <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
+      <button type="button" data-mode="style" class="active" aria-pressed="true">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
+      <button type="button" data-mode="face" aria-pressed="false">내 얼굴 분석<small>셀카로 얼굴형 · 맞춤 헤어 · 메이크업</small></button>
+    </nav>
+
+    <div class="grid" id="styleGrid">
       <!-- 입력 -->
       <section class="card" id="inputCard">
         <h2>사진</h2>
@@ -114,6 +119,11 @@
             <p class="note">사진 속 스타일의 특징에 일반적인 스타일링 기준을 적용한 추천이에요. 사진 속 사람의 얼굴형이나 피부 톤을 진단한 결과는 아니에요.</p>
           </div>
 
+          <div class="face-cta hidden" id="faceCta">
+            <div><b id="faceCtaTitle">내 얼굴형에도 어울릴까요?</b><small>셀카 한 장으로 얼굴형과 비율을 재고, 이 스타일과의 궁합과 맞춤 추천을 알려 드려요.</small></div>
+            <button class="primary small" id="faceCtaBtn" type="button">내 얼굴 분석하기</button>
+          </div>
+
           <div class="colors hidden" id="colorBlock">
             <h3>사진 속 색 <small id="colorMeta"></small></h3>
             <div class="swatches" id="swatches"></div>
@@ -182,6 +192,95 @@
         </div>
       </section>
     </div>
+
+    <!-- 내 얼굴 분석 -->
+    <div class="grid hidden" id="faceGrid">
+      <section class="card" id="faceInputCard">
+        <h2>내 얼굴 사진</h2>
+        <div class="seg" id="facePurpose" aria-label="무엇을 추천받을까요">
+          <button type="button" data-purpose="hair" class="active">헤어 · 얼굴형</button>
+          <button type="button" data-purpose="makeup">메이크업</button>
+        </div>
+        <label class="drop face-drop" id="faceDrop">
+          <input type="file" id="faceFile" accept="image/*" />
+          <img id="facePreview" class="hidden" alt="내 얼굴 사진 미리보기" />
+          <div class="hint" id="faceHint">
+            <svg class="face-guide" viewBox="0 0 120 140" aria-hidden="true"><ellipse cx="60" cy="72" rx="38" ry="50" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 60q8-5 16 0M66 60q8-5 16 0M52 92q8 5 16 0M60 66v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 52q4-40 38-42q34 2 38 42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".45"/></svg>
+            <strong>정면 셀카를 올려 주세요</strong>
+            <small>끌어다 놓기 · 붙여넣기(Ctrl+V)도 돼요</small>
+          </div>
+        </label>
+        <div class="row upload-row">
+          <button type="button" class="primary" id="faceShoot">셀카 찍기</button>
+          <button type="button" class="ghost" id="facePick">사진 올리기</button>
+          <input type="file" id="faceCamera" accept="image/*" capture="user" hidden />
+        </div>
+        <button type="button" class="ghost small hidden" id="faceUseStyle">스타일 분석에 올린 사진으로 분석하기</button>
+
+        <h3>이렇게 찍어 주세요</h3>
+        <ol class="guide">
+          <li><b>앞머리 · 옆머리를 넘겨</b> 이마 · 귀 · 턱선이 다 보이게 해 주세요. 머리띠나 집게핀을 써도 좋아요.</li>
+          <li><b>정면 · 무표정</b>으로, 입을 다물고 카메라를 눈높이에 맞춰 주세요.</li>
+          <li><b>팔을 쭉 뻗은 거리</b>에서 찍어 주세요. 너무 가까우면 렌즈 때문에 얼굴이 길고 코가 커 보여요.</li>
+          <li><b>안경 · 모자 · 마스크</b>는 벗고, 밝은 곳에서 찍어 주세요.</li>
+        </ol>
+        <p class="note">머리카락이 얼굴선을 가리면 측정하지 않고 다시 찍어 달라고 알려 드려요. 사진과 측정값은 이 브라우저 안에서만 쓰고 저장하거나 보내지 않아요.</p>
+      </section>
+
+      <section class="card" id="faceResultCard">
+        <h2>얼굴 분석 결과</h2>
+        <div class="result-empty" id="faceEmpty">
+          <strong>셀카를 올리면 얼굴형과 비율을 재요</strong>
+          <small>이마 · 광대 · 턱 너비, 얼굴 길이, 삼정, 턱 각도, 눈 · 코 · 입술 비율을 재고 맞춤 헤어 · 메이크업을 추천해요</small>
+        </div>
+        <div class="face-status hidden" id="faceStatus" role="status" aria-live="polite"></div>
+
+        <div class="face-retake hidden" id="faceRetake">
+          <div class="retake-head"><b>다시 찍어 주세요</b><small>정확하게 재려면 아래를 고쳐 주세요. 붉게 칠한 곳이 얼굴을 가린 부분이에요.</small></div>
+          <canvas id="faceRetakeCanvas" class="face-canvas" aria-label="얼굴을 가린 부분을 붉게 표시한 사진"></canvas>
+          <ul class="issues" id="faceRetakeList"></ul>
+          <div class="row"><button type="button" class="primary" id="faceRetakeBtn">다시 찍기</button></div>
+        </div>
+
+        <div class="hidden" id="faceResult">
+          <figure class="face-fig">
+            <canvas id="faceCanvas" class="face-canvas" aria-label="측정선을 그린 내 얼굴 사진"></canvas>
+            <div class="seg sample-tabs face-layer" id="faceLayer">
+              <button type="button" data-layer="measure" class="active">측정선</button>
+              <button type="button" data-layer="makeup" hidden>메이크업 위치</button>
+              <button type="button" data-layer="photo">사진만</button>
+            </div>
+            <figcaption class="face-legend" id="faceLegend"></figcaption>
+          </figure>
+          <div class="face-head">
+            <small id="faceShapeLabel">내 얼굴형</small>
+            <strong id="faceShape"></strong>
+            <p class="desc" id="faceSummary"></p>
+          </div>
+          <div class="shape-bars" id="faceBars" aria-label="얼굴형별 가까운 정도"></div>
+          <ul class="face-warn hidden" id="faceWarn"></ul>
+          <div class="face-match hidden" id="faceMatch"></div>
+          <h3>측정 결과 <small>광대 너비를 1 로 둔 비율 · 평균은 예시 얼굴 사진들의 평균</small></h3>
+          <div class="table-wrap"><table class="measure" id="faceMeasures"></table></div>
+          <h3 id="faceAdviceTitle">헤어 추천</h3>
+          <div class="advice" id="faceAdvice"></div>
+          <div class="row">
+            <button class="ghost small" id="faceCopy" type="button">결과 복사</button>
+            <button class="ghost small" id="faceAgain" type="button">다른 사진으로</button>
+          </div>
+          <p class="note">사진 한 장으로 잰 비율에 널리 쓰이는 스타일링 기준을 적용한 참고용 결과예요. 얼굴형에는 정답이 없고, 카메라 거리 · 각도 · 표정에 따라 조금씩 달라질 수 있어요. 의학적 진단이나 시술 판단이 아니에요.</p>
+        </div>
+      </section>
+    </div>
+
+    <dialog class="cam" id="camDialog" aria-label="셀카 찍기">
+      <div class="cam-view">
+        <video id="camVideo" playsinline muted></video>
+        <svg class="cam-guide" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="48" rx="20" ry="33" fill="none" stroke="#fff" stroke-width="0.6" stroke-dasharray="2 2"/></svg>
+      </div>
+      <p class="note" id="camNote">얼굴을 점선 안에 맞추고, 앞머리 · 옆머리를 넘겨 이마 · 귀 · 턱선이 보이게 해 주세요.</p>
+      <div class="row"><button type="button" class="primary" id="camShot">찍기</button><button type="button" class="ghost" id="camCancel">취소</button></div>
+    </dialog>
 
     <button class="fab hidden" id="fab" type="button">다른 사진 고르기</button>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
