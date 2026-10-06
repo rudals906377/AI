@@ -129,7 +129,7 @@ export async function createAnalyzer({
       const attrs2 = attributesFor(second.key, vec, topk);
       const t2 = compose(second.key, attrs2);
       secondary = { category: second.key, category_label: TAXONOMY[second.key].label, score: second.score, attributes: attrs2,
-        genre: t2.genre, headline: t2.headline, description_ko: t2.description, sentences: t2.sentences, tags: t2.tags, trends: t2.trends };
+        genre: t2.genre, headline: t2.headline, description_ko: t2.description, sentences: t2.sentences, paragraphs: t2.paragraphs, tags: t2.tags, trends: t2.trends };
     }
     // 사진 품질 안내: 너무 작은 사진은 세부 속성을 읽기 어렵다
     const warnings = [];
@@ -147,6 +147,7 @@ export async function createAnalyzer({
       genre: text.genre,
       description_ko: text.description,
       sentences: text.sentences,
+      paragraphs: text.paragraphs,
       tags: text.tags,
       trends: text.trends,
       confidence,

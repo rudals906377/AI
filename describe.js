@@ -18,6 +18,9 @@ let omitted = 0; // 확실하지 않아 문장에서 뺀 세부 항목 수
 let rand = Math.random;
 let cat = 'hair';
 
+// 문단을 나누는 자리 표시 (문장 목록 안에서만 쓰고, 결과 문장에는 남지 않는다)
+const BR = Symbol('문단');
+
 export function compose(category, attributes) {
   hedgeBudget = MAX_HEDGES;
   omitted = 0;
@@ -31,9 +34,19 @@ export function compose(category, attributes) {
     ...trends.map((t) => t.name.replace(/[\s·()]/g, '')),
     ...attributes.flatMap((x) => tagFor(category, x)),
   ]).slice(0, 12);
-  const sentences = uniq(out.sentences.filter(Boolean));
-  if (omitted >= 2) sentences.push(pick(['나머지 항목은 사진만으로 확실하지 않아 아래 속성별 후보로 보여 드려요.', '확실하지 않은 항목은 문장에서 빼고 아래 후보 막대로 보여 드려요.']));
-  return { headline: out.headline, genre: out.genre, sentences, description: sentences.join(' '), tags, trends };
+  // 문단: 카테고리마다 문장 사이에 넣은 BR 표시에서 나눈다 (빈 문단 · 같은 문장은 뺀다)
+  const paragraphs = [[]];
+  const seen = new Set();
+  for (const x of out.sentences) {
+    if (x === BR) { if (paragraphs.at(-1).length) paragraphs.push([]); continue; }
+    if (!x || seen.has(x)) continue;
+    seen.add(x);
+    paragraphs.at(-1).push(x);
+  }
+  if (!paragraphs.at(-1).length) paragraphs.pop();
+  if (omitted >= 2) paragraphs.push([pick(['나머지 항목은 사진만으로 확실하지 않아 아래 속성별 후보로 보여 드려요.', '확실하지 않은 항목은 문장에서 빼고 아래 후보 막대로 보여 드려요.'])]);
+  const sentences = paragraphs.flat();
+  return { headline: out.headline, genre: out.genre, sentences, paragraphs, description: paragraphs.map((x) => x.join(' ')).join('\n'), tags, trends };
 }
 
 // ---------------------------------------------------------------------------
@@ -366,6 +379,7 @@ const COMPOSERS = {
     const other = withCut && aka('cut', cut.label);
     if (other) s.push(akaLine(cut.label, other));
 
+    s.push(BR);
     const B = BANGS[bangs.label];
     s.push(B ? say(bangs, B[0], B[1]) : say(bangs, `앞머리는 ${ida(bangs.label)}.`, `앞머리는 ${josa(bangs.label, '으로/로')} 보여요.`));
 
@@ -379,6 +393,7 @@ const COMPOSERS = {
     s.push(hedge(color));
     if (colorTech.label !== '전체 염색') s.push(say(colorTech, COLOR_TECH[colorTech.label] ?? `${colorTech.label} 기법으로 포인트를 줬어요.`, `${colorTech.label} 기법으로 포인트를 준 것으로 보여요.`));
     if (styling.label !== '풀어내린 머리') s.push(say(styling, STYLING[styling.label] ?? `${josa(styling.label, '으로/로')} 연출했어요.`, `${josa(styling.label, '으로/로')} 연출한 것으로 보여요.`));
+    s.push(BR);
     const adj = HAIR_MOOD[mood.label] ?? mood.label;
     s.push(say(mood, [`전체적으로 ${adj} 분위기의 헤어예요.`, `${adj} 무드가 잘 살아 있는 스타일이에요.`], `전체적으로 ${adj} 분위기에 가까워요.`));
     if (mood.level === 'high' && HAIR_SCENE[mood.label]) s.push(HAIR_SCENE[mood.label]);
@@ -446,6 +461,7 @@ const COMPOSERS = {
     if (info) s.push(say(design, [`${info} 디자인이 포인트예요.`, `포인트는 ${ida(info)}.`], `${info} 디자인으로 보여요.`));
     const second = design.all[1];
     if (second && second.score >= 0.2 && second.score >= design.score * 0.5) s.push(pick([`${second.label} 요소도 함께 들어가 있어요.`, `${second.label} 느낌도 함께 보여요.`]));
+    s.push(BR);
     const Lay = layout && NAIL_LAYOUT[layout.label];
     if (Lay) s.push(say(layout, Lay[0], Lay[1]));
     const fin = NAIL_FINISH[finish.label] ?? finish.label;
@@ -467,6 +483,7 @@ const COMPOSERS = {
     if (sure(mood) && MOOD_T[mood.label]) T.push(trend(...MOOD_T[mood.label]));
     if (pedi) T.push(trend('패디 네일', '발톱 네일'));
     const lead = T.find((t) => t.why !== '디자인' && t.name !== '패디 네일');
+    s.push(BR);
     if (lead) s.push(pick([`요즘 SNS에서 '${lead.name}'로 불리는 ${lead.why} 스타일에 가까워요.`, `SNS에서는 '${lead.name}'로 많이 찾는 스타일이에요.`]));
 
     const ct = color.all[0].tone;
@@ -498,6 +515,7 @@ const COMPOSERS = {
     const bp = BASE[base.label] ?? base.label;
     s.push(say(base, [`피부는 ${bp} 피부로 표현했어요.`, `베이스는 ${bp} 피부로 연출했어요.`], `피부는 ${bp} 피부에 가까워요.`));
 
+    s.push(BR);
     // 눈: 섀도와 아이라인을 한 문장으로 잇는다
     if (eye?.level === 'low') omitted++;
     if (eyeLine?.level === 'low') omitted++;
@@ -520,6 +538,7 @@ const COMPOSERS = {
     } else if (lash?.level === 'low') omitted++;
     if (brow && BROW[brow.label]) s.push(say(brow, BROW[brow.label][0], BROW[brow.label][1]));
 
+    s.push(BR);
     const tp = LIP_TEX[lipTexture.label] ?? lipTexture.label;
     if (lipTexture.level === 'low') s.push(say(lip, [`입술은 ${lip.label} 컬러예요.`, `립은 ${lip.label} 컬러를 골랐어요.`], `입술은 ${lip.label} 컬러로 보여요.`));
     else {
@@ -532,6 +551,7 @@ const COMPOSERS = {
     if (lip.level !== 'low') s.push(hedge(lip));
     if (cheek.label !== '미니멀' && CHEEK[cheek.label]) s.push(say(cheek, CHEEK[cheek.label][0], CHEEK[cheek.label][1]));
     if (detail && DETAIL[detail.label]) s.push(say(detail, DETAIL[detail.label][0], DETAIL[detail.label][1]));
+    s.push(BR);
     if (tone?.sure && tone.label !== '뉴트럴') s.push(toneLine(tone.label));
 
     const T = [];
@@ -573,6 +593,7 @@ const COMPOSERS = {
     const second = style.all[1];
     if (second && second.score >= 0.2 && second.score >= style.score * 0.5) s.push(`${second.label} 요소도 함께 보여요(${pct(style.score)} 대 ${pct(second.score)}).`);
     else s.push(hedge(style));
+    s.push(BR);
     const sizeNP = `${SIZE_NP[size.label] ?? size.label} 사이즈`;
     const cp = COLOR_PHRASE[color.label] ?? `${color.label} 컬러로`;
     if (placement.level !== 'low' && size.level !== 'low' && color.level !== 'low') {
