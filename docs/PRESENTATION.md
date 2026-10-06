@@ -1,6 +1,6 @@
-# 발표 준비 — 뷰티 스타일 AI 설명기
+# 발표 준비 — 뷰티 스타일 AI 분석
 
-슬라이드 파일: [presentation.pptx](presentation.pptx) (PowerPoint, 글꼴 바탕 · 발표자 노트 포함). 표지와 마지막 장의 [발표자 이름 · 학번]은 직접 채운다.
+슬라이드 파일: [presentation.pptx](presentation.pptx) (PowerPoint, 글꼴 바탕 · 발표자 노트 포함). 표지와 마지막 장에 "인공지능 소프트웨어 / 오경민"이 들어가 있다.
 
 발표 시간 5분 기준. 3분이면 3장(동작 방식)을 한 문장으로 줄이고 시연을 2분으로 맞춘다.
 

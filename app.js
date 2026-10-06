@@ -496,7 +496,7 @@ async function orderImage(o, photo) {
       return lines.length * size * lh;
     };
     y += text(o.title, 46, 700, C.text, P, INNER) + 4;
-    y += text(`뷰티 스타일 AI 설명기 · ${date} · ${o.to}에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 28;
+    y += text(`뷰티 스타일 AI 분석 · ${date} · ${o.to}에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 28;
     if (paint) {
       ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip();
       ctx.drawImage(bmp, P + (INNER - iw) / 2, y, iw, ih); ctx.restore();
@@ -668,7 +668,7 @@ els.fbClear.addEventListener('click', () => {
 // JSON 출력용: 화면 전용 필드 정리
 function slim(r) {
   return {
-    ai_generated: true, generator: '뷰티 스타일 AI 설명기', generative_model: r.vlm_model,
+    ai_generated: true, generator: '뷰티 스타일 AI 분석', generative_model: r.vlm_model,
     category: r.category, category_label: r.category_label, category_ranking: r.category_ranking.map((c) => ({ key: c.key, score: round(c.score) })),
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level,
@@ -686,7 +686,7 @@ const pct = (x) => `${Math.round(x * 100)}%`;
 const round = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 설명기가 사진을 보고 만든 설명이라 틀릴 수 있어요)` : ''));
+els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 분석 결과라 틀릴 수 있어요)` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) {
   try { await navigator.clipboard.writeText(text); toast('복사했어요'); } catch { toast('복사하지 못했어요'); }

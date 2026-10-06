@@ -1,4 +1,4 @@
-# 중간평가 보고서 — 뷰티 스타일 AI 설명기
+# 중간평가 보고서 — 뷰티 스타일 AI 분석
 
 **데모** https://huggingface.co/spaces/kyoungminOh/beauty-style-ai · **소스** https://github.com/rudals906377/AI
 
