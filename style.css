@@ -270,7 +270,9 @@ header.top p { margin: 4px 0 0; color: var(--muted); font-size: 0.93rem; max-wid
 .colors .note { margin-top: 6px; font-size: 0.78rem; }
 
 /* ── 시술 요청서 */
-.order { margin-top: 22px; border: 1px solid var(--line-2); border-radius: 10px; padding: 16px 18px; background: var(--card); }
+.order { margin-top: 22px; border: 1px solid var(--line-2); border-radius: 10px; padding: 16px 18px; background: var(--card); scroll-margin-top: 16px; transition: box-shadow .6s var(--ease); }
+.order.flash { box-shadow: 0 0 0 3px var(--mocha); transition: none; }
+.jump-row { margin: 0 0 14px; }
 .order-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .order-head h3 { margin: 0; font-size: 1.02rem; font-weight: 700; color: var(--text); }
 .order-head small { color: var(--muted); font-size: 0.8rem; }
