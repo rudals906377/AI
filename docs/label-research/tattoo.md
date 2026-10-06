@@ -30,7 +30,7 @@
 | placement | 척추 | 척추타투, 등 라인 레터링, 스파인 타투 | vertical tattoo running down the center of the back along the spine, often a single line of lettering or an ornamental chain | https://kr.pinterest.com/lswyjh/%EC%B2%99%EC%B6%94%ED%83%80%ED%88%AC/ · https://www.harpersbazaar.co.kr/article/1907362 | 중 |
 | placement | 종아리 | 종아리타투, 정강이 | tattoo on the lower leg, on the calf or shin between the knee and the ankle | https://www.wizard.tattoo/ko/ideas/placement/calf · https://tktx-kr.com/blog/tattoo-pain-chart-by-body-part-guide · https://www.wizard.tattoo/ko/blog/tattoo-placement-guide | 중 |
 | placement | 팔꿈치 | 팔꿈치타투, 엘보, 팔오금 | tattoo on the point of the elbow or in the inner elbow crease | https://www.gqkorea.co.kr/2017/05/18/%ED%83%80%ED%88%AC-%EC%B4%88%EC%8B%AC%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C/ · https://tarttoo.com/blogPost/hurt | 하 |
-| size | 반팔 | 반팔 사이즈, 하프슬리브, 이레즈미 반팔 | half sleeve tattoo covering the whole upper arm from the shoulder down to the elbow | https://www.a-ha.io/questions/46ed8ec19225f87785c76b7e0692b0a7 ("반팔 사이즈 15~20cm") · https://www.tattooshare.co.kr/bbs/board.php?bo_table=tattoo_posting&wr_id=250577 · http://tattooist.co.kr/suk/info/03price%BF%B9%C0%FC%BB%E8%C1%A6.html | 상 |
+| size | 반팔 | 반팔 사이즈, 하프슬리브, 이레즈미 반팔 | half sleeve tattoo covering the whole upper arm from the shoulder down to the elbow | https://www.a-ha.io/questions/46ed8ec19225f87785c76b7e0692b0a7 ("반팔 사이즈 15\~20cm") · https://www.tattooshare.co.kr/bbs/board.php?bo_table=tattoo_posting&wr_id=250577 · http://tattooist.co.kr/suk/info/03price%BF%B9%C0%FC%BB%E8%C1%A6.html | 상 |
 | size | 긴팔 | 풀슬리브, 슬리브, 긴팔 이레즈미 | full sleeve tattoo covering the entire arm from the shoulder to the wrist | https://tattoome.co.kr/portfolio/tattoo/horiyuto1/1851/ ("긴팔" 태그) · https://www.wizard.tattoo/ko/glossary/sleeve | 상 |
 | size | 등판 | 등판 타투, 등문신, 풀백, 백피스 | back piece tattoo covering most of the back from the shoulders to the waist | https://tattoome.co.kr/community/irezumi/post/65/ ("등판") · https://www.threads.com/@horijo_tattoo/post/DNX1nypyZrw · https://www.mydaily.co.kr/page/view/2025100217323270403 | 중 |
 | size | 전신 | 바디슈트, 반바지(허벅지까지), 레그슬리브 | bodysuit tattoo, one connected design covering the torso, arms and legs | https://tattoome.co.kr/portfolio/tattoo/horiyuto1/1851/ ("전신"·"반바지" 태그) | 하 |
@@ -56,7 +56,7 @@
 | 기존 | 제안 | 이유 |
 |---|---|---|
 | 파인라인 | 유지. 동의어 추가: **라인워크, 감성타투, 파인타투, K타투, 싱글니들**. 설명 수정: "fine line tattoo drawn with hair-thin single-needle black lines, delicate outline drawing with little or no shading" | 국내 플랫폼은 라인워크와 감성타투를 따로 필터링하지만(tattoome), 둘 다 "가늘고 섬세한 선"으로 정의돼 사진만으로는 나눌 수 없다. 해외에서 K타투로 불리는 장르가 바로 이것이다(artito, khan). |
-| 미니멀 | 유지. 동의어 추가: 심플타투, 심볼타투. **"미니타투"는 동의어로 넣지 말 것** | 한국 사용자가 말하는 "미니타투"는 크기(size=미니) 개념이다(a-ha 1~3cm, tattooshare 3x3cm). 장르로 매핑하면 크기 그룹과 중복된다. |
+| 미니멀 | 유지. 동의어 추가: 심플타투, 심볼타투. **"미니타투"는 동의어로 넣지 말 것** | 한국 사용자가 말하는 "미니타투"는 크기(size=미니) 개념이다(a-ha 1\~3cm, tattooshare 3x3cm). 장르로 매핑하면 크기 그룹과 중복된다. |
 | 컬러 리얼리즘 | **리얼리즘**으로 이름 변경. 동의어: 리얼리스틱, 리얼리티, 포트레이트, 마이크로 리얼리즘. 설명: "photorealistic tattoo that looks like a photograph, with lifelike lighting, skin texture and depth" | 국내 필터 용어는 "리얼리스틱"이다(tattoome). 한국 리얼리즘 작업은 블랙앤그레이가 주류라서(koreatimes 2025-08, careyounews), 장르 이름에 "컬러"를 고정해 두면 오분류가 생긴다. 색은 color 그룹이 맡는다. |
 | 블랙앤그레이 | 유지. 설명 수정: "soft smooth grey wash shading made with diluted black ink, smoky gradients, not photographic" | 리얼리즘(사진 같은 질감)과 겹치지 않도록 "부드러운 그레이 워시"를 강조한다(artito 블랙워크 vs 블랙앤그레이). |
 | 블랙워크 | 유지. 설명 수정: "bold solid black ink fills and heavy black patterns, flat with no grey shading" | 블랙아웃(전면 채움), 블랙앤그레이(음영)와 구분하기 위해서다. |
@@ -104,9 +104,9 @@
 ### size (크기). 한국 견적 기준에 맞춘 설명
 | 라벨 | 수정 설명 | 근거 |
 |---|---|---|
-| 미니 | "a tiny tattoo about 1–3 cm, the size of a fingernail or coin" | a-ha (미니 1~3cm), tattooshare (3x3cm 이내) |
-| 스몰 | "a small tattoo about 5–7 cm, smaller than a palm" | a-ha (작은 타투 5~7cm) |
-| 미디엄 | "a palm-sized tattoo about 8–12 cm" | a-ha (중간 8~12cm), tattoome ("손바닥만 한 10cm 내외") |
+| 미니 | "a tiny tattoo about 1–3 cm, the size of a fingernail or coin" | a-ha (미니 1\~3cm), tattooshare (3x3cm 이내) |
+| 스몰 | "a small tattoo about 5–7 cm, smaller than a palm" | a-ha (작은 타투 5\~7cm) |
+| 미디엄 | "a palm-sized tattoo about 8–12 cm" | a-ha (중간 8\~12cm), tattoome ("손바닥만 한 10cm 내외") |
 | 대형 | "a large single piece about A4 size or bigger, on the thigh, chest or ribs". 팔·등·전신을 덮는 경우는 신규 `반팔`·`긴팔`·`등판`·`전신`으로 분리 | a-ha ("A4 이상"), tattoome 이레즈미 태그 |
 
 ### 레터링 하위 속성 (선택, 새 그룹은 보류)
