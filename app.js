@@ -6,6 +6,7 @@ import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
 import { extractColors, COLOR_TARGETS } from './colors.js';
+import { suitsFor } from './suits.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -41,7 +42,7 @@ const els = {
   colorBlock: $('colorBlock'), colorMeta: $('colorMeta'), swatches: $('swatches'),
   orderBlock: $('orderBlock'), orderTo: $('orderTo'), orderGenre: $('orderGenre'), orderRows: $('orderRows'),
   orderChecks: $('orderChecks'), orderNotes: $('orderNotes'), orderCopy: $('orderCopy'), orderSave: $('orderSave'),
-  similarBlock: $('similarBlock'), similar: $('similar'),
+  similarBlock: $('similarBlock'), similar: $('similar'), suitsBlock: $('suitsBlock'), suits: $('suits'),
 };
 // ---- 상태 ---------------------------------------------------------------------
 let analyzer = null;      // CLIP
@@ -361,6 +362,7 @@ function render(r) {
   els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = paragraphsHtml(r);
+  renderSuits(r);
 
   els.attrs.innerHTML = r.attributes.map((a) => `
     <div class="attr ${a.level}" data-g="${esc(a.group)}">
@@ -387,6 +389,14 @@ function paragraphsHtml(r) {
   const hedgy = (x) => /가능성|단정하기 어렵|추정|확실하지 않|헷갈릴/.test(x);
   // 문장은 한 덩어리(.s)로 묶어, 줄 끝에 걸리면 문장째 다음 줄로 넘긴다
   return (r.paragraphs || [r.sentences]).map((p) => `<p>${p.map((x) => `<span class="s${hedgy(x) ? ' hedge' : ''}">${esc(x)}</span>`).join(' ')}</p>`).join('');
+}
+
+// ---- 이런 분께 잘 어울려요 ------------------------------------------------------------
+function renderSuits(r) {
+  const { items } = suitsFor(r);
+  r.suits = items.map(({ label, text }) => ({ label, text }));
+  els.suitsBlock.classList.toggle('hidden', !items.length);
+  els.suits.innerHTML = items.map((x) => `<div class="suit"><b>${esc(x.label)}</b><p>${esc(x.text)}</p>${x.basis ? `<small>근거: ${esc(x.basis)}</small>` : ''}</div>`).join('');
 }
 
 // ---- 용어 설명 ------------------------------------------------------------------
@@ -678,6 +688,7 @@ function slim(r) {
       description_ko: r.secondary.description_ko, trends: r.secondary.trends, tags: r.secondary.tags,
       attributes: r.secondary.attributes.map((a) => ({ group: a.group, label: a.label, score: round(a.score), level: a.level })) },
     warnings: r.warnings,
+    suits: r.suits,
     colors: r.colors && Object.fromEntries(Object.entries(r.colors).filter(([, v]) => v).map(([k, v]) => [k, { hex: v.hex, name: v.name, level: v.level,
       palette: v.palette?.map((p) => ({ hex: p.hex, name: p.name, share: p.share })) }])),
   };
