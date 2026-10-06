@@ -444,6 +444,7 @@ async function startColors(r) {
 // ---- 시술 요청서 ---------------------------------------------------------------
 function renderOrder(r, colors) {
   els.orderBlock.classList.toggle('hidden', !r.is_beauty);
+  els.jumpRow.classList.toggle('hidden', !r.is_beauty);
   const o = lastOrder = buildOrder(r, colors);
   els.orderTitle.textContent = o.title;
   els.orderTo.textContent = `${o.to}에게 보여 주세요`;
@@ -456,6 +457,17 @@ function renderOrder(r, colors) {
   els.orderNotes.innerHTML = o.notes.length ? `<b>참고</b><ul>${o.notes.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>` : '';
 }
 els.orderTitle = $('orderTitle');
+els.jumpRow = $('jumpRow');
+// 요청서는 결과 아래쪽에 있어 바로 보이지 않으므로, 장르 카드 밑 버튼으로 내려간다
+let flashTimer;
+$('toOrder').addEventListener('click', () => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  els.orderBlock.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  els.orderBlock.classList.add('flash');
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => els.orderBlock.classList.remove('flash'), 1600);
+  els.orderCopy.focus({ preventScroll: true });
+});
 els.orderCopy.addEventListener('click', () => lastOrder && copy(lastOrder.text));
 els.orderSave.addEventListener('click', async () => {
   if (!lastOrder || !currentBlob) return;
