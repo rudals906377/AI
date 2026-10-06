@@ -44,7 +44,12 @@ body {
   background: var(--bg);
   color: var(--text); line-height: 1.6; font-size: 15.5px;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; word-break: keep-all;
+  overflow-wrap: break-word;
+  /* 마지막 줄에 단어 하나만 남지 않게 줄을 고르게 나눈다 (지원하지 않는 브라우저는 그대로) */
+  text-wrap: pretty;
 }
+/* 짧은 제목 · 장르 카드 · 용어 설명은 줄 길이를 고르게 */
+h1, h2, h3, .headline, .genre strong, .genre span, .trend small, .order-genre b, .attr .def { text-wrap: balance; }
 a { color: var(--accent-ink); text-underline-offset: 3px; }
 button, select { font: inherit; }
 :focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 2px; border-radius: 10px; }
@@ -196,6 +201,10 @@ header.top p { margin: 4px 0 0; color: var(--muted); font-size: 0.93rem; max-wid
 
 .headline { font-size: 1.25rem; font-weight: 800; margin: 12px 0 6px; letter-spacing: -0.01em; }
 .desc { font-size: 1.02rem; line-height: 1.8; margin: 0; letter-spacing: -0.005em; }
+.desc p { margin: 0; }
+.desc p + p { margin-top: 0.75em; }
+/* 문장 단위 줄바꿈: 한 줄에 다 들어가지 않는 문장은 통째로 다음 줄로, 한 줄보다 긴 문장은 고르게 나눈다 */
+.desc .s { display: inline-block; text-wrap: balance; }
 .desc .hedge { color: var(--muted); }
 
 #result > h3 { margin: 26px 0 10px; font-size: 0.86rem; color: var(--muted); font-weight: 600; }

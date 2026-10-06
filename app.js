@@ -345,7 +345,7 @@ function render(r) {
   els.secondary.classList.toggle('hidden', !sec);
   if (sec) {
     els.secTitle.innerHTML = `함께 보이는 ${esc(sec.category_label)}: <b>${esc(sec.genre.name)}</b><small>${pct(sec.score)}</small>`;
-    els.secDesc.textContent = sec.description_ko;
+    els.secDesc.innerHTML = paragraphsHtml(sec);
     els.secTags.innerHTML = [...(sec.trends || []).map((t) => t.name), ...sec.tags].slice(0, 8).map((t) => `<span class="chip">#${esc(t.replace(/[\s·()]/g, ''))}</span>`).join('');
     els.secondary.open = false;
   }
@@ -360,9 +360,7 @@ function render(r) {
   els.genreDef.textContent = ga ? defOf(r.category, ga.group, ga.label) : '';
   els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
-  els.desc.innerHTML = r.sentences
-    .map((s) => (/가능성|단정하기 어렵|추정|확실하지 않|헷갈릴/.test(s) ? `<span class="hedge">${esc(s)}</span>` : esc(s)))
-    .join(' ');
+  els.desc.innerHTML = paragraphsHtml(r);
 
   els.attrs.innerHTML = r.attributes.map((a) => `
     <div class="attr ${a.level}" data-g="${esc(a.group)}">
@@ -382,6 +380,13 @@ function render(r) {
   renderOrder(r, {});
   renderSimilar(r);
   startColors(r);
+}
+
+// 설명 문장: 문단마다 <p>, 확실하지 않은 문장은 흐리게
+function paragraphsHtml(r) {
+  const hedgy = (x) => /가능성|단정하기 어렵|추정|확실하지 않|헷갈릴/.test(x);
+  // 문장은 한 덩어리(.s)로 묶어, 줄 끝에 걸리면 문장째 다음 줄로 넘긴다
+  return (r.paragraphs || [r.sentences]).map((p) => `<p>${p.map((x) => `<span class="s${hedgy(x) ? ' hedge' : ''}">${esc(x)}</span>`).join(' ')}</p>`).join('');
 }
 
 // ---- 용어 설명 ------------------------------------------------------------------
