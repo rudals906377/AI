@@ -7,6 +7,7 @@
 //   1) 속성 사전의 라벨 문장 임베딩은 미리 계산한 파일을 쓴다 (없으면 텍스트 모델로 계산)
 //   2) 사진 1장 = 비전 임베딩 1번 (선택: 좌우 반전 평균)
 //   3) 그룹마다 학습된 헤드가 있으면 헤드로, 없으면 제로샷(코사인 유사도)으로 확률 계산
+//      메이크업처럼 작은 부위를 보는 그룹은 얼굴 · 눈 · 입술만 잘라낸 임베딩으로 판단한다 (regions 옵션, 헤드 파일의 regions)
 //   4) 톤은 컬러 라벨이 가진 톤 정보와 사진에서 직접 읽은 톤을 합쳐 판단
 //   5) 한국어 문장 · 해시태그 · SNS 트렌드 키워드 조립 (describe.js)
 
@@ -27,6 +28,7 @@ export async function createAnalyzer({
   labelEmbeddings, // buildLabelIndex() 결과(JSON). 있으면 텍스트 모델을 내려받지 않는다
   heads,           // tools/train-heads.py 결과(JSON). 있으면 학습된 분류 헤드를 쓴다
   tta = false,     // true 면 좌우 반전 이미지까지 평균 (정확도 ↑, 시간 2배)
+  regions,         // (source) => { face?, eye?, lip? : [x0, y0, x1, y1] (0~1 비율) } — 부위 잘라 보기 (없으면 전체 사진으로만 판단)
   onProgress,
 } = {}) {
   const progress = (p) => onProgress?.(p);
@@ -47,6 +49,9 @@ export async function createAnalyzer({
   const headIndex = useHeads ? decodeHeads(heads) : {};
   // 확률 보정 온도 (학습 때 폴드 밖 예측으로 맞춘 값). 표시 확률이 실제 적중률에 가깝도록 한다
   const calib = useHeads ? heads.calib || {} : {};
+  // 그룹 → 잘라 볼 부위 (예: 'makeup.eye' → 'eye'). 그 부위의 헤드 · 보정 온도는 '그룹@부위' 키로 저장돼 있다
+  const regionOf = useHeads ? heads.regions || {} : {};
+  const regionCats = new Set(Object.keys(regionOf).map((k) => k.split('.')[0]));
   progress({ status: 'ready' });
 
   async function embedImage(source) {
@@ -58,23 +63,27 @@ export async function createAnalyzer({
   }
 
   // 한 그룹의 확률 분포: 학습 헤드가 있으면 (헤드와 제로샷을 alpha 로 섞어) 사용
-  function groupProbs(key, vec, textEmbs) {
+  // regionVecs 에 이 그룹이 보는 부위의 임베딩이 있으면 그것으로 판단한다 (제로샷 · 헤드 · 보정 모두 부위 기준)
+  function groupProbs(key, vec, textEmbs, regionVecs) {
+    const reg = regionOf[key];
+    let hk = key;
+    if (reg && regionVecs?.[reg]) { vec = regionVecs[reg]; hk = `${key}@${reg}`; }
     const zs = softmax(textEmbs.map((e) => dot(vec, e) * LOGIT_SCALE));
-    const h = headIndex[key];
+    const h = headIndex[hk];
     let p = zs;
     if (h) {
       const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
       p = hp.map((x, i) => h.alpha * x + (1 - h.alpha) * zs[i]);
     }
-    const t = calib[key];
+    const t = calib[hk];
     return t ? softmax(p.map((x) => Math.log(Math.max(x, 1e-12)) / t)) : p;
   }
 
   // 한 카테고리의 속성 그룹별 결과 (확률 높은 순 후보 · 신뢰도 단계)
-  function attributesFor(cat, vec, topk) {
+  function attributesFor(cat, vec, topk, regionVecs) {
     const def = TAXONOMY[cat];
     const dist = {};
-    for (const g of def.groups) dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key]);
+    for (const g of def.groups) dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key], regionVecs);
     fuseTone(def, dist);
     return def.groups.map((g) => {
       const items = g.labels
@@ -82,9 +91,28 @@ export async function createAnalyzer({
         .sort((a, b) => b.score - a.score);
       const top = items[0];
       const level = top.score >= CONFIDENCE.high ? 'high' : top.score >= CONFIDENCE.mid ? 'mid' : 'low';
+      const reg = regionOf[`${cat}.${g.key}`];
       return { group: g.key, group_label: g.label, label: top.label, label_en: top.label_en, score: top.score, level,
-        alternatives: items.slice(1, topk), all: items };
+        alternatives: items.slice(1, topk), all: items, ...(reg && regionVecs?.[reg] ? { region: reg } : {}) };
     });
+  }
+
+  // 부위 잘라 보기: 얼굴 · 눈 · 입술 상자(0~1 비율)를 받아 그 부분만 임베딩한다. 못 찾으면 null (전체 사진으로 판단)
+  async function regionEmbeddings(source, image) {
+    if (!regions) return null;
+    let boxes = null;
+    try { boxes = await regions(source); } catch (e) { console.warn('[analyzer] 부위를 찾지 못해 전체 사진으로 판단합니다', e); }
+    if (!boxes) return null;
+    const out = {};
+    for (const [name, [x0, y0, x1, y1]] of Object.entries(boxes)) {
+      const X0 = Math.max(0, Math.floor(x0 * image.width)), Y0 = Math.max(0, Math.floor(y0 * image.height));
+      const X1 = Math.min(image.width, Math.ceil(x1 * image.width)), Y1 = Math.min(image.height, Math.ceil(y1 * image.height));
+      if (X1 - X0 < 24 || Y1 - Y0 < 16) continue;
+      const crop = await image.crop([X0, Y0, X1 - 1, Y1 - 1]);
+      const [v] = await vision.embed(crop);
+      out[name] = v;
+    }
+    return Object.keys(out).length ? out : null;
   }
 
   async function analyze(source, { category = 'auto', topk = 3 } = {}) {
@@ -115,7 +143,12 @@ export async function createAnalyzer({
     }
     const chosen = category === 'auto' ? catRanked[0].key : category;
     const def = TAXONOMY[chosen];
-    const attributes = attributesFor(chosen, vec, topk);
+    // 부위 임베딩은 그것을 쓰는 카테고리(메이크업)가 주 · 보조 결과에 나올 때만 계산한다
+    const second = CATEGORY_ORDER.map((key, i) => ({ key, score: zsCatProbs[i] })).filter((c) => c.key !== chosen)
+      .sort((a, b) => b.score - a.score)[0];
+    const needRegions = regionCats.has(chosen) || (category === 'auto' && second && second.score >= SECONDARY_MIN && regionCats.has(second.key));
+    const regionVecs = needRegions ? await regionEmbeddings(source, image) : null;
+    const attributes = attributesFor(chosen, vec, topk, regionVecs);
     const text = compose(chosen, attributes);
     const confidence = attributes.reduce((s, a) => s + a.score, 0) / attributes.length;
 
@@ -123,10 +156,8 @@ export async function createAnalyzer({
     // 2위 카테고리도 충분히 뚜렷하면 같은 임베딩으로 한 번 더 분석한다 (추가 비용 거의 없음)
     let secondary = null;
     // 학습된 카테고리 헤드는 '주제 하나'를 고르도록 학습돼 2위 확률이 매우 낮다. 그래서 제로샷 확률로 판단한다
-    const second = CATEGORY_ORDER.map((key, i) => ({ key, score: zsCatProbs[i] })).filter((c) => c.key !== chosen)
-      .sort((a, b) => b.score - a.score)[0];
     if (category === 'auto' && second && second.score >= SECONDARY_MIN) {
-      const attrs2 = attributesFor(second.key, vec, topk);
+      const attrs2 = attributesFor(second.key, vec, topk, regionVecs);
       const t2 = compose(second.key, attrs2);
       secondary = { category: second.key, category_label: TAXONOMY[second.key].label, score: second.score, attributes: attrs2,
         genre: t2.genre, headline: t2.headline, description_ko: t2.description, sentences: t2.sentences, paragraphs: t2.paragraphs, tags: t2.tags, trends: t2.trends };
@@ -157,6 +188,7 @@ export async function createAnalyzer({
       image_size: { width: image.width, height: image.height },
       model,
       trained_heads: Object.keys(headIndex).length,
+      regions_used: regionVecs ? Object.keys(regionVecs) : [],
       // 피드백 학습용 특징값 (사진 대신 저장한다). JSON 출력에는 넣지 않는다
       embedding: vec,
       taxonomy_hash: hash,
@@ -254,7 +286,7 @@ function decodeHeads(json) {
   for (const [key, h] of Object.entries(json.groups)) {
     const buf = f32FromBase64(h.W);
     const W = Array.from({ length: h.rows }, (_, i) => Array.from(buf.subarray(i * json.dim, (i + 1) * json.dim)));
-    out[key] = { W, b: h.b, alpha: h.alpha ?? 1 };
+    out[key] = { W, b: h.b, alpha: h.alpha ?? 1, region: h.region };
   }
   return out;
 }

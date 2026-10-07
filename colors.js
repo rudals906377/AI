@@ -49,6 +49,32 @@ function task(kind) {
 // 어떤 카테고리가 색 견본을 지원하는지
 export const COLOR_TARGETS = { hair: ['hair'], makeup: ['lip', 'eye'], nail: ['nail'] };
 
+// ---- 부위 잘라 보기 (메이크업 판단용) ---------------------------------------------------
+// 얼굴 랜드마크로 얼굴 · 눈 · 입술 상자를 찾아 0~1 비율로 돌려준다. 학습 때 쓴 규칙(tools/make-crops.py)과 같아야 한다
+// 영역: 점 목록, (좌우 여유, 위 여유, 아래 여유) — 상자 크기 대비 비율
+const EYE_RING = [33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 163, 7, 263, 466, 388, 387, 386, 385, 384, 398, 362, 382, 381, 380, 374, 373, 390, 249];
+const BROW_PTS = [70, 63, 105, 66, 107, 55, 65, 52, 53, 46, 300, 293, 334, 296, 336, 285, 295, 282, 283, 276];
+const FACE_OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109];
+const LIP_RING = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146];
+export const REGIONS = { face: [FACE_OVAL, 0.12, 0.25, 0.08], eye: [[...EYE_RING, ...BROW_PTS], 0.15, 0.35, 0.55], lip: [LIP_RING, 0.35, 0.6, 0.6] };
+export async function faceRegions(blob) {
+  const img = await toCanvas(blob);
+  const face = await task('face');
+  const res = face.detect(img.canvas);
+  const lm = res.faceLandmarks?.[0];
+  if (!lm) return null;
+  const out = {};
+  for (const [name, [ids, mx, mt, mb]] of Object.entries(REGIONS)) {
+    let x0 = 1, y0 = 1, x1 = 0, y1 = 0;
+    for (const i of ids) { x0 = Math.min(x0, lm[i].x); y0 = Math.min(y0, lm[i].y); x1 = Math.max(x1, lm[i].x); y1 = Math.max(y1, lm[i].y); }
+    const bw = x1 - x0, bh = y1 - y0;
+    const box = [Math.max(0, x0 - bw * mx), Math.max(0, y0 - bh * mt), Math.min(1, x1 + bw * mx), Math.min(1, y1 + bh * mb)];
+    if ((box[2] - box[0]) * img.w < 40 || (box[3] - box[1]) * img.h < 24) continue; // 너무 작으면 뺀다
+    out[name] = box;
+  }
+  return Object.keys(out).length ? out : null;
+}
+
 export async function extractColors(blob, category) {
   if (!COLOR_TARGETS[category]) return {};
   const img = await toCanvas(blob);
