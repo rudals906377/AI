@@ -147,6 +147,19 @@ HEAD = {key: {"W": f32(h["W"]).reshape(h["rows"], HEADS["dim"]), "b": np.array(h
               "zb": np.array(h["zb"]) if "zb" in h else 0.0}   # zb: 학습 사진이 없는 라벨의 감점
         for key, h in HEADS["groups"].items()}
 CALIB = HEADS.get("calib", {})
+CONF_G = HEADS.get("conf", {})   # 그룹별 단정 기준 (폴드 밖 예측에서 95% 맞는 확률)
+# 비슷한 학습 사진(kNN): 학습 사진 특징값(8비트) + 그룹마다 섞는 비율 β · 사진 번호 · 정답 후보
+KNN = HEADS.get("knn")
+if KNN:
+    KNN_Q = np.frombuffer(base64.b64decode(KNN["q"]), dtype=np.int8).reshape(KNN["rows"], KNN["dim"]).astype(np.float32) / KNN["scale"]
+def knn_vote(kg, v, n):
+    sims = KNN_Q[kg["rows"]] @ v
+    top = np.argsort(-sims)[:kg["k"]]
+    out = np.zeros(n)
+    for i in top:
+        w = math.exp(kg["tau"] * (sims[i] - 1)); ls = kg["labels"][i]
+        for l in ls: out[l] += w / len(ls)
+    return out / out.sum() if out.sum() > 0 else None
 # 그룹 → 잘라 볼 부위 (메이크업: 아이섀도 · 아이라인 · 속눈썹 · 포인트 = 눈, 립 컬러 = 입술, 립 표현 = 얼굴). 그 부위의 헤드 · 보정 온도는 '그룹@부위' 키
 REGION_OF = HEADS.get("regions", {})
 REGION_CATS = {k.split(".")[0] for k in REGION_OF}
@@ -200,6 +213,10 @@ def group_probs(key, v, T, region_vecs=None):
     if h is not None:                                       # 학습 헤드와 섞기
         hp = softmax(h["W"] @ v + h["b"])
         p = h["alpha"] * hp + (1 - h["alpha"]) * zs
+    kg = KNN["groups"].get(key) if KNN and "@" not in key else None   # 전체 사진으로 판단하는 그룹만
+    if kg and kg["beta"] > 0:
+        pk = knn_vote(kg, v, len(p))
+        if pk is not None: p = (1 - kg["beta"]) * p + kg["beta"] * pk
     t = CALIB.get(key)
     return softmax(np.log(np.maximum(p, 1e-12)) / t) if t else p   # 확률 보정
 
@@ -218,8 +235,18 @@ def fuse_tone(cat, dist):
     fused = np.array([0.5 * dist["tone"][i] + 0.5 * prior.get(l["ko"], 0.0) for i, l in enumerate(tone["labels"])])
     dist["tone"] = fused / (fused.sum() or 1)
 
-def level_of(p):
-    return "high" if p >= CONF["high"] else "mid" if p >= CONF["mid"] else "low"
+def level_of(p, key=None):
+    return "high" if p >= CONF_G.get(key, CONF["high"]) else "mid" if p >= CONF["mid"] else "low"
+
+RANK = {"low": 0, "mid": 1, "high": 2}
+def family_of(g, items, key, top_level):
+    """1위가 애매해도 같은 계열(예: 단발 보브) 라벨들의 확률 합이 높으면 계열로 말한다"""
+    f = next((f for f in g.get("families", []) if items[0]["label"] in f["members"]), None)
+    if not f: return None
+    mem = [x for x in items if x["label"] in f["members"]]
+    score = min(1.0, sum(x["score"] for x in mem)); lv = level_of(score, key)
+    if len(mem) < 2 or RANK[lv] <= RANK[top_level]: return None
+    return {"label": f["name"] + " 계열", "score": score, "level": lv, "members": [x["label"] for x in mem if x["score"] >= 0.05][:4]}
 
 def attributes_for(cat, v, topk=3, region_vecs=None):
     groups = TAX["tax"][cat]["groups"]
@@ -230,9 +257,9 @@ def attributes_for(cat, v, topk=3, region_vecs=None):
         order = np.argsort(-dist[g["key"]])
         items = [{"label": g["labels"][i]["ko"], "score": float(dist[g["key"]][i]), "hidden": g["labels"][i].get("hidden", False),
                   "def": g["labels"][i].get("def", "")} for i in order]
-        reg = REGION_OF.get(f"{cat}.{g['key']}")
-        out.append({"group": g["key"], "group_label": g["label"], **items[0], "level": level_of(items[0]["score"]), "alternatives": items[1:topk],
-                    "region": reg if reg and region_vecs and reg in region_vecs else None})
+        key = f"{cat}.{g['key']}"; reg = REGION_OF.get(key); lv = level_of(items[0]["score"], key)
+        out.append({"group": g["key"], "group_label": g["label"], **items[0], "level": lv, "alternatives": items[1:topk],
+                    "region": reg if reg and region_vecs and reg in region_vecs else None, "family": family_of(g, items, key, lv)})
     return out
 
 # ---- 부위 잘라 보기 (MediaPipe 얼굴 랜드마크) — 웹 앱 colors.js 의 faceRegions 와 같은 규칙 ----
@@ -430,6 +457,7 @@ for path, r in results.items():
 # 속성별 판단 근거 (예: 메이크업 사진) — 웹 앱의 '속성별 판단 근거' 막대와 같은 값. 눈 · 입술 그룹은 잘라낸 부위로 판단한 것
 r = results["samples/makeup-01.jpg"]
 pd.DataFrame([{"그룹": a["group_label"], "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴", "hair": "머리카락", "head": "머리 전체", "bangs": "앞머리"}.get(a["region"], "전체"), "1위": a["label"], "확률": f"{a['score']:.0%}", "단계": a["level"],
+               "계열": f"{a['family']['label']} {a['family']['score']:.0%}" if a.get("family") else "",
                "다음 후보": ", ".join(f"{x['label']} {x['score']:.0%}" for x in a["alternatives"]), "용어 설명": a["def"]}
               for a in r["attributes"]])
 

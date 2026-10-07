@@ -26,7 +26,8 @@ export function compose(category, attributes) {
   omitted = 0;
   cat = category;
   rand = seeded(attributes.map((x) => `${x.group}:${x.label}:${Math.round(x.score * 100)}`).join('|'));
-  const a = Object.fromEntries(attributes.map((x) => [x.group, x]));
+  // 1위 라벨이 애매해도 같은 계열의 확률 합이 높으면 문장에서는 '보브 계열'처럼 계열 이름으로 말한다
+  const a = Object.fromEntries(attributes.map((x) => [x.group, x.family ? asFamily(x) : x]));
   const P = (group, label) => a[group]?.all.find((i) => i.label === label)?.score ?? 0;
   const out = COMPOSERS[category](a, P);
   const trends = uniqBy(out.trends.filter(Boolean), (t) => t.name).slice(0, 4);
@@ -104,6 +105,13 @@ const ida = (w) => josa(w, '이에요/예요'); // '숏컷이에요' · '스틸�
 function aka(group, label) {
   const g = TAXONOMY[cat].groups.find((x) => x.key === group);
   return g?.labels.find((l) => l.ko === label)?.syn?.[0] || null;
+}
+
+// 계열로 말할 때 쓰는 속성: 라벨 = 계열 이름, 확률 = 계열 합, 다른 후보 = 계열 밖 라벨
+function asFamily(x) {
+  const mem = new Set(x.family.members.map((m) => m.label));
+  return { ...x, label: x.family.label, score: x.family.score, level: x.family.level, family_of: x.label,
+    all: [{ label: x.family.label, score: x.family.score, hidden: false }, ...x.all.filter((i) => !mem.has(i.label))] };
 }
 
 // 불확실할 때 덧붙이는 보충 문장 (최대 MAX_HEDGES 번)
@@ -401,7 +409,7 @@ const COMPOSERS = {
     // SNS 트렌드 이름 (속성 조합)
     const T = [];
     const is = (attr, re) => re.test(attr.label) && sure(attr);
-    if (tone?.sure && /브라운|블론드|베이지/.test(color.label)) T.push(trend(`${tone.adj} ${color.label}`, '컬러 + 톤'));
+    if (tone?.sure && !color.family_of && /브라운|블론드|베이지/.test(color.label)) T.push(trend(`${tone.adj} ${color.label}`, '컬러 + 톤'));
     if (is(cut, /^레이어드컷$/) && is(perm, /^C컬펌$/)) T.push(trend('레이어드 C컬', '레이어드컷 + C컬펌'));
     else if (is(cut, /^레이어드컷$/) && is(perm, /S컬|빌드/)) T.push(trend('레이어드펌', '레이어드컷 + 펌'));
     if (is(cut, /^허쉬컷$/) && is(perm, /S컬|히피|젤리|물결/)) T.push(trend('허쉬펌', '허쉬컷 + 펌'));

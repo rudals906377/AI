@@ -11,6 +11,7 @@ for (const c of CATEGORY_ORDER) {
     groups: t.groups.map((g) => ({
       key: g.key, label: g.label,
       labels: g.labels.map((l) => ({ ko: l.ko, en: l.en, ...(l.hidden ? { hidden: true } : {}), ...(l.tone ? { tone: l.tone } : {}), ...(l.def ? { def: l.def } : {}) })),
+      ...(g.families ? { families: g.families } : {}),
     })),
   };
 }

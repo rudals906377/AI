@@ -155,6 +155,16 @@ def calibrate(P, S, grid=np.exp(np.linspace(np.log(0.25), np.log(4.0), 61))):
     return best_t
 
 
+def conf_threshold(P, S, target=0.95, min_n=15, lo=0.75, hi=0.98):
+    """그룹별 단정 기준: 보정된 폴드 밖 예측에서 '이 확률 이상이면 target 이상 맞는다'를 만족하는 가장 낮은 값.
+    표본이 min_n 개보다 적은 구간은 믿지 않는다. 어디서도 못 맞추면 hi (거의 단정하지 않음)"""
+    conf = P.max(1); hit = S[np.arange(len(S)), P.argmax(1)] > 0
+    for t in np.round(np.arange(lo, hi + 1e-9, 0.01), 2):
+        m = conf >= t
+        if m.sum() >= min_n and hit[m].mean() >= target: return float(t)
+    return float(hi)
+
+
 def temper(P, t):
     return softmax(np.log(np.maximum(P, 1e-12)) / t)
 
@@ -288,7 +298,7 @@ def main():
                 continue
             W, b = fit(V, S, T, lam, present, sw=sw, pen=pen)
             zb = zbias(len(labels), present, pen)
-            heads[key] = (W, b, alpha, zb)
+            heads[key] = (W, b, alpha, zb, lam, pen)
             tr_ev = acc_sets(predict(Ve, W, b, T, alpha, zb), ES) if len(ES) else float("nan")
             report.append((key, len(rows), zs_cv, cv_acc, lam, alpha, len(ES), zs_ev, tr_ev))
             if pen: print(f"  {key}: 사진 없는 라벨 {len(labels) - len(present)}개 감점 {pen}", file=sys.stderr)
@@ -321,6 +331,7 @@ def main():
             W, b, alpha = h[:3]; zb = h[3] if len(h) > 3 else None   # 뷰티 · 카테고리 헤드는 감점이 없다
             out["groups"][key] = {"rows": int(W.shape[0]), "W": base64.b64encode(W.astype(np.float32).tobytes()).decode(),
                                   "b": [round(float(x), 5) for x in b], "alpha": float(alpha)}
+            if len(h) > 4: out["groups"][key].update(lam=float(h[4]), pen=float(h[5]))   # tools/train-knn.py 가 같은 설정으로 다시 학습한다
             if zb is not None: out["groups"][key]["zb"] = [round(float(x), 3) for x in zb]   # 제로샷 쪽 감점 (사진 없는 라벨)
         json.dump(out, open(args.out, "w"))
         print(f"saved {len(heads)} heads → {args.out}", file=sys.stderr)

@@ -47,6 +47,7 @@ export const TAXONOMY = {
       },
       {
         key: 'cut', label: '커트',
+        families: [{ name: '보브', members: ['보브컷', 'A라인 보브', '숏 보브', '칼단발', '태슬컷'] }, { name: '레이어드', members: ['레이어드컷', '허쉬컷', '레이어드 숏컷', '울프컷'] }, { name: '여자 숏컷', members: ['픽시컷', '빅시컷', '머쉬룸컷'] }, { name: '긴 일자 커트', members: ['원랭스', '히메컷', 'V라인컷'] }, { name: '남자 짧은 옆머리', members: ['투블럭컷', '페이드컷', '언더컷', '테이퍼컷', '크롭컷', '버즈컷'] }, { name: '남자 앞머리 · 가르마', members: ['댄디컷', '쉼표머리', '가르마펌', '애즈펌', '가일컷', '리프컷', '아이비리그컷', '포마드·슬릭백'] }],
         templates: ['a photo of a person with a {}', 'a hairstyle photo of a {}'],
         labels: [
           { ko: '레이어드컷', en: 'layered haircut with soft long layers framing the face', syn: ['버터플라이컷', '롱 레이어드', '레이어드 단발'], def: '얼굴선을 따라 길고 부드러운 층을 낸 커트로, 허쉬컷보다 층이 차분해요.' },
@@ -84,6 +85,7 @@ export const TAXONOMY = {
       },
       {
         key: 'styling', label: '연출',
+        families: [{ name: '번 · 똥머리', members: ['똥머리', '슬릭번', '스페이스번'] }, { name: '묶은 머리', members: ['포니테일', '반묶음', '양갈래'] }, { name: '땋은 · 꼰 머리', members: ['땋은머리', '트위스트 묶음', '드레드'] }],
         templates: ['a photo of a person with {}', 'a hairstyle with {}'],
         labels: [
           { ko: '풀어내린 머리', en: 'hair worn down loose', tag: '', def: '묶거나 올리지 않고 그대로 풀어 내린 머리예요.' },
@@ -104,6 +106,7 @@ export const TAXONOMY = {
       },
       {
         key: 'perm', label: '펌·질감', tagSuffix: '',
+        families: [{ name: '굵은 웨이브', members: ['S컬펌', '빌드펌', '물결펌', '글램펌', '셋팅펌'] }, { name: 'C컬', members: ['C컬펌', '바깥C컬'] }, { name: '스트레이트', members: ['생머리', '매직 스트레이트'] }, { name: '곱슬 · 볼륨', members: ['히피펌', '젤리펌', '내추럴 곱슬'] }, { name: '남자 펌', members: ['다운펌', '쉐도우펌'] }],
         templates: ['a photo of a person with {}', 'a close-up photo of {}'],
         labels: [
           { ko: '생머리', en: 'sleek straight hair with no curls or waves', syn: ['매직', '스트레이트'], def: '컬이나 웨이브 없이 곧게 뻗은 매끈한 머리예요.' },
@@ -124,6 +127,7 @@ export const TAXONOMY = {
       },
       {
         key: 'bangs', label: '앞머리',
+        families: [{ name: '내린 앞머리', members: ['풀뱅', '처피뱅', '와이드뱅', '베이비뱅'] }, { name: '옆으로 내린 앞머리', members: ['사이드뱅', '커튼뱅', '애교머리'] }, { name: '노뱅', members: ['앞머리 없음', '넘긴 앞머리'] }],
         templates: ['a photo of a person with {}', 'a hairstyle with {}'],
         labels: [
           { ko: '앞머리 없음', en: 'no bangs, hair swept away from a visible forehead', tag: '', syn: ['깐머리', '이마 노출'], def: '이마를 덮는 머리 없이 모두 뒤나 옆으로 넘겨 이마가 훤히 드러난 상태예요.' },
@@ -142,6 +146,7 @@ export const TAXONOMY = {
       },
       {
         key: 'color', label: '컬러',
+        families: [{ name: '블랙', members: ['흑발', '블루블랙'] }, { name: '브라운', members: ['초코브라운', '밀크브라운', '애쉬브라운', '카키브라운', '골드브라운', '오렌지브라운', '핑크브라운', '카라멜브라운'] }, { name: '블론드', members: ['애쉬블론드', '골드블론드', '플래티넘·화이트', '로즈골드', '애쉬베이지'] }, { name: '레드 · 오렌지', members: ['레드와인', '비비드 레드', '코퍼·오렌지'] }, { name: '파스텔 · 비비드', members: ['핑크·라벤더', '블루·퍼플', '그린·민트'] }],
         templates: ['a photo of a person with {}', 'a hair color photo of {}'],
         labels: [
           { ko: '흑발', en: 'natural jet black hair', tone: 'neutral', def: '빛을 받아도 갈색기가 거의 없는 짙은 검은색 머리예요.' },
@@ -170,6 +175,7 @@ export const TAXONOMY = {
       },
       {
         key: 'colorTech', label: '컬러 기법',
+        families: [{ name: '부분 밝히기', members: ['브릿지', '하이라이트', '머니피스', '로우라이트'] }, { name: '그러데이션', members: ['발레아쥬', '옴브레', '루트 섀도우'] }],
         templates: ['a photo of a person with {}', 'a hair color photo of {}'],
         labels: [
           { ko: '전체 염색', en: 'hair in one single even color from root to tip', tag: '', def: '뿌리부터 끝까지 한 가지 색으로 고르게 물들인 머리예요.' },
@@ -227,6 +233,7 @@ export const TAXONOMY = {
     groups: [
       {
         key: 'shape', label: '쉐입', tagSuffix: '쉐입',
+        families: [{ name: '둥근', members: ['라운드', '오벌'] }, { name: '각진', members: ['스퀘어', '라운드스퀘어'] }, { name: '뾰족한', members: ['아몬드', '스틸레토'] }, { name: '끝이 넓은', members: ['코핀', '플레어', '립스틱'] }],
         templates: ['a close-up photo of {} nails', 'a manicure with {} nail shape'],
         labels: [
           { ko: '라운드', en: 'short rounded', def: '손톱 끝을 짧게 자르고 손끝 모양을 따라 둥글게 다듬은 모양이에요.' },
@@ -251,6 +258,7 @@ export const TAXONOMY = {
       },
       {
         key: 'color', label: '컬러', tagSuffix: '네일',
+        families: [{ name: '핑크', members: ['연핑크', '핫핑크', '더스티로즈'] }, { name: '누드 · 화이트', members: ['누드·베이지', '밀키화이트', '화이트', '샴페인·베이지골드'] }, { name: '레드', members: ['레드', '버건디'] }, { name: '블루', members: ['네이비·블루', '하늘색'] }, { name: '그린', members: ['민트·그린', '올리브·카키', '에메랄드·딥그린'] }, { name: '메탈', members: ['실버', '골드'] }, { name: '브라운 · 오렌지', members: ['브라운·모카', '테라코타·브릭', '오렌지'] }],
         templates: ['a close-up photo of {} nails', 'a manicure in {}'],
         labels: [
           { ko: '누드·베이지', en: 'nude beige', tone: 'warm', tag: '누드네일', syn: ['누디', '스킨톤', '밀크티 베이지'], def: '피부색과 비슷한 차분한 베이지 계열 색이에요.' },
@@ -282,6 +290,7 @@ export const TAXONOMY = {
       },
       {
         key: 'design', label: '디자인', tagSuffix: '네일',
+        families: [{ name: '프렌치', members: ['프렌치', '마이크로프렌치', '딥프렌치'] }, { name: '그라데이션', members: ['그라데이션', '에어브러시·블러'] }, { name: '반짝이 · 메탈', members: ['글리터', '자석', '오로라', '크롬', '벨벳'] }, { name: '물결 · 마블', members: ['마블', '스월', '타이다이', '멜팅·드리핑'] }, { name: '장식', members: ['파츠', '진주', '3D조형', '크롬하츠'] }, { name: '그림', members: ['드로잉', '캐릭터', '과일', '플라워', '라인아트', '스마일·이모지'] }],
         templates: ['a close-up photo of {}', 'nail art with {}'],
         labels: [
           { ko: '원컬러', en: 'plain solid one-color nails with no art', def: '다른 장식 없이 한 가지 색만 고르게 바른 디자인이에요.' },
@@ -387,6 +396,7 @@ export const TAXONOMY = {
     groups: [
       {
         key: 'mood', label: '무드', tagSuffix: '메이크업',
+        families: [{ name: '화려한', members: ['글램', '스모키', '걸크러시', '페스티벌'] }, { name: '자연스러운', members: ['데일리', '청순', '노메이크업룩'] }, { name: '생기 있는', members: ['과즙', '러블리·핑크'] }],
         templates: ['a photo of a face with {} makeup', 'a {} makeup look'],
         labels: [
           { ko: '데일리', en: 'natural minimal everyday no-makeup style', syn: ['클린걸', '꾸안꾸', '투명 메이크업'], def: '피부 결만 정돈하고 색을 최소로 써 화장 안 한 듯 자연스러운 메이크업이에요.' },
@@ -423,6 +433,7 @@ export const TAXONOMY = {
       },
       {
         key: 'eye', label: '아이섀도',
+        families: [{ name: '웜 컬러 섀도', members: ['핑크·코랄 섀도', '레드 섀도', '오렌지·테라코타 섀도'] }, { name: '음영 · 브라운', members: ['음영 섀도', '골드·브론즈 섀도'] }, { name: '컬러 섀도', members: ['블루 섀도', '퍼플 섀도', '그린·옐로 섀도', '컬러 섀도'] }, { name: '펄 · 반짝이', members: ['글리터·펄', '실버·그레이 섀도'] }],
         templates: ['a close-up photo of eyes with {}', 'eye makeup with {}'],
         labels: [
           { ko: '음영 섀도', en: 'subtle muted brown, mauve or grey shading eyeshadow', tag: '음영섀도', syn: ['브라운 음영', '모브 음영'], def: '갈색, 모브, 회색 같은 차분한 색으로 눈두덩에 은은하게 그림자를 준 섀도예요.' },
@@ -485,6 +496,7 @@ export const TAXONOMY = {
       },
       {
         key: 'lip', label: '립 컬러', tagSuffix: '립',
+        families: [{ name: '핑크', members: ['로즈핑크', 'MLBB', '핫핑크·푸시아'] }, { name: '코랄 · 오렌지', members: ['코랄', '오렌지', '피치'] }, { name: '레드', members: ['레드', '버건디·플럼'] }, { name: '누드 · 브라운', members: ['누드·베이지', '브라운', '말린장미'] }],
         templates: ['a close-up photo of lips with {}', 'makeup with {}'],
         labels: [
           { ko: '레드', en: 'classic red lipstick', tone: 'neutral', syn: ['체리', '토마토', '브릭 레드'], def: '체리나 토마토처럼 선명한 빨간색 입술이에요.' },
@@ -519,6 +531,7 @@ export const TAXONOMY = {
       },
       {
         key: 'cheek', label: '치크·윤곽',
+        families: [{ name: '핑크 블러셔', members: ['홍조 블러셔', '숙취 블러셔', '베리 블러셔', '드레이핑 블러셔'] }, { name: '코랄 블러셔', members: ['코랄 블러셔', '피치 블러셔'] }, { name: '윤곽', members: ['셰이딩', '브론저'] }],
         templates: ['a photo of a face with {}', 'makeup featuring {}'],
         labels: [
           { ko: '홍조 블러셔', en: 'pink-red blush spread across both cheeks and connected over the nose bridge, a sun-kissed flushed look', syn: ['콧등 블러셔', '선번'], def: '양 볼과 콧등까지 이어지게 붉은 블러셔를 펴 발라 햇볕에 달아오른 듯한 표현이에요.' },
@@ -568,6 +581,7 @@ export const TAXONOMY = {
     groups: [
       {
         key: 'style', label: '장르', tagSuffix: '타투',
+        families: [{ name: '블랙 · 트라이벌', members: ['블랙워크', '블랙아웃', '트라이벌', '네오트라이벌'] }, { name: '가는 선', members: ['파인라인', '미니멀', '스케치', '핸드포크'] }, { name: '트래디셔널', members: ['올드스쿨', '네오트래디셔널'] }, { name: '동양', members: ['이레즈미', '동양화'] }, { name: '그림 · 컬러', members: ['일러스트', '수채화', '두들', '애니', '뉴스쿨'] }],
         templates: ['a photo of a {} tattoo', 'a {} style tattoo on skin'],
         labels: [
           { ko: '레터링', en: 'lettering script calligraphy text', syn: ['문구 타투'], def: '글자나 문장을 필기체, 캘리그래피 같은 서체로 새긴 타투예요.' },
@@ -641,6 +655,7 @@ export const TAXONOMY = {
       },
       {
         key: 'placement', label: '부위', tagSuffix: '타투',
+        families: [{ name: '팔', members: ['팔안쪽', '팔뚝', '어깨·위팔'] }, { name: '등', members: ['날개뼈', '척추', '등'] }, { name: '다리', members: ['허벅지', '종아리', '발목·발등'] }, { name: '몸 앞', members: ['가슴', '흉골', '배·복부'] }],
         templates: ['a photo of a tattoo on the {}', 'a {} tattoo'],
         labels: [
           { ko: '손목', en: 'wrist', def: '손과 팔뚝이 이어지는 가느다란 관절 부위예요.' },
@@ -667,6 +682,7 @@ export const TAXONOMY = {
       },
       {
         key: 'size', label: '크기', tagSuffix: '타투',
+        families: [{ name: '작은 크기', members: ['미니', '스몰'] }, { name: '큰 크기', members: ['대형', '반팔', '긴팔', '등판', '전신'] }],
         templates: ['a photo of {}', '{} on skin'],
         labels: [
           { ko: '미니', en: 'a tiny tattoo about the size of a fingernail or coin', def: '손톱이나 동전만 한, 대략 1~3cm 크기의 아주 작은 타투예요.' },
