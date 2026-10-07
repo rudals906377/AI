@@ -28,7 +28,7 @@ export async function createAnalyzer({
   labelEmbeddings, // buildLabelIndex() 결과(JSON). 있으면 텍스트 모델을 내려받지 않는다
   heads,           // tools/train-heads.py 결과(JSON). 있으면 학습된 분류 헤드를 쓴다
   tta = false,     // true 면 좌우 반전 이미지까지 평균 (정확도 ↑, 시간 2배)
-  regions,         // (source) => { face?, eye?, lip? : [x0, y0, x1, y1] (0~1 비율) } — 부위 잘라 보기 (없으면 전체 사진으로만 판단)
+  regions,         // (source, wanted) => { face?, eye?, lip?, hair?, bangs?, head? : [x0, y0, x1, y1] (0~1 비율) } — 부위 잘라 보기 (없으면 전체 사진으로만 판단)
   onProgress,
 } = {}) {
   const progress = (p) => onProgress?.(p);
@@ -51,7 +51,9 @@ export async function createAnalyzer({
   const calib = useHeads ? heads.calib || {} : {};
   // 그룹 → 잘라 볼 부위 (예: 'makeup.eye' → 'eye'). 그 부위의 헤드 · 보정 온도는 '그룹@부위' 키로 저장돼 있다
   const regionOf = useHeads ? heads.regions || {} : {};
-  const regionCats = new Set(Object.keys(regionOf).map((k) => k.split('.')[0]));
+  // 카테고리 → 그 카테고리 그룹들이 보는 부위 이름들 (예: makeup → eye, lip, face)
+  const regionsByCat = {};
+  for (const [k, r] of Object.entries(regionOf)) (regionsByCat[k.split('.')[0]] ??= new Set()).add(r);
   progress({ status: 'ready' });
 
   async function embedImage(source) {
@@ -68,8 +70,9 @@ export async function createAnalyzer({
     const reg = regionOf[key];
     let hk = key;
     if (reg && regionVecs?.[reg]) { vec = regionVecs[reg]; hk = `${key}@${reg}`; }
-    const zs = softmax(textEmbs.map((e) => dot(vec, e) * LOGIT_SCALE));
     const h = headIndex[hk];
+    // zb: 학습 사진이 없는 라벨의 감점 (교차 검증으로 고른 값, 헤드 파일에 저장). 사진 없는 새 라벨이 다른 라벨의 답을 빼앗지 않게
+    const zs = softmax(textEmbs.map((e, i) => dot(vec, e) * LOGIT_SCALE + (h?.zb?.[i] ?? 0)));
     let p = zs;
     if (h) {
       const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
@@ -80,10 +83,16 @@ export async function createAnalyzer({
   }
 
   // 한 카테고리의 속성 그룹별 결과 (확률 높은 순 후보 · 신뢰도 단계)
-  function attributesFor(cat, vec, topk, regionVecs) {
+  // partner: 다른 모델의 같은 카테고리 그룹 분포 (groupDists 결과). 있으면 두 모델 확률을 평균한다 (교차 검증 +2%p).
+  // 단, 짝 모델이 부위를 잘라 본 그룹은 짝 모델 결과만 쓴다 (부위 판단이 전체 사진 판단보다 훨씬 정확하다)
+  function attributesFor(cat, vec, topk, regionVecs, partner = null) {
     const def = TAXONOMY[cat];
     const dist = {};
-    for (const g of def.groups) dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key], regionVecs);
+    for (const g of def.groups) {
+      dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key], regionVecs);
+      const pd = partner?.dists[g.key];
+      if (pd && pd.length === dist[g.key].length) dist[g.key] = partner.regionGroups[g.key] ? pd : dist[g.key].map((x, i) => (x + pd[i]) / 2);
+    }
     fuseTone(def, dist);
     return def.groups.map((g) => {
       const items = g.labels
@@ -91,20 +100,22 @@ export async function createAnalyzer({
         .sort((a, b) => b.score - a.score);
       const top = items[0];
       const level = top.score >= CONFIDENCE.high ? 'high' : top.score >= CONFIDENCE.mid ? 'mid' : 'low';
-      const reg = regionOf[`${cat}.${g.key}`];
+      const reg = partner?.regionGroups[g.key] || (regionOf[`${cat}.${g.key}`] && regionVecs?.[regionOf[`${cat}.${g.key}`]] ? regionOf[`${cat}.${g.key}`] : null);
       return { group: g.key, group_label: g.label, label: top.label, label_en: top.label_en, score: top.score, level,
-        alternatives: items.slice(1, topk), all: items, ...(reg && regionVecs?.[reg] ? { region: reg } : {}) };
+        alternatives: items.slice(1, topk), all: items, ...(reg ? { region: reg } : {}) };
     });
   }
 
-  // 부위 잘라 보기: 얼굴 · 눈 · 입술 상자(0~1 비율)를 받아 그 부분만 임베딩한다. 못 찾으면 null (전체 사진으로 판단)
-  async function regionEmbeddings(source, image) {
+  // 부위 잘라 보기: 얼굴 · 눈 · 입술 · 머리카락 · 앞머리 · 머리 상자(0~1 비율)를 받아 그 부분만 임베딩한다. 못 찾으면 null (전체 사진으로 판단)
+  // wanted: 필요한 부위 이름들 (없으면 regions 가 돌려준 상자 모두)
+  async function regionEmbeddings(source, image, wanted = null) {
     if (!regions) return null;
     let boxes = null;
-    try { boxes = await regions(source); } catch (e) { console.warn('[analyzer] 부위를 찾지 못해 전체 사진으로 판단합니다', e); }
+    try { boxes = await regions(source, wanted); } catch (e) { console.warn('[analyzer] 부위를 찾지 못해 전체 사진으로 판단합니다', e); }
     if (!boxes) return null;
     const out = {};
     for (const [name, [x0, y0, x1, y1]] of Object.entries(boxes)) {
+      if (wanted && !wanted.has(name)) continue;
       const X0 = Math.max(0, Math.floor(x0 * image.width)), Y0 = Math.max(0, Math.floor(y0 * image.height));
       const X1 = Math.min(image.width, Math.ceil(x1 * image.width)), Y1 = Math.min(image.height, Math.ceil(y1 * image.height));
       if (X1 - X0 < 24 || Y1 - Y0 < 16) continue;
@@ -115,7 +126,22 @@ export async function createAnalyzer({
     return Object.keys(out).length ? out : null;
   }
 
-  async function analyze(source, { category = 'auto', topk = 3 } = {}) {
+  // 한 카테고리의 그룹별 확률 분포만 (톤 합치기 전). 다른 모델과 평균 낼 때 짝 모델로 쓰인다
+  async function groupDists(source, cat) {
+    const { image, vec } = await embedImage(source);
+    const wanted = regionsByCat[cat] || new Set();
+    const regionVecs = wanted.size ? await regionEmbeddings(source, image, wanted) : null;
+    const dists = {}, regionGroups = {};
+    for (const g of TAXONOMY[cat].groups) {
+      const key = `${cat}.${g.key}`;
+      dists[g.key] = groupProbs(key, vec, index[cat].groups[g.key], regionVecs);
+      if (regionOf[key] && regionVecs?.[regionOf[key]]) regionGroups[g.key] = regionOf[key];
+    }
+    return { model, dists, regionGroups, regions: regionVecs ? Object.keys(regionVecs) : [] };
+  }
+
+  // partner: 함께 쓸 다른 분석기 (정밀 모드에서 기본 모델). 있으면 주 카테고리의 그룹 확률을 두 모델이 평균한다
+  async function analyze(source, { category = 'auto', topk = 3, partner = null } = {}) {
     const t0 = now();
     const { image, vec } = await embedImage(source);
 
@@ -146,9 +172,12 @@ export async function createAnalyzer({
     // 부위 임베딩은 그것을 쓰는 카테고리(메이크업)가 주 · 보조 결과에 나올 때만 계산한다
     const second = CATEGORY_ORDER.map((key, i) => ({ key, score: zsCatProbs[i] })).filter((c) => c.key !== chosen)
       .sort((a, b) => b.score - a.score)[0];
-    const needRegions = regionCats.has(chosen) || (category === 'auto' && second && second.score >= SECONDARY_MIN && regionCats.has(second.key));
-    const regionVecs = needRegions ? await regionEmbeddings(source, image) : null;
-    const attributes = attributesFor(chosen, vec, topk, regionVecs);
+    const wanted = new Set([...(regionsByCat[chosen] || [])]);
+    if (category === 'auto' && second && second.score >= SECONDARY_MIN) for (const r of regionsByCat[second.key] || []) wanted.add(r);
+    const regionVecs = wanted.size ? await regionEmbeddings(source, image, wanted) : null;
+    let pd = null;
+    if (partner) { try { pd = await partner.groupDists(source, chosen); } catch (e) { console.warn('[analyzer] 짝 모델 분석 실패 → 이 모델만 씁니다', e); } }
+    const attributes = attributesFor(chosen, vec, topk, regionVecs, pd);
     const text = compose(chosen, attributes);
     const confidence = attributes.reduce((s, a) => s + a.score, 0) / attributes.length;
 
@@ -188,7 +217,8 @@ export async function createAnalyzer({
       image_size: { width: image.width, height: image.height },
       model,
       trained_heads: Object.keys(headIndex).length,
-      regions_used: regionVecs ? Object.keys(regionVecs) : [],
+      regions_used: [...new Set([...(regionVecs ? Object.keys(regionVecs) : []), ...(pd?.regions || [])])],
+      ensemble: pd ? [model, pd.model] : null,
       // 피드백 학습용 특징값 (사진 대신 저장한다). JSON 출력에는 넣지 않는다
       embedding: vec,
       taxonomy_hash: hash,
@@ -197,6 +227,7 @@ export async function createAnalyzer({
 
   return {
     analyze,
+    groupDists,
     model,
     precomputed: !!usePrecomputed,
     trainedHeads: Object.keys(headIndex).length,
@@ -286,7 +317,7 @@ function decodeHeads(json) {
   for (const [key, h] of Object.entries(json.groups)) {
     const buf = f32FromBase64(h.W);
     const W = Array.from({ length: h.rows }, (_, i) => Array.from(buf.subarray(i * json.dim, (i + 1) * json.dim)));
-    out[key] = { W, b: h.b, alpha: h.alpha ?? 1, region: h.region };
+    out[key] = { W, b: h.b, alpha: h.alpha ?? 1, region: h.region, zb: h.zb };
   }
   return out;
 }

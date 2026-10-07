@@ -21,7 +21,7 @@
 # |---|---|---|
 # | 1 | 준비 (패키지 · 파일 불러오기) | `index.html` |
 # | 2 | 비전 모델 (Marqo FashionSigLIP) | `encoders.js` |
-# | 3 | 라벨 사전 324개 · 라벨 문장 임베딩 · 학습 헤드 | `taxonomy.js` · `embeddings/` · `heads/` |
+# | 3 | 라벨 사전 406개 · 라벨 문장 임베딩 · 학습 헤드 | `taxonomy.js` · `embeddings/` · `heads/` |
 # | 4 | 분석: 카테고리 판별 → 속성 32그룹 판단 (제로샷 + 학습 헤드 + 확률 보정) | `analyzer.js` |
 # | 5 | 한국어 설명 문장 (확신도에 따라 "~예요" / "~로 보여요" / 생략) | `describe.js` |
 # | 6 | 예시 사진 분석과 웹 앱 결과 비교 | — |
@@ -112,7 +112,7 @@ def embed_image(img: Image.Image) -> np.ndarray:
 # %% [markdown]
 # ## 3. 라벨 사전 · 라벨 문장 임베딩 · 학습한 분류 헤드
 #
-# - **라벨 사전** 324개: 한국 매거진 · 살롱 · 커뮤니티 용어 약 440개를 조사해 헤어 9 · 네일 8 · 메이크업 11 · 타투 5그룹으로 정리.
+# - **라벨 사전** 406개: 한국 매거진 · 살롱 · 커뮤니티 용어 약 440개를 조사해 324개로 정리(v2)하고, 82개를 더했다(v3). 헤어 9 · 네일 8 · 메이크업 11 · 타투 5그룹.
 #   라벨마다 한국어 이름, 영어 묘사 문장, 한 줄 정의가 있습니다.
 # - **라벨 문장 임베딩**: 라벨마다 영어 묘사를 여러 문장 틀에 넣어 텍스트 모델로 임베딩하고 평균 낸 것(미리 계산해 둠).
 #   사진 임베딩과의 코사인 유사도로 고르면 **제로샷 분류**입니다.
@@ -143,7 +143,8 @@ for c in CATS:
 INDEX["other"] = buf[k:k + EMB["layout"]["other"]]
 
 # 학습 헤드: 그룹마다 W(라벨 수 × 768), b, 제로샷과 섞는 비율 alpha
-HEAD = {key: {"W": f32(h["W"]).reshape(h["rows"], HEADS["dim"]), "b": np.array(h["b"], dtype=np.float64), "alpha": h.get("alpha", 1.0)}
+HEAD = {key: {"W": f32(h["W"]).reshape(h["rows"], HEADS["dim"]), "b": np.array(h["b"], dtype=np.float64), "alpha": h.get("alpha", 1.0),
+              "zb": np.array(h["zb"]) if "zb" in h else 0.0}   # zb: 학습 사진이 없는 라벨의 감점
         for key, h in HEADS["groups"].items()}
 CALIB = HEADS.get("calib", {})
 # 그룹 → 잘라 볼 부위 (메이크업: 아이섀도 · 아이라인 · 속눈썹 · 포인트 = 눈, 립 컬러 = 입술, 립 표현 = 얼굴). 그 부위의 헤드 · 보정 온도는 '그룹@부위' 키
@@ -156,7 +157,7 @@ for c in CATS:
         key = f"{c}.{g['key']}"
         hk = f"{key}@{REGION_OF[key]}" if key in REGION_OF else key
         rows.append({"카테고리": TAX["tax"][c]["label"], "그룹": g["label"], "라벨 수": len(g["labels"]),
-                     "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴"}.get(REGION_OF.get(key), "전체"),
+                     "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴", "hair": "머리카락", "head": "머리 전체", "bangs": "앞머리"}.get(REGION_OF.get(key), "전체"),
                      "학습 헤드": "있음" if hk in HEAD else "-", "섞는 비율 α": HEAD.get(hk, {}).get("alpha", ""),
                      "보정 온도": CALIB.get(hk, ""), "라벨 예": ", ".join(l["ko"] for l in g["labels"][:4])})
 df_groups = pd.DataFrame(rows)
@@ -193,9 +194,9 @@ def group_probs(key, v, T, region_vecs=None):
     reg = REGION_OF.get(key)
     if reg and region_vecs and reg in region_vecs:          # 이 그룹이 보는 부위의 임베딩이 있으면 그것으로 (제로샷 · 헤드 · 보정 모두)
         v, key = region_vecs[reg], f"{key}@{reg}"
-    zs = softmax(T @ v * LOGIT_SCALE)                      # 제로샷
-    p = zs
     h = HEAD.get(key)
+    zs = softmax(T @ v * LOGIT_SCALE + (h["zb"] if h is not None else 0.0))   # 제로샷 (사진 없는 라벨은 감점)
+    p = zs
     if h is not None:                                       # 학습 헤드와 섞기
         hp = softmax(h["W"] @ v + h["b"])
         p = h["alpha"] * hp + (1 - h["alpha"]) * zs
@@ -252,6 +253,8 @@ with quiet_stderr():
     face_landmarker = mp_vision.FaceLandmarker.create_from_options(mp_vision.FaceLandmarkerOptions(
         base_options=mp_python.BaseOptions(model_asset_path=fetch("models/mediapipe/face_landmarker.task")),
         num_faces=3, output_face_blendshapes=True, output_facial_transformation_matrixes=True))
+    hair_segmenter = mp_vision.ImageSegmenter.create_from_options(mp_vision.ImageSegmenterOptions(
+        base_options=mp_python.BaseOptions(model_asset_path=fetch("models/mediapipe/hair_segmenter.tflite")), output_category_mask=True))
 
 EYE_RING = [33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 163, 7, 263, 466, 388, 387, 386, 385, 384, 398, 362, 382, 381, 380, 374, 373, 390, 249]
 BROW_PTS = [70, 63, 105, 66, 107, 55, 65, 52, 53, 46, 300, 293, 334, 296, 336, 285, 295, 282, 283, 276]
@@ -284,8 +287,33 @@ def face_boxes(img):
         out[name] = box
     return out or None
 
-def region_embeddings(img):
-    boxes = face_boxes(img)
+def hair_boxes(img):
+    """머리카락 · 앞머리(이마) · 머리 전체 상자 (0~1 비율). 웹 앱 colors.js 의 hairRegions · tools/make-hair-crops.py 와 같은 규칙"""
+    w, h = img.size
+    rgb = np.ascontiguousarray(np.array(img.convert("RGB")))
+    with quiet_stderr():
+        m = np.squeeze(hair_segmenter.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)).category_mask.numpy_view())
+    clamp = lambda b: [max(0, b[0]), max(0, b[1]), min(1, b[2]), min(1, b[3])]
+    out, hair_box, face_box = {}, None, None
+    ys, xs = np.where(m == 1)
+    if len(xs) >= 0.005 * m.size:
+        b = [xs.min() / m.shape[1], ys.min() / m.shape[0], (xs.max() + 1) / m.shape[1], (ys.max() + 1) / m.shape[0]]; bw, bh = b[2] - b[0], b[3] - b[1]
+        hair_box = clamp([b[0] - bw * 0.06, b[1] - bh * 0.06, b[2] + bw * 0.06, b[3] + bh * 0.06]); out["hair"] = hair_box
+    d = detect_landmarks(img)
+    if d is not None:
+        q = d["lm"][FACE_OVAL, :2]; fx0, fy0 = q.min(0); fx1, fy1 = q.max(0); fw, fh = fx1 - fx0, fy1 - fy0
+        face_box = [fx0, fy0, fx1, fy1]
+        out["bangs"] = clamp([fx0 - fw * 0.2, fy0 - fh * 0.55, fx1 + fw * 0.2, d["lm"][168, 1]])
+    u = [min(face_box[0], hair_box[0]), min(face_box[1], hair_box[1]), max(face_box[2], hair_box[2]), max(face_box[3], hair_box[3])] if face_box and hair_box else (face_box or hair_box)
+    if u:
+        uw, uh = u[2] - u[0], u[3] - u[1]; out["head"] = clamp([u[0] - uw * 0.1, u[1] - uh * 0.1, u[2] + uw * 0.1, u[3] + uh * 0.1])
+    return {k: b for k, b in out.items() if (b[2] - b[0]) * w >= 40 and (b[3] - b[1]) * h >= 24} or None
+
+def region_embeddings(img, cat="makeup"):
+    """그 카테고리 그룹들이 보는 부위만 잘라 임베딩 (메이크업: 얼굴 · 눈 · 입술, 헤어: 머리카락 · 머리 전체 · 앞머리)"""
+    wanted = {r for k, r in REGION_OF.items() if k.startswith(cat + ".")}
+    boxes = {**((face_boxes(img) or {}) if wanted & {"face", "eye", "lip"} else {}), **((hair_boxes(img) or {}) if wanted & {"hair", "bangs", "head"} else {})}
+    boxes = {k: b for k, b in boxes.items() if k in wanted}
     if not boxes: return None
     w, h = img.size
     return {name: embed_image(img.crop((int(b[0] * w), int(b[1] * h), math.ceil(b[2] * w), math.ceil(b[3] * h)))) for name, b in boxes.items()}
@@ -305,7 +333,7 @@ def analyze(img, category="auto"):
         h = HEAD["beauty"]
         beauty = h["alpha"] * softmax(h["W"] @ v + h["b"])[0] + (1 - h["alpha"]) * beauty
     cat = CATS[int(cat_p.argmax())] if category == "auto" else category
-    region_vecs = region_embeddings(img) if cat in REGION_CATS else None   # 메이크업이면 얼굴 · 눈 · 입술도 임베딩
+    region_vecs = region_embeddings(img, cat) if cat in REGION_CATS else None   # 메이크업 · 헤어면 그 부위도 잘라 임베딩
     attrs = attributes_for(cat, v, region_vecs=region_vecs)
     return {"category": cat, "category_label": TAX["tax"][cat]["label"], "is_beauty": bool(beauty >= 0.5), "beauty_score": float(beauty),
             "category_ranking": sorted(zip(CATS, cat_p.round(4).tolist()), key=lambda x: -x[1]),
@@ -401,7 +429,7 @@ for path, r in results.items():
 # %%
 # 속성별 판단 근거 (예: 메이크업 사진) — 웹 앱의 '속성별 판단 근거' 막대와 같은 값. 눈 · 입술 그룹은 잘라낸 부위로 판단한 것
 r = results["samples/makeup-01.jpg"]
-pd.DataFrame([{"그룹": a["group_label"], "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴"}.get(a["region"], "전체"), "1위": a["label"], "확률": f"{a['score']:.0%}", "단계": a["level"],
+pd.DataFrame([{"그룹": a["group_label"], "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴", "hair": "머리카락", "head": "머리 전체", "bangs": "앞머리"}.get(a["region"], "전체"), "1위": a["label"], "확률": f"{a['score']:.0%}", "단계": a["level"],
                "다음 후보": ", ".join(f"{x['label']} {x['score']:.0%}" for x in a["alternatives"]), "용어 설명": a["def"]}
               for a in r["attributes"]])
 
@@ -545,11 +573,24 @@ SIDE_ZONES = [("관자놀이", "temple", [21, 162], [251, 389]), ("볼 옆선", 
 def detect_face(img: Image.Image):
     d = detect_landmarks(img)
     if d is None: return None
-    with quiet_stderr():
-        seg_res = segmenter.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=d["rgb"]))
-    d["seg"] = np.squeeze(seg_res.category_mask.numpy_view()).copy()   # (높이, 너비) 부위 번호
+    d["seg"] = segment_around(d["rgb"], d["lm"])   # (높이, 너비) 부위 번호
     d["w"], d["h"] = d["rgb"].shape[1], d["rgb"].shape[0]
     return d
+
+def segment_around(rgb, lm):
+    """부위 분할을 얼굴 둘레(옆 0.8배 · 위 0.9배 · 아래 0.55배 여유)만 잘라서 돌린다 (face.js 의 segmentAround).
+    분할 모델은 입력을 256×256 으로 줄여 보므로, 얼굴이 작게 나온 사진에서도 마스크 해상도가 비슷해진다."""
+    h, w = rgb.shape[:2]
+    xs, ys = lm[OVAL, 0] * w, lm[OVAL, 1] * h
+    fw, fh = xs.max() - xs.min(), ys.max() - ys.min()
+    x0, x1 = max(0, int(xs.min() - fw * 0.8)), min(w, int(math.ceil(xs.max() + fw * 0.8)))
+    y0, y1 = max(0, int(ys.min() - fh * 0.9)), min(h, int(math.ceil(ys.max() + fh * 0.55)))
+    crop = np.ascontiguousarray(rgb[y0:y1, x0:x1])
+    with quiet_stderr():
+        m = np.squeeze(segmenter.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=crop)).category_mask.numpy_view())
+    out = np.zeros((h, w), np.uint8)
+    out[y0:y1, x0:x1] = np.array(Image.fromarray(m.astype(np.uint8)).resize((x1 - x0, y1 - y0), Image.NEAREST))
+    return out
 
 # %%
 def measure_face(d):
@@ -602,8 +643,10 @@ def measure_face(d):
                 miss += 1
                 if miss >= 3: break
         return None if last is None else (last, side * (last - um) / CW, um)
-    def pick(e, um, lo, hi):
-        return e[0] if e and lo < e[1] < hi else um
+    def pick(e, um, lo, hi):  # 허용 범위 끝 0.02 안쪽부터는 메시 쪽으로 섞는다 (마스크 ↔ 메시가 갑자기 바뀌어 값이 튀지 않게)
+        if not e: return um
+        t = min(1.0, max(0.0, min(e[1] - lo, hi - e[1]) / 0.02))
+        return um + (e[0] - um) * t
 
     # 턱끝: 입 가운데에서 아래로 내려가며 얼굴 피부가 끝나는 곳
     vMenton = V(152)
@@ -634,7 +677,8 @@ def measure_face(d):
         return (s[0] if side < 0 else s[1]) if s else 0.0
     vChin = vMenton + (vStom - vMenton) * 0.3
     jawW = at(jawR, vMouth, 1) - at(jawL, vMouth, -1)
-    chinW = at(jawR, vChin, 1) - at(jawL, vChin, -1)
+    # 턱끝 너비는 턱끝 위 25 · 30 · 35% 세 높이의 평균 (한 높이만 쓰면 흔들림이 크다)
+    chinW = np.mean([at(jawR, v, 1) - at(jawL, v, -1) for v in (vMenton + (vStom - vMenton) * t for t in (0.25, 0.3, 0.35))])
     def angle_at(g, a, b):
         p, q = np.subtract(a, g), np.subtract(b, g)
         return math.degrees(math.acos(np.clip(p @ q / (np.linalg.norm(p) * np.linalg.norm(q)), -1, 1)))
@@ -651,7 +695,16 @@ def measure_face(d):
     # 이마 너비 (눈썹 위 ~ 이마 위 40% 높이)
     vFore = vBrowTop + (vTop - vBrowTop) * 0.4
     fs = slice_(vFore)
-    fl, fr = pick(edge(vFore, -1, zTop * 0.5), fs[0], -0.08, 0.04), pick(edge(vFore, 1, zTop * 0.5), fs[1], -0.08, 0.04)
+    def temple_hair(ids):  # 관자놀이 안쪽 띠에서 머리카락 비율
+        pts = [(U(i)[0] - (np.sign(U(i)[0]) or 1) * dd * CW, U(i)[1]) for i in ids for dd in (0.03, 0.06, 0.09)]
+        return np.mean([seg_uv(u, v) == SEG["hair"] for u, v in pts])
+    def fore_edge(side):  # 관자놀이를 머리카락이 가린 만큼 메시 쪽으로 섞는다 (0.2 이하 → 마스크, 0.6 이상 → 메시)
+        um = fs[0] if side < 0 else fs[1]
+        u = pick(edge(vFore, side, zTop * 0.5), um, -0.08, 0.04)
+        ids = SIDE_ZONES[0][2] if np.sign(U(SIDE_ZONES[0][2][0])[0]) == side else SIDE_ZONES[0][3]
+        t = min(1.0, max(0.0, (0.6 - temple_hair(ids)) / 0.4))
+        return um + (u - um) * t
+    fl, fr = fore_edge(-1), fore_edge(1)
 
     # 헤어라인: 이마 가운데를 따라 올라가며 얼굴 피부가 끝나는 곳 (가르마 사이 두피를 피하려고 폭도 본다)
     hairline, last, miss = None, None, 0
@@ -713,7 +766,7 @@ def check_issues(f, d):
     return out
 
 # 얼굴형 확률: 측정값의 표준점수와 얼굴형별 특징 방향 사이의 거리 → softmax (face.js 의 classifyShape)
-NORM = {"ratio": (1.36, 0.09), "forehead": (0.81, 0.045), "jaw": (0.84, 0.05), "chin": (0.45, 0.055), "jawAngle": (130.5, 5), "jawBulge": (0.203, 0.016)}
+NORM = {"ratio": (1.36, 0.09), "forehead": (0.83, 0.04), "jaw": (0.84, 0.05), "chin": (0.45, 0.055), "jawAngle": (131.5, 4.5), "jawBulge": (0.2, 0.015)}
 SHAPES = {"oval": "계란형", "round": "둥근형", "long": "긴 얼굴형", "square": "각진형", "heart": "하트형(역삼각형)", "diamond": "마름모형(다이아몬드)"}
 PROTO = {  # 얼굴형마다 특징 방향 (표준편차 단위, + 크다 / - 작다)
     "oval":    {"ratio": 0.3, "forehead": 0, "jaw": -0.2, "chin": -0.2, "jawAngle": 0.2, "jawBulge": -0.2},

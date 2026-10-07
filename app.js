@@ -5,7 +5,7 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
-import { extractColors, COLOR_TARGETS, faceRegions } from './colors.js';
+import { extractColors, COLOR_TARGETS, styleRegions } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initFaceUI } from './face-ui.js';
 
@@ -114,26 +114,53 @@ async function loadJson(url, what) {
 const loadEmbeddings = (modelId) => loadJson(`./embeddings/${modelId.split('/').pop()}.json`, '사전 계산 임베딩');
 const loadHeads = (modelId) => loadJson(`./heads/${modelId.split('/').pop()}.json`, '학습된 헤드');
 
+// 정밀 모드는 정밀 모델과 기본 모델의 확률을 평균한다 (교차 검증 +2%p). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
+let partner = null;
+async function makeBase(rt) {
+  const m = MODELS.base;
+  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+}
+
 async function loadAnalyzer(key) {
   if (analyzerLoading) return analyzerLoading;
   const prev = analyzer; analyzer = null; updateRunButton();
   const m = MODELS[key];
+  // 정밀 → 기본: 짝으로 남겨 둔 기본 모델을 그대로 쓴다
+  if (key === 'base' && partner) {
+    analyzer = partner; partner = null;
+    await prev?.dispose?.();
+    setStatus(`준비 완료 · ${m.label}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
+    updateRunButton();
+    if (currentBlob) setTimeout(run, 0);
+    return;
+  }
   let rt = runtimeFor(key);
   els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
   els.modelNote.textContent = `${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'} · ${rt.mb === '?' ? '' : `약 ${rt.mb}MB · `}처음 한 번만 내려받고 브라우저에 캐시됩니다`;
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: faceRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: faceRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       }
-      await prev?.dispose?.();
-      setStatus(`준비 완료 · ${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
+      if (key === 'large') {
+        // 기본 모델을 이미 쓰고 있었으면 짝으로 남기고, 아니면 이어서 불러온다
+        if (prev?.model === MODELS.base.id) partner = prev;
+        else {
+          await prev?.dispose?.();
+          // 두 모델이 다 준비될 때까지는 분석하지 않는다 (먼저 누르면 정밀 모델 혼자 판단하게 되므로)
+          const main = analyzer; analyzer = null; updateRunButton();
+          setStatus('정밀 모델을 받았어요 · 함께 쓸 기본 모델을 불러오는 중…', 95, 'loading');
+          try { partner = await makeBase(runtimeFor('base')); } catch (e) { console.warn('기본 모델(짝) 로드 실패 → 정밀 모델만 씁니다', e); partner = null; }
+          analyzer = main;
+        }
+      } else await prev?.dispose?.();
+      setStatus(`준비 완료 · ${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
       if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
     } catch (e) {
       console.error(e);
@@ -265,7 +292,7 @@ async function run() {
   els.run.textContent = '분석 중…';
   els.resultCard.classList.add('busy');
   try {
-    const result = await analyzer.analyze(currentBlob, { category: currentCategory });
+    const result = await analyzer.analyze(currentBlob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
     result.run_id = seq;
     lastResult = result;
     render(result);
@@ -387,7 +414,7 @@ function render(r) {
 }
 
 // 부위를 잘라 판단한 그룹 표시 (analyzer.js 의 region)
-const REGION_KO = { eye: '눈 부분', lip: '입술 부분', face: '얼굴 부분' };
+const REGION_KO = { eye: '눈 부분', lip: '입술 부분', face: '얼굴 부분', hair: '머리카락 부분', head: '머리 전체', bangs: '앞머리 부분' };
 
 // 설명 문장: 문단마다 <p>, 확실하지 않은 문장은 흐리게
 function paragraphsHtml(r) {

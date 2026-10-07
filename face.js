@@ -154,7 +154,9 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
   // 턱선 점이 모자라면(가장자리를 못 찾은 높이) 메시 단면으로 대신한다
   const atOr = (pts, v, side) => at(pts, v) ?? (side < 0 ? slice(v)?.l : slice(v)?.r) ?? 0;
   const jawW = atOr(jawR, vMouth, 1) - atOr(jawL, vMouth, -1);
-  const chinW = atOr(jawR, vChin, 1) - atOr(jawL, vChin, -1);
+  // 턱끝 너비 · 각도는 턱끝 위 25 · 30 · 35% 세 높이에서 재서 평균 (한 높이만 쓰면 턱끝 위치가 2~3px 만 달라져도 값이 크게 흔들린다)
+  const CHIN_AT = [0.25, 0.3, 0.35].map((t) => vMenton + (vStom - vMenton) * t);
+  const chinW = mean(CHIN_AT.map((v) => atOr(jawR, v, 1) - atOr(jawL, v, -1)));
   // 턱 각도: 광대 점 → 턱끝을 잇는 직선에서 가장 바깥으로 나온 턱선 점 = 턱 모서리. 그 점에서의 사이각
   const M = [0, vMenton];
   function gonial(pts) {
@@ -168,7 +170,7 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
     return { at: best, angle: angleAt(best, C, M), bulge: bd / CW };
   }
   const gA = gonial(jawL), gB = gonial(jawR);
-  const chinAngle = angleAt(M, [atOr(jawL, vChin, -1), vChin], [atOr(jawR, vChin, 1), vChin]);
+  const chinAngle = mean(CHIN_AT.map((v) => angleAt(M, [atOr(jawL, v, -1), v], [atOr(jawR, v, 1), v])));
 
   // 이마 너비 (눈썹 위 ~ 이마 위 사이 40% 높이). 관자놀이 머리카락에 가리면 메시
   const vFore = vBrowTop + (vTop - vBrowTop) * 0.4;
@@ -430,7 +432,7 @@ export function classifyShape(m) {
 }
 // 정면 얼굴 기준 분포 (tools 없이 예시 사진에서 잰 값 · README 참고)
 export const NORM = {
-  ratio: [1.36, 0.09], forehead: [0.81, 0.045], jaw: [0.84, 0.05], chin: [0.45, 0.055], jawAngle: [130.5, 5], bulge: [0.203, 0.016],
+  ratio: [1.36, 0.09], forehead: [0.83, 0.04], jaw: [0.84, 0.05], chin: [0.45, 0.055], jawAngle: [131.5, 4.5], bulge: [0.2, 0.015],
   thirds: [[0.93, 0.06], [1.07, 0.05], [1.0, 0.06]], philtrum: [0.53, 0.06],
   eyeSpacing: [1.34, 0.07], eyeAspect: [0.40, 0.03], eyeTilt: [7.2, 1.3], browGap: [0.48, 0.08], browArch: [0.158, 0.011], browTail: [0.20, 0.03],
   nose: [1.06, 0.05], mouth: [1.19, 0.08], lips: [1.37, 0.12], lipFull: [0.43, 0.07],
