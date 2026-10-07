@@ -146,16 +146,21 @@ INDEX["other"] = buf[k:k + EMB["layout"]["other"]]
 HEAD = {key: {"W": f32(h["W"]).reshape(h["rows"], HEADS["dim"]), "b": np.array(h["b"], dtype=np.float64), "alpha": h.get("alpha", 1.0)}
         for key, h in HEADS["groups"].items()}
 CALIB = HEADS.get("calib", {})
+# 그룹 → 잘라 볼 부위 (메이크업: 아이섀도 · 아이라인 · 속눈썹 · 포인트 = 눈, 립 컬러 = 입술, 립 표현 = 얼굴). 그 부위의 헤드 · 보정 온도는 '그룹@부위' 키
+REGION_OF = HEADS.get("regions", {})
+REGION_CATS = {k.split(".")[0] for k in REGION_OF}
 
 rows = []
 for c in CATS:
     for g in TAX["tax"][c]["groups"]:
         key = f"{c}.{g['key']}"
+        hk = f"{key}@{REGION_OF[key]}" if key in REGION_OF else key
         rows.append({"카테고리": TAX["tax"][c]["label"], "그룹": g["label"], "라벨 수": len(g["labels"]),
-                     "학습 헤드": "있음" if key in HEAD else "-", "섞는 비율 α": HEAD.get(key, {}).get("alpha", ""),
-                     "보정 온도": CALIB.get(key, ""), "라벨 예": ", ".join(l["ko"] for l in g["labels"][:4])})
+                     "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴"}.get(REGION_OF.get(key), "전체"),
+                     "학습 헤드": "있음" if hk in HEAD else "-", "섞는 비율 α": HEAD.get(hk, {}).get("alpha", ""),
+                     "보정 온도": CALIB.get(hk, ""), "라벨 예": ", ".join(l["ko"] for l in g["labels"][:4])})
 df_groups = pd.DataFrame(rows)
-print(f"라벨 {sum(df_groups['라벨 수'])}개 · 그룹 {len(df_groups)}개 · 학습 헤드 {len(HEAD)}개 (카테고리 · 뷰티 판별 포함)")
+print(f"라벨 {sum(df_groups['라벨 수'])}개 · 그룹 {len(df_groups)}개 · 학습 헤드 {len(HEAD)}개 (카테고리 · 뷰티 판별 · 부위 헤드 {sum('@' in k for k in HEAD)}개 포함)")
 df_groups
 
 # %% [markdown]
@@ -169,6 +174,11 @@ df_groups
 #    - 섞기: `p = α · 헤드 + (1 − α) · 제로샷` (α 는 교차 검증으로 정함)
 #    - 보정: `p ∝ p^(1/온도)` → 화면에 90% 라고 나온 판단이 실제로 90% 이상 맞도록
 # 4. 확신도 단계: 90% 이상 `high`, 50~90% `mid`, 그 아래 `low`
+#
+# **메이크업은 부위를 잘라서 본다.** 섀도 · 라인 · 립은 사진 전체에서 몇 픽셀뿐이라 가장 약했다.
+# 얼굴 랜드마크로 **눈(눈썹 포함) · 입술 · 얼굴** 영역을 잘라 따로 임베딩하고, 그룹마다 교차 검증이 가장 좋았던 영역으로 판단한다
+# (`heads` 파일의 `regions`). 같은 사진으로 비교해 아이섀도 50.6 → 64.4%, 립 컬러 59.4 → 80.6% 가 됐다 (`docs/MODEL_CARD.md` 5-1).
+# 얼굴을 못 찾으면 전체 사진으로 판단한다.
 
 # %%
 LOGIT_SCALE = 100.0
@@ -179,7 +189,10 @@ def softmax(z):
     e = np.exp(z)
     return e / e.sum()
 
-def group_probs(key, v, T):
+def group_probs(key, v, T, region_vecs=None):
+    reg = REGION_OF.get(key)
+    if reg and region_vecs and reg in region_vecs:          # 이 그룹이 보는 부위의 임베딩이 있으면 그것으로 (제로샷 · 헤드 · 보정 모두)
+        v, key = region_vecs[reg], f"{key}@{reg}"
     zs = softmax(T @ v * LOGIT_SCALE)                      # 제로샷
     p = zs
     h = HEAD.get(key)
@@ -207,17 +220,75 @@ def fuse_tone(cat, dist):
 def level_of(p):
     return "high" if p >= CONF["high"] else "mid" if p >= CONF["mid"] else "low"
 
-def attributes_for(cat, v, topk=3):
+def attributes_for(cat, v, topk=3, region_vecs=None):
     groups = TAX["tax"][cat]["groups"]
-    dist = {g["key"]: group_probs(f"{cat}.{g['key']}", v, INDEX[cat]["groups"][g["key"]]) for g in groups}
+    dist = {g["key"]: group_probs(f"{cat}.{g['key']}", v, INDEX[cat]["groups"][g["key"]], region_vecs) for g in groups}
     fuse_tone(cat, dist)
     out = []
     for g in groups:
         order = np.argsort(-dist[g["key"]])
         items = [{"label": g["labels"][i]["ko"], "score": float(dist[g["key"]][i]), "hidden": g["labels"][i].get("hidden", False),
                   "def": g["labels"][i].get("def", "")} for i in order]
-        out.append({"group": g["key"], "group_label": g["label"], **items[0], "level": level_of(items[0]["score"]), "alternatives": items[1:topk]})
+        reg = REGION_OF.get(f"{cat}.{g['key']}")
+        out.append({"group": g["key"], "group_label": g["label"], **items[0], "level": level_of(items[0]["score"]), "alternatives": items[1:topk],
+                    "region": reg if reg and region_vecs and reg in region_vecs else None})
     return out
+
+# ---- 부위 잘라 보기 (MediaPipe 얼굴 랜드마크) — 웹 앱 colors.js 의 faceRegions 와 같은 규칙 ----
+import contextlib
+import mediapipe as mp
+from mediapipe.tasks import python as mp_python
+from mediapipe.tasks.python import vision as mp_vision
+
+@contextlib.contextmanager
+def quiet_stderr():
+    """MediaPipe(C++)가 표준 오류로 내보내는 시작 안내 메시지를 가린다"""
+    fd = os.dup(2); null = os.open(os.devnull, os.O_WRONLY)
+    os.dup2(null, 2)
+    try: yield
+    finally: os.dup2(fd, 2); os.close(fd); os.close(null)
+
+with quiet_stderr():
+    face_landmarker = mp_vision.FaceLandmarker.create_from_options(mp_vision.FaceLandmarkerOptions(
+        base_options=mp_python.BaseOptions(model_asset_path=fetch("models/mediapipe/face_landmarker.task")),
+        num_faces=3, output_face_blendshapes=True, output_facial_transformation_matrixes=True))
+
+EYE_RING = [33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 163, 7, 263, 466, 388, 387, 386, 385, 384, 398, 362, 382, 381, 380, 374, 373, 390, 249]
+BROW_PTS = [70, 63, 105, 66, 107, 55, 65, 52, 53, 46, 300, 293, 334, 296, 336, 285, 295, 282, 283, 276]
+FACE_OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
+LIP_RING = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146]
+# 영역: 점 목록, (좌우 여유, 위 여유, 아래 여유) — 상자 크기 대비 비율
+REGIONS = {"face": (FACE_OVAL, 0.12, 0.25, 0.08), "eye": (EYE_RING + BROW_PTS, 0.15, 0.35, 0.55), "lip": (LIP_RING, 0.35, 0.6, 0.6)}
+
+def detect_landmarks(img):
+    """가장 크게 나온 얼굴의 랜드마크 · 표정 점수 · 변환 행렬 (없으면 None)"""
+    rgb = np.ascontiguousarray(np.array(img.convert("RGB")))
+    with quiet_stderr():
+        res = face_landmarker.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb))
+    if not res.face_landmarks: return None
+    sizes = [np.ptp([p.x for p in lm]) * np.ptp([p.y for p in lm]) for lm in res.face_landmarks]
+    i = int(np.argmax(sizes))
+    return {"lm": np.array([[p.x, p.y, p.z] for p in res.face_landmarks[i]]),
+            "blend": {c.category_name: c.score for c in res.face_blendshapes[i]} if res.face_blendshapes else {},
+            "mat": np.array(res.facial_transformation_matrixes[i]) if res.facial_transformation_matrixes else None, "rgb": rgb}
+
+def face_boxes(img):
+    """얼굴 · 눈 · 입술 상자 (0~1 비율). 너무 작으면 뺀다"""
+    d = detect_landmarks(img)
+    if d is None: return None
+    w, h = img.size; out = {}
+    for name, (ids, mx, mt, mb) in REGIONS.items():
+        q = d["lm"][ids, :2]; x0, y0 = q.min(0); x1, y1 = q.max(0); bw, bh = x1 - x0, y1 - y0
+        box = [max(0, x0 - bw * mx), max(0, y0 - bh * mt), min(1, x1 + bw * mx), min(1, y1 + bh * mb)]
+        if (box[2] - box[0]) * w < 40 or (box[3] - box[1]) * h < 24: continue
+        out[name] = box
+    return out or None
+
+def region_embeddings(img):
+    boxes = face_boxes(img)
+    if not boxes: return None
+    w, h = img.size
+    return {name: embed_image(img.crop((int(b[0] * w), int(b[1] * h), math.ceil(b[2] * w), math.ceil(b[3] * h)))) for name, b in boxes.items()}
 
 def analyze(img, category="auto"):
     t0 = time.time()
@@ -234,10 +305,11 @@ def analyze(img, category="auto"):
         h = HEAD["beauty"]
         beauty = h["alpha"] * softmax(h["W"] @ v + h["b"])[0] + (1 - h["alpha"]) * beauty
     cat = CATS[int(cat_p.argmax())] if category == "auto" else category
-    attrs = attributes_for(cat, v)
+    region_vecs = region_embeddings(img) if cat in REGION_CATS else None   # 메이크업이면 얼굴 · 눈 · 입술도 임베딩
+    attrs = attributes_for(cat, v, region_vecs=region_vecs)
     return {"category": cat, "category_label": TAX["tax"][cat]["label"], "is_beauty": bool(beauty >= 0.5), "beauty_score": float(beauty),
             "category_ranking": sorted(zip(CATS, cat_p.round(4).tolist()), key=lambda x: -x[1]),
-            "attributes": attrs, "embedding": v, "elapsed_s": time.time() - t0}
+            "attributes": attrs, "embedding": v, "regions_used": sorted(region_vecs) if region_vecs else [], "elapsed_s": time.time() - t0}
 
 # %% [markdown]
 # ## 5. 한국어 설명 문장
@@ -321,15 +393,15 @@ for ax, path in zip(axes, SAMPLES):
 plt.tight_layout(); plt.show()
 
 for path, r in results.items():
-    print(f"\n[{path}] {r['category_label']} · {r['text']['genre']}  (뷰티 사진 {r['beauty_score']:.0%}, {r['elapsed_s']:.2f}초)")
+    print(f"\n[{path}] {r['category_label']} · {r['text']['genre']}  (뷰티 사진 {r['beauty_score']:.0%}, {r['elapsed_s']:.2f}초{', 부위 크롭: ' + ' · '.join(r['regions_used']) if r['regions_used'] else ''})")
     print("  카테고리 순위:", ", ".join(f"{TAX['tax'][c]['label']} {p:.0%}" for c, p in r["category_ranking"]))
     print("  설명:", " ".join(r["text"]["sentences"]))
     print("  해시태그:", " ".join(r["text"]["tags"]))
 
 # %%
-# 속성별 판단 근거 (예: 첫 번째 사진) — 웹 앱의 '속성별 판단 근거' 막대와 같은 값
-r = results[SAMPLES[0]]
-pd.DataFrame([{"그룹": a["group_label"], "1위": a["label"], "확률": f"{a['score']:.0%}", "단계": a["level"],
+# 속성별 판단 근거 (예: 메이크업 사진) — 웹 앱의 '속성별 판단 근거' 막대와 같은 값. 눈 · 입술 그룹은 잘라낸 부위로 판단한 것
+r = results["samples/makeup-01.jpg"]
+pd.DataFrame([{"그룹": a["group_label"], "보는 부위": {"eye": "눈", "lip": "입술", "face": "얼굴"}.get(a["region"], "전체"), "1위": a["label"], "확률": f"{a['score']:.0%}", "단계": a["level"],
                "다음 후보": ", ".join(f"{x['label']} {x['score']:.0%}" for x in a["alternatives"]), "용어 설명": a["def"]}
               for a in r["attributes"]])
 
@@ -338,7 +410,7 @@ pd.DataFrame([{"그룹": a["group_label"], "1위": a["label"], "확률": f"{a['s
 rows, same_all, n_all = [], 0, 0
 for path, r in results.items():
     w = WEB[path]
-    web_top = {g: (lab, s) for g, lab, s in w["attributes"]}
+    web_top = {g: (lab, s) for g, lab, s, *_ in w["attributes"]}
     same = sum(web_top[a["group"]][0] == a["label"] for a in r["attributes"])
     same_all += same; n_all += len(r["attributes"])
     we = np.array(w["embedding"]); cos = float(r["embedding"] @ we / np.linalg.norm(we))
@@ -456,26 +528,11 @@ print("→ 벌점 λ 가 크면 제로샷에 가깝게 남고, 작으면 데이�
 # 5. 6가지 얼굴형(계란 · 둥근 · 긴 · 각진 · 하트 · 마름모)과의 거리로 **확률**을 낸다
 
 # %%
-import contextlib
-import mediapipe as mp
-from mediapipe.tasks import python as mp_python
-from mediapipe.tasks.python import vision as mp_vision
-
-@contextlib.contextmanager
-def quiet_stderr():
-    """MediaPipe(C++)가 표준 오류로 내보내는 시작 안내 메시지를 가린다"""
-    fd = os.dup(2); null = os.open(os.devnull, os.O_WRONLY)
-    os.dup2(null, 2)
-    try: yield
-    finally: os.dup2(fd, 2); os.close(fd); os.close(null)
-
+# 얼굴 랜드마크 모델은 4절에서 만든 것을 그대로 쓰고, 부위 분할 모델만 더 만든다
 with quiet_stderr():
-  face_landmarker = mp_vision.FaceLandmarker.create_from_options(mp_vision.FaceLandmarkerOptions(
-    base_options=mp_python.BaseOptions(model_asset_path=fetch("models/mediapipe/face_landmarker.task")),
-    num_faces=3, output_face_blendshapes=True, output_facial_transformation_matrixes=True))
-  segmenter = mp_vision.ImageSegmenter.create_from_options(mp_vision.ImageSegmenterOptions(
-    base_options=mp_python.BaseOptions(model_asset_path=fetch("models/mediapipe/selfie_multiclass_256x256.tflite")),
-    output_category_mask=True))
+    segmenter = mp_vision.ImageSegmenter.create_from_options(mp_vision.ImageSegmenterOptions(
+        base_options=mp_python.BaseOptions(model_asset_path=fetch("models/mediapipe/selfie_multiclass_256x256.tflite")),
+        output_category_mask=True))
 SEG = {"bg": 0, "hair": 1, "body": 2, "face": 3, "clothes": 4, "other": 5}
 
 # 랜드마크 번호 (MediaPipe Face Mesh)
@@ -486,20 +543,13 @@ SIDE_ZONES = [("관자놀이", "temple", [21, 162], [251, 389]), ("볼 옆선", 
               ("턱선", "jaw", [132, 58, 172, 136, 150], [361, 288, 397, 365, 379])]
 
 def detect_face(img: Image.Image):
-    rgb = np.ascontiguousarray(np.array(img.convert("RGB")))
-    mimg = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+    d = detect_landmarks(img)
+    if d is None: return None
     with quiet_stderr():
-        res = face_landmarker.detect(mimg)
-        seg_res = segmenter.segment(mimg)
-    seg = np.squeeze(seg_res.category_mask.numpy_view()).copy()   # (높이, 너비) 부위 번호
-    if not res.face_landmarks:
-        return None
-    sizes = [np.ptp([p.x for p in lm]) * np.ptp([p.y for p in lm]) for lm in res.face_landmarks]
-    i = int(np.argmax(sizes))
-    lm = np.array([[p.x, p.y, p.z] for p in res.face_landmarks[i]])
-    blend = {c.category_name: c.score for c in res.face_blendshapes[i]} if res.face_blendshapes else {}
-    mat = np.array(res.facial_transformation_matrixes[i]) if res.facial_transformation_matrixes else None
-    return {"lm": lm, "blend": blend, "mat": mat, "seg": seg, "w": rgb.shape[1], "h": rgb.shape[0], "rgb": rgb}
+        seg_res = segmenter.segment(mp.Image(image_format=mp.ImageFormat.SRGB, data=d["rgb"]))
+    d["seg"] = np.squeeze(seg_res.category_mask.numpy_view()).copy()   # (높이, 너비) 부위 번호
+    d["w"], d["h"] = d["rgb"].shape[1], d["rgb"].shape[0]
+    return d
 
 # %%
 def measure_face(d):

@@ -5,7 +5,7 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
-import { extractColors, COLOR_TARGETS } from './colors.js';
+import { extractColors, COLOR_TARGETS, faceRegions } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initFaceUI } from './face-ui.js';
 
@@ -124,13 +124,13 @@ async function loadAnalyzer(key) {
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: faceRegions, onProgress: makeProgress('기본 모델') });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: faceRegions, onProgress: makeProgress('기본 모델') });
       }
       await prev?.dispose?.();
       setStatus(`준비 완료 · ${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
@@ -368,7 +368,7 @@ function render(r) {
 
   els.attrs.innerHTML = r.attributes.map((a) => `
     <div class="attr ${a.level}" data-g="${esc(a.group)}">
-      <div class="g">${esc(a.group_label)}</div>
+      <div class="g">${esc(a.group_label)}${a.region ? `<small class="reg" title="사진에서 이 부분만 잘라 판단했어요">${REGION_KO[a.region] || a.region}</small>` : ''}</div>
       <div class="bar"><i style="width:${Math.max(4, a.score * 100)}%"></i><b><span>${esc(a.label)}</span><small>${pct(a.score)}</small></b></div>
       <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">수정</button>
       ${a.level !== 'low' && defOf(r.category, a.group, a.label) ? `<div class="def">${esc(defOf(r.category, a.group, a.label))}</div>` : ''}
@@ -385,6 +385,9 @@ function render(r) {
   renderSimilar(r);
   startColors(r);
 }
+
+// 부위를 잘라 판단한 그룹 표시 (analyzer.js 의 region)
+const REGION_KO = { eye: '눈 부분', lip: '입술 부분', face: '얼굴 부분' };
 
 // 설명 문장: 문단마다 <p>, 확실하지 않은 문장은 흐리게
 function paragraphsHtml(r) {
@@ -695,7 +698,7 @@ function slim(r) {
     ai_generated: true, generator: '뷰티 스타일 AI 분석', generative_model: r.vlm_model,
     category: r.category, category_label: r.category_label, category_ranking: r.category_ranking.map((c) => ({ key: c.key, score: round(c.score) })),
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
-    attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level,
+    attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
     trends: r.trends, tags: r.tags, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
     secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,
