@@ -96,14 +96,14 @@ export async function createAnalyzer({
 
   // 한 카테고리의 속성 그룹별 결과 (확률 높은 순 후보 · 신뢰도 단계)
   // partner: 다른 모델의 같은 카테고리 그룹 분포 (groupDists 결과). 있으면 두 모델 확률을 평균한다 (교차 검증 +2%p).
-  // 단, 짝 모델이 부위를 잘라 본 그룹은 짝 모델 결과만 쓴다 (부위 판단이 전체 사진 판단보다 훨씬 정확하다)
+  // 두 모델 모두 부위를 잘라 본 판단끼리 평균한다 (부위 그룹도 평균이 한 모델 단독보다 대체로 낫다)
   function attributesFor(cat, vec, topk, regionVecs, partner = null) {
     const def = TAXONOMY[cat];
     const dist = {};
     for (const g of def.groups) {
       dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key], regionVecs);
       const pd = partner?.dists[g.key];
-      if (pd && pd.length === dist[g.key].length) dist[g.key] = partner.regionGroups[g.key] ? pd : dist[g.key].map((x, i) => (x + pd[i]) / 2);
+      if (pd && pd.length === dist[g.key].length) dist[g.key] = dist[g.key].map((x, i) => (x + pd[i]) / 2);
     }
     fuseTone(def, dist);
     return def.groups.map((g) => {
@@ -115,7 +115,7 @@ export async function createAnalyzer({
       const level = levelOf(key, top.score);
       // 계열: 1위가 애매해도 같은 계열 라벨들의 확률 합이 높으면 '보브 계열'처럼 묶어서 말한다
       const fam = familyOf(g, top.label, items, (p) => levelOf(key, p), level);
-      const reg = partner?.regionGroups[g.key] || (regionOf[`${cat}.${g.key}`] && regionVecs?.[regionOf[`${cat}.${g.key}`]] ? regionOf[`${cat}.${g.key}`] : null);
+      const reg = (regionOf[key] && regionVecs?.[regionOf[key]] ? regionOf[key] : null) || partner?.regionGroups[g.key] || null;
       return { group: g.key, group_label: g.label, label: top.label, label_en: top.label_en, score: top.score, level,
         alternatives: items.slice(1, topk), all: items, ...(reg ? { region: reg } : {}), ...(fam ? { family: fam } : {}), high: highOf(key) };
     });

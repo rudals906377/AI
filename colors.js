@@ -59,9 +59,18 @@ const LIP_RING = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405
 export const REGIONS = { face: [FACE_OVAL, 0.12, 0.25, 0.08], eye: [[...EYE_RING, ...BROW_PTS], 0.15, 0.35, 0.55], lip: [LIP_RING, 0.35, 0.6, 0.6] };
 const FACE_PARTS = new Set(['face', 'eye', 'lip']), HAIR_PARTS = new Set(['hair', 'bangs', 'head']);
 // 분석기가 부르는 입구: 필요한 부위(wanted)만 찾는다. 얼굴 부위 → faceRegions, 머리 부위 → hairRegions
+// 같은 사진을 두 모델(정밀 모드)이 차례로 볼 때 얼굴 · 머리카락 찾기를 한 번만 하도록 사진별로 기억한다
+const regionCache = new WeakMap();
+function once(blob, kind, fn) {
+  if (!blob || typeof blob !== 'object') return fn(blob);
+  let c = regionCache.get(blob);
+  if (!c) regionCache.set(blob, (c = {}));
+  return (c[kind] ??= fn(blob).catch((e) => { delete c[kind]; throw e; }));
+}
+
 export async function styleRegions(blob, wanted = null) {
   const want = (set) => !wanted || [...set].some((x) => wanted.has(x));
-  const [f, h] = await Promise.all([want(FACE_PARTS) ? faceRegions(blob) : null, want(HAIR_PARTS) ? hairRegions(blob) : null]);
+  const [f, h] = await Promise.all([want(FACE_PARTS) ? once(blob, 'face', faceRegions) : null, want(HAIR_PARTS) ? once(blob, 'hair', hairRegions) : null]);
   const out = { ...(f || {}), ...(h || {}) };
   return Object.keys(out).length ? out : null;
 }
