@@ -69,7 +69,7 @@ def main():
                 if not te.any() or tr.sum() < 10: continue
                 pres = sorted(set(np.where(S[tr].sum(0) > 0)[0]))
                 if h is not None and len(pres) >= 2:
-                    W, b = th.fit(V[tr], S[tr], T, h.get('lam', 3.0), pres, sw=sw[tr], pen=h.get('pen', 0.0))
+                    W, b = th.fit(V[tr], S[tr], T, h.get('lam', 3.0), pres, sw=sw[tr], pen=h.get('pen', 0.0), wcap=h.get('wcap'))
                     Ph[te] = th.predict(V[te], W, b, T, h['alpha'], th.zbias(C, pres, h.get('pen', 0.0)))
                 bk = tr & inbank
                 if bk.sum() < 5: continue

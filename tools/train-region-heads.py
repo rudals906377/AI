@@ -46,8 +46,8 @@ for g in groups:
         if len(rows) < 15 or len(present) < 2: res[region] = None; continue
         sw = np.array([3.0 if m.get('license') == 'user-provided' else 1.0 for m, _ in rows])
         grp = [m['group'] for m, _ in rows]
-        (cv_acc, lam, alpha, pen), zs_cv, oof = th.cv_select(V, S, T, present, groups=grp, sw=sw)
-        res[region] = dict(cv=cv_acc, zs=zs_cv, lam=lam, alpha=alpha, pen=pen, oof=oof, V=V, S=S, present=present, sw=sw, n=len(rows), ncrop=len(keep))
+        (cv_acc, lam, alpha, pen), zs_cv, oof, wc = th.cv_select_wcap(V, S, T, present, groups=grp, sw=sw)   # 가중치 상한도 교차 검증으로
+        res[region] = dict(cv=cv_acc, zs=zs_cv, lam=lam, alpha=alpha, pen=pen, wcap=wc, oof=oof, V=V, S=S, present=present, sw=sw, n=len(rows), ncrop=len(keep))
     if not res.get('full'):
         report.append((key, len(rows), None)); continue
     best = max((r for r in res if res[r]), key=lambda r: res[r]['cv'])
@@ -62,7 +62,7 @@ for g in groups:
         calib[f'{key}@{pick}'] = temp
         conf[key] = th.conf_threshold(th.temper(P_oof, temp), r['S'])   # 그룹별 단정 기준 (부위 판단 기준)
         if use_head:
-            W, b = th.fit(r['V'], r['S'], T, r['lam'], r['present'], sw=r['sw'], pen=r['pen'])
+            W, b = th.fit(r['V'], r['S'], T, r['lam'], r['present'], sw=r['sw'], pen=r['pen'], wcap=r['wcap'])
             heads[f'{key}@{pick}'] = dict(region=pick, W=W, b=b, alpha=r['alpha'], zb=th.zbias(len(labels), r['present'], r['pen']))
     report.append((key, r['n'], {reg: (res[reg]['zs'], res[reg]['cv'], res[reg]['ncrop']) if res[reg] else None for reg in E}, pick, use_head))
 cols = ['full'] + REGIONS
