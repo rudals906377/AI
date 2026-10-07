@@ -237,7 +237,7 @@ function renderStats() {
     return `<tr><td>${esc(label)}</td><td>${t.n}</td><td>${rate(t.ok, t.n)}</td><td>${rate(t.byLevel.high[1], t.byLevel.high[0])}</td></tr>`;
   }).join('');
   els.stats.innerHTML = `<p><span class="big">${rate(ok, n)}</span> 속성 정확도 (${ok}/${n})</p>
-    <p class="note">확신(90% 이상, '~예요'로 말함) ${rate(lv.high[1], lv.high[0])} · 중간 ${rate(lv.mid[1], lv.mid[0])} · 낮음 ${rate(lv.low[1], lv.low[0])}<br>카테고리 ${rate(catOk, catN)} (${catN}장)</p>
+    <p class="note">확신(그룹별 단정 기준 이상, '~예요'로 말함) ${rate(lv.high[1], lv.high[0])} · 중간 ${rate(lv.mid[1], lv.mid[0])} · 낮음 ${rate(lv.low[1], lv.low[0])}<br>카테고리 ${rate(catOk, catN)} (${catN}장)</p>
     <table><thead><tr><th>항목</th><th>수</th><th>정확도</th><th>확신일 때</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
