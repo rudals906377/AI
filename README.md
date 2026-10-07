@@ -225,6 +225,7 @@ python3 tools/train-heads.py --commercial ... --feedback beauty-feedback-2026-10
 | `face-advice.js` | 측정값 → 특징(평균 대비) · 헤어 추천 · 메이크업 추천 · 메이크업 위치 · 스타일 궁합 (`suits.js` 의 커트 · 앞머리 표를 같이 씀) |
 | `face-ui.js` | 내 얼굴 분석 화면 (셀카 · 웹캠, 다시 찍기 안내, 측정선 · 메이크업 위치 그림) |
 | `review.html` · `review.js` | 전문가 검수 도구 |
+| `notebook/` | 제출용 파이썬 소스: 위 분석 과정과 내 얼굴 분석을 파이썬으로 옮긴 노트북(`.ipynb`, 실행 결과 포함)과 스크립트(`.py`). Colab 에서 바로 실행 |
 | `notice.html` | AI 이용 안내 (모델 · 정확도 · 한계 · 치우침) |
 | `docs/MODEL_CARD.md` | 모델 카드 (그룹별 정확도 · 데이터 · 한계 · 라이선스) |
 | `docs/legal/` | 이용약관 · 개인정보처리방침 · AI 고지 · 촬영 동의서 초안 (법률 검토 전) |
