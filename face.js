@@ -108,7 +108,13 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
     if (last == null) return { u: um, mesh: um, dev: 0, ok: false };
     return { u: last, mesh: um, dev: (side * (last - um)) / CW, beyond, ok: true };
   }
-  const pick = (e, um, lo, hi) => (e && e.ok && e.dev > lo && e.dev < hi ? { u: e.u, src: 'mask' } : { u: um, src: 'mesh' });
+  // 마스크 가장자리가 메시에서 허용 범위(lo ~ hi, 광대 너비 기준) 안이면 마스크를 쓴다. 범위 끝 0.02 안쪽부터는 메시 쪽으로 섞어서,
+  // 사진을 조금만 바꿔도(다시 저장 · 미세한 각도) 마스크 ↔ 메시가 갑자기 바뀌며 값이 튀는 일을 막는다
+  const pick = (e, um, lo, hi) => {
+    if (!e || !e.ok) return { u: um, src: 'mesh' };
+    const t = Math.max(0, Math.min(1, Math.min(e.dev - lo, hi - e.dev) / 0.02));
+    return t > 0 ? { u: um + (e.u - um) * t, src: 'mask' } : { u: um, src: 'mesh' };
+  };
 
   // 턱끝: 입 가운데에서 아래로 내려가며 얼굴 피부가 끝나는 곳 (목 · 옷과의 경계)
   let vMenton = V(152), mentonSrc = 'mesh';
@@ -167,7 +173,22 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
   // 이마 너비 (눈썹 위 ~ 이마 위 사이 40% 높이). 관자놀이 머리카락에 가리면 메시
   const vFore = vBrowTop + (vTop - vBrowTop) * 0.4;
   const fs = slice(vFore);
-  const fl = pick(edge(vFore, -1, zTop * 0.5), fs.l, -0.08, 0.04), fr = pick(edge(vFore, 1, zTop * 0.5), fs.r, -0.08, 0.04);
+  // 관자놀이를 머리카락이 가리면 마스크 가장자리는 실제 이마보다 좁게 나오므로, 가린 비율만큼 메시 쪽으로 섞는다 (0.2 이하 → 마스크, 0.6 이상 → 메시)
+  const templeHair = (ids) => {
+    if (!segAt) return 0;
+    let n = 0, hair = 0;
+    for (const i of ids) { const [u, v] = U(i); const sg = Math.sign(u) || 1; for (const d of [0.03, 0.06, 0.09]) { n++; hair += segUV(u - sg * d * CW, v, 0) === SEG.hair; } }
+    return hair / n;
+  };
+  const foreEdge = (side) => {
+    const um = side < 0 ? fs.l : fs.r;
+    const p = pick(edge(vFore, side, zTop * 0.5), um, -0.08, 0.04);
+    if (p.src !== 'mask') return p;
+    const zone = SIDE_ZONES[0], ids = Math.sign(U(zone.a[0])[0]) === side ? zone.a : zone.b;
+    const t = Math.max(0, Math.min(1, (0.6 - templeHair(ids)) / 0.4));
+    return { u: um + (p.u - um) * t, src: t > 0 ? 'mask' : 'mesh' };
+  };
+  const fl = foreEdge(-1), fr = foreEdge(1);
   const foreW = fr.u - fl.u;
 
   // 헤어라인: 이마 가운데를 따라 위로 올라가며 얼굴 피부가 끝나는 곳
@@ -440,9 +461,37 @@ function loadTasks() {
 }
 export const preloadFace = () => loadTasks();
 
+// 부위 분할을 얼굴 둘레만 잘라서 돌린다. 분할 모델은 입력을 256×256 으로 줄여 보므로, 프레임 안에서 얼굴이 작으면(웹캠 · 상반신 사진)
+// 마스크가 거칠어져 턱선 · 턱끝 · 이마 측정이 흔들린다. 얼굴 너비의 0.8배(옆) · 높이의 0.9배(위, 머리카락) · 0.55배(아래, 목) 여유를 두고
+// 잘라 넣으면 얼굴이 사진의 어디에 어떤 크기로 있든 마스크 해상도가 비슷해진다. 결과는 사진 픽셀 크기의 마스크 (자른 밖은 배경 0)
+function segmentAround(seg, canvas, lm) {
+  const w = canvas.width, h = canvas.height;
+  const xs = OVAL.map((i) => lm[i][0] * w), ys = OVAL.map((i) => lm[i][1] * h);
+  const fx0 = Math.min(...xs), fx1 = Math.max(...xs), fy0 = Math.min(...ys), fy1 = Math.max(...ys);
+  const fw = fx1 - fx0, fh = fy1 - fy0;
+  const x0 = Math.max(0, Math.floor(fx0 - fw * 0.8)), x1 = Math.min(w, Math.ceil(fx1 + fw * 0.8));
+  const y0 = Math.max(0, Math.floor(fy0 - fh * 0.9)), y1 = Math.min(h, Math.ceil(fy1 + fh * 0.55));
+  const cw = Math.max(1, x1 - x0), ch = Math.max(1, y1 - y0);
+  const run = (src) => { const s = seg.segment(src); const cm = s.categoryMask; const m = { data: new Uint8Array(cm.getAsUint8Array()), w: cm.width, h: cm.height }; s.close?.(); return m; };
+  const whole = cw * ch >= w * h * 0.9;
+  let src = canvas;
+  if (!whole) { src = document.createElement('canvas'); src.width = cw; src.height = ch; src.getContext('2d').drawImage(canvas, x0, y0, cw, ch, 0, 0, cw, ch); }
+  const m = run(src);
+  const [ox, oy, ow, oh] = whole ? [0, 0, w, h] : [x0, y0, cw, ch];
+  if (whole && m.w === w && m.h === h) return m.data;
+  const out = new Uint8Array(w * h);
+  for (let y = 0; y < oh; y++) {
+    const my = Math.floor((y / oh) * m.h) * m.w, row = (oy + y) * w + ox;
+    for (let x = 0; x < ow; x++) out[row + x] = m.data[my + Math.floor((x / ow) * m.w)];
+  }
+  return out;
+}
+
 export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
   const { face, seg } = await loadTasks();
+  const focal35 = await readFocal35(blob).catch(() => null); // 사진 정보(EXIF)의 35mm 환산 초점거리 — 카메라 거리 어림용
   const bmp = await createImageBitmap(blob);
+  const origW = bmp.width, origH = bmp.height;
   const sc = Math.min(1, 1280 / Math.max(bmp.width, bmp.height));
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(bmp.width * sc); canvas.height = Math.round(bmp.height * sc);
@@ -464,11 +513,9 @@ export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
   const blend = Object.fromEntries((r.faceBlendshapes?.[k]?.categories || []).map((c) => [c.categoryName, c.score]));
   const mat = r.facialTransformationMatrixes?.[k]?.data ? Array.from(r.facialTransformationMatrixes[k].data) : null;
 
-  const s = seg.segment(canvas);
-  const cm = s.categoryMask;
-  const mask = new Uint8Array(cm.getAsUint8Array());
-  const sw = cm.width, sh = cm.height;
-  s.close?.();
+  // 부위 분할은 얼굴 둘레(머리카락 · 목까지 여유)를 잘라서 돌린다 → 사진 픽셀 크기의 마스크
+  const mask = segmentAround(seg, canvas, lm);
+  const sw = w, sh = h;
 
   // 얼굴 피부 평균색 (볼 가운데) — 밝기 점검 · 피부 톤 참고용
   const data = ctx.getImageData(0, 0, w, h).data;
@@ -484,9 +531,75 @@ export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
   const skin = skinPx.length > 20 ? skinTone(skinPx) : null;
 
   const res = measureFace({ lm, w, h, seg: mask, sw, sh, blend, mat, skinL: skin?.lab[0], purpose, others });
+  // 카메라 거리: 초점거리(픽셀) × 눈동자 간격(평균 6.3cm) ÷ 사진 속 눈동자 간격(픽셀). 35mm 환산 초점거리는 대각선 43.3mm 기준
+  let distance = null;
+  if (focal35 && focal35 > 5 && focal35 < 400) {
+    const ipdPx = Math.hypot((lm[473][0] - lm[468][0]) * origW, (lm[473][1] - lm[468][1]) * origH);
+    const focalPx = (focal35 * Math.hypot(origW, origH)) / 43.27;
+    if (ipdPx > 8) distance = (focalPx * 6.3) / ipdPx;
+  }
+  if (distance != null) {
+    res.issues = res.issues.filter((x) => x.key !== 'close');
+    if (distance < 35) res.issues.unshift({ key: 'close', level: 'warn', title: `카메라가 얼굴에 가까워요 (약 ${Math.round(distance)}cm)`,
+      fix: '가까이서 찍으면 렌즈 때문에 코와 얼굴 가운데가 커 보여요. 팔을 쭉 뻗은 거리(50cm 이상)에서 찍으면 더 정확해요.' });
+  }
   const shape = classifyShape(res.m);
   const blocked = res.issues.some((x) => x.level === 'block');
-  return { ok: !blocked, purpose, w, h, canvas, lm, blend, skin, mask: { data: mask, w: sw, h: sh }, ...res, shape };
+  return { ok: !blocked, purpose, w, h, canvas, lm, blend, skin, mask: { data: mask, w: sw, h: sh }, ...res, shape, distance, focal35 };
+}
+
+// ---- 여러 장 합치기 (웹캠 연속 촬영) ----------------------------------------------------
+// 같은 사람을 몇 장 찍어 각각 잰 뒤, 점검을 통과한 장들의 측정값 중앙값을 쓴다 → 한 장의 흔들림(표정 · 미세한 각도)이 줄어든다.
+// 그림 · 사진은 중앙값에 가장 가까운 장을 쓴다. 통과한 장이 없으면 막힌 이유가 가장 적은 장을 돌려준다 (다시 찍기 안내)
+const MEDIAN_KEYS = ['ratio', 'forehead', 'jaw', 'chin', 'jawAngle', 'jawBulge', 'chinAngle', 'philtrum', 'eyeSpacing', 'eyeAspect', 'eyeTilt', 'eyeToFace',
+  'browGap', 'browArch', 'browTail', 'nose', 'noseLen', 'mouth', 'mouthIpd', 'lips', 'lipFull', 'cornerLift', 'lipGap'];
+const median = (xs) => { const s = xs.slice().sort((a, b) => a - b); const k = s.length >> 1; return s.length % 2 ? s[k] : (s[k - 1] + s[k]) / 2; };
+export function combineFaces(results) {
+  const valid = results.filter((r) => r && r.geo);
+  if (!valid.length) return results[0];
+  const ok = valid.filter((r) => r.ok);
+  if (!ok.length) return valid.slice().sort((a, b) => a.issues.filter((x) => x.level === 'block').length - b.issues.filter((x) => x.level === 'block').length)[0];
+  if (ok.length === 1) return { ...ok[0], frames: { used: 1, total: results.length } };
+  const m = {};
+  for (const k of MEDIAN_KEYS) m[k] = median(ok.map((r) => r.m[k]));
+  m.thirds = [0, 1, 2].map((i) => median(ok.map((r) => r.m.thirds[i])));
+  m.asym = { brow: median(ok.map((r) => r.m.asym.brow)), eye: median(ok.map((r) => r.m.asym.eye)) };
+  // 중앙값에 가장 가까운 장 (얼굴형에 쓰는 값 기준, 표준편차 단위)
+  const z = zscores(m);
+  const dist = (r) => { const zr = zscores(r.m); return Object.keys(z).reduce((s, k) => s + (zr[k] - z[k]) ** 2, 0); };
+  const base = ok.slice().sort((a, b) => dist(a) - dist(b))[0];
+  return { ...base, m, shape: classifyShape(m), frames: { used: ok.length, total: results.length } };
+}
+
+// JPEG 의 EXIF 에서 35mm 환산 초점거리(FocalLengthIn35mmFilm)를 읽는다. 없으면 null
+async function readFocal35(blob) {
+  if (!/jpe?g/i.test(blob.type || '')) return null;
+  const buf = new DataView(await blob.slice(0, 256 * 1024).arrayBuffer());
+  if (buf.getUint16(0) !== 0xffd8) return null;
+  let p = 2;
+  while (p + 4 <= buf.byteLength) {
+    if (buf.getUint8(p) !== 0xff) return null;
+    const marker = buf.getUint8(p + 1), len = buf.getUint16(p + 2);
+    if (marker === 0xe1 && p + 10 <= buf.byteLength && buf.getUint32(p + 4) === 0x45786966) { // 'Exif'
+      const t = p + 10; // TIFF 헤더
+      const le = buf.getUint16(t) === 0x4949;
+      const u16 = (o) => buf.getUint16(t + o, le), u32 = (o) => buf.getUint32(t + o, le);
+      if (u16(2) !== 0x2a) return null;
+      const readIfd = (off, want) => {
+        const n = u16(off); let found = null;
+        for (let i = 0; i < n; i++) {
+          const e = off + 2 + i * 12, tag = u16(e), type = u16(e + 2);
+          if (tag === want) found = type === 3 ? u16(e + 8) : type === 4 ? u32(e + 8) : null;
+        }
+        return found;
+      };
+      const exifIfd = readIfd(u32(4), 0x8769);
+      return exifIfd ? readIfd(exifIfd, 0xa405) : null;
+    }
+    if (marker === 0xda) return null; // 이미지 데이터 시작
+    p += 2 + len;
+  }
+  return null;
 }
 
 // 볼 피부색: 밝기 위아래 끝을 빼고 평균 → Lab

@@ -3,7 +3,7 @@
 //   const face = initFaceUI({ getStyle: () => ({ result, blob }) });
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
-import { analyzeFace, preloadFace, SEG } from './face.js';
+import { analyzeFace, combineFaces, preloadFace, SEG } from './face.js';
 import { faceReport } from './face-advice.js';
 
 const $ = (id) => document.getElementById(id);
@@ -24,7 +24,8 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
   };
   let purpose = 'hair';
   let blob = null;
-  let last = null;      // analyzeFace 결과
+  let frameBlobs = null; // 웹캠 연속 촬영 장들 (한 장만 올리면 null)
+  let last = null;      // analyzeFace 결과 (여러 장이면 combineFaces 결과)
   let report = null;
   let layer = 'measure';
   let seq = 0;
@@ -64,9 +65,9 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
   els.ctaBtn.addEventListener('click', () => { setMode('face'); if (els.ctaBtn.dataset.purpose !== purpose) setPurpose(els.ctaBtn.dataset.purpose); });
 
   // ---- 입력 -------------------------------------------------------------------------
-  async function setImage(b) {
+  async function setImage(b, frames = null) {
     if (!b || !b.type?.startsWith('image/')) return;
-    blob = b;
+    blob = b; frameBlobs = frames;
     els.preview.src = URL.createObjectURL(b);
     els.preview.classList.remove('hidden');
     els.hint.classList.add('hidden');
@@ -104,17 +105,36 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
   const stopCam = () => { stream?.getTracks().forEach((t) => t.stop()); stream = null; if (els.cam.open) els.cam.close(); };
   els.camCancel.addEventListener('click', stopCam);
   els.cam.addEventListener('cancel', stopCam);
-  els.camShot.addEventListener('click', () => {
+  // 웹캠은 한 장이 아니라 약 2초 동안 5장을 찍어 평균 낸다 (표정 · 미세한 각도 차이로 생기는 흔들림을 줄이려고)
+  const BURST = 5, BURST_GAP = 450;
+  const grabFrame = () => new Promise((resolve) => {
     const v = els.video;
-    if (!v.videoWidth) return;
     const c = document.createElement('canvas');
     c.width = v.videoWidth; c.height = v.videoHeight;
     // 화면에는 거울처럼 보여 주지만, 분석은 거울을 되돌린 실제 모습으로 (휴대폰 셀카와 같게)
     const ctx = c.getContext('2d');
     ctx.translate(c.width, 0); ctx.scale(-1, 1);
     ctx.drawImage(v, 0, 0);
-    stopCam();
-    c.toBlob((b) => setImage(b), 'image/jpeg', 0.93);
+    c.toBlob(resolve, 'image/jpeg', 0.93);
+  });
+  let shooting = false;
+  els.camShot.addEventListener('click', async () => {
+    if (!els.video.videoWidth || shooting) return;
+    shooting = true; els.camShot.disabled = true;
+    const note = els.camNote.textContent;
+    const frames = [];
+    try {
+      for (let i = 0; i < BURST; i++) {
+        els.camNote.textContent = `찍는 중 ${i + 1} / ${BURST} — 그대로 계세요`;
+        frames.push(await grabFrame());
+        if (i < BURST - 1) await new Promise((r) => setTimeout(r, BURST_GAP));
+      }
+    } finally {
+      shooting = false; els.camShot.disabled = false; els.camNote.textContent = note;
+      stopCam();
+    }
+    const good = frames.filter(Boolean);
+    if (good.length) setImage(good[Math.floor(good.length / 2)], good.length > 1 ? good : null);
   });
 
   // ---- 분석 -------------------------------------------------------------------------
@@ -125,10 +145,19 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     els.retake.classList.add('hidden');
     els.result.classList.add('hidden');
     els.status.classList.remove('hidden');
-    els.status.innerHTML = '<span class="spin"></span> 얼굴을 재는 중… <small>처음에는 얼굴 분석 모델(약 20MB)을 내려받아요</small>';
+    const n = frameBlobs?.length || 1;
+    els.status.innerHTML = `<span class="spin"></span> ${n > 1 ? `${n}장을 재는 중…` : '얼굴을 재는 중…'} <small>처음에는 얼굴 분석 모델(약 20MB)을 내려받아요</small>`;
     if (window.innerWidth < 900) els.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     try {
-      const f = await analyzeFace(blob, { purpose });
+      let f;
+      if (n > 1) {
+        const results = [];
+        for (const b of frameBlobs) { results.push(await analyzeFace(b, { purpose })); if (id !== seq) return; }
+        f = combineFaces(results);
+        // 미리보기는 중앙값에 가장 가까운 장으로
+        const chosen = frameBlobs[results.indexOf(results.find((r) => r.canvas === f.canvas))];
+        if (chosen && chosen !== blob) { blob = chosen; els.preview.src = URL.createObjectURL(chosen); }
+      } else f = await analyzeFace(blob, { purpose });
       if (id !== seq) return;
       last = f;
       els.status.classList.add('hidden');
@@ -156,7 +185,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     els.result.classList.remove('hidden', 'enter');
     void els.result.offsetWidth;
     els.result.classList.add('enter');
-    els.shapeLabel.textContent = '내 얼굴형';
+    els.shapeLabel.textContent = f.frames?.used > 1 ? `내 얼굴형 · 웹캠 ${f.frames.total}장 중 ${f.frames.used}장 평균` : '내 얼굴형';
     els.shape.textContent = report.headline;
     // '긴 편' 처럼 꾸밈말과 '편' 사이에서 줄이 나뉘지 않게
     els.summary.innerHTML = report.summary.map((s) => `<span class="s">${esc(s).replace(/ (편|중간)/g, '&nbsp;$1')}</span>`).join(' ');
