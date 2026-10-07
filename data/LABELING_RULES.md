@@ -65,6 +65,11 @@ If a photo on a sheet is clearly a different beauty category than the sheet's ca
   Then every test photo where a model picked one of the new labels was re-reviewed (91 photos): the new label was added
   as an acceptable answer when it fit as well (50), replaced the old answer when that was clearly wrong (4), or was
   rejected (39). `review: "v3"` marks those rows.
+- `batch: "8"` / `review: "v3.1"` — (2026-10-08) training photos where both models were at least 60% sure of a
+  different answer than the label (181 photos) were re-reviewed by assistant agents: the model's answer replaced the
+  label (5), was added as another acceptable answer (50), or was rejected (126). A second search of the crawl pool for
+  labels that still had no photos (816 candidates) kept only 3 photos (`batch: "8"`); the pool has almost no photos of
+  those styles. `review: "v3.1"` marks the changed rows.
 - Labels that describe an accessory or a temporary finish rather than an arrangement (curling-iron waves, headband)
   were not added to single-choice groups, because they overlap with every other label in the group.
 - No labels have been reviewed by human beauty professionals yet.

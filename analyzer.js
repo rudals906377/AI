@@ -54,6 +54,12 @@ export async function createAnalyzer({
   // 카테고리 → 그 카테고리 그룹들이 보는 부위 이름들 (예: makeup → eye, lip, face)
   const regionsByCat = {};
   for (const [k, r] of Object.entries(regionOf)) (regionsByCat[k.split('.')[0]] ??= new Set()).add(r);
+  // 그룹별 단정 기준: 폴드 밖 예측에서 '이 확률 이상이면 95% 맞는다'는 값 (없으면 공통 기준)
+  const conf = useHeads ? heads.conf || {} : {};
+  const highOf = (key) => conf[key] ?? CONFIDENCE.high;
+  const levelOf = (key, p) => (p >= highOf(key) ? 'high' : p >= CONFIDENCE.mid ? 'mid' : 'low');
+  // 비슷한 학습 사진(kNN): 학습 사진 특징값(8비트) + 그룹마다 섞는 비율 β
+  const knn = useHeads && heads.knn ? decodeKnn(heads.knn) : null;
   progress({ status: 'ready' });
 
   async function embedImage(source) {
@@ -78,20 +84,26 @@ export async function createAnalyzer({
       const hp = softmax(h.W.map((row, i) => dot(vec, row) + h.b[i]));
       p = hp.map((x, i) => h.alpha * x + (1 - h.alpha) * zs[i]);
     }
+    // 비슷한 학습 사진들의 라벨 투표를 섞는다 (전체 사진으로 판단하는 그룹만, β 는 교차 검증으로 고른 값)
+    const kg = hk === key ? knn?.groups[key] : null;
+    if (kg && kg.beta > 0) {
+      const pk = knnVote(knn, kg, vec, p.length);
+      if (pk) p = p.map((x, i) => (1 - kg.beta) * x + kg.beta * pk[i]);
+    }
     const t = calib[hk];
     return t ? softmax(p.map((x) => Math.log(Math.max(x, 1e-12)) / t)) : p;
   }
 
   // 한 카테고리의 속성 그룹별 결과 (확률 높은 순 후보 · 신뢰도 단계)
   // partner: 다른 모델의 같은 카테고리 그룹 분포 (groupDists 결과). 있으면 두 모델 확률을 평균한다 (교차 검증 +2%p).
-  // 단, 짝 모델이 부위를 잘라 본 그룹은 짝 모델 결과만 쓴다 (부위 판단이 전체 사진 판단보다 훨씬 정확하다)
+  // 두 모델 모두 부위를 잘라 본 판단끼리 평균한다 (부위 그룹도 평균이 한 모델 단독보다 대체로 낫다)
   function attributesFor(cat, vec, topk, regionVecs, partner = null) {
     const def = TAXONOMY[cat];
     const dist = {};
     for (const g of def.groups) {
       dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key], regionVecs);
       const pd = partner?.dists[g.key];
-      if (pd && pd.length === dist[g.key].length) dist[g.key] = partner.regionGroups[g.key] ? pd : dist[g.key].map((x, i) => (x + pd[i]) / 2);
+      if (pd && pd.length === dist[g.key].length) dist[g.key] = dist[g.key].map((x, i) => (x + pd[i]) / 2);
     }
     fuseTone(def, dist);
     return def.groups.map((g) => {
@@ -99,10 +111,13 @@ export async function createAnalyzer({
         .map((l, i) => ({ label: l.ko, label_en: l.en, score: dist[g.key][i], hidden: !!l.hidden, tone: l.tone }))
         .sort((a, b) => b.score - a.score);
       const top = items[0];
-      const level = top.score >= CONFIDENCE.high ? 'high' : top.score >= CONFIDENCE.mid ? 'mid' : 'low';
-      const reg = partner?.regionGroups[g.key] || (regionOf[`${cat}.${g.key}`] && regionVecs?.[regionOf[`${cat}.${g.key}`]] ? regionOf[`${cat}.${g.key}`] : null);
+      const key = `${cat}.${g.key}`;
+      const level = levelOf(key, top.score);
+      // 계열: 1위가 애매해도 같은 계열 라벨들의 확률 합이 높으면 '보브 계열'처럼 묶어서 말한다
+      const fam = familyOf(g, top.label, items, (p) => levelOf(key, p), level);
+      const reg = (regionOf[key] && regionVecs?.[regionOf[key]] ? regionOf[key] : null) || partner?.regionGroups[g.key] || null;
       return { group: g.key, group_label: g.label, label: top.label, label_en: top.label_en, score: top.score, level,
-        alternatives: items.slice(1, topk), all: items, ...(reg ? { region: reg } : {}) };
+        alternatives: items.slice(1, topk), all: items, ...(reg ? { region: reg } : {}), ...(fam ? { family: fam } : {}), high: highOf(key) };
     });
   }
 
@@ -310,6 +325,36 @@ function decodeIndex(json) {
   }
   if (json.layout.other) index.other = Array.from({ length: json.layout.other }, take);
   return index;
+}
+// 계열 판단: 1위 라벨이 속한 계열의 확률 합 → 단계가 1위 혼자보다 올라갈 때만 계열로 말한다
+const LV_RANK = { low: 0, mid: 1, high: 2 };
+function familyOf(group, topLabel, items, levelFn, topLevel) {
+  const f = group.families?.find((x) => x.members.includes(topLabel));
+  if (!f) return null;
+  const mem = items.filter((x) => f.members.includes(x.label));
+  if (mem.length < 2) return null;
+  const score = Math.min(1, mem.reduce((s, x) => s + x.score, 0));
+  const level = levelFn(score);
+  if (LV_RANK[level] <= LV_RANK[topLevel]) return null;
+  return { name: f.name, label: `${f.name} 계열`, score, level, members: mem.filter((x) => x.score >= 0.05).slice(0, 4).map((x) => ({ label: x.label, score: x.score })) };
+}
+// kNN 뱅크: { dim, rows, scale, q(base64 int8 rows×dim), groups: { key: { beta, k, tau, rows:[...], labels:[[...]] } } }
+function decodeKnn(j) {
+  const bytes = typeof Buffer !== 'undefined' ? Uint8Array.from(Buffer.from(j.q, 'base64')) : Uint8Array.from(atob(j.q), (c) => c.charCodeAt(0));
+  return { dim: j.dim, scale: j.scale, q: new Int8Array(bytes.buffer), groups: j.groups };
+}
+function knnVote(bank, g, vec, nLabels) {
+  const { dim, q, scale } = bank;
+  const sims = g.rows.map((r) => { let s = 0; const o = r * dim; for (let i = 0; i < dim; i++) s += vec[i] * q[o + i]; return s / scale; });
+  const order = sims.map((s, i) => i).sort((a, b) => sims[b] - sims[a]).slice(0, g.k);
+  if (!order.length) return null;
+  const out = new Array(nLabels).fill(0);
+  for (const i of order) {
+    const w = Math.exp(g.tau * (sims[i] - 1)); const ls = g.labels[i];
+    for (const l of ls) out[l] += w / ls.length;
+  }
+  const z = out.reduce((a, b) => a + b, 0);
+  return z > 0 ? out.map((x) => x / z) : null;
 }
 // 학습 헤드: { groups: { "hair.color": { rows, W(base64 f32 rows×dim), b:[...], alpha } } }
 function decodeHeads(json) {

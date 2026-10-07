@@ -16,5 +16,6 @@ for src in srcs:
     for key, g in rh['groups'].items():
         H['groups'][key] = {k: v for k, v in g.items() if k != 'region'} | {'region': g['region']}
     for key, t in rh['calib'].items(): H['calib'][key] = t
+    for key, t in rh.get('conf', {}).items(): H.setdefault('conf', {})[key] = t   # 부위로 판단하는 그룹의 단정 기준
 json.dump(H, open(dst, 'w'))
 print('regions:', H['regions'], '| region heads:', [k for k in H['groups'] if '@' in k], '| calib:', [k for k in H['calib'] if '@' in k])

@@ -28,16 +28,23 @@ export function buildOrder(r, colors = {}) {
   const rows = [];
   const checks = [];
   for (const [key, name] of FIELDS[cat] || []) {
-    const a = by[key];
+    let a = by[key];
     if (!a || a.all[0].hidden) continue;
     const label = name || a.group_label;
+    // 계열로 더 확실하면 '단발 보브 계열 (A라인 보브 / 보브컷)'처럼 적고 세부는 상담 때 정한다
+    if (a.family && a.family.score >= CONFIDENCE.mid) {
+      rows.push({ key, label, value: a.family.label, alt: a.family.members.map((m) => m.label).slice(0, 3).join(' / '), sure: a.family.level === 'high', family: true });
+      continue;
+    }
     const alt = a.all.slice(1).find((x) => !x.hidden);
     if (a.score < CONFIDENCE.mid) {
       // 확신이 낮으면 표에 넣지 않고 '상담 때 정할 것'으로 돌린다
       checks.push(`${label}: ${alt ? `${a.label} 또는 ${alt.label}` : a.label}`);
       continue;
     }
-    rows.push({ key, label, value: a.label, alt: a.score < CONFIDENCE.high && alt && alt.score >= 0.15 ? alt.label : null, sure: a.score >= CONFIDENCE.high });
+    // 단정 기준은 그룹마다 다르다 (a.high: 그 그룹에서 95% 맞는 확률, 없으면 공통 기준)
+    const high = a.high ?? CONFIDENCE.high;
+    rows.push({ key, label, value: a.label, alt: a.score < high && alt && alt.score >= 0.15 ? alt.label : null, sure: a.score >= high });
   }
 
   // 헤어 컬러 행에 톤 · 사진에서 뽑은 실제 색을 붙인다

@@ -399,6 +399,7 @@ function render(r) {
       <div class="bar"><i style="width:${Math.max(4, a.score * 100)}%"></i><b><span>${esc(a.label)}</span><small>${pct(a.score)}</small></b></div>
       <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">수정</button>
       ${a.level !== 'low' && defOf(r.category, a.group, a.label) ? `<div class="def">${esc(defOf(r.category, a.group, a.label))}</div>` : ''}
+      ${a.family ? `<div class="fam" title="같은 계열 라벨들의 확률을 더한 값이에요">${esc(a.family.label)}로는 <b>${pct(a.family.score)}</b> · ${a.family.members.map((x) => esc(x.label)).join(' · ')}</div>` : ''}
       <div class="alts">다음 후보: ${a.alternatives.map((x) => `${esc(x.label)} ${pct(x.score)}`).join(' · ')}</div>
     </div>`).join('');
   renderFeedback(r);
@@ -726,6 +727,7 @@ function slim(r) {
     category: r.category, category_label: r.category_label, category_ranking: r.category_ranking.map((c) => ({ key: c.key, score: round(c.score) })),
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
+      ...(a.family ? { family: { label: a.family.label, score: round(a.family.score), level: a.family.level, members: a.family.members.map((x) => x.label) } } : {}),
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
     trends: r.trends, tags: r.tags, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
     secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,

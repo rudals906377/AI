@@ -53,7 +53,10 @@ def softmax(z):
     return e / e.sum(-1, keepdims=True)
 
 
-WCAP = float(os.environ.get('WCAP', '3'))   # 사진별 가중치 상한 (중앙값의 배수, 0 이면 상한 없음). 3 이 교차 검증 · 평가 모두 가장 나았다
+WCAP = float(os.environ.get('WCAP', '3'))   # 사진별 가중치 상한 (중앙값의 배수, 0 이면 상한 없음)
+# 상한 후보: 그룹마다 교차 검증으로 고른다. 3 은 드문 라벨을 더 챙기고, 1 은 균형 보정을 거의 끈다.
+# (v3.1: 1 이 대부분 그룹에서 나았지만 네일 쉐입 · 타투 크기처럼 3 이 나은 그룹도 있었다. 같으면 앞의 값)
+WCAPS = [float(x) for x in os.environ.get('WCAPS', '3,1').split(',')]
 
 
 def fit(V, S, T, lam, present, steps=150, lr=0.03, smooth=0.05, sw=None, pen=0.0, wcap=None):
@@ -108,7 +111,7 @@ def acc_sets(P, S):
     return float(np.mean(S[np.arange(len(S)), P.argmax(1)] > 0)) if len(S) else float("nan")
 
 
-def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas=(0.0, 0.25, 0.5, 0.75, 1.0), k=3, seed=0, sw=None, pens=(0.0, 1.0, 2.0, 4.0)):
+def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas=(0.0, 0.25, 0.5, 0.75, 1.0), k=3, seed=0, sw=None, pens=(0.0, 1.0, 2.0, 4.0), wcap=None):
     """출처 단위 교차 검증: 같은 검색어·분류에서 온 사진은 같은 폴드에만 둔다.
     (같은 작가·앨범 사진이 학습과 검증에 나뉘면 성능이 부풀려 보이기 때문)
     pens: 학습 폴드에 사진이 없는 라벨의 감점 후보. 드문 라벨은 어떤 폴드에서는 '사진 없는 라벨'이 되므로,
@@ -130,7 +133,7 @@ def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas
             tr = np.where(fid != fid[f[0]])[0]
             pres = sorted(set(np.where(S[tr].sum(0) > 0)[0]))
             if len(pres) < 2: continue
-            W, b = fit(V[tr], S[tr], T, lam, pres, sw=None if sw is None else sw[tr])
+            W, b = fit(V[tr], S[tr], T, lam, pres, sw=None if sw is None else sw[tr], wcap=wcap)
             absent = [i for i in range(C) if i not in set(pres)]
             for pn in pens:
                 bp = b.copy(); bp[absent] -= pn
@@ -144,6 +147,16 @@ def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas
     return best, zs, oof
 
 
+def cv_select_wcap(V, S, T, present, wcaps=None, **kw):
+    """cv_select 를 가중치 상한 후보(WCAPS)마다 돌려 교차 검증이 가장 좋은 상한을 고른다.
+    반환: (정확도, lam, alpha, pen), 제로샷 정확도, 폴드 밖 예측, 상한"""
+    best = None
+    for wc in (wcaps or WCAPS):
+        r = cv_select(V, S, T, present, wcap=wc, **kw)
+        if best is None or r[0][0] > best[0][0] + 1e-9: best = (*r, wc)
+    return best
+
+
 def calibrate(P, S, grid=np.exp(np.linspace(np.log(0.25), np.log(4.0), 61))):
     """확률 보정용 온도 T: p_i ∝ p_i^(1/T). 폴드 밖 예측에서 '정답 후보 확률'의 로그우도가 가장 큰 T 를 고른다."""
     best_t, best_nll = 1.0, np.inf
@@ -153,6 +166,16 @@ def calibrate(P, S, grid=np.exp(np.linspace(np.log(0.25), np.log(4.0), 61))):
         nll = -np.mean(np.log(np.maximum((Q * S).sum(1), 1e-12)))
         if nll < best_nll: best_t, best_nll = float(t), nll
     return best_t
+
+
+def conf_threshold(P, S, target=0.95, min_n=15, lo=0.75, hi=0.98):
+    """그룹별 단정 기준: 보정된 폴드 밖 예측에서 '이 확률 이상이면 target 이상 맞는다'를 만족하는 가장 낮은 값.
+    표본이 min_n 개보다 적은 구간은 믿지 않는다. 어디서도 못 맞추면 hi (거의 단정하지 않음)"""
+    conf = P.max(1); hit = S[np.arange(len(S)), P.argmax(1)] > 0
+    for t in np.round(np.arange(lo, hi + 1e-9, 0.01), 2):
+        m = conf >= t
+        if m.sum() >= min_n and hit[m].mean() >= target: return float(t)
+    return float(hi)
 
 
 def temper(P, t):
@@ -225,8 +248,8 @@ def main():
     if is_other.sum() >= 30 and "other" in idx:
         Tb = np.stack([unit(np.concatenate([idx[c]["detect"] for c in cats]).mean(0)), unit(idx["other"].mean(0))])
         Sb = np.stack([~is_other, is_other], 1).astype(float)
-        (cv_acc, lam, alpha, _), zs_cv, _ = cv_select(Xtr, Sb, Tb, [0, 1], groups=[tl[r].get("group", r) for r in rtr], pens=(0.0,))
-        W, b = fit(Xtr, Sb, Tb, lam, [0, 1])
+        (cv_acc, lam, alpha, _), zs_cv, _, wc = cv_select_wcap(Xtr, Sb, Tb, [0, 1], groups=[tl[r].get("group", r) for r in rtr], pens=(0.0,))
+        W, b = fit(Xtr, Sb, Tb, lam, [0, 1], wcap=wc)
         heads["beauty"] = (W, b, alpha)
         Xb = Xev; Sbe = np.tile([1.0, 0.0], (len(Xev), 1))
         if args.junk:
@@ -239,8 +262,8 @@ def main():
     Xc = Xtr[~is_other]; rc = [r for r, o in zip(rtr, is_other) if not o]
     Scat = np.zeros((len(Xc), len(cats)))
     for i, r in enumerate(rc): Scat[i, cats.index(tl[r]["category"])] = 1
-    (cv_acc, lam, alpha, _), zs_cv, _ = cv_select(Xc, Scat, Tcat, list(range(len(cats))), groups=[tl[r].get("group", r) for r in rc], pens=(0.0,))
-    W, b = fit(Xc, Scat, Tcat, lam, list(range(len(cats))))
+    (cv_acc, lam, alpha, _), zs_cv, _, wc = cv_select_wcap(Xc, Scat, Tcat, list(range(len(cats))), groups=[tl[r].get("group", r) for r in rc], pens=(0.0,))
+    W, b = fit(Xc, Scat, Tcat, lam, list(range(len(cats))), wcap=wc)
     heads["category"] = (W, b, alpha)
     Sev = np.zeros((len(Xev), len(cats)))
     for i, r in enumerate(rev): Sev[i, cats.index(el[r]["category"])] = 1
@@ -274,7 +297,7 @@ def main():
             present = sorted(set(np.where(S.sum(0) > 0)[0]))
             real = lambda r: tl[r].get("license") in ("user-provided", "user-feedback")
             sw = np.array([args.user_weight if real(rtr[i]) else 1.0 for i in rows])
-            (cv_acc, lam, alpha, pen), zs_cv, oof = cv_select(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows], sw=sw)
+            (cv_acc, lam, alpha, pen), zs_cv, oof, wc = cv_select_wcap(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows], sw=sw)
             # 출처가 다른 사진에서 이득이 없거나, 헤드 자체가 너무 부정확하면(40% 미만) 쓰지 않는다
             use_head = not (cv_acc <= zs_cv + 0.01 or alpha == 0.0 or cv_acc < 0.4)
             # 확률 보정: 폴드 밖 예측(헤드를 안 쓰면 제로샷)으로 온도를 맞춘다
@@ -286,11 +309,12 @@ def main():
                 ze_c = acc_sets(temper(softmax(SCALE * Ve @ T.T), temp), ES) if len(ES) else float("nan")
                 report.append((key, len(rows), zs_cv, cv_acc, lam, 0.0, len(ES), zs_ev, ze_c))
                 continue
-            W, b = fit(V, S, T, lam, present, sw=sw, pen=pen)
+            W, b = fit(V, S, T, lam, present, sw=sw, pen=pen, wcap=wc)
             zb = zbias(len(labels), present, pen)
-            heads[key] = (W, b, alpha, zb)
+            heads[key] = (W, b, alpha, zb, lam, pen, wc)
             tr_ev = acc_sets(predict(Ve, W, b, T, alpha, zb), ES) if len(ES) else float("nan")
             report.append((key, len(rows), zs_cv, cv_acc, lam, alpha, len(ES), zs_ev, tr_ev))
+            if len(WCAPS) > 1: print(f"  {key}: 가중치 상한 {wc:g}", file=sys.stderr)
             if pen: print(f"  {key}: 사진 없는 라벨 {len(labels) - len(present)}개 감점 {pen}", file=sys.stderr)
 
     print(f"{'group':22s} {'n_train':>7s} {'cv_zs':>6s} {'cv_head':>7s} {'lam':>5s} {'alpha':>5s} | {'n_eval':>6s} {'eval_zs':>7s} {'eval_head':>9s}")
@@ -321,6 +345,7 @@ def main():
             W, b, alpha = h[:3]; zb = h[3] if len(h) > 3 else None   # 뷰티 · 카테고리 헤드는 감점이 없다
             out["groups"][key] = {"rows": int(W.shape[0]), "W": base64.b64encode(W.astype(np.float32).tobytes()).decode(),
                                   "b": [round(float(x), 5) for x in b], "alpha": float(alpha)}
+            if len(h) > 4: out["groups"][key].update(lam=float(h[4]), pen=float(h[5]), wcap=float(h[6]))   # tools/train-knn.py 가 같은 설정으로 다시 학습한다
             if zb is not None: out["groups"][key]["zb"] = [round(float(x), 3) for x in zb]   # 제로샷 쪽 감점 (사진 없는 라벨)
         json.dump(out, open(args.out, "w"))
         print(f"saved {len(heads)} heads → {args.out}", file=sys.stderr)

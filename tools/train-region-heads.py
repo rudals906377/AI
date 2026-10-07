@@ -25,7 +25,7 @@ E = {r: load(r) for r in ['full'] + REGIONS}
 full_path = lambda m: m['file'] if m['file'] in E['full'] else f"{OUT}/img/{m['i']:04d}.jpg"
 man = [m for m in man if full_path(m) in E['full']]   # 전체 사진 임베딩이 있는 것만
 groups = [g for g in tax['groups'][CAT]]
-report, heads, calib, regions = [], {}, {}, {}
+report, heads, calib, regions, conf = [], {}, {}, {}, {}
 for g in groups:
     key = f"{CAT}.{g['key']}"; labels = g['labels']; T = idx[CAT]['groups'][g['key']]
     rows = []
@@ -46,8 +46,8 @@ for g in groups:
         if len(rows) < 15 or len(present) < 2: res[region] = None; continue
         sw = np.array([3.0 if m.get('license') == 'user-provided' else 1.0 for m, _ in rows])
         grp = [m['group'] for m, _ in rows]
-        (cv_acc, lam, alpha, pen), zs_cv, oof = th.cv_select(V, S, T, present, groups=grp, sw=sw)
-        res[region] = dict(cv=cv_acc, zs=zs_cv, lam=lam, alpha=alpha, pen=pen, oof=oof, V=V, S=S, present=present, sw=sw, n=len(rows), ncrop=len(keep))
+        (cv_acc, lam, alpha, pen), zs_cv, oof, wc = th.cv_select_wcap(V, S, T, present, groups=grp, sw=sw)   # 가중치 상한도 교차 검증으로
+        res[region] = dict(cv=cv_acc, zs=zs_cv, lam=lam, alpha=alpha, pen=pen, wcap=wc, oof=oof, V=V, S=S, present=present, sw=sw, n=len(rows), ncrop=len(keep))
     if not res.get('full'):
         report.append((key, len(rows), None)); continue
     best = max((r for r in res if res[r]), key=lambda r: res[r]['cv'])
@@ -60,8 +60,9 @@ for g in groups:
     if pick != 'full':
         regions[key] = pick
         calib[f'{key}@{pick}'] = temp
+        conf[key] = th.conf_threshold(th.temper(P_oof, temp), r['S'])   # 그룹별 단정 기준 (부위 판단 기준)
         if use_head:
-            W, b = th.fit(r['V'], r['S'], T, r['lam'], r['present'], sw=r['sw'], pen=r['pen'])
+            W, b = th.fit(r['V'], r['S'], T, r['lam'], r['present'], sw=r['sw'], pen=r['pen'], wcap=r['wcap'])
             heads[f'{key}@{pick}'] = dict(region=pick, W=W, b=b, alpha=r['alpha'], zb=th.zbias(len(labels), r['present'], r['pen']))
     report.append((key, r['n'], {reg: (res[reg]['zs'], res[reg]['cv'], res[reg]['ncrop']) if res[reg] else None for reg in E}, pick, use_head))
 cols = ['full'] + REGIONS
@@ -70,7 +71,7 @@ for key, n, r, *rest in report:
     if r is None: print(f'{key:18s} {n:4d} | (too few)'); continue
     f = lambda x: '   -   ' if not x else f'{x[0]*100:4.1f}/{x[1]*100:4.1f}'
     print(f"{key:18s} {n:4d} | " + ' | '.join(f"{f(r[c]):>12s}" for c in cols) + f" | {rest[0]}{'' if rest[1] else ' (zs only)'}")
-out = {'model': lj['model'], 'hash': tax['hash'], 'dim': lj['dim'], 'groups': {}, 'regions': regions, 'calib': {k: round(v, 4) for k, v in calib.items()}}
+out = {'model': lj['model'], 'hash': tax['hash'], 'dim': lj['dim'], 'groups': {}, 'regions': regions, 'calib': {k: round(v, 4) for k, v in calib.items()}, 'conf': conf}
 for key, h in heads.items():
     out['groups'][key] = {'rows': int(h['W'].shape[0]), 'W': base64.b64encode(h['W'].astype(np.float32).tobytes()).decode(),
                           'b': [round(float(x), 5) for x in h['b']], 'alpha': float(h['alpha']), 'region': h['region']}
