@@ -60,4 +60,11 @@ If a photo on a sheet is clearly a different beauty category than the sheet's ca
   kept as candidate sets when a group was not reviewed (for example 등 → 등 / 날개뼈 / 척추 / 허리·골반).
 - `batch: "6"` — photos found in the unlabeled crawl pool as candidates for v2 labels that had no training photos,
   labeled by assistant agents (171 kept of 644 candidates; the rest were not usable beauty photos).
+- `batch: "7"` / `review: "v3"` — label set v3 (2026-10-07) added 82 finer labels (406 in total). Assistant agents looked
+  at 12 zero-shot candidates per label with fewer than 3 photos (123 labels, 1,476 candidates) and kept 90 photos.
+  Then every test photo where a model picked one of the new labels was re-reviewed (91 photos): the new label was added
+  as an acceptable answer when it fit as well (50), replaced the old answer when that was clearly wrong (4), or was
+  rejected (39). `review: "v3"` marks those rows.
+- Labels that describe an accessory or a temporary finish rather than an arrangement (curling-iron waves, headband)
+  were not added to single-choice groups, because they overlap with every other label in the group.
 - No labels have been reviewed by human beauty professionals yet.

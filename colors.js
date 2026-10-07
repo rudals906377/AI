@@ -57,6 +57,15 @@ const BROW_PTS = [70, 63, 105, 66, 107, 55, 65, 52, 53, 46, 300, 293, 334, 296, 
 const FACE_OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109];
 const LIP_RING = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146];
 export const REGIONS = { face: [FACE_OVAL, 0.12, 0.25, 0.08], eye: [[...EYE_RING, ...BROW_PTS], 0.15, 0.35, 0.55], lip: [LIP_RING, 0.35, 0.6, 0.6] };
+const FACE_PARTS = new Set(['face', 'eye', 'lip']), HAIR_PARTS = new Set(['hair', 'bangs', 'head']);
+// 분석기가 부르는 입구: 필요한 부위(wanted)만 찾는다. 얼굴 부위 → faceRegions, 머리 부위 → hairRegions
+export async function styleRegions(blob, wanted = null) {
+  const want = (set) => !wanted || [...set].some((x) => wanted.has(x));
+  const [f, h] = await Promise.all([want(FACE_PARTS) ? faceRegions(blob) : null, want(HAIR_PARTS) ? hairRegions(blob) : null]);
+  const out = { ...(f || {}), ...(h || {}) };
+  return Object.keys(out).length ? out : null;
+}
+
 export async function faceRegions(blob) {
   const img = await toCanvas(blob);
   const face = await task('face');
@@ -72,6 +81,42 @@ export async function faceRegions(blob) {
     if ((box[2] - box[0]) * img.w < 40 || (box[3] - box[1]) * img.h < 24) continue; // 너무 작으면 뺀다
     out[name] = box;
   }
+  return Object.keys(out).length ? out : null;
+}
+
+// 헤어 판단용 부위 (학습 때 쓴 tools/make-hair-crops.py 와 같은 규칙)
+//   hair  : 머리카락 마스크 상자 + 6% 여유 (머리카락이 사진의 0.5% 미만이면 없음)
+//   bangs : 얼굴 상자 가로 ±20%, 얼굴 위 55% 위쪽부터 미간(168번 점)까지 — 앞머리 · 이마 · 헤어라인
+//   head  : 얼굴 상자와 머리카락 상자를 합친 뒤 10% 여유
+export async function hairRegions(blob) {
+  const img = await toCanvas(blob);
+  const [seg, face] = await Promise.all([task('hair'), task('face')]);
+  const res = seg.segment(img.canvas);
+  const mask = res.categoryMask;
+  const m = mask.getAsUint8Array(), mw = mask.width, mh = mask.height;
+  res.close?.();
+  let x0 = mw, y0 = mh, x1 = -1, y1 = -1, n = 0;
+  for (let y = 0; y < mh; y++) for (let x = 0; x < mw; x++) if (m[y * mw + x] === 1) { n++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  const clamp = (b) => [Math.max(0, b[0]), Math.max(0, b[1]), Math.min(1, b[2]), Math.min(1, b[3])];
+  let hairBox = null;
+  if (n >= 0.005 * mw * mh) {
+    const b = [x0 / mw, y0 / mh, (x1 + 1) / mw, (y1 + 1) / mh], bw = b[2] - b[0], bh = b[3] - b[1];
+    hairBox = clamp([b[0] - bw * 0.06, b[1] - bh * 0.06, b[2] + bw * 0.06, b[3] + bh * 0.06]);
+  }
+  const lm = face.detect(img.canvas).faceLandmarks?.[0];
+  let faceBox = null;
+  const out = {};
+  if (lm) {
+    let fx0 = 1, fy0 = 1, fx1 = 0, fy1 = 0;
+    for (const i of FACE_OVAL) { fx0 = Math.min(fx0, lm[i].x); fy0 = Math.min(fy0, lm[i].y); fx1 = Math.max(fx1, lm[i].x); fy1 = Math.max(fy1, lm[i].y); }
+    faceBox = [fx0, fy0, fx1, fy1];
+    const fw = fx1 - fx0, fh = fy1 - fy0;
+    out.bangs = clamp([fx0 - fw * 0.2, fy0 - fh * 0.55, fx1 + fw * 0.2, lm[168].y]);
+  }
+  if (hairBox) out.hair = hairBox;
+  const u = faceBox && hairBox ? [Math.min(faceBox[0], hairBox[0]), Math.min(faceBox[1], hairBox[1]), Math.max(faceBox[2], hairBox[2]), Math.max(faceBox[3], hairBox[3])] : faceBox || hairBox;
+  if (u) { const uw = u[2] - u[0], uh = u[3] - u[1]; out.head = clamp([u[0] - uw * 0.1, u[1] - uh * 0.1, u[2] + uw * 0.1, u[3] + uh * 0.1]); }
+  for (const [k, b] of Object.entries(out)) if ((b[2] - b[0]) * img.w < 40 || (b[3] - b[1]) * img.h < 24) delete out[k];
   return Object.keys(out).length ? out : null;
 }
 

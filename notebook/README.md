@@ -6,7 +6,7 @@
 |---|---|
 | `beauty_style_ai.ipynb` | 노트북 (실행 결과 포함) |
 | `beauty_style_ai.py` | 같은 코드의 파이썬 스크립트 (`python beauty_style_ai.py`) |
-| `taxonomy.json` | 라벨 사전 324개 (`node tools/export-notebook-taxonomy.mjs > notebook/taxonomy.json`) |
+| `taxonomy.json` | 라벨 사전 406개 (`node tools/export-notebook-taxonomy.mjs > notebook/taxonomy.json`) |
 | `web_reference.json` | 같은 사진을 웹 앱 코드(analyzer.js, 8비트 모델)로 분석한 결과 — 파이썬 결과와 비교용 |
 
 ## 실행
