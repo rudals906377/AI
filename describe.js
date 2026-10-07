@@ -10,6 +10,7 @@
 // 말투는 보정 확률로 정한다: high(≥0.9) 단정 · mid(≥0.5) "~로 보여요 / ~에 가까워요" ·
 // low 는 문장에서 빼고 화면의 후보 막대로만 보여 준다 (장르 · 컬러처럼 꼭 필요한 문장만 "추정돼요"로 남긴다).
 
+import { matchTrends } from './trends.js';
 import { TAXONOMY, TONE_WORDS, CONFIDENCE } from './taxonomy.js';
 
 const MAX_HEDGES = 2; // 설명문 속 불확실성 언급은 최대 2번 (나머지는 막대그래프로 확인)
@@ -17,6 +18,7 @@ let hedgeBudget = MAX_HEDGES;
 let omitted = 0; // 확실하지 않아 문장에서 뺀 세부 항목 수
 let rand = Math.random;
 let cat = 'hair';
+let PRE = []; // 트렌드 표에서 조건 2개 이상으로 맞은 이름들 (문장 속 트렌드 줄에 먼저 쓴다)
 
 // 문단을 나누는 자리 표시 (문장 목록 안에서만 쓰고, 결과 문장에는 남지 않는다)
 const BR = Symbol('문단');
@@ -28,9 +30,13 @@ export function compose(category, attributes) {
   rand = seeded(attributes.map((x) => `${x.group}:${x.label}:${Math.round(x.score * 100)}`).join('|'));
   // 1위 라벨이 애매해도 같은 계열의 확률 합이 높으면 문장에서는 '보브 계열'처럼 계열 이름으로 말한다
   const a = Object.fromEntries(attributes.map((x) => [x.group, x.family ? asFamily(x) : x]));
-  const P = (group, label) => a[group]?.all.find((i) => i.label === label)?.score ?? 0;
+  const raw = Object.fromEntries(attributes.map((x) => [x.group, x]));
+  const P = (group, label) => raw[group]?.all.find((i) => i.label === label)?.score ?? 0;   // 확률은 계열로 묶기 전 값
+  // 트렌드 이름: 조건 2개 이상인 표 항목(더 구체적) → 카테고리별 규칙 → 조건 1개인 표 항목
+  const table = matchTrends(category, P);
+  PRE = table.filter((t) => t.n >= 2).map((t) => trend(t.name, t.why));
   const out = COMPOSERS[category](a, P);
-  const trends = uniqBy(out.trends.filter(Boolean), (t) => t.name).slice(0, 4);
+  const trends = uniqBy([...out.trends.filter(Boolean), ...table.filter((t) => t.n < 2)], (t) => t.name).slice(0, 4);
   const tags = uniq([
     ...trends.map((t) => t.name.replace(/[\s·()]/g, '')),
     ...attributes.flatMap((x) => tagFor(category, x)),
@@ -407,7 +413,7 @@ const COMPOSERS = {
     if (mood.level === 'high' && HAIR_SCENE[mood.label]) s.push(HAIR_SCENE[mood.label]);
 
     // SNS 트렌드 이름 (속성 조합)
-    const T = [];
+    const T = [...PRE];
     const is = (attr, re) => re.test(attr.label) && sure(attr);
     if (tone?.sure && !color.family_of && /브라운|블론드|베이지/.test(color.label)) T.push(trend(`${tone.adj} ${color.label}`, '컬러 + 톤'));
     if (is(cut, /^레이어드컷$/) && is(perm, /^C컬펌$/)) T.push(trend('레이어드 C컬', '레이어드컷 + C컬펌'));
@@ -478,7 +484,7 @@ const COMPOSERS = {
     s.push(say(mood, [`전체적으로 ${adj} 무드의 네일이에요.`, `${adj} 분위기가 잘 느껴져요.`], `전체적으로 ${adj} 분위기에 가까워요.`));
 
     // 트렌드
-    const T = [];
+    const T = [...PRE];
     // 반사광 마감만으로는 부족하고, 크롬 디자인 · 실버 컬러 · 쇠맛 무드 중 하나가 뚜렷해야 한다
     const soemat = Math.max(P('design', '크롬'), P('color', '실버'), P('mood', '쇠맛')) + 0.3 * P('finish', '메탈릭');
     if (soemat >= TREND_MIN) T.push(trend('쇠맛 네일', '차갑고 메탈릭한 크롬·실버'));
@@ -562,7 +568,7 @@ const COMPOSERS = {
     s.push(BR);
     if (tone?.sure && tone.label !== '뉴트럴') s.push(toneLine(tone.label));
 
-    const T = [];
+    const T = [...PRE];
     for (const [label, name] of Object.entries(MAKEUP_TREND)) if (P('mood', label) >= TREND_MIN) T.push(trend(name, '무드'));
     if (P('cheek', '숙취 블러셔') >= TREND_MIN) T.push(trend('숙취 메이크업', '눈 밑에 올린 블러셔'));
     if (P('base', '물광') >= TREND_MIN) T.push(trend('물광 메이크업', '촉촉한 물광 피부'));
@@ -618,11 +624,13 @@ const COMPOSERS = {
     if (placement.level !== 'low') s.push(hedge(placement));
     s.push(say(subject, [`도안은 ${subject.label} 모티프예요.`, `${josa(subject.label, '을/를')} 모티프로 그렸어요.`], `도안은 ${subject.label} 모티프로 보여요.`));
     if (subject.level !== 'low') s.push(hedge(subject));
+    const T = [...PRE];
+    if (T.length) { s.push(BR); s.push(trendLine(T[0])); }
     return {
       genre: genreOf(style, `${style.label} 타투`, { sub: `${placement.label} · ${subject.label} · ${color.label}`, info }),
       headline: `${style.label} 타투 · ${placement.label} · ${subject.label} · ${color.label}`,
       sentences: s,
-      trends: [],
+      trends: T,
     };
   },
 };
