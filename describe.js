@@ -622,13 +622,26 @@ const COMPOSERS = {
       s.push(say(color, `${cp} 작업했어요.`, `${cp} 작업한 것으로 보여요.`));
     }
     if (placement.level !== 'low') s.push(hedge(placement));
-    s.push(say(subject, [`도안은 ${subject.label} 모티프예요.`, `${josa(subject.label, '을/를')} 모티프로 그렸어요.`], `도안은 ${subject.label} 모티프로 보여요.`));
-    if (subject.level !== 'low') s.push(hedge(subject));
+    // 세부 모티브(장미 · 늑대 …)가 읽히면 그것으로 말하고, 아니면 큰 묶음(꽃·식물 …)으로 말한다
+    const mo = (subject.motifs || []).filter((m, i) => m.level !== 'low' || (i === 0 && m.score >= 0.25));
+    const headMo = (m) => (m && m.level !== 'low' ? m.ko : subject.label);   // 제목에는 확신이 있을 때만 세부 모티브
+    const m0 = mo[0], m1 = mo[1] && mo[1].score >= 0.15 ? mo[1] : null;
+    if (m0) {
+      const both = m1 ? `${josa(m0.ko, '과/와')} ${m1.ko}` : m0.ko;
+      s.push(m0.level === 'high'
+        ? pick([`도안의 주인공은 ${ida(m0.ko)}.`, `${josa(both, '을/를')} 모티프로 그린 도안이에요.`, `도안은 ${both} 모티프예요.`])
+        : pick([`도안은 ${both} 모티프로 보여요.`, `${josa(m0.ko, '을/를')} 그린 도안으로 보여요.`]));
+      if (m1 && m0.level === 'high' && !s[s.length - 1].includes(m1.ko)) s.push(`${m1.ko}도 함께 들어가 있어요.`);
+      if (m0.parent && m0.parent !== m0.ko && rand() < 0.5) s.push(`큰 분류로는 ${m0.parent} 도안이에요.`);
+    } else {
+      s.push(say(subject, [`도안은 ${subject.label} 모티프예요.`, `${josa(subject.label, '을/를')} 모티프로 그렸어요.`], `도안은 ${subject.label} 모티프로 보여요.`));
+      if (subject.level !== 'low') s.push(hedge(subject));
+    }
     const T = [...PRE];
     if (T.length) { s.push(BR); s.push(trendLine(T[0])); }
     return {
-      genre: genreOf(style, `${style.label} 타투`, { sub: `${placement.label} · ${subject.label} · ${color.label}`, info }),
-      headline: `${style.label} 타투 · ${placement.label} · ${subject.label} · ${color.label}`,
+      genre: genreOf(style, `${style.label} 타투`, { sub: `${placement.label} · ${headMo(m0)} · ${color.label}`, info }),
+      headline: `${style.label} 타투 · ${placement.label} · ${headMo(m0)} · ${color.label}`,
       sentences: s,
       trends: T,
     };

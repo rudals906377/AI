@@ -100,12 +100,17 @@ async function init() {
     f16 = !!adapter?.features?.has('shader-f16');
   } catch { webgpu = false; f16 = false; }
   if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
+  // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
+  if ((!webgpu || params.get('device') === 'wasm') && params.get('proxy') !== '0') useWasmProxy();
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
   await loadAnalyzer(modelKey);
 }
 
+function useWasmProxy() {
+  try { if (env.backends?.onnx?.wasm) env.backends.onnx.wasm.proxy = true; } catch (e) { console.warn('[app] WASM 작업 스레드 설정 실패', e); }
+}
 function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
   const rt = { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
@@ -124,12 +129,14 @@ async function loadJson(url, what) {
 // 라벨 문장 임베딩(사전 계산) · 학습된 분류 헤드 — 모델 이름으로 찾는다
 const loadEmbeddings = (modelId) => loadJson(`./embeddings/${modelId.split('/').pop()}.json`, '사전 계산 임베딩');
 const loadHeads = (modelId) => loadJson(`./heads/${modelId.split('/').pop()}.json`, '학습된 헤드');
+// 타투 세부 모티브(장미 · 늑대 …) 문장 임베딩 · 학습 정보
+const loadMotifs = (modelId) => loadJson(`./embeddings/motifs-${modelId.split('/').pop()}.json`, '타투 모티브');
 
 // 정밀 모드는 정밀 모델과 기본 모델의 확률을 평균한다 (교차 검증 +2%p). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
 let partner = null;
 async function makeBase(rt) {
   const m = MODELS.base;
-  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
 }
 
 async function loadAnalyzer(key) {
@@ -151,13 +158,14 @@ async function loadAnalyzer(key) {
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
+        useWasmProxy();
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       }
       if (key === 'large') {
         // 기본 모델을 이미 쓰고 있었으면 짝으로 남기고, 아니면 이어서 불러온다
@@ -225,8 +233,7 @@ async function openSample(s) {
   showSampleTab(s.category);
   document.querySelectorAll('.samples button').forEach((x) => x.classList.toggle('active', x.dataset.file === s.file));
   const blob = await (await fetch(`./${s.file}`)).blob();
-  await setImage(blob);
-  if (analyzer) run();
+  await pickImage(blob);
 }
 
 // ---- 입력 처리 ----------------------------------------------------------------
@@ -258,8 +265,18 @@ function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
 // 사용자가 올린 사진은 예시 사진처럼 바로 분석한다 (모델이 준비된 경우)
 async function pickImage(blob) {
   await setImage(blob);
+  if (currentBlob) showResultArea();
   if (analyzer && currentBlob) run();
   else if (currentBlob) showWaiting();
+}
+// 휴대폰: 사진을 고른 그 순간(사용자가 직접 한 동작) 결과 칸으로 한 번만 내려 준다.
+// 분석이 끝났을 때는 움직이지 않는다 — 기다리는 동안 사용자가 스크롤했다면 그 자리를 지킨다
+function showResultArea() {
+  if (window.innerWidth >= 900) return;
+  const top = els.resultCard.getBoundingClientRect().top;
+  // 결과가 아직 짧으면 결과 칸 맨 위까지 내려가지 못하므로, 분석하는 동안 화면 높이만큼 자리를 잡아 둔다 (끝나면 run 이 푼다)
+  els.resultCard.style.minHeight = `${window.innerHeight}px`;
+  if (top > window.innerHeight * 0.45 || top < -8) els.resultCard.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 // 모델이 준비되기 전에 사진을 올렸을 때: 받은 사진은 그대로 두고, 준비 진행률을 보여 주다가 끝나면 바로 분석한다 (loadAnalyzer 가 이어서 run)
 function showWaiting() {
@@ -289,7 +306,7 @@ els.category.addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   currentCategory = b.dataset.cat;
   els.category.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
-  if (analyzer && currentBlob) run();
+  if (analyzer && currentBlob) { showResultArea(); run(); }
 });
 els.model.addEventListener('click', async (e) => {
   const b = e.target.closest('button'); if (!b || b.dataset.model === modelKey || analyzerLoading) return;
@@ -297,7 +314,7 @@ els.model.addEventListener('click', async (e) => {
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
   await loadAnalyzer(modelKey);
 });
-els.run.addEventListener('click', run);
+els.run.addEventListener('click', () => { showResultArea(); run(); });
 els.advanced.addEventListener('change', () => { if (els.advanced.checked) ensureDescriber().catch(() => {}); });
 
 // ---- 분석 실행 ----------------------------------------------------------------
@@ -327,7 +344,6 @@ async function run() {
     result.run_id = seq;
     lastResult = result;
     render(result);
-    if (window.innerWidth < 900) els.resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (els.advanced.checked && !pending) await runAdvanced(result);
   } catch (e) {
     console.error(e);
@@ -337,6 +353,7 @@ async function run() {
     els.resultCard.classList.remove('busy');
     clearInterval(ticker);
     els.analyzing.classList.add('hidden');
+    if (!pending) els.resultCard.style.minHeight = '';
     if (!lastResult) els.empty.classList.remove('hidden');
     els.run.textContent = '다시 분석하기';
     updateRunButton();
@@ -481,6 +498,7 @@ function render(r) {
       <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">수정</button>
       ${a.level !== 'low' && defOf(r.category, a.group, a.label) ? `<div class="def">${esc(defOf(r.category, a.group, a.label))}</div>` : ''}
       ${a.family ? `<div class="fam" title="같은 계열 라벨들의 확률을 더한 값이에요">${esc(a.family.label)}로는 <b>${pct(a.family.score)}</b> · ${a.family.members.map((x) => esc(x.label)).join(' · ')}</div>` : ''}
+      ${a.motifs?.length ? `<div class="motif" title="도안에 그려진 세부 모티브예요">${a.motifs[0].level === 'low' ? '세부 모티브 후보' : '세부 모티브'}: ${a.motifs.filter((m, i) => i === 0 || m.score >= 0.1).map((m) => `<b>${esc(m.ko)}</b> ${pct(m.score)}`).join(' · ')}</div>` : ''}
       <div class="alts">다음 후보: ${a.alternatives.map((x) => `${esc(x.label)} ${pct(x.score)}`).join(' · ')}</div>
     </div>`).join('');
   renderFeedback(r);
@@ -844,6 +862,7 @@ function slim(r) {
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
       ...(a.family ? { family: { label: a.family.label, score: round(a.family.score), level: a.family.level, members: a.family.members.map((x) => x.label) } } : {}),
+      ...(a.motifs ? { motifs: a.motifs.map((m) => ({ label: m.ko, parent: m.parent, score: round(m.score), level: m.level })) } : {}),
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
     trends: r.trends, tags: r.tags, quip: r.quip, subject: r.subject?.ko ?? null, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
     secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,
@@ -888,6 +907,7 @@ if ('IntersectionObserver' in window) {
   new IntersectionObserver(([e]) => { inputVisible = e.isIntersecting; updateFab(); }, { threshold: 0.05 }).observe(els.inputCard);
   window.addEventListener('resize', updateFab);
   window.addEventListener('modechange', updateFab);
+  window.addEventListener('beauty:style', () => setTimeout(updateFab, 0)); // 첫 결과가 나온 뒤에도 다시 판단
   els.fab.addEventListener('click', () => els.inputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 }
 

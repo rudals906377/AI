@@ -14,6 +14,7 @@
 import { RawImage } from '@huggingface/transformers';
 import { TAXONOMY, CATEGORY_ORDER, CONFIDENCE, OTHER_DETECT } from './taxonomy.js';
 import { loadVisionEncoder, loadTextEncoder, flipHorizontal, normalize } from './encoders.js';
+import { createMotifJudge } from './motif.js';
 import { compose } from './describe.js';
 
 export const DEFAULT_MODEL = 'Marqo/marqo-fashionSigLIP'; // 권장 기본 모델 (heads/ · embeddings/ 와 짝)
@@ -29,6 +30,7 @@ export async function createAnalyzer({
   heads,           // tools/train-heads.py 결과(JSON). 있으면 학습된 분류 헤드를 쓴다
   tta = false,     // true 면 좌우 반전 이미지까지 평균 (정확도 ↑, 시간 2배)
   regions,         // (source, wanted) => { face?, eye?, lip?, hair?, bangs?, head? : [x0, y0, x1, y1] (0~1 비율) } — 부위 잘라 보기 (없으면 전체 사진으로만 판단)
+  motifs,          // embeddings/motifs-*.json (타투 세부 모티브). 있으면 타투 '도안'에 motifs: [{ ko, parent, score, level }] 를 붙인다
   onProgress,
 } = {}) {
   const progress = (p) => onProgress?.(p);
@@ -60,6 +62,7 @@ export async function createAnalyzer({
   const levelOf = (key, p) => (p >= highOf(key) ? 'high' : p >= CONFIDENCE.mid ? 'mid' : 'low');
   // 비슷한 학습 사진(kNN): 학습 사진 특징값(8비트) + 그룹마다 섞는 비율 β
   const knn = useHeads && heads.knn ? decodeKnn(heads.knn) : null;
+  const motifJudge = motifs && motifs.model === model ? createMotifJudge(motifs) : null;
   progress({ status: 'ready' });
 
   async function embedImage(source) {
@@ -106,6 +109,8 @@ export async function createAnalyzer({
       if (pd && pd.length === dist[g.key].length) dist[g.key] = dist[g.key].map((x, i) => (x + pd[i]) / 2);
     }
     fuseTone(def, dist);
+    // 타투 '도안' 아래 세부 모티브 (장미 · 늑대 …): 도안 확률을 부모 확률로 쓴다
+    const motifsOf = cat === 'tattoo' && motifJudge && dist.subject ? motifJudge(vec, dist.subject) : null;
     return def.groups.map((g) => {
       const items = g.labels
         .map((l, i) => ({ label: l.ko, label_en: l.en, score: dist[g.key][i], hidden: !!l.hidden, tone: l.tone }))
@@ -117,7 +122,8 @@ export async function createAnalyzer({
       const fam = familyOf(g, top.label, items, (p) => levelOf(key, p), level);
       const reg = (regionOf[key] && regionVecs?.[regionOf[key]] ? regionOf[key] : null) || partner?.regionGroups[g.key] || null;
       return { group: g.key, group_label: g.label, label: top.label, label_en: top.label_en, score: top.score, level,
-        alternatives: items.slice(1, topk), all: items, ...(reg ? { region: reg } : {}), ...(fam ? { family: fam } : {}), high: highOf(key) };
+        alternatives: items.slice(1, topk), all: items, ...(reg ? { region: reg } : {}), ...(fam ? { family: fam } : {}), high: highOf(key),
+        ...(g.key === 'subject' && motifsOf ? { motifs: motifsOf } : {}) };
     });
   }
 
