@@ -397,26 +397,28 @@ function scoreStyle(f, style, t, gender) {
   // 근거마다 그 속성을 얼마나 확신하는지(0.4~1)만큼 반영한다 → 같은 커트라도 더 또렷한 사진이 위로
   let c = 1;
   const conf = (a) => (c = 0.6 + 0.4 * Math.min(1, (a.score - 0.4) / 0.5));
-  const add = (pts, text) => reasons.push({ pts: pts * c, text });
+  // 같은 판단도 말투를 여러 개 두고 사진마다 다르게 고른다 (같은 사진 · 같은 얼굴이면 같은 문장)
+  let seed = 7; for (const ch of `${style.headline}|${top}|${style.attributes.map((a) => a.label).join(',')}`) seed = (Math.imul(seed, 31) + ch.charCodeAt(0)) >>> 0;
+  const add = (pts, text) => reasons.push({ pts: pts * c, text: Array.isArray(text) ? text[(seed + reasons.length * 2654435761) % text.length >>> 0] : text });
   if (style.category === 'hair') {
     const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top], ...(t.ears === 'out' ? ['sideShort'] : [])])];
     const cut = A('cut'), bangs = A('bangs'), len = A('length'), styling = A('styling'), perm = A('perm');
     if (cut) {
       conf(cut);
       const faces = CUT_FACE[cut.label]?.[0] || [];
-      if (clashes(cut.label, avoidTags)) add(-20, `${josa(cut.label, '은/는')} ${shapeName}에서 피하면 좋은 모양이 들어 있어요`);
-      else if (faces.some((x) => ALIAS[top].includes(x))) add(22, `${josa(cut.label, '은/는')} ${shapeName}에 추천하는 커트예요`);
+      if (clashes(cut.label, avoidTags)) add(-20, [`${josa(cut.label, '은/는')} ${shapeName}에서 피하면 좋은 모양이 들어 있어요`, `${shapeName}에는 ${cut.label}의 라인이 조금 아쉬워요 — 강조하고 싶지 않은 곳을 오히려 살려요`, `${josa(cut.label, '은/는')} 예쁘지만, ${shapeName}에서는 피할 스타일 목록에 들어가는 모양이에요`]);
+      else if (faces.some((x) => ALIAS[top].includes(x))) add(22, [`${josa(cut.label, '은/는')} ${shapeName}에 추천하는 커트예요`, `${shapeName}에 ${cut.label}, 교과서에 나오는 조합이에요`, `${josa(cut.label, '은/는')} ${shapeName}의 장점을 살려 주는 커트예요`, `${shapeName}이라면 ${cut.label}부터 떠올리는 디자이너가 많아요`]);
       else if (near && faces.some((x) => ALIAS[near].includes(x))) add(12, `${josa(cut.label, '은/는')} 가까운 얼굴형(${short(SHAPES[near])})에 추천하는 커트예요`);
-      else if (top === 'oval') add(10, `${shapeName}은 ${josa(cut.label, '을/를')} 포함해 대부분의 커트를 소화해요`);
-      else if (faces.length) add(-8, `${josa(cut.label, '은/는')} 주로 ${faces.join(' · ')}에 추천하는 커트예요`);
+      else if (top === 'oval') add(10, [`${shapeName}은 ${josa(cut.label, '을/를')} 포함해 대부분의 커트를 소화해요`, `${shapeName}에게 ${josa(cut.label, '은/는')} 어렵지 않은 선택이에요`, `커트 고민이 적은 ${shapeName}이라 ${cut.label}도 무난하게 어울려요`]);
+      else if (faces.length) add(-8, [`${josa(cut.label, '은/는')} 주로 ${faces.join(' · ')}에 추천하는 커트예요`, `${cut.label}의 단짝 얼굴형은 ${faces.join(' · ')} 쪽이에요`]);
     }
     if (bangs && bangs.label !== '확인 불가' && BANGS_FACE[bangs.label]) {
       conf(bangs);
       const ok = BANGS_BY_SHAPE[top].includes(bangs.label) || (near && BANGS_BY_SHAPE[near].includes(bangs.label)) || names.some((x) => BANGS_FACE[bangs.label][0].includes(x));
-      if (clashes(bangs.label, avoidTags)) add(-12, `${josa(bangs.label, '은/는')} ${shapeName}에서 피하면 좋은 앞머리예요`);
+      if (clashes(bangs.label, avoidTags)) add(-12, [`${josa(bangs.label, '은/는')} ${shapeName}에서 피하면 좋은 앞머리예요`, `앞머리만 바꾸면 훨씬 좋아져요 — ${bangs.label}보다 가벼운 앞머리를 권해요`]);
       else if (bangs.label === '앞머리 없음' && t.upper >= 0.8) add(-10, '이마가 긴 편이라 이마를 다 드러내기보다 앞머리가 있으면 좋아요');
       else if (bangs.label !== '앞머리 없음' && t.upper >= 0.8) add(10, `이마가 긴 편이라 ${josa(bangs.label, '이/가')} 비율을 맞춰 줘요`);
-      else if (ok) add(10, `${bangs.label === '앞머리 없음' ? '이마를 드러내는 스타일' : bangs.label}도 얼굴형과 잘 맞아요`);
+      else if (ok) add(10, [`${bangs.label === '앞머리 없음' ? '이마를 드러내는 스타일' : bangs.label}도 얼굴형과 잘 맞아요`, `${bangs.label === '앞머리 없음' ? '시원하게 드러낸 이마' : bangs.label}까지 합격이에요`, `${josa(bangs.label === '앞머리 없음' ? '이마를 드러낸 선택' : bangs.label, '이/가')} 얼굴 비율에 힘을 실어 줘요`]);
     }
     if (len) {
       conf(len);
@@ -439,7 +441,7 @@ function scoreStyle(f, style, t, gender) {
     c = 1;
     if (t.ears === 'out') {
       if ((cut && clashes(cut.label, ['sideShort'])) || (styling && EAR_OPEN.test(styling.label))) add(-10, '귀가 옆으로 잘 보이는 편이라 귀가 다 드러나는 스타일은 귀가 더 강조될 수 있어요');
-      else if (len && len.label !== '숏컷') add(5, '귀를 덮는 기장이라 옆선이 부드러워 보여요');
+      else if (len && len.label !== '숏컷') add(5, ['귀를 덮는 기장이라 옆선이 부드러워 보여요', '귀를 살짝 감싸는 기장이 옆모습을 정돈해 줘요']);
     } else if (t.ears === 'normal' && styling && EAR_OPEN.test(styling.label)) add(4, '귀가 크게 두드러지지 않아 귀를 드러내는 연출도 부담 없어요');
   } else if (style.category === 'makeup') {
     const cheek = A('cheek'), line = A('eyeLine'), lipT = A('lipTexture'), brow = A('brow');
@@ -447,12 +449,12 @@ function scoreStyle(f, style, t, gender) {
       conf(cheek);
       const faces = CHEEK_FACE[cheek.label][0];
       const ok = faces.includes('대부분') || names.some((x) => faces.includes(x.replace(' 얼굴', ''))) || faces.includes(shapeName);
-      ok ? add(14, `${josa(cheek.label, '이/가')} 얼굴형과 잘 맞아요`) : add(-10, `${josa(cheek.label, '은/는')} 주로 ${faces}에 추천해요`);
+      ok ? add(14, [`${josa(cheek.label, '이/가')} 얼굴형과 잘 맞아요`, `${cheek.label} 위치 선정, 얼굴형에 딱이에요`, `${josa(cheek.label, '이/가')} 윤곽을 예쁘게 살려 줘요`]) : add(-10, `${josa(cheek.label, '은/는')} 주로 ${faces}에 추천해요`);
     }
     if (line && (line.label === '캣아이라인' || line.label === '강아지 라인')) {
       conf(line);
       const ok = line.label === '캣아이라인' ? t.eyeUp < 0.8 : t.eyeUp > -0.8;
-      ok ? add(10, `${josa(line.label, '이/가')} 눈꼬리 각도와 잘 맞아요`) : add(-10, line.label === '캣아이라인' ? '눈꼬리가 이미 올라간 편이라 캣아이라인은 날카로워 보일 수 있어요' : '눈꼬리가 내려간 편이라 강아지 라인은 처져 보일 수 있어요');
+      ok ? add(10, [`${josa(line.label, '이/가')} 눈꼬리 각도와 잘 맞아요`, `눈꼬리 각도를 보면 ${josa(line.label, '은/는')} 안심하고 그려도 돼요`]) : add(-10, line.label === '캣아이라인' ? '눈꼬리가 이미 올라간 편이라 캣아이라인은 날카로워 보일 수 있어요' : '눈꼬리가 내려간 편이라 강아지 라인은 처져 보일 수 있어요');
     }
     if (lipT && lipT.label === '오버립' && conf(lipT)) t.lipFull < 0.8 ? add(6, '입술 두께에 오버립이 잘 맞아요') : add(-8, '입술이 도톰한 편이라 오버립은 아주 살짝만 하는 게 좋아요');
     if (brow) {
@@ -508,7 +510,14 @@ export function styleFit(f, style, { gender = null, t = null } = {}) {
     tip: style.category === 'hair' ? '커트 모양이나 앞머리가 잘 보이는 사진이면 얼굴형과 맞춰 볼 수 있어요.' : '블러셔 · 아이라인 · 입술이 잘 보이는 사진이면 얼굴형과 맞춰 볼 수 있어요.' };
   const level = s.score >= 80 ? 'great' : s.score >= 65 ? 'good' : s.score >= 50 ? 'ok' : 'meh';
   const be = style.category === 'hair' ? '스타일이에요' : '메이크업이에요';
-  const verdict = { great: `아주 잘 어울리는 ${be}`, good: `잘 어울리는 ${be}`, ok: '무난해요 · 조금만 바꾸면 더 좋아요', meh: '이렇게 바꾸면 더 잘 어울려요' }[level];
+  const V = {
+    great: [`아주 잘 어울리는 ${be}`, '이건 거의 맞춤 제작 수준이에요', '디자이너가 박수 칠 조합이에요', '고민 끝, 이대로 가셔도 돼요', '얼굴형이 반가워하는 선택이에요'],
+    good: [`잘 어울리는 ${be}`, '느낌 좋아요, 자신 있게 가셔도 돼요', '합이 좋은 편이에요', '무난함을 넘어 꽤 잘 맞아요'],
+    ok: ['무난해요 · 조금만 바꾸면 더 좋아요', '나쁘지 않아요, 한 끗만 다듬어 볼까요?', '반은 맞고 반은 아쉬운 조합이에요', '조금만 손보면 확 살아날 조합이에요'],
+    meh: ['이렇게 바꾸면 더 잘 어울려요', '마음에 든다면, 이렇게 살짝 바꿔 보세요', '이대로보다는 변주가 필요한 조합이에요', '좋아하는 스타일이라면 포인트만 바꿔서 가요'],
+  };
+  let vs = 3; for (const ch of `${genre}|${top}|${s.score}`) vs = (Math.imul(vs, 31) + ch.charCodeAt(0)) >>> 0;
+  const verdict = V[level][vs % V[level].length];
   // 아쉬운 점이 있으면 바로 쓸 수 있는 대안을 함께 (추천 표에서)
   let tip = '';
   if (s.reasons.some((x) => x.pts < 0)) {
@@ -516,7 +525,12 @@ export function styleFit(f, style, { gender = null, t = null } = {}) {
       const adv = hairAdvice(f, t, gender);
       const cuts = adv.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name)).slice(0, 3);
       const bang = adv.find((x) => x.key === 'bangs')?.list?.[0]?.name;
-      tip = `${shapeName}에는 ${cuts.join(' · ')}${bang ? `, 앞머리는 ${bang}` : ''} 쪽이 더 잘 맞아요. 이 스타일이 마음에 든다면 디자이너에게 얼굴형을 말하고 아쉬운 부분만 바꿔 달라고 해 보세요.`;
+      const alt = `${cuts.join(' · ')}${bang ? `, 앞머리는 ${bang}` : ''}`;
+      tip = [
+        `${shapeName}에는 ${alt} 쪽이 더 잘 맞아요. 이 스타일이 마음에 든다면 디자이너에게 얼굴형을 말하고 아쉬운 부분만 바꿔 달라고 해 보세요.`,
+        `대안을 찾는다면 ${alt}. 그래도 이 스타일이 끌린다면, 아쉬운 부분만 얼굴형에 맞춰 달라고 주문해 보세요.`,
+        `${shapeName}의 베스트 후보는 ${josa(alt, '이에요/예요')}. 이 사진은 '분위기 참고용'으로 함께 보여 주면 좋아요.`,
+      ][vs % 3];
     } else {
       const M = MAKEUP[top];
       tip = `${shapeName}에는 블러셔를 이렇게 넣어 보세요: ${M.blush}`;
@@ -581,22 +595,40 @@ export function zonesFor(shapeKey) {
 const SHAPE_QUIP = {
   oval: ['어떤 스타일도 잘 받는 얼굴이라 오히려 고르는 게 고민인, 행복한 고민형이에요. 이번엔 평소 안 해 본 스타일에 도전해 보세요.',
     '교과서에 예시로 실릴 법한 균형이에요. 실패 걱정이 적으니 유행 스타일을 먼저 시험해 보기 좋아요.',
-    '디자이너가 반가워하는 얼굴이에요. 머리보다 분위기와 컬러로 변화를 줘 보세요.'],
+    '디자이너가 반가워하는 얼굴이에요. 머리보다 분위기와 컬러로 변화를 줘 보세요.',
+    '평균에 가까운 비율이라는 건 곧 실험해도 된다는 뜻이에요. 이번 시즌 트렌드 컷 하나 도전해 볼까요?',
+    '어떤 앞머리를 내려도 잘 받는 얼굴이라, 앞머리 하나로 계절마다 분위기를 바꾸기 좋아요.',
+    '숏컷부터 긴 웨이브까지 다 소화하는 얼굴이에요. 고민되면 지금 가장 끌리는 걸 고르세요.'],
   round: ['부드럽고 어려 보이는 인상이 강점이에요. 세로 라인 하나만 더하면 분위기가 확 달라져요.',
     '첫인상에서 친근함 점수를 먼저 따고 들어가는 얼굴이에요. 정수리 볼륨만 살려도 얼굴이 길어 보여요.',
-    '나이보다 어려 보인다는 말을 자주 듣는 얼굴이에요. 옆선은 가볍게, 위는 높게가 공식이에요.'],
+    '나이보다 어려 보인다는 말을 자주 듣는 얼굴이에요. 옆선은 가볍게, 위는 높게가 공식이에요.',
+    '귀여움과 세련됨 사이 스위치가 있는 얼굴이에요. 레이어 하나가 그 스위치예요.',
+    '볼 라인이 부드러워 웃을 때 매력이 배가 되는 얼굴이에요. 옆 볼륨만 줄이면 금세 갸름해 보여요.',
+    '동안 소리 듣기 좋은 얼굴이에요. 정수리 볼륨 한 줌이 가장 가성비 좋은 보정이에요.'],
   long: ['시원하고 성숙한 인상이에요. 앞머리 하나로 동안 효과까지 챙길 수 있는 얼굴이에요.',
     '세련된 분위기가 기본으로 깔린 얼굴이에요. 옆으로 볼륨을 넣으면 비율이 한결 편안해져요.',
-    '모델 화보에서 자주 보이는 비율이에요. 정수리는 차분하게, 귀 옆에 볼륨을 주세요.'],
+    '모델 화보에서 자주 보이는 비율이에요. 정수리는 차분하게, 귀 옆에 볼륨을 주세요.',
+    '분위기 있는 사진이 잘 나오는 얼굴이에요. 옆 웨이브 하나로 화사함까지 더해져요.',
+    '단정하면서 어른스러운 느낌이 강점이에요. 앞머리를 내리는 날엔 완전히 다른 사람처럼 보일 거예요.',
+    '수트도 원피스도 잘 받는 얼굴이에요. 턱~어깨 기장이 가장 균형 좋은 무대예요.'],
   square: ['또렷하고 신뢰감 있는 윤곽이에요. 곡선 하나만 더하면 부드러움까지 챙기는 반전 매력이 생겨요.',
     '사진에서 윤곽이 살아나는, 카메라가 좋아하는 얼굴이에요. 턱선 아래로 떨어지는 웨이브가 잘 어울려요.',
-    '단단하고 믿음직한 인상이에요. 옆머리에 층을 살짝 넣으면 턱선이 부드러워져요.'],
+    '단단하고 믿음직한 인상이에요. 옆머리에 층을 살짝 넣으면 턱선이 부드러워져요.',
+    '카리스마와 신뢰감을 동시에 주는 얼굴이에요. 웨이브 한 겹이면 분위기가 금세 말랑해져요.',
+    '화보 조명이 반기는 또렷한 윤곽이에요. 턱선 아래에서 흐르는 층이 가장 잘 어울려요.',
+    '선이 분명해서 단발도 장발도 존재감이 있어요. 옆머리에만 곡선을 주면 완성이에요.'],
   heart: ['이마는 시원하고 턱선은 갸름한, 사진발 좋은 비율이에요. 턱 주변에 볼륨을 주면 균형이 완성돼요.',
     '셀카 각도를 이미 타고난 얼굴이에요. 턱선 길이의 단발이 특히 잘 받아요.',
-    '이목구비가 위쪽에서 시선을 모으는 얼굴이에요. 시스루 앞머리로 이마를 살짝 덮으면 균형이 좋아져요.'],
+    '이목구비가 위쪽에서 시선을 모으는 얼굴이에요. 시스루 앞머리로 이마를 살짝 덮으면 균형이 좋아져요.',
+    '사랑스러운 이마와 갸름한 턱의 조합이에요. 턱 옆에 볼륨을 주면 사진이 더 편안해져요.',
+    '정면 사진에서 특히 예쁜 비율이에요. 앞머리 하나로 이마와 턱의 균형을 맞추기 쉬워요.',
+    '시선이 눈가로 먼저 가는 얼굴이에요. 턱선 단발이 이 얼굴의 숨은 무기예요.'],
   diamond: ['광대가 입체감을 만들어 주는, 조명이 좋아하는 얼굴이에요. 옆머리로 광대를 살짝 감싸면 더 부드러워져요.',
     '조각 같은 입체감이 있는 얼굴이에요. 이마와 턱 쪽에 볼륨을 주면 전체가 한결 둥글게 보여요.',
-    '화보 조명 아래에서 진가가 나오는 윤곽이에요. 광대 높이에서 끝나는 앞머리는 피하고 그 아래로 내려 주세요.'],
+    '화보 조명 아래에서 진가가 나오는 윤곽이에요. 광대 높이에서 끝나는 앞머리는 피하고 그 아래로 내려 주세요.',
+    '입체감이 살아 있는 얼굴이라 자연광 사진에서 특히 빛나요. 이마 쪽 볼륨으로 균형을 맞춰 보세요.',
+    '광대가 만들어 주는 생기가 매력이에요. 커튼뱅처럼 옆으로 흐르는 앞머리가 잘 받아요.',
+    '개성 있는 윤곽이라 단정한 스타일도 심심해 보이지 않아요. 이마와 턱 쪽을 채우면 더 부드러워져요.'],
 };
 export function faceReport(f, style = null, { gender = null } = {}) {
   const t = traits(f);
@@ -620,7 +652,7 @@ export function faceReport(f, style = null, { gender = null } = {}) {
     : `${a0}에 가장 가까워요 (${Math.round(p[0].p * 100)}%${near ? ` · 다음은 ${a1} ${Math.round(near.p * 100)}%` : ''}).`;
   const summary = [lead, notable.length ? `${notable.join(', ')}이에요.` : '이마 · 광대 · 턱 너비와 길이가 평균에 가까운 고른 비율이에요.'];
   return {
-    shape: p[0], near, headline, summary, quip: (SHAPE_QUIP[p[0].key] || SHAPE_QUIP.oval)[Math.round(p[0].p * 1000 + (p[1]?.p || 0) * 100) % 3],
+    shape: p[0], near, headline, summary, quip: ((q) => q[Math.round(p[0].p * 1000 + (p[1]?.p || 0) * 100 + f.m.ratio * 997) % q.length])(SHAPE_QUIP[p[0].key] || SHAPE_QUIP.oval),
     measures: measures(f, t),
     hair: hairAdvice(f, t, gender),
     makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),

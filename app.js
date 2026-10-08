@@ -10,7 +10,7 @@ import { suitsFor } from './suits.js';
 import { initFaceUI } from './face-ui.js';
 import { assetFetch } from './assets.js';
 import { styleCard, shareImage } from './share-card.js';
-import { quipFor, manyMessage, WORKING } from './quips.js';
+import { quipFor, manyMessage, subjectNote, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -394,7 +394,7 @@ function render(r) {
 
   // 사람이 아닌 사진(동물 · 인형)도 분석은 그대로 하고, 맨 위에 한마디
   els.subjectNote.classList.toggle('hidden', !r.subject);
-  if (r.subject) els.subjectNote.innerHTML = `<b>어머나, 사람이 아니라 ${esc(josa(r.subject.ko, '이네요/네요'))}…?</b> 하지만 분석해 드리죠.`;
+  if (r.subject) { let hs = 0; for (const c of `${r.subject.ko}|${r.headline}`) hs = (hs * 31 + c.charCodeAt(0)) >>> 0; els.subjectNote.innerHTML = subjectNote(esc(r.subject.ko), hs, josa); }
 
   const top = r.category_ranking[0];
   els.catChips.innerHTML = r.category_ranking
