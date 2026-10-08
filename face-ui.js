@@ -3,7 +3,7 @@
 //   const face = initFaceUI({ getStyle: () => ({ result, blob }) });
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
-import { analyzeFace, combineFaces, preloadFace, SEG } from './face.js';
+import { analyzeFace, combineFaces, preloadFace, liveCheck, FRAME, SEG } from './face.js';
 import { faceReport } from './face-advice.js';
 
 const $ = (id) => document.getElementById(id);
@@ -21,6 +21,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     retakeList: $('faceRetakeList'), retakeCanvas: $('faceRetakeCanvas'), retakeBtn: $('faceRetakeBtn'),
     cta: $('faceCta'), ctaTitle: $('faceCtaTitle'), ctaBtn: $('faceCtaBtn'),
     cam: $('camDialog'), video: $('camVideo'), camShot: $('camShot'), camCancel: $('camCancel'), camNote: $('camNote'),
+    camView: $('camView'), camGuide: $('camGuide'), camBox: $('camBox'), camBoxMain: $('camBoxMain'), camBoxSub: $('camBoxSub'), camOk: $('camOk'),
   };
   let purpose = 'hair';
   let blob = null;
@@ -86,25 +87,156 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     if (item) { e.stopImmediatePropagation(); setImage(item.getAsFile()); }
   }, true);
 
-  // 셀카: 휴대폰은 전면 카메라 앱, PC 는 웹캠 화면
+  // 셀카: 휴대폰 · PC 모두 화면 안 카메라로 찍는다 (가이드 틀 + 자세 안내 + 자동 촬영). 카메라를 못 열면 휴대폰은 카메라 앱, PC 는 사진 고르기
   const coarse = matchMedia('(pointer: coarse)').matches;
   let stream = null;
   els.shoot.addEventListener('click', async () => {
-    if (coarse || !navigator.mediaDevices?.getUserMedia) { els.camera.click(); return; }
+    if (!navigator.mediaDevices?.getUserMedia) { (coarse ? els.camera : els.file).click(); return; }
     try {
       stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
       els.video.srcObject = stream;
       els.cam.showModal();
       await els.video.play();
+      fitView();
+      startGuide();
     } catch (e) {
-      console.warn('웹캠을 열지 못함', e);
-      toast('카메라를 열지 못해 사진 고르기로 바꿨어요');
-      els.file.click();
+      console.warn('카메라를 열지 못함', e);
+      stopCam();
+      toast(coarse ? '카메라를 열지 못해 카메라 앱으로 바꿨어요' : '카메라를 열지 못해 사진 고르기로 바꿨어요');
+      (coarse ? els.camera : els.file).click();
     }
   });
-  const stopCam = () => { stream?.getTracks().forEach((t) => t.stop()); stream = null; if (els.cam.open) els.cam.close(); };
+  const stopCam = () => { guideOn = false; stream?.getTracks().forEach((t) => t.stop()); stream = null; if (els.cam.open) els.cam.close(); };
   els.camCancel.addEventListener('click', stopCam);
   els.cam.addEventListener('cancel', stopCam);
+
+  // 화면 비율을 카메라 영상과 같게 (휴대폰 세로 영상도 잘리지 않게) + 가이드 틀을 영상 좌표로 그린다
+  function fitView() {
+    const vw = els.video.videoWidth || 4, vh = els.video.videoHeight || 3;
+    els.camView.style.aspectRatio = `${vw} / ${vh}`;
+    els.camView.style.width = `min(100%, calc(62vh * ${vw / vh}))`;
+    els.camGuide.setAttribute('viewBox', `0 0 ${vw} ${vh}`);
+    const fh = (FRAME.chin - FRAME.top) * vh, fw = fh * FRAME.widthRatio, cx = vw / 2, top = FRAME.top * vh, chin = FRAME.chin * vh;
+    const jx = fh * FRAME.jawRatio / 2, jy = top + fh * FRAME.jawY, crown = top - fh * 0.36, cheekY = top + fh * 0.42, hw = fw / 2;
+    const P = (x, y) => `${x.toFixed(1)} ${y.toFixed(1)}`;
+    // 머리 · 얼굴 윤곽: 턱끝 → 턱 각 → 광대 → 정수리 (좌우 대칭)
+    const side = (s) => `C ${P(cx + s * jx * 0.55, chin)} ${P(cx + s * jx * 0.95, jy + fh * 0.08)} ${P(cx + s * jx, jy)} ` +
+      `C ${P(cx + s * hw * 0.98, jy - fh * 0.12)} ${P(cx + s * hw, cheekY + fh * 0.12)} ${P(cx + s * hw, cheekY)} ` +
+      `C ${P(cx + s * hw * 1.02, top - fh * 0.05)} ${P(cx + s * hw * 0.62, crown)} ${P(cx, crown)}`;
+    els.camGuide.querySelector('.g-head').setAttribute('d', `M ${P(cx, chin)} ${side(-1)} M ${P(cx, chin)} ${side(1)}`);
+    // 목 → 어깨: 턱 각 안쪽에서 아래로 내려와 화면 아래에서 어깨로 퍼진다
+    const nx = jx * 0.78, ny0 = jy + fh * 0.05, ny1 = Math.min(vh, chin + fh * 0.32);
+    const neck = (s) => `M ${P(cx + s * nx, ny0)} L ${P(cx + s * nx, ny1)} C ${P(cx + s * nx, ny1 + fh * 0.12)} ${P(cx + s * hw * 1.6, ny1 + fh * 0.1)} ${P(cx + s * hw * 2.3, vh)}`;
+    els.camGuide.querySelector('.g-neck').setAttribute('d', `${neck(-1)} ${neck(1)}`);
+  }
+  els.video.addEventListener('loadedmetadata', fitView);
+
+  // ---- 자세 안내 -------------------------------------------------------------------
+  // 한 번에 하나만, 가장 먼저 고칠 것부터 말한다. 측정값은 몇 프레임 평균(EMA)으로 흔들림을 줄이고,
+  // 맞는 상태가 HOLD_MS 동안 이어지면 자동으로 연속 촬영한다
+  const HOLD_MS = 1200, TICK_MS = 140;
+  let guideOn = false, okSince = 0, ema = null;
+  const sample = document.createElement('canvas');
+  function brightness(lm) {
+    // 얼굴 가운데(코 · 볼)의 밝기 (0~255)
+    const v = els.video, W = 48, H = 48;
+    sample.width = W; sample.height = H;
+    const ctx = sample.getContext('2d', { willReadFrequently: true });
+    const xs = [234, 454].map((i) => lm[i].x * v.videoWidth), ys = [10, 152].map((i) => lm[i].y * v.videoHeight);
+    const x0 = Math.min(...xs), y0 = Math.min(...ys), w = Math.abs(xs[1] - xs[0]), h = Math.abs(ys[1] - ys[0]);
+    if (w < 8 || h < 8) return 128;
+    ctx.drawImage(v, x0 + w * 0.25, y0 + h * 0.35, w * 0.5, h * 0.4, 0, 0, W, H);
+    const d = ctx.getImageData(0, 0, W, H).data; let s = 0;
+    for (let i = 0; i < d.length; i += 4) s += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+    return s / (d.length / 4);
+  }
+  // 측정값 → 안내 (main: 큰 글씨, sub: 작은 글씨). null 이면 촬영하기 좋은 자세
+  function advise(m) {
+    if (!m) return { main: '얼굴이 보이지 않아요', sub: '얼굴과 목을 화면의 선 안에 맞춰 주세요' };
+    if (m.faces > 1) return { main: '한 사람만 나오게 해 주세요', sub: '다른 사람이 화면에 함께 보여요' };
+    const fh = FRAME.chin - FRAME.top;
+    if (m.size < fh * 0.82) return { main: '조금 더 가까이 와 주세요', sub: '얼굴이 선보다 작아요' };
+    if (m.size > fh * 1.2) return { main: '조금 뒤로 가 주세요', sub: '가까우면 렌즈 때문에 얼굴 가운데가 커 보여요' };
+    if (m.cx < 0.43) return { main: '몸을 오른쪽으로 조금 옮겨 주세요', sub: '얼굴을 선 가운데에 맞춰 주세요' };
+    if (m.cx > 0.57) return { main: '몸을 왼쪽으로 조금 옮겨 주세요', sub: '얼굴을 선 가운데에 맞춰 주세요' };
+    const cy0 = (FRAME.top + FRAME.chin) / 2;
+    if (m.cy < cy0 - 0.07) return { main: '카메라를 조금 위로 올려 주세요', sub: '얼굴이 화면 위쪽에 있어요' };
+    if (m.cy > cy0 + 0.07) return { main: '카메라를 조금 아래로 내려 주세요', sub: '얼굴이 화면 아래쪽에 있어요' };
+    if (m.yaw > 5) return { main: '고개를 오른쪽으로 조금 돌려 주세요', sub: '카메라를 정면으로 봐 주세요' };
+    if (m.yaw < -5) return { main: '고개를 왼쪽으로 조금 돌려 주세요', sub: '카메라를 정면으로 봐 주세요' };
+    if (m.pitch > FRAME.pitch0 + 6) return { main: '턱을 조금만 들어 주세요', sub: '고개를 숙이면 얼굴 길이가 짧게 재져요' };
+    if (m.pitch < FRAME.pitch0 - 9) return { main: '턱을 조금만 당겨 주세요', sub: '턱을 들면 얼굴 길이가 길게 재져요' };
+    if (Math.abs(m.roll) > 6) return { main: '고개를 똑바로 세워 주세요', sub: '고개가 옆으로 기울었어요' };
+    if (m.jaw > 0.2) return { main: '입을 다물어 주세요', sub: '턱 길이와 턱선을 재야 해요' };
+    if (m.smile > 0.35) return { main: '웃지 말고 무표정으로 해 주세요', sub: '웃으면 볼이 올라가 얼굴 아래쪽이 달라 보여요' };
+    if (m.blink > 0.6) return { main: '눈을 떠 주세요', sub: '' };
+    if (m.light < 60) return { main: '조금 더 밝은 곳으로 가 주세요', sub: '얼굴이 어두워 경계를 찾기 어려워요' };
+    return null;
+  }
+  function measure(r) {
+    if (!r.faces) return null;
+    const lm = r.lm, b = r.blend || {};
+    const raw = {
+      faces: r.faces,
+      size: lm[152].y - lm[10].y,
+      cx: 1 - (lm[234].x + lm[454].x) / 2,            // 화면은 거울처럼 보이므로 좌우를 뒤집어 화면 기준으로
+      cy: (lm[10].y + lm[152].y) / 2,
+      yaw: r.pose?.yaw ?? 0, pitch: r.pose?.pitch ?? FRAME.pitch0, roll: r.pose?.roll ?? 0,
+      jaw: b.jawOpen || 0, smile: ((b.mouthSmileLeft || 0) + (b.mouthSmileRight || 0)) / 2, blink: ((b.eyeBlinkLeft || 0) + (b.eyeBlinkRight || 0)) / 2,
+      light: brightness(lm),
+    };
+    if (!ema || ema.faces !== raw.faces) ema = { ...raw };
+    else for (const k of Object.keys(raw)) if (k !== 'faces') ema[k] = 0.55 * raw[k] + 0.45 * ema[k];
+    return ema;
+  }
+  function show(a, okFrac = 0) {
+    els.camBoxMain.textContent = a ? a.main : '좋아요! 그대로 계세요';
+    els.camBoxSub.textContent = a ? a.sub : '곧 자동으로 찍어요';
+    els.camBox.className = `cam-box ${a ? 'adjust' : 'good'}`;
+    els.camView.classList.toggle('aligned', !a);
+    els.camOk.hidden = !!a;
+    els.camOk.querySelector('.p').style.strokeDashoffset = String(106.8 * (1 - okFrac));
+  }
+  async function startGuide() {
+    guideOn = true; okSince = 0; ema = null;
+    els.camBoxMain.textContent = '얼굴 분석 모델을 준비하는 중…'; els.camBoxSub.textContent = '처음 한 번 약 20MB 를 내려받아요'; els.camBox.className = 'cam-box';
+    try { await preloadFace(); } catch (e) { els.camBoxMain.textContent = '자동 안내를 쓸 수 없어요'; els.camBoxSub.textContent = '"지금 찍기"로 찍어 주세요'; return; }
+    while (guideOn && els.cam.open) {
+      const t0 = performance.now();
+      if (!shooting && els.video.videoWidth) {
+        let r = { faces: 0 };
+        try { r = await liveCheck(els.video); } catch (e) { console.warn('[face] 자세 확인 실패', e); }
+        if (!guideOn) break;
+        const a = advise(measure(r));
+        if (a) { okSince = 0; show(a); }
+        else {
+          okSince ||= performance.now();
+          const frac = Math.min(1, (performance.now() - okSince) / HOLD_MS);
+          show(null, frac);
+          if (frac >= 1) {
+            // 찍기 직전 한 장을 실제 분석과 같은 기준(부위 분할 포함)으로 점검: 앞머리 · 옆머리 · 손 · 안경처럼 위치로는 모르는 가림을 미리 알려 준다
+            els.camBoxMain.textContent = '이마 · 턱선이 보이는지 확인하는 중…'; els.camBoxSub.textContent = '그대로 계세요';
+            const pre = await precheck();
+            if (!guideOn) break;
+            if (pre) { show(pre); okSince = 0; ema = null; await new Promise((res) => setTimeout(res, 2500)); continue; }
+            await shoot(); break;
+          }
+        }
+      }
+      await new Promise((res) => setTimeout(res, Math.max(30, TICK_MS - (performance.now() - t0))));
+    }
+  }
+
+  const PRE_KEYS = new Set(['bangs', 'hat', 'sidehair', 'hand', 'mask', 'glasses', 'smile', 'mouth', 'blink', 'many']);
+  async function precheck() {
+    try {
+      const b = await grabFrame();
+      const r = await analyzeFace(b, { purpose });
+      const hit = (r.issues || []).find((x) => x.level === 'block' && PRE_KEYS.has(x.key));
+      return hit ? { main: hit.title, sub: hit.fix.split(/(?<=[.요])\s/)[0] } : null;
+    } catch (e) { console.warn('[face] 촬영 전 점검 실패', e); return null; }
+  }
+
   // 웹캠은 한 장이 아니라 약 2초 동안 5장을 찍어 평균 낸다 (표정 · 미세한 각도 차이로 생기는 흔들림을 줄이려고)
   const BURST = 5, BURST_GAP = 450;
   const grabFrame = () => new Promise((resolve) => {
@@ -118,24 +250,26 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     c.toBlob(resolve, 'image/jpeg', 0.93);
   });
   let shooting = false;
-  els.camShot.addEventListener('click', async () => {
+  async function shoot() {
     if (!els.video.videoWidth || shooting) return;
     shooting = true; els.camShot.disabled = true;
-    const note = els.camNote.textContent;
     const frames = [];
     try {
       for (let i = 0; i < BURST; i++) {
+        els.camBoxMain.textContent = `찍는 중 ${i + 1} / ${BURST}`; els.camBoxSub.textContent = '그대로 계세요';
         els.camNote.textContent = `찍는 중 ${i + 1} / ${BURST} — 그대로 계세요`;
         frames.push(await grabFrame());
         if (i < BURST - 1) await new Promise((r) => setTimeout(r, BURST_GAP));
       }
     } finally {
-      shooting = false; els.camShot.disabled = false; els.camNote.textContent = note;
+      shooting = false; els.camShot.disabled = false;
+      els.camNote.textContent = '얼굴과 목을 선에 맞춰 주세요. 자세가 맞으면 자동으로 찍어요. 앞머리 · 옆머리는 넘겨 이마 · 귀 · 턱선이 보이게 해 주세요.';
       stopCam();
     }
     const good = frames.filter(Boolean);
     if (good.length) setImage(good[Math.floor(good.length / 2)], good.length > 1 ? good : null);
-  });
+  }
+  els.camShot.addEventListener('click', shoot);
 
   // ---- 분석 -------------------------------------------------------------------------
   async function run() {

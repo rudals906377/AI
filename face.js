@@ -463,6 +463,29 @@ function loadTasks() {
 }
 export const preloadFace = () => loadTasks();
 
+// ---- 촬영 도우미: 카메라 화면 한 프레임에서 얼굴 위치 · 크기 · 고개 각도 · 표정만 빠르게 본다 (부위 분할 없이) ----
+// source: <video> 또는 <canvas> (거울 처리 전 원래 화면). 좌표는 0~1 비율
+export async function liveCheck(source) {
+  const { face } = await loadTasks();
+  const res = face.detect(source);
+  const all = res.faceLandmarks || [];
+  if (!all.length) return { faces: 0 };
+  const area = (lm) => { let x0 = 1, y0 = 1, x1 = 0, y1 = 0; for (const p of lm) { x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y); x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y); } return (x1 - x0) * (y1 - y0); };
+  let k = 0;
+  all.forEach((lm, i) => { if (area(lm) > area(all[k])) k = i; });
+  const big = all.filter((lm) => area(lm) > area(all[k]) * 0.25).length; // 뒤쪽에 작게 나온 사람은 세지 않는다
+  const blend = Object.fromEntries((res.faceBlendshapes?.[k]?.categories || []).map((c) => [c.categoryName, c.score]));
+  return { faces: big, lm: all[k], blend, pose: poseFrom(res.facialTransformationMatrixes?.[k]?.data) };
+}
+
+// 촬영 도우미 기준 (정면 얼굴 101장에서 잰 값). 화면에서 이마 위 점(10)과 턱끝(152)이 이 높이에 오도록 안내한다
+export const FRAME = {
+  top: 0.27, chin: 0.67,          // 화면 높이 비율 (얼굴 길이 = 화면 높이의 40%)
+  widthRatio: 0.82,               // 얼굴 너비(234–454) ÷ 얼굴 길이(10–152)
+  jawRatio: 0.56, jawY: 0.84,     // 턱 너비 ÷ 얼굴 길이, 턱 각 높이 (이마 위 점 → 턱끝 비율)
+  pitch0: 6,                      // 카메라를 눈높이에 둔 정면 얼굴의 고개 위아래 각도 중앙값 (+ 는 숙임)
+};
+
 // 부위 분할을 얼굴 둘레만 잘라서 돌린다. 분할 모델은 입력을 256×256 으로 줄여 보므로, 프레임 안에서 얼굴이 작으면(웹캠 · 상반신 사진)
 // 마스크가 거칠어져 턱선 · 턱끝 · 이마 측정이 흔들린다. 얼굴 너비의 0.8배(옆) · 높이의 0.9배(위, 머리카락) · 0.55배(아래, 목) 여유를 두고
 // 잘라 넣으면 얼굴이 사진의 어디에 어떤 크기로 있든 마스크 해상도가 비슷해진다. 결과는 사진 픽셀 크기의 마스크 (자른 밖은 배경 0)
