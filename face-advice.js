@@ -20,6 +20,10 @@ const BANGS_BY_SHAPE = {
   square: ['U뱅', '사이드뱅', '커튼뱅'], heart: ['시스루뱅', '커튼뱅', '사이드뱅'], diamond: ['커튼뱅', '시스루뱅', '애교머리'],
 };
 const SHORT = /픽시컷|빅시컷|투블럭컷|크롭컷|페이드컷|버즈컷|가일컷|아이비리그컷|댄디컷|모히칸|쉼표머리|가르마펌|애즈펌|리프컷|포마드/;
+// 추천 기준(성별)을 고르면 그에 맞는 커트 · 앞머리만 보여 준다 (사진으로 성별을 추정하지 않는다)
+const MEN_CUT = /댄디컷|투블럭컷|가일컷|리프컷|아이비리그컷|크롭컷|페이드컷|버즈컷|쉼표머리|가르마펌|애즈펌|포마드|언더컷|테이퍼컷|머쉬룸컷|레이어드 숏컷|울프컷|멀릿컷|모히칸/;
+const WOMEN_SHORT_OK = /픽시컷|빅시컷|레이어드 숏컷/;
+const MEN_BANGS = new Set(['앞머리 없음', '넘긴 앞머리', '시스루뱅', '풀뱅', '사이드뱅']);
 
 // ---- 측정값 → 특징 ----------------------------------------------------------------
 const z = (k, x, i) => (i == null ? (x - NORM[k][0]) / NORM[k][1] : (x - NORM[k][i][0]) / NORM[k][i][1]);
@@ -122,7 +126,46 @@ const HAIR = {
     avoid: ['광대 높이에서 옆으로 퍼지는 볼륨', '옆머리를 귀 뒤로 바짝 넘긴 스타일', '정수리만 높은 볼륨'],
   },
 };
-function hairAdvice(f, t) {
+// 남성 헤어 (추천 기준을 '남성'으로 골랐을 때). 커트 이름은 suits.js 표와 같은 것을 쓴다
+const HAIR_M = {
+  oval: {
+    idea: '비율이 고른 얼굴이라 대부분의 남자 커트가 잘 어울려요. 이마를 드러내는 스타일로 얼굴선을 보여 주면 장점이 살아나요.',
+    length: '옆 · 뒤를 짧게 정리한 투블럭부터 윗머리를 길게 남긴 스타일까지 기장 제약이 거의 없어요.',
+    part: '가르마 없이 내린 앞머리, 6:4 가르마, 넘긴 머리 모두 잘 어울려요.',
+    avoid: ['얼굴을 다 덮는 무거운 덮머 (고른 얼굴선을 가려요)'],
+  },
+  round: {
+    idea: '윗머리에 높이를 주고 옆은 짧고 납작하게 정리해 세로 라인을 만드는 것이 핵심이에요.',
+    length: '옆 · 뒤는 짧게(투블럭 · 페이드), 윗머리는 길게 남겨 볼륨을 세워 주세요.',
+    part: '6:4나 7:3 가르마로 이마를 사선으로 드러내거나, 앞머리를 올려 넘기면 얼굴이 길어 보여요.',
+    avoid: ['옆머리가 부푸는 스타일', '이마를 일자로 덮는 무거운 덮머', '전체를 같은 길이로 둥글게 자른 커트'],
+  },
+  long: {
+    idea: '윗머리 높이는 낮추고 옆에 볼륨을 남겨 가로 폭을 만드는 것이 핵심이에요. 앞머리로 이마를 덮으면 얼굴이 짧아 보여요.',
+    length: '옆머리를 너무 짧게 치지 말고 귀를 살짝 덮는 기장을 남겨 주세요. 윗머리는 높이 세우지 않아요.',
+    part: '앞머리를 내리는 덮머 · 시스루 스타일이 잘 어울려요. 가르마를 탄다면 낮게 옆으로 흘려 주세요.',
+    avoid: ['윗머리를 높이 세우는 포마드 · 리젠트', '옆을 바짝 민 투블럭 · 페이드', '이마를 다 드러내는 올백'],
+  },
+  square: {
+    idea: '턱 각이 강조되지 않게 윗머리에 부드러운 결과 볼륨을 주고, 옆은 너무 짧게 치지 않는 것이 핵심이에요.',
+    length: '옆 · 뒤는 적당히 짧게 하되 귀 위를 바짝 밀지 않고, 윗머리에 펌이나 결을 살려 주세요.',
+    part: '가르마를 사선으로 타거나 앞머리를 자연스럽게 흘려 직선을 줄여 주세요.',
+    avoid: ['옆을 바짝 민 각진 투블럭 (턱 각이 강조돼요)', '일자로 떨어지는 무거운 덮머', '버즈컷처럼 전체를 짧게 민 스타일'],
+  },
+  heart: {
+    idea: '넓은 이마는 앞머리로 덮고, 윗머리 높이는 낮춰 위아래 균형을 맞추는 것이 핵심이에요.',
+    length: '옆머리는 너무 짧지 않게 남겨 턱 쪽이 허전해 보이지 않게 해 주세요.',
+    part: '앞머리를 내리거나 이마를 사선으로 살짝만 드러내는 가르마가 좋아요.',
+    avoid: ['이마를 다 드러내는 올백 · 포마드', '윗머리를 높이 세우는 스타일'],
+  },
+  diamond: {
+    idea: '광대 옆이 튀어 보이지 않게 옆머리를 살짝 남기고, 이마는 앞머리로 채우는 것이 핵심이에요.',
+    length: '옆머리를 바짝 밀기보다 광대 높이까지 자연스럽게 덮는 기장이 좋아요.',
+    part: '앞머리를 내리거나 가르마 쪽 머리를 살짝 띄워 이마 양옆을 채워 주세요.',
+    avoid: ['옆을 바짝 민 투블럭 · 페이드 (광대가 강조돼요)', '윗머리만 높이 세우는 스타일'],
+  },
+};
+function hairAdvice(f, t, gender = null) {
   const top = f.shape.probs[0].key, second = f.shape.probs[1];
   const keys = [top, ...(second.p > 0.25 ? [second.key] : [])];
   const aliases = keys.flatMap((k) => ALIAS[k]);
@@ -131,23 +174,26 @@ function hairAdvice(f, t) {
   const cuts = Object.entries(CUT_FACE).filter(([, [faces]]) => faces.some((x) => aliases.includes(x)))
     .map(([name, [faces, why]]) => ({ name, why, primary: faces.some((x) => ALIAS[top].includes(x)) }))
     .sort((a, b) => b.primary - a.primary);
-  const longCuts = cuts.filter((c) => !SHORT.test(c.name)).slice(0, 4), shortCuts = cuts.filter((c) => SHORT.test(c.name)).slice(0, 4);
+  let longCuts = cuts.filter((c) => !SHORT.test(c.name)).slice(0, 4), shortCuts = cuts.filter((c) => SHORT.test(c.name)).slice(0, 4);
+  if (gender === 'm') { longCuts = []; shortCuts = cuts.filter((c) => MEN_CUT.test(c.name)).slice(0, 5); }
+  if (gender === 'f') shortCuts = shortCuts.filter((c) => WOMEN_SHORT_OK.test(c.name));
   // 앞머리
   const bangNames = [...new Set([...BANGS_BY_SHAPE[top], ...Object.entries(BANGS_FACE).filter(([, [faces]]) => aliases.some((a) => faces.includes(a))).map(([n]) => n)])];
   let bangs = bangNames.map((name) => ({ name, why: BANGS_FACE[name][1] }));
   if (t.upper >= 0.8) bangs = bangs.filter((b) => b.name !== '앞머리 없음');
   if (t.upper <= -0.8 && !bangs.some((b) => b.name === '앞머리 없음')) bangs.push({ name: '앞머리 없음', why: BANGS_FACE['앞머리 없음'][1] + ' 이마가 짧은 편이라 드러내면 비율이 좋아 보여요' });
-  const H = HAIR[top];
+  if (gender === 'm') bangs = bangs.filter((b) => MEN_BANGS.has(b.name));
+  const H = gender === 'm' ? HAIR_M[top] : HAIR[top];
   const extra = [];
   if (t.upper >= 0.8) extra.push(`상안부(이마)가 ${say(t.upper, '짧은 편', '긴 편')}이라 앞머리로 이마를 덮으면 얼굴 비율이 맞아 보여요.`);
   if (t.upper <= -0.8) extra.push('이마가 짧은 편이라 앞머리를 무겁게 내리기보다 이마를 드러내거나 시스루뱅처럼 가볍게 내리는 편이 좋아요.');
   if (t.mid >= 0.8) extra.push('중안부가 긴 편이라 눈썹~광대 높이에 앞머리 끝이나 옆머리 레이어가 오면 세로 길이가 끊겨 보여요.');
-  if (t.lower >= 0.8 || t.chinW <= -0.8) extra.push(`${t.lower >= 0.8 ? '하안부가 긴 편' : '턱끝이 뾰족한 편'}이라 턱 높이에 컬이나 볼륨이 오는 기장(단발~중단발 C컬)이 아래 얼굴을 채워 줘요.`);
+  if (gender !== 'm' && (t.lower >= 0.8 || t.chinW <= -0.8)) extra.push(`${t.lower >= 0.8 ? '하안부가 긴 편' : '턱끝이 뾰족한 편'}이라 턱 높이에 컬이나 볼륨이 오는 기장(단발~중단발 C컬)이 아래 얼굴을 채워 줘요.`);
   if (t.jawW >= 0.8 && top !== 'square') extra.push('턱이 넓은 편이라 턱선에서 끊기는 기장보다 턱 아래로 내려오는 기장이 좋아요.');
   return [
     { key: 'idea', title: '핵심', text: [H.idea, ...extra].join(' ') },
     longCuts.length && { key: 'cuts', title: '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) },
-    shortCuts.length && { key: 'short', title: '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) },
+    shortCuts.length && { key: 'short', title: gender === 'm' ? '추천 커트' : '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) },
     bangs.length && { key: 'bangs', title: '추천 앞머리', list: bangs.slice(0, 4) },
     { key: 'length', title: '기장 · 볼륨 위치', text: H.length },
     { key: 'part', title: '가르마', text: H.part },
@@ -200,6 +246,20 @@ const MAKEUP = {
     brow: '길고 완만한 아치 눈썹으로 이마 폭이 넓어 보이게 해 주세요.',
   },
 };
+// 남성: 색조 대신 그루밍 위주 (피부 · 눈썹 · 가벼운 윤곽 · 입술 보습)
+function groomingAdvice(f, t) {
+  const M = MAKEUP[f.shape.probs[0].key];
+  const extra = [];
+  if (t.browGap <= -0.8) extra.push('눈썹과 눈 사이가 가까운 편이라 눈썹 아래 잔털을 정리하면 눈매가 시원해 보여요.');
+  if (t.eyeWide >= 0.8) extra.push('미간이 넓은 편이라 눈썹 앞머리를 살짝 안쪽까지 채우면 인상이 또렷해져요.');
+  return [
+    { key: 'idea', title: `그루밍 핵심 · ${short(f.shape.probs[0].label)}`, text: '피부 결을 정리하고 눈썹 모양을 다듬는 것만으로 인상이 가장 크게 달라져요. 색조보다 자연스러움이 먼저예요.' },
+    { key: 'base', title: '피부', text: '톤업 크림이나 비비는 얇게, 잡티 · 붉은기만 컨실러로 가려 주세요. 번들거리는 T존은 파우더로 가볍게 눌러 주면 깔끔해요.' },
+    { key: 'brow', title: '눈썹', text: [M.brow.replace('아치 눈썹과 일자 눈썹', '일자 눈썹과 살짝 각진 눈썹'), ...extra].join(' ') },
+    { key: 'shading', title: '윤곽 (선택)', text: `쉐딩은 얼굴형 보정이 필요할 때만 아주 연하게: ${M.shading}`, zone: 'shade' },
+    { key: 'lips', title: '입술', text: '각질을 정리하고 립밤으로 보습해 주세요. 혈색이 필요하면 색이 살짝 도는 틴티드 립밤 정도가 자연스러워요.' },
+  ];
+}
 function makeupAdvice(f, t) {
   const M = MAKEUP[f.shape.probs[0].key];
   const near = f.shape.probs[1];
@@ -356,7 +416,7 @@ export function zonesFor(shapeKey) {
 }
 
 // ---- 한데 모으기 ----------------------------------------------------------------------
-export function faceReport(f, style = null) {
+export function faceReport(f, style = null, { gender = null } = {}) {
   const t = traits(f);
   const p = f.shape.probs;
   const near = p[1].p >= 0.2 ? p[1] : null;
@@ -380,10 +440,11 @@ export function faceReport(f, style = null) {
   return {
     shape: p[0], near, headline, summary,
     measures: measures(f, t),
-    hair: hairAdvice(f, t),
-    makeup: makeupAdvice(f, t),
+    hair: hairAdvice(f, t, gender),
+    makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),
+    gender,
     match: matchStyle(f, style, t),
-    zones: zonesFor(p[0].key),
+    zones: zonesFor(p[0].key).filter((z) => gender !== 'm' || z.kind !== 'blush'), // 남성(그루밍)은 블러셔 위치를 그리지 않는다
     traits: t,
   };
 }

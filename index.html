@@ -201,6 +201,12 @@
           <button type="button" data-purpose="hair" class="active">헤어 · 얼굴형</button>
           <button type="button" data-purpose="makeup">메이크업</button>
         </div>
+        <div class="seg seg-sm" id="faceGender" aria-label="추천 기준">
+          <span class="seg-label">추천 기준</span>
+          <button type="button" data-gender="f">여성</button>
+          <button type="button" data-gender="m">남성</button>
+          <button type="button" data-gender="" class="active">선택 안 함</button>
+        </div>
         <label class="drop face-drop" id="faceDrop">
           <input type="file" id="faceFile" accept="image/*" />
           <img id="facePreview" class="hidden" alt="내 얼굴 사진 미리보기" />
@@ -263,6 +269,7 @@
           <h3>측정 결과 <small>광대 너비를 1 로 둔 비율 · 평균은 예시 얼굴 사진들의 평균</small></h3>
           <div class="table-wrap"><table class="measure" id="faceMeasures"></table></div>
           <h3 id="faceAdviceTitle">헤어 추천</h3>
+          <p class="respect" id="faceRespect">얼굴 비율을 잰 객관적인 정보를 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.</p>
           <div class="advice" id="faceAdvice"></div>
           <div class="row">
             <button class="ghost small" id="faceCopy" type="button">결과 복사</button>
