@@ -717,7 +717,7 @@ async function orderImage(o, photo, face = null) {
       return lines.length * size * lh;
     };
     y += text(face ? `미용실 상담 카드 · ${o.title.replace('시술 요청서 · ', '')}` : o.title, 46, 700, C.text, P, INNER) + 4;
-    y += text(`뷰티 스타일 AI 분석 · ${date} · ${o.to}에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 28;
+    y += text(`FINDE · ${date} · ${o.to}에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 28;
     if (paint) {
       ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip();
       ctx.drawImage(bmp, P + (INNER - iw) / 2, y, iw, ih); ctx.restore();
@@ -913,7 +913,7 @@ els.fbClear.addEventListener('click', () => {
 // JSON 출력용: 화면 전용 필드 정리
 function slim(r) {
   return {
-    ai_generated: true, generator: '뷰티 스타일 AI 분석', generative_model: r.vlm_model,
+    ai_generated: true, generator: 'FINDE', generative_model: r.vlm_model,
     category: r.category, category_label: r.category_label, category_ranking: r.category_ranking.map((c) => ({ key: c.key, score: round(c.score) })),
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
@@ -943,7 +943,7 @@ $('shareStyle').addEventListener('click', async (e) => {
     if (how === 'downloaded') toast('공유 이미지를 저장했어요');
   } catch (err) { console.error(err); toast('공유 이미지를 만들지 못했어요'); } finally { b.disabled = false; }
 });
-els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.quip ? `에디터 한마디: ${lastResult.quip}\n` : ''}${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 분석 결과라 틀릴 수 있어요)` : ''));
+els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.quip ? `에디터 한마디: ${lastResult.quip}\n` : ''}${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · FINDE 결과라 틀릴 수 있어요)` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) {
   try { await navigator.clipboard.writeText(text); toast('복사했어요'); } catch { toast('복사하지 못했어요'); }

@@ -74,7 +74,7 @@ function scoreBar(ctx, x, y, w, score) {
 }
 function footer(ctx) {
   ctx.fillStyle = C.muted; font(ctx, 30, 600); ctx.textAlign = 'center';
-  ctx.fillText('뷰티 스타일 AI 분석', W / 2, H - 112);
+  ctx.fillText('FINDE', W / 2, H - 112);
   font(ctx, 26, 500); ctx.fillText(`${SITE} · AI 분석 결과라 참고용이에요`, W / 2, H - 68);
   ctx.textAlign = 'left';
 }
