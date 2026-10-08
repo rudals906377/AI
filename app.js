@@ -319,7 +319,6 @@ async function run() {
     clearInterval(ticker);
     els.analyzing.classList.add('hidden');
     if (!lastResult) els.empty.classList.remove('hidden');
-    if (!lastResult) els.empty.classList.remove('hidden');
     els.run.textContent = '다시 분석하기';
     updateRunButton();
     if (pending) { pending = false; run(); }
@@ -807,7 +806,20 @@ if ('IntersectionObserver' in window) {
 }
 
 // 내 얼굴 분석 (셀카 → 얼굴형 · 맞춤 헤어 · 메이크업). 스타일 분석 결과와 사진을 넘겨 궁합을 본다
-const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), toast, copy });
+// 내 얼굴 분석의 '원하는 스타일 비교'에서 사진 한 장을 분석한다 (화면의 결과 카드는 바꾸지 않음).
+// 인물 사진은 헤어 · 메이크업이 함께 보이므로, 자동 판단이 다른 쪽이어도 비교하려는 카테고리가 2순위 안에 있으면 그 기준으로 다시 본다
+async function analyzeStyle(blob, purpose) {
+  if (!analyzer) throw new Error('스타일 분석 모델을 준비하는 중이에요');
+  let subjects = null;
+  try { subjects = await detectSubjects(blob); } catch {}
+  if (subjects && subjects.n >= 2) return { many: true };
+  const opts = { partner: modelKey === 'large' ? partner : null };
+  const r = await analyzer.analyze(blob, { category: 'auto', ...opts });
+  if (r.category === purpose || !r.is_beauty) return r;
+  const alt = r.category_ranking.find((c) => c.key === purpose);
+  return alt && alt.score >= 0.2 ? analyzer.analyze(blob, { category: purpose, ...opts }) : r;
+}
+const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), analyzeStyle, toast, copy });
 if (params.get('mode') === 'face') faceUI.setMode('face', { scroll: false });
 
 init();

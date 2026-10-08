@@ -269,6 +269,22 @@
           <div class="shape-bars" id="faceBars" aria-label="얼굴형별 가까운 정도"></div>
           <ul class="face-warn hidden" id="faceWarn"></ul>
           <div class="face-match hidden" id="faceMatch"></div>
+          <section class="face-rank" id="faceRank" aria-labelledby="faceRankTitle">
+            <div class="fr-head">
+              <b id="faceRankTitle">원하는 스타일 비교 · 베스트 순위</b>
+              <small id="faceRankHint">해 보고 싶은 스타일 사진을 여러 장(최대 8장) 고르면, 내 얼굴형 · 비율 · 귀 모양에 맞는 순서로 알려 드려요.</small>
+            </div>
+            <div class="row">
+              <button class="small" id="faceRankPick" type="button">스타일 사진 고르기</button>
+              <button class="ghost small hidden" id="faceRankAddCur" type="button">지금 분석한 사진 넣기</button>
+              <button class="ghost small hidden" id="faceRankClear" type="button">비우기</button>
+            </div>
+            <input type="file" id="faceRankFile" accept="image/*" multiple hidden>
+            <p class="fr-status hidden" id="faceRankStatus" role="status" aria-live="polite"></p>
+            <ol class="fr-list" id="faceRankList"></ol>
+            <ul class="fr-skip hidden" id="faceRankSkip"></ul>
+            <p class="fr-note hidden" id="faceRankNote">점수는 얼굴 측정과 헤어 · 메이크업 추천표가 얼마나 맞는지를 더한 값이라, 고른 사진들끼리 비교하는 참고용이에요. 마음이 가는 스타일이 가장 좋은 스타일이에요.</p>
+          </section>
           <h3>측정 결과 <small>광대 너비를 1 로 둔 비율 · 평균은 예시 얼굴 사진들의 평균</small></h3>
           <div class="table-wrap"><table class="measure" id="faceMeasures"></table></div>
           <h3 id="faceAdviceTitle">헤어 추천</h3>
@@ -287,12 +303,12 @@
       <div class="cam-view" id="camView">
         <video id="camVideo" playsinline muted></video>
         <svg class="cam-guide" id="camGuide" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-          <path class="g-head" d=""/><path class="g-neck" d=""/>
+          <path class="g-head" d=""/><path class="g-ear" d=""/><path class="g-neck" d=""/>
         </svg>
         <div class="cam-box" id="camBox" role="status" aria-live="polite"><b id="camBoxMain">카메라를 준비하는 중…</b><small id="camBoxSub"></small></div>
         <div class="cam-ok" id="camOk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><circle class="p" cx="20" cy="20" r="17"/></svg></div>
       </div>
-      <p class="note" id="camNote">얼굴과 목을 선에 맞춰 주세요. 자세가 맞으면 자동으로 찍어요. 앞머리 · 옆머리는 넘겨 이마 · 귀 · 턱선이 보이게 해 주세요.</p>
+      <p class="note" id="camNote">얼굴과 목을 선에 맞춰 주세요. 자세가 맞으면 자동으로 찍어요. 앞머리 · 옆머리는 넘겨 이마 · 귀 · 턱선이 보이게 해 주세요. 양쪽 귀가 귀 모양 선에 함께 보이면 귀까지 분석해요.</p>
       <div class="row"><button type="button" class="ghost" id="camShot">지금 찍기</button><button type="button" class="ghost" id="camCancel">취소</button></div>
     </dialog>
 
