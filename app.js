@@ -185,7 +185,7 @@ async function loadAnalyzer(key) {
       setStatus(`준비 완료 · 사진을 올려 보세요${key === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
       if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
       // 스타일 모델이 준비된 뒤 한가할 때 얼굴 분석 모델(약 20MB)도 미리 받아 둔다 → '내 얼굴 분석'이 바로 열린다
-      (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => faceUI.preload?.());
+      (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => { warmUp().finally(() => faceUI.preload?.()); });
     } catch (e) {
       console.error(e);
       // 새 모델을 못 불러오면 쓰던 모델로 되돌린다 (정밀 모델이 휴대폰 메모리를 넘는 경우 등)
@@ -249,17 +249,18 @@ async function openSample(s) {
   showSampleTab(s.category);
   document.querySelectorAll('.samples button').forEach((x) => x.classList.toggle('active', x.dataset.file === s.file));
   const blob = await (await fetch(`./${s.file}`)).blob();
-  await pickImage(blob);
+  await pickImage(blob, s.file);
 }
 
 // ---- 입력 처리 ----------------------------------------------------------------
 let imageSeq = 0;
-async function setImage(blob) {
+let currentSample = null;   // 지금 사진이 예시 사진이면 그 파일 이름 (분석 결과를 다시 쓰려고)
+async function setImage(blob, sample = null) {
   if (!blob || !blob.type?.startsWith('image/')) { if (blob) toast('사진 파일만 올릴 수 있어요'); return false; }
   const my = ++imageSeq;
   const small = await downscale(blob, 1024);
   if (my !== imageSeq) return false;      // 그사이 다른 사진을 골랐으면 이 사진은 버린다 (큰 사진이 늦게 끝나 덮어쓰지 않게)
-  currentBlob = small;
+  currentBlob = small; currentSample = sample;
   if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src);
   els.preview.src = URL.createObjectURL(currentBlob);
   els.preview.classList.remove('hidden');
@@ -285,8 +286,8 @@ async function downscale(blob, max) {
 function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
 
 // 사용자가 올린 사진은 예시 사진처럼 바로 분석한다 (모델이 준비된 경우)
-async function pickImage(blob) {
-  if (!(await setImage(blob))) return;
+async function pickImage(blob, sample = null) {
+  if (!(await setImage(blob, sample))) return;
   if (currentBlob) showResultArea();
   if (analyzer && currentBlob) run();
   else if (currentBlob) showWaiting();
@@ -341,6 +342,28 @@ els.run.addEventListener('click', () => { showResultArea(); run(); });
 els.advanced.addEventListener('change', () => { if (els.advanced.checked) ensureDescriber().catch(() => {}); });
 
 // ---- 분석 실행 ----------------------------------------------------------------
+const sampleCache = new Map();
+function rememberSample(key, r) {
+  const { run_id, blob, ...keep } = r;
+  sampleCache.set(key, structuredClone(keep));   // 수정(피드백)으로 화면 결과를 고쳐도 저장본은 그대로
+  if (sampleCache.size > 40) sampleCache.delete(sampleCache.keys().next().value);
+}
+// 모델이 준비된 뒤 한가할 때 예시 사진 한 장을 미리 분석해 둔다:
+// 첫 분석에만 드는 준비 시간(계산 준비 · 부위 찾기 모델 불러오기)을 미리 써 두고, 그 사진을 누르면 결과가 바로 나온다
+async function warmUp() {
+  if (busy || currentBlob || !analyzer || modelKey !== 'base') return;
+  const s = samples.find((x) => x.category === 'hair') || samples[0];
+  if (!s) return;
+  try {
+    const blob = await downscale(await (await fetch(`./${s.file}`)).blob(), 1024);
+    const key = `${modelKey}|${currentCategory}|${s.file}`;
+    if (sampleCache.has(key) || busy) return;
+    const subjects = await detectSubjects(blob).catch(() => null);
+    if (subjects && subjects.n >= 2) return;
+    const r = await analyzer.analyze(blob, { category: currentCategory });
+    if (!sampleCache.has(key)) rememberSample(key, r);
+  } catch (e) { console.warn('[app] 미리 분석 실패 (괜찮아요)', e); }
+}
 let busy = false;     // 분석 중 새 요청이 오면 끝난 뒤 마지막 것 하나만 이어서 실행
 let pending = false;
 let runSeq = 0;
@@ -362,9 +385,13 @@ async function run() {
     // 주인공이 여럿이면(여러 사람 · 사람과 동물 · 여러 마리 · 콜라주) 분석하지 않고 안내한다
     let subjects = null;
     const blob = currentBlob;
-    try { subjects = await detectSubjects(blob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }
+    // 예시 사진은 한 번 분석한 결과를 다시 쓴다 (같은 모델 · 같은 카테고리 설정이면 결과가 같다) → 다시 누르면 바로
+    const key = currentSample ? `${modelKey}|${currentCategory}|${currentSample}` : null;
+    const hit = key && sampleCache.get(key);
+    if (!hit) try { subjects = await detectSubjects(blob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }
     if (subjects && subjects.n >= 2) { showManySubjects(subjects); return; }
-    const result = await analyzer.analyze(blob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
+    const result = hit ? structuredClone(hit) : await analyzer.analyze(blob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
+    if (key && !hit) rememberSample(key, result);
     result.run_id = seq;
     result.blob = blob;
     if (els.status.classList.contains('error')) setStatus('준비 완료 · 사진을 올려 보세요', 100, 'ready');   // 앞선 오류 문구가 남지 않게   // 이 결과를 낸 사진 (색 · 공유 카드 · 요청서 이미지가 다른 사진과 섞이지 않게)

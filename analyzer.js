@@ -134,17 +134,19 @@ export async function createAnalyzer({
     let boxes = null;
     try { boxes = await regions(source, wanted); } catch (e) { console.warn('[analyzer] 부위를 찾지 못해 전체 사진으로 판단합니다', e); }
     if (!boxes) return null;
-    const out = {};
+    const names = [], crops = [];
     for (const [name, [x0, y0, x1, y1]] of Object.entries(boxes)) {
       if (wanted && !wanted.has(name)) continue;
       const X0 = Math.max(0, Math.floor(x0 * image.width)), Y0 = Math.max(0, Math.floor(y0 * image.height));
       const X1 = Math.min(image.width, Math.ceil(x1 * image.width)), Y1 = Math.min(image.height, Math.ceil(y1 * image.height));
       if (X1 - X0 < 24 || Y1 - Y0 < 16) continue;
-      const crop = await image.crop([X0, Y0, X1 - 1, Y1 - 1]);
-      const [v] = await vision.embed(crop);
-      out[name] = v;
+      names.push(name); crops.push(await image.crop([X0, Y0, X1 - 1, Y1 - 1]));
     }
-    return Object.keys(out).length ? out : null;
+    if (!crops.length) return null;
+    // 한 장씩 돌린다 (묶어 돌리면 약간 빠르지만 값이 미세하게 달라져, 한 장씩 계산한 값으로 학습한 부위 헤드와 어긋난다)
+    const out = {};
+    for (const [i, c] of crops.entries()) out[names[i]] = (await vision.embed(c))[0];
+    return out;
   }
 
   // 한 카테고리의 그룹별 확률 분포만 (톤 합치기 전). 다른 모델과 평균 낼 때 짝 모델로 쓰인다
@@ -260,9 +262,13 @@ export async function createAnalyzer({
     };
   }
 
+  // 같은 모델로 분석을 동시에 두 번 돌리지 않는다 (WebGPU · 작업 스레드에서 'Session already started' 같은 오류가 나는 것을 막는다).
+  // 요청은 차례로 처리한다. 짝 모델(partner)은 다른 인스턴스라 서로 기다리지 않는다
+  let chain = Promise.resolve();
+  const serial = (fn) => (...args) => { const p = chain.then(() => fn(...args)); chain = p.catch(() => {}); return p; };
   return {
-    analyze,
-    groupDists,
+    analyze: serial(analyze),
+    groupDists: serial(groupDists),
     model,
     precomputed: !!usePrecomputed,
     trainedHeads: Object.keys(headIndex).length,
