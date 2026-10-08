@@ -451,3 +451,8 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .seg.seg-sm .seg-label { font-size: .82rem; color: var(--muted); margin-right: 2px; }
 .seg.seg-sm button { padding: 4px 11px; font-size: .84rem; }
 .respect { margin: 2px 0 10px; padding: 8px 12px; border-radius: 8px; background: var(--bg-2); color: var(--muted); font-size: .86rem; line-height: 1.45; }
+.analyzing { display: flex; align-items: center; gap: 12px; padding: 12px 14px; margin: 6px 0 12px; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line); }
+.analyzing b { display: block; }
+.analyzing small { display: block; color: var(--muted); font-size: .82rem; }
+.subject-note { margin: 0 0 10px; padding: 10px 14px; border-radius: 10px; background: #fff4e5; border: 1px solid #f5c98b; color: #7a4a12; font-size: .95rem; }
+.subject-note b { margin-right: 4px; }

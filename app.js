@@ -29,6 +29,7 @@ env.allowLocalModels = false;
 // ---- DOM ----------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
 const els = {
+  analyzing: $('analyzing'), analyzingSub: $('analyzingSub'), subjectNote: $('subjectNote'),
   status: $('status'), statusText: $('statusText'), statusBar: $('statusBar'),
   drop: $('drop'), file: $('file'), preview: $('preview'), dropHint: $('dropHint'),
   pickBtn: $('pickBtn'), cameraBtn: $('cameraBtn'), camera: $('camera'),
@@ -291,6 +292,9 @@ async function run() {
   els.run.disabled = true;
   els.run.textContent = '분석 중…';
   els.resultCard.classList.add('busy');
+  els.analyzingSub.textContent = modelKey === 'large' ? '정밀 모드는 메이크업 사진에서 20~25초 걸릴 수 있어요' : '보통 몇 초면 끝나요';
+  els.analyzing.classList.remove('hidden');
+  if (!lastResult) els.empty.classList.add('hidden');
   try {
     const result = await analyzer.analyze(currentBlob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
     result.run_id = seq;
@@ -304,6 +308,9 @@ async function run() {
   } finally {
     busy = false;
     els.resultCard.classList.remove('busy');
+    els.analyzing.classList.add('hidden');
+    if (!lastResult) els.empty.classList.remove('hidden');
+    if (!lastResult) els.empty.classList.remove('hidden');
     els.run.textContent = '다시 분석하기';
     updateRunButton();
     if (pending) { pending = false; run(); }
@@ -361,13 +368,17 @@ function render(r) {
   els.result.classList.add('enter');
   els.vlmBlock.classList.toggle('hidden', !els.advanced.checked);
 
+  // 사람이 아닌 사진(동물 · 인형)도 분석은 그대로 하고, 맨 위에 한마디
+  els.subjectNote.classList.toggle('hidden', !r.subject);
+  if (r.subject) els.subjectNote.innerHTML = `<b>어머나, 사람이 아니라 ${esc(josa(r.subject.ko, '이네요/네요'))}…?</b> 하지만 분석해 드리죠.`;
+
   const top = r.category_ranking[0];
   els.catChips.innerHTML = r.category_ranking
     .map((c, i) => `<span class="chip ${i ? 'muted' : ''}">${c.label} ${pct(c.score)}</span>`)
     .join('') + (r.category_auto ? '' : `<span class="chip muted">카테고리 수동 선택: ${r.category_label}</span>`);
   if (r.category_auto && top.key !== r.category) els.catChips.innerHTML += '';
 
-  if (!r.is_beauty) els.catChips.innerHTML = `<span class="chip warn">뷰티 사진이 아닐 수 있어요 (${pct(1 - r.beauty_score)})</span>` + els.catChips.innerHTML;
+  if (!r.is_beauty && !r.subject) els.catChips.innerHTML = `<span class="chip warn">뷰티 사진이 아닐 수 있어요 (${pct(1 - r.beauty_score)})</span>` + els.catChips.innerHTML;
   for (const w of r.warnings || []) els.catChips.innerHTML += `<span class="chip warn">${esc(w)}</span>`;
   // 함께 보이는 스타일 (예: 헤어 사진 속 메이크업)
   const sec = r.secondary;
@@ -729,7 +740,7 @@ function slim(r) {
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
       ...(a.family ? { family: { label: a.family.label, score: round(a.family.score), level: a.family.level, members: a.family.members.map((x) => x.label) } } : {}),
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
-    trends: r.trends, tags: r.tags, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
+    trends: r.trends, tags: r.tags, subject: r.subject?.ko ?? null, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
     secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,
       description_ko: r.secondary.description_ko, trends: r.secondary.trends, tags: r.secondary.tags,
       attributes: r.secondary.attributes.map((a) => ({ group: a.group, label: a.label, score: round(a.score), level: a.level })) },
