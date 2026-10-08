@@ -828,7 +828,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     }
     if (report.match?.score != null) lines.push('', `분석한 스타일과의 궁합: ${report.match.title} — ${report.match.verdict} (궁합 ${report.match.score}점)`, ...report.match.reasons.map((x) => `  ${x.pts > 0 ? '✓' : '△'} ${x.text}`), ...(report.match.tip ? [`  ${report.match.tip}`] : []));
     if (report.rank?.length) lines.push('', `원하는 ${purpose === 'hair' ? '헤어' : '메이크업'} 베스트 순위`, ...report.rank);
-    lines.push('', '(AI 생성 · 뷰티 스타일 AI 분석 · 사진 한 장으로 잰 참고용 결과예요)');
+    lines.push('', '(AI 생성 · FINDE · 사진 한 장으로 잰 참고용 결과예요)');
     copy(lines.join('\n'));
   });
 

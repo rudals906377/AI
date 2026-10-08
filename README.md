@@ -1,5 +1,5 @@
 ---
-title: 뷰티 스타일 AI 분석
+title: FINDE
 emoji: 💇
 colorFrom: red
 colorTo: yellow
@@ -13,7 +13,7 @@ custom_headers:
   cross-origin-resource-policy: cross-origin
 ---
 
-# 뷰티 스타일 AI 분석
+# FINDE
 
 헤어스타일 · 네일아트 · 메이크업 · 타투 사진을 올리면 **브라우저 안에서** AI가 스타일을 한국어로 설명합니다.
 서버가 없고 사진이 외부로 전송되지 않습니다. 모델은 Transformers.js 로 브라우저에서 직접 실행됩니다.

@@ -1,4 +1,4 @@
-/* 뷰티 스타일 AI 분석 — 차분한 베이지 + 모카무스(PANTONE 17-1230, #A47864). 장식 효과 없이 평면으로 */
+/* FINDE — 차분한 베이지 + 모카무스(PANTONE 17-1230, #A47864). 장식 효과 없이 평면으로 */
 :root {
   --bg: #f4efe8;
   --bg-2: #ece4d9;
@@ -614,3 +614,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 
 /* 휴대폰: 안내 문구가 떠 있는 '다른 사진 고르기' 버튼을 가리지 않게 위로 */
 @media (max-width: 899px) { .toast { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); margin-bottom: 0; } }
+
+/* 앱 이름 옆 한글 읽기 */
+.brand h1 .brand-ko { font-size: .5em; font-weight: 600; color: var(--muted); margin-left: 6px; letter-spacing: 0; vertical-align: middle; }
