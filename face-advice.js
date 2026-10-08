@@ -19,25 +19,24 @@ const BANGS_BY_SHAPE = {
   oval: ['앞머리 없음', '시스루뱅', '커튼뱅'], round: ['시스루뱅', '사이드뱅', '애교머리'], long: ['풀뱅', '시스루뱅'],
   square: ['U뱅', '사이드뱅', '커튼뱅'], heart: ['시스루뱅', '커튼뱅', '사이드뱅'], diamond: ['커튼뱅', '시스루뱅', '애교머리'],
 };
-const SHORT = /픽시컷|빅시컷|투블럭컷|크롭컷|페이드컷|버즈컷|가일컷|아이비리그컷|댄디컷|모히칸|쉼표머리|가르마펌|애즈펌|리프컷|포마드/;
-// 추천 기준(성별)을 고르면 그에 맞는 커트 · 앞머리만 보여 준다 (사진으로 성별을 추정하지 않는다)
-const MEN_CUT = /댄디컷|투블럭컷|가일컷|리프컷|아이비리그컷|크롭컷|페이드컷|버즈컷|쉼표머리|가르마펌|애즈펌|포마드|언더컷|테이퍼컷|머쉬룸컷|레이어드 숏컷|울프컷|멀릿컷|모히칸/;
-const WOMEN_SHORT_OK = /픽시컷|빅시컷|레이어드 숏컷/;
-const MEN_BANGS = new Set(['앞머리 없음', '넘긴 앞머리', '시스루뱅', '풀뱅', '사이드뱅']);
+const SHORT = /픽시컷|빅시컷|투블럭컷|크롭컷|페이드컷|버즈컷|가일컷|아이비리그컷|댄디컷|모히칸|쉼표머리|가르마펌|애즈펌|리프컷|포마드|머쉬룸컷|레이어드 숏컷|언더컷|테이퍼컷/;
 
 // ---- 추천과 '피하면 좋은 스타일'이 서로 어긋나지 않게 ------------------------------------
 // 커트 · 앞머리마다 모양 특징을 붙이고, 얼굴형마다 피할 특징을 정해 겹치는 추천은 뺀다
 // sideShort: 옆머리를 짧게 치거나 민다 · bluntBangs: 눈썹 위 일자 앞머리 · heavyBangs: 이마 · 눈썹을 덮는 무거운 앞머리
-// highTop: 윗머리를 높이 세운다 · allBack: 이마를 다 드러내 넘긴다 · chinBlunt: 턱선에서 일자로 끊긴다
+// highTop: 윗머리를 높이 세운다 · allBack: 이마를 다 드러내 넘긴다 · chinBlunt: 턱선에서 일자로 끊긴다 · flatLong: 층 없이 매끈하게 떨어지는 긴 생머리
+// 추천 기준별로 먼저 보여 줄 커트 (목록에서 빼지는 않고 순서만 바꾼다)
+const MEN_FIRST = /댄디컷|투블럭컷|가일컷|리프컷|아이비리그컷|크롭컷|페이드컷|버즈컷|쉼표머리|가르마펌|애즈펌|포마드|언더컷|테이퍼컷|머쉬룸컷|레이어드 숏컷|울프컷|멀릿컷|레이어드컷|허쉬컷/;
+const WOMEN_FIRST = /픽시컷|빅시컷|레이어드 숏컷|숏 보브|보브컷|A라인 보브|칼단발|태슬컷|히메컷|레이어드컷|허쉬컷|원랭스|V라인컷|울프컷/;
 const SHAPE_TAGS = {
   투블럭컷: ['sideShort'], 언더컷: ['sideShort', 'highTop'], 페이드컷: ['sideShort'], 버즈컷: ['sideShort'], 모히칸: ['sideShort', 'highTop'],
-  멀릿컷: ['sideShort'], 크롭컷: ['sideShort', 'bluntBangs'], 머쉬룸컷: ['heavyBangs'], 댄디컷: ['heavyBangs'],
+  멀릿컷: ['sideShort'], 원랭스: ['flatLong'], 크롭컷: ['sideShort', 'bluntBangs'], 머쉬룸컷: ['heavyBangs'], 댄디컷: ['heavyBangs'],
   '포마드·슬릭백': ['allBack', 'highTop'], 울프컷: ['highTop'], '레이어드 숏컷': ['highTop'], 칼단발: ['chinBlunt'],
   풀뱅: ['bluntBangs', 'heavyBangs'], 처피뱅: ['bluntBangs'],
 };
 // 얼굴형별 피할 특징 (HAIR / HAIR_M 의 avoid 문장과 같은 내용)
 const AVOID_TAGS = {
-  f: { oval: ['heavyBangs'], round: ['chinBlunt', 'bluntBangs'], long: ['highTop', 'allBack'], square: ['chinBlunt', 'bluntBangs', 'heavyBangs', 'sideShort'], heart: ['highTop', 'allBack'], diamond: ['highTop', 'allBack'] },
+  f: { oval: ['heavyBangs'], round: ['chinBlunt', 'bluntBangs'], long: ['highTop', 'allBack', 'flatLong'], square: ['chinBlunt', 'bluntBangs', 'heavyBangs', 'sideShort'], heart: ['highTop', 'allBack', 'flatLong'], diamond: ['highTop', 'allBack'] },
   m: { oval: ['heavyBangs'], round: ['heavyBangs', 'bluntBangs'], long: ['highTop', 'allBack', 'sideShort'], square: ['sideShort', 'heavyBangs'], heart: ['allBack', 'highTop'], diamond: ['sideShort', 'highTop'] },
 };
 const clashes = (name, avoid) => (SHAPE_TAGS[name] || []).some((t) => avoid.includes(t));
@@ -182,43 +181,48 @@ const HAIR_M = {
     avoid: ['옆을 바짝 민 투블럭 · 페이드 (광대가 강조돼요)', '윗머리만 높이 세우는 스타일'],
   },
 };
+// 추천 기준(성별)은 보여 주는 순서와 설명만 바꾼다. 남자 장발 · 여자 숏컷도 있으므로 긴 머리 · 짧은 머리 추천을 모두 보여 준다
 function hairAdvice(f, t, gender = null) {
   const top = f.shape.probs[0].key, second = f.shape.probs[1];
   const keys = [top, ...(second.p > 0.25 ? [second.key] : [])];
   const aliases = keys.flatMap((k) => ALIAS[k]);
   if (t.upper >= 0.8 || t.foreheadW >= 0.8) aliases.push('이마가 넓은 얼굴');
+  // 화면에 두 가지(긴 머리 · 짧은 머리) 피할 스타일을 모두 보여 주므로, 추천은 두 쪽 피할 특징과 모두 겹치지 않아야 한다
+  const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top]])];
   // 커트: suits.js 표에서 내 얼굴형이 들어간 커트
   const cuts = Object.entries(CUT_FACE).filter(([, [faces]]) => faces.some((x) => aliases.includes(x)))
     .map(([name, [faces, why]]) => ({ name, why, primary: faces.some((x) => ALIAS[top].includes(x)) }))
-    .sort((a, b) => b.primary - a.primary);
-  let longCuts = cuts.filter((c) => !SHORT.test(c.name)).slice(0, 4), shortCuts = cuts.filter((c) => SHORT.test(c.name)).slice(0, 4);
-  if (gender === 'm') { longCuts = []; shortCuts = cuts.filter((c) => MEN_CUT.test(c.name)).slice(0, 5); }
-  // 여성: 기장 안내가 '턱선 아래 · 쇄골 기장'인 얼굴형에는 숏컷을 권하지 않는다 (계란형만 숏컷도 권함)
-  if (gender === 'f') shortCuts = top === 'oval' ? shortCuts.filter((c) => WOMEN_SHORT_OK.test(c.name)) : [];
-  const avoidTags = AVOID_TAGS[gender === 'm' ? 'm' : 'f'][top];
-  longCuts = longCuts.filter((c) => !clashes(c.name, avoidTags)); shortCuts = shortCuts.filter((c) => !clashes(c.name, avoidTags));
+    .filter((c) => !clashes(c.name, avoidTags))
+    .map((c) => ({ ...c, pref: gender && (gender === 'm' ? MEN_FIRST : WOMEN_FIRST).test(c.name) ? 1 : 0 }))
+    .sort((a, b) => b.pref - a.pref || b.primary - a.primary);   // 고른 기준에서 흔한 커트를 먼저 (빼지는 않는다)
+  const longCuts = cuts.filter((c) => !SHORT.test(c.name)).slice(0, 4), shortCuts = cuts.filter((c) => SHORT.test(c.name)).slice(0, 4);
   // 앞머리
   const bangNames = [...new Set([...BANGS_BY_SHAPE[top], ...Object.entries(BANGS_FACE).filter(([, [faces]]) => aliases.some((a) => faces.includes(a))).map(([n]) => n)])];
   let bangs = bangNames.map((name) => ({ name, why: BANGS_FACE[name][1] }));
   if (t.upper >= 0.8) bangs = bangs.filter((b) => b.name !== '앞머리 없음');
   if (t.upper <= -0.8 && !bangs.some((b) => b.name === '앞머리 없음')) bangs.push({ name: '앞머리 없음', why: BANGS_FACE['앞머리 없음'][1] + ' 이마가 짧은 편이라 드러내면 비율이 좋아 보여요' });
-  if (gender === 'm') bangs = bangs.filter((b) => MEN_BANGS.has(b.name));
   bangs = bangs.filter((b) => !clashes(b.name, avoidTags));
-  const H = gender === 'm' ? HAIR_M[top] : HAIR[top];
+  const L = HAIR[top], S = HAIR_M[top];            // 긴 머리 · 단발 기준 표, 짧은 머리 기준 표
   const extra = [];
   if (t.upper >= 0.8) extra.push(`상안부(이마)가 ${say(t.upper, '짧은 편', '긴 편')}이라 앞머리로 이마를 덮으면 얼굴 비율이 맞아 보여요.`);
   if (t.upper <= -0.8) extra.push('이마가 짧은 편이라 앞머리를 무겁게 내리기보다 이마를 드러내거나 시스루뱅처럼 가볍게 내리는 편이 좋아요.');
   if (t.mid >= 0.8) extra.push('중안부가 긴 편이라 눈썹~광대 높이에 앞머리 끝이나 옆머리 레이어가 오면 세로 길이가 끊겨 보여요.');
-  if (gender !== 'm' && (t.lower >= 0.8 || t.chinW <= -0.8)) extra.push(`${t.lower >= 0.8 ? '하안부가 긴 편' : '턱끝이 뾰족한 편'}이라 턱 높이에 컬이나 볼륨이 오는 기장(단발~중단발 C컬)이 아래 얼굴을 채워 줘요.`);
+  if (t.lower >= 0.8 || t.chinW <= -0.8) extra.push(`${t.lower >= 0.8 ? '하안부가 긴 편' : '턱끝이 뾰족한 편'}이라 머리를 기른다면 턱 높이에 컬이나 볼륨이 오는 기장이 아래 얼굴을 채워 줘요.`);
   if (t.jawW >= 0.8 && top !== 'square') extra.push('턱이 넓은 편이라 턱선에서 끊기는 기장보다 턱 아래로 내려오는 기장이 좋아요.');
+  const shortFirst = gender === 'm';
+  const longSec = longCuts.length && { key: 'cuts', title: gender === 'm' ? '추천 커트 · 긴 머리 · 장발' : '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) };
+  const shortSec = shortCuts.length && { key: 'short', title: '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) };
+  const two = (a, b) => (shortFirst ? [b, a] : [a, b]);
+  const [lenA, lenB] = two(`긴 머리 · 단발이라면 ${L.length}`, `짧은 머리라면 ${S.length}`);
+  const [partA, partB] = two(`긴 머리 · 단발: ${L.part}`, `짧은 머리: ${S.part}`);
+  const avoid = two(L.avoid.map((x) => ({ name: `(긴 머리 · 단발) ${x}` })), S.avoid.map((x) => ({ name: `(짧은 머리) ${x}` }))).flat();
   return [
-    { key: 'idea', title: '핵심', text: [H.idea, ...extra].join(' ') },
-    longCuts.length && { key: 'cuts', title: '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) },
-    shortCuts.length && { key: 'short', title: gender === 'm' ? '추천 커트' : '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) },
+    { key: 'idea', title: '핵심', text: [(shortFirst ? S : L).idea, ...extra].join(' ') },
+    ...two(longSec, shortSec),
     bangs.length && { key: 'bangs', title: '추천 앞머리', list: bangs.slice(0, 4) },
-    { key: 'length', title: '기장 · 볼륨 위치', text: gender ? H.length : `${H.length} 짧은 머리라면 ${HAIR_M[top].length}` },
-    { key: 'part', title: '가르마', text: H.part },
-    { key: 'avoid', title: '피하면 좋은 스타일', list: H.avoid.map((x) => ({ name: x })) },
+    { key: 'length', title: '기장 · 볼륨 위치', text: `${lenA} ${lenB}` },
+    { key: 'part', title: '가르마', text: `${partA} ${partB}` },
+    { key: 'avoid', title: '피하면 좋은 스타일', list: avoid },
   ].filter(Boolean);
 }
 
