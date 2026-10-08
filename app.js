@@ -78,8 +78,10 @@ function makeProgress(label) {
   };
 }
 const mb = (b) => (b / 1024 / 1024).toFixed(0);
-function setStatus(text, pct = 0, cls = '') {
+// detail: 기술 정보(모델 · 실행 방식)는 화면에는 짧게, 마우스를 올리면(title) 자세히
+function setStatus(text, pct = 0, cls = '', detail = '') {
   els.statusText.textContent = text;
+  els.status.title = detail || text;
   els.statusBar.style.width = `${pct}%`;
   els.status.className = `status ${cls}`;
 }
@@ -133,7 +135,7 @@ async function loadAnalyzer(key) {
   if (key === 'base' && partner) {
     analyzer = partner; partner = null;
     await prev?.dispose?.();
-    setStatus(`준비 완료 · ${m.label}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
+    setStatus(`준비 완료 · 사진을 올려 보세요${modelKey === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
     updateRunButton();
     if (currentBlob) setTimeout(run, 0);
     return;
@@ -164,7 +166,7 @@ async function loadAnalyzer(key) {
           analyzer = main;
         }
       } else await prev?.dispose?.();
-      setStatus(`준비 완료 · ${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`, 100, 'ready');
+      setStatus(`준비 완료 · 사진을 올려 보세요${key === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
       if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
     } catch (e) {
       console.error(e);
@@ -331,7 +333,7 @@ async function ensureDescriber() {
   if (describer) return describer;
   if (!describerLoading) {
     describerLoading = createDescriber({ device: webgpu ? 'webgpu' : 'wasm', fp16: f16, onProgress: makeProgress('고급 모델') })
-      .then((d) => { describer = d; setStatus('기본 + 고급 모델 준비 완료', 100, 'ready'); return d; })
+      .then((d) => { describer = d; setStatus('준비 완료 · 자유 서술 모드도 켜졌어요', 100, 'ready', '기본 + 고급(자유 서술) 모델'); return d; })
       .catch((e) => { console.error(e); setStatus(`고급 모델 로드 실패: ${e.message}`, 0, 'error'); els.advanced.checked = false; describerLoading = null; throw e; });
   }
   return describerLoading;
@@ -493,6 +495,15 @@ function renderSuits(r) {
   r.suits = items.map(({ label, text }) => ({ label, text }));
   els.suitsBlock.classList.toggle('hidden', !items.length);
   els.suits.innerHTML = items.map((x) => `<div class="suit"><b>${esc(x.label)}</b><p>${esc(x.text)}</p>${x.basis ? `<small>근거: ${esc(x.basis)}</small>` : ''}</div>`).join('');
+  // 4개 이상이면 3개만 먼저 보이고 '더 보기'로 펼친다
+  els.suitsBlock.querySelector('.more-btn')?.remove();
+  els.suits.classList.toggle('collapsed', items.length > 3);
+  if (items.length > 3) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ghost small more-btn'; b.textContent = `${items.length - 3}개 더 보기`; b.setAttribute('aria-expanded', 'false');
+    b.addEventListener('click', () => { const open = els.suits.classList.toggle('collapsed') === false; b.textContent = open ? '접기' : `${items.length - 3}개 더 보기`; b.setAttribute('aria-expanded', String(open)); });
+    els.suits.after(b);
+  }
 }
 
 // ---- 용어 설명 ------------------------------------------------------------------

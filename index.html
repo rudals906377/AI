@@ -6,6 +6,19 @@
   <title>뷰티 스타일 AI 분석</title>
   <meta name="description" content="헤어·네일·메이크업·타투 사진을 올리면 브라우저 안에서 AI가 스타일을 자세한 한국어 문장으로 설명합니다." />
   <meta name="theme-color" content="#f4efe8" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="뷰티 스타일 AI 분석" />
+  <meta property="og:title" content="뷰티 스타일 AI 분석 — 내 얼굴형에 맞는 스타일 찾기" />
+  <meta property="og:description" content="헤어 · 네일 · 메이크업 · 타투 사진을 올리면 AI가 스타일을 읽어 주고, 셀카 한 장으로 내 얼굴형과 잘 어울리는 스타일을 찾아 드려요. 사진은 브라우저 밖으로 나가지 않아요." />
+  <meta property="og:url" content="https://kyoungminoh-beauty-style-ai.static.hf.space/" />
+  <meta property="og:image" content="https://kyoungminoh-beauty-style-ai.static.hf.space/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="뷰티 스타일 AI 분석 — 얼굴형 궁합 카드 그림" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="./style.css" />
   <script type="importmap">
@@ -44,8 +57,8 @@
           </div>
         </label>
         <div class="row upload-row">
-          <button type="button" class="primary" id="pickBtn">내 사진 올리기</button>
-          <button type="button" class="ghost" id="cameraBtn" hidden>사진 찍기</button>
+          <button type="button" class="primary" id="pickBtn">사진 올리기</button>
+          <button type="button" class="ghost" id="cameraBtn" hidden>카메라로 찍기</button>
           <input type="file" id="camera" accept="image/*" capture="environment" hidden />
         </div>
 
@@ -272,6 +285,18 @@
           <div class="shape-bars" id="faceBars" aria-label="얼굴형별 가까운 정도"></div>
           <ul class="face-warn hidden" id="faceWarn"></ul>
           <div class="face-match hidden" id="faceMatch"></div>
+          <nav class="face-tabs" id="faceTabs" role="tablist" aria-label="얼굴 분석 결과 보기">
+            <button type="button" role="tab" data-tab="advice" aria-selected="true" id="faceTabAdvice">맞춤 추천</button>
+            <button type="button" role="tab" data-tab="styles" aria-selected="false">스타일 찾기</button>
+            <button type="button" role="tab" data-tab="measure" aria-selected="false">측정 결과</button>
+            <button type="button" role="tab" data-tab="fun" aria-selected="false">재미로 보기</button>
+          </nav>
+          <div class="ftab" data-tab="advice" role="tabpanel">
+          <h3 id="faceAdviceTitle">헤어 추천</h3>
+          <p class="respect" id="faceRespect">얼굴 비율을 잰 객관적인 정보를 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.</p>
+          <div class="advice" id="faceAdvice"></div>
+          </div>
+          <div class="ftab hidden" data-tab="styles" role="tabpanel">
           <section class="face-gallery hidden" id="faceGallery" aria-labelledby="faceGalleryTitle">
             <div class="fr-head"><b id="faceGalleryTitle">내 얼굴형 베스트 스타일</b><small id="faceGalleryHint">예시 사진을 내 얼굴형 · 비율 · 귀에 맞춰 자동으로 채점했어요. 사진을 누르면 그 스타일을 자세히 볼 수 있어요.</small></div>
             <div class="fg-grid" id="faceGalleryGrid"></div>
@@ -282,7 +307,7 @@
               <small id="faceRankHint">해 보고 싶은 스타일 사진을 여러 장(최대 8장) 고르면, 내 얼굴형 · 비율 · 귀 모양에 맞는 순서로 알려 드려요.</small>
             </div>
             <div class="row">
-              <button class="small" id="faceRankPick" type="button">스타일 사진 고르기</button>
+              <button class="soft small" id="faceRankPick" type="button">스타일 사진 고르기</button>
               <button class="ghost small hidden" id="faceRankAddCur" type="button">지금 분석한 사진 넣기</button>
               <button class="ghost small hidden" id="faceRankClear" type="button">비우기</button>
             </div>
@@ -292,10 +317,16 @@
             <ul class="fr-skip hidden" id="faceRankSkip"></ul>
             <p class="fr-note hidden" id="faceRankNote">점수는 얼굴 측정과 헤어 · 메이크업 추천표가 얼마나 맞는지를 더한 값이라, 고른 사진들끼리 비교하는 참고용이에요. 마음이 가는 스타일이 가장 좋은 스타일이에요.</p>
           </section>
+          </div>
+          <div class="ftab hidden" data-tab="measure" role="tabpanel">
+          <h3>측정 결과 <small>광대 너비를 1 로 둔 비율 · 평균은 예시 얼굴 사진들의 평균</small></h3>
+          <div class="table-wrap"><table class="measure" id="faceMeasures"></table></div>
+          </div>
+          <div class="ftab hidden" data-tab="fun" role="tabpanel">
           <section class="face-rank face-couple" id="faceCouple" aria-labelledby="faceCoupleTitle">
             <div class="fr-head"><b id="faceCoupleTitle">친구 · 커플 케미</b><small>함께할 사람의 정면 셀카를 올리면 두 사람의 얼굴형 케미와 같이 하면 좋은 스타일을 알려 드려요. 재미로 봐 주세요 — 사진은 저장하지 않아요.</small></div>
             <div class="row">
-              <button class="small" id="coupleBtn" type="button">상대 셀카 올리기</button>
+              <button class="soft small" id="coupleBtn" type="button">상대 셀카 올리기</button>
               <button class="ghost small hidden" id="coupleShare" type="button">케미 이미지</button>
             </div>
             <input type="file" id="coupleFile" accept="image/*" hidden>
@@ -304,16 +335,12 @@
           </section>
           <section class="face-rank face-ba" id="faceBA" aria-labelledby="faceBATitle">
             <div class="fr-head"><b id="faceBATitle">시술 전후 비교</b><small>지금 분석한 사진을 '전'으로 두고, 머리를 바꾼 뒤 같은 각도로 찍은 사진을 올리면 얼굴 둘레 머리 실루엣(옆 볼륨 · 정수리 · 이마 · 기장)이 어떻게 바뀌었는지, 내 얼굴형에 더 맞는 쪽인지 알려 드려요.</small></div>
-            <div class="row"><button class="small" id="baBtn" type="button">시술 후 사진 올리기</button></div>
+            <div class="row"><button class="soft small" id="baBtn" type="button">시술 후 사진 올리기</button></div>
             <input type="file" id="baFile" accept="image/*" hidden>
             <p class="fr-status hidden" id="baStatus" role="status" aria-live="polite"></p>
             <div class="couple-result ba-result hidden" id="baResult"></div>
           </section>
-          <h3>측정 결과 <small>광대 너비를 1 로 둔 비율 · 평균은 예시 얼굴 사진들의 평균</small></h3>
-          <div class="table-wrap"><table class="measure" id="faceMeasures"></table></div>
-          <h3 id="faceAdviceTitle">헤어 추천</h3>
-          <p class="respect" id="faceRespect">얼굴 비율을 잰 객관적인 정보를 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.</p>
-          <div class="advice" id="faceAdvice"></div>
+          </div>
           <div class="row">
             <button class="ghost small" id="faceCopy" type="button">결과 복사</button>
             <button class="ghost small" id="faceShare" type="button">공유 이미지</button>
@@ -344,8 +371,8 @@
 
     <footer>
       <p class="ai-notice">이 결과는 AI 가 사진을 보고 자동으로 만든 참고용 정보이며 실제와 다를 수 있습니다. <a href="./notice.html">AI 이용 안내</a> · <a href="./review.html">전문가 검수 도구</a></p>
-      기본 분석: <code id="clipName"></code> (제로샷 + 학습 헤드) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3 ·
-      사진은 서버로 전송되지 않습니다. 예시 사진 출처: <a href="./samples/CREDITS.md" target="_blank">CREDITS</a>
+      <p>사진은 서버로 보내지 않고 이 브라우저 안에서만 분석해요. <a href="./samples/CREDITS.md" target="_blank" rel="noopener">예시 사진 출처</a></p>
+      <details class="tech"><summary>기술 정보</summary>기본 분석: <code id="clipName"></code> (제로샷 + 학습 헤드) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3</details>
     </footer>
   </div>
 

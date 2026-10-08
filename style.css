@@ -154,6 +154,15 @@ header.top p { margin: 4px 0 0; color: var(--muted); font-size: 0.93rem; max-wid
 .ghost:disabled { opacity: .5; cursor: not-allowed; }
 .ghost.small { padding: 5px 11px; font-size: 0.84rem; border-radius: 7px; font-weight: 500; }
 .primary.small { padding: 6px 13px; font-size: 0.86rem; border-radius: 7px; }
+/* 보조 동작 (사진 고르기 · 올리기처럼 화면 안에서 한 번 더 누르는 버튼) */
+.soft { background: var(--accent-soft); color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); padding: 11px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s; }
+.soft:hover:not(:disabled) { border-color: var(--accent); }
+.soft:disabled { opacity: .5; cursor: not-allowed; }
+.soft.small { padding: 6px 13px; font-size: 0.86rem; border-radius: 7px; }
+/* 누를 때 살짝 들어가는 느낌 */
+.primary, .ghost, .soft { -webkit-tap-highlight-color: transparent; }
+.primary:active:not(:disabled), .ghost:active:not(:disabled), .soft:active:not(:disabled) { transform: scale(.97); }
+@media (prefers-reduced-motion: reduce) { .primary:active, .ghost:active, .soft:active { transform: none; } }
 
 .toggle { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; font-size: 0.93rem; }
 .toggle input { appearance: none; -webkit-appearance: none; width: 40px; height: 23px; border-radius: 999px; background: var(--line-2); position: relative; cursor: pointer; transition: background .2s; margin: 0; }
@@ -316,8 +325,9 @@ details summary { cursor: pointer; color: var(--muted); }
 
 /* ── 모바일 '다른 사진' 버튼 · 알림 */
 .fab {
-  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 20;
-  border: 0; border-radius: 8px; padding: 11px 18px; font-weight: 600; color: var(--on-accent); background: var(--accent);
+  /* 가운데 대신 오른쪽 아래 작은 알약 모양 — 읽는 글을 덜 가리게 */
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20;
+  border: 0; border-radius: 999px; padding: 10px 16px; font-size: .88rem; font-weight: 600; color: var(--on-accent); background: var(--accent);
   box-shadow: var(--shadow-lift); cursor: pointer; animation: fadeUp .3s var(--ease);
 }
 .toast {
@@ -434,7 +444,17 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .measure td:nth-child(2) { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .measure td:nth-child(3) { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .measure tr.hl td:last-child { color: var(--accent-ink); font-weight: 600; }
-@media (max-width: 560px) { .measure thead th:nth-child(3), .measure td:nth-child(3) { display: none; } }
+/* 모바일: 표 대신 항목마다 한 장의 카드처럼 (이름 · 값 한 줄, 풀이는 아래 줄) */
+@media (max-width: 560px) {
+  .measure thead { display: none; }
+  .measure tbody tr { display: grid; grid-template-columns: 1fr auto; column-gap: 10px; row-gap: 2px; padding: 10px 2px; border-top: 1px solid var(--line); }
+  .measure tbody th, .measure tbody td { border: 0; padding: 0; width: auto; }
+  .measure tbody th { grid-column: 1; color: var(--text); }
+  .measure td:nth-child(2) { grid-column: 2; text-align: right; }
+  .measure td:nth-child(3) { grid-column: 1 / -1; font-size: .78rem; }
+  .measure td:nth-child(3)::before { content: '평균 '; }
+  .measure td:nth-child(4) { grid-column: 1 / -1; font-size: .84rem; }
+}
 .advice { display: grid; gap: 10px; }
 .adv { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--card); }
 .adv > b { display: flex; align-items: center; gap: 7px; font-size: 0.92rem; }
@@ -539,3 +559,34 @@ button.link { background: none; border: 0; padding: 0; color: var(--accent-ink);
 .ba-result li.good::before { content: '✓ '; color: var(--ok); font-weight: 700; }
 .ba-result li.bad::before { content: '△ '; color: var(--accent-ink); font-weight: 700; }
 .ba-result li.flat::before { content: '· '; color: var(--muted); font-weight: 700; }
+
+/* 얼굴 분석 결과 탭 */
+.face-tabs { position: sticky; top: 0; z-index: 5; display: flex; gap: 4px; margin: 16px -4px 4px; padding: 6px 4px; background: var(--card); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.face-tabs::-webkit-scrollbar { display: none; }
+.face-tabs button { flex: 1 0 auto; border: 0; background: transparent; color: var(--muted); font-weight: 600; font-size: .9rem; padding: 8px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; transition: background .15s, color .15s; }
+.face-tabs button:hover { color: var(--text); }
+.face-tabs button.active, .face-tabs button[aria-selected="true"] { background: var(--accent); color: var(--on-accent, #fff); }
+.ftab > :first-child { margin-top: 10px; }
+
+footer .tech { margin-top: 6px; font-size: .78rem; }
+footer .tech summary { cursor: pointer; color: var(--muted); display: inline; }
+footer p { margin: 4px 0; }
+
+/* 모바일에서 화면 아래 떠 있는 '다른 사진 고르기' 버튼이 마지막 내용을 가리지 않게 */
+@media (max-width: 899px) { body:not([data-mode="face"]) #resultCard { padding-bottom: 84px; } }
+/* 긴 카드 목록 접기 */
+.suits-grid.collapsed .suit:nth-child(n+4) { display: none; }
+.more-btn { margin-top: 8px; }
+
+/* 분석 중 자리 표시 (스켈레톤) */
+.skel { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.skel i { display: block; border-radius: 10px; background: linear-gradient(90deg, var(--line) 0%, var(--bg-2) 50%, var(--line) 100%); background-size: 200% 100%; animation: sk 1.3s ease-in-out infinite; }
+.skel .sk-img { aspect-ratio: 1 / 1; max-height: 320px; width: 100%; border-radius: 14px; }
+.skel .sk-line { height: 16px; } .skel .sk-bar { height: 10px; }
+.skel .w40 { width: 40%; } .skel .w50 { width: 50%; } .skel .w70 { width: 70%; } .skel .w90 { width: 90%; }
+@keyframes sk { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .skel i { animation: none; } }
+.st { margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* 접근성: 키보드 포커스가 모든 버튼 · 링크에서 보이게, 작은 회색 글씨는 조금 더 진하게 */
+button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 2px; }
+.fr-head small, .fg-grid .why, .fit-export small, .remember small { color: color-mix(in srgb, var(--muted) 85%, var(--text)); }
