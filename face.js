@@ -306,6 +306,36 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
     }
     cover.eyes = { other: frac(count(epts), SEG.other) };
   }
+  // 귀: 부위 분할에서 귀는 얼굴 피부로 잡힌다. 눈썹 ~ 코 밑 높이에서 메시 윤곽(귀 앞) 바깥으로 이어지는 피부 폭 = 귀가 보이는 폭,
+  // 그 자리의 머리카락 비율 = 귀를 가린 정도. 고개를 돌리면 한쪽 귀가 더 보이므로 두 쪽을 따로 재고, 정면에 가까울 때만 돌출을 말한다
+  const ears = segAt ? [-1, 1].map((side) => {
+    const rows = [];
+    const N = 14, v0 = vBrow, v1 = vSub;
+    for (let k = 0; k <= N; k++) {
+      const v = v0 + ((v1 - v0) * k) / N;
+      const s = slice(v); if (!s) continue;
+      const um = side < 0 ? s.l : s.r;
+      let out = 0, miss = 0, started = false, hair = 0, n = 0;
+      for (let j = 0; j <= 60; j++) {
+        const d = -0.02 + (0.42 * j) / 60, c = segUV(um + side * d * CW, v);
+        if (d >= 0.02 && d <= 0.22) { n++; hair += c === SEG.hair; }
+        const skin = c === SEG.face || c === SEG.body;
+        if (skin) { if (d <= 0.06) started = true; if (started) { out = Math.max(out, d); miss = 0; } }
+        else if (started && ++miss >= 2) break;
+        if (!started && d > 0.06) break;
+      }
+      rows.push({ v, out: started ? out : 0, hair: n ? hair / n : 0 });
+    }
+    const vis = rows.filter((r) => r.out >= 0.05);
+    const top = vis.length ? Math.max(...vis.map((r) => r.v)) : null, bot = vis.length ? Math.min(...vis.map((r) => r.v)) : null;
+    const outs = vis.map((r) => r.out).sort((a, b) => a - b);
+    return {
+      side, shown: rows.length ? vis.length / rows.length : 0, hair: rows.length ? mean(rows.map((r) => r.hair)) : 0,
+      out: outs.length ? outs[Math.floor(outs.length * 0.8)] : 0,          // 위쪽 귀바퀴가 가장 많이 튀어나온 폭 (광대 너비 대비)
+      len: top != null ? (top - bot) / CW : 0, rows,
+    };
+  }) : null;
+  m.ears = ears && { shown: Math.min(...ears.map((e) => e.shown)), hair: Math.max(...ears.map((e) => e.hair)), out: mean(ears.map((e) => e.out)), len: mean(ears.map((e) => e.len)), each: ears.map(({ shown, hair, out, len }) => ({ shown, hair, out, len })) };
   const issues = checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval: OVAL.map(img), skinL, hairline, others, maskPts, K });
 
   // 그리기용 좌표 (사진 픽셀)
@@ -325,6 +355,7 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
     // 메이크업 영역을 그릴 때 쓰는 얼굴 좌표 변환
     U, toImg, img, CW, eyeW, v: { top: vTop, hair: vHair, brow: vBrow, browTop: vBrowTop, eye: vEye, nose: vNose, sub: vSub, stom: vStom, mouth: vMouth, menton: vMenton, cheek: cheek.v, chin: vChin },
     cheekLR: [cheek.l, cheek.r], zTop,
+    ears: ears && ears.map((e) => e.rows.filter((r) => r.out >= 0.05).map((r) => { const s = slice(r.v), um = e.side < 0 ? s.l : s.r; return [P(um, r.v), P(um + e.side * r.out * CW, r.v)]; })),
   };
   return { m, pose, geo, cover, issues, hairline: hairline ? (hairline.hair ? 'hair' : 'edge') : null, maskShare: maskPts / (2 * (K - 1)) };
 }
@@ -589,6 +620,8 @@ export function combineFaces(results) {
   for (const k of MEDIAN_KEYS) m[k] = median(ok.map((r) => r.m[k]));
   m.thirds = [0, 1, 2].map((i) => median(ok.map((r) => r.m.thirds[i])));
   m.asym = { brow: median(ok.map((r) => r.m.asym.brow)), eye: median(ok.map((r) => r.m.asym.eye)) };
+  const ears = ok.map((r) => r.m.ears).filter(Boolean);
+  if (ears.length) m.ears = { ...ears[0], ...Object.fromEntries(['shown', 'hair', 'out', 'len'].map((k) => [k, median(ears.map((e) => e[k]))])) };
   // 중앙값에 가장 가까운 장 (얼굴형에 쓰는 값 기준, 표준편차 단위)
   const z = zscores(m);
   const dist = (r) => { const zr = zscores(r.m); return Object.keys(z).reduce((s, k) => s + (zr[k] - z[k]) ** 2, 0); };

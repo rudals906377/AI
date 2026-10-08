@@ -4,12 +4,12 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, FRAME, SEG } from './face.js';
-import { faceReport } from './face-advice.js';
+import { faceReport, rankStyles } from './face-advice.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }) {
+export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, copy = async () => {} }) {
   const els = {
     tabs: $('modeTabs'), styleGrid: $('styleGrid'), faceGrid: $('faceGrid'),
     purpose: $('facePurpose'), gender: $('faceGender'), drop: $('faceDrop'), file: $('faceFile'), camera: $('faceCamera'), preview: $('facePreview'), hint: $('faceHint'),
@@ -20,6 +20,8 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     measures: $('faceMeasures'), adviceTitle: $('faceAdviceTitle'), advice: $('faceAdvice'), copyBtn: $('faceCopy'), againBtn: $('faceAgain'),
     retakeList: $('faceRetakeList'), retakeCanvas: $('faceRetakeCanvas'), retakeBtn: $('faceRetakeBtn'),
     cta: $('faceCta'), ctaTitle: $('faceCtaTitle'), ctaBtn: $('faceCtaBtn'),
+    rank: $('faceRank'), rankPick: $('faceRankPick'), rankAddCur: $('faceRankAddCur'), rankClear: $('faceRankClear'), rankFile: $('faceRankFile'),
+    rankStatus: $('faceRankStatus'), rankList: $('faceRankList'), rankSkip: $('faceRankSkip'), rankNote: $('faceRankNote'),
     cam: $('camDialog'), video: $('camVideo'), camShot: $('camShot'), camCancel: $('camCancel'), camNote: $('camNote'),
     camView: $('camView'), camGuide: $('camGuide'), camBox: $('camBox'), camBoxMain: $('camBoxMain'), camBoxSub: $('camBoxSub'), camOk: $('camOk'),
   };
@@ -137,6 +139,13 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
       `C ${P(cx + s * hw * 0.98, jy - fh * 0.12)} ${P(cx + s * hw, cheekY + fh * 0.12)} ${P(cx + s * hw, cheekY)} ` +
       `C ${P(cx + s * hw * 1.02, top - fh * 0.05)} ${P(cx + s * hw * 0.62, crown)} ${P(cx, crown)}`;
     els.camGuide.querySelector('.g-head').setAttribute('d', `M ${P(cx, chin)} ${side(-1)} M ${P(cx, chin)} ${side(1)}`);
+    // 귀: 눈썹 높이 ~ 코 밑 높이, 얼굴선 바깥에 붙은 귀 모양 (귓바퀴 + 안쪽 선). 양쪽 귀가 이 선에 보이면 귀 모양까지 잰다
+    const eT = top + fh * 0.3, eB = top + fh * 0.64, ex = hw * 0.97, ew = fh * 0.1;
+    const ear = (s) => `M ${P(cx + s * ex, eT + fh * 0.02)} C ${P(cx + s * (ex + ew * 0.5), eT - fh * 0.04)} ${P(cx + s * (ex + ew * 1.15), eT + fh * 0.02)} ${P(cx + s * (ex + ew), eT + fh * 0.12)} ` +
+      `C ${P(cx + s * (ex + ew * 0.9), eT + fh * 0.22)} ${P(cx + s * (ex + ew * 0.55), eB - fh * 0.08)} ${P(cx + s * (ex + ew * 0.45), eB - fh * 0.02)} ` +
+      `C ${P(cx + s * (ex + ew * 0.35), eB + fh * 0.02)} ${P(cx + s * ex * 1.0, eB)} ${P(cx + s * ex * 0.99, eB - fh * 0.05)} ` +
+      `M ${P(cx + s * (ex + ew * 0.25), eT + fh * 0.06)} C ${P(cx + s * (ex + ew * 0.7), eT + fh * 0.04)} ${P(cx + s * (ex + ew * 0.7), eT + fh * 0.18)} ${P(cx + s * (ex + ew * 0.35), eT + fh * 0.22)}`;
+    els.camGuide.querySelector('.g-ear').setAttribute('d', `${ear(-1)} ${ear(1)}`);
     // 목 → 어깨: 턱 각 안쪽에서 아래로 내려와 화면 아래에서 어깨로 퍼진다
     const nx = jx * 0.78, ny0 = jy + fh * 0.05, ny1 = Math.min(vh, chin + fh * 0.32);
     const neck = (s) => `M ${P(cx + s * nx, ny0)} L ${P(cx + s * nx, ny1)} C ${P(cx + s * nx, ny1 + fh * 0.12)} ${P(cx + s * hw * 1.6, ny1 + fh * 0.1)} ${P(cx + s * hw * 2.3, vh)}`;
@@ -354,6 +363,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     const secs = purpose === 'hair' ? report.hair : report.makeup;
     els.advice.innerHTML = secs.map((s) => `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li><span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
     // 그림 층: 헤어는 측정선, 메이크업은 메이크업 위치를 먼저
+    renderRank();
     layer = purpose === 'makeup' ? 'makeup' : 'measure';
     els.layers.querySelector('[data-layer="makeup"]').hidden = purpose !== 'makeup';
     els.layers.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.layer === layer));
@@ -365,6 +375,73 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     els.layers.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
     draw();
   });
+
+  // ---- 원하는 스타일 여러 장 → 베스트 순위 ------------------------------------------------
+  // 고른 사진은 이 화면에만 두고(서버로 보내지 않음), 목적(헤어 · 메이크업)별로 분석 결과를 기억해 둔다
+  const RANK_MAX = 8;
+  let picks = [];      // { blob, url, res: { hair, makeup } }
+  let rankSeq = 0;
+  const KO = { hair: '헤어', makeup: '메이크업' };
+  async function addPicks(blobs) {
+    const room = RANK_MAX - picks.length;
+    const fresh = [...blobs].filter((b) => b?.type?.startsWith('image/') && !picks.some((p) => p.blob === b));
+    if (fresh.length > room) toast(`최대 ${RANK_MAX}장까지 비교할 수 있어서 ${Math.max(0, room)}장만 넣었어요`);
+    picks.push(...fresh.slice(0, Math.max(0, room)).map((b) => ({ blob: b, url: URL.createObjectURL(b), res: {} })));
+    await analyzePicks();
+  }
+  async function analyzePicks() {
+    const id = ++rankSeq, want = purpose;
+    const todo = picks.filter((p) => !(want in p.res));
+    if (todo.length && !analyzeStyle) return;
+    for (let i = 0; i < todo.length; i++) {
+      els.rankStatus.classList.remove('hidden');
+      els.rankStatus.innerHTML = `<span class="spin"></span> 스타일 사진 ${picks.indexOf(todo[i]) + 1} / ${picks.length} 장을 살펴보는 중…`;
+      try { todo[i].res[want] = await analyzeStyle(todo[i].blob, want); } catch (e) { console.warn('[face] 스타일 분석 실패', e); todo[i].res[want] = null; if (/준비/.test(e.message)) toast(e.message); }
+      if (id !== rankSeq) return;
+    }
+    els.rankStatus.classList.add('hidden');
+    renderRank();
+  }
+  function renderRank() {
+    const has = picks.length > 0;
+    els.rankClear.classList.toggle('hidden', !has);
+    const { blob: sb, result: sr } = getStyle();
+    els.rankAddCur.classList.toggle('hidden', !sb || !sr?.is_beauty || picks.some((p) => p.blob === sb));
+    $('faceRankTitle').textContent = `원하는 ${KO[purpose]} 비교 · 베스트 순위`;
+    if (!has || !last?.ok) { els.rankList.innerHTML = ''; els.rankSkip.classList.add('hidden'); els.rankNote.classList.add('hidden'); return; }
+    if (picks.some((p) => !(purpose in p.res))) { analyzePicks(); return; }
+    const items = picks.map((p, i) => ({ i, url: p.url, result: p.res[purpose] }));
+    const { ranked, skipped } = rankStyles(last, items, { purpose, gender: gender || null });
+    const medal = ['🥇', '🥈', '🥉'];
+    els.rankList.innerHTML = ranked.map((r, k) => {
+      const plus = r.reasons.filter((x) => x.pts > 0).slice(0, 3), minus = r.reasons.filter((x) => x.pts < 0).slice(0, 2);
+      return `<li class="${k ? '' : 'best'}"><span class="rk">${medal[k] || k + 1}</span><img src="${r.url}" alt="고른 스타일 ${r.i + 1}">
+        <div><div class="nm">${esc(r.name)}<small class="no">${r.i + 1}번 사진</small>${k === 0 && ranked.length > 1 ? '<em>베스트</em>' : ''}<small>궁합 ${r.score}점</small></div>
+        <div class="bar"><b style="width:${r.score}%"></b></div>
+        <ul>${plus.map((x) => `<li>${esc(x.text)}</li>`).join('')}${minus.map((x) => `<li class="minus">${esc(x.text)}</li>`).join('')}</ul></div></li>`;
+    }).join('');
+    els.rankSkip.classList.toggle('hidden', !skipped.length);
+    // 같은 이유로 빠진 사진은 한 줄로 묶는다 (예: 1 · 2 · 5번 사진: 헤어 사진이라 메이크업 비교에서 뺐어요)
+    const why = new Map(); for (const x of skipped) why.set(x.skip, [...(why.get(x.skip) || []), x.i + 1]);
+    els.rankSkip.innerHTML = [...why].map(([w, ns]) => `<li>${ns.join(' · ')}번 사진: ${esc(w)}</li>`).join('');
+    const tie = ranked.length > 1 && ranked[0].score === ranked[1].score;
+    els.rankNote.textContent = `${tie ? '점수가 같을 때는 스타일이 더 또렷하게 보이는 사진을 위에 뒀어요. ' : ''}점수는 얼굴 측정과 헤어 · 메이크업 추천표가 얼마나 맞는지를 더한 값이라, 고른 사진들끼리 비교하는 참고용이에요. 마음이 가는 스타일이 가장 좋은 스타일이에요.`;
+    els.rankNote.classList.toggle('hidden', !ranked.length);
+    report.rank = ranked.map((r, k) => `${k + 1}. ${r.name} (궁합 ${r.score}점)`);
+  }
+  els.rankPick.addEventListener('click', () => els.rankFile.click());
+  els.rankFile.addEventListener('change', () => { addPicks(els.rankFile.files); els.rankFile.value = ''; });
+  els.rankAddCur.addEventListener('click', () => {
+    const { blob: sb, result: sr } = getStyle();
+    if (!sb || picks.some((p) => p.blob === sb)) return;
+    if (picks.length >= RANK_MAX) { toast(`최대 ${RANK_MAX}장까지 비교할 수 있어요`); return; }
+    const p = { blob: sb, url: URL.createObjectURL(sb), res: {} };
+    if (sr && sr.category === purpose) p.res[purpose] = sr;   // 이미 분석한 결과는 다시 쓰지 않는다
+    picks.push(p); analyzePicks().then(renderRank);
+  });
+  els.rankClear.addEventListener('click', () => { picks.forEach((p) => URL.revokeObjectURL(p.url)); picks = []; rankSeq++; els.rankStatus.classList.add('hidden'); renderRank(); });
+  els.rank.addEventListener('dragover', (e) => e.preventDefault());
+  els.rank.addEventListener('drop', (e) => { e.preventDefault(); e.stopPropagation(); addPicks(e.dataTransfer.files); });
 
   // ---- 그리기 ------------------------------------------------------------------------
   // 얼굴 둘레만 잘라서 보여 준다
@@ -447,7 +524,10 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
       // 턱 각도
       const [ga, gb] = g.gonion.map(T);
       for (const p of [ga, gb]) { ctx.fillStyle = '#ff7ad9'; ctx.beginPath(); ctx.arc(p[0], p[1], 4.5 * lw, 0, Math.PI * 2); ctx.fill(); }
-      els.legend.innerHTML = `<span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>얼굴선</span><span><i style="background:#9fd0ff"></i>너비 (광대 = 1)</span><span><i style="background:#c8f0b0"></i>삼정</span><span><i style="background:#ff7ad9"></i>턱 모서리 ${Math.round(m.jawAngle)}°</span>`;
+      // 귀: 얼굴선 밖으로 보이는 귀의 바깥 끝을 이은 선 (정면에서 두 귀를 잴 수 있었을 때만)
+      const earOn = report.traits.ears && report.traits.ears !== 'hidden' && (g.ears || []).every((rows) => rows.length >= 3);
+      if (earOn) for (const rows of g.ears) line(ctx, rows.map(([, b]) => T(b)), '#ffd166', 2.2);
+      els.legend.innerHTML = `${earOn ? '<span><i style="background:#ffd166"></i>귀 바깥선</span>' : ''}<span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>얼굴선</span><span><i style="background:#9fd0ff"></i>너비 (광대 = 1)</span><span><i style="background:#c8f0b0"></i>삼정</span><span><i style="background:#ff7ad9"></i>턱 모서리 ${Math.round(m.jawAngle)}°</span>`;
     } else if (layer === 'makeup') {
       drawZones(ctx, f, T, scale);
       els.legend.innerHTML = '<span><i style="background:rgba(120,78,55,.8)"></i>쉐딩</span><span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>하이라이터</span>' + (report.gender === 'm' ? '' : '<span><i style="background:rgba(236,110,130,.85)"></i>블러셔</span>');
@@ -530,6 +610,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
       lines.push(`- ${s.title}${s.text ? `: ${s.text}` : ''}`);
       for (const i of s.list || []) lines.push(`  · ${i.name}${i.why ? ` — ${i.why}` : ''}`);
     }
+    if (report.rank?.length) lines.push('', `원하는 ${purpose === 'hair' ? '헤어' : '메이크업'} 베스트 순위`, ...report.rank);
     lines.push('', '(AI 생성 · 뷰티 스타일 AI 분석 · 사진 한 장으로 잰 참고용 결과예요)');
     copy(lines.join('\n'));
   });

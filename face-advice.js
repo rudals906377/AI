@@ -43,6 +43,19 @@ const clashes = (name, avoid) => (SHAPE_TAGS[name] || []).some((t) => avoid.incl
 
 // ---- 측정값 → 특징 ----------------------------------------------------------------
 const z = (k, x, i) => (i == null ? (x - NORM[k][0]) / NORM[k][1] : (x - NORM[k][i][0]) / NORM[k][i][1]);
+// 귀: 정면(고개 8° 이내)에서 두 귀가 모두 보일 때만 돌출 정도를 말한다. 기준은 시험 사진 60장으로 정했다 (face.js 의 m.ears)
+// out = 귀가 얼굴 윤곽 밖으로 보이는 폭 (광대 너비 대비). 두 쪽 평균과 작은 쪽을 같이 봐서, 한쪽만 손 · 배경이 잡힌 경우는 빼낸다
+function earState(f) {
+  const e = f.m.ears;
+  if (!e) return null;
+  if (e.shown < 0.1 && e.hair >= 0.4) return 'hidden';
+  const each = e.each || [];
+  const minOut = Math.min(...each.map((x) => x.out)), minShown = Math.min(...each.map((x) => x.shown));
+  if (Math.abs(f.pose?.yaw ?? 0) > 8 || minShown < 0.2) return null;   // 고개를 돌렸거나 한쪽 귀가 잘 안 보이면 말하지 않는다
+  if (e.out >= 0.125 && minOut >= 0.1) return 'out';
+  if (e.out >= 0.115 && minOut >= 0.095) return 'slight';
+  return 'normal';
+}
 function traits(f) {
   const m = f.m;
   const t = {
@@ -52,6 +65,7 @@ function traits(f) {
     browGap: z('browGap', m.browGap), browArch: z('browArch', m.browArch), noseW: z('nose', m.nose), mouthW: z('mouth', m.mouth),
     upperThin: z('lips', m.lips), lipFull: z('lipFull', m.lipFull),
   };
+  t.ears = earState(f);
   if (!f.geo.hairlineFound) {
     // 헤어라인을 못 찾았으면 이마 높이 · 얼굴 길이는 말하지 않고, 중안부와 하안부만 서로 비교한다
     const r = m.thirds[2] / m.thirds[1], r0 = NORM.thirds[2][0] / NORM.thirds[1][0];
@@ -84,6 +98,12 @@ function measures(f, t) {
   } else {
   const thNote = [['상안부', t.upper], ['중안부', t.mid], ['하안부', t.lower]].filter(([, x]) => Math.abs(x) >= 0.8).map(([n, x]) => `${n}가 ${say(x, '짧은 편', '긴 편')}`);
   row('thirds', '삼정 (이마 : 눈썹~코 : 코~턱)', th.map((x) => fx(x)).join(' : '), NORM.thirds.map((x) => x[0]).join(' : '), thNote.length ? `${thNote.join(', ')}이에요` : '세 부분이 평균처럼 고르게 나뉘어요', Math.max(Math.abs(t.upper), Math.abs(t.mid), Math.abs(t.lower)));
+  }
+  if (t.ears) {
+    const e = f.m.ears;
+    const EAR = { hidden: ['머리카락에 가려 보이지 않음', '귀 모양은 보지 않았어요'], out: [`옆으로 보이는 폭 ${fx(e.out)}`, '귀가 옆으로 잘 보이는 편이에요'],
+      slight: [`옆으로 보이는 폭 ${fx(e.out)}`, '귀가 옆으로 약간 보이는 편이에요'], normal: [`옆으로 보이는 폭 ${fx(e.out)}`, null] };
+    row('ears', '귀 (정면)', EAR[t.ears][0], '0.09', EAR[t.ears][1], t.ears === 'out' ? 1.6 : t.ears === 'slight' ? 0.9 : 0);
   }
   row('philtrum', '코 밑~입 : 입~턱끝', `1 : ${fx(1 / m.philtrum, 1)}`, `1 : ${fx(1 / NORM.philtrum[0], 1)}`, say(t.philtrum, '짧은 편', '긴 편') && `인중이 ${say(t.philtrum, '짧은 편', '긴 편')}이에요`, t.philtrum);
   row('eyeSpacing', '미간 : 눈 가로', `${fx(m.eyeSpacing)} : 1`, `${NORM.eyeSpacing[0]} : 1`, say(t.eyeWide, '좁은 편', '넓은 편') && `미간이 ${say(t.eyeWide, '좁은 편', '넓은 편')}이에요`, t.eyeWide);
@@ -188,7 +208,7 @@ function hairAdvice(f, t, gender = null) {
   const aliases = keys.flatMap((k) => ALIAS[k]);
   if (t.upper >= 0.8 || t.foreheadW >= 0.8) aliases.push('이마가 넓은 얼굴');
   // 화면에 두 가지(긴 머리 · 짧은 머리) 피할 스타일을 모두 보여 주므로, 추천은 두 쪽 피할 특징과 모두 겹치지 않아야 한다
-  const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top]])];
+  const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top], ...(t.ears === 'out' ? ['sideShort'] : [])])];
   // 커트: suits.js 표에서 내 얼굴형이 들어간 커트
   const cuts = Object.entries(CUT_FACE).filter(([, [faces]]) => faces.some((x) => aliases.includes(x)))
     .map(([name, [faces, why]]) => ({ name, why, primary: faces.some((x) => ALIAS[top].includes(x)) }))
@@ -209,6 +229,9 @@ function hairAdvice(f, t, gender = null) {
   if (t.mid >= 0.8) extra.push('중안부가 긴 편이라 눈썹~광대 높이에 앞머리 끝이나 옆머리 레이어가 오면 세로 길이가 끊겨 보여요.');
   if (t.lower >= 0.8 || t.chinW <= -0.8) extra.push(`${t.lower >= 0.8 ? '하안부가 긴 편' : '턱끝이 뾰족한 편'}이라 머리를 기른다면 턱 높이에 컬이나 볼륨이 오는 기장이 아래 얼굴을 채워 줘요.`);
   if (t.jawW >= 0.8 && top !== 'square') extra.push('턱이 넓은 편이라 턱선에서 끊기는 기장보다 턱 아래로 내려오는 기장이 좋아요.');
+  if (t.ears === 'out') extra.push('귀가 옆으로 잘 보이는 편이라 옆머리를 바짝 치거나 귀 뒤로 넘기기보다, 귀를 반쯤 덮는 옆머리 기장이나 귀 높이의 볼륨이 시선을 부드럽게 분산해 줘요.');
+  else if (t.ears === 'slight') extra.push('귀가 옆으로 약간 보이는 편이라 짧은 머리라면 귀 윗부분을 살짝 덮는 기장을 남기면 옆선이 정돈돼 보여요.');
+  else if (t.ears === 'normal') extra.push('정면에서 귀가 크게 두드러지지 않는 편이라 귀를 드러내는 스타일(귀 뒤로 넘기기 · 짧은 옆머리)도 부담 없어요. 귀걸이로 포인트를 주기에도 좋아요.');
   const shortFirst = gender === 'm';
   const longSec = longCuts.length && { key: 'cuts', title: gender === 'm' ? '추천 커트 · 긴 머리 · 장발' : '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) };
   const shortSec = shortCuts.length && { key: 'short', title: '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) };
@@ -216,6 +239,7 @@ function hairAdvice(f, t, gender = null) {
   const [lenA, lenB] = two(`긴 머리 · 단발이라면 ${L.length}`, `짧은 머리라면 ${S.length}`);
   const [partA, partB] = two(`긴 머리 · 단발: ${L.part}`, `짧은 머리: ${S.part}`);
   const avoid = two(L.avoid.map((x) => ({ name: `(긴 머리 · 단발) ${x}` })), S.avoid.map((x) => ({ name: `(짧은 머리) ${x}` }))).flat();
+  if (t.ears === 'out') avoid.push({ name: '(귀) 옆머리를 바짝 쳐서 귀가 다 드러나는 스타일 · 귀 뒤로 꽉 넘겨 고정하는 스타일' });
   return [
     { key: 'idea', title: '핵심', text: [(shortFirst ? S : L).idea, ...extra].join(' ') },
     ...two(longSec, shortSec),
@@ -408,6 +432,95 @@ function matchStyle(f, style, t) {
     return { title: `지금 분석한 메이크업 · ${genre}`, verdict: bad ? '조금 바꾸면 더 좋아요' : '잘 어울려요', good: !bad, text: lines.join(' ') };
   }
   return null;
+}
+
+// ---- 원하는 스타일 여러 장 → 내 얼굴 기준 순위 ------------------------------------------
+// 사진마다 스타일 분석 결과(커트 · 앞머리 · 기장 · 연출 / 블러셔 · 아이라인 · 입술)를 내 얼굴 측정과 맞춰 점수를 매긴다.
+// 점수는 '추천표와 얼마나 맞는지'의 합이라 절대적인 평가가 아니고, 고른 사진들끼리 비교하는 용도다.
+const EAR_OPEN = /포니테일|똥머리|슬릭번|업스타일|올백|스페이스번/;
+function scoreStyle(f, style, t, gender) {
+  const A = (g) => style.attributes.find((a) => a.group === g && a.score >= 0.4 && !a.all?.[0]?.hidden);
+  const top = f.shape.probs[0].key, shapeName = short(SHAPES[top]);
+  const near = f.shape.probs[1].p >= 0.25 ? f.shape.probs[1].key : null;
+  const names = [...ALIAS[top], ...(near ? ALIAS[near] : [])];
+  const reasons = [];
+  // 근거마다 그 속성을 얼마나 확신하는지(0.4~1)만큼 반영한다 → 같은 커트라도 더 또렷한 사진이 위로
+  let c = 1;
+  const conf = (a) => (c = 0.6 + 0.4 * Math.min(1, (a.score - 0.4) / 0.5));
+  const add = (pts, text) => reasons.push({ pts: pts * c, text });
+  if (style.category === 'hair') {
+    const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top], ...(t.ears === 'out' ? ['sideShort'] : [])])];
+    const cut = A('cut'), bangs = A('bangs'), len = A('length'), styling = A('styling'), perm = A('perm');
+    if (cut) {
+      conf(cut);
+      const faces = CUT_FACE[cut.label]?.[0] || [];
+      if (clashes(cut.label, avoidTags)) add(-20, `${josa(cut.label, '은/는')} ${shapeName}에서 피하면 좋은 모양이 들어 있어요`);
+      else if (faces.some((x) => ALIAS[top].includes(x))) add(22, `${josa(cut.label, '은/는')} ${shapeName}에 추천하는 커트예요`);
+      else if (near && faces.some((x) => ALIAS[near].includes(x))) add(12, `${josa(cut.label, '은/는')} 가까운 얼굴형(${short(SHAPES[near])})에 추천하는 커트예요`);
+      else if (top === 'oval') add(10, `${shapeName}은 ${josa(cut.label, '을/를')} 포함해 대부분의 커트를 소화해요`);
+      else if (faces.length) add(-8, `${josa(cut.label, '은/는')} 주로 ${faces.join(' · ')}에 추천하는 커트예요`);
+    }
+    if (bangs && bangs.label !== '확인 불가' && BANGS_FACE[bangs.label]) {
+      conf(bangs);
+      const ok = BANGS_BY_SHAPE[top].includes(bangs.label) || (near && BANGS_BY_SHAPE[near].includes(bangs.label)) || names.some((x) => BANGS_FACE[bangs.label][0].includes(x));
+      if (clashes(bangs.label, avoidTags)) add(-12, `${josa(bangs.label, '은/는')} ${shapeName}에서 피하면 좋은 앞머리예요`);
+      else if (bangs.label === '앞머리 없음' && t.upper >= 0.8) add(-10, '이마가 긴 편이라 이마를 다 드러내기보다 앞머리가 있으면 좋아요');
+      else if (bangs.label !== '앞머리 없음' && t.upper >= 0.8) add(10, `이마가 긴 편이라 ${josa(bangs.label, '이/가')} 비율을 맞춰 줘요`);
+      else if (ok) add(10, `${bangs.label === '앞머리 없음' ? '이마를 드러내는 스타일' : bangs.label}도 얼굴형과 잘 맞아요`);
+    }
+    if (len) {
+      conf(len);
+      if (top === 'long' && len.label === '긴머리' && (!perm || /생머리|매직/.test(perm.label))) add(-8, '긴 얼굴형에 층 없는 긴 생머리는 얼굴이 더 길어 보일 수 있어요');
+      if (top === 'long' && (len.label === '단발' || len.label === '중단발')) add(6, '턱~어깨 기장이라 얼굴 길이가 짧아 보여요');
+      if (top === 'round' && len.label === '중단발') add(5, '턱 아래로 내려오는 기장이 얼굴을 갸름해 보이게 해요');
+      if ((t.lower >= 0.8 || t.chinW <= -0.8) && (len.label === '단발' || len.label === '중단발') && perm && !/생머리|매직/.test(perm.label)) add(6, '턱 높이의 컬이 아래 얼굴을 채워 줘요');
+    }
+    if (perm && conf(perm) && top === 'long' && /S컬|물결|빌드|히피|글램|셋팅/.test(perm.label)) add(5, `${perm.label}의 옆 볼륨이 얼굴 길이를 줄여 보이게 해요`);
+    c = 1;
+    if (t.ears === 'out') {
+      if ((cut && clashes(cut.label, ['sideShort'])) || (styling && EAR_OPEN.test(styling.label))) add(-10, '귀가 옆으로 잘 보이는 편이라 귀가 다 드러나는 스타일은 귀가 더 강조될 수 있어요');
+      else if (len && len.label !== '숏컷') add(5, '귀를 덮는 기장이라 옆선이 부드러워 보여요');
+    } else if (t.ears === 'normal' && styling && EAR_OPEN.test(styling.label)) add(4, '귀가 크게 두드러지지 않아 귀를 드러내는 연출도 부담 없어요');
+  } else if (style.category === 'makeup') {
+    const cheek = A('cheek'), line = A('eyeLine'), lipT = A('lipTexture'), brow = A('brow');
+    if (cheek && CHEEK_FACE[cheek.label]) {
+      conf(cheek);
+      const faces = CHEEK_FACE[cheek.label][0];
+      const ok = faces.includes('대부분') || names.some((x) => faces.includes(x.replace(' 얼굴', ''))) || faces.includes(shapeName);
+      ok ? add(14, `${josa(cheek.label, '이/가')} 얼굴형과 잘 맞아요`) : add(-10, `${josa(cheek.label, '은/는')} 주로 ${faces}에 추천해요`);
+    }
+    if (line && (line.label === '캣아이라인' || line.label === '강아지 라인')) {
+      conf(line);
+      const ok = line.label === '캣아이라인' ? t.eyeUp < 0.8 : t.eyeUp > -0.8;
+      ok ? add(10, `${josa(line.label, '이/가')} 눈꼬리 각도와 잘 맞아요`) : add(-10, line.label === '캣아이라인' ? '눈꼬리가 이미 올라간 편이라 캣아이라인은 날카로워 보일 수 있어요' : '눈꼬리가 내려간 편이라 강아지 라인은 처져 보일 수 있어요');
+    }
+    if (lipT && lipT.label === '오버립' && conf(lipT)) t.lipFull < 0.8 ? add(6, '입술 두께에 오버립이 잘 맞아요') : add(-8, '입술이 도톰한 편이라 오버립은 아주 살짝만 하는 게 좋아요');
+    if (brow) {
+      conf(brow);
+      if (brow.label === '일자 눈썹' && top === 'long') add(8, '일자 눈썹이 긴 얼굴형에 가로 라인을 만들어 줘요');
+      if (brow.label === '아치 눈썹' && (top === 'round' || top === 'square')) add(8, `아치 눈썹이 ${shapeName}의 윤곽을 부드럽게 해 줘요`);
+      if (brow.label === '일자 눈썹' && top === 'round') add(-5, '둥근 얼굴형은 일자 눈썹보다 살짝 아치가 있는 눈썹이 갸름해 보여요');
+    }
+  }
+  const sum = reasons.reduce((a, r) => a + r.pts, 0);
+  // 근거가 없으면 60점(중간)에서 시작해 근거마다 더하고 뺀다
+  const score = Math.max(5, Math.min(98, Math.round(60 + sum)));
+  return { score, raw: sum, reasons: reasons.sort((a, b) => b.pts - a.pts), basis: reasons.length };
+}
+export function rankStyles(f, items, { purpose = 'hair', gender = null } = {}) {
+  const t = traits(f);
+  const out = items.map((it) => {
+    const r = it.result;
+    if (!r) return { ...it, skip: '분석하지 못했어요' };
+    if (r.many) return { ...it, skip: '여러 사람이 함께 나온 사진이라 뺐어요' };
+    if (!r.is_beauty) return { ...it, skip: '뷰티 사진이 아니라서 뺐어요' };
+    if (r.category !== purpose) return { ...it, skip: `${r.category === 'hair' ? '헤어' : r.category === 'makeup' ? '메이크업' : r.category === 'nail' ? '네일' : '타투'} 사진이라 ${purpose === 'hair' ? '헤어' : '메이크업'} 비교에서 뺐어요` };
+    const s = scoreStyle(f, r, t, gender);
+    if (!s.basis) return { ...it, skip: '얼굴형과 맞춰 볼 단서(커트 · 앞머리 · 블러셔 등)를 찾지 못했어요' };
+    return { ...it, ...s, name: r.genre?.name ?? r.headline };
+  });
+  const ranked = out.filter((x) => !x.skip).sort((a, b) => b.raw - a.raw || b.basis - a.basis);
+  return { ranked, skipped: out.filter((x) => x.skip) };
 }
 
 // ---- 메이크업 위치 그리기용 영역 (얼굴 좌표: 가로 u, 세로 v · 광대 너비 CW 기준) -------------
