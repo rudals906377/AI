@@ -34,6 +34,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     gallery: $('faceGallery'), galleryGrid: $('faceGalleryGrid'), galleryTitle: $('faceGalleryTitle'),
     couple: $('faceCouple'), coupleBtn: $('coupleBtn'), coupleShare: $('coupleShare'), coupleFile: $('coupleFile'), coupleStatus: $('coupleStatus'), coupleResult: $('coupleResult'),
     baBtn: $('baBtn'), baFile: $('baFile'), baStatus: $('baStatus'), baResult: $('baResult'),
+    faceTabs: $('faceTabs'),
     rank: $('faceRank'), rankPick: $('faceRankPick'), rankAddCur: $('faceRankAddCur'), rankClear: $('faceRankClear'), rankFile: $('faceRankFile'),
     rankStatus: $('faceRankStatus'), rankList: $('faceRankList'), rankSkip: $('faceRankSkip'), rankNote: $('faceRankNote'),
     cam: $('camDialog'), video: $('camVideo'), camShot: $('camShot'), camCancel: $('camCancel'), camNote: $('camNote'),
@@ -326,7 +327,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     els.result.classList.add('hidden');
     els.status.classList.remove('hidden');
     const n = frameBlobs?.length || 1;
-    els.status.innerHTML = `<span class="spin"></span> ${n > 1 ? `${n}장을 재는 중…` : '얼굴을 재는 중…'} <small>처음에는 얼굴 분석 모델(약 20MB)을 내려받아요</small>`;
+    // 결과 자리를 미리 그려 둬서(스켈레톤) 끝났을 때 화면이 덜컹거리지 않게
+    els.status.innerHTML = `<p class="st"><span class="spin"></span> ${n > 1 ? `${n}장을 재는 중…` : '얼굴을 재는 중…'} <small>처음에는 얼굴 분석 모델(약 20MB)을 내려받아요</small></p><div class="skel" aria-hidden="true"><i class="sk-img"></i><i class="sk-line w40"></i><i class="sk-line w70"></i><i class="sk-line w90"></i><i class="sk-bar"></i><i class="sk-bar w70"></i><i class="sk-bar w50"></i></div>`;
     if (window.innerWidth < 900) els.card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     try {
       let f;
@@ -422,6 +424,29 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       els.styleFit.querySelector('[data-act="face"]').onclick = () => { setMode('face'); if (r.category !== purpose) setPurpose(r.category); };
     }
   }
+
+  // ---- 결과 탭 (맞춤 추천 · 스타일 찾기 · 측정 결과 · 재미로 보기) — 긴 결과를 나눠 핵심이 먼저 보이게 -------------
+  function setTab(t, { focus = false } = {}) {
+    els.faceTabs.querySelectorAll('[role="tab"]').forEach((b) => {
+      const on = b.dataset.tab === t;
+      b.setAttribute('aria-selected', String(on)); b.classList.toggle('active', on); b.tabIndex = on ? 0 : -1;
+      if (on && focus) b.focus();
+    });
+    els.result.querySelectorAll('.ftab').forEach((p) => p.classList.toggle('hidden', p.dataset.tab !== t));
+  }
+  els.faceTabs.addEventListener('click', (e) => {
+    const b = e.target.closest('[role="tab"]'); if (!b) return;
+    setTab(b.dataset.tab);
+    // 탭 막대가 화면 위에 붙어 있을 때는 내용 처음으로 올려 준다
+    const top = els.faceTabs.getBoundingClientRect().top;
+    if (top <= 1) els.faceTabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  els.faceTabs.addEventListener('keydown', (e) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    const tabs = [...els.faceTabs.querySelectorAll('[role="tab"]')], i = tabs.findIndex((b) => b.getAttribute('aria-selected') === 'true');
+    const j = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    e.preventDefault(); setTab(tabs[j].dataset.tab, { focus: true });
+  });
 
   // ---- 내 얼굴형 베스트 스타일 갤러리 (예시 사진을 미리 분석해 둔 samples/styles.json 을 내 얼굴로 채점) ----------
   let sampleStyles = null;
