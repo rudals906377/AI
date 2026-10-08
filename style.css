@@ -432,6 +432,18 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 /* PC 웹캠 */
 .cam { border: 0; border-radius: 14px; padding: 16px; background: var(--card); color: var(--text); width: min(560px, calc(100vw - 32px)); }
 .cam::backdrop { background: rgba(20, 14, 10, .6); }
-.cam-view { position: relative; border-radius: 10px; overflow: hidden; background: #000; aspect-ratio: 4 / 3; }
+.cam-view { position: relative; border-radius: 10px; overflow: hidden; background: #000; aspect-ratio: 4 / 3; margin: 0 auto; max-width: 100%; }
 .cam-view video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); display: block; }
 .cam-guide { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cam-guide path { fill: none; stroke: rgba(255, 255, 255, .9); stroke-width: 3; stroke-dasharray: 10 8; vector-effect: non-scaling-stroke; transition: stroke .2s; filter: drop-shadow(0 0 2px rgba(0, 0, 0, .6)); }
+.cam-view.aligned .cam-guide path { stroke: #22c55e; stroke-width: 4; stroke-dasharray: none; }
+.cam-box { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); max-width: calc(100% - 20px); width: max-content; padding: 8px 14px; border-radius: 12px;
+  background: rgba(20, 14, 10, .72); color: #fff; text-align: center; line-height: 1.35; pointer-events: none; }
+.cam-box b { display: block; font-size: 1.05rem; }
+.cam-box small { display: block; opacity: .85; font-size: .8rem; }
+.cam-box.adjust { background: rgba(194, 65, 12, .85); }
+.cam-box.good { background: rgba(21, 128, 61, .88); }
+.cam-ok { position: absolute; right: 12px; bottom: 12px; width: 52px; height: 52px; pointer-events: none; }
+.cam-ok svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.cam-ok circle { fill: rgba(0, 0, 0, .35); stroke: rgba(255, 255, 255, .35); stroke-width: 4; }
+.cam-ok circle.p { fill: none; stroke: #4ade80; stroke-dasharray: 106.8; stroke-dashoffset: 106.8; }

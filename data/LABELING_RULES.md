@@ -70,6 +70,13 @@ If a photo on a sheet is clearly a different beauty category than the sheet's ca
   label (5), was added as another acceptable answer (50), or was rejected (126). A second search of the crawl pool for
   labels that still had no photos (816 candidates) kept only 3 photos (`batch: "8"`); the pool has almost no photos of
   those styles. `review: "v3.1"` marks the changed rows.
+- `batch: "9"` — (2026-10-08) photos found on Openverse / Wikimedia Commons with Korean-style search terms
+  (CC licenses that allow commercial use and modification; 1,082 downloaded, 475 left after removing non-beauty photos and
+  near-duplicates). Assistant agents labeled them with these rules; 255 kept (the rest were "x" or not beauty photos).
+  Used to train the precise model only — it did not help the base model.
+- `batch: "10"` — 27 screenshots the user collected (Korean-style portraits, one nail photo), labeled by Claude
+  (36 rows: a portrait can have a hair row and a makeup row). `license: "user-provided"`, rights not confirmed;
+  the image files are not in this repository. Used to train the precise model.
 - Labels that describe an accessory or a temporary finish rather than an arrangement (curling-iron waves, headband)
   were not added to single-choice groups, because they overlap with every other label in the group.
 - No labels have been reviewed by human beauty professionals yet.
