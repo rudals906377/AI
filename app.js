@@ -5,9 +5,10 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
-import { extractColors, COLOR_TARGETS, styleRegions } from './colors.js';
+import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initFaceUI } from './face-ui.js';
+import { quipFor, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -29,7 +30,7 @@ env.allowLocalModels = false;
 // ---- DOM ----------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
 const els = {
-  analyzing: $('analyzing'), analyzingSub: $('analyzingSub'), subjectNote: $('subjectNote'),
+  analyzing: $('analyzing'), analyzingSub: $('analyzingSub'), subjectNote: $('subjectNote'), quip: $('quip'), quipText: $('quipText'),
   status: $('status'), statusText: $('statusText'), statusBar: $('statusBar'),
   drop: $('drop'), file: $('file'), preview: $('preview'), dropHint: $('dropHint'),
   pickBtn: $('pickBtn'), cameraBtn: $('cameraBtn'), camera: $('camera'),
@@ -294,8 +295,15 @@ async function run() {
   els.resultCard.classList.add('busy');
   els.analyzingSub.textContent = modelKey === 'large' ? '정밀 모드는 메이크업 사진에서 20~25초 걸릴 수 있어요' : '보통 몇 초면 끝나요';
   els.analyzing.classList.remove('hidden');
+  // 분석 중 문구를 돌려 가며 (기다리는 동안 무엇을 보는지)
+  let wi = 0; const wb = els.analyzing.querySelector('b'); wb.textContent = '분석 중입니다…';
+  const ticker = setInterval(() => { wb.textContent = WORKING[wi++ % WORKING.length]; }, 1600);
   if (!lastResult) els.empty.classList.add('hidden');
   try {
+    // 주인공이 여럿이면(여러 사람 · 사람과 동물 · 여러 마리 · 콜라주) 분석하지 않고 안내한다
+    let subjects = null;
+    try { subjects = await detectSubjects(currentBlob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }
+    if (subjects && subjects.n >= 2) { showManySubjects(subjects); return; }
     const result = await analyzer.analyze(currentBlob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
     result.run_id = seq;
     lastResult = result;
@@ -308,6 +316,7 @@ async function run() {
   } finally {
     busy = false;
     els.resultCard.classList.remove('busy');
+    clearInterval(ticker);
     els.analyzing.classList.add('hidden');
     if (!lastResult) els.empty.classList.remove('hidden');
     if (!lastResult) els.empty.classList.remove('hidden');
@@ -361,7 +370,20 @@ async function runAdvanced(result) {
 }
 
 // ---- 렌더링 -------------------------------------------------------------------
+// 대상이 여럿인 사진: 이유를 말하고 한 대상만 나온 사진을 부탁한다
+function showManySubjects(s) {
+  lastResult = null;
+  els.result.classList.add('hidden');
+  els.empty.classList.remove('hidden');
+  const unit = (k) => (k === '사람' ? '명' : k === '곰인형' ? '개' : '마리');
+  const what = josa(Object.entries(s.counts).map(([k, n]) => `${k} ${n}${unit(k)}`).join(', '), '이/가');
+  els.empty.innerHTML = `<strong>사진 속 대상이 여러 개라 분석이 어려울 것 같아요 ㅠ.ㅠ</strong><small>이 사진에서 ${esc(what)} 함께 보여요. 누구(무엇)의 스타일을 봐야 할지 헷갈려서 결과가 섞일 수 있어요.<br>대상이 하나인 사진을 올려 주시면 열심히 해 볼게요!</small>`;
+  els.empty.classList.add('many');
+  faceUI.styleChanged(null);
+}
+
 function render(r) {
+  els.empty.classList.remove('many');
   els.empty.classList.add('hidden');
   els.result.classList.remove('hidden', 'enter');
   void els.result.offsetWidth; // 애니메이션을 다시 시작하려고 한 번 그리게 한다
@@ -401,6 +423,12 @@ function render(r) {
   els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = paragraphsHtml(r);
+  // 에디터 한마디: 같은 결과면 같은 문장 (헤드라인으로 고른다)
+  let h = 0; for (const c of r.headline || '') h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  r.quip = quipFor(r.category, { genre: r.genre?.name, labels: r.attributes.filter((a) => a.score >= 0.5).map((a) => a.label),
+    sure: (r.genre?.score ?? 0) >= 0.5, subject: r.subject, pick: (xs) => xs[h % xs.length] });
+  els.quipText.textContent = r.quip;
+  els.quip.classList.toggle('hidden', !r.quip);
   renderSuits(r);
   faceUI.styleChanged(r);
 
@@ -740,7 +768,7 @@ function slim(r) {
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
       ...(a.family ? { family: { label: a.family.label, score: round(a.family.score), level: a.family.level, members: a.family.members.map((x) => x.label) } } : {}),
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
-    trends: r.trends, tags: r.tags, subject: r.subject?.ko ?? null, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
+    trends: r.trends, tags: r.tags, quip: r.quip, subject: r.subject?.ko ?? null, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
     secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,
       description_ko: r.secondary.description_ko, trends: r.secondary.trends, tags: r.secondary.tags,
       attributes: r.secondary.attributes.map((a) => ({ group: a.group, label: a.label, score: round(a.score), level: a.level })) },
@@ -754,7 +782,7 @@ const pct = (x) => `${Math.round(x * 100)}%`;
 const round = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 분석 결과라 틀릴 수 있어요)` : ''));
+els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.quip ? `에디터 한마디: ${lastResult.quip}\n` : ''}${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 분석 결과라 틀릴 수 있어요)` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) {
   try { await navigator.clipboard.writeText(text); toast('복사했어요'); } catch { toast('복사하지 못했어요'); }

@@ -456,3 +456,8 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .analyzing small { display: block; color: var(--muted); font-size: .82rem; }
 .subject-note { margin: 0 0 10px; padding: 10px 14px; border-radius: 10px; background: #fff4e5; border: 1px solid #f5c98b; color: #7a4a12; font-size: .95rem; }
 .subject-note b { margin-right: 4px; }
+.result-empty.many strong { color: #9a3412; }
+.result-empty.many small { line-height: 1.6; }
+.quip { margin: 10px 0 4px; padding: 10px 14px; border-left: 3px solid var(--mocha, #8b5e4a); background: var(--bg-2); border-radius: 0 10px 10px 0; font-size: .93rem; line-height: 1.55; }
+.quip b { display: block; font-size: .78rem; letter-spacing: .02em; color: var(--muted); margin-bottom: 2px; }
+.face-quip { display: block; margin-top: 6px; font-style: italic; opacity: .92; }

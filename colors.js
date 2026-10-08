@@ -38,12 +38,37 @@ function task(kind) {
         runningMode: 'IMAGE', numFaces: 1,
       });
     }
+    if (kind === 'object') {
+      return m.ObjectDetector.createFromOptions(fileset, {
+        baseOptions: { modelAssetBuffer: await modelBytes('efficientdet_lite0.tflite'), delegate: 'CPU' },
+        runningMode: 'IMAGE', scoreThreshold: 0.3, maxResults: 12,
+      });
+    }
     return m.HandLandmarker.createFromOptions(fileset, {
       baseOptions: { modelAssetBuffer: await modelBytes('hand_landmarker.task'), delegate: 'CPU' },
       runningMode: 'IMAGE', numHands: 2, minHandDetectionConfidence: 0.3, minHandPresenceConfidence: 0.3,
     });
   })().catch((e) => { delete taskPromises[kind]; throw e; });
   return taskPromises[kind];
+}
+
+// ---- 사진 속 주인공 세기 (사람 · 동물 · 곰인형) -------------------------------------------
+// 주인공이 여럿이면(여러 사람 · 사람과 동물 · 여러 마리) 스타일 분석을 하지 않고 안내한다.
+// 가장 큰 주인공의 SUBJECT_REL 배 이상 크게 나온 것만 센다 (뒤에 작게 지나가는 사람은 세지 않음)
+const SUBJECT_KO = { person: '사람', dog: '강아지', cat: '고양이', bird: '새', horse: '말', sheep: '양', cow: '소', elephant: '코끼리', bear: '곰', zebra: '얼룩말', giraffe: '기린', 'teddy bear': '곰인형' };
+export const SUBJECT_MIN = 0.5, SUBJECT_REL = 0.3;
+export async function detectSubjects(blob) {
+  const img = await toCanvas(blob);
+  const det = await task('object');
+  const res = det.detect(img.canvas);
+  const all = (res.detections || []).map((d) => ({ name: d.categories?.[0]?.categoryName, score: d.categories?.[0]?.score ?? 0,
+    area: (d.boundingBox.width * d.boundingBox.height) / (img.canvas.width * img.canvas.height) }))
+    .filter((d) => SUBJECT_KO[d.name] && d.score >= SUBJECT_MIN && d.area >= 0.01);
+  const big = Math.max(0, ...all.map((d) => d.area));
+  const main = all.filter((d) => d.area >= big * SUBJECT_REL);
+  const counts = {};
+  for (const d of main) counts[SUBJECT_KO[d.name]] = (counts[SUBJECT_KO[d.name]] || 0) + 1;
+  return { n: main.length, counts, all };
 }
 
 // 어떤 카테고리가 색 견본을 지원하는지
