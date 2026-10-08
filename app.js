@@ -124,12 +124,14 @@ async function loadJson(url, what) {
 // 라벨 문장 임베딩(사전 계산) · 학습된 분류 헤드 — 모델 이름으로 찾는다
 const loadEmbeddings = (modelId) => loadJson(`./embeddings/${modelId.split('/').pop()}.json`, '사전 계산 임베딩');
 const loadHeads = (modelId) => loadJson(`./heads/${modelId.split('/').pop()}.json`, '학습된 헤드');
+// 타투 세부 모티브(장미 · 늑대 …) 문장 임베딩 · 학습 정보
+const loadMotifs = (modelId) => loadJson(`./embeddings/motifs-${modelId.split('/').pop()}.json`, '타투 모티브');
 
 // 정밀 모드는 정밀 모델과 기본 모델의 확률을 평균한다 (교차 검증 +2%p). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
 let partner = null;
 async function makeBase(rt) {
   const m = MODELS.base;
-  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
 }
 
 async function loadAnalyzer(key) {
@@ -151,13 +153,13 @@ async function loadAnalyzer(key) {
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       }
       if (key === 'large') {
         // 기본 모델을 이미 쓰고 있었으면 짝으로 남기고, 아니면 이어서 불러온다
@@ -481,6 +483,7 @@ function render(r) {
       <button class="fix" title="이 항목 고치기" aria-label="${esc(a.group_label)} 고치기">수정</button>
       ${a.level !== 'low' && defOf(r.category, a.group, a.label) ? `<div class="def">${esc(defOf(r.category, a.group, a.label))}</div>` : ''}
       ${a.family ? `<div class="fam" title="같은 계열 라벨들의 확률을 더한 값이에요">${esc(a.family.label)}로는 <b>${pct(a.family.score)}</b> · ${a.family.members.map((x) => esc(x.label)).join(' · ')}</div>` : ''}
+      ${a.motifs?.length ? `<div class="motif" title="도안에 그려진 세부 모티브예요">${a.motifs[0].level === 'low' ? '세부 모티브 후보' : '세부 모티브'}: ${a.motifs.filter((m, i) => i === 0 || m.score >= 0.1).map((m) => `<b>${esc(m.ko)}</b> ${pct(m.score)}`).join(' · ')}</div>` : ''}
       <div class="alts">다음 후보: ${a.alternatives.map((x) => `${esc(x.label)} ${pct(x.score)}`).join(' · ')}</div>
     </div>`).join('');
   renderFeedback(r);
@@ -844,6 +847,7 @@ function slim(r) {
     genre: r.genre, headline: r.headline, description_ko: r.description_ko, description_vlm: r.description_vlm, description_vlm_en: r.description_vlm_en,
     attributes: r.attributes.map((a) => ({ group: a.group, group_label: a.group_label, label: a.label, label_en: a.label_en, score: round(a.score), level: a.level, ...(a.region ? { region: a.region } : {}),
       ...(a.family ? { family: { label: a.family.label, score: round(a.family.score), level: a.family.level, members: a.family.members.map((x) => x.label) } } : {}),
+      ...(a.motifs ? { motifs: a.motifs.map((m) => ({ label: m.ko, parent: m.parent, score: round(m.score), level: m.level })) } : {}),
       alternatives: a.alternatives.map((x) => ({ label: x.label, score: round(x.score) })) })),
     trends: r.trends, tags: r.tags, quip: r.quip, subject: r.subject?.ko ?? null, is_beauty: r.is_beauty, confidence: round(r.confidence), model: r.model, vlm_model: r.vlm_model, elapsed_ms: r.elapsed_ms,
     secondary: r.secondary && { category: r.secondary.category, score: round(r.secondary.score), genre: r.secondary.genre, headline: r.secondary.headline,
