@@ -12,7 +12,7 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }) {
   const els = {
     tabs: $('modeTabs'), styleGrid: $('styleGrid'), faceGrid: $('faceGrid'),
-    purpose: $('facePurpose'), drop: $('faceDrop'), file: $('faceFile'), camera: $('faceCamera'), preview: $('facePreview'), hint: $('faceHint'),
+    purpose: $('facePurpose'), gender: $('faceGender'), drop: $('faceDrop'), file: $('faceFile'), camera: $('faceCamera'), preview: $('facePreview'), hint: $('faceHint'),
     shoot: $('faceShoot'), pick: $('facePick'), useStyle: $('faceUseStyle'),
     card: $('faceResultCard'), empty: $('faceEmpty'), status: $('faceStatus'), retake: $('faceRetake'), result: $('faceResult'),
     canvas: $('faceCanvas'), layers: $('faceLayer'), legend: $('faceLegend'),
@@ -24,6 +24,9 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     camView: $('camView'), camGuide: $('camGuide'), camBox: $('camBox'), camBoxMain: $('camBoxMain'), camBoxSub: $('camBoxSub'), camOk: $('camOk'),
   };
   let purpose = 'hair';
+  // 추천 기준(성별): 사용자가 고른 값만 쓴다 (사진으로 추정하지 않음). 이 브라우저에만 기억
+  let gender = '';
+  try { gender = localStorage.getItem('faceGender') || ''; } catch {}
   let blob = null;
   let frameBlobs = null; // 웹캠 연속 촬영 장들 (한 장만 올리면 null)
   let last = null;      // analyzeFace 결과 (여러 장이면 combineFaces 결과)
@@ -49,10 +52,20 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
   function setPurpose(p) {
     purpose = p;
     els.purpose.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.purpose === p));
-    els.adviceTitle.textContent = p === 'hair' ? '헤어 추천' : '메이크업 추천';
+    els.adviceTitle.textContent = p === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천';
     if (blob) run(); // 목적이 바뀌면 점검 기준(이마 필요 여부 등)과 추천이 달라진다
   }
   els.purpose.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && b.dataset.purpose !== purpose) setPurpose(b.dataset.purpose); });
+  function setGender(g) {
+    gender = g;
+    try { localStorage.setItem('faceGender', g); } catch {}
+    els.gender.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.gender === g));
+    els.purpose.querySelector('[data-purpose="makeup"]').textContent = g === 'm' ? '그루밍 · 메이크업' : '메이크업';
+    els.adviceTitle.textContent = purpose === 'hair' ? '헤어 추천' : g === 'm' ? '그루밍 추천' : '메이크업 추천';
+    if (last && !els.result.classList.contains('hidden')) render(); // 측정은 그대로, 추천만 다시
+  }
+  els.gender.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && b.dataset.gender !== gender) setGender(b.dataset.gender); });
+  setGender(gender);
 
   // 스타일 분석 결과(헤어 · 메이크업)에서 내 얼굴 분석으로 넘어가는 안내
   function styleChanged(r) {
@@ -315,7 +328,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
 
   function render() {
     const f = last;
-    report = faceReport(f, getStyle().result);
+    report = faceReport(f, getStyle().result, { gender: gender || null });
     els.result.classList.remove('hidden', 'enter');
     void els.result.offsetWidth;
     els.result.classList.add('enter');
@@ -436,7 +449,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
       els.legend.innerHTML = `<span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>얼굴선</span><span><i style="background:#9fd0ff"></i>너비 (광대 = 1)</span><span><i style="background:#c8f0b0"></i>삼정</span><span><i style="background:#ff7ad9"></i>턱 모서리 ${Math.round(m.jawAngle)}°</span>`;
     } else if (layer === 'makeup') {
       drawZones(ctx, f, T, scale);
-      els.legend.innerHTML = '<span><i style="background:rgba(120,78,55,.8)"></i>쉐딩</span><span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>하이라이터</span><span><i style="background:rgba(236,110,130,.85)"></i>블러셔</span>';
+      els.legend.innerHTML = '<span><i style="background:rgba(120,78,55,.8)"></i>쉐딩</span><span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>하이라이터</span>' + (report.gender === 'm' ? '' : '<span><i style="background:rgba(236,110,130,.85)"></i>블러셔</span>');
     }
   }
   function drawZones(ctx, f, T, scale) {
@@ -511,7 +524,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     if (!report) return;
     const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, '', '측정 결과'];
     for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg}) ${r.note}`);
-    lines.push('', purpose === 'hair' ? '헤어 추천' : '메이크업 추천');
+    lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '객관적인 얼굴 비율을 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
       lines.push(`- ${s.title}${s.text ? `: ${s.text}` : ''}`);
       for (const i of s.list || []) lines.push(`  · ${i.name}${i.why ? ` — ${i.why}` : ''}`);

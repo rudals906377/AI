@@ -447,3 +447,7 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .cam-ok svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .cam-ok circle { fill: rgba(0, 0, 0, .35); stroke: rgba(255, 255, 255, .35); stroke-width: 4; }
 .cam-ok circle.p { fill: none; stroke: #4ade80; stroke-dasharray: 106.8; stroke-dashoffset: 106.8; }
+.seg.seg-sm { align-items: center; margin-top: 8px; }
+.seg.seg-sm .seg-label { font-size: .82rem; color: var(--muted); margin-right: 2px; }
+.seg.seg-sm button { padding: 4px 11px; font-size: .84rem; }
+.respect { margin: 2px 0 10px; padding: 8px 12px; border-radius: 8px; background: var(--bg-2); color: var(--muted); font-size: .86rem; line-height: 1.45; }
