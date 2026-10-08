@@ -4,10 +4,19 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, FRAME, SEG } from './face.js';
-import { faceReport, rankStyles } from './face-advice.js';
+import { faceReport, rankStyles, styleFit } from './face-advice.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+// 궁합 카드 (styleFit 결과) — 스타일 결과 화면과 얼굴 분석 화면이 같은 모양으로 보여 준다
+function fitHtml(fit, head) {
+  const plus = fit.reasons.filter((x) => x.pts > 0).slice(0, 3), minus = fit.reasons.filter((x) => x.pts < 0).slice(0, 3);
+  return `<small>${esc(head)} · ${esc(fit.title)}</small>
+    <b class="${fit.good ? 'good' : 'meh'}">${esc(fit.verdict)}${fit.score != null ? ` <span class="fit-score">궁합 ${fit.score}점</span>` : ''}</b>
+    ${fit.score != null ? `<div class="fit-bar"><i style="width:${fit.score}%"></i></div>` : ''}
+    ${plus.length || minus.length ? `<ul class="fit-why">${plus.map((x) => `<li class="plus">${esc(x.text)}</li>`).join('')}${minus.map((x) => `<li class="minus">${esc(x.text)}</li>`).join('')}</ul>` : ''}
+    ${fit.tip ? `<p>${esc(fit.tip)}</p>` : ''}`;
+}
 
 export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, copy = async () => {} }) {
   const els = {
@@ -19,7 +28,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     shape: $('faceShape'), shapeLabel: $('faceShapeLabel'), summary: $('faceSummary'), bars: $('faceBars'), warn: $('faceWarn'), match: $('faceMatch'),
     measures: $('faceMeasures'), adviceTitle: $('faceAdviceTitle'), advice: $('faceAdvice'), copyBtn: $('faceCopy'), againBtn: $('faceAgain'),
     retakeList: $('faceRetakeList'), retakeCanvas: $('faceRetakeCanvas'), retakeBtn: $('faceRetakeBtn'),
-    cta: $('faceCta'), ctaTitle: $('faceCtaTitle'), ctaBtn: $('faceCtaBtn'),
+    cta: $('faceCta'), styleFit: $('styleFit'), ctaTitle: $('faceCtaTitle'), ctaBtn: $('faceCtaBtn'),
     rank: $('faceRank'), rankPick: $('faceRankPick'), rankAddCur: $('faceRankAddCur'), rankClear: $('faceRankClear'), rankFile: $('faceRankFile'),
     rankStatus: $('faceRankStatus'), rankList: $('faceRankList'), rankSkip: $('faceRankSkip'), rankNote: $('faceRankNote'),
     cam: $('camDialog'), video: $('camVideo'), camShot: $('camShot'), camCancel: $('camCancel'), camNote: $('camNote'),
@@ -69,14 +78,14 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   els.gender.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && b.dataset.gender !== gender) setGender(b.dataset.gender); });
   setGender(gender);
 
-  // 스타일 분석 결과(헤어 · 메이크업)에서 내 얼굴 분석으로 넘어가는 안내
+  // 스타일 분석 결과 카드: 얼굴 분석을 이미 했으면 궁합 피드백, 아직이면 '내 얼굴 분석' 안내
   function styleChanged(r) {
-    const show = r && r.is_beauty && (r.category === 'hair' || r.category === 'makeup');
-    els.cta.classList.toggle('hidden', !show);
-    if (!show) return;
-    els.ctaTitle.textContent = r.category === 'hair' ? '내 얼굴형에도 어울릴까요?' : '내 얼굴형에 맞는 메이크업은?';
-    els.ctaBtn.dataset.purpose = r.category;
-    if (last?.ok) render(); // 궁합 문장 갱신
+    if (r && r.is_beauty && (r.category === 'hair' || r.category === 'makeup')) {
+      els.ctaTitle.textContent = r.category === 'hair' ? '내 얼굴형에도 어울릴까요?' : '내 얼굴형에 맞는 메이크업은?';
+      els.ctaBtn.dataset.purpose = r.category;
+    }
+    if (last?.ok && !els.result.classList.contains('hidden')) render(); // 얼굴 분석 화면의 궁합도 갱신 (안에서 syncStyleFit)
+    else syncStyleFit();
   }
   els.ctaBtn.addEventListener('click', () => { setMode('face'); if (els.ctaBtn.dataset.purpose !== purpose) setPurpose(els.ctaBtn.dataset.purpose); });
 
@@ -329,6 +338,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
 
   // 다시 찍어 주세요: 무엇이 문제인지 + 가린 곳을 사진 위에 표시
   function renderRetake(f) {
+    syncStyleFit();
     els.retake.classList.remove('hidden');
     const blocks = f.issues.filter((x) => x.level === 'block'), warns = f.issues.filter((x) => x.level !== 'block');
     els.retakeList.innerHTML = [...blocks, ...warns].map((x) => `<li class="${x.level}"><b>${esc(x.title)}</b><span>${esc(x.fix)}</span></li>`).join('');
@@ -350,11 +360,11 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     const warns = f.issues.filter((x) => x.level !== 'block');
     els.warn.classList.toggle('hidden', !warns.length);
     els.warn.innerHTML = warns.map((x) => `<li><b>${esc(x.title)}</b> ${esc(x.fix)}</li>`).join('');
-    // 지금 분석한 스타일과의 궁합 (목적과 같은 카테고리일 때만)
-    const st = getStyle().result;
-    const mt = report.match && st?.category === purpose ? report.match : null;
+    // 스타일 분석 결과와의 궁합 (어느 쪽을 먼저 분석했든)
+    const mt = report.match;
     els.match.classList.toggle('hidden', !mt);
-    if (mt) els.match.innerHTML = `<small>${esc(mt.title)}</small><b class="${mt.good ? 'good' : 'meh'}">${esc(mt.verdict)}</b><p>${esc(mt.text)}</p>`;
+    if (mt) els.match.innerHTML = fitHtml(mt, `분석한 ${mt.category === 'hair' ? '헤어' : '메이크업'} 스타일과의 궁합`);
+    syncStyleFit();
     // 측정 표
     els.measures.innerHTML = `<thead><tr><th>항목</th><th>내 얼굴</th><th>평균</th><th>풀이</th></tr></thead><tbody>${report.measures
       .filter((r) => purpose === 'makeup' || !['eyeTilt', 'eyeAspect', 'browGap', 'nose', 'lips', 'lipFull', 'mouth'].includes(r.key))
@@ -375,6 +385,19 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     els.layers.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
     draw();
   });
+
+  // 얼굴 분석이 끝나거나 바뀌면 스타일 결과 카드의 궁합도 같이 바꾼다 (얼굴 → 스타일 순서일 때는 스타일 분석 때 이미 보임)
+  function syncStyleFit() {
+    const r = getStyle().result;
+    const show = r && r.is_beauty && (r.category === 'hair' || r.category === 'makeup');
+    const fit = show && last?.ok ? styleFit(last, r, { gender: gender || null }) : null;
+    els.cta.classList.toggle('hidden', !show || !!fit);
+    els.styleFit.classList.toggle('hidden', !fit);
+    if (fit) {
+      els.styleFit.innerHTML = fitHtml(fit, '내 얼굴형과의 궁합') + '<button class="ghost small" type="button" data-act="face">얼굴 분석 결과 보기</button>';
+      els.styleFit.querySelector('[data-act="face"]').onclick = () => { setMode('face'); if (r.category !== purpose) setPurpose(r.category); };
+    }
+  }
 
   // ---- 원하는 스타일 여러 장 → 베스트 순위 ------------------------------------------------
   // 고른 사진은 이 화면에만 두고(서버로 보내지 않음), 목적(헤어 · 메이크업)별로 분석 결과를 기억해 둔다
@@ -610,6 +633,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
       lines.push(`- ${s.title}${s.text ? `: ${s.text}` : ''}`);
       for (const i of s.list || []) lines.push(`  · ${i.name}${i.why ? ` — ${i.why}` : ''}`);
     }
+    if (report.match?.score != null) lines.push('', `분석한 스타일과의 궁합: ${report.match.title} — ${report.match.verdict} (궁합 ${report.match.score}점)`, ...report.match.reasons.map((x) => `  ${x.pts > 0 ? '✓' : '△'} ${x.text}`), ...(report.match.tip ? [`  ${report.match.tip}`] : []));
     if (report.rank?.length) lines.push('', `원하는 ${purpose === 'hair' ? '헤어' : '메이크업'} 베스트 순위`, ...report.rank);
     lines.push('', '(AI 생성 · 뷰티 스타일 AI 분석 · 사진 한 장으로 잰 참고용 결과예요)');
     copy(lines.join('\n'));

@@ -395,6 +395,16 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .face-match b { font-size: 1.02rem; }
 .face-match b.good { color: var(--ok); }
 .face-match b.meh { color: var(--accent-ink); }
+.face-match .fit-score { font-size: .85rem; font-weight: 600; color: var(--muted); margin-left: 4px; }
+.face-match .fit-bar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; margin: 4px 0 2px; }
+.face-match .fit-bar i { display: block; height: 100%; background: var(--accent); }
+.face-match .fit-why { margin: 4px 0 0; padding-left: 0; list-style: none; font-size: .88rem; line-height: 1.55; }
+.face-match .fit-why li::before { content: '✓ '; color: var(--ok); font-weight: 700; }
+.face-match .fit-why li.minus { color: var(--muted); }
+.face-match .fit-why li.minus::before { content: '△ '; color: var(--accent-ink); }
+.face-match p { margin: 4px 0 0; font-size: .88rem; line-height: 1.55; }
+.style-fit { margin-top: 16px; }
+.style-fit > button { align-self: flex-start; margin-top: 6px; }
 .face-rank { margin-top: 14px; border: 1px dashed var(--line-2); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
 .face-rank .fr-head { display: flex; flex-direction: column; gap: 2px; }
 .face-rank .fr-head small { color: var(--muted); font-size: .82rem; line-height: 1.5; }
