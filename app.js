@@ -385,7 +385,7 @@ function showManySubjects(s) {
     : !people ? [`다들 귀여워서 한 ${unit(others[0]) === '개' ? '개' : '마리'}만 고를 수가 없어요.`, '누가 오늘의 모델인지 투표라도 해야 할 것 같아요.']
     : [`솔직히 ${pet} 시선을 다 가져가서 집중이 안 돼요.`, `${pet} 자꾸 주인공 자리를 노리고 있어요.`];
   const line = lines[(s.all?.length || 0) % lines.length];
-  els.empty.innerHTML = `<strong>사진 속 대상이 여러 개라 분석이 어려울 것 같아요 ㅠ.ㅠ</strong><small>${esc(line)} 이 사진에서 ${esc(what)} 함께 보이는데, 같이 분석하면 서로의 스타일이 섞여서 결과가 흐려져요.<br>${others.length ? '주인공 하나만' : '주인공 한 분만'} 크게 나오게 잘라서 올려 주시면 열심히 해 볼게요!</small>`;
+  els.empty.innerHTML = `<strong>${esc(line)}</strong><small>이 사진에서 ${esc(what)} 함께 보이는데, 같이 분석하면 서로의 스타일이 섞여서 결과가 흐려져요.<br>${others.length ? '주인공 하나만' : '주인공 한 분만'} 크게 나오게 잘라서 올려 주시면 열심히 해 볼게요!</small>`;
   els.empty.classList.add('many');
   faceUI.styleChanged(null);
 }
