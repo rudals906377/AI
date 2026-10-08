@@ -8,6 +8,8 @@ import { buildOrder, swatchText } from './order.js';
 import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initFaceUI } from './face-ui.js';
+import { assetFetch } from './assets.js';
+import { styleCard, shareImage } from './share-card.js';
 import { quipFor, manyMessage, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
@@ -108,7 +110,7 @@ function runtimeFor(key) {
 const jsonCache = {};
 async function loadJson(url, what) {
   try {
-    if (!(url in jsonCache)) { const r = await fetch(url); jsonCache[url] = r.ok ? await r.json() : undefined; }
+    if (!(url in jsonCache)) { const r = await assetFetch(url); jsonCache[url] = r.ok ? await r.json() : undefined; }
     return jsonCache[url];
   } catch (e) { console.warn(`${what} 없음`, e); return undefined; }
 }
@@ -782,6 +784,15 @@ const pct = (x) => `${Math.round(x * 100)}%`;
 const round = (x) => Math.round(x * 1000) / 1000;
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+$('shareStyle').addEventListener('click', async (e) => {
+  if (!lastResult || !currentBlob) return;
+  const b = e.currentTarget; b.disabled = true;
+  try {
+    const blob = await styleCard({ photo: currentBlob, result: lastResult, fit: faceUI.fitFor(lastResult) });
+    const how = await shareImage(blob, `${(lastResult.genre?.name || '스타일').replace(/[\\/:*?"<>|\s]+/g, '-')}.png`, lastResult.headline);
+    if (how === 'downloaded') toast('공유 이미지를 저장했어요');
+  } catch (err) { console.error(err); toast('공유 이미지를 만들지 못했어요'); } finally { b.disabled = false; }
+});
 els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.quip ? `에디터 한마디: ${lastResult.quip}\n` : ''}${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · 뷰티 스타일 AI 분석 결과라 틀릴 수 있어요)` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
 async function copy(text) {

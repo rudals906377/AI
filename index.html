@@ -186,6 +186,7 @@
 
           <div class="row">
             <button class="ghost small" id="copyText">설명 복사</button>
+            <button class="ghost small" id="shareStyle" type="button">공유 이미지</button>
             <button class="ghost small" id="copyJson">JSON 복사</button>
             <span class="note" id="meta"></span>
           </div>
@@ -293,8 +294,11 @@
           <div class="advice" id="faceAdvice"></div>
           <div class="row">
             <button class="ghost small" id="faceCopy" type="button">결과 복사</button>
+            <button class="ghost small" id="faceShare" type="button">공유 이미지</button>
             <button class="ghost small" id="faceAgain" type="button">다른 사진으로</button>
           </div>
+          <label class="remember"><input type="checkbox" id="faceRemember"> 이 기기에 내 얼굴형 기억하기 <small>측정값만 이 브라우저에 저장하고 사진은 저장하지 않아요. 다음에 스타일만 분석해도 궁합을 바로 볼 수 있어요.</small></label>
+          <p class="fit-export hidden" id="fitExportRow"><button class="link" id="fitExport" type="button"></button> <small>궁합 판단에 남긴 평가는 이 기기에만 저장돼요. 내보내면 점수 기준을 다듬는 데 쓸 수 있어요.</small></p>
           <p class="note">사진 한 장으로 잰 비율에 널리 쓰이는 스타일링 기준을 적용한 참고용 결과예요. 얼굴형에는 정답이 없고, 카메라 거리 · 각도 · 표정에 따라 조금씩 달라질 수 있어요. 의학적 진단이나 시술 판단이 아니에요.</p>
         </div>
       </section>
