@@ -1,6 +1,7 @@
 // 내 얼굴 분석 결과 → 쉬운 설명 · 헤어 추천 · 메이크업 추천 · 지금 분석한 스타일과의 궁합
 //
 //   const rep = faceReport(face, styleResult);   // { headline, summary, measures, hair, makeup, match, zones }
+//   styleFit(face, styleResult)                  // 스타일 하나와 내 얼굴의 궁합 { score, verdict, reasons, tip }
 //
 // 얼굴형 하나로만 말하지 않고, 측정값마다 평균과 비교한 특징(이마가 넓은 편, 중안부가 긴 편 …)을 함께 써서 추천한다.
 // 추천 커트 · 앞머리는 '이런 분께 잘 어울려요'(suits.js)와 같은 표를 써서 서로 말이 어긋나지 않게 한다.
@@ -376,64 +377,6 @@ function skinHint({ lab, hue, chroma }) {
   return `${t1} ${t2} 조명과 화이트밸런스에 따라 색이 크게 달라지니 자연광에서 직접 발라 보고 고르세요.`;
 }
 
-// ---- 지금 분석한 스타일과의 궁합 ------------------------------------------------------
-function matchStyle(f, style, t) {
-  if (!style?.is_beauty) return null;
-  const A = (g) => style.attributes.find((a) => a.group === g && a.score >= 0.5 && !a.all?.[0]?.hidden);
-  const top = f.shape.probs[0].key, shapeName = short(SHAPES[top]);
-  const near = f.shape.probs[1].p >= 0.25 ? f.shape.probs[1].key : null;
-  const names = [...ALIAS[top], ...(near ? ALIAS[near] : [])];
-  const genre = style.genre?.name ?? style.genre ?? '';
-  if (style.category === 'hair') {
-    const cut = A('cut'), bangs = A('bangs');
-    const lines = [];
-    let good = 0, bad = 0;
-    if (cut && CUT_FACE[cut.label]) {
-      const listed = CUT_FACE[cut.label][0].some((x) => names.includes(x));
-      const ok = listed || top === 'oval'; // 계란형은 대부분의 커트를 소화한다
-      ok ? good++ : bad++;
-      lines.push(listed ? `${josa(cut.label, '은/는')} ${shapeName}에 잘 어울리는 커트예요. ${CUT_FACE[cut.label][1]}.`
-        : ok ? `${josa(cut.label, '은/는')} 주로 ${CUT_FACE[cut.label][0].join(' · ')}에 추천하는 커트지만, ${shapeName}은 대부분의 커트가 잘 어울려요.`
-        : `${josa(cut.label, '은/는')} 주로 ${CUT_FACE[cut.label][0].join(' · ')}에 추천하는 커트예요. ${josa(shapeName, '이라면/라면')} ${HAIR[top].tip}`);
-    }
-    if (bangs && BANGS_FACE[bangs.label]) {
-      const ok = top === 'oval' || BANGS_BY_SHAPE[top].includes(bangs.label) || (near && BANGS_BY_SHAPE[near].includes(bangs.label))
-        || names.some((x) => BANGS_FACE[bangs.label][0].includes(x)) || (bangs.label !== '앞머리 없음' && t.upper >= 0.8);
-      ok ? good++ : bad++;
-      const alt = hairAdvice(f, t).find((x) => x.key === 'bangs')?.list?.find((b) => b.name !== bangs.label)?.name;
-      lines.push(ok ? `${bangs.label === '앞머리 없음' ? '이마를 드러내는 스타일' : bangs.label}도 잘 맞아요.`
-        : `앞머리는 ${bangs.label === '앞머리 없음' ? '이마를 다 드러내기' : bangs.label}보다 ${alt ? josa(alt, '을/를') : '다른 앞머리를'} 추천해요.`);
-    }
-    if (!lines.length) return null;
-    return { title: `지금 분석한 스타일 · ${genre}`, verdict: bad === 0 ? '잘 어울려요' : good ? '조금 바꾸면 더 좋아요' : '이렇게 바꾸면 더 잘 어울려요', good: bad === 0, text: lines.join(' ') };
-  }
-  if (style.category === 'makeup') {
-    const cheek = A('cheek'), line = A('eyeLine'), lipT = A('lipTexture');
-    const lines = [];
-    let bad = 0;
-    if (cheek && CHEEK_FACE[cheek.label]) {
-      const faces = CHEEK_FACE[cheek.label][0];
-      const ok = faces.includes('대부분') || names.some((x) => faces.includes(x.replace(' 얼굴', ''))) || faces.includes(shapeName);
-      if (!ok) bad++;
-      const how = cheek.label === '셰이딩' ? MAKEUP[top].shading : cheek.label === '하이라이터' ? MAKEUP[top].highlight : MAKEUP[top].blush;
-      lines.push(`${cheek.label}: ${ok ? '얼굴형과 잘 맞아요.' : `주로 ${faces}에 추천해요. ${josa(shapeName, '이라면/라면')} ${how}`}`);
-    }
-    if (line && (line.label === '캣아이라인' || line.label === '강아지 라인')) {
-      const ok = line.label === '캣아이라인' ? t.eyeUp < 0.8 : t.eyeUp > -0.8;
-      if (!ok) bad++;
-      lines.push(`${line.label}: ${ok ? '눈꼬리 각도와 잘 맞아요.' : line.label === '캣아이라인' ? '눈꼬리가 이미 올라간 편이라 꼬리를 덜 올리면 자연스러워요.' : '눈꼬리가 내려간 편이라 꼬리를 너무 내리면 처져 보일 수 있어요.'}`);
-    }
-    if (lipT && lipT.label === '오버립') {
-      const ok = t.lipFull < 0.8;
-      if (!ok) bad++;
-      lines.push(`오버립: ${ok ? '입술 두께와 잘 맞아요.' : '입술이 도톰한 편이라 오버는 아주 살짝만 해 주세요.'}`);
-    }
-    if (!lines.length) return null;
-    return { title: `지금 분석한 메이크업 · ${genre}`, verdict: bad ? '조금 바꾸면 더 좋아요' : '잘 어울려요', good: !bad, text: lines.join(' ') };
-  }
-  return null;
-}
-
 // ---- 원하는 스타일 여러 장 → 내 얼굴 기준 순위 ------------------------------------------
 // 사진마다 스타일 분석 결과(커트 · 앞머리 · 기장 · 연출 / 블러셔 · 아이라인 · 입술)를 내 얼굴 측정과 맞춰 점수를 매긴다.
 // 점수는 '추천표와 얼마나 맞는지'의 합이라 절대적인 평가가 아니고, 고른 사진들끼리 비교하는 용도다.
@@ -506,6 +449,34 @@ function scoreStyle(f, style, t, gender) {
   // 근거가 없으면 60점(중간)에서 시작해 근거마다 더하고 뺀다
   const score = Math.max(5, Math.min(98, Math.round(60 + sum)));
   return { score, raw: sum, reasons: reasons.sort((a, b) => b.pts - a.pts), basis: reasons.length };
+}
+// 스타일 분석 결과 하나와 내 얼굴의 궁합 (스타일 → 얼굴, 얼굴 → 스타일 어느 순서로 분석해도 같은 판단)
+// 순위와 같은 점수표(scoreStyle)를 써서, 한 장을 볼 때와 여러 장을 비교할 때 말이 어긋나지 않게 한다
+export function styleFit(f, style, { gender = null, t = null } = {}) {
+  if (!f?.ok || !style?.is_beauty || !['hair', 'makeup'].includes(style.category)) return null;
+  t ??= traits(f);
+  const s = scoreStyle(f, style, t, gender);
+  const top = f.shape.probs[0].key, shapeName = short(SHAPES[top]);
+  const genre = style.genre?.name ?? style.genre ?? style.headline ?? '';
+  if (!s.basis) return { category: style.category, title: `${genre} × ${shapeName}`, verdict: '판단할 단서가 부족해요', level: 'none', score: null, reasons: [],
+    tip: style.category === 'hair' ? '커트 모양이나 앞머리가 잘 보이는 사진이면 얼굴형과 맞춰 볼 수 있어요.' : '블러셔 · 아이라인 · 입술이 잘 보이는 사진이면 얼굴형과 맞춰 볼 수 있어요.' };
+  const level = s.score >= 80 ? 'great' : s.score >= 65 ? 'good' : s.score >= 50 ? 'ok' : 'meh';
+  const be = style.category === 'hair' ? '스타일이에요' : '메이크업이에요';
+  const verdict = { great: `아주 잘 어울리는 ${be}`, good: `잘 어울리는 ${be}`, ok: '무난해요 · 조금만 바꾸면 더 좋아요', meh: '이렇게 바꾸면 더 잘 어울려요' }[level];
+  // 아쉬운 점이 있으면 바로 쓸 수 있는 대안을 함께 (추천 표에서)
+  let tip = '';
+  if (s.reasons.some((x) => x.pts < 0)) {
+    if (style.category === 'hair') {
+      const adv = hairAdvice(f, t, gender);
+      const cuts = adv.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name)).slice(0, 3);
+      const bang = adv.find((x) => x.key === 'bangs')?.list?.[0]?.name;
+      tip = `${shapeName}에는 ${cuts.join(' · ')}${bang ? `, 앞머리는 ${bang}` : ''} 쪽이 더 잘 맞아요. 이 스타일이 마음에 든다면 디자이너에게 얼굴형을 말하고 아쉬운 부분만 바꿔 달라고 해 보세요.`;
+    } else {
+      const M = MAKEUP[top];
+      tip = `${shapeName}에는 블러셔를 이렇게 넣어 보세요: ${M.blush}`;
+    }
+  }
+  return { category: style.category, title: `${genre} × ${shapeName}`, verdict, level, good: level === 'great' || level === 'good', score: s.score, reasons: s.reasons, tip };
 }
 export function rankStyles(f, items, { purpose = 'hair', gender = null } = {}) {
   const t = traits(f);
@@ -608,7 +579,7 @@ export function faceReport(f, style = null, { gender = null } = {}) {
     hair: hairAdvice(f, t, gender),
     makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),
     gender,
-    match: matchStyle(f, style, t),
+    match: styleFit(f, style, { gender, t }),
     zones: zonesFor(p[0].key).filter((z) => gender !== 'm' || z.kind !== 'blush'), // 남성(그루밍)은 블러셔 위치를 그리지 않는다
     traits: t,
   };
