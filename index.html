@@ -83,12 +83,14 @@
       <!-- 결과 -->
       <section class="card" id="resultCard">
         <h2>분석 결과</h2>
+        <div class="analyzing hidden" id="analyzing" role="status" aria-live="polite"><span class="spin"></span><span><b>분석 중입니다…</b><small id="analyzingSub"></small></span></div>
         <div class="result-empty" id="empty">
           <strong>사진을 올리거나 예시를 고르면 바로 분석합니다</strong>
           <small>장르, 트렌드 키워드, 설명, 속성별 근거가 여기에 나옵니다</small>
         </div>
 
         <div id="result" class="hidden">
+          <p class="subject-note hidden" id="subjectNote" role="status"></p>
           <div class="chips" id="catChips"></div>
           <div class="genre-row">
             <div class="genre">

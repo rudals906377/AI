@@ -156,9 +156,22 @@ export async function createAnalyzer({
   }
 
   // partner: 함께 쓸 다른 분석기 (정밀 모드에서 기본 모델). 있으면 주 카테고리의 그룹 확률을 두 모델이 평균한다
+  // 사진 속 주인공이 사람이 아니면(동물 · 인형) 무엇인지 알아본다 — 분석은 그대로 하고 결과 위 한마디에만 쓴다 (embeddings/*.json 의 guard)
+  const guard = labelEmbeddings?.guard?.kinds?.length ? labelEmbeddings.guard : null;
+  function subjectOf(vec) {
+    if (!guard) return null;
+    const sp = Math.max(...guard.person.map((e) => dot(vec, e)));
+    let best = null;
+    for (const k of guard.kinds) { const s = Math.max(...k.vecs.map((e) => dot(vec, e))); if (!best || s > best.s) best = { k, s }; }
+    if (!best.k.ko) return null;                               // 풍경 · 음식 · 물건은 한마디 없이
+    const gap = best.s - sp;
+    return gap >= (guard.margin?.[best.k.type] ?? 1) ? { ko: best.k.ko, type: best.k.type, gap } : null;
+  }
+
   async function analyze(source, { category = 'auto', topk = 3, partner = null } = {}) {
     const t0 = now();
     const { image, vec } = await embedImage(source);
+    const subject = subjectOf(vec);
 
     // 카테고리 판별 (학습 헤드 'category' 가 있으면 함께 사용)
     const detectSims = CATEGORY_ORDER.map((cat) => Math.max(...index[cat].detect.map((e) => dot(vec, e))));
@@ -215,6 +228,7 @@ export async function createAnalyzer({
       category_label: def.label,
       category_auto: category === 'auto',
       category_ranking: catRanked,
+      subject,                       // 사람이 아니면 { ko: '강아지', type: 'animal' } (아니면 null)
       is_beauty: beautyScore >= 0.5,
       beauty_score: beautyScore,
       attributes,
