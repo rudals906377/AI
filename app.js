@@ -8,7 +8,7 @@ import { buildOrder, swatchText } from './order.js';
 import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initFaceUI } from './face-ui.js';
-import { quipFor, WORKING } from './quips.js';
+import { quipFor, manyMessage, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
 // 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
@@ -296,7 +296,7 @@ async function run() {
   els.analyzingSub.textContent = modelKey === 'large' ? '정밀 모드는 메이크업 사진에서 20~25초 걸릴 수 있어요' : '보통 몇 초면 끝나요';
   els.analyzing.classList.remove('hidden');
   // 분석 중 문구를 돌려 가며 (기다리는 동안 무엇을 보는지)
-  let wi = 0; const wb = els.analyzing.querySelector('b'); wb.textContent = '분석 중입니다…';
+  let wi = Math.floor(Math.random() * WORKING.length); const wb = els.analyzing.querySelector('b'); wb.textContent = '분석 중입니다…';
   const ticker = setInterval(() => { wb.textContent = WORKING[wi++ % WORKING.length]; }, 1600);
   if (!lastResult) els.empty.classList.add('hidden');
   try {
@@ -375,17 +375,10 @@ function showManySubjects(s) {
   lastResult = null;
   els.result.classList.add('hidden');
   els.empty.classList.remove('hidden');
-  const unit = (k) => (k === '사람' ? '명' : k === '곰인형' ? '개' : '마리');
-  const what = josa(Object.entries(s.counts).map(([k, n]) => `${k} ${n}${unit(k)}`).join(', '), '이/가');
-  const people = s.counts['사람'] || 0;
-  const others = Object.keys(s.counts).filter((k) => k !== '사람');
-  const pet = others[0] ? josa(others[0], '이/가') : '';
-  // 구성에 맞춰 한마디 (같은 사진이면 같은 문장)
-  const lines = !others.length ? ['다들 스타일이 좋아서 누구부터 봐야 할지 고르다 길을 잃었어요.', '단체 사진은 모두가 주인공이라, 한 분만 골라 평가하기엔 제가 너무 소심해요.']
-    : !people ? [`다들 귀여워서 한 ${unit(others[0]) === '개' ? '개' : '마리'}만 고를 수가 없어요.`, '누가 오늘의 모델인지 투표라도 해야 할 것 같아요.']
-    : [`솔직히 ${pet} 시선을 다 가져가서 집중이 안 돼요.`, `${pet} 자꾸 주인공 자리를 노리고 있어요.`];
-  const line = lines[(s.all?.length || 0) % lines.length];
-  els.empty.innerHTML = `<strong>${esc(line)}</strong><small>이 사진에서 ${esc(what)} 함께 보이는데, 같이 분석하면 서로의 스타일이 섞여서 결과가 흐려져요.<br>${others.length ? '주인공 하나만' : '주인공 한 분만'} 크게 나오게 잘라서 올려 주시면 열심히 해 볼게요!</small>`;
+  // 같은 사진이면 같은 문장, 사진이 다르면 다른 문장 (찾은 상자 크기로 고른다)
+  const seed = (s.all || []).reduce((h, d) => (h * 31 + Math.round(d.area * 1e5) + Math.round(d.score * 1e3)) >>> 0, 7);
+  const m = manyMessage(s.counts, seed);
+  els.empty.innerHTML = `<strong>${esc(m.title)}</strong><small>${esc(m.body)}<br>${esc(m.ask)}</small>`;
   els.empty.classList.add('many');
   faceUI.styleChanged(null);
 }
@@ -431,10 +424,10 @@ function render(r) {
   els.trends.innerHTML = (r.trends || []).map((t) => `<span class="trend"><b>#${esc(t.name.replace(/[\s·()]/g, ''))}</b><small>${esc(t.why)}</small></span>`).join('');
   els.trendBlock.classList.toggle('hidden', !(r.trends || []).length);
   els.desc.innerHTML = paragraphsHtml(r);
-  // 에디터 한마디: 같은 결과면 같은 문장 (헤드라인으로 고른다)
-  let h = 0; for (const c of r.headline || '') h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  // 에디터 한마디: 같은 사진이면 같은 문장 (헤드라인 + 속성 확률로 고르므로 같은 장르라도 사진마다 다르다)
+  let h = 0; for (const c of `${r.headline}|${r.attributes.map((a) => Math.round(a.score * 1000)).join(',')}`) h = (h * 31 + c.charCodeAt(0)) >>> 0;
   r.quip = quipFor(r.category, { genre: r.genre?.name, labels: r.attributes.filter((a) => a.score >= 0.5).map((a) => a.label),
-    sure: (r.genre?.score ?? 0) >= 0.5, subject: r.subject, pick: (xs) => xs[h % xs.length] });
+    sure: (r.genre?.score ?? 0) >= 0.5, subject: r.subject, seed: h });
   els.quipText.textContent = r.quip;
   els.quip.classList.toggle('hidden', !r.quip);
   renderSuits(r);
