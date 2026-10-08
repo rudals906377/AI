@@ -381,6 +381,13 @@ function skinHint({ lab, hue, chroma }) {
 // 사진마다 스타일 분석 결과(커트 · 앞머리 · 기장 · 연출 / 블러셔 · 아이라인 · 입술)를 내 얼굴 측정과 맞춰 점수를 매긴다.
 // 점수는 '추천표와 얼마나 맞는지'의 합이라 절대적인 평가가 아니고, 고른 사진들끼리 비교하는 용도다.
 const EAR_OPEN = /포니테일|똥머리|슬릭번|업스타일|올백|스페이스번/;
+// 피부 속 색(노란기 · 붉은기)과 컬러의 궁합 — 조명 영향이 커서 작은 점수로만 쓴다 (skinHint 와 같은 기준)
+const undertone = (skin) => (!skin ? null : skin.hue >= 62 ? 'yellow' : skin.hue <= 50 ? 'red' : 'neutral');
+const HAIR_WARM = /골드브라운|오렌지브라운|카라멜브라운|코퍼|골드블론드/, HAIR_COOL = /애쉬브라운|애쉬블론드|애쉬그레이|블루블랙|블루·퍼플|핑크·라벤더/; // 애쉬베이지는 중간
+const LIP_WARM = /코랄|오렌지|피치|브라운|누드/, LIP_COOL = /로즈핑크|MLBB|말린장미|버건디|핫핑크|퍼플/;
+const CHEEK_WARM = /코랄|피치|브론저/, CHEEK_COOL = /베리/;
+const EYE_WARM = /오렌지·테라코타|골드·브론즈/, EYE_COOL = /실버·그레이|퍼플|블루/;
+const LIGHT = ' (사진 속 피부색 기준이라 조명에 따라 달라질 수 있어요)';
 function scoreStyle(f, style, t, gender) {
   const A = (g) => style.attributes.find((a) => a.group === g && a.score >= 0.4 && !a.all?.[0]?.hidden);
   const top = f.shape.probs[0].key, shapeName = short(SHAPES[top]);
@@ -419,6 +426,16 @@ function scoreStyle(f, style, t, gender) {
       if ((t.lower >= 0.8 || t.chinW <= -0.8) && (len.label === '단발' || len.label === '중단발') && perm && !/생머리|매직/.test(perm.label)) add(6, '턱 높이의 컬이 아래 얼굴을 채워 줘요');
     }
     if (perm && conf(perm) && top === 'long' && /S컬|물결|빌드|히피|글램|셋팅/.test(perm.label)) add(5, `${perm.label}의 옆 볼륨이 얼굴 길이를 줄여 보이게 해요`);
+    const color = A('color'), htone = A('tone'), ut = undertone(f.skin);
+    if (ut && ut !== 'neutral' && (color || htone)) {
+      conf(color || htone);
+      const warm = color ? HAIR_WARM.test(color.label) : htone.label === '웜톤', cool = color ? HAIR_COOL.test(color.label) : htone.label === '쿨톤';
+      const name = color ? color.label : `${htone.label} 컬러`;
+      if (ut === 'yellow' && warm) add(5, `노란기가 도는 피부라 ${josa(name, '이/가')} 피부와 자연스럽게 이어져요${LIGHT}`);
+      else if (ut === 'yellow' && cool) add(-3, `노란기가 도는 피부라 ${josa(name, '은/는')} 피부가 조금 칙칙해 보일 수 있어요. 베이지가 섞인 애쉬가 무난해요${LIGHT}`);
+      else if (ut === 'red' && cool) add(5, `붉은기가 도는 피부라 ${josa(name, '이/가')} 붉은기를 눌러 맑아 보이게 해요${LIGHT}`);
+      else if (ut === 'red' && warm) add(-3, `붉은기가 도는 피부라 ${josa(name, '은/는')} 붉은기를 더 살릴 수 있어요${LIGHT}`);
+    }
     c = 1;
     if (t.ears === 'out') {
       if ((cut && clashes(cut.label, ['sideShort'])) || (styling && EAR_OPEN.test(styling.label))) add(-10, '귀가 옆으로 잘 보이는 편이라 귀가 다 드러나는 스타일은 귀가 더 강조될 수 있어요');
@@ -443,6 +460,35 @@ function scoreStyle(f, style, t, gender) {
       if (brow.label === '일자 눈썹' && top === 'long') add(8, '일자 눈썹이 긴 얼굴형에 가로 라인을 만들어 줘요');
       if (brow.label === '아치 눈썹' && (top === 'round' || top === 'square')) add(8, `아치 눈썹이 ${shapeName}의 윤곽을 부드럽게 해 줘요`);
       if (brow.label === '일자 눈썹' && top === 'round') add(-5, '둥근 얼굴형은 일자 눈썹보다 살짝 아치가 있는 눈썹이 갸름해 보여요');
+    }
+    // 색: 피부 속 색과 립 · 블러셔 · 섀도 · 톤
+    const ut = undertone(f.skin);
+    if (ut && ut !== 'neutral') {
+      const lip = A('lip'), eye = A('eye'), tone = A('tone');
+      const fitColor = (a, warmRe, coolRe, what) => {
+        if (!a) return;
+        conf(a);
+        const warm = warmRe.test(a.label), cool = coolRe.test(a.label), nm = what ? `${a.label} ${what}` : a.label;
+        if (ut === 'yellow' && warm) add(5, `노란기가 도는 피부에 ${josa(nm, '이/가')} 자연스럽게 어울려요`);
+        else if (ut === 'yellow' && cool) add(-3, `노란기가 도는 피부라 ${josa(nm, '은/는')} 살짝 떠 보일 수 있어요`);
+        else if (ut === 'red' && cool) add(5, `붉은기가 도는 피부에 ${josa(nm, '이/가')} 맑게 어울려요`);
+        else if (ut === 'red' && warm) add(-3, `붉은기가 도는 피부라 ${josa(nm, '은/는')} 붉은기를 더 살릴 수 있어요`);
+      };
+      fitColor(lip, LIP_WARM, LIP_COOL, '립');
+      if (cheek) fitColor(cheek, CHEEK_WARM, CHEEK_COOL, '');
+      fitColor(eye, EYE_WARM, EYE_COOL, '');
+      if (tone && tone.label !== '뉴트럴') {
+        conf(tone);
+        (ut === 'yellow') === (tone.label === '웜톤') ? add(6, `${tone.label} 메이크업이 피부 속 색과 맞아요${LIGHT}`) : add(-4, `${tone.label} 메이크업은 피부 속 색과 반대 방향이라 톤을 조금 조절하면 좋아요${LIGHT}`);
+      }
+    }
+    // 눈매에 맞는 포인트
+    const eyeA = A('eye');
+    if (eyeA) {
+      conf(eyeA);
+      if (eyeA.label === '애교살 강조' && t.eyeRound <= -0.8) add(6, '눈이 가로로 긴 편이라 애교살을 살리면 눈이 커 보여요');
+      if (eyeA.label === '눈앞머리 하이라이트' && t.eyeWide <= -0.8) add(6, '미간이 좁은 편이라 눈앞머리 하이라이트가 눈 사이를 넓어 보이게 해요');
+      if (eyeA.label === '눈앞머리 하이라이트' && t.eyeWide >= 0.8) add(-4, '미간이 넓은 편이라 눈앞머리 하이라이트는 눈 사이를 더 넓어 보이게 할 수 있어요');
     }
   }
   const sum = reasons.reduce((a, r) => a + r.pts, 0);

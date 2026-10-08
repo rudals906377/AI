@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>얼굴 기준값 만들기</title>
+<!-- 내 얼굴 분석의 '평균'(face.js 의 NORM)을 동의받은 얼굴 사진들로 다시 만드는 로컬 도구. 배포하지 않는다 (tools/deploy-space.py 목록에 없음).
+     저장소 폴더에서 정적 서버로 연 뒤(예: python3 -m http.server) 이 파일을 열고 사진 폴더를 고르면, 점검을 통과한 정면 얼굴만 모아 평균 · 표준편차를 낸다. -->
+<style>
+  :root { --bg: #f4efe8; --card: #fbf8f3; --text: #2e2622; --muted: #74665a; --line: #e5dccf; --accent: #8f6654; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #1c1815; --card: #26211d; --text: #f0e8df; --muted: #ab9c8e; --line: #3a332d; --accent: #c49a85; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 60px; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 14px; }
+  small, .muted { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; }
+  textarea { width: 100%; min-height: 220px; font: 13px/1.5 ui-monospace, monospace; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px; box-sizing: border-box; }
+  button, select, input { font: inherit; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>얼굴 기준값 만들기</h1>
+  <p class="muted">내 얼굴 분석은 측정값을 '평균'과 비교해 얼굴형과 특징을 말해요. 지금 평균은 정면 얼굴 24장으로 만들었어요. 촬영 · 이용에 동의받은 정면 사진이 모이면 여기서 다시 계산해 <code>face.js</code> 의 <code>NORM</code> 에 붙여 넣으세요. 사진은 이 브라우저 안에서만 처리돼요.</p>
+  <section>
+    <div class="row">
+      <label>묶음 이름 <input id="group" placeholder="예: 여성 20대" size="14"></label>
+      <input type="file" id="files" accept="image/*" multiple webkitdirectory>
+      <input type="file" id="files2" accept="image/*" multiple>
+    </div>
+    <p class="muted">폴더 고르기 또는 사진 여러 장 고르기. 고개 8° 이내 · 점검 통과(가림 · 표정 · 각도)한 얼굴만 씁니다. 묶음마다 따로 계산해 성별 · 연령별 기준을 만들 수 있어요.</p>
+    <p id="status"></p>
+  </section>
+  <section>
+    <h2>결과</h2>
+    <table id="table"></table>
+    <p class="muted">위아래 5%는 빼고(이상치) 평균 · 표준편차를 냈어요. 표준편차가 지금 값의 절반보다 작거나 두 배보다 크면 사진 수가 부족한지 먼저 확인하세요. 30장 이상을 권해요.</p>
+    <textarea id="out" readonly></textarea>
+  </section>
+</main>
+<script type="module">
+import { analyzeFace, NORM } from './face.js';
+const KEYS = ['ratio', 'forehead', 'jaw', 'chin', 'jawAngle', ['bulge', 'jawBulge'], ['thirds', 0], ['thirds', 1], ['thirds', 2], 'philtrum', 'eyeSpacing', 'eyeAspect', 'eyeTilt', 'browGap', 'browArch', 'browTail', 'nose', 'mouth', 'lips', 'lipFull'];
+const $ = (id) => document.getElementById(id);
+const name = (k) => (Array.isArray(k) ? (typeof k[1] === 'number' ? `${k[0]}[${k[1]}]` : k[0]) : k);
+const val = (m, k) => (Array.isArray(k) ? (typeof k[1] === 'number' ? m[k[0]][k[1]] : m[k[1]]) : m[k]);
+const cur = (k) => (Array.isArray(k) && typeof k[1] === 'number' ? NORM[k[0]][k[1]] : NORM[name(k)]);
+function stat(xs) {
+  const s = xs.slice().sort((a, b) => a - b), cut = Math.floor(s.length * 0.05), t = s.slice(cut, s.length - cut || undefined);
+  const mean = t.reduce((a, b) => a + b, 0) / t.length;
+  const sd = Math.sqrt(t.reduce((a, b) => a + (b - mean) ** 2, 0) / Math.max(1, t.length - 1));
+  return [mean, sd];
+}
+async function run(files) {
+  const rows = [], skip = {};
+  files = [...files].filter((f) => f.type.startsWith('image/'));
+  for (let i = 0; i < files.length; i++) {
+    $('status').textContent = `${i + 1} / ${files.length} 재는 중… (통과 ${rows.length}장)`;
+    try {
+      const r = await analyzeFace(files[i], { purpose: 'hair' });
+      if (!r.ok) { const k = (r.issues.find((x) => x.level === 'block')?.title || '점검 실패').replace(/\d+(°|%)/g, 'n$1'); skip[k] = (skip[k] || 0) + 1; continue; }
+      if (Math.abs(r.pose?.yaw ?? 0) > 8) { skip['고개가 8° 넘게 돌아감'] = (skip['고개가 8° 넘게 돌아감'] || 0) + 1; continue; }
+      if (!r.geo.hairlineFound) { skip['헤어라인을 못 찾음'] = (skip['헤어라인을 못 찾음'] || 0) + 1; continue; }
+      rows.push(r.m);
+    } catch (e) { skip['오류'] = (skip['오류'] || 0) + 1; console.warn(e); }
+  }
+  $('status').textContent = `통과 ${rows.length}장 / ${files.length}장. 뺀 이유: ${Object.entries(skip).map(([k, n]) => `${k} ${n}`).join(', ') || '없음'}`;
+  if (rows.length < 5) return;
+  const res = KEYS.map((k) => [k, stat(rows.map((m) => val(m, k)))]);
+  $('table').innerHTML = '<tr><th>항목</th><th>새 평균</th><th>새 표준편차</th><th>지금 평균</th><th>지금 표준편차</th></tr>' +
+    res.map(([k, [m, s]]) => `<tr><td>${name(k)}</td><td>${m.toFixed(3)}</td><td>${s.toFixed(3)}</td><td>${cur(k)[0]}</td><td>${cur(k)[1]}</td></tr>`).join('');
+  const r3 = (x) => +x.toFixed(3), get = (n) => res.find(([k]) => name(k) === n)[1].map(r3);
+  const norm = {
+    ratio: get('ratio'), forehead: get('forehead'), jaw: get('jaw'), chin: get('chin'), jawAngle: get('jawAngle').map((x) => +x.toFixed(1)), bulge: get('bulge'),
+    thirds: [get('thirds[0]'), get('thirds[1]'), get('thirds[2]')], philtrum: get('philtrum'),
+    eyeSpacing: get('eyeSpacing'), eyeAspect: get('eyeAspect'), eyeTilt: get('eyeTilt').map((x) => +x.toFixed(1)), browGap: get('browGap'), browArch: get('browArch'), browTail: get('browTail'),
+    nose: get('nose'), mouth: get('mouth'), lips: get('lips'), lipFull: get('lipFull'),
+  };
+  $('out').value = `// ${$('group').value || '묶음'} · 정면 얼굴 ${rows.length}장 (${new Date().toISOString().slice(0, 10)})\nexport const NORM = ${JSON.stringify(norm).replace(/"(\w+)":/g, '$1: ').replace(/,(?=\w+:)/g, ', ')};\n`;
+}
+$('files').addEventListener('change', (e) => run(e.target.files));
+$('files2').addEventListener('change', (e) => run(e.target.files));
+</script>
+</body>
+</html>

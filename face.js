@@ -13,6 +13,7 @@
 //   3) 얼굴형: 측정값을 6가지 얼굴형의 기준값과 비교해 가까운 정도(%)로 낸다
 // 측정 부분(measureFace)은 DOM 없이 돌아가서 Node 에서 시험할 수 있다.
 
+import { assetFetch } from './assets.js';
 import { rgb2lab, lab2rgb } from './colors.js';
 
 // ---- 랜드마크 번호 (MediaPipe Face Mesh) ------------------------------------------
@@ -45,7 +46,7 @@ const angleAt = (g, a, b) => { const p = [a[0] - g[0], a[1] - g[1]], q = [b[0] -
 // ---- 측정 · 점검 ------------------------------------------------------------------
 // lm: [[x, y, z] 정규화 좌표 478개] · w/h: 사진 크기 · seg: 부위 분할 (sw × sh, SEG 번호)
 // blend: 표정 점수 (jawOpen 등) · mat: 고개 각도 변환 행렬(4×4, 열 우선) · skinL: 얼굴 피부 평균 밝기(L*)
-export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, mat = null, skinL = null, purpose = 'hair', others = [] }) {
+export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = null, blend = {}, mat = null, skinL = null, purpose = 'hair', others = [] }) {
   const P3 = lm.map(([x, y, z]) => [x * w, y * h, z * w]); // z 는 x 와 같은 척도
   const img = (i) => [P3[i][0], P3[i][1]];
   // 얼굴 좌표계: X = 왼쪽 광대 → 오른쪽 광대, Y = 턱끝 → 이마 위 (X 에 수직), Z = X × Y
@@ -308,6 +309,8 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
   }
   // 귀: 부위 분할에서 귀는 얼굴 피부로 잡힌다. 눈썹 ~ 코 밑 높이에서 메시 윤곽(귀 앞) 바깥으로 이어지는 피부 폭 = 귀가 보이는 폭,
   // 그 자리의 머리카락 비율 = 귀를 가린 정도. 고개를 돌리면 한쪽 귀가 더 보이므로 두 쪽을 따로 재고, 정면에 가까울 때만 돌출을 말한다
+  // earSeg: 귀 둘레만 크게 잘라 다시 분할한 마스크(사진 픽셀 크기). 있으면 귀는 그것으로 잰다
+  const earUV = earSeg ? (u, v) => { const [x, y] = toImg(u, v, 0); const ix = Math.floor((x / w) * sw), iy = Math.floor((y / h) * sh); return ix < 0 || iy < 0 || ix >= sw || iy >= sh ? -1 : earSeg[iy * sw + ix]; } : segUV;
   const ears = segAt ? [-1, 1].map((side) => {
     const rows = [];
     const N = 14, v0 = vBrow, v1 = vSub;
@@ -317,7 +320,7 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, blend = {}, 
       const um = side < 0 ? s.l : s.r;
       let out = 0, miss = 0, started = false, hair = 0, n = 0;
       for (let j = 0; j <= 60; j++) {
-        const d = -0.02 + (0.42 * j) / 60, c = segUV(um + side * d * CW, v);
+        const d = -0.02 + (0.42 * j) / 60, c = earUV(um + side * d * CW, v);
         if (d >= 0.02 && d <= 0.22) { n++; hair += c === SEG.hair; }
         const skin = c === SEG.face || c === SEG.body;
         if (skin) { if (d <= 0.06) started = true; if (started) { out = Math.max(out, d); miss = 0; } }
@@ -481,7 +484,7 @@ function loadTasks() {
   tasks ??= (async () => {
     const m = await import(`${MP}/vision_bundle.mjs`);
     const fileset = await m.FilesetResolver.forVisionTasks(`${MP}/wasm`);
-    const bytes = async (f) => { const r = await fetch(`${MODEL_DIR}/${f}`); if (!r.ok) throw new Error(`${f} 을(를) 받지 못했어요 (${r.status})`); return new Uint8Array(await r.arrayBuffer()); };
+    const bytes = async (f) => { const r = await assetFetch(`${MODEL_DIR}/${f}`); if (!r.ok) throw new Error(`${f} 을(를) 받지 못했어요 (${r.status})`); return new Uint8Array(await r.arrayBuffer()); };
     const [face, seg] = await Promise.all([
       bytes('face_landmarker.task').then((b) => m.FaceLandmarker.createFromOptions(fileset, { baseOptions: { modelAssetBuffer: b, delegate: 'CPU' },
         runningMode: 'IMAGE', numFaces: 3, outputFaceBlendshapes: true, outputFacialTransformationMatrixes: true })),
@@ -543,6 +546,31 @@ function segmentAround(seg, canvas, lm) {
   return out;
 }
 
+// 귀는 얼굴 둘레 마스크에서 몇 픽셀밖에 안 되므로(256px 로 줄여 봄), 귀 둘레(광대 너비의 0.8 × 1.0)만 따로 잘라 한 번 더 분할한다.
+// 얼굴 옆선 · 머리카락이 함께 들어가게 잘라야 분할 모델이 귀를 얼굴 피부로 알아본다. 얼굴 마스크에서 이미 얼굴 피부인 곳은 그대로 두고
+// (귀만 잘라 넣으면 귀를 놓치는 사진이 있어서), 나머지를 고해상도 결과로 덮어쓴 사본
+function segmentEars(seg, canvas, lm, mask) {
+  const w = canvas.width, h = canvas.height;
+  const L = [lm[234][0] * w, lm[234][1] * h], R = [lm[454][0] * w, lm[454][1] * h];
+  const cw = Math.hypot(R[0] - L[0], R[1] - L[1]);
+  if (cw < 40) return null;
+  const out = mask.slice();
+  for (const [p, s] of [[L, -1], [R, 1]]) {
+    const bw = cw * 1.0, bh = cw * 1.1, cx = p[0] + s * cw * 0.08, cy = p[1] + cw * 0.08;
+    const x0 = Math.max(0, Math.floor(cx - bw / 2)), x1 = Math.min(w, Math.ceil(cx + bw / 2));
+    const y0 = Math.max(0, Math.floor(cy - bh / 2)), y1 = Math.min(h, Math.ceil(cy + bh / 2));
+    if (x1 - x0 < 16 || y1 - y0 < 16) continue;
+    const src = document.createElement('canvas'); src.width = x1 - x0; src.height = y1 - y0;
+    src.getContext('2d').drawImage(canvas, x0, y0, x1 - x0, y1 - y0, 0, 0, x1 - x0, y1 - y0);
+    const r = seg.segment(src); const cm = r.categoryMask; const m = new Uint8Array(cm.getAsUint8Array()), mw = cm.width, mh = cm.height; r.close?.();
+    for (let y = y0; y < y1; y++) {
+      const my = Math.floor(((y - y0) / (y1 - y0)) * mh) * mw;
+      for (let x = x0; x < x1; x++) { const i = y * w + x, c = m[my + Math.floor(((x - x0) / (x1 - x0)) * mw)]; if (out[i] !== SEG.face || c === SEG.face) out[i] = c === SEG.body && out[i] === SEG.face ? SEG.face : c; }
+    }
+  }
+  return out;
+}
+
 export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
   const { face, seg } = await loadTasks();
   const focal35 = await readFocal35(blob).catch(() => null); // 사진 정보(EXIF)의 35mm 환산 초점거리 — 카메라 거리 어림용
@@ -586,7 +614,8 @@ export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
   }
   const skin = skinPx.length > 20 ? skinTone(skinPx) : null;
 
-  const res = measureFace({ lm, w, h, seg: mask, sw, sh, blend, mat, skinL: skin?.lab[0], purpose, others });
+  const earSeg = segmentEars(seg, canvas, lm, mask);
+  const res = measureFace({ lm, w, h, seg: mask, sw, sh, earSeg, blend, mat, skinL: skin?.lab[0], purpose, others });
   // 카메라 거리: 초점거리(픽셀) × 눈동자 간격(평균 6.3cm) ÷ 사진 속 눈동자 간격(픽셀). 35mm 환산 초점거리는 대각선 43.3mm 기준
   let distance = null;
   if (focal35 && focal35 > 5 && focal35 < 400) {

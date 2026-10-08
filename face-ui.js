@@ -5,6 +5,7 @@
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, FRAME, SEG } from './face.js';
 import { faceReport, rankStyles, styleFit } from './face-advice.js';
+import { faceCard, shareImage } from './share-card.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -15,7 +16,8 @@ function fitHtml(fit, head) {
     <b class="${fit.good ? 'good' : 'meh'}">${esc(fit.verdict)}${fit.score != null ? ` <span class="fit-score">궁합 ${fit.score}점</span>` : ''}</b>
     ${fit.score != null ? `<div class="fit-bar"><i style="width:${fit.score}%"></i></div>` : ''}
     ${plus.length || minus.length ? `<ul class="fit-why">${plus.map((x) => `<li class="plus">${esc(x.text)}</li>`).join('')}${minus.map((x) => `<li class="minus">${esc(x.text)}</li>`).join('')}</ul>` : ''}
-    ${fit.tip ? `<p>${esc(fit.tip)}</p>` : ''}`;
+    ${fit.tip ? `<p>${esc(fit.tip)}</p>` : ''}
+    ${fit.score != null ? `<div class="fit-vote"><span>이 판단, 어떠세요?</span><button class="ghost small" type="button" data-vote="1">맞아요</button><button class="ghost small" type="button" data-vote="0">글쎄요</button></div>` : ''}`;
 }
 
 export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, copy = async () => {} }) {
@@ -26,7 +28,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     card: $('faceResultCard'), empty: $('faceEmpty'), status: $('faceStatus'), retake: $('faceRetake'), result: $('faceResult'),
     canvas: $('faceCanvas'), layers: $('faceLayer'), legend: $('faceLegend'),
     shape: $('faceShape'), shapeLabel: $('faceShapeLabel'), summary: $('faceSummary'), bars: $('faceBars'), warn: $('faceWarn'), match: $('faceMatch'),
-    measures: $('faceMeasures'), adviceTitle: $('faceAdviceTitle'), advice: $('faceAdvice'), copyBtn: $('faceCopy'), againBtn: $('faceAgain'),
+    shareBtn: $('faceShare'), remember: $('faceRemember'), fitExportRow: $('fitExportRow'), fitExport: $('fitExport'), measures: $('faceMeasures'), adviceTitle: $('faceAdviceTitle'), advice: $('faceAdvice'), copyBtn: $('faceCopy'), againBtn: $('faceAgain'),
     retakeList: $('faceRetakeList'), retakeCanvas: $('faceRetakeCanvas'), retakeBtn: $('faceRetakeBtn'),
     cta: $('faceCta'), styleFit: $('styleFit'), ctaTitle: $('faceCtaTitle'), ctaBtn: $('faceCtaBtn'),
     rank: $('faceRank'), rankPick: $('faceRankPick'), rankAddCur: $('faceRankAddCur'), rankClear: $('faceRankClear'), rankFile: $('faceRankFile'),
@@ -38,6 +40,16 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   // 추천 기준(성별): 사용자가 고른 값만 쓴다 (사진으로 추정하지 않음). 이 브라우저에만 기억
   let gender = '';
   try { gender = localStorage.getItem('faceGender') || ''; } catch {}
+  // 기억해 둔 얼굴형 (측정값만, 사진 X) — 얼굴 분석을 다시 하지 않아도 스타일 궁합을 볼 수 있게
+  const MEMO_KEY = 'beauty-face-memo-v1', VOTE_KEY = 'beauty-fit-feedback-v1';
+  let memo = null;
+  const currentFits = {}; // 지금 화면에 보이는 궁합 (평가 버튼이 어느 판단에 대한 것인지)
+  try { memo = JSON.parse(localStorage.getItem(MEMO_KEY) || 'null'); } catch {}
+  const slim = (f) => ({ ok: true, m: f.m, pose: { yaw: f.pose?.yaw ?? 0 }, geo: { hairlineFound: !!f.geo?.hairlineFound }, skin: f.skin || null, shape: { probs: f.shape.probs }, saved: Date.now() });
+  function saveMemo() { try { memo = slim(last); localStorage.setItem(MEMO_KEY, JSON.stringify(memo)); } catch { memo = null; } }
+  function dropMemo() { memo = null; try { localStorage.removeItem(MEMO_KEY); } catch {} }
+  const faceForFit = () => (last?.ok ? last : memo);
+  const memoNote = () => (!last?.ok && memo ? ` (기억해 둔 얼굴형 · ${new Date(memo.saved).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })})` : '');
   let blob = null;
   let frameBlobs = null; // 웹캠 연속 촬영 장들 (한 장만 올리면 null)
   let last = null;      // analyzeFace 결과 (여러 장이면 combineFaces 결과)
@@ -363,6 +375,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     // 스타일 분석 결과와의 궁합 (어느 쪽을 먼저 분석했든)
     const mt = report.match;
     els.match.classList.toggle('hidden', !mt);
+    if (mt) currentFits.face = { fit: mt, where: 'face' };
     if (mt) els.match.innerHTML = fitHtml(mt, `분석한 ${mt.category === 'hair' ? '헤어' : '메이크업'} 스타일과의 궁합`);
     syncStyleFit();
     // 측정 표
@@ -373,6 +386,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     const secs = purpose === 'hair' ? report.hair : report.makeup;
     els.advice.innerHTML = secs.map((s) => `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li><span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
     // 그림 층: 헤어는 측정선, 메이크업은 메이크업 위치를 먼저
+    els.remember.checked = !!memo;
+    if (memo) saveMemo(); // 기억하기를 켜 두었으면 새 결과로 바꿔 둔다
+    updateFitExport();
     renderRank();
     layer = purpose === 'makeup' ? 'makeup' : 'measure';
     els.layers.querySelector('[data-layer="makeup"]').hidden = purpose !== 'makeup';
@@ -390,11 +406,12 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   function syncStyleFit() {
     const r = getStyle().result;
     const show = r && r.is_beauty && (r.category === 'hair' || r.category === 'makeup');
-    const fit = show && last?.ok ? styleFit(last, r, { gender: gender || null }) : null;
+    const fit = show && faceForFit() ? styleFit(faceForFit(), r, { gender: gender || null }) : null;
     els.cta.classList.toggle('hidden', !show || !!fit);
     els.styleFit.classList.toggle('hidden', !fit);
     if (fit) {
-      els.styleFit.innerHTML = fitHtml(fit, '내 얼굴형과의 궁합') + '<button class="ghost small" type="button" data-act="face">얼굴 분석 결과 보기</button>';
+      currentFits.style = { fit, where: 'style' };
+      els.styleFit.innerHTML = fitHtml(fit, `내 얼굴형과의 궁합${memoNote()}`) + `<button class="ghost small" type="button" data-act="face">${last?.ok ? '얼굴 분석 결과 보기' : '얼굴 다시 분석하기'}</button>`;
       els.styleFit.querySelector('[data-act="face"]').onclick = () => { setMode('face'); if (r.category !== purpose) setPurpose(r.category); };
     }
   }
@@ -404,6 +421,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   const RANK_MAX = 8;
   let picks = [];      // { blob, url, res: { hair, makeup } }
   let rankSeq = 0;
+  let lastRanked = [];
   const KO = { hair: '헤어', makeup: '메이크업' };
   async function addPicks(blobs) {
     const room = RANK_MAX - picks.length;
@@ -431,10 +449,11 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     const { blob: sb, result: sr } = getStyle();
     els.rankAddCur.classList.toggle('hidden', !sb || !sr?.is_beauty || picks.some((p) => p.blob === sb));
     $('faceRankTitle').textContent = `원하는 ${KO[purpose]} 비교 · 베스트 순위`;
-    if (!has || !last?.ok) { els.rankList.innerHTML = ''; els.rankSkip.classList.add('hidden'); els.rankNote.classList.add('hidden'); return; }
+    if (!has || !last?.ok) { lastRanked = []; els.rankList.innerHTML = ''; els.rankSkip.classList.add('hidden'); els.rankNote.classList.add('hidden'); return; }
     if (picks.some((p) => !(purpose in p.res))) { analyzePicks(); return; }
     const items = picks.map((p, i) => ({ i, url: p.url, result: p.res[purpose] }));
     const { ranked, skipped } = rankStyles(last, items, { purpose, gender: gender || null });
+    lastRanked = ranked;
     const medal = ['🥇', '🥈', '🥉'];
     els.rankList.innerHTML = ranked.map((r, k) => {
       const plus = r.reasons.filter((x) => x.pts > 0).slice(0, 3), minus = r.reasons.filter((x) => x.pts < 0).slice(0, 2);
@@ -624,6 +643,44 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   }
 
   // ---- 복사 -------------------------------------------------------------------------
+  els.remember.addEventListener('change', () => {
+    if (els.remember.checked && last?.ok) { saveMemo(); toast('이 기기에 얼굴형을 기억했어요 (사진은 저장하지 않아요)'); }
+    else { dropMemo(); toast('기억해 둔 얼굴형을 지웠어요'); }
+    syncStyleFit();
+  });
+  // 궁합 판단에 대한 평가 (맞아요 / 글쎄요) — 이 기기에만 쌓고, 내보내 점수 기준을 다듬는 데 쓴다
+  const votes = () => { try { return JSON.parse(localStorage.getItem(VOTE_KEY) || '[]'); } catch { return []; } };
+  function updateFitExport() {
+    const n = votes().length;
+    els.fitExportRow.classList.toggle('hidden', !n);
+    els.fitExport.textContent = `궁합 평가 ${n}개 내보내기`;
+  }
+  function onVote(e, which) {
+    const b = e.target.closest('[data-vote]'); if (!b) return;
+    const cur = currentFits[which]; if (!cur) return;
+    const f = faceForFit(), fit = cur.fit;
+    const row = { t: new Date().toISOString(), where: which, vote: b.dataset.vote === '1' ? 'agree' : 'disagree', shape: f?.shape?.probs?.[0]?.key, category: fit.category,
+      title: fit.title, score: fit.score, reasons: fit.reasons.map((x) => [Math.round(x.pts * 10) / 10, x.text]), gender: gender || null };
+    try { const list = votes(); list.push(row); localStorage.setItem(VOTE_KEY, JSON.stringify(list.slice(-500))); } catch {}
+    b.parentElement.innerHTML = `<span>${row.vote === 'agree' ? '고마워요! 판단이 맞았다니 다행이에요.' : '알려 줘서 고마워요. 점수 기준을 다듬는 데 쓸게요.'}</span>`;
+    updateFitExport();
+  }
+  els.match.addEventListener('click', (e) => onVote(e, 'face'));
+  els.styleFit.addEventListener('click', (e) => onVote(e, 'style'));
+  els.fitExport.addEventListener('click', () => {
+    const blob = new Blob([votes().map((r) => JSON.stringify(r)).join('\n') + '\n'], { type: 'application/jsonl' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `fit-feedback-${new Date().toISOString().slice(0, 10)}.jsonl`;
+    document.body.append(a); a.click(); a.remove();
+  });
+  els.shareBtn.addEventListener('click', async () => {
+    if (!report || !last?.ok) return;
+    els.shareBtn.disabled = true;
+    try {
+      const blob = await faceCard({ report: { ...report, probs: last.shape.probs }, ranked: lastRanked });
+      const how = await shareImage(blob, '내-얼굴형-분석.png', '내 얼굴형 분석');
+      if (how === 'downloaded') toast('공유 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)');
+    } catch (e) { console.error(e); toast('공유 이미지를 만들지 못했어요'); } finally { els.shareBtn.disabled = false; }
+  });
   els.copyBtn.addEventListener('click', () => {
     if (!report) return;
     const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, '', '측정 결과'];
@@ -640,5 +697,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   });
 
   setPurpose('hair');
-  return { styleChanged, setMode };
+  // 스타일 결과 카드의 공유 이미지에 넣을 궁합 (얼굴 분석을 했을 때만)
+  const fitFor = (r) => (faceForFit() ? styleFit(faceForFit(), r, { gender: gender || null }) : null);
+  return { styleChanged, setMode, fitFor };
 }

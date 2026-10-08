@@ -492,3 +492,11 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .quip { margin: 10px 0 4px; padding: 10px 14px; border-left: 3px solid var(--mocha, #8b5e4a); background: var(--bg-2); border-radius: 0 10px 10px 0; font-size: .93rem; line-height: 1.55; }
 .quip b { display: block; font-size: .78rem; letter-spacing: .02em; color: var(--muted); margin-bottom: 2px; }
 .face-quip { display: block; margin-top: 6px; font-style: italic; opacity: .92; }
+/* 궁합 평가 · 얼굴형 기억 */
+.fit-vote { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; font-size: .84rem; color: var(--muted); }
+.fit-vote button { padding: 4px 12px; }
+.remember { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; margin-top: 12px; font-size: .9rem; cursor: pointer; }
+.remember small { flex-basis: 100%; color: var(--muted); font-size: .8rem; line-height: 1.5; padding-left: 22px; }
+.fit-export { margin: 6px 0 0; font-size: .84rem; }
+.fit-export small { color: var(--muted); }
+button.link { background: none; border: 0; padding: 0; color: var(--accent-ink); text-decoration: underline; cursor: pointer; font: inherit; }

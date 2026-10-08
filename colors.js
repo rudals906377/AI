@@ -9,6 +9,7 @@
 // 모델은 필요한 카테고리에서 처음 한 번만 내려받는다. 조명에 따라 색이 달라지므로 화면에는 '사진 속 색'으로 표시한다.
 
 const MP = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.0.1';
+import { assetFetch } from './assets.js';
 const MODEL_DIR = './models/mediapipe';
 const MAX_SIDE = 768;
 
@@ -19,7 +20,7 @@ function lib() {
   return libPromise;
 }
 async function modelBytes(file) {
-  const r = await fetch(`${MODEL_DIR}/${file}`);
+  const r = await assetFetch(`${MODEL_DIR}/${file}`);
   if (!r.ok) throw new Error(`${file} 을(를) 받지 못했어요 (${r.status})`);
   return new Uint8Array(await r.arrayBuffer());
 }
