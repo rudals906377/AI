@@ -1,0 +1,119 @@
+{
+  "_note": "Croche Tool 정의 초안. 이름 · 설명 · 입력/출력 스키마만 정해 둔 것으로, SDK 공개 후 Croche 의 Tool 등록 형식에 맞춰 옮긴다. 사진 · 픽셀 · 얼굴 좌표 원본은 어떤 Tool 에도 넣지 않는다. docs/CROCHE_ARCHITECTURE.md 3장 참고.",
+  "tools": [
+    {
+      "name": "get_style_analysis",
+      "description": "사용자가 이번 상담에서 올린 스타일 사진의 분석 결과를 가져온다. 사진은 브라우저에서 이미 분석되었고, 결과(카테고리 · 장르 · 속성별 확률 · 트렌드 이름)만 돌려준다.",
+      "runs": "client",
+      "source": "analyzer.analyze() → app.js slim()",
+      "input": { "type": "object", "properties": { "photo_id": { "type": "string", "description": "세션 안에서 사진을 가리키는 id (없으면 가장 최근 사진)" } } },
+      "output": { "type": "object", "properties": {
+        "category": { "enum": ["hair", "nail", "makeup", "tattoo"] },
+        "is_beauty": { "type": "boolean" },
+        "genre": { "type": "object", "properties": { "name": { "type": "string" }, "score": { "type": "number" } } },
+        "attributes": { "type": "array", "items": { "type": "object", "properties": { "group": { "type": "string" }, "label": { "type": "string" }, "score": { "type": "number" } } } },
+        "trends": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "why": { "type": "string" } } } },
+        "subject": { "type": ["string", "null"], "description": "사람이 아닌 주인공이면 '강아지' 등" }
+      } }
+    },
+    {
+      "name": "get_face_profile",
+      "description": "사용자의 얼굴 프로필(측정값 요약)을 가져온다. 이번 세션에서 찍은 셀카가 없으면 Memory 에 기억한 프로필을 쓴다. 성별은 사용자가 고른 값만 담는다.",
+      "runs": "client",
+      "source": "analyzeFace() → face-ui slim()",
+      "input": { "type": "object", "properties": {} },
+      "output": { "type": "object", "properties": {
+        "shape_probs": { "type": "array", "items": { "type": "object", "properties": { "key": { "type": "string" }, "label": { "type": "string" }, "p": { "type": "number" } } } },
+        "traits": { "type": "array", "items": { "type": "string" }, "description": "'턱끝이 넓은 편' 같은 평균 대비 특징" },
+        "ears": { "enum": ["hidden", "out", "slight", "normal", null] },
+        "skin_undertone": { "enum": ["yellow", "red", "neutral", null] },
+        "gender_choice": { "enum": ["f", "m", null] },
+        "measured_at": { "type": "string" }
+      } }
+    },
+    {
+      "name": "style_fit",
+      "description": "스타일 하나와 얼굴 프로필의 궁합을 계산한다. 점수(0~100) · 판정 · 근거 문장(+/−) · 대안 스타일을 돌려준다. 점수는 규칙표와의 일치 정도라 참고용이다.",
+      "runs": "any",
+      "source": "face-advice.js styleFit()",
+      "input": { "type": "object", "required": ["photo_id"], "properties": { "photo_id": { "type": "string" } } },
+      "output": { "type": "object", "properties": {
+        "score": { "type": ["number", "null"] }, "verdict": { "type": "string" },
+        "reasons": { "type": "array", "items": { "type": "object", "properties": { "pts": { "type": "number" }, "text": { "type": "string" } } } },
+        "tip": { "type": "string" }
+      } }
+    },
+    {
+      "name": "rank_styles",
+      "description": "이번 세션에서 올린 스타일 사진 여러 장을 얼굴 프로필 기준으로 순위를 매긴다. 다른 카테고리 · 여러 사람 사진은 이유와 함께 뺀다.",
+      "runs": "any",
+      "source": "face-advice.js rankStyles()",
+      "input": { "type": "object", "properties": { "photo_ids": { "type": "array", "items": { "type": "string" } }, "purpose": { "enum": ["hair", "makeup"] } } },
+      "output": { "type": "object", "properties": { "ranked": { "type": "array" }, "skipped": { "type": "array" } } }
+    },
+    {
+      "name": "best_styles",
+      "description": "스타일 사전(미리 분석해 둔 예시 스타일)에서 얼굴 프로필에 가장 잘 맞는 스타일 N개를 고른다.",
+      "runs": "any",
+      "source": "rankStyles(samples/styles.json)",
+      "input": { "type": "object", "properties": { "purpose": { "enum": ["hair", "makeup"] }, "n": { "type": "integer", "default": 6 } } },
+      "output": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "score": { "type": "number" }, "why": { "type": "string" } } } }
+    },
+    {
+      "name": "build_salon_order",
+      "description": "디자이너에게 보여 줄 시술 요청서 · 상담 카드 내용을 만든다 (원하는 스타일 항목, 상담 때 정할 것, 얼굴 정보, 피하고 싶은 것).",
+      "runs": "any",
+      "source": "order.js buildOrder() + face-ui consultInfo()",
+      "input": { "type": "object", "required": ["photo_id"], "properties": { "photo_id": { "type": "string" } } },
+      "output": { "type": "object", "properties": { "rows": { "type": "array" }, "checks": { "type": "array" }, "notes": { "type": "array" }, "face": { "type": ["object", "null"] }, "text": { "type": "string" } } }
+    },
+    {
+      "name": "explain_term",
+      "description": "스타일 용어(라벨 406개)의 뜻과 비슷한 다른 이름을 알려 준다. 예: 커튼뱅, 발레아쥬, 숙취 블러셔.",
+      "runs": "any",
+      "source": "taxonomy.js def · syn",
+      "input": { "type": "object", "required": ["term"], "properties": { "term": { "type": "string" } } },
+      "output": { "type": "object", "properties": { "term": { "type": "string" }, "category": { "type": "string" }, "definition": { "type": "string" }, "also_called": { "type": "array", "items": { "type": "string" } } } }
+    },
+    {
+      "name": "match_trends",
+      "description": "속성 조합에 맞는 요즘 트렌드 이름(210개)을 찾는다.",
+      "runs": "any",
+      "source": "trends.js matchTrends()",
+      "input": { "type": "object", "required": ["photo_id"], "properties": { "photo_id": { "type": "string" } } },
+      "output": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "why": { "type": "string" } } } }
+    },
+    {
+      "name": "compare_before_after",
+      "description": "시술 전후 셀카의 머리 실루엣(옆 볼륨 · 정수리 · 이마 덮임 · 기장) 변화와, 그 변화가 얼굴형 추천 방향과 맞는지를 돌려준다.",
+      "runs": "client",
+      "source": "face-advice.js compareFrames()",
+      "input": { "type": "object", "required": ["before_id", "after_id"], "properties": { "before_id": { "type": "string" }, "after_id": { "type": "string" } } },
+      "output": { "type": "object", "properties": { "verdict": { "type": "string" }, "items": { "type": "array" }, "other_person": { "type": "boolean" } } }
+    },
+    {
+      "name": "couple_chemistry",
+      "description": "두 사람(본인 + 동의한 상대)의 얼굴형 케미와 둘 다 어울리는 스타일을 알려 준다. 재미용.",
+      "runs": "any",
+      "source": "face-advice.js coupleChem()",
+      "input": { "type": "object", "required": ["partner_id"], "properties": { "partner_id": { "type": "string" } } },
+      "output": { "type": "object", "properties": { "title": { "type": "string" }, "score": { "type": "number" }, "both": { "type": "array" }, "tone": { "type": ["string", "null"] } } }
+    },
+    {
+      "name": "request_expert_review",
+      "description": "판단 확신이 낮은 결과(장르 확률 < 0.5 등)를 디자이너 검수 대기열에 보낸다. 사진은 보내지 않고, 사용자가 동의한 경우에만 결과 요약을 보낸다.",
+      "runs": "server",
+      "source": "새로 (review.html 과 연결)",
+      "input": { "type": "object", "required": ["photo_id", "reason"], "properties": { "photo_id": { "type": "string" }, "reason": { "type": "string" } } },
+      "output": { "type": "object", "properties": { "queued": { "type": "boolean" }, "ticket": { "type": "string" } } }
+    },
+    {
+      "name": "record_feedback",
+      "description": "궁합 · 분석 판단에 대한 사용자의 평가('맞아요 / 글쎄요')나 수정값을 저장한다.",
+      "runs": "server",
+      "source": "지금 face-ui VOTE_KEY · app.js FB_KEY (localStorage)",
+      "input": { "type": "object", "required": ["target", "vote"], "properties": { "target": { "type": "string" }, "vote": { "enum": ["agree", "disagree"] }, "fix": { "type": "object" } } },
+      "output": { "type": "object", "properties": { "saved": { "type": "boolean" } } }
+    }
+  ]
+}
