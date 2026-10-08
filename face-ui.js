@@ -4,8 +4,8 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, FRAME, SEG } from './face.js';
-import { faceReport, rankStyles, styleFit } from './face-advice.js';
-import { faceCard, shareImage } from './share-card.js';
+import { faceReport, rankStyles, styleFit, coupleChem, compareFrames } from './face-advice.js';
+import { faceCard, coupleCard, shareImage } from './share-card.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -20,7 +20,7 @@ function fitHtml(fit, head) {
     ${fit.score != null ? `<div class="fit-vote"><span>이 판단, 어떠세요?</span><button class="ghost small" type="button" data-vote="1">맞아요</button><button class="ghost small" type="button" data-vote="0">글쎄요</button></div>` : ''}`;
 }
 
-export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, copy = async () => {} }) {
+export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, toast = () => {}, copy = async () => {} }) {
   const els = {
     tabs: $('modeTabs'), styleGrid: $('styleGrid'), faceGrid: $('faceGrid'),
     purpose: $('facePurpose'), gender: $('faceGender'), drop: $('faceDrop'), file: $('faceFile'), camera: $('faceCamera'), preview: $('facePreview'), hint: $('faceHint'),
@@ -31,6 +31,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     shareBtn: $('faceShare'), remember: $('faceRemember'), fitExportRow: $('fitExportRow'), fitExport: $('fitExport'), measures: $('faceMeasures'), adviceTitle: $('faceAdviceTitle'), advice: $('faceAdvice'), copyBtn: $('faceCopy'), againBtn: $('faceAgain'),
     retakeList: $('faceRetakeList'), retakeCanvas: $('faceRetakeCanvas'), retakeBtn: $('faceRetakeBtn'),
     cta: $('faceCta'), styleFit: $('styleFit'), ctaTitle: $('faceCtaTitle'), ctaBtn: $('faceCtaBtn'),
+    gallery: $('faceGallery'), galleryGrid: $('faceGalleryGrid'), galleryTitle: $('faceGalleryTitle'),
+    couple: $('faceCouple'), coupleBtn: $('coupleBtn'), coupleShare: $('coupleShare'), coupleFile: $('coupleFile'), coupleStatus: $('coupleStatus'), coupleResult: $('coupleResult'),
+    baBtn: $('baBtn'), baFile: $('baFile'), baStatus: $('baStatus'), baResult: $('baResult'),
     rank: $('faceRank'), rankPick: $('faceRankPick'), rankAddCur: $('faceRankAddCur'), rankClear: $('faceRankClear'), rankFile: $('faceRankFile'),
     rankStatus: $('faceRankStatus'), rankList: $('faceRankList'), rankSkip: $('faceRankSkip'), rankNote: $('faceRankNote'),
     cam: $('camDialog'), video: $('camVideo'), camShot: $('camShot'), camCancel: $('camCancel'), camNote: $('camNote'),
@@ -389,6 +392,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     els.remember.checked = !!memo;
     if (memo) saveMemo(); // 기억하기를 켜 두었으면 새 결과로 바꿔 둔다
     updateFitExport();
+    renderGallery();
+    renderCouple();
+    renderBA();
     renderRank();
     layer = purpose === 'makeup' ? 'makeup' : 'measure';
     els.layers.querySelector('[data-layer="makeup"]').hidden = purpose !== 'makeup';
@@ -409,11 +415,105 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     const fit = show && faceForFit() ? styleFit(faceForFit(), r, { gender: gender || null }) : null;
     els.cta.classList.toggle('hidden', !show || !!fit);
     els.styleFit.classList.toggle('hidden', !fit);
+    const os = $('orderSave'); if (os) os.textContent = show && faceForFit() ? '상담 카드로 저장' : '이미지로 저장';
     if (fit) {
       currentFits.style = { fit, where: 'style' };
       els.styleFit.innerHTML = fitHtml(fit, `내 얼굴형과의 궁합${memoNote()}`) + `<button class="ghost small" type="button" data-act="face">${last?.ok ? '얼굴 분석 결과 보기' : '얼굴 다시 분석하기'}</button>`;
       els.styleFit.querySelector('[data-act="face"]').onclick = () => { setMode('face'); if (r.category !== purpose) setPurpose(r.category); };
     }
+  }
+
+  // ---- 내 얼굴형 베스트 스타일 갤러리 (예시 사진을 미리 분석해 둔 samples/styles.json 을 내 얼굴로 채점) ----------
+  let sampleStyles = null;
+  const loadSampleStyles = () => (sampleStyles ??= fetch('./samples/styles.json').then((r) => (r.ok ? r.json() : { items: [] })).then((j) => j.items || []).catch(() => []));
+  let galleryTop = [];
+  async function renderGallery() {
+    if (!last?.ok) { els.gallery.classList.add('hidden'); return; }
+    const items = (await loadSampleStyles()).filter((x) => x.category === purpose);
+    if (!last?.ok || !items.length) { els.gallery.classList.add('hidden'); return; }
+    const { ranked } = rankStyles(last, items.map((x, i) => ({ i, url: x.thumb, file: x.file, result: x })), { purpose, gender: gender || null });
+    // 같은 장르 이름은 한 번만 (다양하게 보여 주려고)
+    const seen = new Set();
+    galleryTop = ranked.filter((r) => { const k = r.name.replace(/\s*\+.*$/, '').replace(/\s*계열$/, '').replace(/컷$/, ''); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, 6);
+    els.gallery.classList.toggle('hidden', !galleryTop.length);
+    els.galleryTitle.textContent = `내 얼굴형 베스트 ${purpose === 'hair' ? '헤어' : '메이크업'} TOP ${galleryTop.length}`;
+    els.galleryGrid.innerHTML = galleryTop.map((r, k) => {
+      const why = r.reasons.find((x) => x.pts > 0)?.text || '';
+      return `<button type="button" data-file="${esc(r.file)}" aria-label="${k + 1}위 ${esc(r.name)}, 궁합 ${r.score}점"><span class="ph"><img src="${esc(r.url)}" alt="" loading="lazy"><span class="rk">${k + 1}위</span></span><span class="nm">${esc(r.name)}</span><span class="sc">궁합 ${r.score}점</span><span class="why">${esc(why)}</span></button>`;
+    }).join('');
+  }
+  els.galleryGrid.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-file]'); if (!b || !openSample) return;
+    setMode('style');
+    openSample(b.dataset.file, purpose);
+  });
+
+  // ---- 친구 · 커플 케미 (재미용) --------------------------------------------------------
+  let partner = null, partnerUrl = null, chem = null;
+  els.coupleBtn.addEventListener('click', () => els.coupleFile.click());
+  els.coupleFile.addEventListener('change', async () => {
+    const f = els.coupleFile.files[0]; els.coupleFile.value = '';
+    if (!f || !last?.ok) return;
+    els.coupleStatus.classList.remove('hidden');
+    els.coupleStatus.innerHTML = '<span class="spin"></span> 상대의 얼굴을 재는 중…';
+    try {
+      const r = await analyzeFace(f, { purpose: 'hair' });
+      if (!r.ok) {
+        const why = r.issues.find((x) => x.level === 'block');
+        els.coupleStatus.textContent = `상대 사진은 재지 못했어요: ${why ? why.title : '얼굴을 찾지 못했어요'}. 정면에서 이마 · 턱선이 보이는 사진으로 다시 올려 주세요.`;
+        return;
+      }
+      partner = r; if (partnerUrl) URL.revokeObjectURL(partnerUrl); partnerUrl = URL.createObjectURL(f);
+      els.coupleStatus.classList.add('hidden');
+      renderCouple();
+    } catch (e) { console.error(e); els.coupleStatus.textContent = '상대 사진을 분석하지 못했어요.'; }
+  });
+  function renderCouple() {
+    if (!partner || !last?.ok) { els.coupleResult.classList.add('hidden'); els.coupleShare.classList.add('hidden'); chem = null; return; }
+    chem = coupleChem(last, partner, { gender: gender || null });
+    els.coupleResult.classList.remove('hidden'); els.coupleShare.classList.remove('hidden');
+    els.coupleBtn.textContent = '다른 사람으로 바꾸기';
+    els.coupleResult.innerHTML = `<div class="pair"><img src="${els.preview.src}" alt="나"><b>${esc(chem.shapes[0])}</b><span>×</span><img src="${partnerUrl}" alt="상대"><b>${esc(chem.shapes[1])}</b></div>
+      <div><span class="chem">${esc(chem.title)} ${chem.score}점</span> <small>(재미로 보는 점수예요)</small></div>
+      <p>${esc(chem.line)}</p>
+      ${chem.both.length ? `<p><b>둘 다 잘 어울리는 커트:</b> ${esc(chem.both.join(' · '))}${chem.bangs.length ? ` · 앞머리는 ${esc(chem.bangs.join(' / '))}` : ''}</p>` : '<p><b>커트는 각자에게 맞는 걸로!</b> 대신 컬러나 분위기를 맞추면 커플 느낌이 살아요.</p>'}
+      ${chem.tone ? `<p><b>커플 컬러:</b> ${esc(chem.tone)} <small>(사진 속 피부색 기준이라 조명에 따라 달라질 수 있어요)</small></p>` : ''}`;
+  }
+  els.coupleShare.addEventListener('click', async () => {
+    if (!chem) return;
+    try { const blob = await coupleCard({ chem }); const how = await shareImage(blob, '얼굴형-케미.png', chem.title); if (how === 'downloaded') toast('케미 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)'); }
+    catch (e) { console.error(e); toast('이미지를 만들지 못했어요'); }
+  });
+
+  // ---- 시술 전후 비교 --------------------------------------------------------------------
+  let after = null, afterUrl = null;
+  els.baBtn.addEventListener('click', () => els.baFile.click());
+  els.baFile.addEventListener('change', async () => {
+    const f = els.baFile.files[0]; els.baFile.value = '';
+    if (!f || !last?.ok) return;
+    els.baStatus.classList.remove('hidden');
+    els.baStatus.innerHTML = '<span class="spin"></span> 시술 후 사진을 재는 중…';
+    try {
+      // 앞머리가 이마를 덮는 등 '다시 찍기' 사유가 있어도 실루엣은 잴 수 있으므로, 얼굴만 찾으면 비교한다
+      const r = await analyzeFace(f, { purpose: 'hair' });
+      if (!r.geo || !r.m?.frame) { els.baStatus.textContent = '시술 후 사진에서 얼굴을 찾지 못했어요. 정면에서 얼굴 전체가 보이는 사진으로 올려 주세요.'; return; }
+      after = r; if (afterUrl) URL.revokeObjectURL(afterUrl); afterUrl = URL.createObjectURL(f);
+      els.baStatus.classList.add('hidden');
+      renderBA();
+    } catch (e) { console.error(e); els.baStatus.textContent = '시술 후 사진을 분석하지 못했어요.'; }
+  });
+  function renderBA() {
+    const c = after && last?.ok ? compareFrames(last, after) : null;
+    els.baResult.classList.toggle('hidden', !c);
+    if (!c) return;
+    els.baBtn.textContent = '다른 사진으로 비교';
+    const turned = Math.abs((after.pose?.yaw ?? 0) - (last.pose?.yaw ?? 0)) > 10;
+    els.baResult.innerHTML = `<div class="pair"><figure><img src="${els.preview.src}" alt="시술 전">전</figure><span>→</span><figure><img src="${afterUrl}" alt="시술 후">후</figure>
+      <b class="${c.better ? 'good' : ''}">${esc(c.verdict)}</b></div>
+      ${c.items.length ? `<ul>${c.items.map((x) => `<li class="${x.good > 0 ? 'good' : x.good < 0 ? 'bad' : 'flat'}">${esc(x.text)}</li>`).join('')}</ul>` : '<p>옆 볼륨 · 정수리 · 이마 · 기장 모두 비슷해요. 컬러나 질감이 바뀌었다면 스타일 분석으로 비교해 보세요.</p>'}
+      ${c.other ? '<p><small>두 사진의 얼굴 비율이 꽤 달라요. 같은 사람의 전후 사진이 맞는지 확인해 주세요.</small></p>' : ''}
+      ${turned ? '<p><small>두 사진의 고개 방향이 달라 실루엣 비교가 부정확할 수 있어요. 같은 각도로 찍으면 더 정확해요.</small></p>' : ''}
+      <p><small>얼굴 비율은 머리를 바꿔도 그대로라, 얼굴 둘레의 머리 모양 변화만 비교했어요.</small></p>`;
   }
 
   // ---- 원하는 스타일 여러 장 → 베스트 순위 ------------------------------------------------
@@ -676,7 +776,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
     if (!report || !last?.ok) return;
     els.shareBtn.disabled = true;
     try {
-      const blob = await faceCard({ report: { ...report, probs: last.shape.probs }, ranked: lastRanked });
+      const blob = await faceCard({ report: { ...report, probs: last.shape.probs }, ranked: lastRanked.length ? lastRanked : galleryTop });
       const how = await shareImage(blob, '내-얼굴형-분석.png', '내 얼굴형 분석');
       if (how === 'downloaded') toast('공유 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)');
     } catch (e) { console.error(e); toast('공유 이미지를 만들지 못했어요'); } finally { els.shareBtn.disabled = false; }
@@ -699,5 +799,15 @@ export function initFaceUI({ getStyle, analyzeStyle = null, toast = () => {}, co
   setPurpose('hair');
   // 스타일 결과 카드의 공유 이미지에 넣을 궁합 (얼굴 분석을 했을 때만)
   const fitFor = (r) => (faceForFit() ? styleFit(faceForFit(), r, { gender: gender || null }) : null);
-  return { styleChanged, setMode, fitFor };
+  // 미용실 상담 카드에 넣을 내 얼굴 정보 (얼굴 분석을 했거나 기억해 둔 얼굴형이 있을 때만)
+  function consultInfo(r) {
+    const f = faceForFit();
+    if (!f || !r || !['hair', 'makeup'].includes(r.category)) return null;
+    const rep = faceReport(f, r, { gender: gender || null });
+    const EAR = { out: '옆으로 잘 보이는 편 — 귀를 반쯤 덮는 옆머리 선호', slight: '옆으로 약간 보이는 편', normal: '크게 두드러지지 않음', hidden: null };
+    const avoid = r.category === 'hair' ? (rep.hair.find((x) => x.key === 'avoid')?.list || []).map((x) => x.name.replace(/^\([^)]*\)\s*/, '')).slice(0, 3) : [];
+    return { headline: rep.headline, traits: (rep.summary[1] || '').replace(/이에요\.$/, '').split(', ').filter(Boolean).slice(0, 3),
+      ear: r.category === 'hair' ? EAR[rep.traits.ears] || null : null, fit: rep.match?.score != null ? rep.match : null, avoid };
+  }
+  return { styleChanged, setMode, fitFor, consultInfo };
 }

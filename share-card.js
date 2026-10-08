@@ -211,6 +211,30 @@ export async function faceCard({ report, ranked = [] }) {
   return done(c);
 }
 
+export async function coupleCard({ chem }) {
+  await fontsReady();
+  const [c, ctx] = canvas();
+  faceOutline(ctx, chem.keys[0], W / 2 - 220, 360, 380);
+  faceOutline(ctx, chem.keys[1], W / 2 + 220, 360, 380);
+  ctx.fillStyle = C.accent; font(ctx, 90, 800); ctx.textAlign = 'center'; ctx.fillText('×', W / 2, 390);
+  ctx.fillStyle = C.text; font(ctx, 38, 700);
+  ctx.fillText(chem.shapes[0], W / 2 - 220, 620); ctx.fillText(chem.shapes[1], W / 2 + 220, 620);
+  ctx.fillStyle = C.muted; font(ctx, 34, 600); ctx.fillText('우리 얼굴형 케미', W / 2, 740);
+  ctx.fillStyle = C.text; font(ctx, 84, 800); ctx.fillText(chem.title, W / 2, 850);
+  ctx.fillStyle = C.accent; font(ctx, 120, 800); ctx.fillText(`${chem.score}점`, W / 2, 1000);
+  ctx.textAlign = 'left';
+  let y = 1070;
+  const boxH = 150 + (chem.both.length ? 150 : 0) + (chem.tone ? 170 : 0);
+  ctx.fillStyle = C.card; rr(ctx, PAD, y, W - PAD * 2, boxH, 28); ctx.fill();
+  ctx.fillStyle = C.text; font(ctx, 36, 500);
+  y = wrap(ctx, chem.line, PAD + 36, y + 70, W - PAD * 2 - 72, 50, 3) + 20;
+  if (chem.both.length) { ctx.fillStyle = C.accent; font(ctx, 30, 800); ctx.fillText('둘 다 잘 어울리는 커트', PAD + 36, y); y = chips(ctx, chem.both, PAD + 36, y + 20, W - PAD * 2 - 72, { size: 30, h: 56 }) + 30; }
+  if (chem.tone) { ctx.fillStyle = C.accent; font(ctx, 30, 800); ctx.fillText('커플 컬러', PAD + 36, y + 10); ctx.fillStyle = C.text; font(ctx, 32, 500); wrap(ctx, chem.tone, PAD + 36, y + 60, W - PAD * 2 - 72, 46, 2); }
+  ctx.fillStyle = C.muted; font(ctx, 26, 500); ctx.textAlign = 'center'; ctx.fillText('재미로 보는 케미 점수예요', W / 2, 1690); ctx.textAlign = 'left';
+  footer(ctx);
+  return done(c);
+}
+
 export async function shareImage(blob, name, title) {
   const file = new File([blob], name, { type: 'image/png' });
   if (navigator.canShare?.({ files: [file] })) {

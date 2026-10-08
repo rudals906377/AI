@@ -32,7 +32,7 @@ env.allowLocalModels = false;
 // ---- DOM ----------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
 const els = {
-  analyzing: $('analyzing'), analyzingSub: $('analyzingSub'), subjectNote: $('subjectNote'), quip: $('quip'), quipText: $('quipText'),
+  petMatch: $('petMatch'), analyzing: $('analyzing'), analyzingSub: $('analyzingSub'), subjectNote: $('subjectNote'), quip: $('quip'), quipText: $('quipText'),
   status: $('status'), statusText: $('statusText'), statusBar: $('statusBar'),
   drop: $('drop'), file: $('file'), preview: $('preview'), dropHint: $('dropHint'),
   pickBtn: $('pickBtn'), cameraBtn: $('cameraBtn'), camera: $('camera'),
@@ -384,6 +384,26 @@ function showManySubjects(s) {
   faceUI.styleChanged(null);
 }
 
+// 반려동물 닮은꼴 헤어 — 털을 사람 머리로 읽어(헤어 기준으로 다시 분석) 닮은 헤어스타일과, 집사 얼굴형에 그 머리를 했을 때의 궁합을 보여 준다
+const PET_LINES = ['커플 산책룩의 완성은 헤어 맞춤이죠.', '같은 머리로 찍으면 가족사진이 한층 화목해 보일 거예요.', '미용실에서 "이 친구처럼 해 주세요"라고 사진을 보여 줘도 돼요. 아마 웃으실 거예요.', '털 관리 루틴을 따라 하면 집사님 머릿결도 좋아질지 몰라요.'];
+async function renderPet(r) {
+  const seq = r.run_id;
+  let hr = r;
+  if (r.category !== 'hair') { try { hr = await analyzer.analyze(currentBlob, { category: 'hair', partner: modelKey === 'large' ? partner : null }); } catch { return; } }
+  if (lastResult?.run_id !== seq) return;
+  const A = (g) => hr.attributes.find((a) => a.group === g && a.score >= 0.3);
+  const len = A('length'), perm = A('perm'), color = A('color');
+  const x = r.subject.ko;
+  const fit = faceUI.fitFor({ ...hr, is_beauty: true });
+  let h = 0; for (const c of hr.headline || '') h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  els.petMatch.innerHTML = `<small>${esc(x)} 닮은꼴 헤어</small><b class="good">사람 머리로 옮기면 → ${esc(hr.genre?.name || hr.headline)}</b>
+    <div class="chips">${[len && `길이 ${len.label}`, perm && `결 ${perm.label}`, color && `색 ${color.label}`].filter(Boolean).map((t) => `<span>${esc(t)}</span>`).join('')}</div>
+    <p>${fit?.score != null ? `집사님 얼굴형(${esc(fit.title.split(' × ')[1])})에 이 머리를 하면 궁합 ${fit.score}점 — ${esc(fit.verdict)}. ${esc(PET_LINES[h % PET_LINES.length])}` : `집사님도 ${esc(josa(x, '과/와'))} 맞춰 볼까요? 내 얼굴을 분석하면 이 머리와의 궁합을 알려 드려요.`}</p>
+    ${fit?.score != null ? '' : '<button class="ghost small" type="button" data-act="face">집사 얼굴 분석하기</button>'}`;
+  els.petMatch.querySelector('[data-act="face"]')?.addEventListener('click', () => faceUI.setMode('face'));
+  els.petMatch.classList.remove('hidden');
+}
+
 function render(r) {
   els.empty.classList.remove('many');
   els.empty.classList.add('hidden');
@@ -394,6 +414,8 @@ function render(r) {
 
   // 사람이 아닌 사진(동물 · 인형)도 분석은 그대로 하고, 맨 위에 한마디
   els.subjectNote.classList.toggle('hidden', !r.subject);
+  els.petMatch.classList.add('hidden');
+  if (r.subject?.type === 'animal') renderPet(r);
   if (r.subject) { let hs = 0; for (const c of `${r.subject.ko}|${r.headline}`) hs = (hs * 31 + c.charCodeAt(0)) >>> 0; els.subjectNote.innerHTML = subjectNote(esc(r.subject.ko), hs, josa); }
 
   const top = r.category_ranking[0];
@@ -546,8 +568,9 @@ els.orderCopy.addEventListener('click', () => lastOrder && copy(lastOrder.text))
 els.orderSave.addEventListener('click', async () => {
   if (!lastOrder || !currentBlob) return;
   try {
-    const blob = await orderImage(lastOrder, currentBlob);
-    const name = `시술요청서-${new Date().toISOString().slice(0, 10)}.png`;
+    const face = faceUI.consultInfo(lastResult);
+    const blob = await orderImage(lastOrder, currentBlob, face);
+    const name = `${face ? '상담카드' : '시술요청서'}-${new Date().toISOString().slice(0, 10)}.png`;
     const file = new File([blob], name, { type: 'image/png' });
     // 휴대폰: 공유 시트(카카오톡 · 메시지 등)로 바로 보낸다
     if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) {
@@ -563,7 +586,8 @@ els.orderSave.addEventListener('click', async () => {
 });
 
 // 요청서 이미지: 사진 + 항목 표를 한 장에 그린다 (매장에 보여 주거나 메시지로 보내기 좋게)
-async function orderImage(o, photo) {
+// face: 내 얼굴 분석을 했거나 기억해 두었으면 얼굴형 · 특징 · 궁합 · 피할 스타일을 붙여 '미용실 상담 카드'로 만든다
+async function orderImage(o, photo, face = null) {
   await document.fonts?.ready;
   const W = 1080, P = 72, INNER = W - P * 2;
   const FONT = '"Pretendard Variable", Pretendard, system-ui, sans-serif';
@@ -591,7 +615,7 @@ async function orderImage(o, photo) {
       lines.forEach((l, i) => paint && ctx.fillText(l, x, y + i * size * lh));
       return lines.length * size * lh;
     };
-    y += text(o.title, 46, 700, C.text, P, INNER) + 4;
+    y += text(face ? `미용실 상담 카드 · ${o.title.replace('시술 요청서 · ', '')}` : o.title, 46, 700, C.text, P, INNER) + 4;
     y += text(`뷰티 스타일 AI 분석 · ${date} · ${o.to}에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 28;
     if (paint) {
       ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip();
@@ -616,6 +640,30 @@ async function orderImage(o, photo) {
         h += 6 + Math.max(sh, 34);
       }
       y = top + Math.max(h, 40) + 14;
+    }
+    if (face) {
+      // 내 얼굴 정보 상자: 한 번은 높이만 재고(paint 없이), 배경을 깐 뒤 그린다
+      const pad = 28, top = y + 20;
+      const body = (on) => {
+        y = top + pad;
+        const add = (str, size, weight, color, gap = 6) => {
+          ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+          const lines = wrap(ctx, str, INNER - pad * 2);
+          if (on) lines.forEach((l, i) => ctx.fillText(l, P + pad, y + i * size * 1.45));
+          y += lines.length * size * 1.45 + gap;
+        };
+        add('내 얼굴', 24, 600, C.accent, 2);
+        add(face.headline, 36, 700, C.text, 8);
+        if (face.traits.length) add(face.traits.join(' · '), 26, 400, C.text, 10);
+        if (face.ear) add(`귀: ${face.ear}`, 26, 400, C.text, 10);
+        if (face.fit) add(`이 스타일과의 궁합 ${face.fit.score}점 — ${face.fit.verdict}`, 28, 700, C.accent, 6);
+        for (const r of (face.fit?.reasons || []).slice(0, 3)) add(`${r.pts > 0 ? '✓' : '△'} ${r.text}`, 24, 400, C.text, 4);
+        if (face.avoid.length) { y += 8; add('피하고 싶은 것', 24, 600, C.accent, 2); for (const x of face.avoid) add(`· ${x}`, 24, 400, C.text, 4); }
+        return y - top + pad;
+      };
+      const h = body(false);
+      if (paint) { ctx.fillStyle = '#f3ebe2'; ctx.beginPath(); ctx.roundRect(P, top, INNER, h, 20); ctx.fill(); body(true); }
+      y = top + h + 8;
     }
     for (const [head, list] of [['상담 때 정할 것', o.checks], ['참고', o.notes]]) {
       if (!list.length) continue;
@@ -830,7 +878,7 @@ async function analyzeStyle(blob, purpose) {
   const alt = r.category_ranking.find((c) => c.key === purpose);
   return alt && alt.score >= 0.2 ? analyzer.analyze(blob, { category: purpose, ...opts }) : r;
 }
-const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), analyzeStyle, toast, copy });
+const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
 if (params.get('mode') === 'face') faceUI.setMode('face', { scroll: false });
 
 init();
