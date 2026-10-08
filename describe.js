@@ -623,7 +623,8 @@ const COMPOSERS = {
     }
     if (placement.level !== 'low') s.push(hedge(placement));
     // 세부 모티브(장미 · 늑대 …)가 읽히면 그것으로 말하고, 아니면 큰 묶음(꽃·식물 …)으로 말한다
-    const mo = (subject.motifs || []).filter((m, i) => m.level !== 'low' || (i === 0 && m.score >= 0.2));
+    const mo = (subject.motifs || []).filter((m, i) => m.level !== 'low' || (i === 0 && m.score >= 0.25));
+    const headMo = (m) => (m && m.level !== 'low' ? m.ko : subject.label);   // 제목에는 확신이 있을 때만 세부 모티브
     const m0 = mo[0], m1 = mo[1] && mo[1].score >= 0.15 ? mo[1] : null;
     if (m0) {
       const both = m1 ? `${josa(m0.ko, '과/와')} ${m1.ko}` : m0.ko;
@@ -639,8 +640,8 @@ const COMPOSERS = {
     const T = [...PRE];
     if (T.length) { s.push(BR); s.push(trendLine(T[0])); }
     return {
-      genre: genreOf(style, `${style.label} 타투`, { sub: `${placement.label} · ${m0 ? m0.ko : subject.label} · ${color.label}`, info }),
-      headline: `${style.label} 타투 · ${placement.label} · ${m0 ? m0.ko : subject.label} · ${color.label}`,
+      genre: genreOf(style, `${style.label} 타투`, { sub: `${placement.label} · ${headMo(m0)} · ${color.label}`, info }),
+      headline: `${style.label} 타투 · ${placement.label} · ${headMo(m0)} · ${color.label}`,
       sentences: s,
       trends: T,
     };
