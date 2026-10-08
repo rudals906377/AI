@@ -77,7 +77,7 @@ header.top p { margin: 4px 0 0; color: var(--muted); font-size: 0.93rem; max-wid
 
 /* ── 레이아웃 · 카드 */
 .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 22px; align-items: start; }
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }   /* 1fr 은 안쪽 긴 내용만큼 넓어져 휴대폰에서 옆으로 넘친다 */
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; position: relative; }
 @media (min-width: 901px) { #inputCard { position: sticky; top: 18px; } }
 .card h2 { margin: 0 0 14px; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
@@ -336,6 +336,7 @@ details summary { cursor: pointer; color: var(--muted); }
   position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 16px); z-index: 30; opacity: 0; pointer-events: none;
   background: #2e2622; color: #fff; padding: 9px 16px; border-radius: 8px; font-size: 0.9rem; box-shadow: var(--shadow-lift);
   transition: opacity .25s, transform .25s var(--ease);
+  margin-bottom: env(safe-area-inset-bottom, 0px);
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
@@ -610,3 +611,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .ob-steps small { color: var(--muted); font-size: .78rem; }
 .ob-act { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .ob-done { margin: 10px 0 0; font-size: .9rem; }
+
+/* 휴대폰: 안내 문구가 떠 있는 '다른 사진 고르기' 버튼을 가리지 않게 위로 */
+@media (max-width: 899px) { .toast { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); margin-bottom: 0; } }

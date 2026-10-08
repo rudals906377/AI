@@ -104,11 +104,12 @@ els.main.addEventListener('click', (e) => {
   save(); show(cur); renderStats();
 });
 document.addEventListener('keydown', (e) => {
-  if (document.activeElement?.tagName === 'INPUT') return;
+  if (document.activeElement?.tagName === 'INPUT' || e.ctrlKey || e.metaKey || e.altKey) return;   // 이름 입력 · 브라우저 단축키(Ctrl+N 등)는 그대로
   const it = state.items[cur]; if (!it || it.pending || it.skipped) { if (e.key === 'ArrowRight') show(cur + 1); return; }
   if (/^[1-6]$/.test(e.key)) { it.judge.shape = SHAPES[+e.key - 1][0]; }
   else if (e.key === '0') it.judge.shape = 'unsure';
-  else if ((e.key === 'y' || e.key === 'n') && it.judge.shape) { const c = it.ai.cuts.find((x) => it.judge.cuts[x] == null); if (c) it.judge.cuts[c] = e.key === 'y' ? 'yes' : 'no'; }
+  // 한글 입력 상태(ㅛ · ㅜ)나 대문자에서도 동작하게 키 위치(e.code)로 본다
+  else if ((e.code === 'KeyY' || e.code === 'KeyN') && it.judge.shape) { const c = it.ai.cuts.find((x) => it.judge.cuts[x] == null); if (c) it.judge.cuts[c] = e.code === 'KeyY' ? 'yes' : 'no'; }
   else if (e.key === 'ArrowRight') return show(isDone(it) ? nextTodo() : cur + 1);
   else if (e.key === 'ArrowLeft') return show(cur - 1);
   else return;
@@ -161,7 +162,17 @@ const KINDS = [['cut', '커트', /커트|컷/], ['bangs', '앞머리', /앞머�
 els.loadVotes.addEventListener('click', () => els.votes.click());
 els.votes.addEventListener('change', async () => {
   const rows = [];
-  for (const f of els.votes.files) for (const line of (await f.text()).split('\n')) { try { if (line.trim()) rows.push(JSON.parse(line)); } catch {} }
+  const seen = new Set();   // 내보낼 때마다 이전 평가가 함께 들어 있어, 파일 여러 개를 넣으면 같은 평가가 겹친다
+  for (const f of els.votes.files) for (const line of (await f.text()).split('\n')) {
+    let o; try { if (line.trim()) o = JSON.parse(line); } catch {}
+    if (!o || typeof o !== 'object' || Array.isArray(o)) continue;
+    const k = `${o.t}|${o.where}|${o.title}|${o.vote}`;
+    if (seen.has(k)) continue;
+    seen.add(k);
+    if (!Array.isArray(o.reasons)) o.reasons = [];
+    o.reasons = o.reasons.filter((x) => Array.isArray(x) && x.length === 2);
+    rows.push(o);
+  }
   els.votes.value = '';
   if (!rows.length) { els.voteStats.innerHTML = '<p class="note">평가가 들어 있지 않아요.</p>'; return; }
   const agree = (xs) => (xs.length ? xs.filter((r) => r.vote === 'agree').length / xs.length : null);

@@ -498,7 +498,8 @@ const COMPOSERS = {
     if (pedi) T.push(trend('패디 네일', '발톱 네일'));
     const lead = T.find((t) => t.why !== '디자인' && t.name !== '패디 네일');
     s.push(BR);
-    if (lead) s.push(pick([`요즘 SNS에서 '${lead.name}'로 불리는 ${lead.why} 스타일에 가까워요.`, `SNS에서는 '${lead.name}'로 많이 찾는 스타일이에요.`]));
+    const ro = lead && josa(lead.name, '으로/로').slice(lead.name.length);   // '자석 그라데이션'으로 · '원컬러 네일'로
+    if (lead) s.push(pick([`요즘 SNS에서 '${lead.name}'${ro} 불리는 ${lead.why} 스타일에 가까워요.`, `SNS에서는 '${lead.name}'${ro} 많이 찾는 스타일이에요.`]));
 
     const ct = color.all[0].tone;
     if ((ct === 'cool' || ct === 'warm') && sure(color)) s.push(toneLine(ct === 'cool' ? '쿨톤' : '웜톤'));
@@ -625,7 +626,7 @@ const COMPOSERS = {
     // 세부 모티브(장미 · 늑대 …)가 읽히면 그것으로 말하고, 아니면 큰 묶음(꽃·식물 …)으로 말한다
     const mo = (subject.motifs || []).filter((m, i) => m.level !== 'low' || (i === 0 && m.score >= 0.25));
     const headMo = (m) => (m && m.level !== 'low' ? m.ko : subject.label);   // 제목에는 확신이 있을 때만 세부 모티브
-    const m0 = mo[0], m1 = mo[1] && mo[1].score >= 0.15 ? mo[1] : null;
+    const m0 = mo[0], m1 = m0 && subject.motifs[1]?.score >= 0.15 ? subject.motifs[1] : null;   // 두 번째 모티브는 요청서 · 화면과 같은 기준(15%)
     if (m0) {
       const both = m1 ? `${josa(m0.ko, '과/와')} ${m1.ko}` : m0.ko;
       s.push(m0.level === 'high'

@@ -89,7 +89,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     els.gender.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.gender === g));
     els.purpose.querySelector('[data-purpose="makeup"]').textContent = g === 'm' ? '그루밍 · 메이크업' : '메이크업';
     els.adviceTitle.textContent = purpose === 'hair' ? '헤어 추천' : g === 'm' ? '그루밍 추천' : '메이크업 추천';
-    if (last && !els.result.classList.contains('hidden')) render(); // 측정은 그대로, 추천만 다시
+    if (last && !els.result.classList.contains('hidden')) render(); // 측정은 그대로, 추천만 다시 (render 안에서 스타일 궁합도)
+    else syncStyleFit();   // 얼굴 결과가 안 보여도(기억한 얼굴형만 쓰는 경우) 스타일 카드의 궁합은 바뀐 기준으로
   }
   els.gender.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && b.dataset.gender !== gender) setGender(b.dataset.gender); });
   setGender(gender);
@@ -109,6 +110,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   async function setImage(b, frames = null) {
     if (!b || !b.type?.startsWith('image/')) return;
     blob = b; frameBlobs = frames;
+    if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src);
     els.preview.src = URL.createObjectURL(b);
     els.preview.classList.remove('hidden');
     els.hint.classList.add('hidden');
@@ -130,10 +132,15 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   // 셀카: 휴대폰 · PC 모두 화면 안 카메라로 찍는다 (가이드 틀 + 자세 안내 + 자동 촬영). 카메라를 못 열면 휴대폰은 카메라 앱, PC 는 사진 고르기
   const coarse = matchMedia('(pointer: coarse)').matches;
   let stream = null;
+  let opening = false;   // 권한 창이 떠 있는 동안 두 번 눌러 카메라가 두 개 켜지지 않게
   els.shoot.addEventListener('click', async () => {
     if (!navigator.mediaDevices?.getUserMedia) { (coarse ? els.camera : els.file).click(); return; }
+    if (opening || els.cam.open) return;
+    opening = true;
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
+      const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
+      stream?.getTracks().forEach((t) => t.stop());
+      stream = s;
       els.video.srcObject = stream;
       els.cam.showModal();
       await els.video.play();
@@ -144,7 +151,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       stopCam();
       toast(coarse ? '카메라를 열지 못해 카메라 앱으로 바꿨어요' : '카메라를 열지 못해 사진 고르기로 바꿨어요');
       (coarse ? els.camera : els.file).click();
-    }
+    } finally { opening = false; }
   });
   const stopCam = () => { guideOn = false; stream?.getTracks().forEach((t) => t.stop()); stream = null; if (els.cam.open) els.cam.close(); };
   els.camCancel.addEventListener('click', stopCam);
@@ -182,7 +189,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   // 한 번에 하나만, 가장 먼저 고칠 것부터 말한다. 측정값은 몇 프레임 평균(EMA)으로 흔들림을 줄이고,
   // 맞는 상태가 HOLD_MS 동안 이어지면 자동으로 연속 촬영한다
   const HOLD_MS = 1200, TICK_MS = 140;
-  let guideOn = false, okSince = 0, ema = null;
+  let guideOn = false, okSince = 0, ema = null, guideRun = 0;
   const sample = document.createElement('canvas');
   function brightness(lm) {
     // 얼굴 가운데(코 · 볼)의 밝기 (0~255)
@@ -246,14 +253,16 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   }
   async function startGuide() {
     guideOn = true; okSince = 0; ema = null;
+    const run = ++guideRun;   // 창을 닫았다 다시 열면 예전 반복은 멈춘다
+    const alive = () => guideOn && run === guideRun && els.cam.open;
     els.camBoxMain.textContent = '얼굴 분석 모델을 준비하는 중…'; els.camBoxSub.textContent = '처음 한 번 약 20MB 를 내려받아요'; els.camBox.className = 'cam-box';
     try { await preloadFace(); } catch (e) { els.camBoxMain.textContent = '자동 안내를 쓸 수 없어요'; els.camBoxSub.textContent = '"지금 찍기"로 찍어 주세요'; return; }
-    while (guideOn && els.cam.open) {
+    while (alive()) {
       const t0 = performance.now();
       if (!shooting && els.video.videoWidth) {
         let r = { faces: 0 };
         try { r = await liveCheck(els.video); } catch (e) { console.warn('[face] 자세 확인 실패', e); }
-        if (!guideOn) break;
+        if (!alive()) break;
         const a = advise(measure(r));
         if (a) { okSince = 0; show(a); }
         else {
@@ -264,7 +273,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
             // 찍기 직전 한 장을 실제 분석과 같은 기준(부위 분할 포함)으로 점검: 앞머리 · 옆머리 · 손 · 안경처럼 위치로는 모르는 가림을 미리 알려 준다
             els.camBoxMain.textContent = '이마 · 턱선이 보이는지 확인하는 중…'; els.camBoxSub.textContent = '그대로 계세요';
             const pre = await precheck();
-            if (!guideOn) break;
+            if (!alive()) break;
             if (pre) { show(pre); okSince = 0; ema = null; await new Promise((res) => setTimeout(res, 2500)); continue; }
             await shoot(); break;
           }
@@ -338,7 +347,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
         f = combineFaces(results);
         // 미리보기는 중앙값에 가장 가까운 장으로
         const chosen = frameBlobs[results.indexOf(results.find((r) => r.canvas === f.canvas))];
-        if (chosen && chosen !== blob) { blob = chosen; els.preview.src = URL.createObjectURL(chosen); }
+        if (chosen && chosen !== blob) { blob = chosen; if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src); els.preview.src = URL.createObjectURL(chosen); }
       } else f = await analyzeFace(blob, { purpose });
       if (id !== seq) return;
       last = f;
@@ -576,7 +585,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     const { blob: sb, result: sr } = getStyle();
     els.rankAddCur.classList.toggle('hidden', !sb || !sr?.is_beauty || picks.some((p) => p.blob === sb));
     $('faceRankTitle').textContent = `원하는 ${KO[purpose]} 비교 · 베스트 순위`;
-    if (!has || !last?.ok) { lastRanked = []; els.rankList.innerHTML = ''; els.rankSkip.classList.add('hidden'); els.rankNote.classList.add('hidden'); return; }
+    if (!has || !last?.ok) { lastRanked = []; if (report) report.rank = null; els.rankList.innerHTML = ''; els.rankSkip.classList.add('hidden'); els.rankNote.classList.add('hidden'); return; }
     if (picks.some((p) => !(purpose in p.res))) { analyzePicks(); return; }
     const items = picks.map((p, i) => ({ i, url: p.url, result: p.res[purpose] }));
     const { ranked, skipped } = rankStyles(last, items, { purpose, gender: gender || null });
@@ -776,7 +785,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     syncStyleFit();
   });
   // 궁합 판단에 대한 평가 (맞아요 / 글쎄요) — 이 기기에만 쌓고, 내보내 점수 기준을 다듬는 데 쓴다
-  const votes = () => { try { return JSON.parse(localStorage.getItem(VOTE_KEY) || '[]'); } catch { return []; } };
+  const votes = () => { try { const v = JSON.parse(localStorage.getItem(VOTE_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch { return []; } };
   function updateFitExport() {
     const n = votes().length;
     els.fitExportRow.classList.toggle('hidden', !n);

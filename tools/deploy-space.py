@@ -44,7 +44,8 @@ def write_manifest():
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    write_manifest()
+    if "--dry-run" not in sys.argv:
+        write_manifest()   # --dry-run 은 목록만 본다 (추적 중인 asset-manifest.json 을 바꾸지 않게)
     listed = files()
     missing = [p for p in ALLOW if "*" not in p and not (ROOT / p).exists()]
     if missing:

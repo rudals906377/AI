@@ -7,8 +7,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { RawImage } from '@huggingface/transformers';
 import { loadVisionEncoder } from '../encoders.js';
+import { fileURLToPath } from 'node:url';   // 경로에 한글 · 공백이 있거나 Windows 여도 맞는 경로
 
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // 앱이 실제로 쓰는 것과 같은 양자화 (브라우저 WASM 기준)
 const MODELS = { 'Marqo/marqo-fashionSigLIP': 'q8', 'Xenova/siglip-large-patch16-384': 'q8' };
 const only = process.argv[2];
