@@ -447,6 +447,15 @@ export function zonesFor(shapeKey) {
 }
 
 // ---- 한데 모으기 ----------------------------------------------------------------------
+// 얼굴형마다 장점을 살려 주는 한마디 (재치 + 바로 쓸 수 있는 팁)
+const SHAPE_QUIP = {
+  oval: '어떤 스타일도 잘 받는 얼굴이라 오히려 고르는 게 고민인, 행복한 고민형이에요. 이번엔 평소 안 해 본 스타일에 도전해 보세요.',
+  round: '부드럽고 어려 보이는 인상이 강점이에요. 세로 라인 하나만 더하면 분위기가 확 달라져요.',
+  long: '시원하고 성숙한 인상이에요. 앞머리 하나로 동안 효과까지 챙길 수 있는 얼굴이에요.',
+  square: '또렷하고 신뢰감 있는 윤곽이에요. 곡선 하나만 더하면 부드러움까지 챙기는 반전 매력이 생겨요.',
+  heart: '이마는 시원하고 턱선은 갸름한, 사진발 좋은 비율이에요. 턱 주변에 볼륨을 주면 균형이 완성돼요.',
+  diamond: '광대가 입체감을 만들어 주는, 조명이 좋아하는 얼굴이에요. 옆머리로 광대를 살짝 감싸면 더 부드러워져요.',
+};
 export function faceReport(f, style = null, { gender = null } = {}) {
   const t = traits(f);
   const p = f.shape.probs;
@@ -469,7 +478,7 @@ export function faceReport(f, style = null, { gender = null } = {}) {
     : `${a0}에 가장 가까워요 (${Math.round(p[0].p * 100)}%${near ? ` · 다음은 ${a1} ${Math.round(near.p * 100)}%` : ''}).`;
   const summary = [lead, notable.length ? `${notable.join(', ')}이에요.` : '이마 · 광대 · 턱 너비와 길이가 평균에 가까운 고른 비율이에요.'];
   return {
-    shape: p[0], near, headline, summary,
+    shape: p[0], near, headline, summary, quip: SHAPE_QUIP[p[0].key],
     measures: measures(f, t),
     hair: hairAdvice(f, t, gender),
     makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),

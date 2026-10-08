@@ -336,6 +336,7 @@ export function initFaceUI({ getStyle, toast = () => {}, copy = async () => {} }
     els.shape.textContent = report.headline;
     // '긴 편' 처럼 꾸밈말과 '편' 사이에서 줄이 나뉘지 않게
     els.summary.innerHTML = report.summary.map((s) => `<span class="s">${esc(s).replace(/ (편|중간)/g, '&nbsp;$1')}</span>`).join(' ');
+    if (report.quip) els.summary.innerHTML += `<span class="s face-quip">${esc(report.quip)}</span>`;
     els.bars.innerHTML = f.shape.probs.map((p, i) => `<div class="sb ${i ? '' : 'top'}"><span>${esc(p.label)}</span><i><b style="width:${Math.round(p.p * 100)}%"></b></i><em>${Math.round(p.p * 100)}%</em></div>`).join('');
     const warns = f.issues.filter((x) => x.level !== 'block');
     els.warn.classList.toggle('hidden', !warns.length);
