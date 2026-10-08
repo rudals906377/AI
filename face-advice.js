@@ -202,6 +202,105 @@ const HAIR_M = {
     avoid: ['옆을 바짝 민 투블럭 · 페이드 (광대가 강조돼요)', '윗머리만 높이 세우는 스타일'],
   },
 };
+// ---- 커트 · 앞머리 점수 ---------------------------------------------------------------
+// 얼굴에서 읽은 '필요' (양수일수록 그 효과가 필요). 얼굴형 확률과 측정값 z 를 함께 쓴다
+// 얼굴형 확률은 경계에서 사진마다 크게 출렁이므로 한 번 눌러서(지수 TEMPER) 쓴다
+const TEMPER = 0.4, TABLE_W = 0.6;
+function softShape(f) {
+  const q = f.shape.probs.map((x) => [x.key, Math.pow(x.p, TEMPER)]);
+  const s = q.reduce((a, [, v]) => a + v, 0);
+  return Object.fromEntries(q.map(([k, v]) => [k, v / s]));
+}
+function hairNeeds(f, t) {
+  const P = softShape(f);
+  const g = (k) => P[k] || 0;
+  const zs = [t.long, t.foreheadW, t.jawW, t.chinW, t.jawSharp].map(Math.abs);
+  const balance = 1 - Math.min(1, zs.reduce((a, b) => a + b, 0) / zs.length / 1.2);
+  return {
+    shorten: 0.45 * t.long + 0.25 * t.upper + 0.15 * t.lower + 1.4 * (g('long') - g('round')),        // 얼굴이 짧아 보이게(가로선)
+    lengthen: -0.45 * t.long - 0.15 * t.lower + 1.4 * (g('round') - g('long')),                        // 길어 보이게(세로선)
+    forehead: 0.45 * t.foreheadW + 0.4 * t.upper + 1.1 * g('heart'),                                   // 이마를 덮어 줄이기
+    cheek: 1.3 * g('diamond') - 0.25 * (t.foreheadW + t.jawW) + 0.2 * t.mid + 0.5 * g('round'),         // 광대 · 볼 감싸기
+    jaw: 1.3 * g('square') + 0.35 * t.jawSharp + 0.35 * t.jawW,                                        // 턱 각 부드럽게
+    fill: 1.2 * g('heart') - 0.4 * t.chinW - 0.2 * t.jawW + 0.2 * t.lower + 0.4 * g('diamond'),         // 좁은 턱 주변 채우기
+    reveal: 1.3 * g('oval') + 0.9 * balance - 0.3 * Math.max(0, t.upper),                              // 윤곽 · 이마를 드러내도 좋음
+    ears: t.ears === 'out' ? 1.2 : t.ears === 'slight' ? 0.6 : t.ears === 'normal' ? -0.3 : 0,          // 귀 옆을 덮기
+    eyes: 0.35 * t.eyeRound + 0.25 * t.browGap,                                                       // 눈매 강조가 잘 받는 얼굴
+  };
+}
+// 스타일마다 위 필요를 얼마나 채우는지 (−1 ~ 1.2). 미용 현장의 일반 원리를 숫자로 옮긴 값
+const CUT_FX = {
+  레이어드컷: { lengthen: 0.7, cheek: 0.6, jaw: 0.8, fill: 0.2 }, 허쉬컷: { lengthen: 0.4, cheek: 0.8, jaw: 0.9, fill: 0.3, reveal: -0.2 },
+  원랭스: { shorten: 0.7, lengthen: -0.4, reveal: 0.3, jaw: -0.3, cheek: -0.2 }, 칼단발: { shorten: 1, lengthen: -0.6, fill: 0.4, jaw: -0.8, reveal: 0.4 },
+  태슬컷: { shorten: 0.6, fill: 0.8, jaw: -0.2 }, 보브컷: { shorten: 0.6, fill: 1, cheek: 0.3, lengthen: -0.4 },
+  히메컷: { cheek: 1.1, lengthen: 0.3, shorten: 0.2, eyes: 0.3 }, 울프컷: { reveal: 0.7, lengthen: 0.3, fill: 0.3, shorten: -0.3 },
+  멀릿컷: { reveal: 0.8, ears: -0.8, fill: -0.2 }, 픽시컷: { reveal: 1.2, eyes: 0.6, ears: -0.6, cheek: -0.5, jaw: -0.4 },
+  빅시컷: { reveal: 0.8, lengthen: 0.4, cheek: 0.3, ears: 0.2 }, 댄디컷: { forehead: 1, shorten: 0.8, lengthen: -0.6, cheek: 0.2 },
+  쉼표머리: { lengthen: 0.7, reveal: 0.4, forehead: 0.2 }, 가르마펌: { lengthen: 0.8, jaw: 0.5, forehead: -0.3, reveal: 0.3 },
+  애즈펌: { forehead: 0.9, shorten: 0.6, fill: 0.4, cheek: 0.3 }, 가일컷: { reveal: 1, lengthen: 0.3, forehead: -0.5, jaw: 0.2 },
+  리프컷: { cheek: 1, forehead: 0.5, shorten: 0.4 }, 아이비리그컷: { reveal: 0.9, lengthen: 0.2, forehead: -0.4 },
+  투블럭컷: { lengthen: 0.8, ears: -0.7, reveal: 0.3, cheek: -0.2 }, 크롭컷: { reveal: 0.6, eyes: 0.4, forehead: 0.3, ears: -0.5 },
+  페이드컷: { lengthen: 0.8, ears: -0.9, reveal: 0.4 }, '포마드·슬릭백': { reveal: 1.1, forehead: -1, lengthen: 0.5, shorten: -0.6 },
+  버즈컷: { reveal: 1.2, ears: -1, forehead: -0.8, cheek: -0.6 }, 모히칸: { lengthen: 1, reveal: 0.6, ears: -0.9, shorten: -0.8 },
+  머쉬룸컷: { forehead: 0.9, shorten: 0.6, cheek: 0.5, ears: 0.6, reveal: -0.3 }, 'A라인 보브': { lengthen: 0.6, jaw: 0.9, cheek: 0.5 },
+  '레이어드 숏컷': { reveal: 0.8, lengthen: 0.4, cheek: 0.2, ears: 0.1 }, V라인컷: { lengthen: 0.9, jaw: 0.4, shorten: -0.4 },
+  언더컷: { lengthen: 0.9, ears: -1, reveal: 0.4 }, 테이퍼컷: { reveal: 0.7, jaw: 0.3, ears: -0.4, lengthen: 0.3 },
+  '숏 보브': { reveal: 0.8, fill: 0.5, shorten: 0.3, eyes: 0.3, jaw: -0.4 },
+};
+const BANG_FX = {
+  풀뱅: { forehead: 1, shorten: 0.9, lengthen: -0.6 }, 처피뱅: { eyes: 1, forehead: 0.4, shorten: 0.4, reveal: 0.4 },
+  시스루뱅: { forehead: 0.7, shorten: 0.3, cheek: 0.1 }, U뱅: { jaw: 0.8, cheek: 0.6, forehead: 0.4 },
+  사이드뱅: { lengthen: 0.7, jaw: 0.5, cheek: 0.3 }, 커튼뱅: { cheek: 1, forehead: 0.4, jaw: 0.3 },
+  애교머리: { cheek: 0.8, fill: 0.3, lengthen: 0.2 }, '앞머리 없음': { reveal: 1, lengthen: 0.4, forehead: -1 },
+  베이비뱅: { eyes: 0.9, reveal: 0.5, forehead: -0.6 }, 와이드뱅: { forehead: 1.2, shorten: 0.8, cheek: 0.2 },
+  '넘긴 앞머리': { reveal: 0.8, lengthen: 0.3, forehead: -0.5 },
+};
+// 거의 같은 모양은 한 목록에 겹쳐 나오지 않게 묶는다
+const CUT_FAM = { 레이어드컷: 'layer', 허쉬컷: 'layer', V라인컷: 'layer', 보브컷: 'bob', 'A라인 보브': 'bob', '숏 보브': 'bob', 칼단발: 'bob',
+  투블럭컷: 'side', 페이드컷: 'side', 언더컷: 'side', 테이퍼컷: 'side', 울프컷: 'wolf', 멀릿컷: 'wolf', 픽시컷: 'pixie', 빅시컷: 'pixie', '레이어드 숏컷': 'pixie',
+  댄디컷: 'down', 머쉬룸컷: 'down', 애즈펌: 'down', 가일컷: 'up', 아이비리그컷: 'up', '포마드·슬릭백': 'up', 쉼표머리: 'part', 가르마펌: 'part' };
+const BANG_FAM = { 풀뱅: 'heavy', 와이드뱅: 'heavy', '앞머리 없음': 'open', '넘긴 앞머리': 'open', 커튼뱅: 'frame', U뱅: 'frame' };
+const NEED_SAY = {
+  shorten: (t) => (t.long >= 0.8 ? '얼굴이 긴 편이라' : t.upper >= 0.8 ? '이마가 높은 편이라' : '세로 길이를 살짝 줄이면 좋아서'),
+  lengthen: (t) => (t.long <= -0.8 ? '얼굴이 짧은 편이라' : '세로선을 더하면 갸름해 보여서'),
+  forehead: (t) => (t.foreheadW >= 0.8 ? '이마가 넓은 편이라' : t.upper >= 0.8 ? '이마가 높은 편이라' : '이마 쪽 비율을 맞추면 좋아서'),
+  cheek: (t) => (t.mid >= 0.8 ? '중안부가 긴 편이라' : '광대 · 볼 쪽을 감싸면 좋아서'),
+  jaw: (t) => (t.jawSharp >= 0.8 ? '턱선이 각진 편이라' : t.jawW >= 0.8 ? '턱이 넓은 편이라' : '턱선을 부드럽게 하면 좋아서'),
+  fill: (t) => (t.chinW <= -0.8 ? '턱끝이 갸름한 편이라' : t.lower >= 0.8 ? '하안부가 긴 편이라' : '턱 주변을 채우면 균형이 좋아서'),
+  reveal: () => '얼굴 비율이 고른 편이라',
+  ears: (t) => (t.ears === 'out' ? '귀가 옆으로 보이는 편이라' : '귀선이 깔끔한 편이라'),
+  eyes: (t) => (t.eyeRound >= 0.8 ? '눈이 동그란 편이라' : '눈매가 시원한 편이라'),
+};
+const NEED_IDEA = { shorten: '가로선으로 세로 길이 줄이기', lengthen: '세로선으로 갸름하게', forehead: '이마 폭 · 높이 줄여 보이기', cheek: '광대 · 볼 옆 감싸기',
+  jaw: '턱 모서리 부드럽게', fill: '좁은 턱 주변 채우기', reveal: '윤곽을 드러내 장점 살리기', ears: '귀 옆선 정리', eyes: '눈매 살리기' };
+// 이 얼굴에서 가장 큰 필요 두세 가지 (사람마다 조합이 달라진다)
+function topNeeds(need) {
+  return Object.entries(need).filter(([k, v]) => v > 0.35 && NEED_IDEA[k] && !(k === 'shorten' && need.lengthen > v) && !(k === 'lengthen' && need.shorten > v))
+    .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k]) => NEED_IDEA[k]);
+}
+// 점수에 가장 크게 기여한 필요를 이유 앞에 붙인다 → 같은 커트라도 사람마다 이유가 다르다.
+// 한 목록 안에서는 이미 쓴 이유를 피하고 다음으로 큰 이유를 쓰며, 끝맺음도 돌려 써서 같은 문장이 줄줄이 나오지 않게 한다
+const WHY_END = ['잘 맞아요.', '추천해요.', '잘 어울려요.', '좋아요.'];
+function withWhy(list, t) {
+  const used = new Set();
+  return list.map((c, i) => {
+    const cand = c.parts.filter(([, v, pos]) => pos && v > 0.25).sort((a, b) => b[1] - a[1]);
+    const best = cand.find(([k]) => !used.has(k));
+    if (!best) return { name: c.name, why: c.why };
+    used.add(best[0]);
+    return { name: c.name, why: `${NEED_SAY[best[0]](t)} ${WHY_END[i % WHY_END.length]} ${c.why}` };
+  });
+}
+// 점수순으로 고르되, 이미 고른 것과 같은 묶음이면 점수를 깎아 다른 모양이 섞이게 한다
+function diversePick(items, n) {
+  const left = [...items], out = [];
+  while (out.length < n && left.length) {
+    let bi = 0, bs = -Infinity;
+    left.forEach((c, i) => { const s = c.score - 0.6 * out.filter((o) => o.fam === c.fam).length; if (s > bs + 1e-9) { bs = s; bi = i; } });
+    out.push(left.splice(bi, 1)[0]);
+  }
+  return out;
+}
 // 추천 기준(성별)은 보여 주는 순서와 설명만 바꾼다. 남자 장발 · 여자 숏컷도 있으므로 긴 머리 · 짧은 머리 추천을 모두 보여 준다
 function hairAdvice(f, t, gender = null) {
   const top = f.shape.probs[0].key, second = f.shape.probs[1];
@@ -210,19 +309,31 @@ function hairAdvice(f, t, gender = null) {
   if (t.upper >= 0.8 || t.foreheadW >= 0.8) aliases.push('이마가 넓은 얼굴');
   // 화면에 두 가지(긴 머리 · 짧은 머리) 피할 스타일을 모두 보여 주므로, 추천은 두 쪽 피할 특징과 모두 겹치지 않아야 한다
   const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top], ...(t.ears === 'out' ? ['sideShort'] : [])])];
-  // 커트: suits.js 표에서 내 얼굴형이 들어간 커트
-  const cuts = Object.entries(CUT_FACE).filter(([, [faces]]) => faces.some((x) => aliases.includes(x)))
-    .map(([name, [faces, why]]) => ({ name, why, primary: faces.some((x) => ALIAS[top].includes(x)) }))
-    .filter((c) => !clashes(c.name, avoidTags))
-    .map((c) => ({ ...c, pref: gender && (gender === 'm' ? MEN_FIRST : WOMEN_FIRST).test(c.name) ? 1 : 0 }))
-    .sort((a, b) => b.pref - a.pref || b.primary - a.primary);   // 고른 기준에서 흔한 커트를 먼저 (빼지는 않는다)
-  const longCuts = cuts.filter((c) => !SHORT.test(c.name)).slice(0, 4), shortCuts = cuts.filter((c) => SHORT.test(c.name)).slice(0, 4);
+  // 커트 · 앞머리: 얼굴형 이름 하나로 고르지 않고, 측정값(z)과 얼굴형 확률을 모두 섞은 '필요'에 각 스타일의 효과를 곱해 점수를 매긴다.
+  // 그래서 같은 계란형이라도 이마 · 광대 · 턱 · 귀가 다르면 순서와 이유가 달라진다. 값이 모두 연속이라 구도가 조금 바뀌어도 순위가 크게 흔들리지 않는다.
+  const need = hairNeeds(f, t);
+  const P = softShape(f);
+  const softClash = (name) => Object.entries(P).reduce((s, [k, p]) => s + p * (SHAPE_TAGS[name] || []).filter((x) => AVOID_TAGS.f[k].includes(x) || AVOID_TAGS.m[k].includes(x)).length, 0);
+  const tableFit = (faces) => Object.entries(ALIAS).reduce((s, [k, al]) => s + (faces.some((x) => al.includes(x)) ? P[k] || 0 : 0), 0);
+  const cuts = Object.entries(CUT_FACE)
+    .filter(([name]) => !clashes(name, avoidTags))
+    .map(([name, [faces, why]]) => {
+      const fx = CUT_FX[name] || {};
+      const parts = Object.entries(fx).map(([k, v]) => [k, v * (need[k] || 0), v > 0 && (need[k] || 0) > 0]);
+      const score = parts.reduce((s, [, v]) => s + v, 0) + TABLE_W * tableFit(faces) - 1.5 * softClash(name)
+        + (gender && (gender === 'm' ? MEN_FIRST : WOMEN_FIRST).test(name) ? 0.35 : 0);
+      return { name, why, parts, score, fam: CUT_FAM[name] || name };
+    });
+  const longCuts = withWhy(diversePick(cuts.filter((c) => !SHORT.test(c.name)), 4), t), shortCuts = withWhy(diversePick(cuts.filter((c) => SHORT.test(c.name)), 4), t);
   // 앞머리
-  const bangNames = [...new Set([...BANGS_BY_SHAPE[top], ...Object.entries(BANGS_FACE).filter(([, [faces]]) => aliases.some((a) => faces.includes(a))).map(([n]) => n)])];
-  let bangs = bangNames.map((name) => ({ name, why: BANGS_FACE[name][1] }));
-  if (t.upper >= 0.8) bangs = bangs.filter((b) => b.name !== '앞머리 없음');
-  if (t.upper <= -0.8 && !bangs.some((b) => b.name === '앞머리 없음')) bangs.push({ name: '앞머리 없음', why: BANGS_FACE['앞머리 없음'][1] + ' 이마가 짧은 편이라 드러내면 비율이 좋아 보여요' });
-  bangs = bangs.filter((b) => !clashes(b.name, avoidTags));
+  let bangs = Object.entries(BANGS_FACE).filter(([name]) => !clashes(name, avoidTags)).map(([name, [faces, why]]) => {
+    const fx = BANG_FX[name] || {};
+    const parts = Object.entries(fx).map(([k, v]) => [k, v * (need[k] || 0), v > 0 && (need[k] || 0) > 0]);
+    const score = parts.reduce((s, [, v]) => s + v, 0) + 0.8 * tableFit(faces.split(' · ')) + (BANGS_BY_SHAPE[top].includes(name) ? 0.4 : 0) - 1.5 * softClash(name);
+    return { name, why, parts, score, fam: BANG_FAM[name] || name };
+  });
+  if (t.upper >= 0.8) bangs = bangs.filter((b) => b.name !== '앞머리 없음' && b.name !== '베이비뱅' && b.name !== '넘긴 앞머리');
+  bangs = withWhy(diversePick(bangs, 4), t);
   const L = HAIR[top], S = HAIR_M[top];            // 긴 머리 · 단발 기준 표, 짧은 머리 기준 표
   const extra = [];
   if (t.upper >= 0.8) extra.push(`상안부(이마)가 ${say(t.upper, '짧은 편', '긴 편')}이라 앞머리로 이마를 덮으면 얼굴 비율이 맞아 보여요.`);
@@ -242,9 +353,9 @@ function hairAdvice(f, t, gender = null) {
   const avoid = two(L.avoid.map((x) => ({ name: `(긴 머리 · 단발) ${x}` })), S.avoid.map((x) => ({ name: `(짧은 머리) ${x}` }))).flat();
   if (t.ears === 'out') avoid.push({ name: '(귀) 옆머리를 바짝 쳐서 귀가 다 드러나는 스타일 · 귀 뒤로 꽉 넘겨 고정하는 스타일' });
   return [
-    { key: 'idea', title: '핵심', text: [(shortFirst ? S : L).idea, ...extra].join(' ') },
+    { key: 'idea', title: '핵심', text: [topNeeds(need).length ? `내 얼굴 맞춤 포인트: ${topNeeds(need).join(' · ')}.` : '', (shortFirst ? S : L).idea, ...extra].filter(Boolean).join(' ') },
     ...two(longSec, shortSec),
-    bangs.length && { key: 'bangs', title: '추천 앞머리', list: bangs.slice(0, 4) },
+    bangs.length && { key: 'bangs', title: '추천 앞머리', list: bangs },
     { key: 'length', title: '기장 · 볼륨 위치', text: `${lenA} ${lenB}` },
     { key: 'part', title: '가르마', text: `${partA} ${partB}` },
     { key: 'avoid', title: '피하면 좋은 스타일', list: avoid },
