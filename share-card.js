@@ -72,14 +72,18 @@ function scoreBar(ctx, x, y, w, score) {
   ctx.fillStyle = C.line; rr(ctx, x, y, w, 18, 9); ctx.fill();
   ctx.fillStyle = C.accent; rr(ctx, x, y, Math.max(18, (w * score) / 100), 18, 9); ctx.fill();
 }
+// 카드 아래 FINDE 로고 (불러오지 못하면 글자로)
+let logoImg = null;
+const logoReady = loadImg('./brand/logo.png').then((i) => (logoImg = i)).catch(() => null);
 function footer(ctx) {
   ctx.fillStyle = C.muted; font(ctx, 30, 600); ctx.textAlign = 'center';
-  ctx.fillText('FINDE', W / 2, H - 112);
+  if (logoImg) { const h = 52, w = (logoImg.naturalWidth * h) / logoImg.naturalHeight; ctx.drawImage(logoImg, (W - w) / 2, H - 156, w, h); }
+  else ctx.fillText('FINDE', W / 2, H - 112);
   font(ctx, 26, 500); ctx.fillText(`${SITE} · AI 분석 결과라 참고용이에요`, W / 2, H - 68);
   ctx.textAlign = 'left';
 }
 const done = (c) => new Promise((res) => c.toBlob(res, 'image/png'));
-async function fontsReady() { try { await document.fonts?.ready; } catch {} }
+async function fontsReady() { try { await document.fonts?.ready; } catch {} await logoReady; }
 
 const CAT = { hair: '헤어', nail: '네일', makeup: '메이크업', tattoo: '타투' };
 

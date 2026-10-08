@@ -617,3 +617,7 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 
 /* 앱 이름 옆 한글 읽기 */
 .brand h1 .brand-ko { font-size: .5em; font-weight: 600; color: var(--muted); margin-left: 6px; letter-spacing: 0; vertical-align: middle; }
+.brand h1.logo { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; line-height: 1; }
+.brand h1.logo img { display: block; height: 46px; width: auto; }
+.brand h1.logo .brand-ko { font-size: .95rem; margin: 6px 0 0; }
+@media (max-width: 600px) { .brand h1.logo img { height: 38px; } }
