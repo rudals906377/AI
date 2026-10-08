@@ -15,7 +15,7 @@ const CATS = [...CATEGORY_ORDER.map((c) => [c, TAXONOMY[c].label]), ['other', '�
 
 const $ = (id) => document.getElementById(id);
 const els = Object.fromEntries(['status', 'statusText', 'statusBar', 'reviewer', 'field', 'catMode', 'model', 'add', 'files', 'list', 'count', 'main', 'stats',
-  'exportJsonl', 'exportCsv', 'exportSum', 'clear'].map((k) => [k, $(k)]));
+  'exportJsonl', 'exportCsv', 'exportSum', 'clear', 'addDir', 'dir', 'unsureFirst'].map((k) => [k, $(k)]));
 
 // ---- 저장 -------------------------------------------------------------------------
 let state = load();
@@ -66,6 +66,16 @@ els.model.addEventListener('change', () => {
 
 // ---- 사진 추가 · 분석 --------------------------------------------------------------
 els.add.addEventListener('click', () => els.files.click());
+els.addDir.addEventListener('click', () => els.dir.click());
+els.dir.addEventListener('change', () => { addFiles([...els.dir.files].filter((f) => f.type.startsWith('image/'))); els.dir.value = ''; });
+// 검수 순서: AI가 헷갈린 사진부터 (속성 확률 평균이 낮을수록 먼저) — 같은 시간에 모델이 가장 많이 배우는 순서
+const unsure = (it) => (it.pending ? 2 : it.category === 'other' ? 1.5 : 1 - (it.attrs?.length ? it.attrs.reduce((s, a) => s + a.score, 0) / it.attrs.length : 1));
+function order() {
+  const ix = state.items.map((_, i) => i);
+  return els.unsureFirst?.checked ? ix.sort((a, b) => unsure(state.items[b]) - unsure(state.items[a])) : ix;
+}
+const step = (d) => { const o = order(), p = o.indexOf(cur); show(o[Math.max(0, Math.min(o.length - 1, p + d))]); };
+els.unsureFirst?.addEventListener('change', () => { renderList(); });
 els.files.addEventListener('change', () => { addFiles([...els.files.files]); els.files.value = ''; });
 document.addEventListener('dragover', (e) => e.preventDefault());
 document.addEventListener('drop', (e) => { e.preventDefault(); addFiles([...e.dataTransfer.files].filter((f) => f.type.startsWith('image/'))); });
@@ -110,7 +120,7 @@ async function analyzeItem(it, category) {
 
 // ---- 화면 -------------------------------------------------------------------------
 function renderList() {
-  els.list.innerHTML = state.items.map((it, i) => {
+  els.list.innerHTML = order().map((i) => { const it = state.items[i];
     const p = photos.get(it.key);
     const done = isDone(it);
     return `<button type="button" data-i="${i}" class="${i === cur ? 'cur' : ''} ${done ? 'done' : ''}" title="${esc(it.file)}">${p ? `<img src="${p.url}" alt="" />` : '사진 없음'}</button>`;
@@ -148,8 +158,8 @@ function show(i) {
       <label>정답 <select id="catFix">${CATS.map(([k, l]) => `<option value="${k}" ${k === it.category ? 'selected' : ''}>${l}</option>`).join('')}</select></label></div>
     ${rows}
     <div class="row"><button class="ghost small" id="prev" type="button">이전</button><button class="primary small" id="allOk" type="button">남은 항목 모두 맞음 · 다음</button><button class="ghost small" id="next" type="button">다음</button></div>`;
-  $('prev').onclick = () => show(cur - 1);
-  $('next').onclick = () => show(cur + 1);
+  $('prev').onclick = () => step(-1);
+  $('next').onclick = () => step(1);
   $('allOk').onclick = allOkNext;
   $('catFix').onchange = async (e) => {
     const c = e.target.value;
@@ -187,8 +197,9 @@ function allOkNext() {
   const it = state.items[cur];
   if (it && !it.pending && it.category !== 'other') for (const a of it.attrs) if (!it.verdict[a.group]) it.verdict[a.group] = 'ok';
   save(); renderList();
-  const next = state.items.findIndex((x, i) => i > cur && !isDone(x));
-  show(next >= 0 ? next : cur + 1);
+  const o = order(), p = o.indexOf(cur);
+  const next = o.slice(p + 1).find((i) => !isDone(state.items[i]));
+  if (next != null) show(next); else step(1);
 }
 document.addEventListener('keydown', (e) => {
   const a = document.activeElement;
@@ -196,8 +207,8 @@ document.addEventListener('keydown', (e) => {
   if (a && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && a.type !== 'file') || (a.tagName === 'SELECT' && els.main.contains(a)))) return;
   if (a?.tagName === 'SELECT') a.blur(); // 위쪽 설정 목록에 남은 포커스는 풀어 준다
   const it = state.items[cur];
-  if (e.key === 'ArrowRight') show(cur + 1);
-  else if (e.key === 'ArrowLeft') show(cur - 1);
+  if (e.key === 'ArrowRight') step(1);
+  else if (e.key === 'ArrowLeft') step(-1);
   else if (e.key === 'Enter') { e.preventDefault(); allOkNext(); }
   else if (['1', '2', '3'].includes(e.key) && it && !it.pending && it.attrs) {
     const a = it.attrs.find((x) => !it.verdict[x.group]);

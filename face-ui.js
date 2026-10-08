@@ -365,6 +365,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   function render() {
     const f = last;
     report = faceReport(f, getStyle().result, { gender: gender || null });
+    window.dispatchEvent(new CustomEvent('beauty:face'));
     els.result.classList.remove('hidden', 'enter');
     void els.result.offsetWidth;
     els.result.classList.add('enter');
@@ -420,6 +421,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     const os = $('orderSave'); if (os) os.textContent = show && faceForFit() ? '상담 카드로 저장' : '이미지로 저장';
     if (fit) {
       currentFits.style = { fit, where: 'style' };
+      window.dispatchEvent(new CustomEvent('beauty:fit'));
       els.styleFit.innerHTML = fitHtml(fit, `내 얼굴형과의 궁합${memoNote()}`) + `<button class="ghost small" type="button" data-act="face">${last?.ok ? '얼굴 분석 결과 보기' : '얼굴 다시 분석하기'}</button>`;
       els.styleFit.querySelector('[data-act="face"]').onclick = () => { setMode('face'); if (r.category !== purpose) setPurpose(r.category); };
     }
@@ -834,5 +836,6 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     return { headline: rep.headline, traits: (rep.summary[1] || '').replace(/이에요\.$/, '').split(', ').filter(Boolean).slice(0, 3),
       ear: r.category === 'hair' ? EAR[rep.traits.ears] || null : null, fit: rep.match?.score != null ? rep.match : null, avoid };
   }
-  return { styleChanged, setMode, fitFor, consultInfo };
+  const preload = () => preloadFace().catch(() => {});
+  return { styleChanged, setMode, fitFor, consultInfo, preload };
 }

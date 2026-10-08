@@ -14,6 +14,7 @@
     .rv-top input, .rv-top select { width: 100%; min-width: 0; font: inherit; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--card); color: var(--text); }
     .rv-grid { display: grid; grid-template-columns: 200px minmax(0, 1fr) 320px; gap: 16px; margin-top: 16px; align-items: start; }
     @media (max-width: 1100px) { .rv-grid { grid-template-columns: 1fr; } }
+    .rv-sort { display: inline-flex; align-items: center; gap: 6px; font-size: .88rem; color: var(--muted); cursor: pointer; }
     .rv-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 6px; max-height: 70vh; overflow: auto; }
     .rv-list button { position: relative; aspect-ratio: 1; padding: 0; border: 0; border-radius: 6px; overflow: hidden; background: var(--bg-2); cursor: pointer; font-size: 0.7rem; color: var(--muted); }
     .rv-list button img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -70,11 +71,14 @@
         </label>
         <div class="row" style="margin:0">
           <button class="primary" id="add" type="button">사진 여러 장 추가</button>
+          <button class="ghost" id="addDir" type="button">폴더째 추가</button>
           <input type="file" id="files" accept="image/*" multiple hidden />
+          <input type="file" id="dir" webkitdirectory multiple hidden />
+          <label class="rv-sort"><input type="checkbox" id="unsureFirst" checked> AI가 헷갈린 사진부터</label>
         </div>
       </div>
       <p class="rv-help">검수 기록은 이 브라우저에 저장됩니다 (사진은 저장하지 않고 특징값만). 새로 고침한 뒤에는 같은 사진을 다시 추가하면 이어서 볼 수 있어요.
-        단축키: <kbd>1</kbd> 맞음 · <kbd>2</kbd> 틀림 · <kbd>3</kbd> 판단 불가 (위에서부터 비어 있는 항목) · <kbd>Enter</kbd> 남은 항목 모두 맞음 후 다음 · <kbd>←</kbd> <kbd>→</kbd> 이동</p>
+        검수 시간은 AI가 헷갈린 사진(확신이 낮은 사진)에 쓸수록 모델이 가장 많이 좋아져요. 단축키: <kbd>1</kbd> 맞음 · <kbd>2</kbd> 틀림 · <kbd>3</kbd> 판단 불가 (위에서부터 비어 있는 항목) · <kbd>Enter</kbd> 남은 항목 모두 맞음 후 다음 · <kbd>←</kbd> <kbd>→</kbd> 이동</p>
     </section>
 
     <div class="rv-grid">
