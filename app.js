@@ -100,12 +100,17 @@ async function init() {
     f16 = !!adapter?.features?.has('shader-f16');
   } catch { webgpu = false; f16 = false; }
   if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
+  // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
+  if ((!webgpu || params.get('device') === 'wasm') && params.get('proxy') !== '0') useWasmProxy();
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
   await loadAnalyzer(modelKey);
 }
 
+function useWasmProxy() {
+  try { if (env.backends?.onnx?.wasm) env.backends.onnx.wasm.proxy = true; } catch (e) { console.warn('[app] WASM 작업 스레드 설정 실패', e); }
+}
 function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
   const rt = { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
@@ -158,6 +163,7 @@ async function loadAnalyzer(key) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
+        useWasmProxy();
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
         analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
       }
@@ -227,8 +233,7 @@ async function openSample(s) {
   showSampleTab(s.category);
   document.querySelectorAll('.samples button').forEach((x) => x.classList.toggle('active', x.dataset.file === s.file));
   const blob = await (await fetch(`./${s.file}`)).blob();
-  await setImage(blob);
-  if (analyzer) run();
+  await pickImage(blob);
 }
 
 // ---- 입력 처리 ----------------------------------------------------------------
@@ -260,8 +265,16 @@ function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
 // 사용자가 올린 사진은 예시 사진처럼 바로 분석한다 (모델이 준비된 경우)
 async function pickImage(blob) {
   await setImage(blob);
+  if (currentBlob) showResultArea();
   if (analyzer && currentBlob) run();
   else if (currentBlob) showWaiting();
+}
+// 휴대폰: 사진을 고른 그 순간(사용자가 직접 한 동작) 결과 칸으로 한 번만 내려 준다.
+// 분석이 끝났을 때는 움직이지 않는다 — 기다리는 동안 사용자가 스크롤했다면 그 자리를 지킨다
+function showResultArea() {
+  if (window.innerWidth >= 900) return;
+  const top = els.resultCard.getBoundingClientRect().top;
+  if (top > window.innerHeight * 0.45 || top < -8) els.resultCard.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 // 모델이 준비되기 전에 사진을 올렸을 때: 받은 사진은 그대로 두고, 준비 진행률을 보여 주다가 끝나면 바로 분석한다 (loadAnalyzer 가 이어서 run)
 function showWaiting() {
@@ -291,7 +304,7 @@ els.category.addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   currentCategory = b.dataset.cat;
   els.category.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
-  if (analyzer && currentBlob) run();
+  if (analyzer && currentBlob) { showResultArea(); run(); }
 });
 els.model.addEventListener('click', async (e) => {
   const b = e.target.closest('button'); if (!b || b.dataset.model === modelKey || analyzerLoading) return;
@@ -299,7 +312,7 @@ els.model.addEventListener('click', async (e) => {
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
   await loadAnalyzer(modelKey);
 });
-els.run.addEventListener('click', run);
+els.run.addEventListener('click', () => { showResultArea(); run(); });
 els.advanced.addEventListener('change', () => { if (els.advanced.checked) ensureDescriber().catch(() => {}); });
 
 // ---- 분석 실행 ----------------------------------------------------------------
@@ -329,7 +342,6 @@ async function run() {
     result.run_id = seq;
     lastResult = result;
     render(result);
-    if (window.innerWidth < 900) els.resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (els.advanced.checked && !pending) await runAdvanced(result);
   } catch (e) {
     console.error(e);
