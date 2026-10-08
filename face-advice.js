@@ -662,3 +662,86 @@ export function faceReport(f, style = null, { gender = null } = {}) {
     traits: t,
   };
 }
+
+// ---- 친구 · 커플 케미 (재미용) -----------------------------------------------------------
+// 두 사람의 얼굴형 조합에 이름을 붙이고, 두 사람 모두에게 추천되는 커트 · 앞머리와 함께 맞추기 좋은 컬러 톤을 알려 준다.
+// 케미 점수는 얼굴형 조합 + 두 사람 측정값으로 정해지는 재미용 숫자다 (같은 두 사진이면 같은 점수).
+const PAIR = {
+  same: ['거울 케미', '말하지 않아도 통하는 쌍둥이 비율이에요. 커플룩을 맞추면 효과가 두 배예요.'],
+  'long|round': ['퍼즐 케미', '한 사람은 세로, 한 사람은 가로 — 나란히 서면 프레임이 꽉 차는 조합이에요.'],
+  'heart|square': ['밸런스 케미', '부드러운 턱선과 또렷한 턱선이 서로를 돋보이게 하는 조합이에요.'],
+  'diamond|oval': ['화보 케미', '입체감과 균형감이 만나 사진이 잘 나오는 조합이에요.'],
+  'long|square': ['시크 케미', '둘 다 선이 분명해서 함께 서면 화보 같은 분위기가 나요.'],
+  'heart|round': ['러블리 케미', '둘 다 부드러운 인상이라 함께 있으면 분위기가 한층 따뜻해져요.'],
+  oval: ['만능 케미', '계란형이 누구와도 균형을 맞춰 주는, 안정감 있는 조합이에요.'],
+  other: ['반전 케미', '닮은 듯 다른 비율이라 함께 찍으면 서로의 개성이 더 살아나요.'],
+};
+export function coupleChem(fA, fB, { gender = null } = {}) {
+  const a = fA.shape.probs[0].key, b = fB.shape.probs[0].key;
+  const key = a === b ? 'same' : [a, b].sort().join('|');
+  const [title, line] = PAIR[key] || (a === 'oval' || b === 'oval' ? PAIR.oval : PAIR.other);
+  let h = 17; for (const x of [fA.m.ratio, fA.m.jaw, fB.m.ratio, fB.m.jaw]) h = (Math.imul(h, 31) + Math.round(x * 1000)) >>> 0;
+  const score = 78 + (h % 21) + (key === 'same' ? 1 : 0);   // 78 ~ 99 (재미용)
+  const tA = traits(fA), tB = traits(fB);
+  const cutsOf = (f, t) => hairAdvice(f, t, gender).filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name));
+  const bangsOf = (f, t) => (hairAdvice(f, t, gender).find((x) => x.key === 'bangs')?.list || []).map((i) => i.name);
+  const ca = cutsOf(fA, tA), cb = new Set(cutsOf(fB, tB));
+  const both = ca.filter((x) => cb.has(x)).slice(0, 3);
+  const bb = bangsOf(fA, tA).filter((x) => bangsOf(fB, tB).includes(x)).slice(0, 2);
+  const ua = undertone(fA.skin), ub = undertone(fB.skin);
+  const tone = !ua || !ub ? null : ua === ub ? (ua === 'yellow' ? '둘 다 노란기가 도는 피부라 카라멜 · 골드 브라운 계열 커플 컬러가 잘 맞아요' : ua === 'red' ? '둘 다 붉은기가 도는 피부라 애쉬 · 쿨 브라운 계열 커플 컬러가 잘 맞아요' : '둘 다 중간 톤이라 초코 · 밀크 브라운처럼 무난한 컬러를 맞추기 좋아요')
+    : '피부 속 색이 서로 달라서, 초코브라운처럼 중간 톤 컬러로 맞추면 둘 다 자연스러워요';
+  return { title, line, score, shapes: [fA.shape.probs[0].label, fB.shape.probs[0].label].map(short), keys: [a, b], both, bangs: bb, tone };
+}
+
+
+// ---- 시술 전후 비교 --------------------------------------------------------------------
+// 얼굴 비율(뼈대)은 머리를 바꿔도 그대로이므로, 얼굴 둘레의 머리 실루엣(m.frame)이 어떻게 바뀌었는지와
+// 그 변화가 얼굴형 추천 방향(세로 · 가로 라인, 볼륨 위치)과 맞는지를 본다.
+// dir: 얼굴형마다 늘면 좋은(+1) · 줄면 좋은(-1) 항목 (HAIR 표의 핵심 문장과 같은 내용)
+const FRAME_DIR = {
+  round: { side: -1, top: +1, below: +1 },
+  long: { side: +1, top: -1, fore: +1 },
+  square: { sideJaw: +1, below: +1 },
+  heart: { top: -1, fore: +1, sideJaw: +1 },
+  diamond: { side: -1, fore: +1, sideJaw: +1 },
+  oval: {},
+};
+const FRAME_SAY = {
+  side: ['광대 옆 볼륨', '옆으로 퍼지던 머리가 줄어', '광대 옆에 볼륨이 생겨'],
+  sideJaw: ['턱 옆 볼륨', '턱 옆 머리가 가벼워져', '턱 옆에 볼륨이 생겨'],
+  top: ['정수리 높이', '정수리가 차분해져', '정수리 볼륨이 살아나'],
+  below: ['기장', '기장이 짧아져', '기장이 길어져'],
+  fore: ['이마 덮임', '이마가 드러나', '앞머리가 이마를 덮어'],
+};
+const FRAME_EFFECT = {
+  side: ['얼굴 폭이 좁아 보여요', '얼굴이 넓어 보일 수 있어요'],
+  sideJaw: ['턱 쪽이 허전해 보일 수 있어요', '아래 얼굴이 채워져 보여요'],
+  top: ['얼굴이 짧아 보여요', '얼굴이 길어 보여요'],
+  below: ['목선이 시원해 보여요', '세로 라인이 생겨요'],
+  fore: ['얼굴이 길어 보여요', '얼굴 길이가 짧아 보여요'],
+};
+export function compareFrames(before, after) {
+  const a = before.m.frame, b = after.m.frame;
+  if (!a || !b) return null;
+  const key = before.shape.probs[0].key, dir = FRAME_DIR[key] || {};
+  const TH = { side: 0.06, sideJaw: 0.06, top: 0.05, below: 0.15, fore: 0.2 };
+  const items = [];
+  for (const k of Object.keys(TH)) {
+    const d = b[k] - a[k];
+    if (Math.abs(d) < TH[k]) continue;
+    const up = d > 0, want = dir[k] || 0;
+    const good = want === 0 ? 0 : (up ? 1 : -1) === want ? 1 : -1;
+    items.push({ key: k, label: FRAME_SAY[k][0], good, text: `${FRAME_SAY[k][up ? 2 : 1]} ${FRAME_EFFECT[k][up ? 1 : 0]}`, mag: Math.abs(d) / TH[k] });
+  }
+  items.sort((x, y) => Math.abs(y.good) - Math.abs(x.good) || y.mag - x.mag);
+  const score = items.reduce((s, x) => s + x.good, 0);
+  const shapeName = short(SHAPES[key]);
+  const verdict = !items.length ? '머리 실루엣이 거의 그대로예요' : key === 'oval' ? '계란형이라 어느 쪽으로 바뀌어도 무난해요'
+    : score > 0 ? `${shapeName} 기준으로 더 잘 어울리는 쪽으로 바뀌었어요` : score < 0 ? `${shapeName} 기준으로는 전 스타일이 조금 더 맞았어요`
+    : items.some((x) => x.good) ? '좋아진 점과 아쉬운 점이 반반이에요' : `분위기는 바뀌었지만 ${shapeName} 기준으로는 비슷하게 어울려요`;
+  // 얼굴 비율 자체가 크게 다르면 다른 사람 사진일 수 있다 (머리로는 바뀌지 않는 값: 광대 대비 턱 · 턱끝 너비, 눈 사이)
+  const zd = (k) => Math.abs(before.m[k] - after.m[k]) / (k === 'jaw' ? NORM.jaw[1] : k === 'chin' ? NORM.chin[1] : NORM.eyeSpacing[1]);
+  const other = (zd('jaw') + zd('chin') + zd('eyeSpacing')) / 3 > 1.6;
+  return { shape: shapeName, verdict, better: score > 0, items, other };
+}

@@ -338,6 +338,37 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = nul
       len: top != null ? (top - bot) / CW : 0, rows,
     };
   }) : null;
+  // 머리 실루엣 (시술 전후 비교용): 얼굴 둘레의 머리카락이 어디까지 퍼지고 내려오는지 — 광대 너비 대비
+  //   side: 광대 높이에서 얼굴선 밖으로 퍼진 머리 폭 · sideJaw: 입 높이 · top: 헤어라인 위 머리 높이 · below: 턱끝 아래로 내려온 기장 · fore: 이마를 덮은 비율
+  if (segAt) {
+    const outHair = (v, side) => {
+      const s = slice(v); if (!s) return 0;
+      const um = side < 0 ? s.l : s.r;
+      let far = 0, miss = 0, seen = false;
+      for (let j = 0; j <= 80; j++) {
+        const d = (0.9 * j) / 80, c = segUV(um + side * d * CW, v);
+        if (c === SEG.hair) { far = d; seen = true; miss = 0; } else if (seen && ++miss >= 4) break; else if (!seen && d > 0.35) break;
+      }
+      return far;
+    };
+    const both = (v) => (outHair(v, -1) + outHair(v, 1)) / 2;
+    let top = 0;
+    for (let j = 0, miss = 0, seen = false; j <= 80; j++) {
+      const d = (0.9 * j) / 80, c = segUV(0, vHair + d * CW, zTop);
+      if (c === SEG.hair) { top = d; seen = true; miss = 0; } else if (seen && ++miss >= 4) break;
+    }
+    let below = -0.6;
+    for (let j = 0; j <= 100; j++) {
+      const v = vMouth - ((vMouth - vMenton + CW * 1.6) * j) / 100;
+      let hit = false;
+      for (const u of [-0.75, -0.62, 0.62, 0.75]) if (segUV(u * CW, v) === SEG.hair) { hit = true; break; }
+      if (hit) below = (vMenton - v) / CW;
+    }
+    // 이마 덮임: 헤어라인을 쓰면 앞머리가 생길 때 헤어라인도 함께 내려가 버리므로, 메시의 이마 위(vTop) ~ 눈썹 위 고정 구간에서 잰다
+    let fh = 0, fn = 0;
+    for (let a = 0; a <= 6; a++) for (let b = -4; b <= 4; b++) { fn++; fh += segUV((b / 4) * CW * 0.28, vBrowTop + CW * 0.04 + ((vTop - vBrowTop - CW * 0.04) * a) / 6, zTop * (a / 6)) === SEG.hair; }
+    m.frame = { side: both(cheek.v), sideJaw: both(vMouth), top, below, fore: fh / fn };
+  }
   m.ears = ears && { shown: Math.min(...ears.map((e) => e.shown)), hair: Math.max(...ears.map((e) => e.hair)), out: mean(ears.map((e) => e.out)), len: mean(ears.map((e) => e.len)), each: ears.map(({ shown, hair, out, len }) => ({ shown, hair, out, len })) };
   const issues = checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval: OVAL.map(img), skinL, hairline, others, maskPts, K });
 
