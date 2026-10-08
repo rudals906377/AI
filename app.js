@@ -73,14 +73,19 @@ function makeProgress(label) {
     const pct = total ? Math.round((loaded / total) * 100) : 0;
     if (p.status === 'embedding-labels') setStatus(`${label}: 속성 사전 임베딩 계산 중…`, 100);
     else if (p.status === 'ready') setStatus(`${label} 준비 완료`, 100, 'ready');
-    else if (total) setStatus(`${label} 내려받는 중 ${pct}% (${mb(loaded)}/${mb(total)} MB)`, pct);
+    else if (total) setStatus(`${label} 내려받는 중 ${pct}%${total >= 1048576 ? ` (${mb(loaded)}/${mb(total)} MB)` : ''}${firstVisit ? ' · 처음 한 번만 받아요' : ''}`, pct);
     else setStatus(`${label} 로드 중…`, 0);
   };
 }
-const mb = (b) => (b / 1024 / 1024).toFixed(0);
+const mb = (b) => { const v = b / 1048576; return v < 10 ? v.toFixed(1) : v.toFixed(0); };
+// 처음 방문이면 '처음 한 번만 받아요'를 덧붙인다 (모델은 브라우저에 저장돼 다음부터 바로 열림)
+let firstVisit = true;
+try { firstVisit = !localStorage.getItem('beauty-visited'); localStorage.setItem('beauty-visited', '1'); } catch {}
 // detail: 기술 정보(모델 · 실행 방식)는 화면에는 짧게, 마우스를 올리면(title) 자세히
 function setStatus(text, pct = 0, cls = '', detail = '') {
   els.statusText.textContent = text;
+  // 사진을 먼저 올려 두고 기다리는 중이면 진행률을 결과 칸에도 보여 준다
+  if (!analyzer && currentBlob && !els.analyzing.classList.contains('hidden')) els.analyzingSub.textContent = `${text} — 준비되면 바로 분석해요`;
   els.status.title = detail || text;
   els.statusBar.style.width = `${pct}%`;
   els.status.className = `status ${cls}`;
@@ -168,6 +173,8 @@ async function loadAnalyzer(key) {
       } else await prev?.dispose?.();
       setStatus(`준비 완료 · 사진을 올려 보세요${key === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
       if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
+      // 스타일 모델이 준비된 뒤 한가할 때 얼굴 분석 모델(약 20MB)도 미리 받아 둔다 → '내 얼굴 분석'이 바로 열린다
+      (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => faceUI.preload?.());
     } catch (e) {
       console.error(e);
       setStatus(`모델 로드 실패: ${e.message}`, 0, 'error');
@@ -252,6 +259,14 @@ function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
 async function pickImage(blob) {
   await setImage(blob);
   if (analyzer && currentBlob) run();
+  else if (currentBlob) showWaiting();
+}
+// 모델이 준비되기 전에 사진을 올렸을 때: 받은 사진은 그대로 두고, 준비 진행률을 보여 주다가 끝나면 바로 분석한다 (loadAnalyzer 가 이어서 run)
+function showWaiting() {
+  els.empty.classList.add('hidden');
+  els.analyzing.classList.remove('hidden');
+  els.analyzing.querySelector('b').textContent = '사진을 받았어요 · AI를 준비하는 중이에요';
+  els.analyzingSub.textContent = `${els.statusText.textContent} — 준비되면 바로 분석해요`;
 }
 for (const input of [els.file, els.camera]) {
   input.addEventListener('change', () => {
@@ -407,6 +422,7 @@ async function renderPet(r) {
 }
 
 function render(r) {
+  window.dispatchEvent(new CustomEvent('beauty:style'));
   els.empty.classList.remove('many');
   els.empty.classList.add('hidden');
   els.result.classList.remove('hidden', 'enter');
@@ -891,5 +907,45 @@ async function analyzeStyle(blob, purpose) {
 }
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
 if (params.get('mode') === 'face') faceUI.setMode('face', { scroll: false });
+
+// 첫 방문 안내: 스타일 사진 → 셀카 → 궁합 · 상담 카드. 다 하거나 닫으면 다시 보이지 않는다
+(function onboarding() {
+  const KEY = 'beauty-onboard-v1';
+  const box = document.getElementById('onboard');
+  try { if (localStorage.getItem(KEY)) return; } catch { return; }
+  const done = new Set();
+  const save = () => { try { localStorage.setItem(KEY, '1'); } catch {} };
+  const paint = () => {
+    const now = [1, 2, 3].find((n) => !done.has(n));
+    box.querySelectorAll('li[data-step]').forEach((li) => {
+      const n = +li.dataset.step;
+      li.classList.toggle('done', done.has(n));
+      li.classList.toggle('now', n === now);
+    });
+    if (!now) { document.getElementById('obDone').classList.remove('hidden'); save(); }
+  };
+  const mark = (n) => { if (box.classList.contains('hidden') || done.has(n)) return; done.add(n); paint(); };
+  box.classList.remove('hidden');
+  paint();
+  document.getElementById('obClose').addEventListener('click', () => { box.classList.add('hidden'); save(); });
+  box.addEventListener('click', (e) => {
+    const act = e.target.closest('[data-ob]')?.dataset.ob;
+    if (act === 'sample') {
+      faceUI.setMode('style', { scroll: false });
+      showSampleTab('hair');
+      els.samples.querySelector('button[data-cat="hair"]')?.click();
+    } else if (act === 'pick') els.pickBtn.click();
+    else if (act === 'face') faceUI.setMode('face');
+    else if (act === 'fit') {
+      faceUI.setMode('style', { scroll: false });
+      const fit = document.getElementById('styleFit');
+      if (!fit || fit.classList.contains('hidden')) { toast('헤어 · 메이크업 사진을 분석하면 궁합이 나와요'); return; }
+      fit.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      mark(3);
+    }
+  });
+  window.addEventListener('beauty:style', () => mark(1));
+  window.addEventListener('beauty:face', () => mark(2));
+})();
 
 init();

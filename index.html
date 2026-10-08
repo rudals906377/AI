@@ -39,6 +39,16 @@
       </div>
     </header>
 
+    <section class="onboard hidden" id="onboard" aria-label="처음 쓰는 법">
+      <div class="ob-head"><b>처음이세요? 세 단계면 끝나요</b><button type="button" class="ob-close" id="obClose" aria-label="안내 닫기">닫기</button></div>
+      <ol class="ob-steps">
+        <li data-step="1"><i>1</i><div><b>스타일 사진 올리기</b><small>하고 싶은 헤어 · 메이크업 사진</small><span class="ob-act"><button type="button" class="soft small" data-ob="sample">예시로 해 보기</button><button type="button" class="soft small" data-ob="pick">내 사진</button></span></div></li>
+        <li data-step="2"><i>2</i><div><b>셀카로 얼굴 재기</b><small>정면 · 밝은 곳에서 한 장</small><span class="ob-act"><button type="button" class="soft small" data-ob="face">셀카 찍으러 가기</button></span></div></li>
+        <li data-step="3"><i>3</i><div><b>궁합 · 상담 카드 보기</b><small>어울리는 이유와 디자이너에게 보여 줄 카드</small><span class="ob-act"><button type="button" class="soft small" data-ob="fit">궁합 보러 가기</button></span></div></li>
+      </ol>
+      <p class="ob-done hidden" id="obDone">다 해 봤어요! 시술 요청서의 <b>상담 카드로 저장</b>을 눌러 디자이너에게 보여 주세요.</p>
+    </section>
+
     <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
       <button type="button" data-mode="style" class="active" aria-pressed="true">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
       <button type="button" data-mode="face" aria-pressed="false">내 얼굴 분석<small>셀카로 얼굴형 · 맞춤 헤어 · 메이크업</small></button>
@@ -370,7 +380,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <footer>
-      <p class="ai-notice">이 결과는 AI 가 사진을 보고 자동으로 만든 참고용 정보이며 실제와 다를 수 있습니다. <a href="./notice.html">AI 이용 안내</a> · <a href="./review.html">전문가 검수 도구</a></p>
+      <p class="ai-notice">이 결과는 AI 가 사진을 보고 자동으로 만든 참고용 정보이며 실제와 다를 수 있습니다. <a href="./notice.html">AI 이용 안내</a> · <a href="./review.html">전문가 검수 도구</a> · <a href="./fit-review.html">얼굴형 검수 도구</a></p>
       <p>사진은 서버로 보내지 않고 이 브라우저 안에서만 분석해요. <a href="./samples/CREDITS.md" target="_blank" rel="noopener">예시 사진 출처</a></p>
       <details class="tech"><summary>기술 정보</summary>기본 분석: <code id="clipName"></code> (제로샷 + 학습 헤드) · 고급 모드: <code>onnx-community/LFM2.5-VL-450M-ONNX</code> · Transformers.js 4.3</details>
     </footer>
