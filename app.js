@@ -274,6 +274,8 @@ async function pickImage(blob) {
 function showResultArea() {
   if (window.innerWidth >= 900) return;
   const top = els.resultCard.getBoundingClientRect().top;
+  // 결과가 아직 짧으면 결과 칸 맨 위까지 내려가지 못하므로, 분석하는 동안 화면 높이만큼 자리를 잡아 둔다 (끝나면 run 이 푼다)
+  els.resultCard.style.minHeight = `${window.innerHeight}px`;
   if (top > window.innerHeight * 0.45 || top < -8) els.resultCard.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 }
 // 모델이 준비되기 전에 사진을 올렸을 때: 받은 사진은 그대로 두고, 준비 진행률을 보여 주다가 끝나면 바로 분석한다 (loadAnalyzer 가 이어서 run)
@@ -351,6 +353,7 @@ async function run() {
     els.resultCard.classList.remove('busy');
     clearInterval(ticker);
     els.analyzing.classList.add('hidden');
+    if (!pending) els.resultCard.style.minHeight = '';
     if (!lastResult) els.empty.classList.remove('hidden');
     els.run.textContent = '다시 분석하기';
     updateRunButton();
@@ -904,6 +907,7 @@ if ('IntersectionObserver' in window) {
   new IntersectionObserver(([e]) => { inputVisible = e.isIntersecting; updateFab(); }, { threshold: 0.05 }).observe(els.inputCard);
   window.addEventListener('resize', updateFab);
   window.addEventListener('modechange', updateFab);
+  window.addEventListener('beauty:style', () => setTimeout(updateFab, 0)); // 첫 결과가 나온 뒤에도 다시 판단
   els.fab.addEventListener('click', () => els.inputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 }
 
