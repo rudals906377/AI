@@ -65,8 +65,23 @@ def fit(W0, b0, alpha, X, Y, T, zb, lam, w=None, steps=300):
     return W, b
 
 
-def acc(W, b, alpha, X, Y, T, zb):
+def knn_vote(K, X, n):
+    """앱(analyzer.js knnVote)과 같은 비슷한 학습 사진 투표. K: heads["knn"] 에서 이 그룹 몫 {Q, labels, k, tau}"""
+    s = X @ K["Q"].T
+    out = np.zeros((len(X), n))
+    for i in range(len(X)):
+        for j in np.argsort(-s[i])[:K["k"]]:
+            w = np.exp(K["tau"] * (s[i, j] - 1)); ls = K["labels"][j]
+            for l in ls: out[i, l] += w / len(ls)
+    z = out.sum(1, keepdims=True)
+    return np.where(z > 0, out / np.maximum(z, 1e-12), 0)
+
+
+def acc(W, b, alpha, X, Y, T, zb, K=None):
     _, _, p = final_probs(W, b, alpha, X, T, zb)
+    if K and K["beta"] > 0:   # 앱과 같은 식으로 잰다 (헤드 · 제로샷 혼합 뒤 kNN 을 β 만큼)
+        v = knn_vote(K, X, p.shape[1]); has = v.sum(1, keepdims=True) > 0
+        p = np.where(has, (1 - K["beta"]) * p + K["beta"] * v, p)
     top = p.argmax(1)
     return float(np.mean([top[i] in ys for i, ys in enumerate(Y)]))
 
@@ -81,6 +96,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
     heads = json.load(open(a.heads)); tax = json.load(open(a.tax))
+    kn = heads.get("knn")
+    bankQ = (np.frombuffer(base64.b64decode(kn["q"]), dtype=np.int8).reshape(-1, kn["dim"]).astype(np.float32) / kn["scale"]) if kn else None
     _, idx = th.load_index(a.labels, tax)
     dim = heads["dim"]
     files = [f for pat in a.feedback for f in (glob.glob(pat) or [pat])]
@@ -111,7 +128,9 @@ def main():
             X = np.stack([d[0] for d in data]); Y = [d[1] for d in data]; wts = np.array([d[2] for d in data])
             W0 = f32(h["W"], h["rows"], dim); b0 = np.array(h["b"], dtype=np.float64)
             T = idx[c]["groups"][g["key"]]; zb = np.array(h.get("zb") or [0.0] * h["rows"]); alpha = h.get("alpha", 1.0)
-            base = acc(W0, b0, alpha, X, Y, T, zb)
+            kg = (kn or {}).get("groups", {}).get(key)
+            K = {"Q": bankQ[kg["rows"]], "labels": kg["labels"], "k": kg["k"], "tau": kg["tau"], "beta": kg["beta"]} if kg else None
+            base = acc(W0, b0, alpha, X, Y, T, zb, K)
             folds = np.array_split(rng.permutation(len(X)), min(5, len(X)))
             best = (base, None)
             for lam in lams:
@@ -119,7 +138,7 @@ def main():
                 for f in folds:
                     tr = np.setdiff1d(np.arange(len(X)), f)
                     W, b = fit(W0, b0, alpha, X[tr], [Y[i] for i in tr], T, zb, lam, wts[tr])
-                    hit += acc(W, b, alpha, X[f], [Y[i] for i in f], T, zb) * len(f)
+                    hit += acc(W, b, alpha, X[f], [Y[i] for i in f], T, zb, K) * len(f)
                 cv = hit / len(X)
                 if cv > best[0] + 1e-9: best = (cv, lam)
             # 교차 검증 기준선: 지금 헤드가 같은 사진들을 맞힌 비율

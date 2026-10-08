@@ -54,7 +54,7 @@ export function buildOrder(r, colors = {}) {
     const two = m1 && m1.score >= 0.15 ? `${m0.ko} · ${m1.ko}` : m0.ko;
     const at = rows.findIndex((x) => x.key === 'subject');
     if (m0.level !== 'low') rows.splice(at < 0 ? Math.min(1, rows.length) : at + 1, 0, { key: 'motif', label: '모티브', value: two, alt: null, sure: m0.level === 'high' });
-    else checks.push(`모티브: ${m1 ? `${m0.ko} 또는 ${m1.ko}` : m0.ko}`);
+    else checks.push(`모티브: ${m1 && m1.score >= 0.15 ? `${m0.ko} 또는 ${m1.ko}` : m0.ko}`);
   }
 
   // 헤어 컬러 행에 톤 · 사진에서 뽑은 실제 색을 붙인다

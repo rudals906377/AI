@@ -202,10 +202,11 @@ const HAIR_M = {
     avoid: ['옆을 바짝 민 투블럭 · 페이드 (광대가 강조돼요)', '윗머리만 높이 세우는 스타일'],
   },
 };
+const ida2 = (w) => josa(w, '이에요/예요');
 // ---- 커트 · 앞머리 점수 ---------------------------------------------------------------
 // 얼굴에서 읽은 '필요' (양수일수록 그 효과가 필요). 얼굴형 확률과 측정값 z 를 함께 쓴다
 // 얼굴형 확률은 경계에서 사진마다 크게 출렁이므로 한 번 눌러서(지수 TEMPER) 쓴다
-const TEMPER = 0.4, TABLE_W = 0.6;
+const TEMPER = 0.4, TABLE_W = 2;
 function softShape(f) {
   const q = f.shape.probs.map((x) => [x.key, Math.pow(x.p, TEMPER)]);
   const s = q.reduce((a, [, v]) => a + v, 0);
@@ -214,8 +215,10 @@ function softShape(f) {
 function hairNeeds(f, t) {
   const P = softShape(f);
   const g = (k) => P[k] || 0;
-  const zs = [t.long, t.foreheadW, t.jawW, t.chinW, t.jawSharp].map(Math.abs);
-  const balance = 1 - Math.min(1, zs.reduce((a, b) => a + b, 0) / zs.length / 1.2);
+  // 고른 비율: 두드러진 특징이 하나라도 크면 낮아지게 (평균 대신 제곱평균 · 최댓값)
+  const zs = [t.long, t.foreheadW, t.jawW, t.chinW, t.jawSharp];
+  const rms = Math.sqrt(zs.reduce((a, b) => a + b * b, 0) / zs.length), mx = Math.max(...zs.map(Math.abs));
+  const balance = Math.max(0, 1 - Math.max(rms / 1.0, mx / 1.6));
   return {
     shorten: 0.45 * t.long + 0.25 * t.upper + 0.15 * t.lower + 1.4 * (g('long') - g('round')),        // 얼굴이 짧아 보이게(가로선)
     lengthen: -0.45 * t.long - 0.15 * t.lower + 1.4 * (g('round') - g('long')),                        // 길어 보이게(세로선)
@@ -267,7 +270,7 @@ const NEED_SAY = {
   cheek: (t) => (t.mid >= 0.8 ? '중안부가 긴 편이라' : '광대 · 볼 쪽을 감싸면 좋아서'),
   jaw: (t) => (t.jawSharp >= 0.8 ? '턱선이 각진 편이라' : t.jawW >= 0.8 ? '턱이 넓은 편이라' : '턱선을 부드럽게 하면 좋아서'),
   fill: (t) => (t.chinW <= -0.8 ? '턱끝이 갸름한 편이라' : t.lower >= 0.8 ? '하안부가 긴 편이라' : '턱 주변을 채우면 균형이 좋아서'),
-  reveal: () => '얼굴 비율이 고른 편이라',
+  reveal: (t) => ([t.long, t.foreheadW, t.jawW, t.chinW, t.jawSharp].every((z) => Math.abs(z) < 0.8) ? '얼굴 비율이 고른 편이라' : '얼굴선이 또렷해 드러내도 좋아서'),
   ears: (t) => (t.ears === 'out' ? '귀가 옆으로 보이는 편이라' : '귀선이 깔끔한 편이라'),
   eyes: (t) => (t.eyeRound >= 0.8 ? '눈이 동그란 편이라' : '눈매가 시원한 편이라'),
 };
@@ -319,7 +322,7 @@ function hairAdvice(f, t, gender = null) {
     .filter(([name]) => !clashes(name, avoidTags))
     .map(([name, [faces, why]]) => {
       const fx = CUT_FX[name] || {};
-      const parts = Object.entries(fx).map(([k, v]) => [k, v * (need[k] || 0), v > 0 && (need[k] || 0) > 0]);
+      const parts = Object.entries(fx).map(([k, v]) => [k, v * Math.max(0, need[k] || 0), v > 0 && (need[k] || 0) > 0]);
       const score = parts.reduce((s, [, v]) => s + v, 0) + TABLE_W * tableFit(faces) - 1.5 * softClash(name)
         + (gender && (gender === 'm' ? MEN_FIRST : WOMEN_FIRST).test(name) ? 0.35 : 0);
       return { name, why, parts, score, fam: CUT_FAM[name] || name };
@@ -328,7 +331,7 @@ function hairAdvice(f, t, gender = null) {
   // 앞머리
   let bangs = Object.entries(BANGS_FACE).filter(([name]) => !clashes(name, avoidTags)).map(([name, [faces, why]]) => {
     const fx = BANG_FX[name] || {};
-    const parts = Object.entries(fx).map(([k, v]) => [k, v * (need[k] || 0), v > 0 && (need[k] || 0) > 0]);
+    const parts = Object.entries(fx).map(([k, v]) => [k, v * Math.max(0, need[k] || 0), v > 0 && (need[k] || 0) > 0]);
     const score = parts.reduce((s, [, v]) => s + v, 0) + 0.8 * tableFit(faces.split(' · ')) + (BANGS_BY_SHAPE[top].includes(name) ? 0.4 : 0) - 1.5 * softClash(name);
     return { name, why, parts, score, fam: BANG_FAM[name] || name };
   });
@@ -514,10 +517,16 @@ function scoreStyle(f, style, t, gender) {
   if (style.category === 'hair') {
     const avoidTags = [...new Set([...AVOID_TAGS.f[top], ...AVOID_TAGS.m[top], ...(t.ears === 'out' ? ['sideShort'] : [])])];
     const cut = A('cut'), bangs = A('bangs'), len = A('length'), styling = A('styling'), perm = A('perm');
+    // 추천 목록(hairAdvice)과 같은 판단을 쓴다 — 내 얼굴 맞춤 추천에 든 커트 · 앞머리는 궁합에서도 좋게 본다
+    const adv = hairAdvice(f, t, gender);
+    const recCuts = adv.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list);
+    const recBangs = adv.find((x) => x.key === 'bangs')?.list || [];
     if (cut) {
       conf(cut);
       const faces = CUT_FACE[cut.label]?.[0] || [];
-      if (clashes(cut.label, avoidTags)) add(-20, [`${josa(cut.label, '은/는')} ${shapeName}에서 피하면 좋은 모양이 들어 있어요`, `${shapeName}에는 ${cut.label}의 라인이 조금 아쉬워요 — 강조하고 싶지 않은 곳을 오히려 살려요`, `${josa(cut.label, '은/는')} 예쁘지만, ${shapeName}에서는 피할 스타일 목록에 들어가는 모양이에요`]);
+      const rec = recCuts.find((x) => x.name === cut.label);
+      if (rec && !clashes(cut.label, avoidTags)) add(22, [`${josa(cut.label, '은/는')} 내 얼굴 맞춤 추천 커트에 들어 있어요`, `${shapeName}에 ${cut.label}, 측정값으로 봐도 잘 맞는 조합이에요`, `${josa(cut.label, '은/는')} ${shapeName}의 장점을 살려 주는 커트예요`, `내 얼굴 측정값이 고른 추천 커트 중 하나가 ${ida2(cut.label)}`]);
+      else if (clashes(cut.label, avoidTags)) add(-20, [`${josa(cut.label, '은/는')} ${shapeName}에서 피하면 좋은 모양이 들어 있어요`, `${shapeName}에는 ${cut.label}의 라인이 조금 아쉬워요 — 강조하고 싶지 않은 곳을 오히려 살려요`, `${josa(cut.label, '은/는')} 예쁘지만, ${shapeName}에서는 피할 스타일 목록에 들어가는 모양이에요`]);
       else if (faces.some((x) => ALIAS[top].includes(x))) add(22, [`${josa(cut.label, '은/는')} ${shapeName}에 추천하는 커트예요`, `${shapeName}에 ${cut.label}, 교과서에 나오는 조합이에요`, `${josa(cut.label, '은/는')} ${shapeName}의 장점을 살려 주는 커트예요`, `${shapeName}이라면 ${cut.label}부터 떠올리는 디자이너가 많아요`]);
       else if (near && faces.some((x) => ALIAS[near].includes(x))) add(12, `${josa(cut.label, '은/는')} 가까운 얼굴형(${short(SHAPES[near])})에 추천하는 커트예요`);
       else if (top === 'oval') add(10, [`${shapeName}은 ${josa(cut.label, '을/를')} 포함해 대부분의 커트를 소화해요`, `${shapeName}에게 ${josa(cut.label, '은/는')} 어렵지 않은 선택이에요`, `커트 고민이 적은 ${shapeName}이라 ${cut.label}도 무난하게 어울려요`]);
@@ -525,7 +534,7 @@ function scoreStyle(f, style, t, gender) {
     }
     if (bangs && bangs.label !== '확인 불가' && BANGS_FACE[bangs.label]) {
       conf(bangs);
-      const ok = BANGS_BY_SHAPE[top].includes(bangs.label) || (near && BANGS_BY_SHAPE[near].includes(bangs.label)) || names.some((x) => BANGS_FACE[bangs.label][0].includes(x));
+      const ok = recBangs.some((x) => x.name === bangs.label) || BANGS_BY_SHAPE[top].includes(bangs.label) || (near && BANGS_BY_SHAPE[near].includes(bangs.label)) || names.some((x) => BANGS_FACE[bangs.label][0].includes(x));
       if (clashes(bangs.label, avoidTags)) add(-12, [`${josa(bangs.label, '은/는')} ${shapeName}에서 피하면 좋은 앞머리예요`, `앞머리만 바꾸면 훨씬 좋아져요 — ${bangs.label}보다 가벼운 앞머리를 권해요`]);
       else if (bangs.label === '앞머리 없음' && t.upper >= 0.8) add(-10, '이마가 긴 편이라 이마를 다 드러내기보다 앞머리가 있으면 좋아요');
       else if (bangs.label !== '앞머리 없음' && t.upper >= 0.8) add(10, `이마가 긴 편이라 ${josa(bangs.label, '이/가')} 비율을 맞춰 줘요`);
@@ -634,8 +643,9 @@ export function styleFit(f, style, { gender = null, t = null } = {}) {
   if (s.reasons.some((x) => x.pts < 0)) {
     if (style.category === 'hair') {
       const adv = hairAdvice(f, t, gender);
-      const cuts = adv.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name)).slice(0, 3);
-      const bang = adv.find((x) => x.key === 'bangs')?.list?.[0]?.name;
+      const own = new Set(style.attributes.filter((a) => a.group === 'cut' || a.group === 'bangs').map((a) => a.label));
+      const cuts = adv.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name)).filter((n) => !own.has(n)).slice(0, 3);
+      const bang = (adv.find((x) => x.key === 'bangs')?.list || []).map((i) => i.name).find((n) => !own.has(n));
       const alt = `${cuts.join(' · ')}${bang ? `, 앞머리는 ${bang}` : ''}`;
       tip = [
         `${shapeName}에는 ${alt} 쪽이 더 잘 맞아요. 이 스타일이 마음에 든다면 디자이너에게 얼굴형을 말하고 아쉬운 부분만 바꿔 달라고 해 보세요.`,

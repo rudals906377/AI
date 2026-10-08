@@ -1,7 +1,8 @@
 // 전문가 검수 도구 — 사진 여러 장을 분석하고, 전문가가 속성마다 맞음 · 틀림 · 정답을 표시한다.
 // 결과: 그룹별 정확도(확신 단계별 포함), 학습용 JSONL(tools/train-heads.py --feedback 호환), 항목별 · 요약 CSV
 import { env } from '@huggingface/transformers';
-import { createAnalyzer } from './analyzer.js';
+import { createAnalyzer, taxonomyHash } from './analyzer.js';
+import { styleRegions } from './colors.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 
 env.allowLocalModels = false;
@@ -20,7 +21,19 @@ const els = Object.fromEntries(['status', 'statusText', 'statusBar', 'reviewer',
 // ---- 저장 -------------------------------------------------------------------------
 let state = load();
 function load() {
-  try { return JSON.parse(localStorage.getItem(STORE)) || { reviewer: '', field: '', items: [] }; } catch { return { reviewer: '', field: '', items: [] }; }
+  const empty = { reviewer: '', field: '', items: [] };
+  let s;
+  try { s = JSON.parse(localStorage.getItem(STORE)); } catch { return empty; }
+  if (!s || !Array.isArray(s.items)) return empty;
+  // 속성 사전이 바뀌기 전의 기록(없어진 그룹 · 라벨)은 화면을 깨뜨리지 않게 다시 분석 대기로 돌린다
+  const H = taxonomyHash();
+  for (const it of s.items) {
+    if (it.pending || it.category === 'other') continue;
+    const def = TAXONOMY[it.category];
+    const bad = !def || (it.hash && it.hash !== H) || (it.attrs || []).some((a) => !def.groups.some((g) => g.key === a.group));
+    if (bad) Object.assign(it, { pending: true, attrs: [], verdict: {}, correct: {}, stale: true });
+  }
+  return { ...empty, ...s };
 }
 function save() {
   try { localStorage.setItem(STORE, JSON.stringify(state)); }
@@ -36,21 +49,37 @@ let cur = 0;
 // ---- 모델 ------------------------------------------------------------------------
 let analyzer = null, loading = null, device = 'wasm';
 function setStatus(text, pct = 0, cls = '') { els.statusText.textContent = text; els.statusBar.style.width = `${pct}%`; els.status.className = `status ${cls}`; }
+let loadGen = 0, partner = null;
 async function loadAnalyzer() {
   const m = MODELS[els.model.value];
+  const my = ++loadGen;   // 모델을 빠르게 여러 번 바꾸면 마지막 선택만 쓴다
   analyzer = null;
   loading = (async () => {
     try { device = navigator.gpu && (await navigator.gpu.requestAdapter()) ? 'webgpu' : 'wasm'; } catch { device = 'wasm'; }
     const name = m.id.split('/').pop();
-    const [emb, heads] = await Promise.all([fetch(`./embeddings/${name}.json`).then((r) => r.json()), fetch(`./heads/${name}.json`).then((r) => r.json())]);
+    const opt = (u) => fetch(u).then((r) => (r.ok ? r.json() : undefined)).catch(() => undefined);
+    const [emb, heads, motifs] = await Promise.all([fetch(`./embeddings/${name}.json`).then((r) => r.json()), fetch(`./heads/${name}.json`).then((r) => r.json()), opt(`./embeddings/motifs-${name}.json`)]);
     const files = new Map();
     const onProgress = (p) => {
       if (p.status === 'progress' && p.file) files.set(p.file, [p.loaded || 0, p.total || 0]);
       let a = 0, b = 0; for (const [x, y] of files.values()) { a += x; b += y; }
       if (b) setStatus(`모델 내려받는 중 ${Math.round((a / b) * 100)}%`, (a / b) * 100);
     };
-    const make = (dev) => createAnalyzer({ model: m.id, device: dev, dtype: dev === 'webgpu' ? m.gpu : m.cpu, labelEmbeddings: emb, heads, onProgress });
-    try { analyzer = await make(device); } catch (e) { if (device !== 'webgpu') throw e; device = 'wasm'; analyzer = await make('wasm'); }
+    // 앱과 같은 판단: 부위 잘라 보기(regions) · 타투 세부 모티브 · 정밀 모드는 기본 모델과 평균
+    const make = (dev) => createAnalyzer({ model: m.id, device: dev, dtype: dev === 'webgpu' ? m.gpu : m.cpu, labelEmbeddings: emb, heads, motifs, regions: styleRegions, onProgress });
+    let a;
+    try { a = await make(device); } catch (e) { if (device !== 'webgpu') throw e; device = 'wasm'; a = await make('wasm'); }
+    let p = null;
+    if (m === MODELS.large) {
+      setStatus('정밀 모델과 함께 쓸 기본 모델을 불러오는 중…', 95);
+      const b = MODELS.base, bn = b.id.split('/').pop();
+      try {
+        const [be, bh, bm] = await Promise.all([fetch(`./embeddings/${bn}.json`).then((r) => r.json()), fetch(`./heads/${bn}.json`).then((r) => r.json()), opt(`./embeddings/motifs-${bn}.json`)]);
+        p = await createAnalyzer({ model: b.id, device, dtype: device === 'webgpu' ? b.gpu : b.cpu, labelEmbeddings: be, heads: bh, motifs: bm, regions: styleRegions });
+      } catch (e) { console.warn('기본 모델(짝) 로드 실패 → 정밀 모델만', e); }
+    }
+    if (my !== loadGen) { a.dispose?.(); p?.dispose?.(); return; }
+    analyzer = a; partner = p;
     setStatus(`준비 완료 · ${els.model.selectedOptions[0].textContent} · ${device === 'webgpu' ? 'WebGPU' : 'WASM'}`, 100, 'ready');
     loading = null;
     processQueue();
@@ -76,7 +105,7 @@ function order() {
 }
 const step = (d) => { const o = order(), p = o.indexOf(cur); show(o[Math.max(0, Math.min(o.length - 1, p + d))]); };
 els.unsureFirst?.addEventListener('change', () => { renderList(); });
-els.files.addEventListener('change', () => { addFiles([...els.files.files]); els.files.value = ''; });
+els.files.addEventListener('change', () => { addFiles([...els.files.files].filter((f) => f.type.startsWith('image/'))); els.files.value = ''; });
 document.addEventListener('dragover', (e) => e.preventDefault());
 document.addEventListener('drop', (e) => { e.preventDefault(); addFiles([...e.dataTransfer.files].filter((f) => f.type.startsWith('image/'))); });
 
@@ -88,7 +117,7 @@ function addFiles(files) {
     if (!state.items.some((x) => x.key === key)) state.items.push({ key, file: f.name, pending: true, category: els.catMode.value });
   }
   save(); renderList(); processQueue();
-  if (state.items.length && !els.main.querySelector('.rv-cat')) show(Math.max(0, state.items.findIndex((x) => photos.has(x.key))));
+  if (state.items.length && !els.main.querySelector('.rv-cat')) show(order().find((i) => photos.has(state.items[i].key)) ?? 0);
 }
 let working = false;
 async function processQueue() {
@@ -96,8 +125,15 @@ async function processQueue() {
   working = true;
   try {
     for (const it of state.items) {
+      if (!analyzer) break;   // 분석 중 모델을 바꾸면 멈추고 새 모델로 이어서
       if (!it.pending || !photos.has(it.key)) continue;
-      await analyzeItem(it, it.category === 'auto' ? 'auto' : it.category);
+      try { await analyzeItem(it, it.category === 'auto' ? 'auto' : it.category); }
+      catch (e) {
+        // 읽을 수 없는 사진(HEIC 등) 하나 때문에 나머지가 멈추지 않게, 이 사진은 '뷰티 아님 · 오류'로 두고 넘어간다
+        console.warn('[review] 분석 실패', it.file, e);
+        Object.assign(it, { pending: false, error: String(e.message || e), category: 'other', attrs: [], verdict: {}, correct: {} });
+        save();
+      }
       renderList();
       if (state.items[cur] === it) show(cur);
     }
@@ -108,7 +144,7 @@ async function processQueue() {
 async function analyzeItem(it, category) {
   const n = state.items.filter((x) => !x.pending).length + 1;
   setStatus(`분석 중 ${n}/${state.items.length}`, (n / state.items.length) * 100);
-  const r = await analyzer.analyze(photos.get(it.key).blob, { category });
+  const r = await analyzer.analyze(photos.get(it.key).blob, { category, partner });
   Object.assign(it, {
     pending: false, model: r.model, hash: r.taxonomy_hash, predicted: r.category_ranking[0].key, predicted_score: round(r.category_ranking[0].score),
     category: it.fixedCategory || r.category, is_beauty: r.is_beauty,
@@ -140,7 +176,7 @@ function show(i) {
   const photo = p ? `<img class="rv-photo" src="${p.url}" alt="${esc(it.file)}" />` : `<div class="rv-missing">이 사진(${esc(it.file)})을 다시 추가하면 화면에 보여요. 검수 기록은 남아 있어요.</div>`;
   if (it.pending) { els.main.innerHTML = `<h2>검수 <small>${cur + 1}/${state.items.length}</small></h2>${photo}<p class="note">${analyzer ? '분석 중…' : '모델 준비 중…'}</p>`; markCur(); return; }
   const def = TAXONOMY[it.category];
-  const rows = it.category === 'other' ? '<p class="note">뷰티 사진이 아니라고 표시했어요. 이 사진의 속성은 검수하지 않아요.</p>' : it.attrs.map((a) => {
+  const rows = it.error ? `<p class="note">이 사진은 읽지 못했어요 (${esc(it.error)}). JPG · PNG 로 바꿔 다시 추가해 주세요. 정확도 계산에서는 빠져요.</p>` : it.category === 'other' ? '<p class="note">뷰티 사진이 아니라고 표시했어요. 이 사진의 속성은 검수하지 않아요.</p>' : it.attrs.map((a) => {
     const g = def.groups.find((x) => x.key === a.group);
     const v = it.verdict[a.group];
     const d = g.labels.find((l) => l.ko === a.label)?.def || '';
@@ -163,9 +199,9 @@ function show(i) {
   $('allOk').onclick = allOkNext;
   $('catFix').onchange = async (e) => {
     const c = e.target.value;
-    it.fixedCategory = c;
-    if (c === 'other') { it.category = 'other'; it.verdict = {}; it.correct = {}; save(); renderList(); show(cur); return; }
+    if (c === 'other') { it.fixedCategory = c; it.category = 'other'; it.verdict = {}; it.correct = {}; save(); renderList(); show(cur); return; }
     if (!photos.has(it.key) || !analyzer) { alert('카테고리를 바꾸려면 사진과 모델이 필요해요.'); e.target.value = it.category; return; }
+    it.fixedCategory = c;
     await analyzeItem(it, c); renderList(); show(cur);
   };
   markCur();
@@ -198,13 +234,14 @@ function allOkNext() {
   if (it && !it.pending && it.category !== 'other') for (const a of it.attrs) if (!it.verdict[a.group]) it.verdict[a.group] = 'ok';
   save(); renderList();
   const o = order(), p = o.indexOf(cur);
-  const next = o.slice(p + 1).find((i) => !isDone(state.items[i]));
+  const next = [...o.slice(p + 1), ...o.slice(0, p)].find((i) => !isDone(state.items[i]));   // 끝까지 가면 처음부터 남은 사진
   if (next != null) show(next); else step(1);
 }
 document.addEventListener('keydown', (e) => {
   const a = document.activeElement;
   // 이름 입력 중이거나 정답 고르는 목록이 열려 있을 때는 단축키를 쓰지 않는다
-  if (a && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && a.type !== 'file') || (a.tagName === 'SELECT' && els.main.contains(a)))) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;   // 브라우저 단축키(뒤로 가기 · 탭 전환)는 그대로
+  if (a && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && a.type !== 'file' && a.type !== 'checkbox') || (a.tagName === 'SELECT' && els.main.contains(a)))) return;
   if (a?.tagName === 'SELECT') a.blur(); // 위쪽 설정 목록에 남은 포커스는 풀어 준다
   const it = state.items[cur];
   if (e.key === 'ArrowRight') step(1);
@@ -221,7 +258,7 @@ function tally() {
   const groups = new Map(); // 'hair.cut' → { n, ok, byLevel: { high: [n, ok], ... } }
   let catN = 0, catOk = 0;
   for (const it of state.items) {
-    if (it.pending) continue;
+    if (it.pending || it.error) continue;
     if (it.fixedCategory || isDone(it)) { catN++; if (it.predicted === it.category) catOk++; }
     if (it.category === 'other') continue;
     for (const a of it.attrs || []) {
@@ -326,5 +363,5 @@ const firstModel = Object.keys(MODELS).find((k) => MODELS[k].id === state.items.
 if (firstModel) els.model.value = firstModel;
 if (state.field) els.catMode.value = state.field;
 renderList();
-if (state.items.length) show(0);
+if (state.items.length) show(order()[0]);
 loadAnalyzer();

@@ -5,9 +5,10 @@
 import fs from 'node:fs';
 import { loadTextEncoder } from '../encoders.js';
 import { MOTIFS, MOTIF_TEMPLATES } from '../motifs.js';
+import { fileURLToPath } from 'node:url';   // 경로에 한글 · 공백이 있거나 Windows 여도 맞는 경로
 
 const MODELS = process.argv.slice(2).length ? process.argv.slice(2) : ['Marqo/marqo-fashionSigLIP', 'Xenova/siglip-large-patch16-384'];
-const outDir = process.env.OUT_DIR || new URL('../embeddings/', import.meta.url).pathname;
+const outDir = process.env.OUT_DIR || fileURLToPath(new URL('../embeddings/', import.meta.url));
 const norm = (v) => { const n = Math.hypot(...v) || 1; return v.map((x) => x / n); };
 const mean = (rows) => rows[0].map((_, i) => rows.reduce((s, r) => s + r[i], 0) / rows.length);
 

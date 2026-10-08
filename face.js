@@ -686,6 +686,9 @@ export function combineFaces(results) {
   const z = zscores(m);
   const dist = (r) => { const zr = zscores(r.m); return Object.keys(z).reduce((s, k) => s + (zr[k] - z[k]) ** 2, 0); };
   const base = ok.slice().sort((a, b) => dist(a) - dist(b))[0];
+  // 머리 실루엣(시술 전후 비교용) · 귀 좌우 값은 중앙값에 가장 가까운 장의 것을 그대로 쓴다 (빠지면 전후 비교가 안 된다)
+  if (base.m.frame) m.frame = base.m.frame;
+  if (m.ears && base.m.ears?.each) m.ears.each = base.m.ears.each;
   return { ...base, m, shape: classifyShape(m), frames: { used: ok.length, total: results.length } };
 }
 

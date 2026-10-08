@@ -85,7 +85,7 @@ try { firstVisit = !localStorage.getItem('beauty-visited'); localStorage.setItem
 function setStatus(text, pct = 0, cls = '', detail = '') {
   els.statusText.textContent = text;
   // 사진을 먼저 올려 두고 기다리는 중이면 진행률을 결과 칸에도 보여 준다
-  if (!analyzer && currentBlob && !els.analyzing.classList.contains('hidden')) els.analyzingSub.textContent = `${text} — 준비되면 바로 분석해요`;
+  if (!analyzer && currentBlob && cls !== 'error' && !els.analyzing.classList.contains('hidden')) els.analyzingSub.textContent = `${text} — 준비되면 바로 분석해요`;
   els.status.title = detail || text;
   els.statusBar.style.width = `${pct}%`;
   els.status.className = `status ${cls}`;
@@ -134,9 +134,10 @@ const loadMotifs = (modelId) => loadJson(`./embeddings/motifs-${modelId.split('/
 
 // 정밀 모드는 정밀 모델과 기본 모델의 확률을 평균한다 (교차 검증 +2%p). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
 let partner = null;
+let fellBack = false;   // WebGPU 로드가 실패해 WASM 으로 내려온 적이 있으면 true
 async function makeBase(rt) {
   const m = MODELS.base;
-  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress(m.label) });
 }
 
 async function loadAnalyzer(key) {
@@ -147,7 +148,9 @@ async function loadAnalyzer(key) {
   if (key === 'base' && partner) {
     analyzer = partner; partner = null;
     await prev?.dispose?.();
-    setStatus(`준비 완료 · 사진을 올려 보세요${modelKey === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
+    els.clipName.textContent = `${m.id}`;
+    els.modelNote.textContent = `${m.label} · 처음 한 번만 내려받고 브라우저에 캐시됩니다`;
+    setStatus('준비 완료 · 사진을 올려 보세요', 100, 'ready', `${m.label}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
     updateRunButton();
     if (currentBlob) setTimeout(run, 0);
     return;
@@ -158,14 +161,14 @@ async function loadAnalyzer(key) {
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress(m.label) });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
-        useWasmProxy();
+        fellBack = true;   // 이후 짝 모델도 WASM 으로 (작업 스레드 설정은 첫 세션 전에만 바꿀 수 있어 그대로 둔다)
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress('기본 모델') });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress(m.label) });
       }
       if (key === 'large') {
         // 기본 모델을 이미 쓰고 있었으면 짝으로 남기고, 아니면 이어서 불러온다
@@ -175,7 +178,7 @@ async function loadAnalyzer(key) {
           // 두 모델이 다 준비될 때까지는 분석하지 않는다 (먼저 누르면 정밀 모델 혼자 판단하게 되므로)
           const main = analyzer; analyzer = null; updateRunButton();
           setStatus('정밀 모델을 받았어요 · 함께 쓸 기본 모델을 불러오는 중…', 95, 'loading');
-          try { partner = await makeBase(runtimeFor('base')); } catch (e) { console.warn('기본 모델(짝) 로드 실패 → 정밀 모델만 씁니다', e); partner = null; }
+          try { partner = await makeBase(fellBack ? { device: 'wasm', ...RUNTIME.base.wasm } : runtimeFor('base')); } catch (e) { console.warn('기본 모델(짝) 로드 실패 → 정밀 모델만 씁니다', e); partner = null; }
           analyzer = main;
         }
       } else await prev?.dispose?.();
@@ -185,7 +188,20 @@ async function loadAnalyzer(key) {
       (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => faceUI.preload?.());
     } catch (e) {
       console.error(e);
-      setStatus(`모델 로드 실패: ${e.message}`, 0, 'error');
+      // 새 모델을 못 불러오면 쓰던 모델로 되돌린다 (정밀 모델이 휴대폰 메모리를 넘는 경우 등)
+      if (prev && !analyzer) {
+        analyzer = prev;
+        modelKey = prev.model === MODELS.large.id ? 'large' : 'base';
+        els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
+        setStatus(`${m.label}을 불러오지 못해 쓰던 모델을 그대로 써요 (${e.message})`, 100, 'ready');
+        if (currentBlob && !lastResult) setTimeout(run, 0);
+      } else {
+        setStatus(`모델 로드 실패: ${e.message}`, 0, 'error');
+        // 사진을 먼저 올려 두고 기다리던 화면을 정리한다
+        els.analyzing.classList.add('hidden');
+        els.resultCard.style.minHeight = '';
+        if (!lastResult) els.empty.classList.remove('hidden');
+      }
     } finally {
       analyzerLoading = null;
       updateRunButton();
@@ -237,9 +253,14 @@ async function openSample(s) {
 }
 
 // ---- 입력 처리 ----------------------------------------------------------------
+let imageSeq = 0;
 async function setImage(blob) {
-  if (!blob || !blob.type.startsWith('image/')) return;
-  currentBlob = await downscale(blob, 1024);
+  if (!blob || !blob.type?.startsWith('image/')) { if (blob) toast('사진 파일만 올릴 수 있어요'); return false; }
+  const my = ++imageSeq;
+  const small = await downscale(blob, 1024);
+  if (my !== imageSeq) return false;      // 그사이 다른 사진을 골랐으면 이 사진은 버린다 (큰 사진이 늦게 끝나 덮어쓰지 않게)
+  currentBlob = small;
+  if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src);
   els.preview.src = URL.createObjectURL(currentBlob);
   els.preview.classList.remove('hidden');
   els.dropHint.classList.add('hidden');
@@ -247,6 +268,7 @@ async function setImage(blob) {
   // (그 전에 결과로 스크롤하면 사진 칸이 커지면서 스크롤이 중간에 멈춘다)
   await els.preview.decode().catch(() => {});
   updateRunButton();
+  return my === imageSeq;
 }
 // 큰 사진은 긴 변 기준으로 줄여서 처리 (속도·메모리)
 async function downscale(blob, max) {
@@ -264,7 +286,7 @@ function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
 
 // 사용자가 올린 사진은 예시 사진처럼 바로 분석한다 (모델이 준비된 경우)
 async function pickImage(blob) {
-  await setImage(blob);
+  if (!(await setImage(blob))) return;
   if (currentBlob) showResultArea();
   if (analyzer && currentBlob) run();
   else if (currentBlob) showWaiting();
@@ -310,6 +332,7 @@ els.category.addEventListener('click', (e) => {
 });
 els.model.addEventListener('click', async (e) => {
   const b = e.target.closest('button'); if (!b || b.dataset.model === modelKey || analyzerLoading) return;
+  if (busy) { toast('분석이 끝난 뒤에 모델을 바꿀 수 있어요'); return; }
   modelKey = b.dataset.model;
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
   await loadAnalyzer(modelKey);
@@ -338,16 +361,20 @@ async function run() {
   try {
     // 주인공이 여럿이면(여러 사람 · 사람과 동물 · 여러 마리 · 콜라주) 분석하지 않고 안내한다
     let subjects = null;
-    try { subjects = await detectSubjects(currentBlob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }
+    const blob = currentBlob;
+    try { subjects = await detectSubjects(blob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }
     if (subjects && subjects.n >= 2) { showManySubjects(subjects); return; }
-    const result = await analyzer.analyze(currentBlob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
+    const result = await analyzer.analyze(blob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
     result.run_id = seq;
+    result.blob = blob;
+    if (els.status.classList.contains('error')) setStatus('준비 완료 · 사진을 올려 보세요', 100, 'ready');   // 앞선 오류 문구가 남지 않게   // 이 결과를 낸 사진 (색 · 공유 카드 · 요청서 이미지가 다른 사진과 섞이지 않게)
     lastResult = result;
     render(result);
     if (els.advanced.checked && !pending) await runAdvanced(result);
   } catch (e) {
     console.error(e);
     setStatus(`분석 중 오류: ${e.message}`, 0, 'error');
+    if (els.empty.classList.contains('many')) { els.empty.innerHTML = EMPTY_HTML; els.empty.classList.remove('many'); }
   } finally {
     busy = false;
     els.resultCard.classList.remove('busy');
@@ -406,6 +433,7 @@ async function runAdvanced(result) {
 
 // ---- 렌더링 -------------------------------------------------------------------
 // 대상이 여럿인 사진: 이유를 말하고 한 대상만 나온 사진을 부탁한다
+const EMPTY_HTML = els.empty.innerHTML;   // '여러 대상' 안내로 바꾼 뒤 되돌릴 원래 문구
 function showManySubjects(s) {
   lastResult = null;
   els.result.classList.add('hidden');
@@ -423,7 +451,7 @@ const PET_LINES = ['커플 산책룩의 완성은 헤어 맞춤이죠.', '같은
 async function renderPet(r) {
   const seq = r.run_id;
   let hr = r;
-  if (r.category !== 'hair') { try { hr = await analyzer.analyze(currentBlob, { category: 'hair', partner: modelKey === 'large' ? partner : null }); } catch { return; } }
+  if (r.category !== 'hair') { try { hr = await analyzer.analyze(r.blob || currentBlob, { category: 'hair', partner: modelKey === 'large' ? partner : null }); } catch { return; } }
   if (lastResult?.run_id !== seq) return;
   const A = (g) => hr.attributes.find((a) => a.group === g && a.score >= 0.3);
   const len = A('length'), perm = A('perm'), color = A('color');
@@ -440,6 +468,7 @@ async function renderPet(r) {
 
 function render(r) {
   window.dispatchEvent(new CustomEvent('beauty:style'));
+  if (els.empty.classList.contains('many')) els.empty.innerHTML = EMPTY_HTML;
   els.empty.classList.remove('many');
   els.empty.classList.add('hidden');
   els.result.classList.remove('hidden', 'enter');
@@ -556,7 +585,7 @@ async function startColors(r) {
   const targets = COLOR_TARGETS[r.category];
   els.colorBlock.classList.toggle('hidden', !targets || !r.is_beauty);
   if (!targets || !r.is_beauty) return;
-  const blob = currentBlob, id = r.run_id;
+  const blob = r.blob || currentBlob, id = r.run_id;
   els.swatches.innerHTML = '<span class="note">색을 뽑는 중…</span>';
   els.colorMeta.textContent = '';
   let c = {};
@@ -614,7 +643,7 @@ els.orderSave.addEventListener('click', async () => {
   if (!lastOrder || !currentBlob) return;
   try {
     const face = faceUI.consultInfo(lastResult);
-    const blob = await orderImage(lastOrder, currentBlob, face);
+    const blob = await orderImage(lastOrder, lastResult?.blob || currentBlob, face);
     const name = `${face ? '상담카드' : '시술요청서'}-${new Date().toISOString().slice(0, 10)}.png`;
     const file = new File([blob], name, { type: 'image/png' });
     // 휴대폰: 공유 시트(카카오톡 · 메시지 등)로 바로 보낸다
@@ -882,7 +911,7 @@ $('shareStyle').addEventListener('click', async (e) => {
   if (!lastResult || !currentBlob) return;
   const b = e.currentTarget; b.disabled = true;
   try {
-    const blob = await styleCard({ photo: currentBlob, result: lastResult, fit: faceUI.fitFor(lastResult) });
+    const blob = await styleCard({ photo: lastResult.blob || currentBlob, result: lastResult, fit: faceUI.fitFor(lastResult) });
     const how = await shareImage(blob, `${(lastResult.genre?.name || '스타일').replace(/[\\/:*?"<>|\s]+/g, '-')}.png`, lastResult.headline);
     if (how === 'downloaded') toast('공유 이미지를 저장했어요');
   } catch (err) { console.error(err); toast('공유 이미지를 만들지 못했어요'); } finally { b.disabled = false; }
@@ -925,7 +954,7 @@ async function analyzeStyle(blob, purpose) {
   const alt = r.category_ranking.find((c) => c.key === purpose);
   return alt && alt.score >= 0.2 ? analyzer.analyze(blob, { category: purpose, ...opts }) : r;
 }
-const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
+const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
 if (params.get('mode') === 'face') faceUI.setMode('face', { scroll: false });
 
 // 첫 방문 안내: 스타일 사진 → 셀카 → 궁합 · 상담 카드. 다 하거나 닫으면 다시 보이지 않는다

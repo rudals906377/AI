@@ -35,17 +35,22 @@ def main():
     rows = [r for r in json.load(open(a.labels)) if r["src"] != "eval" and r["file"] in d]
     rows = [(r, [names.index(x) for x in r["motifs"] if x in names]) for r in rows]
     rows = [(r, y) for r, y in rows if y]
+    if not rows:
+        raise SystemExit("라벨과 임베딩이 맞는 사진이 없어요 (--labels 파일 경로 · --emb 접두어 · 모티브 이름을 확인하세요)")
     X = np.stack([d[r["file"]] for r, _ in rows]); X /= np.linalg.norm(X, axis=1, keepdims=True)
     S = np.zeros((len(rows), len(names)))
     for i, (_, y) in enumerate(rows): S[i, y] = 1
     present = sorted(set(np.where(S.sum(0) > 0)[0]))
     W, b = th.fit(X, S, M, PARAMS["lam"], present, pen=0.0)
     bank = [(i, y) for i, (r, y) in enumerate(rows) if free(r.get("license"))]
-    Q = X[[i for i, _ in bank]]
-    scale = 127.0 / float(np.abs(Q).max())   # 가장 큰 성분이 127 이 되게 (train-knn.py 와 같은 방식)
-    q = np.clip(np.round(Q * scale), -127, 127).astype(np.int8)
+    mj.pop("knn", None)
+    if bank:
+        Q = X[[i for i, _ in bank]]
+        scale = 127.0 / float(np.abs(Q).max())   # 가장 큰 성분이 127 이 되게 (train-knn.py 와 같은 방식)
+        q = np.clip(np.round(Q * scale), -127, 127).astype(np.int8)
     mj["head"] = {"W": base64.b64encode(np.ascontiguousarray(W, dtype=np.float32).tobytes()).decode(), "b": [round(float(x), 5) for x in b]}
-    mj["knn"] = {"scale": scale, "q": base64.b64encode(q.tobytes()).decode(), "labels": [y for _, y in bank]}
+    if bank:   # 권리가 확인된 사진이 없으면 kNN 없이 헤드 · 제로샷만
+        mj["knn"] = {"scale": scale, "q": base64.b64encode(q.tobytes()).decode(), "labels": [y for _, y in bank]}
     mj["params"] = PARAMS
     mj["trained"] = {"rows": len(rows), "bank": len(bank), "motifs_seen": len(present)}
     json.dump(mj, open(path, "w"), separators=(",", ":"))

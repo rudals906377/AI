@@ -3,6 +3,7 @@
 // 속성 사전 해시와 무관하므로 학습 헤드는 그대로 쓸 수 있다.   node tools/build-guard.mjs [모델...]
 import fs from 'node:fs';
 import { loadTextEncoder } from '../encoders.js';
+import { fileURLToPath } from 'node:url';   // 경로에 한글 · 공백이 있거나 Windows 여도 맞는 경로
 
 export const GUARD = {
   person: [
@@ -31,7 +32,7 @@ export const GUARD = {
 const DOLLS = new Set(['곰인형', '인형', '피규어', '마네킹']);
 const MARGIN = { 'Marqo/marqo-fashionSigLIP': { animal: 0.035, doll: 0.07 }, 'Xenova/siglip-large-patch16-384': { animal: 0.025, doll: 0.06 } };
 const MODELS = process.argv.slice(2).length ? process.argv.slice(2) : ['Marqo/marqo-fashionSigLIP', 'Xenova/siglip-large-patch16-384'];
-const dir = new URL('../embeddings/', import.meta.url).pathname;
+const dir = fileURLToPath(new URL('../embeddings/', import.meta.url));
 const vec = (v) => Array.from(v, (x) => +x.toFixed(5));
 for (const model of MODELS) {
   const text = await loadTextEncoder(model, { dtype: 'fp32' });
