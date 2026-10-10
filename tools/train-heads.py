@@ -296,7 +296,8 @@ def main():
             V = Xtr[rows]; S = np.array(S)
             present = sorted(set(np.where(S.sum(0) > 0)[0]))
             real = lambda r: tl[r].get("license") in ("user-provided", "user-feedback")
-            sw = np.array([args.user_weight if real(rtr[i]) else 1.0 for i in rows])
+            # 행마다 그룹별 가중치(gw)를 줄 수 있다: 새로 더한 사진이 그룹에 따라 기존 라벨과 기준이 조금 다를 때 덜 믿게 (없으면 1)
+            sw = np.array([(args.user_weight if real(rtr[i]) else 1.0) * tl[rtr[i]].get("gw", {}).get(g["key"], 1.0) for i in rows])
             (cv_acc, lam, alpha, pen), zs_cv, oof, wc = cv_select_wcap(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows], sw=sw)
             # 출처가 다른 사진에서 이득이 없거나, 헤드 자체가 너무 부정확하면(40% 미만) 쓰지 않는다
             use_head = not (cv_acc <= zs_cv + 0.01 or alpha == 0.0 or cv_acc < 0.4)
