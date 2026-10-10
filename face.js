@@ -46,7 +46,7 @@ const angleAt = (g, a, b) => { const p = [a[0] - g[0], a[1] - g[1]], q = [b[0] -
 // ---- 측정 · 점검 ------------------------------------------------------------------
 // lm: [[x, y, z] 정규화 좌표 478개] · w/h: 사진 크기 · seg: 부위 분할 (sw × sh, SEG 번호)
 // blend: 표정 점수 (jawOpen 등) · mat: 고개 각도 변환 행렬(4×4, 열 우선) · skinL: 얼굴 피부 평균 밝기(L*)
-export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = null, blend = {}, mat = null, skinL = null, purpose = 'hair', others = [] }) {
+export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = null, blend = {}, mat = null, skinL = null, purpose = 'hair', others = [], meshOnly = false }) {
   const P3 = lm.map(([x, y, z]) => [x * w, y * h, z * w]); // z 는 x 와 같은 척도
   const img = (i) => [P3[i][0], P3[i][1]];
   // 얼굴 좌표계: X = 왼쪽 광대 → 오른쪽 광대, Y = 턱끝 → 이마 위 (X 에 수직), Z = X × Y
@@ -211,6 +211,10 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = nul
     }
     if (lastFace != null && miss >= 3) hairline = { v: lastFace, hair: beyondHair >= 6 };
   }
+  // 앞머리 끝 · 머리 장식을 헤어라인으로 잘못 잡으면 이마가 비정상적으로 낮게 나와 얼굴이 짧고 둥글게 판단된다.
+  // 자유 라이선스 실제 얼굴 사진 300여 장에서 이마 높이가 삼정 평균의 0.7 아래인 경우는 대부분 이런 경우라, 못 찾은 것으로 보고 평균 비율로 어림한다
+  let hairlineLow = false;
+  if (hairline) { const t0 = Math.max(hairline.v, vBrowTop + CW * 0.12) - vBrow, t12 = vBrow - vMenton; if ((3 * t0) / (t0 + t12) < 0.7) { hairline = null; hairlineLow = true; } }
   // 헤어라인을 못 찾으면(앞머리 · 모자) 평균 비율로 어림한다
   const vHair = hairline ? Math.max(hairline.v, vBrowTop + CW * 0.12) : vTop + (vTop - vBrow) * HAIRLINE_EXTRA;
   const L = vHair - vMenton;
@@ -370,7 +374,13 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = nul
     m.frame = { side: both(cheek.v), sideJaw: both(vMouth), top, below, fore: fh / fn };
   }
   m.ears = ears && { shown: Math.min(...ears.map((e) => e.shown)), hair: Math.max(...ears.map((e) => e.hair)), out: mean(ears.map((e) => e.out)), len: mean(ears.map((e) => e.len)), each: ears.map(({ shown, hair, out, len }) => ({ shown, hair, out, len })) };
-  const issues = checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval: OVAL.map(img), skinL, hairline, others, maskPts, K });
+  // 얼굴형에 쓰는 너비 · 각도는 마스크 가장자리와 메시 윤곽을 섞는다. 마스크 가장자리는 밝기 · 압축 · 해상도 · 잘림에 따라 흔들리고(특히 턱끝),
+  // 메시는 평균 얼굴 쪽으로 조금 끌리지만 훨씬 안정적이다. 비중은 실제 얼굴 사진 311장 × 변형 7가지에서 잰 '사람 사이 차이 ÷ 흔들림'이 가장 크게 나오도록 정했다
+  if (segAt && !meshOnly) {
+    const mm = measureFace({ lm, w, h, blend, mat, purpose, meshOnly: true }).m;
+    for (const [k, a] of Object.entries(MASK_SHARE)) m[k] = a * m[k] + (1 - a) * mm[k];
+  }
+  const issues = checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval: OVAL.map(img), skinL, hairline, hairlineLow, others, maskPts, K });
 
   // 그리기용 좌표 (사진 픽셀)
   const P = (u, v) => toImg(u, v, 0);
@@ -393,6 +403,8 @@ export function measureFace({ lm, w, h, seg = null, sw = 0, sh = 0, earSeg = nul
   };
   return { m, pose, geo, cover, issues, hairline: hairline ? (hairline.hair ? 'hair' : 'edge') : null, maskShare: maskPts / (2 * (K - 1)) };
 }
+// 마스크 가장자리 비중 (나머지는 메시). 턱 볼록함은 마스크가 더 안정적이라 그대로 쓴다
+const MASK_SHARE = { ratio: 0.5, forehead: 0.25, jaw: 0.25, chin: 0, chinAngle: 0, jawAngle: 0 };
 // 이마 위 점(10) 위로 헤어라인까지의 평균 거리 (눈썹 ~ 10 거리 대비). 헤어라인이 보이는 예시 사진들의 평균
 const HAIRLINE_EXTRA = 0.42;
 
@@ -409,7 +421,7 @@ function poseFrom(mat) {
 
 // ---- 다시 찍어 주세요 / 참고해 주세요 --------------------------------------------
 // level: 'block' (측정을 믿기 어려움 → 다시 찍기) · 'warn' (결과는 보여 주되 주의)
-function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, hairline, others }) {
+function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, hairline, hairlineLow = false, others }) {
   const out = [];
   const add = (key, level, title, fix) => out.push({ key, level, title, fix });
   // 얼굴형은 헤어 · 메이크업 모두에서 쓰므로 이마 · 헤어라인 점검 기준이 같다
@@ -462,7 +474,10 @@ function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, ha
   if (cover.inner?.body > 0.04 || handSide) add('hand', 'block', `손이 ${handSide && !(cover.inner?.body > 0.04) ? '얼굴선을' : '얼굴을'} 가리고 있어요`, '손을 얼굴에서 떼고 턱선까지 다 보이게 찍어 주세요.');
   if (cover.eyes?.other > 0.18) add('glasses', purpose === 'makeup' ? 'block' : 'warn', '안경을 쓰고 있어요', '안경테가 눈썹과 눈매를 가려요. 안경을 벗고 찍으면 더 정확해요.');
   if (cover.inner?.other > 0.15 && !(cover.eyes?.other > 0.18)) add('mask', 'block', '얼굴에 가린 물건이 있어요', '마스크나 소품을 치우고 찍어 주세요.');
-  if (!hairline && !out.some((x) => x.key === 'bangs' || x.key === 'hat')) add('hairline', 'warn', '헤어라인을 찾지 못했어요', '이마 높이는 평균 비율로 어림했어요. 이마가 다 보이게 머리를 넘기면 더 정확해요.');
+  if (!hairline && !out.some((x) => x.key === 'bangs' || x.key === 'hat')) {
+    if (hairlineLow) add('hairline', 'warn', '앞머리나 머리 장식 때문에 헤어라인이 낮게 잡혔어요', '이마 높이는 평균 비율로 어림했어요. 앞머리를 넘겨 이마가 다 보이게 찍으면 얼굴 길이를 더 정확히 재요.');
+    else add('hairline', 'warn', '헤어라인을 찾지 못했어요', '이마 높이는 평균 비율로 어림했어요. 이마가 다 보이게 머리를 넘기면 더 정확해요.');
+  }
   return out.sort((a, b) => (a.level === b.level ? 0 : a.level === 'block' ? -1 : 1));
 }
 
@@ -471,40 +486,60 @@ function checkIssues({ m, pose, cover, blend, purpose, w, h, CW, oval, skinL, ha
 export const SHAPES = {
   oval: '계란형', round: '둥근형', long: '긴 얼굴형', square: '각진형', heart: '하트형(역삼각형)', diamond: '마름모형(다이아몬드)',
 };
-export function classifyShape(m) {
-  const z = zscores(m);
-  // 얼굴형마다 특징 방향 (+ 크다, - 작다). 값은 표준편차 단위
-  const P = {
-    oval:    { ratio: 0.3, forehead: 0, jaw: -0.2, chin: -0.2, jawAngle: 0.2, bulge: -0.2 },
-    round:   { ratio: -1.4, forehead: 0, jaw: 0.6, chin: 0.8, jawAngle: 0.7, bulge: 0.6 },
-    long:    { ratio: 1.6, forehead: 0, jaw: 0, chin: 0, jawAngle: 0, bulge: -0.3 },
-    square:  { ratio: -0.6, forehead: 0.5, jaw: 1.3, chin: 0.9, jawAngle: -1.3, bulge: 1.2 },
-    heart:   { ratio: 0.2, forehead: 1.3, jaw: -1.2, chin: -1.1, jawAngle: 0.7, bulge: -1.0 },
-    diamond: { ratio: 0.3, forehead: -1.4, jaw: -1.0, chin: -0.8, jawAngle: 0.5, bulge: -0.6 },
-  };
-  const W = { ratio: 1.4, forehead: 1, jaw: 1.1, chin: 0.8, jawAngle: 0.8, bulge: 0.8 };
+// 얼굴형마다 특징 방향 (+ 크다, - 작다). 값은 표준편차 단위
+const PROTO = {
+  oval:    { ratio: 0.3, forehead: 0, jaw: -0.2, chin: -0.2, jawAngle: 0.2, bulge: -0.2 },
+  round:   { ratio: -1.4, forehead: 0, jaw: 0.6, chin: 0.8, jawAngle: 0.7, bulge: 0.6 },
+  long:    { ratio: 1.6, forehead: 0, jaw: 0, chin: 0, jawAngle: 0, bulge: -0.3 },
+  square:  { ratio: -0.6, forehead: 0.5, jaw: 1.3, chin: 0.9, jawAngle: -1.3, bulge: 1.2 },
+  heart:   { ratio: 0.2, forehead: 1.3, jaw: -1.2, chin: -1.1, jawAngle: 0.7, bulge: -1.0 },
+  diamond: { ratio: 0.3, forehead: -1.4, jaw: -1.0, chin: -0.8, jawAngle: 0.5, bulge: -0.6 },
+};
+// 특징별 가중치: 원래 비중에 측정 흔들림을 반영했다 (변형 사진에서 많이 흔들리는 턱 볼록함 · 턱 각도는 덜 믿는다)
+const SHAPE_W = { ratio: 1.52, forehead: 1.02, jaw: 1.24, chin: 0.88, jawAngle: 0.74, bulge: 0.51 };
+// gender: 'f' · 'm' 이면 같은 성별 기준으로 잰다 (사용자가 고른 값만, 사진으로 추정하지 않음). 없으면 남녀 공통 기준
+export function classifyShape(m, gender = '') {
+  const z = zscores(m, gender);
   const d = {};
-  for (const [k, p] of Object.entries(P)) {
+  for (const [k, p] of Object.entries(PROTO)) {
     let s = 0;
-    for (const f of Object.keys(W)) s += W[f] * (z[f] - p[f]) ** 2;
+    for (const f of Object.keys(SHAPE_W)) s += SHAPE_W[f] * (z[f] - p[f]) ** 2;
     d[k] = s;
   }
   const T = 3; // 온도: 클수록 확률이 고르게 퍼진다 (사진 한 장의 측정 오차를 생각해 너무 단정하지 않게)
   const ex = Object.fromEntries(Object.entries(d).map(([k, s]) => [k, Math.exp(-s / T)]));
   const sum = Object.values(ex).reduce((a, b) => a + b, 0);
   const probs = Object.entries(ex).map(([k, e]) => ({ key: k, label: SHAPES[k], p: e / sum })).sort((a, b) => b.p - a.p);
-  return { key: probs[0].key, label: probs[0].label, probs, z };
+  return { key: probs[0].key, label: probs[0].label, probs, z, gender: gender || '' };
 }
-// 정면 얼굴 기준 분포 (tools 없이 예시 사진에서 잰 값 · README 참고)
+// 정면 얼굴 기준 분포 (얼굴형 외 항목은 예시 사진에서 잰 값 · README 참고)
 export const NORM = {
-  ratio: [1.36, 0.09], forehead: [0.83, 0.04], jaw: [0.84, 0.05], chin: [0.45, 0.055], jawAngle: [131.5, 4.5], bulge: [0.2, 0.015],
+  ratio: [1.323, 0.092], forehead: [0.841, 0.04], jaw: [0.888, 0.05], chin: [0.554, 0.055], jawAngle: [130.0, 4.5], bulge: [0.214, 0.021],
   thirds: [[0.93, 0.06], [1.07, 0.05], [1.0, 0.06]], philtrum: [0.53, 0.06],
   eyeSpacing: [1.34, 0.07], eyeAspect: [0.40, 0.03], eyeTilt: [7.2, 1.3], browGap: [0.48, 0.08], browArch: [0.158, 0.011], browTail: [0.20, 0.03],
   nose: [1.06, 0.05], mouth: [1.19, 0.08], lips: [1.37, 0.12], lipFull: [0.43, 0.07],
 };
-export function zscores(m) {
-  const z = (k, x) => (x - NORM[k][0]) / NORM[k][1];
+// 얼굴형 기준(중앙값 · 표준편차): 자유 라이선스 실제 얼굴 사진(정면 · 가림 없음 · 성인)에서 성별 표현별로 잰 값 — 여성 108장 · 남성 78장.
+// 예전 기준은 보정이 많은 예시 사진 41장에서 잡아 턱이 실제보다 좁게 잡혀 있었고, 그래서 보통 얼굴도 각진형으로 많이 나왔다.
+// 공통 기준(위 NORM)은 두 성별을 반씩 섞은 분포다. 표준편차는 새로 잰 값과 예전 값 중 큰 쪽을 쓴다 — 작게 잡으면 사진 사이 측정 흔들림이
+// 크게 부풀어 같은 사람도 얼굴형이 자주 바뀐다 (변형 사진 1위 유지율 · 독립 판정 일치율 모두 큰 쪽이 더 좋았다)
+export const NORM_BY = {
+  f: { ratio: [1.32, 0.09], forehead: [0.832, 0.04], jaw: [0.874, 0.05], chin: [0.537, 0.055], jawAngle: [130.6, 4.5], bulge: [0.21, 0.02] },
+  m: { ratio: [1.325, 0.114], forehead: [0.85, 0.04], jaw: [0.901, 0.05], chin: [0.57, 0.055], jawAngle: [129.5, 4.5], bulge: [0.218, 0.022] },
+};
+export const normFor = (gender) => (NORM_BY[gender] ? { ...NORM, ...NORM_BY[gender] } : NORM);
+export function zscores(m, gender = '') {
+  const N = normFor(gender);
+  const z = (k, x) => (x - N[k][0]) / N[k][1];
   return { ratio: z('ratio', m.ratio), forehead: z('forehead', m.forehead), jaw: z('jaw', m.jaw), chin: z('chin', m.chin), jawAngle: z('jawAngle', m.jawAngle), bulge: z('bulge', m.jawBulge) };
+}
+// 사용자가 고른 성별 기준으로 얼굴형을 다시 매긴다 (측정값은 그대로). f 를 바로 고쳐서 화면의 다른 곳도 같은 결과를 쓰게 한다
+export function regender(f, gender) {
+  const g = gender === 'f' || gender === 'm' ? gender : '';
+  if (!f?.m || f.normG === g) return f;
+  f.normG = g;
+  f.shape = classifyShape(f.m, g);
+  return f;
 }
 
 // ---- 브라우저: 사진 → 분석 ---------------------------------------------------------
@@ -602,7 +637,39 @@ function segmentEars(seg, canvas, lm, mask) {
   return out;
 }
 
-export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
+// 같은 사진을 조금 다르게(좌우 반전 · 얼굴 둘레만 잘라 키움) 다시 재서 얼굴형에 쓰는 값만 돌려준다
+function remeasure(face, seg, canvas, lm, kind, purpose) {
+  const w = canvas.width, h = canvas.height, c = document.createElement('canvas');
+  if (kind === 'flip') {
+    c.width = w; c.height = h;
+    const g = c.getContext('2d'); g.translate(w, 0); g.scale(-1, 1); g.drawImage(canvas, 0, 0);
+  } else {
+    const xs = OVAL.map((i) => lm[i][0] * w), ys = OVAL.map((i) => lm[i][1] * h);
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    const half = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 1.25;
+    const x0 = Math.max(0, Math.floor(cx - half)), y0 = Math.max(0, Math.floor(cy - half * 1.1));
+    const x1 = Math.min(w, Math.ceil(cx + half)), y1 = Math.min(h, Math.ceil(cy + half));
+    // 얼굴이 사진을 가득 채우면 자른 영역이 원본과 같아지므로, 크기를 확실히 바꿔(약 768px) 다른 해상도로 다시 본다
+    let sc = 768 / Math.max(x1 - x0, y1 - y0);
+    if (Math.abs(sc - 1) < 0.15) sc = 0.7;
+    c.width = Math.max(1, Math.round((x1 - x0) * sc)); c.height = Math.max(1, Math.round((y1 - y0) * sc));
+    c.getContext('2d').drawImage(canvas, x0, y0, x1 - x0, y1 - y0, 0, 0, c.width, c.height);
+  }
+  const r = face.detect(c);
+  if (!r.faceLandmarks?.length) return null;
+  const size = (q) => { const xs = q.map((p) => p.x); return Math.max(...xs) - Math.min(...xs); };
+  const k = r.faceLandmarks.map((q, i) => [size(q), i]).sort((a, b) => b[0] - a[0])[0][1];
+  const lm2 = r.faceLandmarks[k].map((p) => [p.x, p.y, p.z]);
+  const blend = Object.fromEntries((r.faceBlendshapes?.[k]?.categories || []).map((q) => [q.categoryName, q.score]));
+  const mat = r.facialTransformationMatrixes?.[k]?.data ? Array.from(r.facialTransformationMatrixes[k].data) : null;
+  const res = measureFace({ lm: lm2, w: c.width, h: c.height, seg: segmentAround(seg, c, lm2), sw: c.width, sh: c.height, blend, mat, purpose });
+  return res.issues.some((x) => x.level === 'block') ? null : res.m;
+}
+const TTA_KEYS = ['ratio', 'forehead', 'jaw', 'chin', 'jawAngle', 'jawBulge', 'chinAngle'];
+
+// tta: 사진 한 장을 올렸을 때 반전 · 확대 사본으로 두 번 더 재서 얼굴형 값은 세 번의 중앙값을 쓴다.
+// 실제 얼굴 사진 311장에서 조금씩 바꾼 사진끼리 얼굴형 1위가 같게 나오는 비율이 80% → 85% 로 올랐다. 웹캠 연속 촬영은 이미 여러 장의 중앙값이라 끈다
+export async function analyzeFace(blob, { purpose = 'hair', tta = true } = {}) {
   const { face, seg } = await loadTasks();
   const focal35 = await readFocal35(blob).catch(() => null); // 사진 정보(EXIF)의 35mm 환산 초점거리 — 카메라 거리 어림용
   const bmp = await createImageBitmap(blob);
@@ -659,8 +726,15 @@ export async function analyzeFace(blob, { purpose = 'hair' } = {}) {
     if (distance < 35) res.issues.unshift({ key: 'close', level: 'warn', title: `카메라가 얼굴에 가까워요 (약 ${Math.round(distance)}cm)`,
       fix: '가까이서 찍으면 렌즈 때문에 코와 얼굴 가운데가 커 보여요. 팔을 쭉 뻗은 거리(50cm 이상)에서 찍으면 더 정확해요.' });
   }
+  let blocked = res.issues.some((x) => x.level === 'block');
+  if (tta && !blocked) {
+    const extra = ['flip', 'zoom'].map((kind) => { try { return remeasure(face, seg, canvas, lm, kind, purpose); } catch { return null; } }).filter(Boolean);
+    if (extra.length) {
+      for (const k of TTA_KEYS) res.m[k] = median([res.m[k], ...extra.map((e) => e[k])]);
+      res.tta = extra.length + 1;
+    }
+  }
   const shape = classifyShape(res.m);
-  const blocked = res.issues.some((x) => x.level === 'block');
   return { ok: !blocked, purpose, w, h, canvas, lm, blend, skin, mask: { data: mask, w: sw, h: sh }, ...res, shape, distance, focal35 };
 }
 

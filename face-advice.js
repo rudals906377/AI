@@ -6,7 +6,7 @@
 // 얼굴형 하나로만 말하지 않고, 측정값마다 평균과 비교한 특징(이마가 넓은 편, 중안부가 긴 편 …)을 함께 써서 추천한다.
 // 추천 커트 · 앞머리는 '이런 분께 잘 어울려요'(suits.js)와 같은 표를 써서 서로 말이 어긋나지 않게 한다.
 
-import { NORM, SHAPES } from './face.js';
+import { NORM, SHAPES, normFor, regender } from './face.js';
 import { CUT_FACE, BANGS_FACE, CHEEK_FACE, EYE_LINE, LIP_SHAPE } from './suits.js';
 import { josa } from './describe.js';
 
@@ -43,7 +43,8 @@ const AVOID_TAGS = {
 const clashes = (name, avoid) => (SHAPE_TAGS[name] || []).some((t) => avoid.includes(t));
 
 // ---- 측정값 → 특징 ----------------------------------------------------------------
-const z = (k, x, i) => (i == null ? (x - NORM[k][0]) / NORM[k][1] : (x - NORM[k][i][0]) / NORM[k][i][1]);
+// 기준(N): 얼굴형 항목은 사용자가 고른 성별 기준 (face.js normFor), 나머지는 공통
+const zOf = (N) => (k, x, i) => (i == null ? (x - N[k][0]) / N[k][1] : (x - N[k][i][0]) / N[k][i][1]);
 // 귀: 정면(고개 8° 이내)에서 두 귀가 모두 보일 때만 돌출 정도를 말한다. 기준은 시험 사진 60장으로 정했다 (face.js 의 m.ears)
 // out = 귀가 얼굴 윤곽 밖으로 보이는 폭 (광대 너비 대비). 두 쪽 평균과 작은 쪽을 같이 봐서, 한쪽만 손 · 배경이 잡힌 경우는 빼낸다
 function earState(f) {
@@ -58,7 +59,7 @@ function earState(f) {
   return 'normal';
 }
 function traits(f) {
-  const m = f.m;
+  const m = f.m, NORM = normFor(f.normG), z = zOf(NORM);
   const t = {
     long: z('ratio', m.ratio), foreheadW: z('forehead', m.forehead), jawW: z('jaw', m.jaw), chinW: z('chin', m.chin),
     jawSharp: -z('jawAngle', m.jawAngle), upper: z('thirds', m.thirds[0], 0), mid: z('thirds', m.thirds[1], 1), lower: z('thirds', m.thirds[2], 2),
@@ -84,7 +85,7 @@ const short = (label) => label.replace(/\(.*\)/, '');
 
 // ---- 측정 표 ------------------------------------------------------------------------
 function measures(f, t) {
-  const m = f.m, rows = [];
+  const m = f.m, rows = [], NORM = normFor(f.normG);
   const fx = (x, d = 2) => x.toFixed(d);
   const row = (key, label, value, avg, note, zz) => rows.push({ key, label, value, avg, note: note || '평균에 가까워요', z: zz });
   row('ratio', '얼굴 길이 : 너비', `${fx(m.ratio)} : 1`, `${NORM.ratio[0]} : 1`, f.geo.hairlineFound ? say(t.long, '짧은 편', '긴 편') && `얼굴이 ${say(t.long, '짧은 편', '긴 편')}이에요` : '헤어라인이 안 보여 이마 높이는 어림값이에요', t.long);
@@ -621,6 +622,7 @@ function scoreStyle(f, style, t, gender) {
 // 스타일 분석 결과 하나와 내 얼굴의 궁합 (스타일 → 얼굴, 얼굴 → 스타일 어느 순서로 분석해도 같은 판단)
 // 순위와 같은 점수표(scoreStyle)를 써서, 한 장을 볼 때와 여러 장을 비교할 때 말이 어긋나지 않게 한다
 export function styleFit(f, style, { gender = null, t = null } = {}) {
+  regender(f, gender);
   if (!f?.ok || !style?.is_beauty || !['hair', 'makeup'].includes(style.category)) return null;
   t ??= traits(f);
   const s = scoreStyle(f, style, t, gender);
@@ -660,6 +662,7 @@ export function styleFit(f, style, { gender = null, t = null } = {}) {
   return { category: style.category, title: `${genre} × ${shapeName}`, verdict, level, good: level === 'great' || level === 'good', score: s.score, reasons: s.reasons, tip };
 }
 export function rankStyles(f, items, { purpose = 'hair', gender = null } = {}) {
+  regender(f, gender);
   const t = traits(f);
   const out = items.map((it) => {
     const r = it.result;
@@ -752,6 +755,7 @@ const SHAPE_QUIP = {
     '개성 있는 윤곽이라 단정한 스타일도 심심해 보이지 않아요. 이마와 턱 쪽을 채우면 더 부드러워져요.'],
 };
 export function faceReport(f, style = null, { gender = null } = {}) {
+  regender(f, gender);
   const t = traits(f);
   const p = f.shape.probs;
   const near = p[1].p >= 0.2 ? p[1] : null;
@@ -798,6 +802,7 @@ const PAIR = {
   other: ['반전 케미', '닮은 듯 다른 비율이라 함께 찍으면 서로의 개성이 더 살아나요.'],
 };
 export function coupleChem(fA, fB, { gender = null } = {}) {
+  regender(fA, gender); regender(fB, null); // 상대의 성별은 모르므로 공통 기준
   const a = fA.shape.probs[0].key, b = fB.shape.probs[0].key;
   const key = a === b ? 'same' : [a, b].sort().join('|');
   const [title, line] = PAIR[key] || (a === 'oval' || b === 'oval' ? PAIR.oval : PAIR.other);
