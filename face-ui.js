@@ -3,7 +3,7 @@
 //   const face = initFaceUI({ getStyle: () => ({ result, blob }) });
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
-import { analyzeFace, combineFaces, preloadFace, liveCheck, FRAME, SEG } from './face.js';
+import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
 import { faceReport, rankStyles, styleFit, coupleChem, compareFrames } from './face-advice.js';
 import { faceCard, coupleCard, shareImage } from './share-card.js';
 
@@ -50,7 +50,33 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   const currentFits = {}; // 지금 화면에 보이는 궁합 (평가 버튼이 어느 판단에 대한 것인지)
   try { memo = JSON.parse(localStorage.getItem(MEMO_KEY) || 'null'); } catch {}
   const slim = (f) => ({ ok: true, m: f.m, pose: { yaw: f.pose?.yaw ?? 0 }, geo: { hairlineFound: !!f.geo?.hairlineFound }, skin: f.skin || null, shape: { probs: f.shape.probs }, saved: Date.now() });
-  function saveMemo() { try { memo = slim(last); localStorage.setItem(MEMO_KEY, JSON.stringify(memo)); } catch { memo = null; } }
+  // 얼굴형에 쓰는 측정값만 따로 모아 둔다 (지난 분석과 합칠 때 씀)
+  const SHAPE_KEYS = ['ratio', 'forehead', 'jaw', 'chin', 'jawAngle', 'jawBulge', 'chinAngle'];
+  const pickShape = (m) => Object.fromEntries(SHAPE_KEYS.map((k) => [k, m[k]]));
+  const memoHist = () => (memo?.hist || (memo?.m ? [pickShape(memo.m)] : [])).filter((h) => SHAPE_KEYS.every((k) => Number.isFinite(h[k])));
+  function saveMemo() {
+    try {
+      last._id ??= Date.now();
+      const hist = [...memoHist().filter((h) => h.id !== last._id), { ...(last._own || pickShape(last.m)), id: last._id }].slice(-5);
+      memo = { ...slim(last), hist }; localStorage.setItem(MEMO_KEY, JSON.stringify(memo));
+    } catch { memo = null; }
+  }
+  // 기억하기를 켜 두었으면 지난 분석(최근 5번)과 합친다 → 사진마다 조명 · 각도가 달라 생기는 흔들림이 줄어 얼굴형이 일정해진다.
+  // 다른 사람 사진일 수 있으니 얼굴형 값이 지난 분석들과 충분히 가까울 때만(표준편차 단위 평균 차이 1 이하) 합친다
+  function mergeMemo(f) {
+    if (!f?.ok || f._own) return;
+    f._own = pickShape(f.m);
+    const hist = memoHist();
+    if (!hist.length) return;
+    const med = (xs) => { const a = xs.slice().sort((x, y) => x - y), k = a.length >> 1; return a.length % 2 ? a[k] : (a[k - 1] + a[k]) / 2; };
+    const ref = Object.fromEntries(SHAPE_KEYS.map((k) => [k, med(hist.map((h) => h[k]))]));
+    const za = zscores(f.m), zb = zscores({ ...f.m, ...ref }), ks = Object.keys(za);
+    const d = Math.sqrt(ks.reduce((s, k) => s + (za[k] - zb[k]) ** 2, 0) / ks.length);
+    if (d > 1) return;
+    for (const k of SHAPE_KEYS) f.m[k] = med([f._own[k], ...hist.map((h) => h[k])]);
+    f.shape = classifyShape(f.m); delete f.normG;
+    f.memoMerged = hist.length;
+  }
   function dropMemo() { memo = null; try { localStorage.removeItem(MEMO_KEY); } catch {} }
   const faceForFit = () => (last?.ok ? last : memo);
   const memoNote = () => (!last?.ok && memo ? ` (기억해 둔 얼굴형 · ${new Date(memo.saved).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' })})` : '');
@@ -287,7 +313,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   async function precheck() {
     try {
       const b = await grabFrame();
-      const r = await analyzeFace(b, { purpose });
+      const r = await analyzeFace(b, { purpose, tta: false });
       const hit = (r.issues || []).find((x) => x.level === 'block' && PRE_KEYS.has(x.key));
       return hit ? { main: hit.title, sub: hit.fix.split(/(?<=[.요])\s/)[0] } : null;
     } catch (e) { console.warn('[face] 촬영 전 점검 실패', e); return null; }
@@ -343,13 +369,14 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       let f;
       if (n > 1) {
         const results = [];
-        for (const b of frameBlobs) { results.push(await analyzeFace(b, { purpose })); if (id !== seq) return; }
+        for (const b of frameBlobs) { results.push(await analyzeFace(b, { purpose, tta: false })); if (id !== seq) return; }
         f = combineFaces(results);
         // 미리보기는 중앙값에 가장 가까운 장으로
         const chosen = frameBlobs[results.indexOf(results.find((r) => r.canvas === f.canvas))];
         if (chosen && chosen !== blob) { blob = chosen; if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src); els.preview.src = URL.createObjectURL(chosen); }
       } else f = await analyzeFace(blob, { purpose });
       if (id !== seq) return;
+      if (memo) mergeMemo(f);
       last = f;
       els.status.classList.add('hidden');
       if (!f.ok) renderRetake(f); else render();
@@ -378,7 +405,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     els.result.classList.remove('hidden', 'enter');
     void els.result.offsetWidth;
     els.result.classList.add('enter');
-    els.shapeLabel.textContent = f.frames?.used > 1 ? `내 얼굴형 · 웹캠 ${f.frames.total}장 중 ${f.frames.used}장 평균` : '내 얼굴형';
+    els.shapeLabel.textContent = (f.frames?.used > 1 ? `내 얼굴형 · 웹캠 ${f.frames.total}장 중 ${f.frames.used}장 평균` : '내 얼굴형') + (f.memoMerged ? ` · 기억해 둔 지난 분석 ${f.memoMerged}번과 합침` : '') + (gender ? '' : ' · 위에서 추천 기준(여성 · 남성)을 고르면 같은 성별 기준으로 더 정확해요');
     els.shape.textContent = report.headline;
     // '긴 편' 처럼 꾸밈말과 '편' 사이에서 줄이 나뉘지 않게
     els.summary.innerHTML = report.summary.map((s) => `<span class="s">${esc(s).replace(/ (편|중간)/g, '&nbsp;$1')}</span>`).join(' ');
