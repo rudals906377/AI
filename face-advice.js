@@ -527,17 +527,29 @@ const MAKEUP = {
   },
 };
 // 남성: 색조 대신 그루밍 위주 (피부 · 눈썹 · 가벼운 윤곽 · 입술 보습)
+// 수염 (선택): 얼굴형별로 수염 · 구레나룻이 만드는 선. 남성 그루밍 가이드에서 공통으로 말하는 내용
+const BEARD = {
+  oval: '어떤 수염도 무난해요. 깔끔하게 면도하거나 짧고 고른 수염으로 윤곽을 그대로 살려 주세요.',
+  round: '턱끝 아래로 조금 길게 남기고 볼 쪽은 짧게 정리하면 세로선이 생겨 얼굴이 길어 보여요. 구레나룻은 짧게.',
+  long: '턱끝 수염은 짧게, 구레나룻과 볼 옆 수염을 조금 남겨 가로 폭을 더하면 얼굴 길이가 줄어 보여요.',
+  square: '턱 모서리보다 턱끝 쪽에 수염을 모아 둥글게 다듬으면 각이 부드러워 보여요. 각진 턱선을 따라 일자로 다듬는 건 피해요.',
+  heart: '턱끝 · 턱선에 수염을 고르게 채우면 좁은 아래 얼굴에 무게가 생겨 이마와 균형이 맞아요.',
+  diamond: '턱끝 수염과 구레나룻을 조금 남겨 위아래를 채우면 광대 폭이 덜 도드라져요.',
+};
 function groomingAdvice(f, t) {
   const M = MAKEUP[f.shape.probs[0].key];
   const extra = [];
   if (t.browGap <= -0.8) extra.push('눈썹과 눈 사이가 가까운 편이라 눈썹 아래 잔털을 정리하면 눈매가 시원해 보여요.');
   if (t.eyeWide >= 0.8) extra.push('미간이 넓은 편이라 눈썹 앞머리를 살짝 안쪽까지 채우면 인상이 또렷해져요.');
   return [
-    { key: 'idea', title: `그루밍 핵심 · ${short(f.shape.probs[0].label)}`, text: '피부 결을 정리하고 눈썹 모양을 다듬는 것만으로 인상이 가장 크게 달라져요. 색조보다 자연스러움이 먼저예요.' },
-    { key: 'base', title: '피부', text: '톤업 크림이나 비비는 얇게, 잡티 · 붉은기만 컨실러로 가려 주세요. 번들거리는 T존은 파우더로 가볍게 눌러 주면 깔끔해요.' },
+    { key: 'idea', title: `그루밍 핵심 · ${short(f.shape.probs[0].label)}`, text: ['피부 결을 정리하고 눈썹 모양을 다듬는 것만으로 인상이 가장 크게 달라져요. 색조보다 자연스러움이 먼저예요.',
+      t.browGap <= -0.8 || t.browArch >= 1 ? '내 얼굴은 눈썹 정리가 가장 효과가 커요.' : t.jawW >= 0.8 || t.jawSharp >= 0.8 ? '내 얼굴은 턱선 주변(수염 · 면도 라인) 정리가 가장 효과가 커요.' : t.long >= 0.8 ? '내 얼굴은 수염 · 옆머리로 가로 폭을 더하는 정리가 효과가 커요.' : ''].filter(Boolean).join(' ') },
+    { key: 'base', title: '피부', text: ['톤업 크림이나 비비는 얇게, 잡티 · 붉은기만 컨실러로 가려 주세요. 번들거리는 T존은 파우더로 가볍게 눌러 주면 깔끔해요.',
+      f.skin && undertone(f.skin) === 'red' ? '사진에서 붉은기가 보이는 편이라 그린 계열 톤업이나 진정 크림이 잘 맞아요.' + LIGHT : f.skin && undertone(f.skin) === 'yellow' ? '사진에서 노란기가 보이는 편이라 핑크 · 화이트 톤업보다 내추럴 베이지 톤이 자연스러워요.' + LIGHT : ''].filter(Boolean).join(' ') },
     { key: 'brow', title: '눈썹', text: [M.brow.replace('아치 눈썹과 일자 눈썹', '일자 눈썹과 살짝 각진 눈썹'), ...extra].join(' ') },
     { key: 'shading', title: '윤곽 (선택)', text: `쉐딩은 얼굴형 보정이 필요할 때만 아주 연하게: ${M.shading}`, zone: 'shade' },
-    { key: 'lips', title: '입술', text: '각질을 정리하고 립밤으로 보습해 주세요. 혈색이 필요하면 색이 살짝 도는 틴티드 립밤 정도가 자연스러워요.' },
+    { key: 'beard', title: '수염 (선택)', text: BEARD[f.shape.probs[0].key] + (t.chinW <= -0.8 ? ' 턱끝이 뾰족한 편이라 턱끝 수염을 짧게라도 남기면 아래 얼굴이 채워져 보여요.' : t.lower >= 0.8 ? ' 하안부가 긴 편이라 턱끝 아래로 길게 기르기보다 짧게 정리해 주세요.' : '') },
+    { key: 'lips', title: '입술', text: ['각질을 정리하고 립밤으로 보습해 주세요.', t.lipFull <= -0.8 ? '입술이 얇은 편이라 색이 살짝 도는 틴티드 립밤으로 혈색을 더하면 생기 있어 보여요.' : t.lipFull >= 0.8 ? '입술이 도톰한 편이라 무색 립밤으로 보습만 해도 충분해요.' : '혈색이 필요하면 색이 살짝 도는 틴티드 립밤 정도가 자연스러워요.'].join(' ') },
   ];
 }
 function makeupAdvice(f, t) {
@@ -571,12 +583,21 @@ function makeupAdvice(f, t) {
   if (t.upper >= 0.8) base.push('이마가 긴 편이라 헤어라인을 따라 쉐딩을 가볍게 넣으면 이마가 줄어 보여요.');
   if (t.noseW >= 0.8) base.push('콧볼이 넓은 편이라 콧볼 양옆에 세로로 노즈 쉐딩을 넣고, 하이라이트는 콧대에 가늘게 올려 주세요.');
   // 얼굴형 이름만으로는 빠지는 특징 (예: 계란형인데 턱이 넓은 편)
-  const top = f.shape.probs[0].key, shapeExtra = [];
-  if (t.foreheadW >= 0.8 && top !== 'heart') shapeExtra.push('이마가 넓은 편이라 이마 양옆 헤어라인을 따라 쉐딩을 조금 더해 주세요.');
-  if (t.jawW >= 0.8 && top !== 'square') shapeExtra.push('턱이 넓은 편이라 귀 아래 턱선 바깥에 쉐딩을 조금 더해 주세요.');
-  if (t.chinW <= -0.8 && top !== 'heart') shapeExtra.push('턱끝이 뾰족한 편이라 턱끝 쉐딩은 빼고 턱 양옆을 밝게 해 주세요.');
-  if (t.long >= 0.8 && top !== 'long') shapeExtra.push('얼굴이 긴 편이라 블러셔를 가로로 넣으면 길이가 짧아 보여요.');
-  else if (t.long <= -0.8 && top !== 'round') shapeExtra.push('얼굴이 짧은 편이라 콧대와 이마 가운데 하이라이트를 세로로 길게 올려 주세요.');
+  // 얼굴형 이름만으로는 빠지는 특징을 쉐딩 · 하이라이터 · 블러셔 칸에 바로 더한다 (예: 계란형인데 턱이 넓은 편, 각진형인데 광대가 도드라짐)
+  const top = f.shape.probs[0].key, shapeExtra = [], shadeX = [], lightX = [], blushX = [];
+  const cheekPop = -(t.foreheadW + t.jawW) / 2;
+  if (t.foreheadW >= 0.8 && top !== 'heart') shadeX.push('이마가 넓은 편이라 이마 양옆 헤어라인을 따라 조금 더해 주세요.');
+  if (t.jawW >= 0.8 && top !== 'square') shadeX.push('턱이 넓은 편이라 귀 아래 턱선 바깥에 조금 더해 주세요.');
+  else if (t.jawSharp >= 0.8 && top !== 'square') shadeX.push('턱 모서리가 각진 편이라 모서리 부분만 짧게 둥글려 넣어 주세요.');
+  if (cheekPop >= 0.8 && top !== 'diamond') shadeX.push('이마 · 턱보다 광대가 넓은 편이라 광대뼈 바로 아래를 귀 앞에서 볼 가운데 쪽으로 사선으로 넣으면 폭이 정리돼요.');
+  if (t.chinW >= 0.8) shadeX.push('턱끝이 넓은 편이라 턱끝 양옆을 살짝 쉐딩해 주세요.');
+  if (t.chinW <= -0.8 && top !== 'heart') { shadeX.push('턱끝이 뾰족한 편이라 턱끝 쉐딩은 빼 주세요.'); lightX.push('턱 양옆을 살짝 밝혀 아래 얼굴을 채워 주세요.'); }
+  if (t.long <= -0.8 && top !== 'round') lightX.push('얼굴이 짧은 편이라 콧대와 이마 가운데를 세로로 길게 올려 주세요.');
+  if (t.upper <= -0.8) lightX.push('이마가 짧은 편이라 이마 가운데를 위쪽까지 밝혀 주면 이마가 넓어 보여요.');
+  if (cheekPop <= -0.8 && top !== 'square' && top !== 'heart') lightX.push('광대가 도드라지지 않는 편이라 광대 위에 하이라이터를 올려 입체감을 더해 주세요.');
+  if (t.long >= 0.8 && top !== 'long') blushX.push('얼굴이 긴 편이라 가로로 넓게 펴 넣으면 길이가 짧아 보여요.');
+  if (t.mid <= -0.8 && t.long < 0.8) blushX.push('중안부가 짧은 편이라 광대 쪽으로 살짝 사선을 그리며 넣으면 가운데가 길어 보여요.');
+  if (cheekPop >= 0.8) blushX.push('광대가 넓은 편이라 광대 가장 높은 곳은 피하고 그보다 안쪽 · 아래에 넣어 주세요.');
   const BLUSH_SHORT = { oval: '볼 가운데 둥근 블러셔', round: '관자놀이 쪽으로 올리는 사선 블러셔', long: '가로로 넓게 펴는 블러셔', square: '광대 가운데 둥근 블러셔', heart: '광대 아래 가로 블러셔', diamond: '눈 밑 안쪽 가로 블러셔' };
   // 두 번째 얼굴형의 블러셔가 1위 얼굴형과 반대 방향이면(가로 ↔ 사선) 말하지 않는다
   const BLUSH_DIR = { oval: 'round', round: 'up', long: 'flat', square: 'round', heart: 'flat', diamond: 'flat' };
@@ -586,9 +607,9 @@ function makeupAdvice(f, t) {
   const tone = f.skin && skinHint(f.skin);
   return [
     { key: 'idea', title: `얼굴형 메이크업 핵심 · ${short(f.shape.probs[0].label)}`, text: [M.idea, ...shapeExtra].join(' ') },
-    { key: 'shading', title: '쉐딩 (윤곽)', text: M.shading, zone: 'shade' },
-    { key: 'highlight', title: '하이라이터', text: M.highlight, zone: 'light' },
-    { key: 'blush', title: '블러셔', text: M.blush, zone: 'blush' },
+    { key: 'shading', title: '쉐딩 (윤곽)', text: [M.shading, ...shadeX].join(' '), zone: 'shade' },
+    { key: 'highlight', title: '하이라이터', text: [M.highlight, ...lightX].join(' '), zone: 'light' },
+    { key: 'blush', title: '블러셔', text: [M.blush, ...blushX].join(' '), zone: 'blush' },
     { key: 'brow', title: '눈썹', text: M.brow + (t.browArch >= 1 ? ' 원래 눈썹 산이 높은 편이라 산을 살짝 깎아 정리하면 부드러워 보여요.' : t.browArch <= -1 ? ' 원래 눈썹이 일자에 가까워 산을 그릴 때는 꼬리 쪽 1/3 지점만 살짝 올려 주세요.' : '') },
     { key: 'eyes', title: '아이라인 · 섀도', text: eye.join(' ') },
     { key: 'lips', title: '입술', text: lip.join(' ') },

@@ -100,7 +100,9 @@ export function measureNail(prob, rgb, size = CROP.size) {
   const cuticle = widest.w >= 10 && mid.length && side.length ? (pct(mid, 0.5) - pct(side, 0.5)) / W : null;
   let pSum = 0, pN = 0; for (let i = 0; i < N; i++) if (lab[i] === best.id) { pSum += prob[i]; pN++; }
   return {
-    W, Lb, len, ratio: W / Lb,                         // 손톱 바탕 너비 ÷ 길이 (클수록 가로로 넓은 손톱)
+    // 가로세로는 눈에 보이는 손톱 전체(하얀 끝 포함) 길이로 잰다 — 보조 판정 118개와의 일치율이 바탕 길이로 잴 때보다 높았다
+    // (사진 단위 교차 검증 66.9 → 76.3%, 하얀 끝이 잡힌 손톱에서 차이). 바탕만의 비율은 bedRatio 로 남긴다
+    W, Lb, len, ratio: W / len, bedRatio: W / Lb,      // 손톱 너비 ÷ 길이 (클수록 가로로 넓은 손톱)
     taper: wTip && wBase ? wTip / wBase : null,         // 끝쪽 너비 ÷ 뿌리쪽 너비 (1보다 크면 끝이 퍼짐)
     cuticle,                                            // 큐티클 라인 깊이 ÷ 너비 (클수록 둥근 U자)
     free: (yFe - yTop) / Lb,                            // 하얀 끝 길이 ÷ 바탕 길이
@@ -123,7 +125,7 @@ export function handMetrics(P) {
 // ---- 손톱형 판단 -----------------------------------------------------------------------
 // 기준(중앙값 · 표준편차): 자유 라이선스 손 사진에서 윤곽 검수(2회)를 통과한 맨손톱 851개(검지~소지) · 손 286개로 잰 값.
 // 사진 각도에 따라 손톱이 짧아 보이는 등 흔들림이 섞여 있어 폭이 넓다. 검지 · 중지 · 약지의 중앙값으로 판단한다
-export const NAIL_NORM = { ratio: [0.833, 0.2], taper: [0.931, 0.129], cuticle: [0.057, 0.074], finger: [1.44, 0.3], free: [0, 0.12] };
+export const NAIL_NORM = { ratio: [0.80, 0.2], taper: [0.931, 0.129], cuticle: [0.057, 0.074], finger: [1.44, 0.3], free: [0, 0.12] };
 const zN = (k, x) => (x - NAIL_NORM[k][0]) / NAIL_NORM[k][1];
 export function nailType(fingers, hand) {
   const use = fingers.filter((f) => f.m && ['index', 'middle', 'ring'].includes(f.key));
