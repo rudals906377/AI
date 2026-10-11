@@ -27,6 +27,13 @@ const SHORT = /픽시컷|빅시컷|투블럭컷|크롭컷|페이드컷|버즈컷
 // sideShort: 옆머리를 짧게 치거나 민다 · bluntBangs: 눈썹 위 일자 앞머리 · heavyBangs: 이마 · 눈썹을 덮는 무거운 앞머리
 // highTop: 윗머리를 높이 세운다 · allBack: 이마를 다 드러내 넘긴다 · chinBlunt: 턱선에서 일자로 끊긴다 · flatLong: 층 없이 매끈하게 떨어지는 긴 생머리
 // 추천 기준별로 먼저 보여 줄 커트 (목록에서 빼지는 않고 순서만 바꾼다)
+// 성별 전용 커트: 추천 기준을 고르면 다른 쪽 전용 커트는 빼고, 남성의 '긴 기장'은 남자 장발 · 단발 · 울프 계열만 보여 준다
+const MEN_ONLY = /^(댄디컷|투블럭컷|가일컷|리프컷|아이비리그컷|크롭컷|페이드컷|버즈컷|쉼표머리|가르마펌|애즈펌|포마드·슬릭백|언더컷|테이퍼컷|모히칸|머쉬룸컷|남자 장발 레이어드|남자 단발 \(턱선 기장\)|하프업 · 맨번|장발 히피펌)$/;
+const WOMEN_ONLY = /^(픽시컷|빅시컷|레이어드 숏컷|숏 보브|보브컷|A라인 보브|칼단발|태슬컷|히메컷|원랭스|V라인컷)$/;
+const MEN_LONG = /^(남자 장발 레이어드|남자 단발 \(턱선 기장\)|하프업 · 맨번|장발 히피펌)$/;
+const forGender = (name, gender) => (gender === 'm' ? !WOMEN_ONLY.test(name) : gender === 'f' ? !MEN_ONLY.test(name) : !MEN_LONG.test(name));
+// 남성 기준에서 빼는 앞머리 (여성 스타일 앞머리)
+const BANGS_WOMEN = /^(처피뱅|U뱅|애교머리|베이비뱅|와이드뱅)$/;
 const MEN_FIRST = /댄디컷|투블럭컷|가일컷|리프컷|아이비리그컷|크롭컷|페이드컷|버즈컷|쉼표머리|가르마펌|애즈펌|포마드|언더컷|테이퍼컷|머쉬룸컷|레이어드 숏컷|울프컷|멀릿컷|레이어드컷|허쉬컷/;
 const WOMEN_FIRST = /픽시컷|빅시컷|레이어드 숏컷|숏 보브|보브컷|A라인 보브|칼단발|태슬컷|히메컷|레이어드컷|허쉬컷|원랭스|V라인컷|울프컷/;
 const SHAPE_TAGS = {
@@ -34,6 +41,7 @@ const SHAPE_TAGS = {
   멀릿컷: ['sideShort'], 원랭스: ['flatLong'], 크롭컷: ['sideShort', 'bluntBangs'], 머쉬룸컷: ['heavyBangs'], 댄디컷: ['heavyBangs'],
   '포마드·슬릭백': ['allBack', 'highTop'], 울프컷: ['highTop'], '레이어드 숏컷': ['highTop'], 칼단발: ['chinBlunt'],
   풀뱅: ['bluntBangs', 'heavyBangs'], 처피뱅: ['bluntBangs'],
+  '남자 단발 (턱선 기장)': ['chinBlunt'], '하프업 · 맨번': ['allBack'],
 };
 // 얼굴형별 피할 특징 (HAIR / HAIR_M 의 avoid 문장과 같은 내용)
 const AVOID_TAGS = {
@@ -165,6 +173,24 @@ const HAIR = {
   },
 };
 // 남성 헤어 (추천 기준을 '남성'으로 골랐을 때). 커트 이름은 suits.js 표와 같은 것을 쓴다
+// 남자 긴 기장(장발 · 남자 단발) 기준 표 — 추천 기준이 남성일 때 '긴 머리' 자리에 쓴다
+const HAIR_ML = {
+  oval: { idea: '비율이 고른 얼굴이라 남자 장발 · 울프컷 · 하프업까지 긴 기장도 무난해요.', length: '어깨 위 기장의 장발 레이어드나 울프컷 모두 잘 어울려요. 묶고 싶다면 귀 아래까지 길러 하프업으로 연출해 보세요.', part: '자연스러운 5:5 · 6:4 가르마로 내리거나 하프업으로 넘겨도 좋아요.', avoid: ['층 없이 무겁게 일자로 내린 장발 (얼굴이 답답해 보여요)'] },
+  round: { idea: '긴 기장이라면 옆 볼륨은 줄이고 정수리에 높이를 줘 세로 라인을 만드는 것이 핵심이에요.', length: '턱보다 아래 · 어깨 근처까지 길러 옆머리가 세로로 떨어지게 하고, 볼 옆이 부풀지 않게 층을 정리해 주세요.', part: '6:4 이상 옆 가르마로 이마를 사선으로 드러내 주세요.', avoid: ['볼 높이에서 끝나는 턱선 단발', '옆으로 크게 부푸는 장발 펌'] },
+  long: { idea: '긴 기장이라면 옆 볼륨으로 가로 폭을 더하고 이마를 가려 세로 길이를 줄이는 것이 핵심이에요.', length: '턱선 ~ 어깨 기장에 옆 볼륨을 준 남자 단발 · 장발 히피펌이 얼굴 길이를 줄여 보이게 해요.', part: '앞머리를 내리거나 커튼 가르마로 이마를 덮어 주세요.', avoid: ['정수리를 높게 세운 장발', '전부 넘겨 묶은 맨번 (얼굴이 더 길어 보여요)'] },
+  square: { idea: '긴 기장이라면 턱 모서리를 부드러운 층으로 감싸는 것이 핵심이에요.', length: '턱 아래로 내려오는 장발 레이어드로 턱 각을 감싸 주세요.', part: '옆 가르마로 사선을 만들어 각진 인상을 분산해요.', avoid: ['턱선에서 일자로 끊기는 단발', '옆을 바짝 친 장발 (턱 각이 강조돼요)'] },
+  heart: { idea: '긴 기장이라면 아래 얼굴에 볼륨을 채우는 것이 핵심이에요.', length: '턱 높이에 볼륨이 오는 남자 단발이나 장발 히피펌이 좁은 턱을 채워 줘요.', part: '이마를 반쯤 가리는 커튼 가르마가 넓은 이마를 정리해 줘요.', avoid: ['윗머리만 부풀린 장발', '전부 넘겨 묶은 맨번 (넓은 이마가 강조돼요)'] },
+  diamond: { idea: '긴 기장이라면 광대 옆을 덮어 폭을 정리하는 것이 핵심이에요.', length: '광대 옆을 덮는 기장의 장발 레이어드 · 울프컷이 잘 어울려요.', part: '이마를 살짝 덮는 가르마 앞머리로 위아래 폭을 맞춰요.', avoid: ['광대 옆을 짧게 친 장발', '정수리만 높게 세운 장발'] },
+};
+// 여자 짧은 머리(숏컷 · 픽시 · 숏 보브) 기준 표 — 추천 기준이 여성일 때 '짧은 머리' 자리에 쓴다
+const HAIR_FS = {
+  oval: { idea: '짧은 머리라면 픽시컷부터 숏 보브까지 기장 제약이 거의 없어요.', length: '귀가 보이는 픽시컷 · 빅시컷부터 턱 위 숏 보브까지 모두 무난해요.', part: '가르마 없이 내리거나 옆 가르마 모두 잘 어울려요.', avoid: ['얼굴을 다 덮는 무거운 숏 단발 (고른 얼굴선을 가려요)'] },
+  round: { idea: '짧은 머리라면 정수리에 볼륨을 주고 옆은 가볍게 정리해 세로 라인을 만드는 것이 핵심이에요.', length: '정수리 볼륨이 있는 레이어드 숏컷 · 빅시컷, 옆머리가 볼을 살짝 덮는 기장이 좋아요.', part: '옆 가르마로 이마를 사선으로 드러내 주세요.', avoid: ['볼 높이에서 동그랗게 끝나는 숏 보브', '옆이 부푸는 숏컷'] },
+  long: { idea: '짧은 머리라면 옆 볼륨과 앞머리로 세로 길이를 줄이는 것이 핵심이에요.', length: '옆 볼륨이 있는 숏 보브 · 빅시컷이 얼굴 길이를 줄여 보이게 해요.', part: '앞머리를 내려 이마를 덮어 주세요.', avoid: ['정수리를 높게 세운 숏컷', '이마를 다 드러낸 숏컷'] },
+  square: { idea: '짧은 머리라면 턱선을 부드러운 층으로 감싸는 것이 핵심이에요.', length: '턱 각을 가리는 레이어드 숏컷 · 빅시컷이 좋아요.', part: '옆 가르마로 사선을 만들어 각을 분산해요.', avoid: ['턱선에서 일자로 끊기는 숏 보브', '옆을 바짝 친 숏컷 (턱 각이 강조돼요)'] },
+  heart: { idea: '짧은 머리라면 턱 쪽에 볼륨을 더해 좁은 턱을 채우는 것이 핵심이에요.', length: '턱 근처에 볼륨이 오는 숏 보브 · 빅시컷이 좋아요.', part: '이마를 반쯤 가리는 앞머리가 넓은 이마를 정리해 줘요.', avoid: ['윗머리만 부풀린 숏컷', '이마를 다 드러낸 숏컷'] },
+  diamond: { idea: '짧은 머리라면 광대 옆을 가볍게 덮는 것이 핵심이에요.', length: '광대 옆을 덮는 빅시컷 · 레이어드 숏컷이 잘 어울려요.', part: '이마를 살짝 덮는 앞머리로 위아래 폭을 맞춰요.', avoid: ['광대 옆을 짧게 친 숏컷', '정수리만 높게 세운 숏컷'] },
+};
 const HAIR_M = {
   oval: {
     idea: '비율이 고른 얼굴이라 대부분의 남자 커트가 잘 어울려요. 이마를 드러내는 스타일로 얼굴선을 보여 주면 장점이 살아나요.',
@@ -250,6 +276,8 @@ const CUT_FX = {
   '레이어드 숏컷': { reveal: 0.8, lengthen: 0.4, cheek: 0.2, ears: 0.1 }, V라인컷: { lengthen: 0.9, jaw: 0.4, shorten: -0.4 },
   언더컷: { lengthen: 0.9, ears: -1, reveal: 0.4 }, 테이퍼컷: { reveal: 0.7, jaw: 0.3, ears: -0.4, lengthen: 0.3 },
   '숏 보브': { reveal: 0.8, fill: 0.5, shorten: 0.3, eyes: 0.3, jaw: -0.4 },
+  '남자 장발 레이어드': { cheek: 0.7, jaw: 0.8, fill: 0.3, shorten: 0.3 }, '남자 단발 (턱선 기장)': { fill: 0.8, shorten: 0.6, jaw: 0.2, cheek: 0.3 },
+  '하프업 · 맨번': { reveal: 0.9, lengthen: 0.6, forehead: -0.5, shorten: -0.4 }, '장발 히피펌': { fill: 0.9, cheek: 0.5, shorten: 0.5, lengthen: -0.3 },
 };
 const BANG_FX = {
   풀뱅: { forehead: 1, shorten: 0.9, lengthen: -0.6 }, 처피뱅: { eyes: 1, forehead: 0.4, shorten: 0.4, reveal: 0.4 },
@@ -260,7 +288,7 @@ const BANG_FX = {
   '넘긴 앞머리': { reveal: 0.8, lengthen: 0.3, forehead: -0.5 },
 };
 // 거의 같은 모양은 한 목록에 겹쳐 나오지 않게 묶는다
-const CUT_FAM = { 레이어드컷: 'layer', 허쉬컷: 'layer', V라인컷: 'layer', 보브컷: 'bob', 'A라인 보브': 'bob', '숏 보브': 'bob', 칼단발: 'bob',
+const CUT_FAM = { '남자 장발 레이어드': 'mlong', '장발 히피펌': 'mlong', 레이어드컷: 'layer', 허쉬컷: 'layer', V라인컷: 'layer', 보브컷: 'bob', 'A라인 보브': 'bob', '숏 보브': 'bob', 칼단발: 'bob',
   투블럭컷: 'side', 페이드컷: 'side', 언더컷: 'side', 테이퍼컷: 'side', 울프컷: 'wolf', 멀릿컷: 'wolf', 픽시컷: 'pixie', 빅시컷: 'pixie', '레이어드 숏컷': 'pixie',
   댄디컷: 'down', 머쉬룸컷: 'down', 애즈펌: 'down', 가일컷: 'up', 아이비리그컷: 'up', '포마드·슬릭백': 'up', 쉼표머리: 'part', 가르마펌: 'part' };
 const BANG_FAM = { 풀뱅: 'heavy', 와이드뱅: 'heavy', '앞머리 없음': 'open', '넘긴 앞머리': 'open', 커튼뱅: 'frame', U뱅: 'frame' };
@@ -305,7 +333,8 @@ function diversePick(items, n) {
   }
   return out;
 }
-// 추천 기준(성별)은 보여 주는 순서와 설명만 바꾼다. 남자 장발 · 여자 숏컷도 있으므로 긴 머리 · 짧은 머리 추천을 모두 보여 준다
+// 추천 기준(성별)을 고르면 그 성별이 실제로 하는 커트만 보여 준다 (남성: 남자 짧은 머리 + 남자 긴 기장, 여성: 긴 머리 · 단발 + 여자 짧은 머리).
+// 선택 안 함이면 공용 · 여성 · 남성 짧은 머리를 모두 보여 주고 남자 장발 전용 커트는 뺀다
 function hairAdvice(f, t, gender = null) {
   const top = f.shape.probs[0].key, second = f.shape.probs[1];
   const keys = [top, ...(second.p > 0.25 ? [second.key] : [])];
@@ -320,7 +349,7 @@ function hairAdvice(f, t, gender = null) {
   const softClash = (name) => Object.entries(P).reduce((s, [k, p]) => s + p * (SHAPE_TAGS[name] || []).filter((x) => AVOID_TAGS.f[k].includes(x) || AVOID_TAGS.m[k].includes(x)).length, 0);
   const tableFit = (faces) => Object.entries(ALIAS).reduce((s, [k, al]) => s + (faces.some((x) => al.includes(x)) ? P[k] || 0 : 0), 0);
   const cuts = Object.entries(CUT_FACE)
-    .filter(([name]) => !clashes(name, avoidTags))
+    .filter(([name]) => !clashes(name, avoidTags) && forGender(name, gender))
     .map(([name, [faces, why]]) => {
       const fx = CUT_FX[name] || {};
       const parts = Object.entries(fx).map(([k, v]) => [k, v * Math.max(0, need[k] || 0), v > 0 && (need[k] || 0) > 0]);
@@ -330,7 +359,7 @@ function hairAdvice(f, t, gender = null) {
     });
   const longCuts = withWhy(diversePick(cuts.filter((c) => !SHORT.test(c.name)), 4), t), shortCuts = withWhy(diversePick(cuts.filter((c) => SHORT.test(c.name)), 4), t);
   // 앞머리
-  let bangs = Object.entries(BANGS_FACE).filter(([name]) => !clashes(name, avoidTags)).map(([name, [faces, why]]) => {
+  let bangs = Object.entries(BANGS_FACE).filter(([name]) => !clashes(name, avoidTags) && !(gender === 'm' && BANGS_WOMEN.test(name))).map(([name, [faces, why]]) => {
     const fx = BANG_FX[name] || {};
     const parts = Object.entries(fx).map(([k, v]) => [k, v * Math.max(0, need[k] || 0), v > 0 && (need[k] || 0) > 0]);
     const score = parts.reduce((s, [, v]) => s + v, 0) + 0.8 * tableFit(faces.split(' · ')) + (BANGS_BY_SHAPE[top].includes(name) ? 0.4 : 0) - 1.5 * softClash(name);
@@ -338,7 +367,8 @@ function hairAdvice(f, t, gender = null) {
   });
   if (t.upper >= 0.8) bangs = bangs.filter((b) => b.name !== '앞머리 없음' && b.name !== '베이비뱅' && b.name !== '넘긴 앞머리');
   bangs = withWhy(diversePick(bangs, 4), t);
-  const L = HAIR[top], S = HAIR_M[top];            // 긴 머리 · 단발 기준 표, 짧은 머리 기준 표
+  const L = gender === 'm' ? HAIR_ML[top] : HAIR[top], S = gender === 'f' ? HAIR_FS[top] : HAIR_M[top]; // 긴 머리(남성은 남자 긴 기장) · 짧은 머리(여성은 여자 숏컷) 기준 표
+  const longName = gender === 'm' ? '긴 기장(장발)' : '긴 머리 · 단발';
   const extra = [];
   if (t.upper >= 0.8) extra.push(`상안부(이마)가 ${say(t.upper, '짧은 편', '긴 편')}이라 앞머리로 이마를 덮으면 얼굴 비율이 맞아 보여요.`);
   if (t.upper <= -0.8) extra.push('이마가 짧은 편이라 앞머리를 무겁게 내리기보다 이마를 드러내거나 시스루뱅처럼 가볍게 내리는 편이 좋아요.');
@@ -349,12 +379,12 @@ function hairAdvice(f, t, gender = null) {
   else if (t.ears === 'slight') extra.push('귀가 옆으로 약간 보이는 편이라 짧은 머리라면 귀 윗부분을 살짝 덮는 기장을 남기면 옆선이 정돈돼 보여요.');
   else if (t.ears === 'normal') extra.push('정면에서 귀가 크게 두드러지지 않는 편이라 귀를 드러내는 스타일(귀 뒤로 넘기기 · 짧은 옆머리)도 부담 없어요. 귀걸이로 포인트를 주기에도 좋아요.');
   const shortFirst = gender === 'm';
-  const longSec = longCuts.length && { key: 'cuts', title: gender === 'm' ? '추천 커트 · 긴 머리 · 장발' : '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) };
+  const longSec = longCuts.length && { key: 'cuts', title: gender === 'm' ? '추천 커트 · 긴 기장 (남자 장발 · 단발)' : '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) };
   const shortSec = shortCuts.length && { key: 'short', title: '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) };
   const two = (a, b) => (shortFirst ? [b, a] : [a, b]);
-  const [lenA, lenB] = two(`긴 머리 · 단발이라면 ${L.length}`, `짧은 머리라면 ${S.length}`);
-  const [partA, partB] = two(`긴 머리 · 단발: ${L.part}`, `짧은 머리: ${S.part}`);
-  const avoid = two(L.avoid.map((x) => ({ name: `(긴 머리 · 단발) ${x}` })), S.avoid.map((x) => ({ name: `(짧은 머리) ${x}` }))).flat();
+  const [lenA, lenB] = two(`${longName}이라면 ${L.length}`, `짧은 머리라면 ${S.length}`);
+  const [partA, partB] = two(`${longName}: ${L.part}`, `짧은 머리: ${S.part}`);
+  const avoid = two(L.avoid.map((x) => ({ name: `(${longName}) ${x}` })), S.avoid.map((x) => ({ name: `(짧은 머리) ${x}` }))).flat();
   if (t.ears === 'out') avoid.push({ name: '(귀) 옆머리를 바짝 쳐서 귀가 다 드러나는 스타일 · 귀 뒤로 꽉 넘겨 고정하는 스타일' });
   return [
     { key: 'idea', title: '핵심', text: [topNeeds(need).length ? `내 얼굴 맞춤 포인트: ${topNeeds(need).join(' · ')}.` : '', (shortFirst ? S : L).idea, ...extra].filter(Boolean).join(' ') },
