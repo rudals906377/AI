@@ -1,5 +1,5 @@
 // '내 손톱 분석' 화면: 손 사진 → nail.js 측정 → nail-advice.js 추천
-import { analyzeNails, preloadNails, TYPE_KO } from './nail.js';
+import { analyzeNails, preloadNails, modelsReady, TYPE_KO } from './nail.js';
 import { nailReport, TYPE_LINE } from './nail-advice.js';
 
 const $ = (id) => document.getElementById(id);
@@ -14,12 +14,13 @@ const els = {
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const toast = (t) => { const el = $('toast'); if (!el) return; el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 1800); };
 const answers = { life: 'normal', length: 'any', natural: 'any', curve: '' };
-let blob = null, last = null, seq = 0;
+let blob = null, last = null, seq = 0, busy = false;
 const VOTE_KEY = 'beauty-nail-feedback-v1';
 
 if (els.grid) {
   // 탭을 열면 모델을 미리 받아 둔다 (손 랜드마크 7.8MB + 손톱 모델 + 분석 엔진)
   window.addEventListener('modechange', () => { if (document.body.dataset.mode === 'nail') preloadNails().catch(() => {}); });
+  if (document.body.dataset.mode === 'nail') preloadNails().catch(() => {}); // ?mode=nail 로 바로 열린 경우 (app.js 가 먼저 탭을 바꿈)
   els.pick.addEventListener('click', () => els.file.click());
   els.shoot.addEventListener('click', () => els.camera.click());
   for (const inp of [els.file, els.camera]) inp.addEventListener('change', () => { const f = inp.files[0]; inp.value = ''; if (f) setImage(f); });
@@ -33,9 +34,9 @@ if (els.grid) {
   }, true);
   document.querySelectorAll('.nail-q [data-q]').forEach((g) => g.addEventListener('click', (e) => {
     const b = e.target.closest('button'); if (!b) return;
-    g.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
+    g.querySelectorAll('button').forEach((x) => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', x === b); });
     answers[g.dataset.q] = b.dataset.v;
-    if (last?.ok) render(); // 답이 바뀌면 추천만 다시
+    if (last?.ok && !busy) render(); // 답이 바뀌면 추천만 다시 (분석 중이면 끝난 뒤 새 답으로 그린다)
   }));
   els.copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(els.card.textContent); toast('상담 카드를 복사했어요'); } catch { toast('복사하지 못했어요'); } });
   els.again.addEventListener('click', () => els.file.click());
@@ -73,28 +74,36 @@ function setImage(f) {
 }
 
 async function run() {
-  const id = ++seq;
+  const id = ++seq, img = blob;
+  busy = true; last = null;
   els.empty.classList.add('hidden'); els.result.classList.add('hidden');
   els.status.classList.remove('hidden');
   els.status.innerHTML = '<p class="st"><span class="spin"></span> 손톱을 재는 중… <small>처음에는 손 · 손톱 모델(약 20MB)을 내려받아요</small></p>';
   if (window.innerWidth < 900) $('nailResultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
   try {
-    const r = await analyzeNails(blob);
+    const r = await analyzeNails(img);
     if (id !== seq) return;
-    last = r;
+    busy = false; last = r;
     if (!r.ok) { renderRetake(r); return; }
     els.status.classList.add('hidden');
     render();
   } catch (e) {
     console.error(e);
     if (id !== seq) return;
-    els.status.innerHTML = `손톱 분석 모델을 불러오지 못했어요 (${esc(e.message)}). 인터넷 연결을 확인하고 다시 시도해 주세요.`;
+    busy = false;
+    els.status.innerHTML = modelsReady()
+      ? `이 사진을 읽지 못했어요 (${esc(e.message)}). JPG · PNG 사진으로 다시 올려 주세요.`
+      : `손톱 분석 모델을 불러오지 못했어요 (${esc(e.message)}). 인터넷 연결을 확인하고 다시 시도해 주세요.`;
   }
 }
 
 function renderRetake(r) {
   const list = r.issues.length ? r.issues : [{ title: '손톱 모양을 재지 못했어요', fix: '손등이 위로 오게 손을 평평하게 두고 위에서 찍어 주세요.' }];
-  els.status.innerHTML = `<div class="retake-head"><b>다시 찍어 주세요</b></div><ul class="issues">${list.map((x) => `<li class="${x.level || 'block'}"><b>${esc(x.title)}</b><span>${esc(x.fix)}</span></li>`).join('')}</ul>`;
+  els.result.classList.add('hidden');
+  const blocks = list.filter((x) => (x.level || 'block') === 'block'), warns = list.filter((x) => x.level === 'warn');
+  els.status.innerHTML = `<div class="retake-head"><b>다시 찍어 주세요</b></div><ul class="issues">${[...blocks, ...warns].map((x) => `<li class="${x.level || 'block'}"><b>${esc(x.title)}</b><span>${esc(x.fix)}</span></li>`).join('')}</ul><div class="row"><button type="button" class="primary" data-act="retake">다시 찍기</button><button type="button" class="ghost" data-act="pick">다른 사진 올리기</button></div>`;
+  els.status.querySelector('[data-act="retake"]').addEventListener('click', () => els.camera.click());
+  els.status.querySelector('[data-act="pick"]').addEventListener('click', () => els.file.click());
 }
 
 // 쉐입 아이콘 (손톱 하나, 위가 끝)
@@ -130,8 +139,8 @@ function render() {
   ].join('');
   const f2 = (x, d = 2) => (x == null ? '–' : x.toFixed(d));
   els.measures.innerHTML = `<thead><tr><th>손가락</th><th>너비 : 길이</th><th>끝 퍼짐</th><th>큐티클 깊이</th><th>하얀 끝</th></tr></thead><tbody>${r.fingers.map((f) => f.m
-    ? `<tr${f.key === 'thumb' ? ' class="muted"' : ''}><th>${esc(f.ko)}${f.key === 'thumb' ? ' <small>(참고)</small>' : ''}</th><td>${f2(f.m.ratio)} : 1</td><td>${f2(f.m.taper)}</td><td>${f2(f.m.cuticle)}</td><td>${Math.round(f.m.free * 100)}%</td></tr>`
-    : `<tr class="muted"><th>${esc(f.ko)}</th><td colspan="4">손톱을 찾지 못했어요</td></tr>`).join('')}</tbody>`;
+    ? `<tr${f.key === 'thumb' ? ' class="muted"' : ''}><th scope="row">${esc(f.ko)}${f.key === 'thumb' ? ' <small>(참고)</small>' : ''}</th><td>${f2(f.m.ratio)} : 1</td><td>${f2(f.m.taper)}</td><td>${f2(f.m.cuticle)}</td><td>${Math.round(f.m.free * 100)}%</td></tr>`
+    : `<tr class="muted"><th scope="row">${esc(f.ko)}</th><td colspan="4">손톱을 찾지 못했어요</td></tr>`).join('')}</tbody>`;
   els.card.textContent = ['[FINDE 손톱 상담 카드]', ...rep.card, '', '* 사진으로 잰 손톱 모양 참고 정보예요 (의학적 진단 아님)'].join('\n');
   window.dispatchEvent(new CustomEvent('beauty:nail'));
 }

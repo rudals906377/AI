@@ -73,11 +73,12 @@ export function measureNail(prob, rgb, size = CROP.size) {
   if (rgb) {
     const stat = (r0) => { let v = 0, s = 0, n = 0; for (let x = r0.l; x <= r0.r; x++) { const k = (r0.y * size + x) * 4, R = rgb[k], G = rgb[k + 1], B = rgb[k + 2], mx = Math.max(R, G, B), mn = Math.min(R, G, B); v += (R + G + B) / 3; s += mx ? (mx - mn) / mx : 0; n++; } return { v: v / n, s: s / n }; };
     const st = rows.map(stat);
-    const bed = st.slice(Math.floor(rows.length * 0.4), Math.floor(rows.length * 0.85));
+    // 바탕 기준은 뿌리 쪽(아래 25%)에서 잡는다 — 하얀 끝이 긴 손톱(롱네일 · 연장)에서도 기준이 하얗게 되지 않게
+    const bed = st.slice(Math.floor(rows.length * 0.7), Math.floor(rows.length * 0.95));
     const med = (xs) => { const a = xs.slice().sort((p, q) => p - q); return a[a.length >> 1]; };
     const vb = med(bed.map((x) => x.v)), sb = med(bed.map((x) => x.s));
     let k = 0, miss = 0, last = -1;
-    while (k < rows.length * 0.6) {
+    while (k < rows.length * 0.85) {
       const white = st[k].v > vb + 14 && st[k].s < sb * 0.8;
       if (white) { last = k; miss = 0; } else if (++miss > 1) break;
       k++;
@@ -95,7 +96,8 @@ export function measureNail(prob, rgb, size = CROP.size) {
   const bottomAt = (x) => { for (let y = size - 1; y >= 0; y--) if (inC(x, y)) return y; return null; };
   const xs = (f0, f1) => { const out = []; for (let x = Math.round(widest.l + f0 * widest.w); x <= Math.round(widest.l + f1 * widest.w); x++) { const b = bottomAt(x); if (b != null) out.push(b); } return out; };
   const mid = xs(0.4, 0.6), side = [...xs(0.15, 0.25), ...xs(0.75, 0.85)];
-  const cuticle = mid.length && side.length ? (pct(mid, 0.5) - pct(side, 0.5)) / W : null;
+  // 손톱이 너무 좁게 찍히면(10px 미만) 가운데 · 양옆 열이 겹쳐 의미가 없으므로 재지 않는다
+  const cuticle = widest.w >= 10 && mid.length && side.length ? (pct(mid, 0.5) - pct(side, 0.5)) / W : null;
   let pSum = 0, pN = 0; for (let i = 0; i < N; i++) if (lab[i] === best.id) { pSum += prob[i]; pN++; }
   return {
     W, Lb, len, ratio: W / Lb,                         // 손톱 바탕 너비 ÷ 길이 (클수록 가로로 넓은 손톱)
@@ -142,7 +144,7 @@ export const TYPE_KO = {
   width: { wide: '가로로 넓은 손톱', long: '세로로 긴 손톱', mid: '가로세로 균형 잡힌 손톱' },
   spread: { fan: '끝으로 갈수록 퍼지는 부채꼴', narrow: '끝으로 갈수록 좁아지는 모양', straight: '옆선이 곧은 일자' },
   base: { flat: '큐티클 라인이 평평한 스퀘어형', round: '큐티클 라인이 둥근 라운드형', u: '큐티클 라인이 깊게 둥근 U-라운드형' },
-  finger: { short: '손가락이 짧은 편', long: '손가락이 길고 가는 편', mid: '손가락 길이 보통' },
+  finger: { short: '손가락이 짧은 편', long: '손가락이 긴 편', mid: '손가락 길이 보통' },
   length: { short: '짧게 정리된 길이', mid: '하얀 끝이 조금 있는 길이', long: '하얀 끝이 긴 편' },
 };
 
@@ -156,17 +158,20 @@ function loadTasks() {
       assetFetch(SEG_MODEL).then((r) => { if (!r.ok) throw new Error(`손톱 모델을 받지 못했어요 (${r.status})`); return r.arrayBuffer(); }),
     ]);
     const fileset = await mp.FilesetResolver.forVisionTasks(`${MP}/wasm`);
-    const hb = await assetFetch('./models/mediapipe/hand_landmarker.task').then((r) => r.arrayBuffer());
+    const hb = await assetFetch('./models/mediapipe/hand_landmarker.task').then((r) => { if (!r.ok) throw new Error(`손 모델을 받지 못했어요 (${r.status})`); return r.arrayBuffer(); });
     const hand = await mp.HandLandmarker.createFromOptions(fileset, {
       baseOptions: { modelAssetBuffer: new Uint8Array(hb), delegate: 'CPU' }, runningMode: 'IMAGE', numHands: 2, minHandDetectionConfidence: 0.3, minHandPresenceConfidence: 0.3,
     });
     ort.env.wasm.wasmPaths = ORT; ort.env.wasm.numThreads = 1;
     const seg = await ort.InferenceSession.create(new Uint8Array(segBytes), { executionProviders: ['wasm'] });
+    ready = true;
     return { hand, seg, ort };
   })().catch((e) => { tasksP = null; throw e; });
   return tasksP;
 }
 export const preloadNails = () => loadTasks();
+let ready = false;
+export const modelsReady = () => ready;
 
 export async function analyzeNails(blob) {
   const { hand, seg, ort } = await loadTasks();
@@ -196,7 +201,7 @@ export async function analyzeNails(blob) {
     const a = [px[0] - p0[0], px[1] - p0[1]], b = [py[0] - p0[0], py[1] - p0[1]];
     const det = a[0] * b[1] - a[1] * b[0];
     const inv = [b[1] / det, -a[1] / det, -b[0] / det, a[0] / det];
-    g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#808080'; g.fillRect(0, 0, S, S);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#000'; g.fillRect(0, 0, S, S); // 학습 크롭(PIL)과 같이 바깥은 검정
     g.setTransform(inv[0], inv[1], inv[2], inv[3], -(inv[0] * p0[0] + inv[2] * p0[1]), -(inv[1] * p0[0] + inv[3] * p0[1]));
     g.drawImage(canvas, 0, 0);
     const px4 = g.getImageData(0, 0, S, S).data; crops.push(px4);
@@ -225,6 +230,7 @@ export async function analyzeNails(blob) {
   const polish = found.length >= 2 && found.filter((f) => polished(crops[FINGERS.indexOf(FINGERS.find((x) => x.key === f.key))], f.m)).length >= Math.ceil(found.length / 2);
   if (polish) issues.push({ key: 'polish', level: 'warn', title: '매니큐어나 젤이 칠해져 있는 것 같아요', fix: '칠한 모양이 아니라 자연 손톱 모양을 재야 정확해요. 지운 맨손톱으로 찍으면 더 정확해요.' });
   const type = nailType(fingers, hm);
+  if (!type && !issues.some((x) => x.level === 'block')) issues.push({ key: 'nonail', level: 'block', title: '검지 · 중지 · 약지 손톱이 충분히 보이지 않아요', fix: '손등이 위로 오게 손가락을 살짝 벌리고, 검지 · 중지 · 약지 손톱이 다 보이게 찍어 주세요.' });
   return { ok: !issues.some((x) => x.level === 'block') && !!type, canvas, w, h, P, side, fingers, hand: hm, type, issues, polish };
 }
 // 손톱 부분 평균 채도가 높거나(색 매니큐어) 하얀 · 검은 계열로 균일하면 칠한 손톱으로 본다

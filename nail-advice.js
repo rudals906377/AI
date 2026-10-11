@@ -28,8 +28,8 @@ export function nailReport(type, { life = 'normal', length = 'any', curve = null
     add('라운드', 6, '둥근 끝선이 손끝을 자연스럽게 이어 줘요');
     add('스퀘어', -14, '일자 끝선이 손가락이 끝나는 자리를 강조해 짧아 보일 수 있어요', true);
   } else if (type.finger === 'long') {
-    add('스퀘어', 12, '손가락이 길고 가는 편이라 일자 끝선이 균형을 잡아 줘요');
-    add('라운드스퀘어', 12, '길고 가는 손가락에 일자 끝 + 둥근 모서리가 안정감을 줘요');
+    add('스퀘어', 12, '손가락이 긴 편이라 일자 끝선이 균형을 잡아 줘요');
+    add('라운드스퀘어', 12, '긴 손가락에 일자 끝 + 둥근 모서리가 안정감을 줘요');
     add('코핀', 8, '길이가 있는 손가락에 코핀이 세련되게 어울려요');
   }
   // 손톱 가로세로
@@ -56,7 +56,7 @@ export function nailReport(type, { life = 'normal', length = 'any', curve = null
   }
   // 생활 · 길이 · 자연 손톱
   if (life === 'hands') {
-    for (const k of ['라운드', '라운드스퀘어']) add(k, 10, '타이핑 · 손을 많이 쓰면 모서리 없는 모양이 덜 부러지고 걸리지 않아요');
+    for (const k of ['라운드', '라운드스퀘어']) add(k, 10, '타이핑 · 손을 많이 쓰면 뾰족하거나 각진 모서리가 없는 모양이 덜 부러지고 걸리지 않아요');
     add('오벌', 5);
     add('스틸레토', -25, '뾰족한 끝은 손을 많이 쓰면 잘 부러져요', true);
     add('코핀', -10, '길고 가는 끝은 손을 많이 쓰면 쉽게 깨져요', true);
@@ -68,7 +68,9 @@ export function nailReport(type, { life = 'normal', length = 'any', curve = null
   // 기본: 라운드 · 라운드스퀘어는 누구에게나 무난
   add('라운드', 2); add('라운드스퀘어', 2);
   const list = Object.entries(S).map(([k, v]) => ({ key: k, ...SHAPES[k], ...v, score: Math.max(0, Math.min(100, Math.round(v.score))) })).sort((a, b) => b.score - a.score);
-  const top = list.slice(0, 3);
+  // 위쪽 3개는 경고(길이가 모자람 · 피할 이유)가 없는 모양에서 고른다. 모자라면 점수 순으로 채운다
+  const clean = list.filter((x) => !x.warn.length);
+  const top = [...clean, ...list.filter((x) => x.warn.length)].slice(0, 3);
   for (const t of top) if (!t.why.length) t.why.push(k0(t.key));
   const avoid = list.filter((x) => x.score < 40 && x.warn.length).slice(0, 3);
 
@@ -81,8 +83,8 @@ export function nailReport(type, { life = 'normal', length = 'any', curve = null
   const design = [];
   if (type.width === 'wide') design.push({ k: '옆 여백 · 세로 라인', t: '양옆을 살짝 남기고 칠하거나 세로 라인 · 스트라이프를 넣으면 손톱이 갸름해 보여요. 가로 라인 · 두꺼운 일자 프렌치는 넓어 보일 수 있어요.' });
   if (type.width === 'wide' || type.finger === 'short') design.push({ k: '누드 · 파스텔', t: '피부톤과 비슷한 누드 · 연한 색은 손가락이 이어져 보여 길어 보여요.' });
-  if (type.width === 'long' || type.finger === 'long') design.push({ k: '프렌치 · 가로 포인트', t: '길쭉한 손톱은 프렌치 · 가로 포인트로 분위기를 바꿔도 균형이 무너지지 않아요.' });
-  if (type.length === 'short' || length === 'short') design.push({ k: '마이크로 프렌치 · 원포인트', t: '짧은 손톱엔 얇은 곡선 프렌치(마이크로 프렌치)나 한 손가락에만 파츠를 올리는 원포인트가 깔끔해요.' });
+  if (type.width === 'long' || (type.finger === 'long' && type.width !== 'wide')) design.push({ k: '프렌치 · 가로 포인트', t: '길쭉한 손톱은 프렌치 · 가로 포인트로 분위기를 바꿔도 균형이 무너지지 않아요.' });
+  if (length === 'any' ? type.length === 'short' : length === 'short') design.push({ k: '마이크로 프렌치 · 원포인트', t: '짧은 손톱엔 얇은 곡선 프렌치(마이크로 프렌치)나 한 손가락에만 파츠를 올리는 원포인트가 깔끔해요.' });
   if (!design.length) design.push({ k: '원컬러 · 프렌치', t: '균형 잡힌 손톱이라 원컬러부터 프렌치 · 그라데이션까지 무난하게 어울려요.' });
 
   // 상담 카드 (네일샵에 보여 줄 문장)
@@ -102,6 +104,6 @@ const TYPE_LINE = (t) => [
   { wide: '가로로 넓은 편', long: '세로로 긴 편', mid: '가로세로 균형' }[t.width],
   { fan: '끝이 퍼지는 편', narrow: '끝이 좁아지는 편', straight: '옆선 일자' }[t.spread],
   { flat: '큐티클 라인 평평', round: '큐티클 라인 둥긂', u: '큐티클 라인 깊은 U자' }[t.base],
-  { short: '손가락 짧은 편', long: '손가락 길고 가는 편', mid: '손가락 보통' }[t.finger],
+  { short: '손가락 짧은 편', long: '손가락 긴 편', mid: '손가락 보통' }[t.finger],
 ].join(' · ');
 export { TYPE_LINE };
