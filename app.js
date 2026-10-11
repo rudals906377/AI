@@ -959,7 +959,7 @@ function toast(text) {
 // 휴대폰: 결과를 보다가 위로 올라가지 않고도 다른 사진을 고를 수 있게 떠 있는 버튼
 if ('IntersectionObserver' in window) {
   let inputVisible = true;
-  const updateFab = () => els.fab.classList.toggle('hidden', inputVisible || window.innerWidth >= 900 || !lastResult || document.body.dataset.mode === 'face');
+  const updateFab = () => els.fab.classList.toggle('hidden', inputVisible || window.innerWidth >= 900 || !lastResult || document.body.dataset.mode !== 'style' && !!document.body.dataset.mode);
   new IntersectionObserver(([e]) => { inputVisible = e.isIntersecting; updateFab(); }, { threshold: 0.05 }).observe(els.inputCard);
   window.addEventListener('resize', updateFab);
   window.addEventListener('modechange', updateFab);
@@ -982,7 +982,7 @@ async function analyzeStyle(blob, purpose) {
   return alt && alt.score >= 0.2 ? analyzer.analyze(blob, { category: purpose, ...opts }) : r;
 }
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
-if (params.get('mode') === 'face') faceUI.setMode('face', { scroll: false });
+if (params.get('mode') === 'face' || params.get('mode') === 'nail') faceUI.setMode(params.get('mode'), { scroll: false });
 
 // 첫 방문 안내: 스타일 사진 → 셀카 → 궁합 · 상담 카드. 다 하거나 닫으면 다시 보이지 않는다
 (function onboarding() {

@@ -93,6 +93,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     els.tabs.querySelectorAll('button').forEach((b) => { const on = b.dataset.mode === mode; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on); });
     els.styleGrid.classList.toggle('hidden', mode !== 'style');
     els.faceGrid.classList.toggle('hidden', mode !== 'face');
+    document.getElementById('nailGrid')?.classList.toggle('hidden', mode !== 'nail');
+    if (mode === 'nail' && scroll) els.tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (mode === 'face') {
       preloadFace().catch(() => {}); // 모델을 미리 받아 둔다 (약 20MB, 처음 한 번)
       const { blob: sb } = getStyle();
