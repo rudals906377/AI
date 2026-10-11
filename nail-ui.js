@@ -9,11 +9,13 @@ const els = {
   empty: $('nailEmpty'), status: $('nailStatus'), result: $('nailResult'), canvas: $('nailCanvas'),
   type: $('nailType'), summary: $('nailSummary'), warn: $('nailWarn'), top: $('nailTop'), avoid: $('nailAvoid'),
   tips: $('nailTips'), measures: $('nailMeasures'), card: $('nailCard'), copy: $('nailCopy'), again: $('nailAgain'),
+  vote: $('nailVote'), voteExport: $('nailVoteExport'),
 };
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const toast = (t) => { const el = $('toast'); if (!el) return; el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 1800); };
 const answers = { life: 'normal', length: 'any', natural: 'any', curve: '' };
 let blob = null, last = null, seq = 0;
+const VOTE_KEY = 'beauty-nail-feedback-v1';
 
 if (els.grid) {
   // 탭을 열면 모델을 미리 받아 둔다 (손 랜드마크 7.8MB + 손톱 모델 + 분석 엔진)
@@ -37,6 +39,29 @@ if (els.grid) {
   }));
   els.copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(els.card.textContent); toast('상담 카드를 복사했어요'); } catch { toast('복사하지 못했어요'); } });
   els.again.addEventListener('click', () => els.file.click());
+  // 실험실 평가: 측정값 · 판정 · 추천 · 답만 이 브라우저에 쌓는다 (사진 X). 같은 결과에서 다시 누르면 답을 바꾼다
+  els.vote.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-v]'); if (!b || !last?.ok) return;
+    const row = b.closest('[data-q]'); row.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
+    last.votes ??= {}; last.votes[row.dataset.q] = b.dataset.v === '1';
+    saveVote(); toast('알려 줘서 고마워요. 기준을 다듬는 데 쓸게요.');
+  });
+  els.voteExport.addEventListener('click', () => {
+    const rows = votes(); if (!rows.length) return;
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([rows.map((r) => JSON.stringify(r)).join('\n') + '\n'], { type: 'application/x-ndjson' }));
+    a.download = `nail-feedback-${new Date().toISOString().slice(0, 10)}.jsonl`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  });
+  syncVoteExport();
+}
+function votes() { try { const v = JSON.parse(localStorage.getItem(VOTE_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch { return []; } }
+function syncVoteExport() { const n = votes().length; els.voteExport?.classList.toggle('hidden', !n); if (els.voteExport) els.voteExport.textContent = `평가 ${n}개 내보내기`; }
+function saveVote() {
+  const r = last; r.voteId ??= `${Date.now()}`;
+  const fingers = Object.fromEntries(r.fingers.filter((f) => f.m).map((f) => [f.key, Object.fromEntries(['ratio', 'taper', 'cuticle', 'free', 'size'].map((k) => [k, f.m[k] == null ? null : Math.round(f.m[k] * 1000) / 1000]))]));
+  const row = { id: r.voteId, t: new Date().toISOString(), v: 1, votes: r.votes, type: { width: r.type.width, spread: r.type.spread, base: r.type.base, finger: r.type.finger, length: r.type.length },
+    top: r.lastTop || null, answers: { ...answers }, polish: !!r.polish, hand: { finger: Math.round(r.hand.finger * 1000) / 1000 }, fingers };
+  try { const list = votes().filter((x) => x.id !== row.id); list.push(row); localStorage.setItem(VOTE_KEY, JSON.stringify(list.slice(-500))); } catch {}
+  syncVoteExport();
 }
 
 function setImage(f) {
@@ -94,6 +119,8 @@ function render() {
   const warns = r.issues.filter((x) => x.level !== 'block');
   els.warn.classList.toggle('hidden', !warns.length);
   els.warn.innerHTML = warns.map((x) => `<li><b>${esc(x.title)}</b> ${esc(x.fix)}</li>`).join('');
+  r.lastTop = rep.top.map((x) => x.key);
+  els.vote.querySelectorAll('[data-q]').forEach((row) => { const v = r.votes?.[row.dataset.q]; row.querySelectorAll('button').forEach((x) => x.classList.toggle('active', v != null && (x.dataset.v === '1') === v)); });
   els.top.innerHTML = rep.top.map((s, i) => `<div class="nail-shape${i ? '' : ' top'}">${icon(s.key)}<div><b>${i + 1}. ${esc(s.key)}</b> <span class="sc">${s.score}점</span><p>${esc(s.why[0])}</p><p class="sc">${esc(s.d)}</p></div></div>`).join('');
   els.avoid.classList.toggle('hidden', !rep.avoid.length);
   els.avoid.innerHTML = rep.avoid.length ? `<b>피하면 좋은 모양</b> · ${rep.avoid.map((s) => `${esc(s.key)}: ${esc(s.warn[0])}`).join(' / ')}` : '';

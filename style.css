@@ -637,3 +637,12 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .nail-card { white-space: pre-wrap; font: inherit; font-size: 0.88rem; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 6px 0; }
 @media (max-width: 640px) { .nail-shapes { grid-template-columns: 1fr; } .nail-shape { flex-direction: row; align-items: flex-start; } .nail-shape svg { flex: none; } }
 @media (max-width: 600px) { .mode-tabs { gap: 4px; } .mode-tabs button { padding: 8px 8px; font-size: 0.9rem; } .mode-tabs button small { font-size: 0.72rem; } }
+.lab-badge { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: .02em; padding: 1px 7px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); vertical-align: middle; }
+.lab-note { font-size: 0.84rem; color: var(--muted); margin: -4px 0 10px; }
+.nail-vote { border: 1px dashed var(--line-2); border-radius: 12px; padding: 10px 12px; margin: 14px 0; display: grid; gap: 6px; font-size: 0.88rem; }
+.nail-vote .nv-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.nail-vote .nv-row span { flex: 1 1 200px; }
+.nail-vote .nv-row button { padding: 4px 12px; }
+.nail-vote .nv-row button.active { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.nail-vote small { color: var(--muted); }
+.linklike { background: none; border: 0; padding: 0; color: var(--accent-ink); text-decoration: underline; cursor: pointer; font: inherit; }
