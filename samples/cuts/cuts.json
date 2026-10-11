@@ -182,6 +182,37 @@
     "page": "https://www.flickr.com/photos/34756977@N00/2593411847",
     "title": "Raccoon bobs her hair"
    }
+  ],
+  "하프업 · 맨번": [
+   {
+    "g": "m",
+    "img": "samples/cuts/66a34e99da.jpg",
+    "thumb": "samples/cuts/66a34e99da_t.jpg",
+    "creator": "Whoisjohngalt",
+    "license": "by-sa 4.0",
+    "page": "https://commons.wikimedia.org/w/index.php?curid=60967956",
+    "title": "Man bun 2017"
+   },
+   {
+    "g": "m",
+    "img": "samples/cuts/fbaf9356d3.jpg",
+    "thumb": "samples/cuts/fbaf9356d3_t.jpg",
+    "creator": "mikecogh",
+    "license": "by-sa 2.0",
+    "page": "https://www.flickr.com/photos/89165847@N00/39812634241",
+    "title": "Man Bun"
+   }
+  ],
+  "테이퍼컷": [
+   {
+    "g": "m",
+    "img": "samples/cuts/650ff15eff.jpg",
+    "thumb": "samples/cuts/650ff15eff_t.jpg",
+    "creator": "markguim",
+    "license": "by 2.0",
+    "page": "https://www.flickr.com/photos/26558498@N00/94795084",
+    "title": "Haircut"
+   }
   ]
  }
 }
