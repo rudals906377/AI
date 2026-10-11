@@ -494,7 +494,11 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   let galleryTop = [];
   async function renderGallery() {
     if (!last?.ok) { els.gallery.classList.add('hidden'); return; }
-    const items = (await loadSampleStyles()).filter((x) => x.category === purpose);
+    // 헤어 예시 사진은 모델의 스타일이 남성 · 여성 중 어느 쪽인지 눈으로 확인해 나눠 두었다. 추천 기준을 고르면 그쪽 사진만 순위를 매긴다
+    const MEN_SAMPLES = new Set([2, 4, 5, 10, 13, 17, 18, 21, 26].map((n) => `samples/hair-${String(n).padStart(2, '0')}.jpg`));
+    const items = (await loadSampleStyles()).filter((x) => x.category === purpose
+      && (purpose !== 'hair' || !gender || (gender === 'm') === MEN_SAMPLES.has(x.file))
+      && !(purpose === 'makeup' && gender === 'm')); // 메이크업 예시는 모두 여성 메이크업이라 남성(그루밍) 기준이면 보여 주지 않는다
     if (!last?.ok || !items.length) { els.gallery.classList.add('hidden'); return; }
     const { ranked } = rankStyles(last, items.map((x, i) => ({ i, url: x.thumb, file: x.file, result: x })), { purpose, gender: gender || null });
     // 같은 장르 이름은 한 번만 (다양하게 보여 주려고)

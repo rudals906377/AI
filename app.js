@@ -984,44 +984,5 @@ async function analyzeStyle(blob, purpose) {
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
 if (params.get('mode') === 'face' || params.get('mode') === 'nail') faceUI.setMode(params.get('mode'), { scroll: false });
 
-// 첫 방문 안내: 스타일 사진 → 셀카 → 궁합 · 상담 카드. 다 하거나 닫으면 다시 보이지 않는다
-(function onboarding() {
-  const KEY = 'beauty-onboard-v1';
-  const box = document.getElementById('onboard');
-  try { if (localStorage.getItem(KEY)) return; } catch { return; }
-  const done = new Set();
-  const save = () => { try { localStorage.setItem(KEY, '1'); } catch {} };
-  const paint = () => {
-    const now = [1, 2, 3].find((n) => !done.has(n));
-    box.querySelectorAll('li[data-step]').forEach((li) => {
-      const n = +li.dataset.step;
-      li.classList.toggle('done', done.has(n));
-      li.classList.toggle('now', n === now);
-    });
-    if (!now) { document.getElementById('obDone').classList.remove('hidden'); save(); }
-  };
-  const mark = (n) => { if (box.classList.contains('hidden') || done.has(n)) return; done.add(n); paint(); };
-  box.classList.remove('hidden');
-  paint();
-  document.getElementById('obClose').addEventListener('click', () => { box.classList.add('hidden'); save(); });
-  box.addEventListener('click', (e) => {
-    const act = e.target.closest('[data-ob]')?.dataset.ob;
-    if (act === 'sample') {
-      faceUI.setMode('style', { scroll: false });
-      showSampleTab('hair');
-      els.samples.querySelector('button[data-cat="hair"]')?.click();
-    } else if (act === 'pick') els.pickBtn.click();
-    else if (act === 'face') faceUI.setMode('face');
-    else if (act === 'fit') {
-      faceUI.setMode('style', { scroll: false });
-      const fit = document.getElementById('styleFit');
-      if (!fit || fit.classList.contains('hidden')) { toast('헤어 · 메이크업 사진을 분석하면 궁합이 나와요'); return; }
-      fit.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      mark(3);
-    }
-  });
-  window.addEventListener('beauty:style', () => mark(1));
-  window.addEventListener('beauty:face', () => mark(2));
-})();
 
 init();

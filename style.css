@@ -647,3 +647,4 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .nail-vote small { color: var(--muted); }
 .linklike { background: none; border: 0; padding: 0; color: var(--accent-ink); text-decoration: underline; cursor: pointer; font: inherit; }
 .measure tr.muted { color: var(--muted); }
+.brand h1.logo .lab-site { margin-left: 8px; font-size: 0.72rem; align-self: center; }
