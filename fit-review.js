@@ -1,7 +1,7 @@
-// 얼굴형 · 추천 검수 — 디자이너가 AI 답을 보기 전에 얼굴형을 고르고(블라인드), AI 추천 커트에 동의하는지 표시한다.
-// 결과: 얼굴형 일치율(1위 · 2위 안), 추천 커트 동의율, 귀 판단 일치율 + 고객 평가(fit-feedback) 분석
+// 얼굴형 · 추천 검수 — 디자이너가 AI 답을 보기 전에 얼굴형과 '내가 추천할 커트'를 먼저 고르고(블라인드), 그다음 AI 추천 커트에 동의하는지 표시한다.
+// 결과: 얼굴형 일치율(1위 · 2위 안), 블라인드 커트 일치율(디자이너가 먼저 고른 커트가 AI 추천 안에 드는 비율), 추천 커트 동의율, 귀 판단 일치율 + 고객 평가(fit-feedback) 분석
 import { analyzeFace } from './face.js';
-import { faceReport } from './face-advice.js';
+import { faceReport, cutChoices } from './face-advice.js';
 
 const $ = (id) => document.getElementById(id);
 const els = Object.fromEntries(['status', 'statusText', 'statusBar', 'reviewer', 'add', 'addDir', 'files', 'dir', 'list', 'count', 'main', 'stats',
@@ -49,10 +49,13 @@ async function run() {
         const r = await analyzeFace(f, { purpose: 'hair' });
         if (!r.ok) { Object.assign(it, { pending: false, skipped: (r.issues || []).find((x) => x.level === 'block')?.title || '측정 실패' }); }
         else {
-          const rep = faceReport(r, null, {});
-          const cuts = rep.hair.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name)).slice(0, 4);
+          // 추천 기준(여성 · 남성 · 선택 안 함)마다 추천 커트를 미리 구해 두고, 디자이너가 고른 기준의 목록을 쓴다
+          const cutsOf = (g) => { const rep = faceReport({ ...r }, null, { gender: g || null }); return rep.hair.filter((x) => x.key === 'cuts' || x.key === 'short').flatMap((x) => x.list.map((i) => i.name)).slice(0, 4); };
+          const rep = faceReport({ ...r }, null, {});
+          const cutsBy = { f: cutsOf('f'), m: cutsOf('m'), '': cutsOf('') };
           Object.assign(it, { pending: false, ai: { probs: r.shape.probs.slice(0, 3).map((p) => ({ key: p.key, p: Math.round(p.p * 1000) / 1000 })), ears: rep.traits.ears || null,
-            cuts, m: { ratio: r.m.ratio, forehead: r.m.forehead, jaw: r.m.jaw, chin: r.m.chin, jawAngle: r.m.jawAngle } }, judge: { shape: null, ears: null, cuts: {} } });
+            cuts: cutsBy[''], cutsBy, m: { ratio: r.m.ratio, forehead: r.m.forehead, jaw: r.m.jaw, chin: r.m.chin, jawAngle: r.m.jawAngle } },
+            judge: { gender: state.lastGender ?? null, shape: null, picks: [], pickDone: false, ears: null, cuts: {} } });
         }
       } catch (e) { console.error(e); Object.assign(it, { pending: false, skipped: '분석 오류' }); }
       save(); renderList(); renderStats();
@@ -63,7 +66,11 @@ async function run() {
 }
 
 // ---- 화면 ------------------------------------------------------------------------------
-const isDone = (it) => it.skipped || (it.judge?.shape && it.ai.cuts.every((c) => it.judge.cuts[c] != null));
+// 예전 기록(블라인드 커트 고르기 전 버전)은 cutsBy 가 없어 기존 방식 그대로 본다
+const aiCuts = (it) => (it.ai?.cutsBy ? it.ai.cutsBy[it.judge?.gender ?? ''] || [] : it.ai?.cuts || []);
+const blind = (it) => !!it.ai?.cutsBy;
+const isDone = (it) => it.skipped || (it.judge?.shape && (!blind(it) || it.judge.pickDone) && aiCuts(it).every((c) => it.judge.cuts[c] != null));
+const GENDERS = [['f', '여성'], ['m', '남성'], ['', '선택 안 함']];
 function renderList() {
   els.list.innerHTML = state.items.map((it, i) => `<button type="button" data-i="${i}" class="${i === cur ? 'cur' : ''} ${isDone(it) ? 'done' : ''}" title="${esc(it.file)}${it.skipped ? ` — ${esc(it.skipped)}` : ''}">${photos.has(it.key) ? `<img src="${photos.get(it.key)}" alt="" />` : '사진 없음'}</button>`).join('');
   const usable = state.items.filter((x) => !x.skipped && !x.pending);
@@ -83,23 +90,34 @@ function show(i) {
   const opt = (name, list, val) => `<div class="fr-opts" data-q="${name}">${list.map(([k, l], n) => `<button type="button" data-k="${k}" class="${val === k ? 'on' : ''}">${name === 'shape' && n < 6 ? `${n + 1} ` : ''}${l}</button>`).join('')}</div>`;
   const name = (k) => SHAPES.find((x) => x[0] === k)?.[1] || '판단 어려움';
   let reveal = '';
-  if (j.shape) {
+  const gq = blind(it) ? `<div class="fr-q"><b>추천 기준 <small>(이 사진에 쓸 기준 · 고르면 AI 추천도 그 기준으로 바뀌어요)</small></b><div class="fr-opts" data-q="gender">${GENDERS.map(([k, l]) => `<button type="button" data-k="${k}" class="${(j.gender ?? null) === k ? 'on' : ''}">${l}</button>`).join('')}</div></div>` : '';
+  const needGender = blind(it) && j.gender == null;
+  const pickQ = blind(it) && j.shape && !needGender ? `<div class="fr-q"><b>디자이너가 이 얼굴에 추천할 커트를 먼저 골라 주세요 <small>(최대 3개 · AI 추천은 고른 뒤에 보여요)</small></b>
+      <div class="fr-opts fr-picks" data-q="pick">${cutChoices(j.gender || null).map((c) => `<button type="button" data-k="${esc(c)}" class="${j.picks.includes(c) ? 'on' : ''}" ${j.pickDone ? 'disabled' : ''}>${esc(c)}</button>`).join('')}</div>
+      ${j.pickDone ? '' : `<div class="row"><button class="soft small" id="pickDone" type="button" ${j.picks.length ? '' : 'disabled'}>다 골랐어요 → AI 추천 보기</button></div>`}</div>` : '';
+  if (j.shape && (!blind(it) || j.pickDone)) {
     const agree1 = j.shape === ai.probs[0].key, agree2 = ai.probs.slice(0, 2).some((p) => p.key === j.shape);
     reveal = `<div class="fr-ai ${agree2 ? 'agree' : 'disagree'}">AI 판단: <b>${ai.probs.map((p) => `${name(p.key)} ${pct(p.p)}`).join(' · ')}</b><br>
       <b class="res">${j.shape === 'unsure' ? '판단 어려움으로 표시했어요 (일치율 계산에서 빼요)' : agree1 ? '1위가 일치해요' : agree2 ? 'AI 2위와 일치해요' : '일치하지 않아요'}</b>${ai.ears ? ` · AI 귀 판단: ${esc(EARS.find((e) => e[0] === ai.ears)?.[1] || ai.ears)}` : ''}</div>
-      <div class="fr-q"><b>AI가 이 얼굴에 추천한 커트 — 디자이너로서 추천하시겠어요?</b>${ai.cuts.map((c) => `<div class="fr-cut"><span>${esc(c)}</span><span class="fr-opts" data-q="cut" data-c="${esc(c)}">${[['yes', '추천'], ['no', '비추천']].map(([k, l]) => `<button type="button" data-k="${k}" class="${j.cuts[c] === k ? 'on' : ''}">${l}</button>`).join('')}</span></div>`).join('')}</div>
+      ${blind(it) ? `<p class="fr-help">디자이너가 고른 커트 중 AI 추천(상위 4개)에 든 것: <b>${j.picks.filter((c) => aiCuts(it).includes(c)).length}/${j.picks.length}</b></p>` : ''}
+      <div class="fr-q"><b>AI가 이 얼굴에 추천한 커트 — 디자이너로서 추천하시겠어요?</b>${aiCuts(it).map((c) => `<div class="fr-cut"><span>${esc(c)}</span><span class="fr-opts" data-q="cut" data-c="${esc(c)}">${[['yes', '추천'], ['no', '비추천']].map(([k, l]) => `<button type="button" data-k="${k}" class="${j.cuts[c] === k ? 'on' : ''}">${l}</button>`).join('')}</span></div>`).join('')}</div>
       <div class="fr-q"><b>귀 (선택)</b>${opt('ears', EARS, j.ears)}</div>`;
   }
-  els.main.innerHTML = `${head}<div class="fr-q"><b>디자이너가 보기에 이 얼굴형은? <small>(AI 답은 고른 뒤에 보여요)</small></b>${opt('shape', [...SHAPES, ['unsure', '0 판단 어려움']], j.shape)}</div>${reveal}
+  const shapeQ = needGender ? '' : `<div class="fr-q"><b>디자이너가 보기에 이 얼굴형은? <small>(AI 답은 고른 뒤에 보여요)</small></b>${opt('shape', [...SHAPES, ['unsure', '0 판단 어려움']], j.shape)}</div>`;
+  const shapeAi = blind(it) && j.shape && !j.pickDone ? '' : reveal;
+  els.main.innerHTML = `${head}${gq}${shapeQ}${pickQ}${shapeAi}
     <div class="row"><button class="ghost small" id="prev" type="button">이전</button><button class="ghost small" id="next" type="button">다음</button></div>`;
   $('prev').onclick = () => show(cur - 1); $('next').onclick = () => show(nextTodo());
+  if ($('pickDone')) $('pickDone').onclick = () => { j.pickDone = true; j.ts = new Date().toISOString(); save(); show(cur); renderStats(); };
   renderList();
 }
 const nextTodo = () => { const n = state.items.findIndex((x, i) => i > cur && !x.pending && !isDone(x)); return n >= 0 ? n : cur + 1; };
 els.main.addEventListener('click', (e) => {
   const b = e.target.closest('.fr-opts button'); if (!b) return;
   const it = state.items[cur], box = b.closest('.fr-opts'), q = box.dataset.q, k = b.dataset.k;
-  if (q === 'shape') it.judge.shape = k; else if (q === 'ears') it.judge.ears = it.judge.ears === k ? null : k; else if (q === 'cut') it.judge.cuts[box.dataset.c] = k;
+  if (q === 'gender') { it.judge.gender = k; state.lastGender = k; for (const c of Object.keys(it.judge.cuts)) if (!aiCuts(it).includes(c)) delete it.judge.cuts[c]; }
+  else if (q === 'pick') { if (it.judge.pickDone) return; const p = it.judge.picks; if (p.includes(k)) p.splice(p.indexOf(k), 1); else if (p.length < 3) p.push(k); }
+  else if (q === 'shape') it.judge.shape = k; else if (q === 'ears') it.judge.ears = it.judge.ears === k ? null : k; else if (q === 'cut') it.judge.cuts[box.dataset.c] = k;
   it.judge.ts = new Date().toISOString(); it.judge.reviewer = state.reviewer;
   save(); show(cur); renderStats();
 });
@@ -109,7 +127,7 @@ document.addEventListener('keydown', (e) => {
   if (/^[1-6]$/.test(e.key)) { it.judge.shape = SHAPES[+e.key - 1][0]; }
   else if (e.key === '0') it.judge.shape = 'unsure';
   // 한글 입력 상태(ㅛ · ㅜ)나 대문자에서도 동작하게 키 위치(e.code)로 본다
-  else if ((e.code === 'KeyY' || e.code === 'KeyN') && it.judge.shape) { const c = it.ai.cuts.find((x) => it.judge.cuts[x] == null); if (c) it.judge.cuts[c] = e.code === 'KeyY' ? 'yes' : 'no'; }
+  else if ((e.code === 'KeyY' || e.code === 'KeyN') && it.judge.shape && (!blind(it) || it.judge.pickDone)) { const c = aiCuts(it).find((x) => it.judge.cuts[x] == null); if (c) it.judge.cuts[c] = e.code === 'KeyY' ? 'yes' : 'no'; }
   else if (e.key === 'ArrowRight') return show(isDone(it) ? nextTodo() : cur + 1);
   else if (e.key === 'ArrowLeft') return show(cur - 1);
   else return;
@@ -124,16 +142,20 @@ function tally() {
   const cutVotes = state.items.flatMap((x) => Object.values(x.judge?.cuts || {}));
   const ears = state.items.filter((x) => x.judge?.ears && x.ai?.ears && x.judge.ears !== 'hidden' && x.ai.ears !== 'hidden');
   const conf = {}; for (const x of xs) { const k = `${x.judge.shape}|${x.ai.probs[0].key}`; conf[k] = (conf[k] || 0) + 1; }
-  return { n: xs.length, top1, top2, cutN: cutVotes.length, cutYes: cutVotes.filter((v) => v === 'yes').length,
+  // 블라인드 커트: 디자이너가 먼저 고른 커트가 AI 추천 상위 4개 안에 드는 비율 · 얼굴마다 하나라도 겹치는 비율
+  const bl = state.items.filter((x) => blind(x) && x.judge?.pickDone && x.judge.picks.length);
+  const pickN = bl.reduce((s, x) => s + x.judge.picks.length, 0), pickHit = bl.reduce((s, x) => s + x.judge.picks.filter((c) => aiCuts(x).includes(c)).length, 0);
+  return { blindFaces: bl.length, blindAny: bl.filter((x) => x.judge.picks.some((c) => aiCuts(x).includes(c))).length, pickN, pickHit,
+    n: xs.length, top1, top2, cutN: cutVotes.length, cutYes: cutVotes.filter((v) => v === 'yes').length,
     earN: ears.length, earOk: ears.filter((x) => x.judge.ears === x.ai.ears || (x.judge.ears !== 'normal') === (x.ai.ears !== 'normal')).length, conf };
 }
 function renderStats() {
   const t = tally();
-  if (!t.n && !t.cutN) { els.stats.innerHTML = '<p class="note">아직 검수한 얼굴이 없어요.</p>'; return; }
+  if (!t.n && !t.cutN && !t.blindFaces) { els.stats.innerHTML = '<p class="note">아직 검수한 얼굴이 없어요.</p>'; return; }
   const name = (k) => SHAPES.find((x) => x[0] === k)?.[1] || k;
   const rows = SHAPES.map(([k, l]) => `<tr><td>${l}</td>${SHAPES.map(([a]) => `<td>${t.conf[`${k}|${a}`] || ''}</td>`).join('')}</tr>`).join('');
   els.stats.innerHTML = `<p><span class="big">${t.n ? pct(t.top1 / t.n) : '-'}</span> 얼굴형 1위 일치 <small>(${t.top1}/${t.n})</small><br>
-    2위 안 일치 <b>${t.n ? pct(t.top2 / t.n) : '-'}</b> · 추천 커트 동의 <b>${t.cutN ? pct(t.cutYes / t.cutN) : '-'}</b> <small>(${t.cutYes}/${t.cutN})</small>${t.earN ? ` · 귀 판단 일치 <b>${pct(t.earOk / t.earN)}</b>` : ''}</p>
+    2위 안 일치 <b>${t.n ? pct(t.top2 / t.n) : '-'}</b>${t.blindFaces ? ` · 블라인드 커트 일치 <b>${pct(t.pickHit / t.pickN)}</b> <small>(${t.pickHit}/${t.pickN}, 얼굴 ${t.blindFaces}명 중 하나라도 겹침 ${pct(t.blindAny / t.blindFaces)})</small>` : ''} · 추천 커트 동의 <b>${t.cutN ? pct(t.cutYes / t.cutN) : '-'}</b> <small>(${t.cutYes}/${t.cutN})</small>${t.earN ? ` · 귀 판단 일치 <b>${pct(t.earOk / t.earN)}</b>` : ''}</p>
     <p class="fr-help">아래 표: 줄 = 디자이너 판단, 칸 = AI 1위 (${SHAPES.map(([, l]) => l[0]).join(' · ')})</p>
     <table><tr><th></th>${SHAPES.map(([, l]) => `<th>${l[0]}</th>`).join('')}</tr>${rows}</table>
     ${t.n >= 20 ? '' : '<p class="fr-help">20명 이상 검수하면 일치율을 보고서에 쓸 만해져요.</p>'}`;
@@ -142,16 +164,16 @@ function renderStats() {
 const download = (name, text, type) => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.append(a); a.click(); a.remove(); };
 const stamp = () => new Date().toISOString().slice(0, 10);
 els.exportCsv.addEventListener('click', () => {
-  const head = ['file', 'reviewer', 'designer_shape', 'ai_1', 'ai_1_p', 'ai_2', 'ai_2_p', 'designer_ears', 'ai_ears', 'cuts_yes', 'cuts_no', 'ratio', 'forehead', 'jaw', 'chin', 'jawAngle', 'skipped'];
+  const head = ['file', 'reviewer', 'gender', 'designer_picks', 'ai_cuts', 'designer_shape', 'ai_1', 'ai_1_p', 'ai_2', 'ai_2_p', 'designer_ears', 'ai_ears', 'cuts_yes', 'cuts_no', 'ratio', 'forehead', 'jaw', 'chin', 'jawAngle', 'skipped'];
   const lines = state.items.filter((x) => !x.pending).map((x) => {
     const c = Object.entries(x.judge?.cuts || {});
-    return [x.file, x.judge?.reviewer || state.reviewer, x.judge?.shape || '', x.ai?.probs[0]?.key || '', x.ai?.probs[0]?.p ?? '', x.ai?.probs[1]?.key || '', x.ai?.probs[1]?.p ?? '',
+    return [x.file, x.judge?.reviewer || state.reviewer, x.judge?.gender ?? '', (x.judge?.picks || []).join('/'), (x.ai ? aiCuts(x) : []).join('/'), x.judge?.shape || '', x.ai?.probs[0]?.key || '', x.ai?.probs[0]?.p ?? '', x.ai?.probs[1]?.key || '', x.ai?.probs[1]?.p ?? '',
       x.judge?.ears || '', x.ai?.ears || '', c.filter(([, v]) => v === 'yes').map(([k]) => k).join('/'), c.filter(([, v]) => v === 'no').map(([k]) => k).join('/'),
       ...['ratio', 'forehead', 'jaw', 'chin', 'jawAngle'].map((k) => (x.ai?.m?.[k] != null ? x.ai.m[k].toFixed(3) : '')), x.skipped || ''].map((v) => `"${String(v).replace(/"/g, '""')}"`).join(',');
   });
   download(`fit-review-${stamp()}.csv`, '﻿' + [head.join(','), ...lines].join('\n'), 'text/csv');
 });
-els.exportJson.addEventListener('click', () => { const t = tally(); download(`fit-review-summary-${stamp()}.json`, JSON.stringify({ date: stamp(), reviewer: state.reviewer, faces: t.n, shape_top1: t.n ? t.top1 / t.n : null, shape_top2: t.n ? t.top2 / t.n : null, cut_agree: t.cutN ? t.cutYes / t.cutN : null, cut_votes: t.cutN, ear_agree: t.earN ? t.earOk / t.earN : null, confusion: t.conf }, null, 2), 'application/json'); });
+els.exportJson.addEventListener('click', () => { const t = tally(); download(`fit-review-summary-${stamp()}.json`, JSON.stringify({ date: stamp(), reviewer: state.reviewer, faces: t.n, shape_top1: t.n ? t.top1 / t.n : null, shape_top2: t.n ? t.top2 / t.n : null, cut_agree: t.cutN ? t.cutYes / t.cutN : null, blind_cut_hit: t.pickN ? t.pickHit / t.pickN : null, blind_faces: t.blindFaces, blind_any: t.blindFaces ? t.blindAny / t.blindFaces : null, cut_votes: t.cutN, ear_agree: t.earN ? t.earOk / t.earN : null, confusion: t.conf }, null, 2), 'application/json'); });
 els.clear.addEventListener('click', () => { if (confirm('검수 기록을 모두 지울까요?')) { state = { reviewer: state.reviewer, items: [] }; save(); renderList(); renderStats(); els.main.innerHTML = '<h2>검수</h2><p class="note">셀카를 추가하면 차례대로 얼굴을 잽니다.</p>'; } });
 
 // ---- 고객 평가 분석 (앱의 fit-feedback-*.jsonl) ---------------------------------------------

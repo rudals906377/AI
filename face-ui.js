@@ -4,7 +4,7 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
-import { faceReport, rankStyles, styleFit, coupleChem, compareFrames } from './face-advice.js';
+import { faceReport, rankStyles, styleFit, coupleChem, compareFrames, setHairPrefs } from './face-advice.js';
 import { faceCard, coupleCard, shareImage } from './share-card.js';
 
 const $ = (id) => document.getElementById(id);
@@ -107,6 +107,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   function setPurpose(p) {
     purpose = p;
     els.purpose.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.purpose === p));
+    $('faceHairQ').classList.toggle('hidden', p !== 'hair');
     els.adviceTitle.textContent = p === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천';
     if (blob) run(); // 목적이 바뀌면 점검 기준(이마 필요 여부 등)과 추천이 달라진다
   }
@@ -122,6 +123,42 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   }
   els.gender.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && b.dataset.gender !== gender) setGender(b.dataset.gender); });
   setGender(gender);
+  // 내 머리카락 (모발 결 · 숱 · 손질 · 원하는 길이): 고른 답만 헤어 추천 점수에 반영. 같은 버튼을 다시 누르면 선택 해제
+  const hairQ = $('faceHairQ');
+  let hairPrefs = {};
+  try { hairPrefs = JSON.parse(localStorage.getItem('faceHairPrefs') || '{}') || {}; } catch {}
+  function syncHairQ() {
+    hairQ.querySelectorAll('[data-hk]').forEach((g) => g.querySelectorAll('button').forEach((b) => {
+      const on = hairPrefs[g.dataset.hk] === b.dataset.hv; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on);
+    }));
+    setHairPrefs(hairPrefs);
+  }
+  hairQ.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-hv]'); if (!b) return;
+    const k = b.closest('[data-hk]').dataset.hk;
+    if (hairPrefs[k] === b.dataset.hv) delete hairPrefs[k]; else hairPrefs[k] = b.dataset.hv;
+    try { localStorage.setItem('faceHairPrefs', JSON.stringify(hairPrefs)); } catch {}
+    syncHairQ();
+    if (last && !els.result.classList.contains('hidden')) render(); else syncStyleFit();
+  });
+  if (Object.keys(hairPrefs).length) hairQ.open = true;
+  syncHairQ();
+  // 추천 커트 · 앞머리 예시 사진 (자유 라이선스 사진, samples/cuts/cuts.json). 없으면 이름만 보여 준다
+  let cutEx = null;
+  fetch('./samples/cuts/cuts.json').then((r) => (r.ok ? r.json() : null)).then((j) => {
+    cutEx = j?.items || null;
+    if (cutEx && last && !els.result.classList.contains('hidden') && purpose === 'hair') render();
+  }).catch(() => {});
+  const exDlg = $('cutExDialog');
+  els.advice.addEventListener('click', (e) => {
+    const b = e.target.closest('button.cut-ex'); if (!b || !cutEx) return;
+    const name = b.dataset.cut, list = (cutEx[name] || []).filter((x) => !gender || !x.g || x.g === gender);
+    $('cutExTitle').textContent = `${name} 예시`;
+    $('cutExBody').innerHTML = list.map((x) => `<figure><img src="${esc(x.img)}" alt="${esc(name)} 예시 사진" /><figcaption>사진: ${esc(x.creator || '작자 미상')} · ${esc(x.license)} · <a href="${esc(x.page)}" target="_blank" rel="noopener">원본</a></figcaption></figure>`).join('');
+    exDlg.showModal();
+  });
+  $('cutExClose').addEventListener('click', () => exDlg.close());
+  exDlg.addEventListener('click', (e) => { if (e.target === exDlg) exDlg.close(); });
 
   // 스타일 분석 결과 카드: 얼굴 분석을 이미 했으면 궁합 피드백, 아직이면 '내 얼굴 분석' 안내
   function styleChanged(r) {
@@ -428,7 +465,10 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       .map((r) => `<tr class="${Math.abs(r.z) >= 0.8 ? 'hl' : ''}"><th>${esc(r.label)}</th><td>${esc(r.value)}</td><td>${esc(r.avg)}</td><td>${esc(r.note)}</td></tr>`).join('')}</tbody>`;
     // 추천
     const secs = purpose === 'hair' ? report.hair : report.makeup;
-    els.advice.innerHTML = secs.map((s) => `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li><span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
+    // 예시 사진은 추천 기준(성별)과 같은 사람 사진만 (기준을 안 골랐으면 모두)
+    const exOf = (name) => (cutEx?.[name] || []).filter((x) => !gender || !x.g || x.g === gender);
+    const exBtn = (s, name) => { const ex = purpose === 'hair' && ['cuts', 'short', 'bangs'].includes(s.key) && exOf(name)[0] && exOf(name); return ex ? `<button type="button" class="cut-ex" data-cut="${esc(name)}" aria-label="${esc(name)} 예시 사진 보기"><img src="${esc(ex[0].thumb)}" alt="" loading="lazy" /></button>` : ''; };
+    els.advice.innerHTML = secs.map((s) => `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li${exBtn(s, i.name) ? ' class="has-ex"' : ''}>${exBtn(s, i.name)}<span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
     // 그림 층: 헤어는 측정선, 메이크업은 메이크업 위치를 먼저
     els.remember.checked = !!memo;
     if (memo) saveMemo(); // 기억하기를 켜 두었으면 새 결과로 바꿔 둔다

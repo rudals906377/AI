@@ -305,6 +305,14 @@
           <button type="button" data-gender="m">남성</button>
           <button type="button" data-gender="" class="active">선택 안 함</button>
         </div>
+        <details class="hair-q" id="faceHairQ">
+          <summary>내 머리카락도 알려 주면 더 맞춤으로 골라요 <small>(선택)</small></summary>
+          <div class="seg seg-sm" data-hk="curl" aria-label="모발 결"><span class="seg-label">모발 결</span><button type="button" data-hv="straight">직모</button><button type="button" data-hv="wavy">반곱슬</button><button type="button" data-hv="curly">곱슬</button></div>
+          <div class="seg seg-sm" data-hk="dens" aria-label="숱"><span class="seg-label">숱</span><button type="button" data-hv="thin">적은 편</button><button type="button" data-hv="normal">보통</button><button type="button" data-hv="thick">많은 편</button></div>
+          <div class="seg seg-sm" data-hk="care" aria-label="손질 시간"><span class="seg-label">손질</span><button type="button" data-hv="low">간단하게</button><button type="button" data-hv="any">상관없음</button></div>
+          <div class="seg seg-sm" data-hk="want" aria-label="원하는 길이"><span class="seg-label">원하는 길이</span><button type="button" data-hv="short">짧게</button><button type="button" data-hv="mid">단발</button><button type="button" data-hv="long">길게</button><button type="button" data-hv="any">상관없음</button></div>
+          <p class="muted small">한 번 더 누르면 선택이 풀려요. 답은 이 기기에만 저장돼요.</p>
+        </details>
         <label class="drop face-drop" id="faceDrop">
           <input type="file" id="faceFile" accept="image/*" />
           <img id="facePreview" class="hidden" alt="내 얼굴 사진 미리보기" />
@@ -432,6 +440,11 @@
       </section>
     </div>
 
+    <dialog class="cut-ex-dlg" id="cutExDialog" aria-label="커트 예시 사진">
+      <div class="cut-ex-head"><b id="cutExTitle"></b><button type="button" class="ghost small" id="cutExClose">닫기</button></div>
+      <div class="cut-ex-body" id="cutExBody"></div>
+      <p class="cut-ex-note">예시 사진은 상업 이용이 허용된 자유 라이선스 사진이에요. 같은 커트라도 모발 · 기장에 따라 모양이 달라 보일 수 있어요.</p>
+    </dialog>
     <dialog class="cam" id="camDialog" aria-label="셀카 찍기">
       <div class="cam-view" id="camView">
         <video id="camVideo" playsinline muted></video>

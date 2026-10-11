@@ -27,6 +27,8 @@
     .fr-opts { display: flex; flex-wrap: wrap; gap: 6px; }
     .fr-opts button { border: 1px solid var(--line-2); background: var(--card); color: var(--text); border-radius: 999px; padding: 6px 12px; font: inherit; font-size: .88rem; cursor: pointer; }
     .fr-opts button.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+    .fr-opts button[disabled] { cursor: default; opacity: .75; }
+    .fr-opts button.on[disabled] { opacity: 1; }
     .fr-ai { margin-top: 12px; background: var(--peach-soft); border-radius: 10px; padding: 10px 12px; font-size: .9rem; line-height: 1.6; }
     .fr-ai.agree b.res { color: var(--ok); } .fr-ai.disagree b.res { color: var(--accent-ink); }
     .fr-cut { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 0; border-top: 1px solid var(--line); font-size: .9rem; }
@@ -43,7 +45,7 @@
     <header class="top">
       <div class="brand">
         <h1>얼굴형 · 추천 검수</h1>
-        <p>디자이너가 <b>AI 답을 보기 전에</b> 얼굴형을 먼저 고르고, AI가 추천한 커트에 동의하는지 표시합니다. AI와 디자이너 판단의 일치율이 자동으로 계산됩니다. 사진은 이 브라우저 밖으로 보내지 않고 저장하지도 않습니다.</p>
+        <p>디자이너가 <b>AI 답을 보기 전에</b> 얼굴형과 '내가 추천할 커트'(최대 3개)를 먼저 고르고, 그다음 AI가 추천한 커트에 동의하는지 표시합니다. AI와 디자이너 판단의 일치율이 자동으로 계산됩니다. 사진은 이 브라우저 밖으로 보내지 않고 저장하지도 않습니다.</p>
       </div>
       <div class="status" id="status"><span class="dot"></span><span id="statusText">사진을 추가하면 얼굴 분석 모델을 준비해요</span><span class="progress"><i id="statusBar"></i></span></div>
     </header>
