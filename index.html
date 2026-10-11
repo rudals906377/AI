@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FINDE · 파인드 — AI 뷰티 스타일 분석</title>
+  <title>FINDE 실험실 · 파인드 — AI 뷰티 스타일 분석</title>
   <meta name="description" content="헤어·네일·메이크업·타투 사진을 올리면 브라우저 안에서 AI가 스타일을 자세한 한국어 문장으로 설명합니다." />
   <meta name="theme-color" content="#f4efe8" />
   <link rel="icon" type="image/png" sizes="64x64" href="./brand/favicon-64.png" />
@@ -32,8 +32,9 @@
   <div class="wrap">
     <header class="top">
       <div class="brand">
-        <h1 class="logo"><picture><source srcset="./brand/logo-dark.png" media="(prefers-color-scheme: dark)" /><img src="./brand/logo.png" alt="FINDE" width="190" height="46" /></picture><small class="brand-ko">파인드</small></h1>
-        <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 설명하고, 셀카로 내 얼굴형에 맞는 헤어 · 메이크업을 추천합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
+        <h1 class="logo"><picture><source srcset="./brand/logo-dark.png" media="(prefers-color-scheme: dark)" /><img src="./brand/logo.png" alt="FINDE" width="190" height="46" /></picture><small class="brand-ko">파인드</small><span class="lab-badge lab-site">실험실</span></h1>
+        <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 설명하고, 셀카로 내 얼굴형에 맞는 헤어 · 메이크업을, 손 사진으로 어울리는 네일 쉐입을 추천합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
+        <p class="lab-note">FINDE 앱에 넣기 전에 기능을 미리 시험해 보는 <b>실험실</b>이에요. 결과 아래의 평가 버튼으로 맞는지 알려 주시면 기준을 다듬는 데 써요.</p>
       </div>
       <div class="status" id="status">
         <span class="dot"></span>
@@ -42,20 +43,10 @@
       </div>
     </header>
 
-    <section class="onboard hidden" id="onboard" aria-label="처음 쓰는 법">
-      <div class="ob-head"><b>처음이세요? 세 단계면 끝나요</b><button type="button" class="ob-close" id="obClose" aria-label="안내 닫기">닫기</button></div>
-      <ol class="ob-steps">
-        <li data-step="1"><i>1</i><div><b>스타일 사진 올리기</b><small>하고 싶은 헤어 · 메이크업 사진</small><span class="ob-act"><button type="button" class="soft small" data-ob="sample">예시로 해 보기</button><button type="button" class="soft small" data-ob="pick">내 사진</button></span></div></li>
-        <li data-step="2"><i>2</i><div><b>셀카로 얼굴 재기</b><small>정면 · 밝은 곳에서 한 장</small><span class="ob-act"><button type="button" class="soft small" data-ob="face">셀카 찍으러 가기</button></span></div></li>
-        <li data-step="3"><i>3</i><div><b>궁합 · 상담 카드 보기</b><small>어울리는 이유와 디자이너에게 보여 줄 카드</small><span class="ob-act"><button type="button" class="soft small" data-ob="fit">궁합 보러 가기</button></span></div></li>
-      </ol>
-      <p class="ob-done hidden" id="obDone">다 해 봤어요! 시술 요청서의 <b>상담 카드로 저장</b>을 눌러 디자이너에게 보여 주세요.</p>
-    </section>
-
     <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
       <button type="button" data-mode="style" class="active" aria-pressed="true">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
       <button type="button" data-mode="face" aria-pressed="false">내 얼굴 분석<small>셀카로 얼굴형 · 맞춤 헤어 · 메이크업</small></button>
-      <button type="button" data-mode="nail" aria-pressed="false">내 손톱 분석 <span class="lab-badge">실험실</span><small>손 사진으로 손톱형 · 어울리는 쉐입</small></button>
+      <button type="button" data-mode="nail" aria-pressed="false">내 손톱 분석<small>손 사진으로 손톱형 · 어울리는 쉐입</small></button>
     </nav>
 
     <div class="grid" id="styleGrid">
@@ -261,8 +252,7 @@
       </section>
 
       <section class="card" id="nailResultCard">
-        <h2>손톱 분석 결과 <span class="lab-badge">실험실 · 베타</span></h2>
-        <p class="lab-note">새로 시험 중인 기능이에요. 결과가 맞는지 아래에서 알려 주시면 기준을 다듬는 데 써요.</p>
+        <h2>손톱 분석 결과</h2>
         <div class="result-empty" id="nailEmpty">
           <strong>손 사진을 올리면 손톱 모양을 재요</strong>
           <small>손가락마다 손톱의 가로세로 비율, 끝쪽 퍼짐, 큐티클 라인을 재고 어울리는 네일 쉐입 · 길이 · 디자인을 추천해요</small>
@@ -287,7 +277,7 @@
           <h3>손가락별 측정</h3>
           <div class="table-wrap"><table class="measure" id="nailMeasures"></table></div>
           <div class="nail-vote" id="nailVote" aria-label="결과 평가">
-            <b>실험실 평가 — 이 결과, 맞나요?</b>
+            <b>이 결과, 맞나요?</b>
             <div class="nv-row" data-q="outline"><span>초록 윤곽이 내 손톱을 잘 따라가요</span><button type="button" class="ghost small" data-v="1">맞아요</button><button type="button" class="ghost small" data-v="0">아니에요</button></div>
             <div class="nv-row" data-q="type"><span>손톱형 판정이 내 손톱과 비슷해요</span><button type="button" class="ghost small" data-v="1">맞아요</button><button type="button" class="ghost small" data-v="0">아니에요</button></div>
             <div class="nv-row" data-q="advice"><span>추천 쉐입이 마음에 들어요</span><button type="button" class="ghost small" data-v="1">맞아요</button><button type="button" class="ghost small" data-v="0">아니에요</button></div>
