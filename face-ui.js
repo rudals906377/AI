@@ -152,7 +152,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   const exDlg = $('cutExDialog');
   els.advice.addEventListener('click', (e) => {
     const b = e.target.closest('button.cut-ex'); if (!b || !cutEx) return;
-    const name = b.dataset.cut, list = cutEx[name] || [];
+    const name = b.dataset.cut, list = (cutEx[name] || []).filter((x) => !gender || !x.g || x.g === gender);
     $('cutExTitle').textContent = `${name} 예시`;
     $('cutExBody').innerHTML = list.map((x) => `<figure><img src="${esc(x.img)}" alt="${esc(name)} 예시 사진" /><figcaption>사진: ${esc(x.creator || '작자 미상')} · ${esc(x.license)} · <a href="${esc(x.page)}" target="_blank" rel="noopener">원본</a></figcaption></figure>`).join('');
     exDlg.showModal();
@@ -465,7 +465,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       .map((r) => `<tr class="${Math.abs(r.z) >= 0.8 ? 'hl' : ''}"><th>${esc(r.label)}</th><td>${esc(r.value)}</td><td>${esc(r.avg)}</td><td>${esc(r.note)}</td></tr>`).join('')}</tbody>`;
     // 추천
     const secs = purpose === 'hair' ? report.hair : report.makeup;
-    const exBtn = (s, name) => { const ex = purpose === 'hair' && ['cuts', 'short', 'bangs'].includes(s.key) && cutEx?.[name]; return ex ? `<button type="button" class="cut-ex" data-cut="${esc(name)}" aria-label="${esc(name)} 예시 사진 보기"><img src="${esc(ex[0].thumb)}" alt="" loading="lazy" /></button>` : ''; };
+    // 예시 사진은 추천 기준(성별)과 같은 사람 사진만 (기준을 안 골랐으면 모두)
+    const exOf = (name) => (cutEx?.[name] || []).filter((x) => !gender || !x.g || x.g === gender);
+    const exBtn = (s, name) => { const ex = purpose === 'hair' && ['cuts', 'short', 'bangs'].includes(s.key) && exOf(name)[0] && exOf(name); return ex ? `<button type="button" class="cut-ex" data-cut="${esc(name)}" aria-label="${esc(name)} 예시 사진 보기"><img src="${esc(ex[0].thumb)}" alt="" loading="lazy" /></button>` : ''; };
     els.advice.innerHTML = secs.map((s) => `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li${exBtn(s, i.name) ? ' class="has-ex"' : ''}>${exBtn(s, i.name)}<span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
     // 그림 층: 헤어는 측정선, 메이크업은 메이크업 위치를 먼저
     els.remember.checked = !!memo;
