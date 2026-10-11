@@ -648,3 +648,9 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .linklike { background: none; border: 0; padding: 0; color: var(--accent-ink); text-decoration: underline; cursor: pointer; font: inherit; }
 .measure tr.muted { color: var(--muted); }
 .brand h1.logo .lab-site { margin-left: 8px; font-size: 0.72rem; align-self: center; }
+/* 내 머리카락 질문 (선택) */
+.hair-q { margin-top: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+.hair-q summary { cursor: pointer; font-size: .88rem; font-weight: 600; }
+.hair-q summary small { color: var(--muted); font-weight: 400; }
+.hair-q .seg-label { min-width: 4.6em; }
+.hair-q p.small { font-size: .78rem; margin: 6px 0 2px; color: var(--muted); }

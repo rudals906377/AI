@@ -4,7 +4,7 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
-import { faceReport, rankStyles, styleFit, coupleChem, compareFrames } from './face-advice.js';
+import { faceReport, rankStyles, styleFit, coupleChem, compareFrames, setHairPrefs } from './face-advice.js';
 import { faceCard, coupleCard, shareImage } from './share-card.js';
 
 const $ = (id) => document.getElementById(id);
@@ -107,6 +107,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   function setPurpose(p) {
     purpose = p;
     els.purpose.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.purpose === p));
+    $('faceHairQ').classList.toggle('hidden', p !== 'hair');
     els.adviceTitle.textContent = p === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천';
     if (blob) run(); // 목적이 바뀌면 점검 기준(이마 필요 여부 등)과 추천이 달라진다
   }
@@ -122,6 +123,26 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   }
   els.gender.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && b.dataset.gender !== gender) setGender(b.dataset.gender); });
   setGender(gender);
+  // 내 머리카락 (모발 결 · 숱 · 손질 · 원하는 길이): 고른 답만 헤어 추천 점수에 반영. 같은 버튼을 다시 누르면 선택 해제
+  const hairQ = $('faceHairQ');
+  let hairPrefs = {};
+  try { hairPrefs = JSON.parse(localStorage.getItem('faceHairPrefs') || '{}') || {}; } catch {}
+  function syncHairQ() {
+    hairQ.querySelectorAll('[data-hk]').forEach((g) => g.querySelectorAll('button').forEach((b) => {
+      const on = hairPrefs[g.dataset.hk] === b.dataset.hv; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on);
+    }));
+    setHairPrefs(hairPrefs);
+  }
+  hairQ.addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-hv]'); if (!b) return;
+    const k = b.closest('[data-hk]').dataset.hk;
+    if (hairPrefs[k] === b.dataset.hv) delete hairPrefs[k]; else hairPrefs[k] = b.dataset.hv;
+    try { localStorage.setItem('faceHairPrefs', JSON.stringify(hairPrefs)); } catch {}
+    syncHairQ();
+    if (last && !els.result.classList.contains('hidden')) render(); else syncStyleFit();
+  });
+  if (Object.keys(hairPrefs).length) hairQ.open = true;
+  syncHairQ();
 
   // 스타일 분석 결과 카드: 얼굴 분석을 이미 했으면 궁합 피드백, 아직이면 '내 얼굴 분석' 안내
   function styleChanged(r) {

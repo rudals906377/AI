@@ -305,6 +305,14 @@
           <button type="button" data-gender="m">남성</button>
           <button type="button" data-gender="" class="active">선택 안 함</button>
         </div>
+        <details class="hair-q" id="faceHairQ">
+          <summary>내 머리카락도 알려 주면 더 맞춤으로 골라요 <small>(선택)</small></summary>
+          <div class="seg seg-sm" data-hk="curl" aria-label="모발 결"><span class="seg-label">모발 결</span><button type="button" data-hv="straight">직모</button><button type="button" data-hv="wavy">반곱슬</button><button type="button" data-hv="curly">곱슬</button></div>
+          <div class="seg seg-sm" data-hk="dens" aria-label="숱"><span class="seg-label">숱</span><button type="button" data-hv="thin">적은 편</button><button type="button" data-hv="normal">보통</button><button type="button" data-hv="thick">많은 편</button></div>
+          <div class="seg seg-sm" data-hk="care" aria-label="손질 시간"><span class="seg-label">손질</span><button type="button" data-hv="low">간단하게</button><button type="button" data-hv="any">상관없음</button></div>
+          <div class="seg seg-sm" data-hk="want" aria-label="원하는 길이"><span class="seg-label">원하는 길이</span><button type="button" data-hv="short">짧게</button><button type="button" data-hv="mid">단발</button><button type="button" data-hv="long">길게</button><button type="button" data-hv="any">상관없음</button></div>
+          <p class="muted small">한 번 더 누르면 선택이 풀려요. 답은 이 기기에만 저장돼요.</p>
+        </details>
         <label class="drop face-drop" id="faceDrop">
           <input type="file" id="faceFile" accept="image/*" />
           <img id="facePreview" class="hidden" alt="내 얼굴 사진 미리보기" />
