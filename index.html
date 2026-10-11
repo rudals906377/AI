@@ -55,6 +55,7 @@
     <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
       <button type="button" data-mode="style" class="active" aria-pressed="true">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
       <button type="button" data-mode="face" aria-pressed="false">내 얼굴 분석<small>셀카로 얼굴형 · 맞춤 헤어 · 메이크업</small></button>
+      <button type="button" data-mode="nail" aria-pressed="false">내 손톱 분석<small>손 사진으로 손톱형 · 어울리는 쉐입</small></button>
     </nav>
 
     <div class="grid" id="styleGrid">
@@ -226,6 +227,72 @@
     </div>
 
     <!-- 내 얼굴 분석 -->
+    <div class="grid hidden" id="nailGrid">
+      <section class="card" id="nailInputCard">
+        <h2>내 손 사진</h2>
+        <label class="drop" id="nailDrop">
+          <input type="file" id="nailFile" accept="image/*" />
+          <img id="nailPreview" class="hidden" alt="내 손 사진 미리보기" />
+          <div class="hint" id="nailHint">
+            <svg class="face-guide" viewBox="0 0 120 140" aria-hidden="true"><path d="M40 128V78l-8-34q-2-9 6-10t10 8l6 24V24q0-9 8-9t8 9v40l2-46q0-9 8-9t8 9l-1 48 4-34q1-8 8-7t7 9l-4 44q8-16 14-14t4 10l-16 40q-6 18-22 24v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M58 20h12M78 14h10M98 30h9M34 40h9" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".55"/></svg>
+            <strong>손등 사진을 올려 주세요</strong>
+            <small>끌어다 놓기 · 붙여넣기(Ctrl+V)도 돼요</small>
+          </div>
+        </label>
+        <div class="row upload-row">
+          <button type="button" class="primary" id="nailShoot">손 찍기</button>
+          <button type="button" class="ghost" id="nailPick">사진 올리기</button>
+          <input type="file" id="nailCamera" accept="image/*" capture="environment" hidden />
+        </div>
+        <h3>조금만 알려 주세요 <small class="muted">(추천에 반영해요)</small></h3>
+        <div class="nail-q">
+          <div class="seg seg-sm" data-q="life"><span class="seg-label">손 쓰는 정도</span><button type="button" data-v="normal" class="active">보통</button><button type="button" data-v="hands">타이핑 · 손을 많이 씀</button></div>
+          <div class="seg seg-sm" data-q="length"><span class="seg-label">원하는 길이</span><button type="button" data-v="any" class="active">상관없음</button><button type="button" data-v="short">짧게</button><button type="button" data-v="mid">중간</button><button type="button" data-v="long">길게</button></div>
+          <div class="seg seg-sm" data-q="natural"><span class="seg-label">방법</span><button type="button" data-v="any" class="active">상관없음</button><button type="button" data-v="natural">자연 손톱 그대로</button><button type="button" data-v="ext">젤 · 연장도 좋아요</button></div>
+          <div class="seg seg-sm" data-q="curve"><span class="seg-label">옆에서 본 손톱 휨 (C커브)</span><button type="button" data-v="" class="active">모름</button><button type="button" data-v="flat">평평한 편</button><button type="button" data-v="mid">보통</button><button type="button" data-v="strong">많이 휨</button></div>
+        </div>
+        <h3>이렇게 찍어 주세요</h3>
+        <ol class="guide">
+          <li><b>손등이 위로</b> 오게 손을 책상에 평평하게 두고, 손가락을 살짝 벌려 주세요.</li>
+          <li>휴대폰을 <b>손 바로 위</b>에서 내려다보며, 손목까지 한 손이 다 나오게 찍어 주세요.</li>
+          <li><b>밝은 곳</b>에서 그림자 없이, 가능하면 <b>매니큐어 · 젤을 지운 맨손톱</b>으로 찍어 주세요.</li>
+        </ol>
+        <p class="note">미용 목적의 손톱 모양 분석이에요. 손톱 건강이나 질환은 판단하지 않아요. 사진은 이 브라우저 안에서만 쓰고 저장하거나 보내지 않아요.</p>
+      </section>
+
+      <section class="card" id="nailResultCard">
+        <h2>손톱 분석 결과</h2>
+        <div class="result-empty" id="nailEmpty">
+          <strong>손 사진을 올리면 손톱 모양을 재요</strong>
+          <small>손가락마다 손톱의 가로세로 비율, 끝쪽 퍼짐, 큐티클 라인을 재고 어울리는 네일 쉐입 · 길이 · 디자인을 추천해요</small>
+        </div>
+        <div class="face-status hidden" id="nailStatus" role="status" aria-live="polite"></div>
+        <div class="hidden" id="nailResult">
+          <figure class="face-fig">
+            <canvas id="nailCanvas" class="face-canvas" aria-label="손톱 윤곽을 그린 내 손 사진"></canvas>
+            <figcaption class="face-legend">초록 선: 찾은 손톱 윤곽 · 점선: 하얀 끝(프리엣지)이 시작되는 곳</figcaption>
+          </figure>
+          <div class="face-head">
+            <small>내 손톱형</small>
+            <strong id="nailType"></strong>
+            <p class="desc" id="nailSummary"></p>
+          </div>
+          <ul class="face-warn hidden" id="nailWarn"></ul>
+          <h3>어울리는 쉐입</h3>
+          <div class="nail-shapes" id="nailTop"></div>
+          <div class="nail-avoid hidden" id="nailAvoid"></div>
+          <h3>길이 · 디자인</h3>
+          <div class="advice" id="nailTips"></div>
+          <h3>손가락별 측정</h3>
+          <table class="measures" id="nailMeasures"></table>
+          <h3>네일샵 상담 카드</h3>
+          <pre class="nail-card" id="nailCard"></pre>
+          <div class="row"><button type="button" class="ghost small" id="nailCopy">상담 카드 복사</button><button type="button" class="ghost small" id="nailAgain">다른 사진으로</button></div>
+          <p class="note">손톱 바탕(분홍 부분)의 비율과 큐티클 라인 모양을 잰 미용 참고 정보예요. 의학적 진단이 아니며, 손톱에 변색 · 들뜸 · 통증 · 검은 세로줄이 있으면 피부과 전문의와 상담하세요.</p>
+        </div>
+      </section>
+    </div>
+
     <div class="grid hidden" id="faceGrid">
       <section class="card" id="faceInputCard">
         <h2>내 얼굴 사진</h2>
@@ -390,6 +457,7 @@
   </div>
 
   <script type="module" src="./app.js" onerror="document.getElementById('statusText').textContent='스크립트 로드 실패 — 인터넷 연결을 확인하고 새로고침하세요'"></script>
+  <script type="module" src="./nail-ui.js"></script>
   <script>
     // CDN(Transformers.js) 로드 실패 등으로 앱이 시작되지 않으면 20초 뒤 안내
     setTimeout(function () {

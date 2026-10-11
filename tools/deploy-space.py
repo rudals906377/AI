@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 # 앱 실행에 필요한 파일 + 예시 사진 출처 + 학습 데이터 출처 기록 (CC BY 출처 표시)
 ALLOW = ["README.md", "index.html", "style.css", "app.js", "assets.js", "share-card.js", "asset-manifest.json", "favicon.svg", "apple-touch-icon.png", "brand/*", "og.png", "analyzer.js", "encoders.js", "describe.js", "motif.js", "motifs.js", "trends.js", "quips.js", "taxonomy.js", "advanced.js",
-         "order.js", "colors.js", "suits.js", "face.js", "face-advice.js", "face-ui.js", "review.html", "review.js", "fit-review.html", "fit-review.js", "notice.html",
-         "embeddings/*.json", "heads/*.json", "samples/*", "samples/thumbs/*", "samples/similar/*.json", "models/mediapipe/*",
+         "order.js", "colors.js", "suits.js", "face.js", "face-advice.js", "face-ui.js", "nail.js", "nail-advice.js", "nail-ui.js", "review.html", "review.js", "fit-review.html", "fit-review.js", "notice.html",
+         "embeddings/*.json", "heads/*.json", "samples/*", "samples/thumbs/*", "samples/similar/*.json", "models/mediapipe/*", "models/nail/*",
          "data/labels_clean.jsonl"]
 # docs/legal/ 의 초안(약관 · 개인정보처리방침 등)은 법률 검토 메모가 들어 있어 올리지 않는다. 화면용 안내는 notice.html
 
@@ -28,7 +28,7 @@ def files():
 
 
 # 브라우저가 큰 파일을 버전별로 저장해 두고 다시 쓰도록(assets.js) 파일 경로 → 내용 해시 목록을 만든다
-CACHED = ["heads/*.json", "embeddings/*.json", "models/mediapipe/*"]
+CACHED = ["heads/*.json", "embeddings/*.json", "models/mediapipe/*", "models/nail/*"]
 
 
 def write_manifest():

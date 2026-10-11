@@ -358,7 +358,7 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 }
 
 /* ── 분석 종류 탭 (스타일 사진 / 내 얼굴) */
-.mode-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 0 18px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 4px; scroll-margin-top: 12px; }
+.mode-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 18px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 4px; scroll-margin-top: 12px; }
 .mode-tabs button {
   border: 0; background: transparent; color: var(--muted); border-radius: 9px; padding: 10px 14px; cursor: pointer; text-align: left;
   font-weight: 700; font-size: 0.98rem; display: flex; flex-direction: column; gap: 1px; transition: background .2s, color .2s, box-shadow .2s;
@@ -621,3 +621,19 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .brand h1.logo img { display: block; height: 46px; width: auto; }
 .brand h1.logo .brand-ko { font-size: .95rem; margin: 6px 0 0; }
 @media (max-width: 600px) { .brand h1.logo img { height: 38px; } }
+
+/* ---- 내 손톱 분석 ---- */
+.nail-q { display: grid; gap: 4px; margin-bottom: 6px; }
+.nail-q .seg { margin-top: 2px; }
+.nail-shapes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 6px 0 10px; }
+.nail-shape { border: 1px solid var(--line); border-radius: 12px; padding: 10px; background: var(--bg-2); display: flex; flex-direction: column; gap: 6px; }
+.nail-shape.top { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.nail-shape svg { width: 46px; height: 64px; color: var(--accent-ink); }
+.nail-shape b { font-size: 1rem; }
+.nail-shape .sc { font-size: 0.78rem; color: var(--muted); }
+.nail-shape p { margin: 0; font-size: 0.84rem; line-height: 1.45; }
+.nail-avoid { font-size: 0.86rem; color: var(--muted); margin: 0 0 8px; }
+.nail-avoid b { color: var(--text); }
+.nail-card { white-space: pre-wrap; font: inherit; font-size: 0.88rem; background: var(--bg-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 6px 0; }
+@media (max-width: 640px) { .nail-shapes { grid-template-columns: 1fr; } .nail-shape { flex-direction: row; align-items: flex-start; } .nail-shape svg { flex: none; } }
+@media (max-width: 600px) { .mode-tabs { gap: 4px; } .mode-tabs button { padding: 8px 8px; font-size: 0.9rem; } .mode-tabs button small { font-size: 0.72rem; } }
