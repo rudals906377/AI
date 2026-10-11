@@ -654,3 +654,15 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .hair-q summary small { color: var(--muted); font-weight: 400; }
 .hair-q .seg-label { min-width: 4.6em; }
 .hair-q p.small { font-size: .78rem; margin: 6px 0 2px; color: var(--muted); }
+/* 추천 커트 예시 사진 */
+.adv li.has-ex { display: grid; grid-template-columns: 52px 1fr; column-gap: 10px; align-items: start; }
+.adv li.has-ex > span, .adv li.has-ex > small { grid-column: 2; }
+.cut-ex { grid-row: span 2; width: 52px; height: 52px; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--card); cursor: zoom-in; }
+.cut-ex img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cut-ex-dlg { border: none; border-radius: 14px; padding: 14px; max-width: min(560px, calc(100vw - 32px)); background: var(--card); color: var(--text); }
+.cut-ex-dlg::backdrop { background: rgba(0, 0, 0, .55); }
+.cut-ex-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+.cut-ex-body { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.cut-ex-body figure { margin: 0; }
+.cut-ex-body img { width: 100%; max-height: 60vh; object-fit: contain; border-radius: 10px; background: var(--bg, #000); }
+.cut-ex-body figcaption, .cut-ex-note { font-size: .78rem; color: var(--muted); margin-top: 4px; }
