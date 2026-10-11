@@ -119,9 +119,9 @@ export function handMetrics(P) {
 }
 
 // ---- 손톱형 판단 -----------------------------------------------------------------------
-// 기준(중앙값 · 표준편차): 자유 라이선스 손 사진에서 윤곽 검수를 통과한 맨손톱 253개(검지~소지) · 손 286개로 잰 값.
+// 기준(중앙값 · 표준편차): 자유 라이선스 손 사진에서 윤곽 검수(2회)를 통과한 맨손톱 851개(검지~소지) · 손 286개로 잰 값.
 // 사진 각도에 따라 손톱이 짧아 보이는 등 흔들림이 섞여 있어 폭이 넓다. 검지 · 중지 · 약지의 중앙값으로 판단한다
-export const NAIL_NORM = { ratio: [0.82, 0.21], taper: [0.95, 0.14], cuticle: [0.062, 0.056], finger: [1.44, 0.3], free: [0, 0.12] };
+export const NAIL_NORM = { ratio: [0.833, 0.2], taper: [0.931, 0.129], cuticle: [0.057, 0.074], finger: [1.44, 0.3], free: [0, 0.12] };
 const zN = (k, x) => (x - NAIL_NORM[k][0]) / NAIL_NORM[k][1];
 export function nailType(fingers, hand) {
   const use = fingers.filter((f) => f.m && ['index', 'middle', 'ring'].includes(f.key));
