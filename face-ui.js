@@ -447,6 +447,23 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     drawRetake(f);
   }
 
+
+  // 상안부 · 중안부 · 하안부 비율 — 한 줄 막대 + 백분율 + 평균 + 풀이
+  function renderThirds(th) {
+    const box = $('faceThirds'); if (!box) return;
+    if (!th) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+    const segs = th.names.map((n, i) => `<span class="${Math.abs(th.z[i]) >= 0.8 ? (th.z[i] > 0 ? 'long' : 'short') : ''}" style="flex:${th.pct[i]}"><b>${th.pct[i]}%</b><small>${esc(n)}</small></span>`).join('');
+    const avgSegs = th.names.map((n, i) => `<span style="flex:${th.avg[i]}"><small>${th.avg[i]}%</small></span>`).join('');
+    const legend = th.names.map((n, i) => `<li><b>${esc(n)}</b><span>${esc(th.hint[i])}</span><em>${th.pct[i]}% <small>평균 ${th.avg[i]}%</small></em></li>`).join('');
+    box.innerHTML = `<h4>얼굴 세로 비율 <small>${th.ok ? '상안부 · 중안부 · 하안부' : '중안부 · 하안부'}</small></h4>
+      <div class="th-bar mine" aria-label="${esc(th.line)}">${segs}</div>
+      <div class="th-bar avg" aria-hidden="true">${avgSegs}<i>평균</i></div>
+      <ul class="th-legend">${legend}</ul>
+      <p class="th-note">${esc(th.note)}${th.tip ? ` <span>${esc(th.tip)}</span>` : ''}</p>
+      ${th.warn ? `<p class="th-warn">${esc(th.warn)}</p>` : ''}`;
+  }
+
   function render() {
     const f = last;
     report = faceReport(f, getStyle().result, { gender: gender || null });
@@ -459,6 +476,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     // '긴 편' 처럼 꾸밈말과 '편' 사이에서 줄이 나뉘지 않게
     els.summary.innerHTML = report.summary.map((s) => `<span class="s">${esc(s).replace(/ (편|중간)/g, '&nbsp;$1')}</span>`).join(' ');
     if (report.quip) els.summary.innerHTML += `<span class="s face-quip">${esc(report.quip)}</span>`;
+    renderThirds(report.thirds);
     els.bars.innerHTML = f.shape.probs.map((p, i) => `<div class="sb ${i ? '' : 'top'}"><span>${esc(p.label)}</span><i><b style="width:${Math.round(p.p * 100)}%"></b></i><em>${Math.round(p.p * 100)}%</em></div>`).join('');
     const warns = f.issues.filter((x) => x.level !== 'block');
     els.warn.classList.toggle('hidden', !warns.length);
@@ -1005,7 +1023,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   });
   els.copyBtn.addEventListener('click', () => {
     if (!report) return;
-    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, '', '측정 결과'];
+    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', '측정 결과'];
     for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg}) ${r.note}`);
     lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '객관적인 얼굴 비율을 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
@@ -1034,5 +1052,6 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       ear: r.category === 'hair' ? EAR[rep.traits.ears] || null : null, fit: rep.match?.score != null ? rep.match : null, avoid };
   }
   const preload = () => preloadFace().catch(() => {});
-  return { styleChanged, setMode, fitFor, consultInfo, preload };
+  const skinInfo = () => faceForFit()?.skin || null;   // 타투 상담 카드의 컬러 발색 안내에 쓴다
+  return { styleChanged, setMode, fitFor, consultInfo, preload, skinInfo };
 }

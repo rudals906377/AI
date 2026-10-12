@@ -75,13 +75,13 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const r = e.detail?.result; if (!r || !r.is_beauty) return;
     const attrs = (r.attributes || []).filter((a) => a.score >= 0.3).map((a) => a.label);
     saveRecord({ kind: 'style', category: r.category, title: r.genre?.name || r.headline || '스타일', summary: r.headline || attrs.slice(0, 4).join(' · '),
-      lines: [`장르: ${r.genre?.name || '-'}`, `특징: ${attrs.join(' · ')}`, ...(r.description ? [r.description] : []), ...(r.trends?.length ? [`트렌드: ${r.trends.map((t) => t.name || t).join(' · ')}`] : [])], thumbSrc: e.detail.blob || null });
+      lines: [`장르: ${r.genre?.name || '-'}`, `특징: ${attrs.join(' · ')}`, ...(r.description ? [r.description] : []), ...(r.trends?.length ? [`트렌드: ${r.trends.map((t) => t.name || t).join(' · ')}`] : []), ...(r.tattoo ? ['', ...r.tattoo.text.split('\n')] : [])], thumbSrc: e.detail.blob || null });
   });
   window.addEventListener('beauty:face', async (e) => {
     const { report, face, purpose, gender } = e.detail || {}; if (!report || !face?.ok) return;
     await new Promise((r) => setTimeout(r, 500));   // 측정선까지 그려진 뒤에 썸네일을 뜬다
     const secs = (purpose === 'hair' ? report.hair : report.makeup) || [];
-    const lines = [];
+    const lines = report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`, ''] : [];
     for (const s of secs) { if (!s.title) continue; lines.push(`- ${s.title}${s.points?.length ? ` (가장 필요한 건 ${s.points.join(' · ')})` : ''}${s.text ? `: ${s.text}` : ''}`); for (const i of s.list || []) lines.push(`  · ${i.name}${i.fit != null ? ` ${i.fit}` : ''}${i.why ? ` — ${i.why}` : ''}`); }
     saveRecord({ kind: 'face', category: 'face', title: `${report.headline} · ${purpose === 'hair' ? '헤어' : gender === 'm' ? '그루밍' : '메이크업'}`, summary: (report.summary || []).join(' '), lines, thumbSrc: document.getElementById('faceCanvas'), extra: { purpose, gender: gender || null } });
   });

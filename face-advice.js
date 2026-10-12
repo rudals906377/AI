@@ -92,6 +92,32 @@ const say = (x, lo, hi, strong = 1.6) => (x >= strong ? hi : x >= 0.8 ? `약간 
 const phrase = (subj, x, lo, hi) => { const a = say(x, lo, hi); return a && `${subj} ${a}`; };
 const short = (label) => label.replace(/\(.*\)/, '');
 
+// ---- 상안부 · 중안부 · 하안부 비율 (삼정) ----------------------------------------------
+// 헤어라인 ~ 눈썹(상안부) · 눈썹 ~ 코끝(중안부) · 코끝 ~ 턱끝(하안부)의 길이를 백분율로. 각 33.3% 가 교과서 균형, 평균(NORM)은 실제 얼굴 311장 기준
+function thirdsInfo(f, t) {
+  const NORM = normFor(f.normG), names = ['상안부', '중안부', '하안부'], hint = ['헤어라인 ~ 눈썹', '눈썹 ~ 코끝', '코끝 ~ 턱끝'];
+  const pct = (arr) => { const s = arr.reduce((a, b) => a + b, 0); return arr.map((v) => Math.round((v / s) * 1000) / 10); };
+  const avg = pct(NORM.thirds.map((x) => x[0]));
+  if (!f.geo.hairlineFound) {
+    // 헤어라인이 안 보이면 상안부는 재지 못한다 → 중안부 · 하안부만 서로 비교
+    const two = pct([f.m.thirds[1], f.m.thirds[2]]), twoAvg = pct([NORM.thirds[1][0], NORM.thirds[2][0]]);
+    const s = say(t.lower, '짧은 편', '긴 편');
+    return { ok: false, names: names.slice(1), hint: hint.slice(1), pct: two, avg: twoAvg, z: [0, t.lower],
+      line: `중안부 : 하안부 = ${two[0]}% : ${two[1]}% (평균 ${twoAvg[0]} : ${twoAvg[1]})`,
+      note: s ? `하안부가 중안부보다 ${s}이에요.` : '중안부와 하안부 비율이 평균에 가까워요.',
+      warn: '앞머리나 모자로 헤어라인이 가려져 상안부(이마)는 재지 못했어요. 이마를 드러내고 다시 찍으면 세 부분을 모두 볼 수 있어요.' };
+  }
+  const mine = pct(f.m.thirds), zs = [t.upper, t.mid, t.lower];
+  const notes = names.map((n, i) => { const s = say(zs[i], '짧은 편', '긴 편'); return s ? `${n}${n === '상안부' ? '(이마)' : ''}가 ${s}` : null; }).filter(Boolean);
+  const longest = zs.indexOf(Math.max(...zs)), shortest = zs.indexOf(Math.min(...zs));
+  const tip = notes.length ? (zs[longest] >= 0.8 && zs[shortest] <= -0.8 ? `${names[longest]}는 길고 ${names[shortest]}는 짧은 편이라, 긴 쪽은 가로선으로 끊고 짧은 쪽은 세로로 이어 주면 균형이 맞아 보여요.`
+    : zs[longest] >= 0.8 ? `${names[longest]}가 긴 편이라 그 높이에서 가로로 끊어 주는 선(앞머리 끝 · 레이어 · 블러셔)이 비율을 고르게 보여 줘요.`
+    : `${names[shortest]}가 짧은 편이라 그 부분을 드러내거나 세로로 이어 주는 선이 비율을 고르게 보여 줘요.`) : '';
+  return { ok: true, names, hint, pct: mine, avg, z: zs,
+    line: `상안부 : 중안부 : 하안부 = ${mine.join('% : ')}% (평균 ${avg.join(' : ')})`,
+    note: notes.length ? `${notes.join(', ')}이에요.` : '세 부분이 평균처럼 고르게 나뉘어요.', tip };
+}
+
 // ---- 측정 표 ------------------------------------------------------------------------
 function measures(f, t) {
   const m = f.m, rows = [], NORM = normFor(f.normG);
@@ -108,7 +134,7 @@ function measures(f, t) {
       say(t.lower, '짧은 편', '긴 편') ? `하안부가 중안부보다 ${say(t.lower, '짧은 편', '긴 편')}이에요` : '중안부와 하안부 비율이 평균에 가까워요 (헤어라인이 안 보여 이마는 재지 않았어요)', t.lower);
   } else {
   const thNote = [['상안부', t.upper], ['중안부', t.mid], ['하안부', t.lower]].filter(([, x]) => Math.abs(x) >= 0.8).map(([n, x]) => `${n}가 ${say(x, '짧은 편', '긴 편')}`);
-  row('thirds', '삼정 (이마 : 눈썹~코 : 코~턱)', th.map((x) => fx(x)).join(' : '), NORM.thirds.map((x) => x[0]).join(' : '), thNote.length ? `${thNote.join(', ')}이에요` : '세 부분이 평균처럼 고르게 나뉘어요', Math.max(Math.abs(t.upper), Math.abs(t.mid), Math.abs(t.lower)));
+  row('thirds', '상안부 : 중안부 : 하안부', th.map((x) => fx(x)).join(' : '), NORM.thirds.map((x) => x[0]).join(' : '), thNote.length ? `${thNote.join(', ')}이에요` : '세 부분이 평균처럼 고르게 나뉘어요', Math.max(Math.abs(t.upper), Math.abs(t.mid), Math.abs(t.lower)));
   }
   if (t.ears) {
     const e = f.m.ears;
@@ -974,6 +1000,7 @@ export function faceReport(f, style = null, { gender = null } = {}) {
   return {
     shape: p[0], near, headline, summary, quip: ((q) => q[Math.round(p[0].p * 1000 + (p[1]?.p || 0) * 100 + f.m.ratio * 997) % q.length])(SHAPE_QUIP[p[0].key] || SHAPE_QUIP.oval),
     measures: measures(f, t),
+    thirds: thirdsInfo(f, t),
     hair: hairAdvice(f, t, gender),
     makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),
     gender,
