@@ -107,3 +107,98 @@ const TYPE_LINE = (t) => [
   { short: '손가락 짧은 편', long: '손가락 긴 편', mid: '손가락 보통' }[t.finger],
 ].join(' · ');
 export { TYPE_LINE };
+
+// ---- 상담 카드 이미지 (내 손 사진 + 손톱형 + 추천 쉐입 3개 + 피할 모양 + 길이 · 디자인 + 상담 문장) ----------------------
+// 네일숍에 보여 주거나 메시지로 보내기 좋게 세로로 긴 PNG 한 장. canvas 는 손톱 윤곽(과 입혀 본 쉐입)이 그려진 결과 캔버스를 그대로 쓴다
+//   nailCardImage({ canvas, rep, headline, summary, icons, tryOn })   // icons: { 모양이름: SVG path d } · tryOn: { shape, color } 또는 null
+export async function nailCardImage({ canvas, rep, headline, summary, icons = {}, tryOn = null }) {
+  await document.fonts?.ready;
+  const W = 1080, P = 64, INNER = W - P * 2, GAP = 16;
+  const FONT = '"Pretendard Variable", Pretendard, system-ui, sans-serif';
+  const C = { bg: '#fbf8f3', card: '#ffffff', text: '#2e2622', muted: '#74665a', accent: '#8f6654', accentInk: '#6f4b3b', line: '#e5dccf', soft: '#f3ebe2' };
+  const s = canvas ? Math.min(INNER / canvas.width, 720 / canvas.height) : 0;
+  const iw = canvas ? Math.round(canvas.width * s) : 0, ih = canvas ? Math.round(canvas.height * s) : 0;
+  const date = new Date().toLocaleDateString('ko-KR');
+  function wrap(ctx, str, max) {
+    const out = []; let line = '';
+    for (const ch of String(str)) { if (ctx.measureText(line + ch).width > max && line) { out.push(line); line = ch.trimStart(); } else line += ch; }
+    if (line) out.push(line);
+    return out;
+  }
+  function draw(ctx, paint) {
+    let y = P;
+    const text = (t, size, weight, color, x, maxW, lh = 1.45, yy = null) => {
+      ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+      const lines = wrap(ctx, t, maxW), base = yy ?? y;
+      lines.forEach((l, i) => paint && ctx.fillText(l, x, base + i * size * lh));
+      return lines.length * size * lh;
+    };
+    const rect = (x, yy, w, h, r, fill, stroke, lw = 2) => { if (!paint) return; ctx.beginPath(); ctx.roundRect(x, yy, w, h, r); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw; ctx.stroke(); } };
+    y += text('손톱 상담 카드', 46, 700, C.text, P, INNER) + 4;
+    y += text(`FINDE · ${date} · 네일리스트에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 26;
+    if (canvas) {
+      if (paint) { ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip(); ctx.drawImage(canvas, P + (INNER - iw) / 2, y, iw, ih); ctx.restore(); }
+      y += ih + 14;
+      if (tryOn?.shape) {
+        const label = `사진 위에 입혀 본 모양: ${tryOn.shape}`;
+        ctx.font = `500 22px ${FONT}`; const lw = ctx.measureText(label).width;
+        if (paint && tryOn.color) { ctx.fillStyle = tryOn.color; ctx.beginPath(); ctx.roundRect(P, y + 3, 24, 24, 7); ctx.fill(); ctx.strokeStyle = 'rgba(0,0,0,.12)'; ctx.lineWidth = 1; ctx.stroke(); }
+        text(label, 22, 500, C.muted, P + (tryOn.color ? 34 : 0), INNER, 1.45, y); void lw;
+        y += 22 * 1.45 + 4;
+      }
+      y += 16;
+    }
+    y += text('내 손톱형', 24, 600, C.accent, P, INNER) + 2;
+    y += text(headline, 40, 700, C.text, P, INNER) + 4;
+    if (summary) y += text(summary, 24, 400, C.muted, P, INNER) + 22;
+    // 추천 쉐입 3칸 (아이콘 + 이름 + 점수 + 이유)
+    y += text('추천 쉐입 TOP 3', 27, 700, C.text, P, INNER) + 12;
+    const bw = (INNER - GAP * 2) / 3, bh = 236;
+    rep.top.slice(0, 3).forEach((sh, i) => {
+      const x = P + i * (bw + GAP);
+      rect(x, y, bw, bh, 16, C.card, i ? C.line : C.accent, i ? 2 : 3);
+      if (paint && icons[sh.key]) {
+        ctx.save(); ctx.translate(x + 18, y + 16); ctx.scale(1.05, 1.05);
+        const p = new Path2D(icons[sh.key]); ctx.fillStyle = 'rgba(143,102,84,.14)'; ctx.fill(p); ctx.strokeStyle = C.accent; ctx.lineWidth = 2.4; ctx.lineJoin = 'round'; ctx.stroke(p);
+        ctx.restore();
+      }
+      text(`${i + 1}. ${sh.key}`, 27, 700, C.text, x + 80, bw - 96, 1.25, y + 22);
+      text(`${sh.score}점`, 22, 600, C.accent, x + 80, bw - 96, 1.25, y + 58);
+      text(sh.why[0] || '', 20, 400, C.text, x + 18, bw - 36, 1.4, y + 96);
+      text(sh.d || '', 18, 400, C.muted, x + 18, bw - 36, 1.4, y + 96 + Math.min(3, wrap(ctx, sh.why[0] || '', bw - 36).length) * 28 + 6);
+    });
+    y += bh + 14;
+    if (rep.avoid.length) y += text(`피하면 좋은 모양 · ${rep.avoid.map((a) => `${a.key}: ${a.warn[0]}`).join(' / ')}`, 21, 400, C.muted, P, INNER) + 8;
+    // 상자: 제목 + 목록
+    const section = (title, items, { bg = null, size = 23, mark = '·' } = {}) => {
+      if (!items.length) return;
+      const pad = bg ? 24 : 0, top = y + 18;
+      const body = (on) => {
+        let yy = top + pad;
+        const t = (str, sz, w, col, gap) => { ctx.font = `${w} ${sz}px ${FONT}`; ctx.fillStyle = col; ctx.textBaseline = 'top'; const ls = wrap(ctx, str, INNER - pad * 2); if (on && paint) ls.forEach((l, i) => ctx.fillText(l, P + pad, yy + i * sz * 1.45)); yy += ls.length * sz * 1.45 + gap; };
+        t(title, 27, 700, bg ? C.accentInk : C.text, 8);
+        for (const it of items) t(`${mark} ${it}`, size, 400, C.text, 5);
+        return yy - top + pad;
+      };
+      const h = body(false);
+      if (bg) rect(P, top, INNER, h, 18, bg, null);
+      body(true);
+      y = top + h + 6;
+    };
+    section('네일숍에서 이렇게 말해 보세요', rep.card, { bg: C.soft, mark: '“' });
+    section('길이', rep.lengthTip, { size: 22 });
+    section('디자인', rep.design.map((d) => `${d.k} — ${d.t}`), { size: 22 });
+    y += 22;
+    if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+    y += 20;
+    y += text('사진으로 잰 손톱 모양 참고 정보예요 (의학적 진단 아님). 실제 시술은 네일리스트와 상담해 정해 주세요. (AI 생성 · FINDE)', 21, 400, C.muted, P, INNER);
+    return y + P;
+  }
+  const probe = document.createElement('canvas').getContext('2d');
+  const H = Math.ceil(draw(probe, false));
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  draw(ctx, true);
+  return await new Promise((res) => c.toBlob(res, 'image/png'));
+}
