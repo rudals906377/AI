@@ -1,6 +1,6 @@
 // '내 손톱 분석' 화면: 손 사진 → nail.js 측정 → nail-advice.js 추천
 import { analyzeNails, preloadNails, modelsReady, TYPE_KO } from './nail.js';
-import { SHAPES, nailReport, TYPE_LINE } from './nail-advice.js';
+import { SHAPES, nailReport, TYPE_LINE, nailCardImage } from './nail-advice.js';
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -8,7 +8,7 @@ const els = {
   shoot: $('nailShoot'), pick: $('nailPick'), camera: $('nailCamera'),
   empty: $('nailEmpty'), status: $('nailStatus'), result: $('nailResult'), canvas: $('nailCanvas'),
   type: $('nailType'), summary: $('nailSummary'), warn: $('nailWarn'), top: $('nailTop'), avoid: $('nailAvoid'),
-  tips: $('nailTips'), measures: $('nailMeasures'), card: $('nailCard'), copy: $('nailCopy'), again: $('nailAgain'),
+  tips: $('nailTips'), measures: $('nailMeasures'), card: $('nailCard'), copy: $('nailCopy'), save: $('nailSave'), again: $('nailAgain'),
   vote: $('nailVote'), voteExport: $('nailVoteExport'),
 };
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -39,6 +39,20 @@ if (els.grid) {
     if (last?.ok && !busy) render(); // 답이 바뀌면 추천만 다시 (분석 중이면 끝난 뒤 새 답으로 그린다)
   }));
   els.copy.addEventListener('click', async () => { try { await navigator.clipboard.writeText(els.card.textContent); toast('상담 카드를 복사했어요'); } catch { toast('복사하지 못했어요'); } });
+  // 이미지로 저장: 손 사진(윤곽 · 입혀 본 쉐입 포함) + 손톱형 + 추천 쉐입 + 상담 문장을 한 장으로 (휴대폰은 공유 시트)
+  els.save?.addEventListener('click', async () => {
+    if (!last || !lastRep) return;
+    els.save.disabled = true;
+    try {
+      const blob = await nailCardImage({ canvas: els.canvas, rep: lastRep, headline: els.type.textContent, summary: els.summary.textContent, icons: ICON, tryOn: tryShape ? { shape: tryShape, color: tryColor } : null });
+      const name = `손톱상담카드-${new Date().toISOString().slice(0, 10)}.png`;
+      const file = new File([blob], name, { type: 'image/png' });
+      if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: '손톱 상담 카드' }).catch(() => {}); return; }
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      toast('이미지로 저장했어요');
+    } catch (e) { console.error(e); toast('이미지를 만들지 못했어요'); } finally { els.save.disabled = false; }
+  });
   els.again.addEventListener('click', () => els.file.click());
   // 실험실 평가: 측정값 · 판정 · 추천 · 답만 이 브라우저에 쌓는다 (사진 X). 같은 결과에서 다시 누르면 답을 바꾼다
   els.vote.addEventListener('click', (e) => {
@@ -120,7 +134,7 @@ const icon = (k) => `<svg viewBox="0 0 46 64" aria-hidden="true"><path d="${ICON
 
 function render() {
   const r = last, t = r.type;
-  const rep = nailReport(t, { life: answers.life, length: answers.length, natural: answers.natural, curve: answers.curve || null });
+  const rep = lastRep = nailReport(t, { life: answers.life, length: answers.length, natural: answers.natural, curve: answers.curve || null });
   renderTry();
   drawOverlay(r);
   els.result.classList.remove('hidden');
@@ -147,7 +161,7 @@ function render() {
 }
 
 // 가상 쉐입 입혀 보기: 고른 모양을 손톱 위에 그린다 (분할로 찾은 손톱 너비 · 길이 기준, 긴 모양은 끝을 늘려 그림)
-let tryShape = null, tryColor = '#e8b4b8';
+let tryShape = null, tryColor = '#e8b4b8', lastRep = null;
 const NAIL_COLORS = ['#e8b4b8', '#f3d9c8', '#c94b5a', '#8b2e3f', '#d9c7f2', '#9fb7c9', '#2b2b2b', '#f6f0e8'];
 const SHAPE_GEO = { 라운드: { len: 1.0, tipW: 1.0, tipH: 0.5, flat: false, sharp: false }, 오벌: { len: 1.15, tipW: 0.82, tipH: 0.55, flat: false, sharp: false },
   라운드스퀘어: { len: 1.05, tipW: 0.96, tipH: 0.14, flat: true, sharp: false }, 스퀘어: { len: 1.05, tipW: 1.0, tipH: 0.0, flat: true, sharp: false },
