@@ -33,7 +33,8 @@ function chipRow(ctx, items, x, y, maxW, { size = 17, h = 30, padX = 12, bg = C.
   return y + h + 10;
 }
 
-export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx = null, gender = null, title = '얼굴형 진단 결과지' }) {
+// format: 'pdf'(내려받기 · 공유) 또는 'png'(같은 결과지를 PNG Blob 으로 돌려준다 — 이미지로 저장 · 공유용)
+export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx = null, gender = null, title = '얼굴형 진단 결과지', format = 'pdf' }) {
   try { await document.fonts?.ready; } catch {}
   const c = document.createElement('canvas'); c.width = W; c.height = H;
   const ctx = c.getContext('2d');
@@ -126,6 +127,7 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
   ctx.fillStyle = C.soft; ctx.fillRect(0, H - 70, W, 70);
   ctx.fillStyle = C.muted; font(ctx, 13, 500);
   wrap(ctx, '사진 한 장으로 잰 비율을 근거로 한 참고용 결과예요. 얼굴형에는 정답이 없고 카메라 거리 · 각도 · 표정에 따라 달라질 수 있어요. 의학적 진단이 아니며, 실제 시술은 디자이너와 상담해 정해 주세요. 사진은 브라우저 밖으로 보내지 않았어요. · FINDE 실험실', PAD, H - 42, W - PAD * 2, 18, 2);
+  if (format === 'png') return await new Promise((r) => c.toBlob(r, 'image/png'));
   // JPEG → PDF
   const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.9));
   const jpeg = new Uint8Array(await blob.arrayBuffer());

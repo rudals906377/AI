@@ -608,15 +608,22 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   }
   $('hairPalette')?.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; hairColor = HAIR_COLORS.find((c) => c.hex === b.dataset.hex) || hairColor; renderPalette(); draw(); });
   renderPalette();
-  $('facePdf')?.addEventListener('click', async () => {
-    if (!last?.ok || !report) return;
-    const btn = $('facePdf'); btn.disabled = true; const t0 = btn.textContent; btn.textContent = '만드는 중…';
-    try {
-      const probsAll = last.shape.probs;
-      await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null });
-    } catch (e) { console.error(e); btn.textContent = '만들지 못했어요'; setTimeout(() => (btn.textContent = t0), 2000); btn.disabled = false; return; }
-    btn.textContent = t0; btn.disabled = false;
-  });
+  // 결과지: PDF 로 내려받거나(facePdf), 같은 결과지를 PNG 한 장으로 저장 · 공유(faceImage)
+  for (const [id, format] of [['facePdf', 'pdf'], ['faceImage', 'png']]) {
+    $(id)?.addEventListener('click', async () => {
+      if (!last?.ok || !report) return;
+      const btn = $(id); btn.disabled = true; const t0 = btn.textContent; btn.textContent = '만드는 중…';
+      try {
+        const probsAll = last.shape.probs;
+        const out = await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null, format });
+        if (format === 'png') {
+          const how = await shareImage(out, `FINDE-얼굴분석-${new Date().toISOString().slice(0, 10)}.png`, '내 얼굴 분석 결과');
+          if (how === 'downloaded') toast('이미지로 저장했어요');
+        }
+      } catch (e) { console.error(e); btn.textContent = '만들지 못했어요'; setTimeout(() => (btn.textContent = t0), 2000); btn.disabled = false; return; }
+      btn.textContent = t0; btn.disabled = false;
+    });
+  }
   // 얼굴 분석이 끝나거나 바뀌면 스타일 결과 카드의 궁합도 같이 바꾼다 (얼굴 → 스타일 순서일 때는 스타일 분석 때 이미 보임)
   function syncStyleFit() {
     const r = getStyle().result;
