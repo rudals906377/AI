@@ -12,6 +12,7 @@ import { initHistory } from './history.js';
 import { initFaceUI } from './face-ui.js';
 import { assetFetch } from './assets.js';
 import { styleCard, shareImage } from './share-card.js';
+import { resultImage } from './result-image.js';
 import { quipFor, manyMessage, subjectNote, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
@@ -993,6 +994,16 @@ $('shareStyle').addEventListener('click', async (e) => {
     const how = await shareImage(blob, `${(lastResult.genre?.name || '스타일').replace(/[\\/:*?"<>|\s]+/g, '-')}.png`, lastResult.headline);
     if (how === 'downloaded') toast('공유 이미지를 저장했어요');
   } catch (err) { console.error(err); toast('공유 이미지를 만들지 못했어요'); } finally { b.disabled = false; }
+});
+// 결과 이미지로 저장: 화면의 분석 결과(사진 · 판정 · 장르 · 설명 · 속성 · 어울리는 분 · 궁합 · 요청서 요약)를 한 장으로
+$('saveResult').addEventListener('click', async (e) => {
+  if (!lastResult || !currentBlob) return;
+  const b = e.currentTarget; b.disabled = true;
+  try {
+    const blob = await resultImage({ photo: lastResult.blob || currentBlob, result: lastResult, fit: faceUI.fitFor(lastResult), order: lastOrder, catLabel: TAXONOMY[lastResult.category]?.label || '스타일' });
+    const how = await shareImage(blob, `FINDE-${TAXONOMY[lastResult.category]?.label || '스타일'}-분석결과-${new Date().toISOString().slice(0, 10)}.png`, `${lastResult.headline} · 분석 결과`);
+    if (how === 'downloaded') toast('결과 이미지를 저장했어요');
+  } catch (err) { console.error(err); toast('결과 이미지를 만들지 못했어요'); } finally { b.disabled = false; }
 });
 els.copyText.addEventListener('click', () => copy(lastResult ? `${lastResult.headline}\n${lastResult.description_ko}\n${lastResult.quip ? `에디터 한마디: ${lastResult.quip}\n` : ''}${lastResult.tags.map((t) => '#' + t).join(' ')}${lastResult.description_vlm ? `\n\n[자유 서술]\n${lastResult.description_vlm}\n\n[원문]\n${lastResult.description_vlm_en}` : ''}\n\n(AI 생성 · FINDE 결과라 틀릴 수 있어요)` : ''));
 els.copyJson.addEventListener('click', () => copy(els.json.textContent));
