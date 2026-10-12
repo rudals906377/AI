@@ -5,7 +5,7 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
-import { tattooCard } from './tattoo-advice.js';
+import { tattooCard, tattooCardImage } from './tattoo-advice.js';
 import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initHistory } from './history.js';
@@ -603,8 +603,21 @@ function renderTattoo(r) {
     <details class="tc-sec"><summary>시술 전 준비</summary><ul>${li(card.prep)}</ul></details>
     <details class="tc-sec"><summary>애프터케어 요약 <small>2~4주</small></summary><ul>${li(card.after)}</ul></details>
     <p class="muted small">통증 · 시간 · 회차는 일반적인 참고 범위예요. 사람과 작가마다 달라서, 실제 시술은 타투이스트와 상담해 정해 주세요.</p>
-    <div class="row order-actions"><button class="primary small" id="tattooCopy" type="button">상담 카드 복사</button></div>`;
+    <div class="row order-actions"><button class="primary small" id="tattooCopy" type="button">상담 카드 복사</button><button class="ghost small" id="tattooSave" type="button">이미지로 저장</button></div>`;
   box.querySelector('#tattooCopy').addEventListener('click', () => lastTattoo && copy(lastTattoo.text));
+  box.querySelector('#tattooSave').addEventListener('click', async (e) => {
+    if (!lastTattoo) return;
+    const btn = e.currentTarget; btn.disabled = true;
+    try {
+      const blob = await tattooCardImage(lastTattoo, lastResult?.blob || currentBlob || null, { designer });
+      const name = `타투상담카드-${new Date().toISOString().slice(0, 10)}.png`;
+      const file = new File([blob], name, { type: 'image/png' });
+      if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: '타투 상담 카드' }).catch(() => {}); return; }
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      toast('이미지로 저장했어요');
+    } catch (err) { console.error(err); toast('이미지를 만들지 못했어요'); } finally { btn.disabled = false; }
+  });
 }
 
 // 부위를 잘라 판단한 그룹 표시 (analyzer.js 의 region)
