@@ -34,7 +34,9 @@ function chipRow(ctx, items, x, y, maxW, { size = 17, h = 30, padX = 12, bg = C.
 }
 
 // format: 'pdf'(내려받기 · 공유) 또는 'png'(같은 결과지를 PNG Blob 으로 돌려준다 — 이미지로 저장 · 공유용)
-export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx = null, gender = null, title = '얼굴형 진단 결과지', format = 'pdf' }) {
+export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx = null, gender = null, title = null, format = 'pdf', purpose = 'hair' }) {
+  const mk = purpose === 'makeup';
+  title = title || (mk ? (gender === 'm' ? '그루밍 진단 결과지' : '메이크업 진단 결과지') : '얼굴형 진단 결과지');
   try { await document.fonts?.ready; } catch {}
   const c = document.createElement('canvas'); c.width = W; c.height = H;
   const ctx = c.getContext('2d');
@@ -68,9 +70,40 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
     ry = head(ctx, '측정 요약 (평균과 다른 점)', rx, ry + 22);
     for (const m of notable) { ctx.fillStyle = C.ink; font(ctx, 16, 700); ctx.fillText(m.label, rx, ry + 16); ctx.fillStyle = C.muted; font(ctx, 16, 500); ctx.fillText(`${m.value}  ·  ${m.note}`, rx + 190, ry + 16); ry += 26; }
   }
-  const basis = (report.hair || []).find((s) => s.key === 'basis')?.basis || [];
+  const basis = mk ? [] : (report.hair || []).find((s) => s.key === 'basis')?.basis || [];
   if (basis.length) { ry = head(ctx, '추천 근거 (필요한 효과)', rx, ry + 18); ry = chipRow(ctx, basis.map((b) => b.label), rx, ry, rw); }
   y = Math.max(y + photoH, ry) + 30;
+  const colW = (W - PAD * 2 - 30) / 2;
+  if (mk) {
+    // ---- 메이크업 · 그루밍 결과지: 핵심(가장 필요한 것) → 부위별 추천 카드 2열 ----
+    const secs = report.makeup || [];
+    const idea = secs.find((x) => x.key === 'idea');
+    if (idea) {
+      y = head(ctx, gender === 'm' ? '그루밍 핵심' : '메이크업 핵심', PAD, y);
+      if (idea.points?.length) { ctx.fillStyle = C.ink; font(ctx, 15, 700); ctx.fillText('가장 필요한 건', PAD, y + 14); y = chipRow(ctx, idea.points, PAD + 118, y - 6, W - PAD * 2 - 118, { bg: C.soft }); y += 6; }
+      ctx.fillStyle = C.ink; font(ctx, 16, 600); y = wrap(ctx, idea.text || '', PAD, y + 14, W - PAD * 2, 23, 3);
+      ctx.fillStyle = C.muted; font(ctx, 14, 500);
+      for (const n of (idea.notes || []).slice(0, 3)) y = wrap(ctx, `· ${n}`, PAD, y + 8, W - PAD * 2, 20, 2);
+      y += 14;
+    }
+    const cards = secs.filter((x) => x.key !== 'idea' && x.title && x.text);
+    const colW2 = (W - PAD * 2 - 24) / 2, maxLines = cards.length > 6 ? 5 : 6;
+    const ZONE_KO = { shade: '사진 속 갈색 면', light: '사진 속 밝은 면', blush: '사진 속 분홍 면' };
+    // 각 카드 높이를 먼저 재서 같은 줄은 같은 높이로
+    const measure = (card) => { font(ctx, 14, 500); const probe = document.createElement('canvas').getContext('2d'); probe.font = ctx.font; let n = 0, line = ''; for (const ch of card.text) { if (probe.measureText(line + ch).width > colW2 - 32 && line) { n++; line = ch; } else line += ch; } if (line) n++; return 46 + Math.min(n, maxLines) * 20 + 16; };
+    for (let i = 0; i < cards.length; i += 2) {
+      const pair = cards.slice(i, i + 2), h = Math.max(...pair.map(measure));
+      pair.forEach((card, j) => {
+        const x = PAD + j * (colW2 + 24);
+        ctx.fillStyle = C.card; rr(ctx, x, y, colW2, h, 14); ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 1; rr(ctx, x, y, colW2, h, 14); ctx.stroke();
+        ctx.fillStyle = C.accent; font(ctx, 17, 800); ctx.fillText(card.title, x + 16, y + 30);
+        if (card.zone && ZONE_KO[card.zone]) { const tw = ctx.measureText(card.title).width; ctx.fillStyle = C.muted; font(ctx, 12, 500); ctx.fillText(ZONE_KO[card.zone], x + 16 + tw + 10, y + 30); }
+        ctx.fillStyle = C.ink; font(ctx, 14, 500); wrap(ctx, card.text, x + 16, y + 56, colW2 - 32, 20, maxLines);
+      });
+      y += h + 12;
+    }
+    y += 10;
+  } else {
   // 2행: 추천 커트 TOP 3 · 앞머리
   const secs = (report.hair || []).filter((s) => ['cuts', 'short'].includes(s.key) && s.list);
   const cuts = [...(secs[0]?.list || []).slice(0, 2), ...(secs[1]?.list || []).slice(0, 1)];   // 화면 순서대로: 첫 칸 1·2위 + 다음 칸 1위
@@ -92,7 +125,6 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
   if (bangs.length) { ctx.fillStyle = C.ink; font(ctx, 16, 700); ctx.fillText('추천 앞머리', PAD, y + 14); y = chipRow(ctx, bangs.map((b) => b.name), PAD + 110, y - 6, W - PAD * 2 - 110, { bg: C.soft }); }
   y += 14;
   // 3행: 시술 지시서 | 피할 스타일
-  const colW = (W - PAD * 2 - 30) / 2;
   let ly = head(ctx, `미용실 시술 지시서 · ${spec?.title || ''}`, PAD, y);
   for (const r of spec?.rows || []) {
     ctx.fillStyle = C.ink; font(ctx, 15, 700); ctx.fillText(r.k, PAD, ly + 15);
@@ -103,6 +135,7 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
   ctx.fillStyle = C.muted; font(ctx, 15, 500);
   for (const a of avoid) ay = wrap(ctx, `· ${a.name}`, PAD + colW + 30, ay + 15, colW, 21, 2) + 2;
   y = Math.max(ly, ay) + 22;
+  }
   // 4행: 퍼스널 컬러 | 안경 · 귀걸이
   let sy = head(ctx, '퍼스널 컬러 (참고)', PAD, y);
   if (season) {

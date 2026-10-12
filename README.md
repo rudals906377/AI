@@ -269,7 +269,7 @@ python3 tools/train-heads.py --commercial ... --feedback beauty-feedback-2026-10
 | `history.js` | 내 기록 탭: 스타일 · 얼굴 · 손톱 분석 결과를 이 기기에만 저장(최근 60개, 썸네일 160px, 원본 사진 저장 안 함) · 분야별 필터 · 기억한 얼굴형 · JSON 내보내기 |
 | `tattoo-advice.js` | 타투 상담 카드: 크기 × 장르 → 예상 시간 · 회차, 부위 · 장르 · 컬러 표, 상담 질문 · 준비 · 애프터케어, 타투이스트 메모(디자이너 모드) |
 | `designer.html` | 디자이너 모드 입구: 손님 상담(얼굴 · 손톱 · 레퍼런스 사진) · 블라인드 판정 · 스타일 검수 · 기록. 켜면 농담 한마디가 숨고 시술 지시서가 추천 맨 위로 (`?designer=1`) |
-| `salon-spec.js` · `accessory-advice.js` · `color-season.js` · `hair-color.js` · `report-pdf.js` | 시술 지시서 표 · 안경/귀걸이 규칙 · 퍼스널 컬러 판정 · 헤어 컬러 입히기 · 결과지 PDF(캔버스 → JPEG → PDF, 라이브러리 없음) · 같은 결과지를 PNG 로 저장 · 공유(이미지로 저장) |
+| `salon-spec.js` · `accessory-advice.js` · `color-season.js` · `hair-color.js` · `report-pdf.js` | 시술 지시서 표 · 안경/귀걸이 규칙 · 퍼스널 컬러 판정 · 헤어 컬러 입히기 · 결과지 PDF(캔버스 → JPEG → PDF, 라이브러리 없음) · 같은 결과지를 PNG 로 저장 · 공유(이미지로 저장). 메이크업 탭이면 메이크업 · 그루밍 결과지(핵심 + 부위별 카드 2열)로 바뀜 |
 | `fit-review.html` · `fit-review.js` | 얼굴형 · 추천 검수 도구 (디자이너 판정 일치율 · 고객 평가 분석) |
 | `tools/finetune-heads.py` | 검수 · 피드백 결과만으로 배포된 헤드를 이어서 학습 |
 | `motifs.js` · `motif.js` | 타투 세부 모티브 사전 · 판단 (`tools/build-motifs.mjs` 문장 임베딩, `tools/train-motifs.py` 헤드 · kNN → `embeddings/motifs-*.json`) |
