@@ -190,3 +190,91 @@ function toText({ r, style, motifs, subject, color, place, plan }) {
   L.push('', '통증 · 시간 · 회차는 일반적인 참고 범위예요. 실제 시술은 타투이스트와 상담해 정해 주세요. (AI 생성 · FINDE)');
   return L.join('\n');
 }
+
+// ---- 상담 카드 이미지 (사진 + 핵심 4칸 + 알아 둘 것 + 상담 질문 + 준비 · 애프터케어 요약) ------------------------
+// 타투숍에 보여 주거나 메시지로 보내기 좋게 세로로 긴 PNG 한 장으로 그린다. designer 가 켜져 있으면 타투이스트 메모 상자를 더 그린다
+export async function tattooCardImage(card, photo, { designer = false } = {}) {
+  await document.fonts?.ready;
+  const W = 1080, P = 64, INNER = W - P * 2, GAP = 16;
+  const FONT = '"Pretendard Variable", Pretendard, system-ui, sans-serif';
+  const C = { bg: '#fbf8f3', card: '#ffffff', text: '#2e2622', muted: '#74665a', accent: '#8f6654', accentInk: '#6f4b3b', line: '#e5dccf', soft: '#f3ebe2' };
+  const bmp = photo ? await createImageBitmap(photo) : null;
+  const s = bmp ? Math.min(INNER / bmp.width, 760 / bmp.height) : 0;
+  const iw = bmp ? Math.round(bmp.width * s) : 0, ih = bmp ? Math.round(bmp.height * s) : 0;
+  const date = new Date().toLocaleDateString('ko-KR');
+  function wrap(ctx, str, max) {
+    const out = []; let line = '';
+    for (const ch of String(str)) { if (ctx.measureText(line + ch).width > max && line) { out.push(line); line = ch.trimStart(); } else line += ch; }
+    if (line) out.push(line);
+    return out;
+  }
+  function draw(ctx, paint) {
+    let y = P;
+    const text = (t, size, weight, color, x, maxW, lh = 1.45, yy = null) => {
+      ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+      const lines = wrap(ctx, t, maxW), base = yy ?? y;
+      lines.forEach((l, i) => paint && ctx.fillText(l, x, base + i * size * lh));
+      return lines.length * size * lh;
+    };
+    const rect = (x, yy, w, h, r, fill, stroke) => { if (!paint) return; ctx.beginPath(); ctx.roundRect(x, yy, w, h, r); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); } };
+    y += text('타투 상담 카드', 46, 700, C.text, P, INNER) + 4;
+    y += text(`FINDE · ${date} · 타투이스트에게 보여 주세요`, 24, 400, C.muted, P, INNER) + 26;
+    if (bmp) {
+      if (paint) { ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip(); ctx.drawImage(bmp, P + (INNER - iw) / 2, y, iw, ih); ctx.restore(); }
+      y += ih + 30;
+    }
+    if (card.genre) { y += text('원하는 스타일', 24, 600, C.accent, P, INNER) + 2; y += text(card.genre, 40, 700, C.text, P, INNER) + 22; }
+    // 핵심 4칸 (2 × 2)
+    const boxes = [
+      ['예상 시간 · 회차', card.plan.time, `${card.plan.sessions} · ${card.plan.size || '크기 미정'} (${card.plan.cm})`],
+      card.place && ['부위 · 통증 참고', `${card.place.name}${card.place.sure ? '' : ' (추정)'}`, `${'●'.repeat(card.place.pain)}${'○'.repeat(5 - card.place.pain)}  ${card.place.painText}`],
+      card.style && ['장르', `${card.style.name}${card.style.sure ? '' : ' (추정)'}`, [card.subject, ...card.motifs].filter(Boolean).join(' · ') || '도안은 상담 때'],
+      card.color.name && ['컬러', card.color.name, card.color.skinNote ? '피부 톤 발색은 아래 참고' : '블랙은 가장 오래 가요'],
+    ].filter(Boolean);
+    const bw = (INNER - GAP) / 2, bh = 128;
+    boxes.forEach((b, i) => {
+      const x = P + (i % 2) * (bw + GAP), yy = y + Math.floor(i / 2) * (bh + GAP);
+      rect(x, yy, bw, bh, 16, C.card, C.line);
+      text(b[0], 21, 600, C.accentInk, x + 20, bw - 40, 1.3, yy + 18);
+      text(b[1], 34, 700, C.text, x + 20, bw - 40, 1.2, yy + 46);
+      text(b[2], 21, 400, C.muted, x + 20, bw - 40, 1.3, yy + 92);
+    });
+    y += Math.ceil(boxes.length / 2) * (bh + GAP) + 4;
+    y += text(card.plan.why, 22, 400, C.muted, P, INNER) + 10;
+    // 상자 하나: 제목 + 글머리표 목록 (한 번은 높이만 재고 배경 깔고 다시)
+    const section = (title, items, { bg = null, size = 23, mark = '·' } = {}) => {
+      if (!items.length) return;
+      const pad = bg ? 24 : 0, top = y + 18;
+      const body = (on) => {
+        let yy = top + pad;
+        const t = (str, sz, w, col, gap) => { ctx.font = `${w} ${sz}px ${FONT}`; ctx.fillStyle = col; ctx.textBaseline = 'top'; const ls = wrap(ctx, str, INNER - pad * 2); if (on && paint) ls.forEach((l, i) => ctx.fillText(l, P + pad, yy + i * sz * 1.45)); yy += ls.length * sz * 1.45 + gap; };
+        t(title, 27, 700, bg ? C.accentInk : C.text, 8);
+        for (const it of items) t(`${mark} ${it}`, size, 400, C.text, 5);
+        return yy - top + pad;
+      };
+      const h = body(false);
+      if (bg) rect(P, top, INNER, h, 18, bg, null);
+      body(true);
+      y = top + h + 6;
+    };
+    if (designer && card.pro?.length) section('타투이스트 메모', card.pro, { bg: C.soft });
+    // 피부 톤 발색은 실제로 잰 것(내 얼굴 분석)만 넣고, "얼굴 분석을 하면 붙어요" 같은 화면용 안내는 이미지에 넣지 않는다
+    section('미리 알아 둘 것', [...(card.style?.points || []), ...(card.place?.points || []), ...card.color.points, ...(card.color.skinNote?.startsWith('내 얼굴 분석의') ? [card.color.skinNote] : [])]);
+    section('상담 때 꼭 물어볼 것', card.ask, { mark: '☐' });
+    section('시술 전 준비', card.prep.slice(0, 4), { size: 22 });
+    section('애프터케어 요약', card.after.slice(0, 4), { size: 22 });
+    y += 22;
+    if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+    y += 20;
+    y += text('통증 · 시간 · 회차는 일반적인 참고 범위예요. 실제 시술은 타투이스트와 상담해 정해 주세요. (AI 생성 · FINDE)', 21, 400, C.muted, P, INNER);
+    return y + P;
+  }
+  const probe = document.createElement('canvas').getContext('2d');
+  const H = Math.ceil(draw(probe, false));
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  draw(ctx, true);
+  bmp?.close?.();
+  return await new Promise((res) => c.toBlob(res, 'image/png'));
+}
