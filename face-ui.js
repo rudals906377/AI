@@ -5,6 +5,11 @@
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
 import { faceReport, rankStyles, styleFit, coupleChem, compareFrames, setHairPrefs } from './face-advice.js';
+import { salonSpec } from './salon-spec.js';
+import { accessoryAdvice } from './accessory-advice.js';
+import { colorSeason, regionLab } from './color-season.js';
+import { recolorHair, HAIR_COLORS } from './hair-color.js';
+import { reportPdf } from './report-pdf.js';
 import { faceCard, coupleCard, shareImage } from './share-card.js';
 
 const $ = (id) => document.getElementById(id);
@@ -468,7 +473,22 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     // 예시 사진은 추천 기준(성별)과 같은 사람 사진만 (기준을 안 골랐으면 모두)
     const exOf = (name) => (cutEx?.[name] || []).filter((x) => !gender || !x.g || x.g === gender);
     const exBtn = (s, name) => { const ex = purpose === 'hair' && ['cuts', 'short', 'bangs'].includes(s.key) && exOf(name)[0] && exOf(name); return ex ? `<button type="button" class="cut-ex" data-cut="${esc(name)}" aria-label="${esc(name)} 예시 사진 보기"><img src="${esc(ex[0].thumb)}" alt="" loading="lazy" /></button>` : ''; };
-    els.advice.innerHTML = secs.map((s) => `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li${exBtn(s, i.name) ? ' class="has-ex"' : ''}>${exBtn(s, i.name)}<span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
+    // 추천 커트 · 앞머리는 카드(사진 · 이름 · 맞춤 점수 · 이유)로, 나머지는 글로
+    const CARD_KEYS = ['cuts', 'short', 'bangs'];
+    const NEED_KO = { shorten: '세로 길이 줄이기', lengthen: '갸름하게', forehead: '이마 덮기', openTop: '이마 드러내기', cheek: '광대 감싸기', mid: '광대 높이 끊기', jaw: '턱 각 부드럽게', fill: '턱 주변 채우기', lowShort: '턱 아래로 선', reveal: '윤곽 드러내기', ears: '귀 옆 덮기', eyes: '눈매 살리기' };
+    const card = (s, i, n) => {
+      const ex = purpose === 'hair' && exOf(i.name)[0];
+      const photo = ex ? `<button type="button" class="cut-ex rc-photo" data-cut="${esc(i.name)}" aria-label="${esc(i.name)} 예시 사진 보기"><img src="${esc(ex.thumb)}" alt="" loading="lazy" /></button>` : `<div class="rc-photo rc-none" aria-hidden="true"><span>${esc(i.name.slice(0, 2))}</span></div>`;
+      const [why1, ...rest] = (i.why || '').split(/(?<=[요다])\.\s/);
+      return `<div class="rc${n === 0 ? ' top' : ''}">${photo}<div class="rc-body"><div class="rc-head"><b>${esc(i.name)}</b>${i.fit != null ? `<span class="rc-fit" title="이 얼굴에서의 상대 순위"><i><b style="width:${i.fit}%"></b></i><em>${i.fit}</em></span>` : ''}</div>
+        ${i.needs?.length ? `<div class="rc-tags">${i.needs.map((k) => NEED_KO[k] ? `<span>${NEED_KO[k]}</span>` : '').join('')}</div>` : ''}
+        ${why1 ? `<p class="rc-why">${esc(why1.replace(/\.$/, ''))}.</p>` : ''}${rest.length ? `<p class="rc-more">${esc(rest.join('. '))}</p>` : ''}</div></div>`;
+    };
+    els.advice.innerHTML = secs.filter((s) => s.key !== 'basis').map((s) => CARD_KEYS.includes(s.key) && s.list
+      ? `<div class="adv cards ${s.key}"><b>${esc(s.title)}</b><div class="rc-grid">${s.list.map((i, n) => card(s, i, n)).join('')}</div></div>`
+      : `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li><span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
+    renderBasis(secs.find((s) => s.key === 'basis')?.basis || []);
+    renderSpec(); renderAcc(); renderSeason();
     // 그림 층: 헤어는 측정선, 메이크업은 메이크업 위치를 먼저
     els.remember.checked = !!memo;
     if (memo) saveMemo(); // 기억하기를 켜 두었으면 새 결과로 바꿔 둔다
@@ -479,6 +499,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     renderRank();
     layer = purpose === 'makeup' ? 'makeup' : 'measure';
     els.layers.querySelector('[data-layer="makeup"]').hidden = purpose !== 'makeup';
+    els.layers.querySelector('[data-layer="color"]').hidden = purpose !== 'hair';
+    $('hairPalette')?.classList.toggle('hidden', layer !== 'color');
     els.layers.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.layer === layer));
     draw();
   }
@@ -486,9 +508,91 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     const b = e.target.closest('button'); if (!b) return;
     layer = b.dataset.layer;
     els.layers.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b));
+    $('hairPalette')?.classList.toggle('hidden', layer !== 'color');
     draw();
   });
 
+  // 근거 그림: 측정값(z) → 필요 → 추천 커트. 글이 아니라 막대와 화살표로 '왜 이 추천인지' 보여 준다
+  function renderBasis(basis) {
+    const box = $('faceBasis'); if (!box) return;
+    if (purpose !== 'hair' || !basis.length) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+    box.classList.remove('hidden');
+    const zbar = (z) => { const w = Math.min(100, Math.abs(z) / 2.5 * 50); return `<i class="zb"><b style="${z >= 0 ? `left:50%;width:${w}%` : `right:50%;width:${w}%`}"></b></i>`; };
+    const zsay = (m) => m.say || '';
+    box.innerHTML = `<b>왜 이 추천인가요</b><p class="muted small">내 측정값 → 필요한 효과 → 그 효과를 내는 커트. 막대는 평균(가운데)에서 얼마나 떨어졌는지예요.</p>
+      <div class="bs-rows">${basis.map((b) => `<div class="bs-row">
+        <div class="bs-m">${b.from.length ? b.from.map((m) => `<div class="bs-mi"><span>${esc(m.label)} <small>${zsay(m)}</small></span>${zbar(m.z)}</div>`).join('') : `<div class="bs-mi"><span>얼굴형</span><small>${esc(SHAPE_KO[b.shape] || b.shape)}에 가까움</small></div>`}</div>
+        <div class="bs-arrow" aria-hidden="true">→</div>
+        <div class="bs-need"><span>${esc(b.label)}</span><i><b style="width:${b.strength}%"></b></i></div>
+        <div class="bs-arrow" aria-hidden="true">→</div>
+        <div class="bs-cuts">${(b.cuts || []).map((n) => `<span>${esc(n)}</span>`).join('') || '<span class="muted">—</span>'}</div></div>`).join('')}</div>`;
+  }
+  const SHAPE_KO = { oval: '계란형', round: '둥근형', long: '긴 얼굴형', square: '각진형', heart: '하트형', diamond: '마름모형' };
+  // 미용실 시술 지시서 (추천 1위 커트)
+  let lastSpec = null, lastAcc = null, lastSeason = null;
+  function renderSpec() {
+    const box = $('faceSpec'); if (!box) return;
+    const first = purpose === 'hair' && report.hair.find((s) => ['cuts', 'short'].includes(s.key) && s.list?.length)?.list[0];
+    if (!first) { box.classList.add('hidden'); lastSpec = null; return; }
+    const sp = salonSpec(first.name, report.traits, { gender: gender || null, hair: hairPrefs }); lastSpec = sp;
+    box.classList.remove('hidden');
+    box.innerHTML = `<b>미용실 시술 지시서 · ${esc(sp.title)}</b><p class="muted small">추천 1위 커트를 디자이너가 쓰는 말로 옮겼어요. 그대로 보여 주면 돼요. 길이는 체형에 맞춰 조정돼요.</p>
+      <table class="spec">${sp.rows.map((r) => `<tr><th>${esc(r.k)}</th><td>${esc(r.v)}</td></tr>`).join('')}</table>
+      <div class="row"><button type="button" class="ghost small" id="specCopy">지시서 복사</button></div>`;
+    $('specCopy').onclick = async () => { try { await navigator.clipboard.writeText(sp.text); $('specCopy').textContent = '복사했어요'; } catch { $('specCopy').textContent = '복사가 막혀 있어요'; } };
+  }
+  // 안경 · 귀걸이
+  const svgIcon = (d) => `<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+  function renderAcc() {
+    const box = $('faceAcc'); if (!box) return;
+    const acc = accessoryAdvice(last.shape.probs[0].key, report.traits); lastAcc = acc;
+    box.classList.remove('hidden');
+    const col = (title, x) => `<div class="acc-col"><b>${title}</b><div class="acc-items">${x.good.map((g) => `<span class="acc-item">${svgIcon(g.icon)}<em>${esc(g.name)}</em></span>`).join('')}</div>
+      <p class="acc-tip">${esc(x.tip)}</p>${x.avoid.length ? `<p class="acc-avoid">피하면 좋은: ${x.avoid.map(esc).join(' · ')}</p>` : ''}</div>`;
+    box.innerHTML = `<b>안경 · 귀걸이</b><p class="muted small">얼굴선과 반대되는 모양이 균형을 만든다는 스타일링 원리로 골랐어요.</p><div class="acc-grid">${col('안경', acc.glasses)}${col('귀걸이', acc.earrings)}</div>`;
+  }
+  // 퍼스널 컬러 (참고) + 가상 드레이프
+  function faceCropUrl(f) {
+    const c = cropOf(f), cv = document.createElement('canvas'); const sc = 240 / c.w; cv.width = 240; cv.height = Math.round(c.h * sc);
+    cv.getContext('2d').drawImage(f.canvas, c.x, c.y, c.w, c.h, 0, 0, cv.width, cv.height); return cv.toDataURL('image/jpeg', 0.85);
+  }
+  function renderSeason() {
+    const box = $('faceSeason'); if (!box) return;
+    const f = last;
+    if (!f.skin) { box.classList.add('hidden'); lastSeason = null; return; }
+    f._hairLab ??= (f.mask ? regionLab(f.canvas, f.mask, SEG.hair) : null);
+    const cs = colorSeason({ skin: f.skin, hair: f._hairLab }); lastSeason = cs;
+    if (!cs) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+    f._cropUrl ??= faceCropUrl(f);
+    const sw = (list) => list.map((h) => `<i style="background:${h}" title="${h}"></i>`).join('');
+    const drape = (hex, good) => `<figure class="drape" style="background:${hex}"><img src="${f._cropUrl}" alt="" /><figcaption>${good ? '잘 맞는 색' : '피할 색'}</figcaption></figure>`;
+    box.innerHTML = `<b>퍼스널 컬러 <small>(참고)</small></b>
+      <div class="season-head"><strong>${esc(cs.label)}</strong><span class="season-conf ${cs.conf >= 0.65 ? 'hi' : cs.conf >= 0.45 ? 'mid' : 'lo'}">신뢰도 ${cs.conf >= 0.65 ? '높음' : cs.conf >= 0.45 ? '보통' : '낮음'}</span></div>
+      <ul class="season-why">${cs.why.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>
+      <div class="sw-row"><span>잘 맞는 색</span><div class="sw">${sw(cs.palette)}</div></div>
+      <div class="sw-row"><span>피할 색</span><div class="sw">${sw(cs.avoid)}</div></div>
+      <p class="muted small">가상 드레이프 — 어느 쪽에서 얼굴이 맑고 또렷해 보이나요?</p>
+      <div class="drapes">${drape(cs.drape.good[0], true)}${drape(cs.drape.bad[0], false)}${drape(cs.drape.good[1], true)}${drape(cs.drape.bad[1], false)}</div>
+      <p class="muted small">${esc(cs.note)}</p>`;
+  }
+  // 헤어 컬러 가상 착용 (사진 층 '헤어 컬러')
+  let hairColor = HAIR_COLORS[4];
+  function renderPalette() {
+    const p = $('hairPalette'); if (!p) return;
+    p.innerHTML = HAIR_COLORS.map((c) => `<button type="button" data-hex="${c.hex}" class="${c.hex === hairColor.hex ? 'active' : ''}" style="background:${c.hex}" title="${c.name}" aria-label="${c.name}"><span>${c.name}</span></button>`).join('');
+  }
+  $('hairPalette')?.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; hairColor = HAIR_COLORS.find((c) => c.hex === b.dataset.hex) || hairColor; renderPalette(); draw(); });
+  renderPalette();
+  $('facePdf')?.addEventListener('click', async () => {
+    if (!last?.ok || !report) return;
+    const btn = $('facePdf'); btn.disabled = true; const t0 = btn.textContent; btn.textContent = '만드는 중…';
+    try {
+      const probsAll = last.shape.probs;
+      await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null });
+    } catch (e) { console.error(e); btn.textContent = '만들지 못했어요'; setTimeout(() => (btn.textContent = t0), 2000); btn.disabled = false; return; }
+    btn.textContent = t0; btn.disabled = false;
+  });
   // 얼굴 분석이 끝나거나 바뀌면 스타일 결과 카드의 궁합도 같이 바꾼다 (얼굴 → 스타일 순서일 때는 스타일 분석 때 이미 보임)
   function syncStyleFit() {
     const r = getStyle().result;
@@ -744,7 +848,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   function draw() {
     const f = last;
     if (!f?.ok) return;
-    const { ctx, T, scale } = prep(els.canvas, f);
+    const { ctx, T, scale, c } = prep(els.canvas, f);
     // 화면에 보이는 크기 기준으로 글자 · 선 굵기를 맞춘다 (휴대폰에서도 읽히게)
     const k = Math.max(1, els.canvas.width / (els.canvas.clientWidth || 560));
     const fs = Math.round(12.5 * k);
@@ -779,6 +883,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       const earOn = report.traits.ears && report.traits.ears !== 'hidden' && (g.ears || []).every((rows) => rows.length >= 3);
       if (earOn) for (const rows of g.ears) line(ctx, rows.map(([, b]) => T(b)), '#ffd166', 2.2);
       els.legend.innerHTML = `${earOn ? '<span><i style="background:#ffd166"></i>귀 바깥선</span>' : ''}<span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>얼굴선</span><span><i style="background:#9fd0ff"></i>너비 (광대 = 1)</span><span><i style="background:#c8f0b0"></i>삼정</span><span><i style="background:#ff7ad9"></i>턱 모서리 ${Math.round(m.jawAngle)}°</span>`;
+    } else if (layer === 'color') {
+      if (f.mask) recolorHair(ctx, f.canvas, f.mask, hairColor.hex, { lift: hairColor.lift, crop: { ...c, scale }, segHair: SEG.hair });
+      els.legend.innerHTML = `<span><i style="background:${hairColor.hex}"></i>${esc(hairColor.name)} 입혀 봄 (참고용 · 밝기 결은 원본)</span>`;
     } else if (layer === 'makeup') {
       drawZones(ctx, f, T, scale);
       els.legend.innerHTML = '<span><i style="background:rgba(120,78,55,.8)"></i>쉐딩</span><span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>하이라이터</span>' + (report.gender === 'm' ? '' : '<span><i style="background:rgba(236,110,130,.85)"></i>블러셔</span>');

@@ -666,3 +666,81 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .cut-ex-body figure { margin: 0; }
 .cut-ex-body img { width: 100%; max-height: 60vh; object-fit: contain; border-radius: 10px; background: var(--bg, #000); }
 .cut-ex-body figcaption, .cut-ex-note { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+/* 추천 카드 (사진 · 이름 · 맞춤 점수 · 이유) */
+.rc-grid { display: grid; gap: 8px; margin-top: 8px; }
+.rc { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: start; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.rc.top { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.rc-photo { width: 64px; height: 64px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); padding: 0; background: var(--card); cursor: zoom-in; }
+.rc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rc-none { display: grid; place-items: center; cursor: default; color: var(--muted); font-weight: 700; font-size: 1.05rem; background: var(--soft, var(--card)); }
+.rc-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rc-head > b { font-size: 0.98rem; color: var(--accent-ink); }
+.rc-fit { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+.rc-fit i { width: 64px; height: 6px; border-radius: 4px; background: var(--line); overflow: hidden; display: inline-block; }
+.rc-fit i b { display: block; height: 100%; background: var(--accent); }
+.rc-fit em { font-style: normal; font-weight: 700; color: var(--text); min-width: 2ch; text-align: right; }
+.rc-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.rc-tags span { font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; background: var(--soft, var(--card)); border: 1px solid var(--line); color: var(--accent-ink); }
+.rc-why { margin: 5px 0 0; font-size: 0.86rem; line-height: 1.5; }
+.rc-more { margin: 2px 0 0; font-size: 0.8rem; line-height: 1.5; color: var(--muted); }
+/* 근거 그림 */
+.basis { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--card); margin-bottom: 10px; }
+.basis > b { font-size: 0.92rem; }
+.basis p.small { font-size: 0.8rem; margin: 3px 0 8px; }
+.bs-rows { display: grid; gap: 8px; }
+.bs-row { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 10px; background: var(--bg); }
+.bs-arrow { color: var(--muted); font-weight: 700; }
+.bs-mi { display: grid; grid-template-columns: 1fr; font-size: 0.8rem; gap: 2px; }
+.bs-mi span { font-weight: 600; }
+.bs-mi small { color: var(--muted); font-size: 0.74rem; }
+.zb { position: relative; display: block; height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.zb::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--muted); opacity: .6; }
+.zb b { position: absolute; top: 0; bottom: 0; background: var(--accent); border-radius: 4px; }
+.bs-need { font-size: 0.84rem; display: grid; gap: 4px; }
+.bs-need span { font-weight: 700; color: var(--accent-ink); }
+.bs-need i { display: block; height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.bs-need i b { display: block; height: 100%; background: var(--accent); }
+.bs-cuts { display: flex; flex-wrap: wrap; gap: 4px; }
+.bs-cuts span { font-size: 0.76rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent-ink); }
+@media (max-width: 560px) { .bs-row { grid-template-columns: 1fr; } .bs-arrow { transform: rotate(90deg); justify-self: center; } }
+/* 시술 지시서 · 안경/귀걸이 · 퍼스널 컬러 · 헤어 컬러 팔레트 · 네일 입혀 보기 */
+.spec-box, .acc-box, .season-box { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--card); margin-top: 10px; }
+.spec-box > b, .acc-box > b, .season-box > b { font-size: 0.92rem; }
+.spec-box p.small, .acc-box p.small, .season-box p.small { font-size: 0.8rem; margin: 3px 0 8px; }
+table.spec { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+table.spec th { text-align: left; width: 6.5em; padding: 6px 8px 6px 0; vertical-align: top; color: var(--accent-ink); font-weight: 700; border-bottom: 1px solid var(--line); }
+table.spec td { padding: 6px 0; vertical-align: top; line-height: 1.5; border-bottom: 1px solid var(--line); }
+table.spec tr:last-child th, table.spec tr:last-child td { border-bottom: none; }
+.acc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.acc-col > b { font-size: 0.86rem; }
+.acc-items { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.acc-item { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 6px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--accent-ink); font-size: 0.8rem; }
+.acc-item em { font-style: normal; font-weight: 600; }
+.acc-tip { font-size: 0.82rem; line-height: 1.5; margin: 4px 0 0; }
+.acc-avoid { font-size: 0.78rem; color: var(--muted); margin: 4px 0 0; }
+.season-head { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+.season-head strong { font-size: 1.05rem; color: var(--accent-ink); }
+.season-conf { font-size: 0.74rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.season-conf.hi { color: var(--ok, #4f7f4a); border-color: var(--ok, #4f7f4a); }
+.season-conf.lo { color: #a65a2a; border-color: #a65a2a; }
+.season-why { margin: 4px 0 8px; padding-left: 18px; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+.sw-row { display: flex; align-items: center; gap: 10px; margin: 4px 0; font-size: 0.8rem; }
+.sw-row > span { min-width: 5em; color: var(--muted); }
+.sw { display: flex; gap: 5px; flex-wrap: wrap; }
+.sw i { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); display: inline-block; }
+.drapes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0; }
+.drape { margin: 0; border-radius: 10px; padding: 10px 10px 4px; text-align: center; }
+.drape img { width: 100%; border-radius: 6px; display: block; }
+.drape figcaption { font-size: 0.72rem; color: rgba(0,0,0,.7); margin-top: 3px; font-weight: 600; mix-blend-mode: multiply; }
+.hair-palette { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.hair-palette button { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; position: relative; padding: 0; }
+.hair-palette button.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
+.hair-palette button span { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); font-size: 0.62rem; white-space: nowrap; color: var(--muted); margin-top: 2px; }
+.hair-palette { padding-bottom: 14px; }
+.nail-try { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 8px 0; background: var(--card); }
+.nail-try > b { font-size: 0.88rem; }
+.nail-try > b small { color: var(--muted); font-weight: 400; }
+.nail-colors { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.nail-colors button { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; padding: 0; }
+.nail-colors button.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
+@media (max-width: 560px) { .acc-grid { grid-template-columns: 1fr; } .drapes { grid-template-columns: repeat(2, 1fr); } }

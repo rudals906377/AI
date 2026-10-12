@@ -323,14 +323,21 @@ function topNeeds(need) {
 // 점수에 가장 크게 기여한 필요를 이유 앞에 붙인다 → 같은 커트라도 사람마다 이유가 다르다.
 // 한 목록 안에서는 이미 쓴 이유를 피하고 다음으로 큰 이유를 쓰며, 끝맺음도 돌려 써서 같은 문장이 줄줄이 나오지 않게 한다
 const WHY_END = ['잘 맞아요.', '추천해요.', '잘 어울려요.', '좋아요.'];
+// 맞춤 점수: 목록 안에서 1위를 95점으로 두고 점수 차이에 따라 내려간다 (화면의 막대용 · 절대 정확도가 아니라 '이 얼굴에서의 상대 순위')
+function fitPct(list) {
+  if (!list.length) return [];
+  const top = list[0].score, spread = Math.max(0.6, top - list[list.length - 1].score);
+  return list.map((c) => Math.round(95 - 25 * Math.max(0, Math.min(1, (top - c.score) / spread))));
+}
 function withWhy(list, t) {
-  const used = new Set();
+  const used = new Set(), pct = fitPct(list);
   return list.map((c, i) => {
     const cand = c.parts.filter(([, v, pos]) => pos && v > 0.25).sort((a, b) => b[1] - a[1]);
     const best = cand.find(([k]) => !used.has(k));
-    if (!best) return { name: c.name, why: c.why };
+    const needs = cand.slice(0, 2).map(([k]) => k);   // 근거 그림용: 이 추천에 가장 크게 기여한 필요
+    if (!best) return { name: c.name, why: c.why, fit: pct[i], needs };
     used.add(best[0]);
-    return { name: c.name, why: `${NEED_SAY[best[0]](t)} ${WHY_END[i % WHY_END.length]} ${c.why}` };
+    return { name: c.name, why: `${NEED_SAY[best[0]](t)} ${WHY_END[i % WHY_END.length]} ${c.why}`, fit: pct[i], needs };
   });
 }
 // 점수순으로 고르되, 이미 고른 것과 같은 묶음이면 점수를 깎아 다른 모양이 섞이게 한다
@@ -448,6 +455,7 @@ function hairAdvice(f, t, gender = null, hair = HAIR_PREFS) {
     return { name, why: hp.why ? `${why}. ${hp.why}` : why, parts, score: score + hp.d, fam: BANG_FAM[name] || name };
   });
   if (t.upper >= 0.8) bangs = bangs.filter((b) => b.name !== '앞머리 없음' && b.name !== '베이비뱅' && b.name !== '넘긴 앞머리');
+  const bangsRaw = bangs;
   bangs = withWhy(diversePick(bangs, 4), t);
   const L = gender === 'm' ? HAIR_ML[top] : HAIR[top], S = gender === 'f' ? HAIR_FS[top] : HAIR_M[top]; // 긴 머리(남성은 남자 긴 기장) · 짧은 머리(여성은 여자 숏컷) 기준 표
   const longName = gender === 'm' ? '긴 기장(장발)' : '긴 머리 · 단발';
@@ -463,15 +471,35 @@ function hairAdvice(f, t, gender = null, hair = HAIR_PREFS) {
   else if (t.ears === 'slight') extra.push('귀가 옆으로 약간 보이는 편이라 짧은 머리라면 귀 윗부분을 살짝 덮는 기장을 남기면 옆선이 정돈돼 보여요.');
   else if (t.ears === 'normal') extra.push('정면에서 귀가 크게 두드러지지 않는 편이라 귀를 드러내는 스타일(귀 뒤로 넘기기 · 짧은 옆머리)도 부담 없어요. 귀걸이로 포인트를 주기에도 좋아요.');
   const shortFirst = hair.want === 'short' || (gender === 'm' && hair.want !== 'mid' && hair.want !== 'long');
-  const longSec = longCuts.length && { key: 'cuts', title: gender === 'm' ? '추천 커트 · 긴 기장 (남자 장발 · 단발)' : '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why })) };
-  const shortSec = shortCuts.length && { key: 'short', title: '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why })) };
+  const longSec = longCuts.length && { key: 'cuts', title: gender === 'm' ? '추천 커트 · 긴 기장 (남자 장발 · 단발)' : '추천 커트 · 긴 머리와 단발', list: longCuts.map((c) => ({ name: c.name, why: c.why, fit: c.fit, needs: c.needs })) };
+  const shortSec = shortCuts.length && { key: 'short', title: '추천 커트 · 짧은 머리', list: shortCuts.map((c) => ({ name: c.name, why: c.why, fit: c.fit, needs: c.needs })) };
   const two = (a, b) => (shortFirst ? [b, a] : [a, b]);
   const hairNote = ['curl', 'dens', 'care', 'want'].map((k) => HAIR_SAY[k][hair[k]]).filter(Boolean).join(' · ');
   const [lenA, lenB] = two(`${longName}이라면 ${L.length}`, `짧은 머리라면 ${S.length}`);
   const [partA, partB] = two(`${longName}: ${L.part}`, `짧은 머리: ${S.part}`);
   const avoid = two(L.avoid.map((x) => ({ name: `(${longName}) ${x}` })), S.avoid.map((x) => ({ name: `(짧은 머리) ${x}` }))).flat();
   if (t.ears === 'out') avoid.push({ name: '(귀) 옆머리를 바짝 쳐서 귀가 다 드러나는 스타일 · 귀 뒤로 꽉 넘겨 고정하는 스타일' });
+  // 근거 그림용: 필요(need)마다 어떤 측정이 그렇게 만들었는지 (z 값이 큰 순)
+  const NEED_FROM = {
+    shorten: [['long', '얼굴 길이'], ['upper', '이마 높이'], ['lower', '하안부']], lengthen: [['long', '얼굴 길이'], ['lower', '하안부']],
+    forehead: [['foreheadW', '이마 너비'], ['upper', '이마 높이']], openTop: [['upper', '이마 높이'], ['foreheadW', '이마 너비']],
+    cheek: [['foreheadW', '이마 너비'], ['jawW', '턱 너비']], mid: [['mid', '중안부']], jaw: [['jawSharp', '턱 모서리'], ['jawW', '턱 너비']],
+    fill: [['chinW', '턱끝'], ['jawW', '턱 너비'], ['lower', '하안부']], lowShort: [['lower', '하안부']], reveal: [['long', '얼굴 길이'], ['jawW', '턱 너비'], ['foreheadW', '이마 너비']],
+    ears: [['ears', '귀']], eyes: [['eyeRound', '눈매'], ['browGap', '눈썹~눈']],
+  };
+  const M_SAY = { long: ['짧은 편', '긴 편'], foreheadW: ['좁은 편', '넓은 편'], jawW: ['좁은 편', '넓은 편'], chinW: ['뾰족한 편', '넓은 편'], jawSharp: ['둥근 편', '각진 편'],
+    upper: ['낮은 편', '높은 편'], mid: ['짧은 편', '긴 편'], lower: ['짧은 편', '긴 편'], eyeRound: ['가로로 긴 편', '동그란 편'], browGap: ['가까운 편', '먼 편'], ears: ['', '옆으로 보임'] };
+  const mSay = (mk, z) => (mk === 'ears' ? '옆으로 보임' : `${Math.abs(z) < 1.6 ? '약간 ' : ''}${M_SAY[mk]?.[z >= 0 ? 1 : 0] || ''}`);
+  const shownNames = new Set([...longCuts, ...shortCuts, ...bangs].map((x) => x.name));
+  const cutsFor = (k) => [...cuts, ...bangsRaw].filter((c) => shownNames.has(c.name)).map((c) => [c.name, c.parts.find(([kk]) => kk === k)?.[1] || 0]).filter(([, v]) => v > 0.05).sort((a, b) => b[1] - a[1]).map(([n]) => n).filter((v, i, a) => a.indexOf(v) === i).slice(0, 3);
+  const basis = Object.entries(need).filter(([k, v]) => v > 0.35 && NEED_IDEA[k]).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, v]) => ({
+    key: k, label: NEED_IDEA[k], strength: Math.round(Math.min(1, v / 1.6) * 100),
+    from: (NEED_FROM[k] || []).map(([mk, lab]) => { const z = mk === 'ears' ? (t.ears === 'out' ? 1.6 : t.ears === 'slight' ? 0.9 : 0) : (t[mk] || 0); return { key: mk, label: lab, z, say: mSay(mk, z) }; }).filter((x) => Math.abs(x.z) >= 0.5).slice(0, 2),
+    shape: Object.entries(P).sort((a, b) => b[1] - a[1])[0][0],
+    cuts: cutsFor(k),
+  })).filter((b) => b.cuts.length);   // 보여 주는 커트와 이어지지 않는 필요는 그림에서 뺀다
   return [
+    { key: 'basis', basis },
     { key: 'idea', title: '핵심', text: [topNeeds(need).length ? `내 얼굴 맞춤 포인트: ${topNeeds(need).join(' · ')}.` : '', hairNote ? `내 머리카락(${hairNote}) 기준으로 골랐어요.` : '', (shortFirst ? S : L).idea, ...extra].filter(Boolean).join(' ') },
     ...two(longSec, shortSec),
     bangs.length && { key: 'bangs', title: '추천 앞머리', list: bangs },
