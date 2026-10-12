@@ -615,9 +615,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       const btn = $(id); btn.disabled = true; const t0 = btn.textContent; btn.textContent = '만드는 중…';
       try {
         const probsAll = last.shape.probs;
-        const out = await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null, format });
+        const out = await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null, format, purpose });
         if (format === 'png') {
-          const how = await shareImage(out, `FINDE-얼굴분석-${new Date().toISOString().slice(0, 10)}.png`, '내 얼굴 분석 결과');
+          const how = await shareImage(out, `FINDE-${purpose === 'makeup' ? (gender === 'm' ? '그루밍' : '메이크업') : '얼굴분석'}-${new Date().toISOString().slice(0, 10)}.png`, purpose === 'makeup' ? '내 얼굴 메이크업 분석 결과' : '내 얼굴 분석 결과');
           if (how === 'downloaded') toast('이미지로 저장했어요');
         }
       } catch (e) { console.error(e); btn.textContent = '만들지 못했어요'; setTimeout(() => (btn.textContent = t0), 2000); btn.disabled = false; return; }
