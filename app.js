@@ -5,6 +5,7 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
+import { tattooCard } from './tattoo-advice.js';
 import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initHistory } from './history.js';
@@ -496,7 +497,6 @@ async function renderPet(r) {
 }
 
 function render(r) {
-  window.dispatchEvent(new CustomEvent('beauty:style', { detail: { result: r, blob: r.blob || currentBlob } }));
   if (els.empty.classList.contains('many')) els.empty.innerHTML = EMPTY_HTML;
   els.empty.classList.remove('many');
   els.empty.classList.add('hidden');
@@ -567,8 +567,44 @@ function render(r) {
   els.json.textContent = JSON.stringify(slim(r), null, 2);
 
   renderOrder(r, {});
+  renderTattoo(r);
   renderSimilar(r);
   startColors(r);
+  // 기록(내 기록 탭)은 상담 카드까지 다 만들어진 뒤에 저장한다
+  window.dispatchEvent(new CustomEvent('beauty:style', { detail: { result: r, blob: r.blob || currentBlob } }));
+}
+
+
+// ---- 타투 상담 카드 (타투 사진일 때만) -----------------------------------------------------
+// 장르 · 모티브 · 컬러 · 부위 · 크기로 예상 시간 · 회차, 부위 · 장르 · 컬러별 알아 둘 것, 상담 질문, 준비, 애프터케어를 정리한다
+let lastTattoo = null;
+function renderTattoo(r) {
+  const box = $('tattooCard'); if (!box) return;
+  const card = r.is_beauty && r.category === 'tattoo' ? tattooCard(r, { skin: faceUI.skinInfo?.() || null }) : null;
+  lastTattoo = card; r.tattoo = card;
+  box.classList.toggle('hidden', !card);
+  if (!card) return;
+  const designer = (() => { try { return localStorage.getItem('finde-designer') === '1'; } catch { return false; } })();
+  const li = (arr) => arr.map((x) => `<li>${esc(x)}</li>`).join('');
+  const pain = card.place ? `<span class="tc-pain" aria-label="통증 참고 ${card.place.pain}/5">${'●'.repeat(card.place.pain)}${'○'.repeat(5 - card.place.pain)}</span> <small>${esc(card.place.painText)}</small>` : '';
+  box.innerHTML = `<div class="order-head"><h3>타투 상담 카드</h3><small>타투이스트에게 보여 주세요</small></div>
+    ${card.genre ? `<p class="order-genre"><small>원하는 스타일</small><b>${esc(card.genre)}</b></p>` : ''}
+    <div class="tc-grid">
+      <div class="tc-box"><small>예상 시간 · 회차</small><b>${esc(card.plan.time)}</b><span>${esc(card.plan.sessions)} · ${esc(card.plan.size || '크기 미정')} (${esc(card.plan.cm)})</span></div>
+      ${card.place ? `<div class="tc-box"><small>부위 · 통증 참고</small><b>${esc(card.place.name)}${card.place.sure ? '' : ' <em>추정</em>'}</b><span>${pain}</span></div>` : ''}
+      ${card.style ? `<div class="tc-box"><small>장르</small><b>${esc(card.style.name)}${card.style.sure ? '' : ' <em>추정</em>'}</b><span>${esc([card.subject, ...card.motifs].filter(Boolean).join(' · ') || '도안은 상담 때')}</span></div>` : ''}
+      ${card.color.name ? `<div class="tc-box"><small>컬러</small><b>${esc(card.color.name)}</b><span>${card.color.skinNote ? '피부 톤 발색 안내 아래' : '블랙은 가장 오래 가요'}</span></div>` : ''}
+    </div>
+    <p class="muted small tc-why">${esc(card.plan.why)}</p>
+    ${designer && card.pro.length ? `<div class="tc-pro"><b>타투이스트 메모</b><ul>${li(card.pro)}</ul></div>` : ''}
+    <details class="tc-sec" open><summary>미리 알아 둘 것 <small>${esc([card.style?.name, card.place?.name, card.color.name].filter(Boolean).join(' · '))}</small></summary>
+      <ul>${li([...(card.style?.points || []), ...(card.place?.points || []), ...card.color.points, ...(card.color.skinNote ? [card.color.skinNote] : [])])}</ul></details>
+    <details class="tc-sec"><summary>상담 때 꼭 물어볼 것 <small>${card.ask.length}가지</small></summary><ul class="tc-check">${li(card.ask)}</ul></details>
+    <details class="tc-sec"><summary>시술 전 준비</summary><ul>${li(card.prep)}</ul></details>
+    <details class="tc-sec"><summary>애프터케어 요약 <small>2~4주</small></summary><ul>${li(card.after)}</ul></details>
+    <p class="muted small">통증 · 시간 · 회차는 일반적인 참고 범위예요. 사람과 작가마다 달라서, 실제 시술은 타투이스트와 상담해 정해 주세요.</p>
+    <div class="row order-actions"><button class="primary small" id="tattooCopy" type="button">상담 카드 복사</button></div>`;
+  box.querySelector('#tattooCopy').addEventListener('click', () => lastTattoo && copy(lastTattoo.text));
 }
 
 // 부위를 잘라 판단한 그룹 표시 (analyzer.js 의 region)

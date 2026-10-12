@@ -51,6 +51,7 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
   ry = head(ctx, '내 얼굴형', rx, ry + 20);
   ctx.fillStyle = C.ink; font(ctx, 34, 800); ry = wrap(ctx, report.headline, rx, ry + 26, rw, 40, 1);
   ctx.fillStyle = C.muted; font(ctx, 17, 500); ry = wrap(ctx, (report.summary || []).join(' '), rx, ry + 6, rw, 24, 3);
+  if (report.thirds) { ctx.fillStyle = C.ink; font(ctx, 16, 700); ry = wrap(ctx, report.thirds.line, rx, ry + 8, rw, 22, 2); ctx.fillStyle = C.muted; font(ctx, 15, 500); ry = wrap(ctx, report.thirds.note, rx, ry + 2, rw, 20, 2); }
   const probs = (report.shape && report.probsAll) || [];
   ry += 6;
   for (const p of probs.slice(0, 4)) {
