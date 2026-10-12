@@ -482,9 +482,10 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       const [why1, ...rest] = (i.why || '').split(/(?<=[요다])\.\s/);
       return `<div class="rc${n === 0 ? ' top' : ''}">${photo}<div class="rc-body"><div class="rc-head"><b>${esc(i.name)}</b>${i.fit != null ? `<span class="rc-fit" title="이 얼굴에서의 상대 순위"><i><b style="width:${i.fit}%"></b></i><em>${i.fit}</em></span>` : ''}</div>
         ${i.needs?.length ? `<div class="rc-tags">${i.needs.map((k) => NEED_KO[k] ? `<span>${NEED_KO[k]}</span>` : '').join('')}</div>` : ''}
-        ${why1 ? `<p class="rc-why">${esc(why1.replace(/\.$/, ''))}.</p>` : ''}${rest.length ? `<p class="rc-more">${esc(rest.join('. '))}</p>` : ''}</div></div>`;
+        ${why1 ? `<p class="rc-why">${esc(why1.replace(/\.$/, ''))}.</p>` : ''}${rest.length && n === 0 ? `<p class="rc-more">${esc(rest.join('. '))}</p>` : ''}</div></div>`;
     };
-    els.advice.innerHTML = secs.filter((s) => s.key !== 'basis').map((s) => CARD_KEYS.includes(s.key) && s.list
+    const ideaHtml = (s) => `<div class="adv idea"><b>${esc(s.title)}</b>${s.points?.length ? `<p class="idea-points">가장 필요한 건 <strong>${s.points.map(esc).join(' · ')}</strong></p>` : ''}<p>${esc(s.text)}</p>${s.quip ? `<p class="idea-quip">${esc(s.quip)}</p>` : ''}${s.notes?.length ? `<ul class="idea-notes">${s.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}</div>`;
+    els.advice.innerHTML = secs.filter((s) => s.key !== 'basis').map((s) => s.key === 'idea' ? ideaHtml(s) : CARD_KEYS.includes(s.key) && s.list
       ? `<div class="adv cards ${s.key}"><b>${esc(s.title)}</b><div class="rc-grid">${s.list.map((i, n) => card(s, i, n)).join('')}</div></div>`
       : `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li><span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
     renderBasis(secs.find((s) => s.key === 'basis')?.basis || []);
@@ -519,7 +520,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     box.classList.remove('hidden');
     const zbar = (z) => { const w = Math.min(100, Math.abs(z) / 2.5 * 50); return `<i class="zb"><b style="${z >= 0 ? `left:50%;width:${w}%` : `right:50%;width:${w}%`}"></b></i>`; };
     const zsay = (m) => m.say || '';
-    box.innerHTML = `<b>왜 이 추천인가요</b><p class="muted small">내 측정값 → 필요한 효과 → 그 효과를 내는 커트. 막대는 평균(가운데)에서 얼마나 떨어졌는지예요.</p>
+    box.innerHTML = `<b>왜 이 추천인가요</b><p class="muted small">내 얼굴 측정값에서 어떤 효과가 필요한지, 그 효과를 어떤 커트가 내는지 차례로 이어 보여 드려요. 막대는 평균(가운데)에서 얼마나 벗어났는지예요.</p>
       <div class="bs-rows">${basis.map((b) => `<div class="bs-row">
         <div class="bs-m">${b.from.length ? b.from.map((m) => `<div class="bs-mi"><span>${esc(m.label)} <small>${zsay(m)}</small></span>${zbar(m.z)}</div>`).join('') : `<div class="bs-mi"><span>얼굴형</span><small>${esc(SHAPE_KO[b.shape] || b.shape)}에 가까움</small></div>`}</div>
         <div class="bs-arrow" aria-hidden="true">→</div>
@@ -536,7 +537,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     if (!first) { box.classList.add('hidden'); lastSpec = null; return; }
     const sp = salonSpec(first.name, report.traits, { gender: gender || null, hair: hairPrefs }); lastSpec = sp;
     box.classList.remove('hidden');
-    box.innerHTML = `<b>미용실 시술 지시서 · ${esc(sp.title)}</b><p class="muted small">추천 1위 커트를 디자이너가 쓰는 말로 옮겼어요. 그대로 보여 주면 돼요. 길이는 체형에 맞춰 조정돼요.</p>
+    box.innerHTML = `<b>미용실 시술 지시서 · ${esc(sp.title)}</b><p class="muted small">추천 1위 커트를 디자이너가 쓰는 말로 정리했어요. 미용실에서 그대로 보여 주시면 돼요. 길이는 체형에 맞춰 조금씩 조정하게 돼요.</p>
       <table class="spec">${sp.rows.map((r) => `<tr><th>${esc(r.k)}</th><td>${esc(r.v)}</td></tr>`).join('')}</table>
       <div class="row"><button type="button" class="ghost small" id="specCopy">지시서 복사</button></div>`;
     $('specCopy').onclick = async () => { try { await navigator.clipboard.writeText(sp.text); $('specCopy').textContent = '복사했어요'; } catch { $('specCopy').textContent = '복사가 막혀 있어요'; } };
@@ -549,7 +550,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     box.classList.remove('hidden');
     const col = (title, x) => `<div class="acc-col"><b>${title}</b><div class="acc-items">${x.good.map((g) => `<span class="acc-item">${svgIcon(g.icon)}<em>${esc(g.name)}</em></span>`).join('')}</div>
       <p class="acc-tip">${esc(x.tip)}</p>${x.avoid.length ? `<p class="acc-avoid">피하면 좋은: ${x.avoid.map(esc).join(' · ')}</p>` : ''}</div>`;
-    box.innerHTML = `<b>안경 · 귀걸이</b><p class="muted small">얼굴선과 반대되는 모양이 균형을 만든다는 스타일링 원리로 골랐어요.</p><div class="acc-grid">${col('안경', acc.glasses)}${col('귀걸이', acc.earrings)}</div>`;
+    box.innerHTML = `<b>안경 · 귀걸이</b><p class="muted small">얼굴선과 반대되는 모양이 균형을 잡아 준다는 스타일링 원리로 골랐어요.</p><div class="acc-grid">${col('안경', acc.glasses)}${col('귀걸이', acc.earrings)}</div>`;
   }
   // 퍼스널 컬러 (참고) + 가상 드레이프
   function faceCropUrl(f) {
@@ -572,7 +573,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       <ul class="season-why">${cs.why.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>
       <div class="sw-row"><span>잘 맞는 색</span><div class="sw">${sw(cs.palette)}</div></div>
       <div class="sw-row"><span>피할 색</span><div class="sw">${sw(cs.avoid)}</div></div>
-      <p class="muted small">가상 드레이프 — 어느 쪽에서 얼굴이 맑고 또렷해 보이나요?</p>
+      <p class="muted small">가상 드레이프예요. 어느 쪽 배경에서 얼굴이 더 맑고 또렷해 보이는지 비교해 보세요.</p>
       <div class="drapes">${drape(cs.drape.good[0], true)}${drape(cs.drape.bad[0], false)}${drape(cs.drape.good[1], true)}${drape(cs.drape.bad[1], false)}</div>
       <p class="muted small">${esc(cs.note)}</p>`;
   }
@@ -885,7 +886,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       els.legend.innerHTML = `${earOn ? '<span><i style="background:#ffd166"></i>귀 바깥선</span>' : ''}<span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>얼굴선</span><span><i style="background:#9fd0ff"></i>너비 (광대 = 1)</span><span><i style="background:#c8f0b0"></i>삼정</span><span><i style="background:#ff7ad9"></i>턱 모서리 ${Math.round(m.jawAngle)}°</span>`;
     } else if (layer === 'color') {
       if (f.mask) recolorHair(ctx, f.canvas, f.mask, hairColor.hex, { lift: hairColor.lift, crop: { ...c, scale }, segHair: SEG.hair });
-      els.legend.innerHTML = `<span><i style="background:${hairColor.hex}"></i>${esc(hairColor.name)} 입혀 봄 (참고용 · 밝기 결은 원본)</span>`;
+      els.legend.innerHTML = `<span><i style="background:${hairColor.hex}"></i>${esc(hairColor.name)}을 입혀 봤어요 (참고용 · 머릿결의 밝기는 원본 그대로)</span>`;
     } else if (layer === 'makeup') {
       drawZones(ctx, f, T, scale);
       els.legend.innerHTML = '<span><i style="background:rgba(120,78,55,.8)"></i>쉐딩</span><span><i style="background:#fff;box-shadow:0 0 0 1px var(--line-2)"></i>하이라이터</span>' + (report.gender === 'm' ? '' : '<span><i style="background:rgba(236,110,130,.85)"></i>블러셔</span>');
@@ -1003,8 +1004,10 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg}) ${r.note}`);
     lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '객관적인 얼굴 비율을 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
-      lines.push(`- ${s.title}${s.text ? `: ${s.text}` : ''}`);
-      for (const i of s.list || []) lines.push(`  · ${i.name}${i.why ? ` — ${i.why}` : ''}`);
+      if (!s.title) continue;   // 근거 그림 자료는 글로 옮기지 않는다
+      lines.push(`- ${s.title}${s.points?.length ? ` (가장 필요한 건 ${s.points.join(' · ')})` : ''}${s.text ? `: ${s.text}` : ''}`);
+      for (const n of s.notes || []) lines.push(`  · ${n}`);
+      for (const i of s.list || []) lines.push(`  · ${i.name}${i.fit != null ? ` ${i.fit}` : ''}${i.why ? ` — ${i.why}` : ''}`);
     }
     if (report.match?.score != null) lines.push('', `분석한 스타일과의 궁합: ${report.match.title} — ${report.match.verdict} (궁합 ${report.match.score}점)`, ...report.match.reasons.map((x) => `  ${x.pts > 0 ? '✓' : '△'} ${x.text}`), ...(report.match.tip ? [`  ${report.match.tip}`] : []));
     if (report.rank?.length) lines.push('', `원하는 ${purpose === 'hair' ? '헤어' : '메이크업'} 베스트 순위`, ...report.rank);

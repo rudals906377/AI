@@ -154,7 +154,7 @@ const SHAPE_GEO = { 라운드: { len: 1.0, tipW: 1.0, tipH: 0.5, flat: false, sh
   아몬드: { len: 1.35, tipW: 0.0, tipH: 0.45, flat: false, sharp: true }, 코핀: { len: 1.5, tipW: 0.55, tipH: 0.45, flat: true, sharp: false }, 스틸레토: { len: 1.5, tipW: 0.0, tipH: 0.5, flat: false, sharp: true } };
 function renderTry() {
   const sp = document.getElementById('nailShapePick'), cp = document.getElementById('nailColorPick'); if (!sp) return;
-  sp.innerHTML = `<button type="button" data-s="" class="${tryShape ? '' : 'active'}">끄기</button>` + Object.keys(SHAPES).map((k) => `<button type="button" data-s="${k}" class="${tryShape === k ? 'active' : ''}">${k}</button>`).join('');
+  sp.innerHTML = `<button type="button" data-s="" class="${tryShape ? '' : 'active'}">안 보기</button>` + Object.keys(SHAPES).map((k) => `<button type="button" data-s="${k}" class="${tryShape === k ? 'active' : ''}">${k}</button>`).join('');
   cp.innerHTML = NAIL_COLORS.map((c) => `<button type="button" data-c="${c}" class="${tryColor === c ? 'active' : ''}" style="background:${c}" aria-label="색 ${c}"></button>`).join('');
   sp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryShape = b.dataset.s || null; renderTry(); if (last) drawOverlay(last); };
   cp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryColor = b.dataset.c; renderTry(); if (last) drawOverlay(last); };

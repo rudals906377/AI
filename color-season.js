@@ -29,12 +29,12 @@ export function colorSeason({ skin, hair = null, brow = null } = {}) {
   let warm = hue >= 62 ? 1 : hue <= 50 ? -1 : 0;
   const hairWarm = hair?.lab ? (Math.atan2(hair.lab[2], hair.lab[1]) * 180) / Math.PI : null;
   if (warm === 0 && hairWarm != null) warm = hairWarm >= 60 ? 0.5 : hairWarm <= 45 ? -0.5 : 0;
-  why.push(warm > 0 ? `피부에 노란기가 도는 편 (색 각도 ${Math.round(hue)}°)` : warm < 0 ? `피부에 붉은기가 도는 편 (색 각도 ${Math.round(hue)}°)` : `노란기 · 붉은기가 중간 (색 각도 ${Math.round(hue)}°)`);
+  why.push(warm > 0 ? `피부에 노란기가 살짝 도는 편이에요 (색 각도 ${Math.round(hue)}°)` : warm < 0 ? `피부에 붉은기가 살짝 도는 편이에요 (색 각도 ${Math.round(hue)}°)` : `노란기와 붉은기가 비슷한 중간 톤이에요 (색 각도 ${Math.round(hue)}°)`);
   // ② 명도 ③ 대비 ④ 채도
   const light = L >= 66, deepC = contrast != null && contrast >= 38, lowC = contrast != null && contrast < 24, bright = chroma >= 24, muted = chroma < 17;
-  why.push(light ? `피부가 밝은 편 (L* ${Math.round(L)})` : `피부가 중간~어두운 편 (L* ${Math.round(L)})`);
-  if (contrast != null) why.push(deepC ? `피부와 머리색 대비가 큰 편 (${Math.round(contrast)})` : lowC ? `피부와 머리색 대비가 작은 편 (${Math.round(contrast)})` : `피부와 머리색 대비 보통 (${Math.round(contrast)})`);
-  why.push(bright ? '피부 색이 선명한 편' : muted ? '피부 색이 차분한(뮤트) 편' : '피부 색 선명도 보통');
+  why.push(light ? `피부가 밝은 편이에요 (밝기 ${Math.round(L)})` : `피부가 중간에서 조금 어두운 편이에요 (밝기 ${Math.round(L)})`);
+  if (contrast != null) why.push(deepC ? `피부와 머리색의 대비가 뚜렷한 편이에요 (${Math.round(contrast)})` : lowC ? `피부와 머리색의 대비가 부드러운 편이에요 (${Math.round(contrast)})` : `피부와 머리색의 대비는 보통이에요 (${Math.round(contrast)})`);
+  why.push(bright ? '피부 색이 맑고 선명한 편이에요' : muted ? '피부 색이 차분하고 은은한(뮤트) 편이에요' : '피부 색의 선명함은 보통이에요');
   let key;
   if (warm >= 0) {   // 웜 (중립이면 웜 쪽을 먼저 보되 신뢰도 낮춤)
     if (light && !deepC) key = bright ? 'spring_bright' : 'spring_light';
@@ -60,7 +60,7 @@ export function colorSeason({ skin, hair = null, brow = null } = {}) {
     season, sub: key, label: `${SEASON_KO[season]} · ${p.label}`, conf, why,
     palette: p.palette, avoid: p.avoid,
     drape: { good: p.palette.slice(0, 3), bad: P[opp].palette.slice(0, 3) },
-    note: '사진 한 장의 색은 조명 · 보정 · 카메라 화이트밸런스에 따라 달라져요. 참고용이고, 아래 드레이프에서 얼굴이 맑아 보이는 쪽이 내 톤에 가까워요. 정확한 진단은 자연광 드레이핑 상담으로.',
+    note: '사진 한 장의 색은 조명이나 보정, 카메라 설정에 따라 달라질 수 있어요. 참고용으로 봐 주시고, 위 드레이프에서 얼굴이 더 맑아 보이는 쪽이 내 톤에 가까워요. 정확한 진단은 자연광 아래 드레이핑 상담을 권해요.',
   };
 }
 // 마스크로 머리카락 · 눈썹 평균색 (Lab) — 분석 결과의 canvas · mask · lm 으로 UI 에서 계산
