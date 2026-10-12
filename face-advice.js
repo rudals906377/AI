@@ -9,6 +9,7 @@
 import { NORM, SHAPES, normFor, regender } from './face.js';
 import { CUT_FACE, BANGS_FACE, CHEEK_FACE, EYE_LINE, LIP_SHAPE } from './suits.js';
 import { josa } from './describe.js';
+import { HAIR_QUIP, MAKEUP_QUIP, GROOM_QUIP, pickQuip } from './expert-quips.js';
 
 // suits.js 의 얼굴형 표현 ↔ 얼굴형 키
 const ALIAS = {
@@ -314,25 +315,10 @@ const NEED_SAY = {
   ears: (t) => (t.ears === 'out' ? '귀가 옆으로 보이는 편이라' : ''),
   eyes: (t) => (t.eyeRound >= 0.8 ? '눈이 동그란 편이라' : ''),
 };
-// 전문가가 농담 섞어 건네는 한마디 — 가장 큰 필요에 맞춰 하나만, 늘 칭찬 쪽으로
-const NEED_QUIP = {
-  shorten: ['긴 얼굴은 우아함의 상징이에요. 오늘은 가로선으로 살짝 쉬게 해 줄 뿐이죠.', '세로가 긴 얼굴은 화면에서 늘 유리해요. 커트는 균형만 거들면 돼요.'],
-  lengthen: ['얼굴이 짧으면 동안이라는 뜻이에요. 세로선 몇 가닥이면 분위기까지 챙길 수 있어요.', '동안 비율에 세로선을 더하면 "어려 보이는데 세련된" 조합이 완성돼요.'],
-  forehead: ['이마가 넓으면 생각이 많다는 속설이 있죠. 앞머리로 비밀을 조금만 지켜 드릴게요.', '넓은 이마는 시원한 인상의 비결이에요. 앞머리는 가리는 게 아니라 "조명 조절"이에요.'],
-  openTop: ['이마가 아담하니 앞머리를 무겁게 내리면 눈썹과 숨바꼭질을 하게 돼요. 살짝만 드러내세요.'],
-  cheek: ['광대는 사진에서 가장 먼저 빛을 받는 자산이에요. 옆머리로 밝기만 살짝 조절하죠.'],
-  mid: ['중안부가 길면 우아해 보여요. 앞머리 끝을 광대 높이에 두면 그 우아함에 균형까지 생겨요.'],
-  jaw: ['각진 턱선은 배우들이 부러워하는 선이에요. 층을 조금 넣어 카리스마를 70%쯤으로만 조절해 보죠.', '턱선이 또렷하면 어떤 커트도 흐리멍덩해지지 않아요. 우리는 각만 살짝 둥글리면 돼요.'],
-  fill: ['턱이 갸름하니 머리끝이 할 일이 많아요. 볼륨은 턱 높이에서 일하게 해 주세요.', '좁은 턱은 갸름함의 다른 이름이에요. 아래쪽에 머리숱이 조금만 거들면 완성이죠.'],
-  lowShort: ['턱 아래로 선을 이어 주면 하안부가 몇 센티 자란 효과예요. 키는 그대로지만요.'],
-  reveal: ['숨길 게 없는 비율이에요. 커트보다 거울이 더 바쁠 거예요.', '이런 비율은 커트가 아니라 "어떤 기분으로 자를까"가 고민이에요. 부럽습니다.'],
-  ears: ['귀가 살짝 보이는 건 귀걸이가 잘 보인다는 뜻이기도 해요. 옆머리 기장만 조금 남겨 두죠.'],
-  eyes: ['눈매가 주인공이에요. 앞머리는 조연답게 눈썹 근처에서 멈춰 주면 돼요.'],
-};
+// 전문가 한마디: expert-quips.js (헤어 60 · 메이크업 60 · 그루밍 60). 가장 큰 필요에 맞춰 하나, 같은 얼굴이면 같은 문장
 function expertQuip(need, t, f) {
-  const top = Object.entries(need).filter(([k, v]) => v > 0.35 && NEED_QUIP[k]).sort((a, b) => b[1] - a[1])[0];
-  const list = NEED_QUIP[top ? top[0] : 'reveal'];
-  return list[Math.round(f.m.ratio * 1000 + f.m.jaw * 100) % list.length];
+  const top = Object.entries(need).filter(([k, v]) => v > 0.35 && HAIR_QUIP[k]).sort((a, b) => b[1] - a[1])[0];
+  return pickQuip(HAIR_QUIP, top ? top[0] : 'reveal', f.m.ratio * 1000 + f.m.jaw * 100);
 }
 const NEED_IDEA = { mid: '광대 높이에서 세로선 끊기', openTop: '이마를 드러내 위쪽 비율 키우기', lowShort: '턱 아래로 선을 이어 하안부 길어 보이기', shorten: '가로선으로 세로 길이 줄이기', lengthen: '세로선으로 갸름하게', forehead: '이마 폭 · 높이 줄여 보이기', cheek: '광대 · 볼 옆 감싸기',
   jaw: '턱 모서리 부드럽게', fill: '좁은 턱 주변 채우기', reveal: '윤곽을 드러내 장점 살리기', ears: '귀 옆선 정리', eyes: '눈매 살리기' };
@@ -585,14 +571,24 @@ const BEARD = {
   heart: '턱끝 · 턱선에 수염을 고르게 채우면 좁은 아래 얼굴에 무게가 생겨 이마와 균형이 맞아요.',
   diamond: '턱끝 수염과 구레나룻을 조금 남겨 위아래를 채우면 광대 폭이 덜 도드라져요.',
 };
+function groomFocus(t) {
+  const F = [
+    ['brow', '눈썹 정리', Math.max(-t.browGap, t.browArch, t.eyeWide)],
+    ['jaw', '턱선 · 면도 라인', Math.max(t.jawW, t.jawSharp)],
+    ['width', '옆머리 · 수염으로 가로 폭', t.long],
+    ['lips', '입술 보습', Math.abs(t.lipFull)],
+  ].filter(([, , z]) => z >= 0.8).sort((a, b) => b[2] - a[2]);
+  return { key: F[0]?.[0] || 'none', points: F.length ? F.slice(0, 3).map(([, l]) => l) : ['피부 결 정리'] };
+}
 function groomingAdvice(f, t) {
   const M = MAKEUP[f.shape.probs[0].key];
+  const grFocus = groomFocus(t);
   const extra = [];
   if (t.browGap <= -0.8) extra.push('눈썹과 눈 사이가 가까운 편이라 눈썹 아래 잔털을 정리하면 눈매가 시원해 보여요.');
   if (t.eyeWide >= 0.8) extra.push('미간이 넓은 편이라 눈썹 앞머리를 살짝 안쪽까지 채우면 인상이 또렷해져요.');
   return [
-    { key: 'idea', title: `그루밍 핵심 · ${short(f.shape.probs[0].label)}`, text: ['피부 결을 정리하고 눈썹 모양을 다듬는 것만으로 인상이 가장 크게 달라져요. 색조보다 자연스러움이 먼저예요.',
-      t.browGap <= -0.8 || t.browArch >= 1 ? '내 얼굴은 눈썹 정리가 가장 효과가 커요.' : t.jawW >= 0.8 || t.jawSharp >= 0.8 ? '내 얼굴은 턱선 주변(수염 · 면도 라인) 정리가 가장 효과가 커요.' : t.long >= 0.8 ? '내 얼굴은 수염 · 옆머리로 가로 폭을 더하는 정리가 효과가 커요.' : ''].filter(Boolean).join(' ') },
+    { key: 'idea', title: `그루밍 핵심 · ${short(f.shape.probs[0].label)}`, text: '피부 결을 정리하고 눈썹 모양을 다듬는 것만으로 인상이 가장 크게 달라져요. 색조보다 자연스러움이 먼저예요.',
+      points: grFocus.points, notes: extra, quip: pickQuip(GROOM_QUIP, grFocus.key, f.m.ratio * 1000 + f.m.jaw * 100) },
     { key: 'base', title: '피부', text: ['톤업 크림이나 비비는 얇게, 잡티 · 붉은기만 컨실러로 가려 주세요. 번들거리는 T존은 파우더로 가볍게 눌러 주면 깔끔해요.',
       f.skin && undertone(f.skin) === 'red' ? '사진에서 붉은기가 보이는 편이라 그린 계열 톤업이나 진정 크림이 잘 맞아요.' + LIGHT : f.skin && undertone(f.skin) === 'yellow' ? '사진에서 노란기가 보이는 편이라 핑크 · 화이트 톤업보다 내추럴 베이지 톤이 자연스러워요.' + LIGHT : ''].filter(Boolean).join(' ') },
     { key: 'brow', title: '눈썹', text: [M.brow.replace('아치 눈썹과 일자 눈썹', '일자 눈썹과 살짝 각진 눈썹'), ...extra].join(' ') },
@@ -600,6 +596,17 @@ function groomingAdvice(f, t) {
     { key: 'beard', title: '수염 (선택)', text: BEARD[f.shape.probs[0].key] + (t.chinW <= -0.8 ? ' 턱끝이 뾰족한 편이라 턱끝 수염을 짧게라도 남기면 아래 얼굴이 채워져 보여요.' : t.lower >= 0.8 ? ' 하안부가 긴 편이라 턱끝 아래로 길게 기르기보다 짧게 정리해 주세요.' : '') },
     { key: 'lips', title: '입술', text: ['각질을 정리하고 립밤으로 보습해 주세요.', t.lipFull <= -0.8 ? '입술이 얇은 편이라 색이 살짝 도는 틴티드 립밤으로 혈색을 더하면 생기 있어 보여요.' : t.lipFull >= 0.8 ? '입술이 도톰한 편이라 무색 립밤으로 보습만 해도 충분해요.' : '혈색이 필요하면 색이 살짝 도는 틴티드 립밤 정도가 자연스러워요.'].join(' ') },
   ];
+}
+// 메이크업 초점: 측정값이 평균에서 벗어난 정도가 큰 영역 순
+function makeupFocus(t) {
+  const cheekPop = -((t.foreheadW || 0) + (t.jawW || 0)) / 2;
+  const F = [
+    ['eyes', '눈매 살리기', Math.max(Math.abs(t.eyeUp), Math.abs(t.eyeWide), Math.abs(t.eyeRound), Math.abs(t.browGap))],
+    ['lips', '입술 균형', Math.max(Math.abs(t.upperThin), Math.abs(t.lipFull), t.philtrum, t.mouthW)],
+    ['contour', '윤곽 다듬기', Math.max(Math.abs(t.foreheadW), Math.abs(t.jawW), Math.abs(t.chinW), t.jawSharp, cheekPop)],
+    ['balance', '비율 보정', Math.max(t.mid, t.lower, t.upper, Math.abs(t.long), t.noseW)],
+  ].filter(([, , z]) => z >= 0.8).sort((a, b) => b[2] - a[2]);
+  return { key: F[0]?.[0] || 'none', points: F.length ? F.slice(0, 3).map(([, l]) => l) : ['입체감만 살리기'] };
 }
 function makeupAdvice(f, t) {
   const M = MAKEUP[f.shape.probs[0].key];
@@ -654,8 +661,10 @@ function makeupAdvice(f, t) {
   if (near && near.p >= 0.25 && !dirClash(BLUSH_DIR[top], BLUSH_DIR[near.key])) shapeExtra.push(`${short(near.label)}에도 가까워서 ${BLUSH_SHORT[near.key]}도 잘 어울려요.`);
   // 피부 톤 (사진 조명 영향이 커서 참고용)
   const tone = f.skin && skinHint(f.skin);
+  // 이 얼굴에서 메이크업이 가장 할 일 (눈매 · 입술 · 윤곽 · 비율) — 한 줄 요약과 전문가 한마디에 쓴다
+  const mkFocus = makeupFocus(t);
   return [
-    { key: 'idea', title: `얼굴형 메이크업 핵심 · ${short(f.shape.probs[0].label)}`, text: [M.idea, ...shapeExtra].join(' ') },
+    { key: 'idea', title: `얼굴형 메이크업 핵심 · ${short(f.shape.probs[0].label)}`, text: M.idea, points: mkFocus.points, notes: shapeExtra, quip: pickQuip(MAKEUP_QUIP, mkFocus.key, f.m.ratio * 1000 + f.m.chin * 100) },
     { key: 'shading', title: '쉐딩 (윤곽)', text: [M.shading, ...shadeX].join(' '), zone: 'shade' },
     { key: 'highlight', title: '하이라이터', text: [M.highlight, ...lightX].join(' '), zone: 'light' },
     { key: 'blush', title: '블러셔', text: [M.blush, ...blushX].join(' '), zone: 'blush' },
