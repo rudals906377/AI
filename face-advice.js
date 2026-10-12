@@ -573,10 +573,10 @@ const BEARD = {
 };
 function groomFocus(t) {
   const F = [
-    ['brow', '눈썹 정리', Math.max(-t.browGap, t.browArch, t.eyeWide)],
+    ['brow', '눈썹 정리', Math.max(-t.browGap, t.browArch, t.eyeWide) - 0.2],   // 측정값 3개의 최댓값이라 1.0σ 부터
     ['jaw', '턱선 · 면도 라인', Math.max(t.jawW, t.jawSharp)],
     ['width', '옆머리 · 수염으로 가로 폭', t.long],
-    ['lips', '입술 보습', Math.abs(t.lipFull)],
+    ['lips', '입술 보습', Math.abs(t.lipFull) - 0.4],   // 입술은 1.2σ 이상일 때만
   ].filter(([, , z]) => z >= 0.8).sort((a, b) => b[2] - a[2]);
   return { key: F[0]?.[0] || 'none', points: F.length ? F.slice(0, 3).map(([, l]) => l) : ['피부 결 정리'] };
 }
@@ -601,8 +601,9 @@ function groomingAdvice(f, t) {
 function makeupFocus(t) {
   const cheekPop = -((t.foreheadW || 0) + (t.jawW || 0)) / 2;
   const F = [
-    ['eyes', '눈매 살리기', Math.max(Math.abs(t.eyeUp), Math.abs(t.eyeWide), Math.abs(t.eyeRound), Math.abs(t.browGap))],
-    ['lips', '입술 균형', Math.max(Math.abs(t.upperThin), Math.abs(t.lipFull), t.philtrum, t.mouthW)],
+    ['eyes', '눈매 살리기', Math.max(Math.abs(t.eyeUp), Math.abs(t.eyeWide), Math.abs(t.eyeRound), Math.abs(t.browGap)) - 0.3],   // 측정값 4개의 최댓값이라 1.1σ 부터
+    // 입술은 사진마다 측정이 흔들리기 쉬워(표정 · 립 메이크업) 기준을 더 높게 둔다 (1.5σ, 나머지는 0.8~1.1σ)
+    ['lips', '입술 균형', Math.max(Math.abs(t.upperThin), Math.abs(t.lipFull), t.philtrum, t.mouthW) - 0.7],
     ['contour', '윤곽 다듬기', Math.max(Math.abs(t.foreheadW), Math.abs(t.jawW), Math.abs(t.chinW), t.jawSharp, cheekPop)],
     ['balance', '비율 보정', Math.max(t.mid, t.lower, t.upper, Math.abs(t.long), t.noseW)],
   ].filter(([, , z]) => z >= 0.8).sort((a, b) => b[2] - a[2]);
