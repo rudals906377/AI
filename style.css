@@ -749,3 +749,28 @@ table.spec tr:last-child th, table.spec tr:last-child td { border-bottom: none; 
 .adv.idea .idea-points strong { color: var(--accent-ink); }
 .adv.idea .idea-quip { margin: 8px 0 0; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--bg); border-radius: 0 8px 8px 0; font-size: 0.86rem; font-style: italic; color: var(--text); }
 .adv.idea .idea-notes { margin: 8px 0 0; padding-left: 18px; font-size: 0.82rem; color: var(--muted); line-height: 1.55; display: grid; gap: 3px; }
+/* 내 기록 · 디자이너 모드 */
+.mode-tabs { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 640px) { .mode-tabs { grid-template-columns: repeat(2, 1fr); } }
+.designer-badge { background: var(--accent); color: var(--on-accent); margin-left: 6px; }
+body[data-designer] .idea-quip { display: none; }
+.hist-card h2 small { font-weight: 400; color: var(--muted); font-size: 0.8rem; margin-left: 6px; }
+.hist-memo { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); margin: 8px 0; font-size: 0.88rem; }
+.hist-memo b { color: var(--accent-ink); }
+.hist-memo small { grid-column: 1 / -1; color: var(--muted); font-size: 0.78rem; }
+.hist-memo.muted span { color: var(--muted); }
+.hist-filter { margin: 10px 0; }
+.hist-list { display: grid; gap: 8px; }
+.hist-item { border: 1px solid var(--line); border-radius: 12px; background: var(--card); overflow: hidden; }
+.hist-head { display: grid; grid-template-columns: 64px 1fr; gap: 12px; width: 100%; text-align: left; padding: 10px; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; align-items: center; }
+.hist-head img, .hist-ph { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; display: grid; place-items: center; background: var(--bg); color: var(--muted); font-style: normal; font-weight: 700; }
+.hist-head div { display: grid; gap: 2px; min-width: 0; }
+.hist-cat { font-size: 0.72rem; color: var(--accent-ink); font-weight: 600; }
+.hist-head b { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-head small { color: var(--muted); font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-head time { font-size: 0.74rem; color: var(--muted); }
+.hist-body { display: none; padding: 0 12px 12px; }
+.hist-item.open .hist-body { display: block; }
+.hist-body pre { white-space: pre-wrap; font: inherit; font-size: 0.84rem; line-height: 1.55; margin: 0 0 8px; padding: 10px; border-radius: 8px; background: var(--bg); max-height: 320px; overflow: auto; }
+.hist-empty { color: var(--muted); font-size: 0.88rem; padding: 14px 4px; }
+.hist-actions { margin-top: 12px; }

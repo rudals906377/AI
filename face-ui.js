@@ -90,6 +90,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   let last = null;      // analyzeFace 결과 (여러 장이면 combineFaces 결과)
   let report = null;
   let layer = 'measure';
+  // 디자이너 모드: 농담 한마디를 숨기고 시술 지시서를 추천 맨 위로 (designer.html 에서 켜고 끔, ?designer=1 로도 켜짐)
+  const designer = (() => { try { return localStorage.getItem('finde-designer') === '1'; } catch { return false; } })();
+  if (designer) { document.body.dataset.designer = '1'; $('designerBadge')?.classList.remove('hidden'); const sp = $('faceSpec'), bs = $('faceBasis'); if (sp && bs) bs.parentNode.insertBefore(sp, bs); }
   let seq = 0;
 
   // ---- 화면 전환 ------------------------------------------------------------------
@@ -99,6 +102,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     els.styleGrid.classList.toggle('hidden', mode !== 'style');
     els.faceGrid.classList.toggle('hidden', mode !== 'face');
     document.getElementById('nailGrid')?.classList.toggle('hidden', mode !== 'nail');
+    document.getElementById('historyGrid')?.classList.toggle('hidden', mode !== 'history');
+    if (mode === 'history') window.dispatchEvent(new CustomEvent('finde:history'));
     if (mode === 'nail' && scroll) els.tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (mode === 'face') {
       preloadFace().catch(() => {}); // 모델을 미리 받아 둔다 (약 20MB, 처음 한 번)
@@ -445,7 +450,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   function render() {
     const f = last;
     report = faceReport(f, getStyle().result, { gender: gender || null });
-    window.dispatchEvent(new CustomEvent('beauty:face'));
+    window.dispatchEvent(new CustomEvent('beauty:face', { detail: { report, face: f, purpose, gender: gender || null } }));
     els.result.classList.remove('hidden', 'enter');
     void els.result.offsetWidth;
     els.result.classList.add('enter');
@@ -484,7 +489,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
         ${i.needs?.length ? `<div class="rc-tags">${i.needs.map((k) => NEED_KO[k] ? `<span>${NEED_KO[k]}</span>` : '').join('')}</div>` : ''}
         ${why1 ? `<p class="rc-why">${esc(why1.replace(/\.$/, ''))}.</p>` : ''}${rest.length && n === 0 ? `<p class="rc-more">${esc(rest.join('. '))}</p>` : ''}</div></div>`;
     };
-    const ideaHtml = (s) => `<div class="adv idea"><b>${esc(s.title)}</b>${s.points?.length ? `<p class="idea-points">가장 필요한 건 <strong>${s.points.map(esc).join(' · ')}</strong></p>` : ''}<p>${esc(s.text)}</p>${s.quip ? `<p class="idea-quip">${esc(s.quip)}</p>` : ''}${s.notes?.length ? `<ul class="idea-notes">${s.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}</div>`;
+    const ideaHtml = (s) => `<div class="adv idea"><b>${esc(s.title)}</b>${s.points?.length ? `<p class="idea-points">가장 필요한 건 <strong>${s.points.map(esc).join(' · ')}</strong></p>` : ''}<p>${esc(s.text)}</p>${s.quip && !designer ? `<p class="idea-quip">${esc(s.quip)}</p>` : ''}${s.notes?.length ? `<ul class="idea-notes">${s.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}</div>`;
     els.advice.innerHTML = secs.filter((s) => s.key !== 'basis').map((s) => s.key === 'idea' ? ideaHtml(s) : CARD_KEYS.includes(s.key) && s.list
       ? `<div class="adv cards ${s.key}"><b>${esc(s.title)}</b><div class="rc-grid">${s.list.map((i, n) => card(s, i, n)).join('')}</div></div>`
       : `<div class="adv ${s.key}${s.zone ? ` z-${s.zone}` : ''}"><b>${s.zone ? '<i class="dot"></i>' : ''}${esc(s.title)}</b>${s.text ? `<p>${esc(s.text)}</p>` : ''}${s.list ? `<ul>${s.list.map((i) => `<li><span>${esc(i.name)}</span>${i.why ? ` <small>${esc(i.why)}</small>` : ''}</li>`).join('')}</ul>` : ''}</div>`).join('');
