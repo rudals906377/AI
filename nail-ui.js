@@ -1,6 +1,6 @@
 // '내 손톱 분석' 화면: 손 사진 → nail.js 측정 → nail-advice.js 추천
 import { analyzeNails, preloadNails, modelsReady, TYPE_KO } from './nail.js';
-import { nailReport, TYPE_LINE } from './nail-advice.js';
+import { SHAPES, nailReport, TYPE_LINE } from './nail-advice.js';
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -121,6 +121,7 @@ const icon = (k) => `<svg viewBox="0 0 46 64" aria-hidden="true"><path d="${ICON
 function render() {
   const r = last, t = r.type;
   const rep = nailReport(t, { life: answers.life, length: answers.length, natural: answers.natural, curve: answers.curve || null });
+  renderTry();
   drawOverlay(r);
   els.result.classList.remove('hidden');
   els.type.textContent = `${TYPE_KO.width[t.width]}`;
@@ -145,6 +146,49 @@ function render() {
   window.dispatchEvent(new CustomEvent('beauty:nail'));
 }
 
+// 가상 쉐입 입혀 보기: 고른 모양을 손톱 위에 그린다 (분할로 찾은 손톱 너비 · 길이 기준, 긴 모양은 끝을 늘려 그림)
+let tryShape = null, tryColor = '#e8b4b8';
+const NAIL_COLORS = ['#e8b4b8', '#f3d9c8', '#c94b5a', '#8b2e3f', '#d9c7f2', '#9fb7c9', '#2b2b2b', '#f6f0e8'];
+const SHAPE_GEO = { 라운드: { len: 1.0, tipW: 1.0, tipH: 0.5, flat: false, sharp: false }, 오벌: { len: 1.15, tipW: 0.82, tipH: 0.55, flat: false, sharp: false },
+  라운드스퀘어: { len: 1.05, tipW: 0.96, tipH: 0.14, flat: true, sharp: false }, 스퀘어: { len: 1.05, tipW: 1.0, tipH: 0.0, flat: true, sharp: false },
+  아몬드: { len: 1.35, tipW: 0.0, tipH: 0.45, flat: false, sharp: true }, 코핀: { len: 1.5, tipW: 0.55, tipH: 0.45, flat: true, sharp: false }, 스틸레토: { len: 1.5, tipW: 0.0, tipH: 0.5, flat: false, sharp: true } };
+function renderTry() {
+  const sp = document.getElementById('nailShapePick'), cp = document.getElementById('nailColorPick'); if (!sp) return;
+  sp.innerHTML = `<button type="button" data-s="" class="${tryShape ? '' : 'active'}">끄기</button>` + Object.keys(SHAPES).map((k) => `<button type="button" data-s="${k}" class="${tryShape === k ? 'active' : ''}">${k}</button>`).join('');
+  cp.innerHTML = NAIL_COLORS.map((c) => `<button type="button" data-c="${c}" class="${tryColor === c ? 'active' : ''}" style="background:${c}" aria-label="색 ${c}"></button>`).join('');
+  sp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryShape = b.dataset.s || null; renderTry(); if (last) drawOverlay(last); };
+  cp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryColor = b.dataset.c; renderTry(); if (last) drawOverlay(last); };
+}
+function shapePath(m, geo) {
+  const { l, r, yTop, yBot } = m.box, W = r - l + 1, cx = (l + r + 1) / 2, L0 = yBot - yTop + 1;
+  const tipY = yBot - L0 * geo.len, tipH = geo.sharp || geo.flat ? (yBot - tipY) * geo.tipH : W * geo.tipH;
+  const shoulder = tipY + tipH, wTip = W * geo.tipW;
+  const pts = [[l, yBot]];
+  // 왼쪽 옆선: 뿌리 → 어깨 (끝이 좁아지는 모양은 어깨에서 폭이 줄기 시작)
+  const sx = cx - wTip / 2, sxR = cx + wTip / 2;
+  pts.push([l, Math.min(yBot, shoulder + (geo.sharp || geo.flat ? 0 : 0))]);
+  if (geo.sharp) { pts.push([cx, tipY]); pts.push([r + 1, shoulder]); }
+  else if (geo.flat) { pts.push([sx, tipY]); pts.push([sxR, tipY]); pts.push([r + 1, shoulder]); }
+  else { // 둥근 끝: 타원 호
+    const n = 10; for (let i = 0; i <= n; i++) { const a = Math.PI - (Math.PI * i) / n; pts.push([cx + (wTip / 2) * Math.cos(a), shoulder - tipH * Math.sin(a)]); }
+    pts.push([r + 1, shoulder]);
+  }
+  pts.push([r + 1, yBot]);
+  // 큐티클 쪽 둥근 바닥
+  const n2 = 8; for (let i = 1; i < n2; i++) { const u = i / n2; pts.push([r + 1 - W * u, yBot + W * 0.13 * Math.sin(Math.PI * u)]); }
+  return pts;
+}
+function drawTry(g, r, sc) {
+  if (!tryShape) return;
+  const geo = SHAPE_GEO[tryShape]; if (!geo) return;
+  for (const f of r.fingers) {
+    if (!f.m || !f.frame) continue;
+    const { p0, a, b } = f.frame;
+    const P = shapePath(f.m, geo).map(([x, y]) => [(p0[0] + a[0] * x + b[0] * y) * sc, (p0[1] + a[1] * x + b[1] * y) * sc]);
+    g.save(); g.beginPath(); P.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath();
+    g.fillStyle = tryColor + '99'; g.fill(); g.lineWidth = Math.max(1.5, g.canvas.width / 450); g.strokeStyle = 'rgba(255,255,255,.9)'; g.stroke(); g.restore();
+  }
+}
 function drawOverlay(r) {
   const c = els.canvas, src = r.canvas;
   const sc = Math.min(1, 900 / Math.max(src.width, src.height));
@@ -158,5 +202,6 @@ function drawOverlay(r) {
     g.beginPath(); f.outline.forEach(([x, y], i) => (i ? g.lineTo(x * sc, y * sc) : g.moveTo(x * sc, y * sc))); g.closePath(); g.stroke();
     if (f.freeLine) { g.save(); g.setLineDash([4, 3]); g.strokeStyle = '#fff'; g.beginPath(); g.moveTo(f.freeLine[0][0] * sc, f.freeLine[0][1] * sc); g.lineTo(f.freeLine[1][0] * sc, f.freeLine[1][1] * sc); g.stroke(); g.restore(); }
   }
+  drawTry(g, r, sc);
 }
 export { TYPE_LINE };

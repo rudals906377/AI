@@ -270,6 +270,7 @@
           </div>
           <ul class="face-warn hidden" id="nailWarn"></ul>
           <h3>어울리는 쉐입</h3>
+          <div class="nail-try" id="nailTry"><b>입혀 보기 <small>(선택한 모양을 손톱 위에 그려 봐요)</small></b><div class="seg seg-sm" id="nailShapePick"></div><div class="nail-colors" id="nailColorPick"></div></div>
           <div class="nail-shapes" id="nailTop"></div>
           <div class="nail-avoid hidden" id="nailAvoid"></div>
           <h3>길이 · 디자인</h3>
@@ -361,8 +362,10 @@
               <button type="button" data-layer="measure" class="active">측정선</button>
               <button type="button" data-layer="makeup" hidden>메이크업 위치</button>
               <button type="button" data-layer="photo">사진만</button>
+              <button type="button" data-layer="color" hidden>헤어 컬러</button>
             </div>
             <figcaption class="face-legend" id="faceLegend"></figcaption>
+            <div class="hair-palette hidden" id="hairPalette" role="group" aria-label="헤어 컬러 고르기"></div>
           </figure>
           <div class="face-head">
             <small id="faceShapeLabel">내 얼굴형</small>
@@ -381,7 +384,11 @@
           <div class="ftab" data-tab="advice" role="tabpanel">
           <h3 id="faceAdviceTitle">헤어 추천</h3>
           <p class="respect" id="faceRespect">얼굴 비율을 잰 객관적인 정보를 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.</p>
+          <div class="basis hidden" id="faceBasis"></div>
           <div class="advice" id="faceAdvice"></div>
+          <div class="spec-box hidden" id="faceSpec"></div>
+          <div class="acc-box hidden" id="faceAcc"></div>
+          <div class="season-box hidden" id="faceSeason"></div>
           </div>
           <div class="ftab hidden" data-tab="styles" role="tabpanel">
           <section class="face-gallery hidden" id="faceGallery" aria-labelledby="faceGalleryTitle">
@@ -431,6 +438,7 @@
           <div class="row">
             <button class="ghost small" id="faceCopy" type="button">결과 복사</button>
             <button class="ghost small" id="faceShare" type="button">공유 이미지</button>
+            <button class="ghost small" id="facePdf" type="button">결과지 PDF</button>
             <button class="ghost small" id="faceAgain" type="button">다른 사진으로</button>
           </div>
           <label class="remember"><input type="checkbox" id="faceRemember"> 이 기기에 내 얼굴형 기억하기 <small>측정값만 이 브라우저에 저장하고 사진은 저장하지 않아요. 다음에 스타일만 분석해도 궁합을 바로 볼 수 있어요.</small></label>

@@ -219,7 +219,9 @@ export async function analyzeNails(blob) {
     // 윤곽을 원본 좌표로 (그리기용)
     const outline = m ? [...m.contour.map(([l, y]) => fr.toSrc(l, y)), ...m.contour.slice().reverse().map(([, y, r]) => fr.toSrc(r + 1, y))] : null;
     const fe = m && m.box.yFe > m.box.yTop ? [fr.toSrc(m.box.l, m.box.yFe), fr.toSrc(m.box.r + 1, m.box.yFe)] : null;
-    return { ...f, m, outline, freeLine: fe, L: fr.L };
+    // 크롭 좌표 → 원본 좌표 변환 (가상 쉐입 그리기용): src = p0 + a·x + b·y
+    const q0 = fr.toSrc(0, 0), qx = fr.toSrc(1, 0), qy = fr.toSrc(0, 1);
+    return { ...f, m, outline, freeLine: fe, L: fr.L, frame: { p0: q0, a: [qx[0] - q0[0], qx[1] - q0[1]], b: [qy[0] - q0[0], qy[1] - q0[1]] } };
   });
   const hm = handMetrics(P);
   const found = fingers.filter((f) => f.m && f.key !== 'thumb');
