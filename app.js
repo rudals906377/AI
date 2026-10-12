@@ -7,6 +7,7 @@ import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
 import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
+import { initHistory } from './history.js';
 import { initFaceUI } from './face-ui.js';
 import { assetFetch } from './assets.js';
 import { styleCard, shareImage } from './share-card.js';
@@ -26,6 +27,7 @@ const RUNTIME = {
 };
 // URL 로 시작 모델 지정 가능: ?model=base (발표 PC 사정에 맞춰 빠르게 전환)
 const params = new URLSearchParams(location.search);
+if (params.get('designer') === '1') { try { localStorage.setItem('finde-designer', '1'); } catch {} }
 let modelKey = MODELS[params.get('model')] ? params.get('model') : 'base';
 env.allowLocalModels = false;
 
@@ -494,7 +496,7 @@ async function renderPet(r) {
 }
 
 function render(r) {
-  window.dispatchEvent(new CustomEvent('beauty:style'));
+  window.dispatchEvent(new CustomEvent('beauty:style', { detail: { result: r, blob: r.blob || currentBlob } }));
   if (els.empty.classList.contains('many')) els.empty.innerHTML = EMPTY_HTML;
   els.empty.classList.remove('many');
   els.empty.classList.add('hidden');
@@ -981,8 +983,9 @@ async function analyzeStyle(blob, purpose) {
   const alt = r.category_ranking.find((c) => c.key === purpose);
   return alt && alt.score >= 0.2 ? analyzer.analyze(blob, { category: purpose, ...opts }) : r;
 }
+initHistory();
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
-if (params.get('mode') === 'face' || params.get('mode') === 'nail') faceUI.setMode(params.get('mode'), { scroll: false });
+if (['face', 'nail', 'history'].includes(params.get('mode'))) faceUI.setMode(params.get('mode'), { scroll: false });
 
 
 init();

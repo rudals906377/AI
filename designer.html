@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>디자이너 모드 · FINDE 실험실</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f4efe8" />
+  <link rel="icon" type="image/png" sizes="64x64" href="./brand/favicon-64.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./brand/favicon-32.png" />
+  <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    .dz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .dz { display: block; border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: var(--card); color: inherit; text-decoration: none; transition: border-color .15s, transform .15s; }
+    .dz:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .dz b { display: block; font-size: 1.02rem; color: var(--accent-ink); margin-bottom: 4px; }
+    .dz p { margin: 0; font-size: .86rem; line-height: 1.55; color: var(--muted); }
+    .dz .tag { display: inline-block; font-size: .72rem; padding: 2px 8px; border-radius: 999px; background: var(--soft, var(--bg)); border: 1px solid var(--line); color: var(--accent-ink); margin-bottom: 8px; }
+    .dz-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .dz-steps { margin: 8px 0 0; padding-left: 20px; font-size: .86rem; line-height: 1.65; }
+    .dz-steps li b { color: var(--accent-ink); }
+    .on-pill { font-size: .78rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+    .on-pill.on { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="brand">
+        <h1 class="logo"><a href="./"><picture><source srcset="./brand/logo-dark.png" media="(prefers-color-scheme: dark)" /><img src="./brand/logo.png" alt="FINDE" width="190" height="46" /></picture></a><small class="brand-ko">디자이너 모드</small></h1>
+        <p>헤어 · 네일아트 · 메이크업 · 타투 디자이너를 위한 입구예요. 손님 사진으로 상담 자료를 만들고, AI 판단을 검수해 정확도를 올리는 도구를 한곳에 모았어요. 사진은 이 브라우저 밖으로 보내지 않아요.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="dz-toggle">
+        <div><h2 style="margin:0">디자이너 모드 <span class="on-pill" id="pill">꺼짐</span></h2>
+          <p class="muted small" style="margin:4px 0 0">켜면 분석 화면에서 농담 한마디가 사라지고, 미용실 시술 지시서가 추천 맨 위로 올라와요. 이 기기에만 저장돼요.</p></div>
+        <div class="row" style="margin:0"><button type="button" class="primary" id="toggle">디자이너 모드 켜기</button></div>
+      </div>
+    </section>
+
+    <div class="dz-grid">
+      <a class="dz" href="./?mode=face&designer=1"><span class="tag">상담</span><b>손님 얼굴 상담 → 시술 지시서 · 결과지</b><p>손님 셀카 한 장으로 얼굴형 · 추천 커트 · 기장 cm · 레이어 · 가르마 · 펌을 디자이너 말로 정리하고, A4 결과지를 PDF 로 드려요. 헤어 · 메이크업 모두.</p></a>
+      <a class="dz" href="./?mode=nail&designer=1"><span class="tag">상담</span><b>손님 손톱 상담 → 쉐입 입혀 보기</b><p>손 사진으로 손톱형을 재고, 라운드 · 아몬드 · 코핀 같은 쉐입을 손톱 위에 바로 그려 보여 드려요. 네일아트 상담 카드도 복사할 수 있어요.</p></a>
+      <a class="dz" href="./?mode=style&designer=1"><span class="tag">상담</span><b>레퍼런스 사진 읽기</b><p>손님이 가져온 헤어 · 네일 · 메이크업 · 타투 사진을 장르 · 특징 · 트렌드 이름으로 풀어 줘요. 손님 얼굴형을 먼저 분석해 두면 그 사진과의 궁합도 같이 나와요.</p></a>
+      <a class="dz" href="./fit-review.html"><span class="tag">검수</span><b>얼굴형 · 추천 판정 (블라인드)</b><p>AI 답을 보기 전에 얼굴형과 추천할 커트를 먼저 고른 뒤 AI 와 비교해요. 디자이너 일치율이 자동으로 계산돼 "AI 가 얼마나 맞는지"를 숫자로 만들 수 있어요.</p></a>
+      <a class="dz" href="./review.html"><span class="tag">검수</span><b>스타일 사진 검수</b><p>헤어 · 네일 · 메이크업 · 타투 사진의 AI 판단이 맞는지 표시하고, 그 결과로 모델을 이어서 학습시킬 수 있는 파일을 내보내요. 헷갈린 사진부터 보여 줘요.</p></a>
+      <a class="dz" href="./?mode=history"><span class="tag">기록</span><b>이 기기의 기록</b><p>이 브라우저에서 분석한 결과들이에요. 손님별 결과지를 다시 보거나 복사할 때 쓰세요.</p></a>
+    </div>
+
+    <section class="card">
+      <h2>판정이 왜 중요한가요</h2>
+      <p class="muted small">지금 추천은 미용 교육 자료의 공통 원리를 규칙으로 옮긴 거예요. 디자이너 2~3명이 얼굴 100장씩만 판정해 주면 "디자이너와 몇 % 일치"라고 말할 수 있고, 어긋나는 규칙을 고칠 수 있어요.</p>
+      <ol class="dz-steps">
+        <li><b>얼굴형 · 추천 판정</b>을 열고 이름을 적어요.</li>
+        <li>촬영 · 활용에 동의받은 정면 사진을 폴더째 넣어요.</li>
+        <li>사진마다 기준(여성 · 남성) → 얼굴형 → 추천할 커트 3개 → AI 추천에 추천/비추천. 한 장에 30초쯤 걸려요.</li>
+        <li>끝나면 <b>결과 CSV</b> 와 <b>요약 JSON</b> 을 내려받아 보내 주세요. 일치율과 고칠 규칙을 정리해 드려요.</li>
+      </ol>
+    </section>
+
+    <footer>
+      <p class="ai-notice">AI 판단은 참고용이에요. 실제 시술은 디자이너의 판단으로 정해 주세요. <a href="./notice.html">AI 이용 안내</a> · <a href="./">일반 화면으로</a></p>
+    </footer>
+  </div>
+  <script>
+    const KEY = 'finde-designer';
+    const pill = document.getElementById('pill'), btn = document.getElementById('toggle');
+    const get = () => { try { return localStorage.getItem(KEY) === '1'; } catch { return false; } };
+    const draw = () => { const on = get(); pill.textContent = on ? '켜짐' : '꺼짐'; pill.classList.toggle('on', on); btn.textContent = on ? '디자이너 모드 끄기' : '디자이너 모드 켜기'; btn.className = on ? 'ghost' : 'primary'; };
+    btn.addEventListener('click', () => { try { localStorage.setItem(KEY, get() ? '0' : '1'); } catch {} draw(); });
+    draw();
+  </script>
+</body>
+</html>
