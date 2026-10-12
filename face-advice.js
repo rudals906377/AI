@@ -299,20 +299,41 @@ const CUT_FAM = { '남자 장발 레이어드': 'mlong', '장발 히피펌': 'ml
   투블럭컷: 'side', 페이드컷: 'side', 언더컷: 'side', 테이퍼컷: 'side', 울프컷: 'wolf', 멀릿컷: 'wolf', 픽시컷: 'pixie', 빅시컷: 'pixie', '레이어드 숏컷': 'pixie', '숏 허쉬컷': 'layer', 톰보이컷: 'pixie',
   댄디컷: 'down', 머쉬룸컷: 'down', 애즈펌: 'down', 가일컷: 'up', 아이비리그컷: 'up', '포마드·슬릭백': 'up', 쉼표머리: 'part', 가르마펌: 'part' };
 const BANG_FAM = { 풀뱅: 'heavy', 와이드뱅: 'heavy', '앞머리 없음': 'open', '넘긴 앞머리': 'open', 커튼뱅: 'frame', U뱅: 'frame' };
+// 추천 이유의 앞부분. 뒤에 커트 설명 문장이 그대로 이어지므로 모두 '~(이)라' 로 끝낸다 → "얼굴이 긴 편이라 턱선에서 끊기는 가로선이 얼굴 길이를 줄여 줘요"
 const NEED_SAY = {
-  shorten: (t) => (t.long >= 0.8 ? '얼굴이 긴 편이라' : t.upper >= 0.8 ? '이마가 높은 편이라' : '세로 길이를 살짝 줄이면 좋아서'),
-  lengthen: (t) => (t.long <= -0.8 ? '얼굴이 짧은 편이라' : '세로선을 더하면 갸름해 보여서'),
-  forehead: (t) => (t.foreheadW >= 0.8 ? '이마가 넓은 편이라' : t.upper >= 0.8 ? '이마가 높은 편이라' : '이마 쪽 비율을 맞추면 좋아서'),
-  cheek: (t) => (-(t.foreheadW + t.jawW) / 2 >= 0.6 ? '이마 · 턱보다 광대가 넓은 편이라' : '광대 · 볼 쪽을 감싸면 좋아서'),
-  mid: () => '중안부가 긴 편이라 광대 높이에서 세로선을 끊어 주면',
+  shorten: (t) => (t.long >= 0.8 ? '얼굴이 긴 편이라' : t.upper >= 0.8 ? '이마가 높은 편이라' : ''),
+  lengthen: (t) => (t.long <= -0.8 ? '얼굴이 짧은 편이라' : ''),
+  forehead: (t) => (t.foreheadW >= 0.8 ? '이마가 넓은 편이라' : t.upper >= 0.8 ? '이마가 높은 편이라' : ''),
+  cheek: (t) => (-(t.foreheadW + t.jawW) / 2 >= 0.6 ? '이마 · 턱보다 광대가 넓은 편이라' : ''),
+  mid: () => '중안부가 긴 편이라',
   openTop: (t) => (t.upper <= -0.8 ? '이마가 짧은 편이라' : '이마가 좁은 편이라'),
-  lowShort: () => '하안부가 짧은 편이라 턱 아래로 이어지는 선이',
-  jaw: (t) => (t.jawSharp >= 0.8 ? '턱선이 각진 편이라' : t.jawW >= 0.8 ? '턱이 넓은 편이라' : '턱선을 부드럽게 하면 좋아서'),
-  fill: (t) => (t.chinW <= -0.8 ? '턱끝이 갸름한 편이라' : t.lower >= 0.8 ? '하안부가 긴 편이라' : '턱 주변을 채우면 균형이 좋아서'),
-  reveal: (t) => ([t.long, t.foreheadW, t.jawW, t.chinW, t.jawSharp].every((z) => Math.abs(z) < 0.8) ? '얼굴 비율이 고른 편이라' : '얼굴선이 또렷해 드러내도 좋아서'),
-  ears: (t) => (t.ears === 'out' ? '귀가 옆으로 보이는 편이라' : '귀선이 깔끔한 편이라'),
-  eyes: (t) => (t.eyeRound >= 0.8 ? '눈이 동그란 편이라' : '눈매가 시원한 편이라'),
+  lowShort: () => '하안부가 짧은 편이라',
+  jaw: (t) => (t.jawSharp >= 0.8 ? '턱선이 각진 편이라' : t.jawW >= 0.8 ? '턱이 넓은 편이라' : ''),
+  fill: (t) => (t.chinW <= -0.8 ? '턱끝이 갸름한 편이라' : t.lower >= 0.8 ? '하안부가 긴 편이라' : ''),
+  reveal: (t) => ([t.long, t.foreheadW, t.jawW, t.chinW, t.jawSharp].every((z) => Math.abs(z) < 0.8) ? '얼굴 비율이 고른 편이라' : ''),
+  ears: (t) => (t.ears === 'out' ? '귀가 옆으로 보이는 편이라' : ''),
+  eyes: (t) => (t.eyeRound >= 0.8 ? '눈이 동그란 편이라' : ''),
 };
+// 전문가가 농담 섞어 건네는 한마디 — 가장 큰 필요에 맞춰 하나만, 늘 칭찬 쪽으로
+const NEED_QUIP = {
+  shorten: ['긴 얼굴은 우아함의 상징이에요. 오늘은 가로선으로 살짝 쉬게 해 줄 뿐이죠.', '세로가 긴 얼굴은 화면에서 늘 유리해요. 커트는 균형만 거들면 돼요.'],
+  lengthen: ['얼굴이 짧으면 동안이라는 뜻이에요. 세로선 몇 가닥이면 분위기까지 챙길 수 있어요.', '동안 비율에 세로선을 더하면 "어려 보이는데 세련된" 조합이 완성돼요.'],
+  forehead: ['이마가 넓으면 생각이 많다는 속설이 있죠. 앞머리로 비밀을 조금만 지켜 드릴게요.', '넓은 이마는 시원한 인상의 비결이에요. 앞머리는 가리는 게 아니라 "조명 조절"이에요.'],
+  openTop: ['이마가 아담하니 앞머리를 무겁게 내리면 눈썹과 숨바꼭질을 하게 돼요. 살짝만 드러내세요.'],
+  cheek: ['광대는 사진에서 가장 먼저 빛을 받는 자산이에요. 옆머리로 밝기만 살짝 조절하죠.'],
+  mid: ['중안부가 길면 우아해 보여요. 앞머리 끝을 광대 높이에 두면 그 우아함에 균형까지 생겨요.'],
+  jaw: ['각진 턱선은 배우들이 부러워하는 선이에요. 층을 조금 넣어 카리스마를 70%쯤으로만 조절해 보죠.', '턱선이 또렷하면 어떤 커트도 흐리멍덩해지지 않아요. 우리는 각만 살짝 둥글리면 돼요.'],
+  fill: ['턱이 갸름하니 머리끝이 할 일이 많아요. 볼륨은 턱 높이에서 일하게 해 주세요.', '좁은 턱은 갸름함의 다른 이름이에요. 아래쪽에 머리숱이 조금만 거들면 완성이죠.'],
+  lowShort: ['턱 아래로 선을 이어 주면 하안부가 몇 센티 자란 효과예요. 키는 그대로지만요.'],
+  reveal: ['숨길 게 없는 비율이에요. 커트보다 거울이 더 바쁠 거예요.', '이런 비율은 커트가 아니라 "어떤 기분으로 자를까"가 고민이에요. 부럽습니다.'],
+  ears: ['귀가 살짝 보이는 건 귀걸이가 잘 보인다는 뜻이기도 해요. 옆머리 기장만 조금 남겨 두죠.'],
+  eyes: ['눈매가 주인공이에요. 앞머리는 조연답게 눈썹 근처에서 멈춰 주면 돼요.'],
+};
+function expertQuip(need, t, f) {
+  const top = Object.entries(need).filter(([k, v]) => v > 0.35 && NEED_QUIP[k]).sort((a, b) => b[1] - a[1])[0];
+  const list = NEED_QUIP[top ? top[0] : 'reveal'];
+  return list[Math.round(f.m.ratio * 1000 + f.m.jaw * 100) % list.length];
+}
 const NEED_IDEA = { mid: '광대 높이에서 세로선 끊기', openTop: '이마를 드러내 위쪽 비율 키우기', lowShort: '턱 아래로 선을 이어 하안부 길어 보이기', shorten: '가로선으로 세로 길이 줄이기', lengthen: '세로선으로 갸름하게', forehead: '이마 폭 · 높이 줄여 보이기', cheek: '광대 · 볼 옆 감싸기',
   jaw: '턱 모서리 부드럽게', fill: '좁은 턱 주변 채우기', reveal: '윤곽을 드러내 장점 살리기', ears: '귀 옆선 정리', eyes: '눈매 살리기' };
 // 이 얼굴에서 가장 큰 필요 두세 가지 (사람마다 조합이 달라진다)
@@ -320,9 +341,8 @@ function topNeeds(need) {
   return Object.entries(need).filter(([k, v]) => v > 0.35 && NEED_IDEA[k] && !(k === 'shorten' && need.lengthen > v) && !(k === 'lengthen' && need.shorten > v))
     .sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k]) => NEED_IDEA[k]);
 }
-// 점수에 가장 크게 기여한 필요를 이유 앞에 붙인다 → 같은 커트라도 사람마다 이유가 다르다.
-// 한 목록 안에서는 이미 쓴 이유를 피하고 다음으로 큰 이유를 쓰며, 끝맺음도 돌려 써서 같은 문장이 줄줄이 나오지 않게 한다
-const WHY_END = ['잘 맞아요.', '추천해요.', '잘 어울려요.', '좋아요.'];
+// 점수에 가장 크게 기여한 필요를 이유 앞에 붙여 한 문장으로 잇는다 → 같은 커트라도 사람마다 이유가 다르다.
+// 한 목록 안에서는 이미 쓴 이유를 피하고 다음으로 큰 이유를 쓴다
 // 맞춤 점수: 목록 안에서 1위를 95점으로 두고 점수 차이에 따라 내려간다 (화면의 막대용 · 절대 정확도가 아니라 '이 얼굴에서의 상대 순위')
 function fitPct(list) {
   if (!list.length) return [];
@@ -337,7 +357,8 @@ function withWhy(list, t) {
     const needs = cand.slice(0, 2).map(([k]) => k);   // 근거 그림용: 이 추천에 가장 크게 기여한 필요
     if (!best) return { name: c.name, why: c.why, fit: pct[i], needs };
     used.add(best[0]);
-    return { name: c.name, why: `${NEED_SAY[best[0]](t)} ${WHY_END[i % WHY_END.length]} ${c.why}`, fit: pct[i], needs };
+    const lead = NEED_SAY[best[0]](t);
+    return { name: c.name, why: lead ? `${lead} ${c.why}` : c.why, fit: pct[i], needs };
   });
 }
 // 점수순으로 고르되, 이미 고른 것과 같은 묶음이면 점수를 깎아 다른 모양이 섞이게 한다
@@ -500,7 +521,7 @@ function hairAdvice(f, t, gender = null, hair = HAIR_PREFS) {
   })).filter((b) => b.cuts.length);   // 보여 주는 커트와 이어지지 않는 필요는 그림에서 뺀다
   return [
     { key: 'basis', basis },
-    { key: 'idea', title: '핵심', text: [topNeeds(need).length ? `내 얼굴 맞춤 포인트: ${topNeeds(need).join(' · ')}.` : '', hairNote ? `내 머리카락(${hairNote}) 기준으로 골랐어요.` : '', (shortFirst ? S : L).idea, ...extra].filter(Boolean).join(' ') },
+    { key: 'idea', title: '핵심', text: (shortFirst ? S : L).idea, points: topNeeds(need), notes: [hairNote ? `내 머리카락(${hairNote})도 함께 생각해서 골랐어요.` : '', ...extra].filter(Boolean), quip: expertQuip(need, t, f) },
     ...two(longSec, shortSec),
     bangs.length && { key: 'bangs', title: '추천 앞머리', list: bangs },
     { key: 'length', title: '기장 · 볼륨 위치', text: `${lenA} ${lenB}` },

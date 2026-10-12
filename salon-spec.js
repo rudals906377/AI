@@ -67,6 +67,6 @@ export function salonSpec(cut, t, { gender = null, hair = {} } = {}) {
   if (hair.care === 'low') notes.push('손질 간단 선호 → 드라이 1회로 되는 기장/펌으로, 고정 제품 최소');
   const rows = [['기장', b.len], ['레이어', b.layer], ['가르마', b.part], ['펌 · 질감', b.perm], ['홈케어', b.care]].map(([k, v]) => ({ k, v }));
   if (notes.length) rows.push({ k: '이 얼굴 조정', v: notes.join(' / ') });
-  const text = [`[시술 지시서] ${cut}`, ...rows.map((r) => `${r.k}: ${r.v}`), '* 사진 측정 기반 안내 — 실제 길이는 디자이너가 체형에 맞춰 조정'].join('\n');
+  const text = [`[시술 지시서] ${cut}`, ...rows.map((r) => `${r.k}: ${r.v}`), '* 사진으로 잰 비율을 바탕으로 한 안내예요. 실제 길이는 디자이너가 체형에 맞춰 조정해 주세요.'].join('\n');
   return { title: cut, rows, notes, text };
 }

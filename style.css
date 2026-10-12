@@ -744,3 +744,8 @@ table.spec tr:last-child th, table.spec tr:last-child td { border-bottom: none; 
 .nail-colors button { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; padding: 0; }
 .nail-colors button.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
 @media (max-width: 560px) { .acc-grid { grid-template-columns: 1fr; } .drapes { grid-template-columns: repeat(2, 1fr); } }
+/* 핵심 칸: 한 줄 포인트 · 전문가 한마디 · 메모 */
+.adv.idea .idea-points { margin: 6px 0 2px; font-size: 0.92rem; }
+.adv.idea .idea-points strong { color: var(--accent-ink); }
+.adv.idea .idea-quip { margin: 8px 0 0; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--bg); border-radius: 0 8px 8px 0; font-size: 0.86rem; font-style: italic; color: var(--text); }
+.adv.idea .idea-notes { margin: 8px 0 0; padding-left: 18px; font-size: 0.82rem; color: var(--muted); line-height: 1.55; display: grid; gap: 3px; }
