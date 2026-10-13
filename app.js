@@ -411,7 +411,7 @@ async function run() {
     // 예시 사진은 한 번 분석한 결과를 다시 쓴다 (같은 모델 · 같은 카테고리 설정이면 결과가 같다) → 다시 누르면 바로
     const key = currentSample ? `${modelKey}|${currentCategory}|${currentSample}` : null;
     const hit = key && sampleCache.get(key);
-    if (!hit) try { subjects = await detectSubjects(blob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }
+    if (!hit && SAFE_LEVEL < 1) try { subjects = await detectSubjects(blob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }   // 안전 모드: 대상 세기(부위 인식 모델)도 건너뛴다
     if (subjects && subjects.n >= 2) { showManySubjects(subjects); return; }
     const result = hit ? structuredClone(hit) : await analyzer.analyze(blob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
     if (key && !hit) rememberSample(key, result);
@@ -694,15 +694,22 @@ const NO_COLOR = {
   makeup: '얼굴을 찾지 못했어요. 정면에 가까운 얼굴 사진에서 색을 뽑을 수 있어요.',
   nail: '손을 찾지 못해 손톱 색을 뽑지 못했어요. 손가락 전체가 보이게 찍으면 뽑을 수 있어요.',
 };
-async function startColors(r) {
+// 휴대폰(LOW_MEM): 결과가 나온 몇 초 뒤 부위 인식 모델(MediaPipe)을 더 올리면서 메모리가 넘쳐 화면이 새로 열리는 일이 있어, 색 뽑기는 버튼을 눌렀을 때만 한다
+async function startColors(r, { force = false } = {}) {
   const targets = COLOR_TARGETS[r.category];
   els.colorBlock.classList.toggle('hidden', !targets || !r.is_beauty);
   if (!targets || !r.is_beauty) return;
   const blob = r.blob || currentBlob, id = r.run_id;
-  els.swatches.innerHTML = '<span class="note">색을 뽑는 중…</span>';
   els.colorMeta.textContent = '';
+  if (LOW_MEM && !force) {
+    els.swatches.innerHTML = `<span class="note">사진 속 실제 색은 부위 인식 모델을 하나 더 써요. 휴대폰 메모리를 아끼려고 누를 때만 뽑아요.</span><button type="button" class="ghost small" id="colorsGo">사진 속 색 뽑기</button>`;
+    els.swatches.querySelector('#colorsGo').addEventListener('click', () => startColors(r, { force: true }));
+    return;
+  }
+  els.swatches.innerHTML = '<span class="note">색을 뽑는 중…</span>';
   let c = {};
-  try { c = await extractColors(blob, r.category); } catch (e) { console.warn('색 추출 실패', e); c = null; }
+  guardStart('colors', { device: currentDevice });   // 여기서 화면이 새로 열리면 다음부터 안전 모드
+  try { c = await extractColors(blob, r.category); } catch (e) { console.warn('색 추출 실패', e); c = null; } finally { guardEnd(); }
   if (lastResult?.run_id !== id) return; // 그새 다른 사진을 분석했다
   if (!c) { els.swatches.innerHTML = '<span class="note">색을 뽑지 못했어요 (부위 인식 모델을 불러오지 못함).</span>'; return; }
   lastResult.colors = c;
