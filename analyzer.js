@@ -31,6 +31,7 @@ export async function createAnalyzer({
   tta = false,     // true 면 좌우 반전 이미지까지 평균 (정확도 ↑, 시간 2배)
   regions,         // (source, wanted) => { face?, eye?, lip?, hair?, bangs?, head? : [x0, y0, x1, y1] (0~1 비율) } — 부위 잘라 보기 (없으면 전체 사진으로만 판단)
   motifs,          // embeddings/motifs-*.json (타투 세부 모티브). 있으면 타투 '도안'에 motifs: [{ ko, parent, score, level }] 를 붙인다
+  sessionOptions,  // ONNX Runtime 세션 옵션 (휴대폰: 메모리 아레나 끄기)
   onProgress,
 } = {}) {
   const progress = (p) => onProgress?.(p);
@@ -40,7 +41,7 @@ export async function createAnalyzer({
   const useHeads = heads && heads.hash === hash && heads.model === model;
   if (heads && !useHeads) console.warn('[analyzer] 학습된 헤드가 현재 속성 사전·모델과 달라 제로샷으로만 판단합니다.');
 
-  const vision = await loadVisionEncoder(model, { device, dtype, progress_callback: progress });
+  const vision = await loadVisionEncoder(model, { device, dtype, progress_callback: progress, session_options: sessionOptions });
 
   let index;
   if (usePrecomputed) index = decodeIndex(labelEmbeddings);

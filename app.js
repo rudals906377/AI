@@ -1,6 +1,7 @@
 // UI 제어 — 모델 로드, 입력 처리, 결과 렌더링
 import { env } from '@huggingface/transformers';
 import { createAnalyzer } from './analyzer.js';
+import { LOW_MEM } from './device.js';
 import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
@@ -32,6 +33,10 @@ const params = new URLSearchParams(location.search);
 if (params.get('designer') === '1') { try { localStorage.setItem('finde-designer', '1'); } catch {} }
 let modelKey = MODELS[params.get('model')] ? params.get('model') : 'base';
 env.allowLocalModels = false;
+// 휴대폰: 추론 뒤 작업 메모리를 돌려주고(아레나 끔), 사진을 조금 작게 다루고, 미리 분석 · 얼굴 모델 선로드를 하지 않는다 (탭이 메모리 초과로 새로 고쳐지는 일을 막기 위해)
+let SESSION_OPTS = LOW_MEM ? { enableCpuMemArena: false, enableMemPattern: false } : undefined;
+if (params.get('opt')) SESSION_OPTS = { ...(SESSION_OPTS || {}), graphOptimizationLevel: params.get('opt') };   // 고급: ?opt=basic|extended|all|disabled (메모리 실험용)
+const IMG_MAX = LOW_MEM ? 896 : 1024;
 
 // ---- DOM ----------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
@@ -109,7 +114,9 @@ async function init() {
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
-  await loadAnalyzer(modelKey);
+  // 휴대폰: 스타일 모델(약 94MB, 메모리 600MB 안팎)은 사진을 올릴 때 받는다 — 얼굴 · 손톱만 쓰는 사람은 안 받아도 되게
+  if (LOW_MEM && !currentBlob) setStatus('사진을 올리면 분석 모델을 받아요 · 약 94MB, 처음 한 번만', 0, 'ready', '휴대폰에서는 필요할 때 받아 메모리를 아껴요');
+  else await loadAnalyzer(modelKey);
 }
 
 function useWasmProxy() {
@@ -141,7 +148,7 @@ let partner = null;
 let fellBack = false;   // WebGPU 로드가 실패해 WASM 으로 내려온 적이 있으면 true
 async function makeBase(rt) {
   const m = MODELS.base;
-  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress(m.label) });
+  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, sessionOptions: SESSION_OPTS, onProgress: makeProgress(m.label) });
 }
 
 async function loadAnalyzer(key) {
@@ -165,14 +172,14 @@ async function loadAnalyzer(key) {
   analyzerLoading = (async () => {
     try {
       try {
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress(m.label) });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, sessionOptions: SESSION_OPTS, onProgress: makeProgress(m.label) });
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm };
         fellBack = true;   // 이후 짝 모델도 WASM 으로 (작업 스레드 설정은 첫 세션 전에만 바꿀 수 있어 그대로 둔다)
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
-        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, onProgress: makeProgress(m.label) });
+        analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, sessionOptions: SESSION_OPTS, onProgress: makeProgress(m.label) });
       }
       if (key === 'large') {
         // 기본 모델을 이미 쓰고 있었으면 짝으로 남기고, 아니면 이어서 불러온다
@@ -189,7 +196,7 @@ async function loadAnalyzer(key) {
       setStatus(`준비 완료 · 사진을 올려 보세요${key === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
       if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
       // 스타일 모델이 준비된 뒤 한가할 때 얼굴 분석 모델(약 20MB)도 미리 받아 둔다 → '내 얼굴 분석'이 바로 열린다
-      (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => { warmUp().finally(() => faceUI.preload?.()); });
+      if (!LOW_MEM) (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => { warmUp().finally(() => faceUI.preload?.()); });   // 휴대폰은 필요할 때 받는다
     } catch (e) {
       console.error(e);
       // 새 모델을 못 불러오면 쓰던 모델로 되돌린다 (정밀 모델이 휴대폰 메모리를 넘는 경우 등)
@@ -262,7 +269,7 @@ let currentSample = null;   // 지금 사진이 예시 사진이면 그 파일 �
 async function setImage(blob, sample = null) {
   if (!blob || !blob.type?.startsWith('image/')) { if (blob) toast('사진 파일만 올릴 수 있어요'); return false; }
   const my = ++imageSeq;
-  const small = await downscale(blob, 1024);
+  const small = await downscale(blob, IMG_MAX);
   if (my !== imageSeq) return false;      // 그사이 다른 사진을 골랐으면 이 사진은 버린다 (큰 사진이 늦게 끝나 덮어쓰지 않게)
   currentBlob = small; currentSample = sample;
   if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src);
@@ -280,11 +287,14 @@ async function downscale(blob, max) {
   try {
     const bmp = await createImageBitmap(blob);
     const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
-    if (scale === 1) return blob;
+    if (scale === 1) { bmp.close?.(); return blob; }
     const c = document.createElement('canvas');
     c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
     c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
-    return await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.92));
+    bmp.close?.();   // 원본 크기 비트맵은 바로 돌려준다 (휴대폰 메모리)
+    const out = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.92));
+    c.width = c.height = 0;
+    return out;
   } catch { return blob; }
 }
 function updateRunButton() { els.run.disabled = !(analyzer && currentBlob); }
@@ -294,7 +304,7 @@ async function pickImage(blob, sample = null) {
   if (!(await setImage(blob, sample))) return;
   if (currentBlob) showResultArea();
   if (analyzer && currentBlob) run();
-  else if (currentBlob) showWaiting();
+  else if (currentBlob) { showWaiting(); if (!analyzerLoading) loadAnalyzer(modelKey).catch(() => {}); }   // 휴대폰: 이때 모델을 받고, 받자마자 분석 (loadAnalyzer 가 run 을 이어 부른다)
 }
 // 휴대폰: 사진을 고른 그 순간(사용자가 직접 한 동작) 결과 칸으로 한 번만 내려 준다.
 // 분석이 끝났을 때는 움직이지 않는다 — 기다리는 동안 사용자가 스크롤했다면 그 자리를 지킨다
@@ -355,11 +365,11 @@ function rememberSample(key, r) {
 // 모델이 준비된 뒤 한가할 때 예시 사진 한 장을 미리 분석해 둔다:
 // 첫 분석에만 드는 준비 시간(계산 준비 · 부위 찾기 모델 불러오기)을 미리 써 두고, 그 사진을 누르면 결과가 바로 나온다
 async function warmUp() {
-  if (busy || currentBlob || !analyzer || modelKey !== 'base') return;
+  if (LOW_MEM || busy || currentBlob || !analyzer || modelKey !== 'base') return;   // 휴대폰에서는 미리 분석하지 않는다 (메모리)
   const s = samples.find((x) => x.category === 'hair') || samples[0];
   if (!s) return;
   try {
-    const blob = await downscale(await (await fetch(`./${s.file}`)).blob(), 1024);
+    const blob = await downscale(await (await fetch(`./${s.file}`)).blob(), IMG_MAX);
     const key = `${modelKey}|${currentCategory}|${s.file}`;
     if (sampleCache.has(key) || busy) return;
     const subjects = await detectSubjects(blob).catch(() => null);
@@ -1062,6 +1072,17 @@ async function analyzeStyle(blob, purpose) {
   return alt && alt.score >= 0.2 ? analyzer.analyze(blob, { category: purpose, ...opts }) : r;
 }
 initHistory();
+// 휴대폰에서 메모리 때문에 화면이 새로 고쳐졌을 때를 위해: 방금(3분 안) 저장된 기록이 있으면 결과가 내 기록에 남아 있다고 알려 준다
+(() => {
+  try {
+    const list = JSON.parse(localStorage.getItem('finde-history-v1') || '[]'); const last = list[list.length - 1];
+    if (!last || Date.now() - last.t > 3 * 60 * 1000) return;
+    const bar = document.createElement('div'); bar.className = 'recover'; bar.setAttribute('role', 'status');
+    bar.innerHTML = `<span>방금 분석한 <b>${last.title ? String(last.title).replace(/[<>&]/g, '') : '결과'}</b>가 내 기록에 저장돼 있어요. 화면이 새로 고쳐졌다면 거기서 바로 볼 수 있어요.</span><button type="button" class="primary small" data-act="open">내 기록 열기</button><button type="button" class="ghost small" data-act="close" aria-label="닫기">닫기</button>`;
+    bar.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.act === 'open') faceUI.setMode('history'); bar.remove(); });
+    document.getElementById('modeTabs')?.insertAdjacentElement('afterend', bar);
+  } catch {}
+})();
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
 if (['face', 'nail', 'history'].includes(params.get('mode'))) faceUI.setMode(params.get('mode'), { scroll: false });
 
