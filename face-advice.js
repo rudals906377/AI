@@ -118,11 +118,65 @@ function thirdsInfo(f, t) {
     note: notes.length ? `${notes.join(', ')}이에요.` : '세 부분이 평균처럼 고르게 나뉘어요.', tip };
 }
 
+// ---- 100명 중 몇 번째 (백분위) · AI 가 알아챈 것 ------------------------------------------
+// 기준값(NORM)은 실제 얼굴 311장의 평균 · 표준편차라, z 를 정규분포로 보면 "100명 중 몇 번째"로 옮길 수 있다 (어림값)
+const PHI = (z) => 0.5 * (1 + Math.sign(z) * Math.sqrt(1 - Math.exp((-2 * z * z) / Math.PI)));   // 정규분포 누적 (근사)
+// 항목마다 [작은 쪽 말, 큰 쪽 말] — z 가 양수면 큰 쪽
+const DIR = {
+  ratio: ['짧은', '긴'], jawAngle: ['둥근', '각진'], chin: ['뾰족한', '넓은'], philtrum: ['짧은', '긴'], eyeSpacing: ['좁은', '넓은'], eyeTilt: ['내려간', '올라간'],
+  eyeAspect: ['가로로 긴', '동그란'], browGap: ['가까운', '먼'], nose: ['좁은', '넓은'], lips: ['도톰한', '얇은'], mouth: ['작은', '큰'], lipFull: ['얇은', '도톰한'],
+};
+export function pctPhrase(z, [lo, hi]) {
+  if (!Number.isFinite(z)) return null;
+  const q = PHI(z);
+  return z >= 0 ? `${hi} 쪽 ${Math.max(1, Math.round((1 - q) * 100))}번째` : `${lo} 쪽 ${Math.max(1, Math.round(q * 100))}번째`;
+}
+// 거울로 바로 확인할 수 있는 힌트 (작은 쪽 · 큰 쪽)
+const MIRROR = {
+  ratio: ['얼굴 너비를 1로 보면 길이가 1.3을 넘지 않아요. 가로로 넉넉한 인상이에요.', '얼굴 너비를 1로 보면 길이가 1.45를 넘어요. 세로로 시원한 인상이에요.'],
+  jawAngle: ['귀 밑에서 턱끝까지 선이 완만한 곡선으로 내려와요.', '귀 밑에서 턱끝으로 꺾이는 모서리가 또렷해요.'],
+  chin: ['턱끝이 좁게 모여 V 자에 가까워요.', '턱끝이 넓고 평평하게 끝나요.'],
+  philtrum: ['코끝과 윗입술 사이가 손가락 한 마디보다 짧아요.', '코끝과 윗입술 사이가 손가락 한 마디를 넘어요.'],
+  eyeSpacing: ['두 눈 사이에 눈 하나가 들어가지 않을 만큼 가까워요.', '두 눈 사이에 눈 하나가 넉넉히 들어가요.'],
+  eyeTilt: ['눈 바깥쪽 끝이 안쪽보다 아래에 있어요. 순한 인상이에요.', '눈 바깥쪽 끝이 안쪽보다 위에 있어요. 또렷한 인상이에요.'],
+  eyeAspect: ['눈이 가로로 길고 눈매가 날렵해요.', '눈이 동그랗게 열려 있어요.'],
+  browGap: ['눈썹이 눈에 바싹 붙어 있어 또렷한 인상이에요.', '눈썹과 눈 사이가 넓어 여유 있는 인상이에요.'],
+  nose: ['콧볼 너비가 미간보다 좁아요.', '콧볼 너비가 미간보다 넓어요.'],
+  lips: ['윗입술이 아랫입술만큼 도톰해요.', '아랫입술이 윗입술보다 두 배 가까이 도톰해요.'],
+  mouth: ['입 너비가 콧볼 너비와 비슷하거나 좁아요.', '입 너비가 콧볼보다 한참 넓어요.'],
+  lipFull: ['입술이 얇고 선이 또렷해요.', '입술이 도톰하고 볼륨이 있어요.'],
+};
+// 그래서 어떤 뜻인지 (작은 쪽 · 큰 쪽)
+const SO = {
+  ratio: ['세로선 · 정수리 볼륨이 얼굴을 길어 보이게 해 줘요.', '앞머리나 옆 볼륨처럼 가로선이 균형을 잡아 줘요.'],
+  jawAngle: ['턱선을 드러내도 부드러워 보여요.', '턱 옆에 컬이나 레이어가 오면 각이 부드러워져요.'],
+  chin: ['턱 주변을 채우는 기장 · 볼륨이 잘 어울려요.', '턱끝 아래로 떨어지는 사선 라인이 갸름하게 보여 줘요.'],
+  philtrum: ['윗입술 라인을 또렷하게 그리면 균형이 좋아요.', '입술 산을 살짝 올려 그리면 인중이 짧아 보여요.'],
+  eyeSpacing: ['눈앞머리보다 눈꼬리 쪽을 강조하면 눈이 멀어 보여요.', '눈앞머리를 살려 주면 또렷해 보여요.'],
+  eyeTilt: ['눈꼬리를 살짝 올려 그리면 또렷해요.', '눈꼬리를 길게 빼기보다 아래쪽을 채우면 부드러워요.'],
+  eyeAspect: ['눈 가운데를 밝히면 동그래 보여요.', '아이라인을 길게 빼면 시원해 보여요.'],
+  browGap: ['눈썹 아래를 살짝 정리하면 눈이 커 보여요.', '눈썹 아래 하이라이트로 거리를 좁혀 보일 수 있어요.'],
+  nose: ['콧대 하이라이트만으로 충분해요.', '콧볼 옆 쉐딩이 코를 갸름하게 보여 줘요.'],
+  lips: ['입술 비율이 고른 편이라 어떤 립도 잘 받아요.', '윗입술 산을 살짝 넘겨 그리면 균형이 맞아요.'],
+  mouth: ['립 끝을 살짝 늘려 그리면 균형이 좋아요.', '립을 입술 안쪽으로 또렷하게 그리면 깔끔해요.'],
+  lipFull: ['틴트로 안쪽만 채우면 자연스럽게 도톰해 보여요.', '매트보다 글로시가 볼륨을 살려 줘요.'],
+};
+// 평균과 가장 다른 항목 3개를 "AI 가 알아챈 것"으로 — 숫자 · 100명 중 몇 번째 · 거울 확인 힌트 · 그래서
+function noticed(rows) {
+  const cands = rows.filter((r) => DIR[r.key] && Number.isFinite(r.z) && Math.abs(r.z) >= 0.5).sort((a, b) => Math.abs(b.z) - Math.abs(a.z)).slice(0, 3);
+  const items = cands.map((r) => {
+    const dir = r.z >= 0 ? 1 : 0, soft = Math.abs(r.z) < 0.8;
+    return { key: r.key, title: r.note.replace(/이에요\.?$/, ''), soft, value: r.value, avg: r.avg, pct: r.pct, mirror: MIRROR[r.key][dir], so: SO[r.key][dir] };
+  });
+  if (!items.length) items.push({ key: 'avg', title: '모든 비율이 평균에 아주 가까워요', soft: false, value: null, avg: null, pct: '가운데 쪽', mirror: '이마 · 광대 · 턱 너비와 눈 · 코 · 입 비율이 전부 평균 범위 안이에요.', so: '이런 얼굴이 오히려 드물어요. 대부분의 스타일이 무난하게 받아요.' });
+  return items;
+}
+
 // ---- 측정 표 ------------------------------------------------------------------------
 function measures(f, t) {
   const m = f.m, rows = [], NORM = normFor(f.normG);
   const fx = (x, d = 2) => x.toFixed(d);
-  const row = (key, label, value, avg, note, zz) => rows.push({ key, label, value, avg, note: note || '평균에 가까워요', z: zz });
+  const row = (key, label, value, avg, note, zz) => rows.push({ key, label, value, avg, note: note || '평균에 가까워요', z: zz, pct: DIR[key] ? pctPhrase(zz, DIR[key]) : null });
   row('ratio', '얼굴 길이 : 너비', `${fx(m.ratio)} : 1`, `${NORM.ratio[0]} : 1`, f.geo.hairlineFound ? say(t.long, '짧은 편', '긴 편') && `얼굴이 ${say(t.long, '짧은 편', '긴 편')}이에요` : '헤어라인이 안 보여 이마 높이는 어림값이에요', t.long);
   row('widths', '이마 : 광대 : 턱 너비', `${fx(m.forehead)} : 1 : ${fx(m.jaw)}`, `${NORM.forehead[0]} : 1 : ${NORM.jaw[0]}`,
     [phrase('이마가', t.foreheadW, '좁은 편', '넓은 편'), phrase('턱이', t.jawW, '좁은 편', '넓은 편')].filter(Boolean).join(', ') + (Math.abs(t.foreheadW) >= 0.8 || Math.abs(t.jawW) >= 0.8 ? '이에요' : ''), Math.max(Math.abs(t.foreheadW), Math.abs(t.jawW)));
@@ -1000,6 +1054,7 @@ export function faceReport(f, style = null, { gender = null } = {}) {
   return {
     shape: p[0], near, headline, summary, quip: ((q) => q[Math.round(p[0].p * 1000 + (p[1]?.p || 0) * 100 + f.m.ratio * 997) % q.length])(SHAPE_QUIP[p[0].key] || SHAPE_QUIP.oval),
     measures: measures(f, t),
+    noticed: noticed(measures(f, t)),
     thirds: thirdsInfo(f, t),
     hair: hairAdvice(f, t, gender),
     makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),

@@ -464,6 +464,18 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       ${th.warn ? `<p class="th-warn">${esc(th.warn)}</p>` : ''}`;
   }
 
+  // AI 가 알아챈 것: 평균과 가장 다른 3가지를 숫자 · 100명 중 몇 번째 · 거울 확인 · 그래서 로 (결과 맨 위, 하나씩 나타남)
+  function renderNoticed(items) {
+    const box = $('faceNoticed'); if (!box) return;
+    if (!items?.length) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+    box.innerHTML = `<h4>AI 가 알아챈 것 <small>평균과 가장 다른 ${items.length}가지 · 거울로 확인해 보세요</small></h4><ol>${items.map((it, i) => `<li style="animation-delay:${i * 180}ms">
+      <b>${esc(it.title)}${it.soft ? ' <em>살짝</em>' : ''}</b>
+      ${it.value ? `<span class="nt-num">${esc(it.value)} <small>평균 ${esc(it.avg)}</small> · 100명 중 <strong>${esc(it.pct)}</strong></span>` : `<span class="nt-num">100명 중 <strong>${esc(it.pct)}</strong></span>`}
+      <span class="nt-mirror">거울 확인 · ${esc(it.mirror)}</span>
+      <span class="nt-so">→ ${esc(it.so)}</span></li>`).join('')}</ol>`;
+  }
+
   function render() {
     const f = last;
     report = faceReport(f, getStyle().result, { gender: gender || null });
@@ -476,6 +488,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     // '긴 편' 처럼 꾸밈말과 '편' 사이에서 줄이 나뉘지 않게
     els.summary.innerHTML = report.summary.map((s) => `<span class="s">${esc(s).replace(/ (편|중간)/g, '&nbsp;$1')}</span>`).join(' ');
     if (report.quip) els.summary.innerHTML += `<span class="s face-quip">${esc(report.quip)}</span>`;
+    renderNoticed(report.noticed);
     renderThirds(report.thirds);
     els.bars.innerHTML = f.shape.probs.map((p, i) => `<div class="sb ${i ? '' : 'top'}"><span>${esc(p.label)}</span><i><b style="width:${Math.round(p.p * 100)}%"></b></i><em>${Math.round(p.p * 100)}%</em></div>`).join('');
     const warns = f.issues.filter((x) => x.level !== 'block');
@@ -488,9 +501,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     if (mt) els.match.innerHTML = fitHtml(mt, `분석한 ${mt.category === 'hair' ? '헤어' : '메이크업'} 스타일과의 궁합`);
     syncStyleFit();
     // 측정 표
-    els.measures.innerHTML = `<thead><tr><th>항목</th><th>내 얼굴</th><th>평균</th><th>풀이</th></tr></thead><tbody>${report.measures
+    els.measures.innerHTML = `<thead><tr><th>항목</th><th>내 얼굴</th><th>평균</th><th>100명 중</th><th>풀이</th></tr></thead><tbody>${report.measures
       .filter((r) => purpose === 'makeup' || !['eyeTilt', 'eyeAspect', 'browGap', 'nose', 'lips', 'lipFull', 'mouth'].includes(r.key))
-      .map((r) => `<tr class="${Math.abs(r.z) >= 0.8 ? 'hl' : ''}"><th>${esc(r.label)}</th><td>${esc(r.value)}</td><td>${esc(r.avg)}</td><td>${esc(r.note)}</td></tr>`).join('')}</tbody>`;
+      .map((r) => `<tr class="${Math.abs(r.z) >= 0.8 ? 'hl' : ''}"><th>${esc(r.label)}</th><td>${esc(r.value)}</td><td>${esc(r.avg)}</td><td class="pct">${r.pct ? esc(r.pct) : '–'}</td><td>${esc(r.note)}</td></tr>`).join('')}</tbody>`;
     // 추천
     const secs = purpose === 'hair' ? report.hair : report.makeup;
     // 예시 사진은 추천 기준(성별)과 같은 사람 사진만 (기준을 안 골랐으면 모두)
@@ -1030,8 +1043,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   });
   els.copyBtn.addEventListener('click', () => {
     if (!report) return;
-    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', '측정 결과'];
-    for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg}) ${r.note}`);
+    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', 'AI 가 알아챈 것', ...(report.noticed || []).map((n) => `- ${n.title}${n.soft ? ' (살짝)' : ''}${n.value ? ` — ${n.value} (평균 ${n.avg}) · 100명 중 ${n.pct}` : ''}. ${n.mirror} → ${n.so}`), '', '측정 결과'];
+    for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg})${r.pct ? ` · 100명 중 ${r.pct}` : ''} ${r.note}`);
     lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '얼굴 비율로 어림한 추천이라 재미로 봐 주세요. 취향과 개성이 언제나 먼저예요.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
       if (!s.title) continue;   // 근거 그림 자료는 글로 옮기지 않는다

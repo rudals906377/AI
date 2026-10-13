@@ -815,3 +815,28 @@ body[data-designer] .idea-quip { display: none; }
 .tc-sec summary small { color: var(--muted); font-weight: 500; margin-left: 6px; }
 .tc-sec ul { margin: 6px 0 0; padding-left: 18px; line-height: 1.6; }
 .tc-check li::marker { content: "☐ "; color: var(--accent); }
+
+/* AI 가 알아챈 것 (얼굴 분석 맨 위) */
+.noticed { margin-top: 12px; padding: 12px 14px 8px; border-radius: 14px; background: var(--accent-soft, var(--bg)); border: 1px solid var(--line); }
+.noticed h4 { margin: 0 0 6px; font-size: 0.95rem; font-weight: 700; }
+.noticed h4 small { color: var(--muted); font-weight: 500; font-size: 0.76rem; margin-left: 6px; }
+.noticed ol { list-style: none; margin: 0; padding: 0; counter-reset: nt; }
+.noticed li { counter-increment: nt; position: relative; padding: 8px 0 8px 30px; border-top: 1px dashed var(--line); display: grid; gap: 2px; opacity: 0; animation: nt-in .5s var(--ease, ease) forwards; }
+.noticed li:first-child { border-top: 0; }
+.noticed li::before { content: counter(nt); position: absolute; left: 0; top: 9px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-size: 0.78rem; font-weight: 700; display: grid; place-items: center; }
+.noticed li b { font-size: 0.98rem; }
+.noticed li b em { font-style: normal; font-size: 0.74rem; color: var(--muted); font-weight: 500; margin-left: 4px; }
+.noticed .nt-num { font-size: 0.84rem; color: var(--text); font-variant-numeric: tabular-nums; }
+.noticed .nt-num small { color: var(--muted); }
+.noticed .nt-num strong { color: var(--accent-ink); }
+.noticed .nt-mirror { font-size: 0.82rem; color: var(--muted); }
+.noticed .nt-so { font-size: 0.84rem; color: var(--accent-ink); }
+@keyframes nt-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .noticed li { animation: none; opacity: 1; } }
+.measure td.pct { white-space: nowrap; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+/* 스타일 분석: 눈여겨본 디테일 · 가장 헷갈린 것 */
+.style-noticed { margin: 8px 0 0; display: grid; gap: 4px; font-size: 0.86rem; line-height: 1.5; }
+.style-noticed b { color: var(--accent-ink); margin-right: 6px; }
+.style-noticed strong { font-weight: 600; }
+.style-noticed small { color: var(--muted); }
+.style-noticed .unsure { color: var(--muted); }

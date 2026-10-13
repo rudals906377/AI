@@ -530,6 +530,7 @@ function render(r) {
     els.secondary.open = false;
   }
   els.headline.textContent = r.headline;
+  renderStyleNoticed(r);
   // 장르 (크게) + 옆에 트렌드 키워드
   const g = r.genre;
   els.genreLabel.textContent = `${TAXONOMY[r.category].label} 장르 · ${g.group} ${pct(g.score)}`;
@@ -619,6 +620,20 @@ function renderTattoo(r) {
       toast('이미지로 저장했어요');
     } catch (err) { console.error(err); toast('이미지를 만들지 못했어요'); } finally { btn.disabled = false; }
   });
+}
+
+
+// 눈여겨본 디테일 · 가장 헷갈린 것: 판정 바로 아래 한 줄로, "AI 가 이런 것까지 봤구나"와 "이건 자신 없어요"를 같이 보여 준다
+function renderStyleNoticed(r) {
+  const box = $('styleNoticed'); if (!box) return;
+  const attrs = (r.attributes || []).filter((a) => !a.all?.[0]?.hidden);
+  const seen = attrs.filter((a) => a.score >= 0.6 && !(r.headline || '').includes(a.label)).sort((a, b) => b.score - a.score).slice(0, 3);
+  const unsure = attrs.filter((a) => a.score < 0.55 && a.alternatives?.[0]).sort((a, b) => a.score - b.score)[0];
+  const parts = [];
+  if (seen.length) parts.push(`<span><b>눈여겨본 디테일</b> ${seen.map((a) => `${esc(a.group_label)} <strong>${esc(a.label)}</strong> <small>${pct(a.score)}</small>`).join(' · ')}</span>`);
+  if (unsure) parts.push(`<span class="unsure"><b>가장 헷갈린 것</b> ${esc(unsure.group_label)} — ${esc(unsure.label)} ${pct(unsure.score)} 또는 ${esc(unsure.alternatives[0].label)} ${pct(unsure.alternatives[0].score)}</span>`);
+  box.innerHTML = parts.join('');
+  box.classList.toggle('hidden', !parts.length);
 }
 
 // 부위를 잘라 판단한 그룹 표시 (analyzer.js 의 region)
