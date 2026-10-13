@@ -5,6 +5,7 @@
 // 저장하는 것: 날짜 · 분야 · 한 줄 판정 · 요약 · 글로 옮긴 결과(결과 복사와 같은 내용) · 작은 썸네일(160px JPEG). 원본 사진은 저장하지 않는다.
 // 최근 60개까지. 내보내기(JSON) · 하나 지우기 · 모두 지우기. 기억해 둔 얼굴형(beauty-face-memo-v1)도 함께 보여 준다.
 import { tattooCardImage } from './tattoo-advice.js';
+import { nailCardImage, NAIL_ICON } from './nail-advice.js';
 const KEY = 'finde-history-v1', MEMO_KEY = 'beauty-face-memo-v1', MAX = 60;
 const CAT = { hair: '헤어', nail: '네일아트', makeup: '메이크업', tattoo: '타투', face: '내 얼굴', nailshape: '내 손톱' };
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -58,7 +59,7 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const items = shown.length ? shown.map((r) => `<article class="hist-item${open === r.id ? ' open' : ''}" data-id="${r.id}">
         <button type="button" class="hist-head" data-act="toggle">${r.thumb ? `<img src="${r.thumb}" alt="" />` : `<i class="hist-ph">${esc((CAT[r.category] || '')[0] || '·')}</i>`}
           <div><span class="hist-cat">${esc(CAT[r.category] || r.category)}</span><b>${esc(r.title)}</b><small>${esc(r.summary || '')}</small><time>${fmt(r.t)}</time></div></button>
-        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button>${r.order ? `<button type="button" class="ghost small" data-act="order">${r.order.face ? '상담 카드' : '요청서'} 이미지</button>` : ''}${r.tattoo ? `<button type="button" class="ghost small" data-act="tattoo">타투 상담 카드 이미지</button>` : ''}<button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
+        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button>${r.order ? `<button type="button" class="ghost small" data-act="order">${r.order.face ? '상담 카드' : '요청서'} 이미지</button>` : ''}${r.tattoo ? `<button type="button" class="ghost small" data-act="tattoo">타투 상담 카드 이미지</button>` : ''}${r.nail ? `<button type="button" class="ghost small" data-act="nail">손톱 상담 카드 이미지</button>` : ''}<button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
       </article>`).join('') : `<p class="hist-empty">${filter === 'all' ? '아직 기록이 없어요. 사진을 분석하면 여기에 차곡차곡 쌓여요.' : `${CAT[filter]} 기록이 아직 없어요.`}</p>`;
     grid.innerHTML = `<section class="card hist-card"><h2>내 기록 <small>이 기기에만 저장 · 사진 원본은 저장하지 않아요</small></h2>
       ${memoHtml}
@@ -73,12 +74,12 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const act = b.dataset.act, item = b.closest('.hist-item'), id = item?.dataset.id;
     if (act === 'toggle') { open = open === id ? null : id; render(); }
     else if (act === 'copy') { const r = load().find((x) => x.id === id); navigator.clipboard?.writeText([r.title, r.summary, '', ...(r.lines || [])].join('\n')).then(() => { b.textContent = '복사했어요'; }).catch(() => {}); }
-    else if (act === 'img' || act === 'order' || act === 'tattoo') {
+    else if (act === 'img' || act === 'order' || act === 'tattoo' || act === 'nail') {
       const r = load().find((x) => x.id === id); if (!r) return;
       b.disabled = true; const t0 = b.textContent; b.textContent = '만드는 중…';
-      const make = act === 'order' ? orderRecordImage(r) : act === 'tattoo' ? tattooRecordImage(r) : recordImage(r);
+      const make = act === 'order' ? orderRecordImage(r) : act === 'tattoo' ? tattooRecordImage(r) : act === 'nail' ? nailRecordImage(r) : recordImage(r);
       make.then(async (blob) => {
-        const name = `FINDE-${act === 'order' ? (r.order?.face ? '상담카드' : '시술요청서') : act === 'tattoo' ? '타투상담카드' : '기록'}-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
+        const name = `FINDE-${act === 'order' ? (r.order?.face ? '상담카드' : '시술요청서') : act === 'tattoo' ? '타투상담카드' : act === 'nail' ? '손톱상담카드' : '기록'}-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
         const file = new File([blob], name, { type: 'image/png' });
         if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: r.title }).catch(() => {}); return; }
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
@@ -131,9 +132,21 @@ export function initHistory({ onOpen = () => {} } = {}) {
     saveRecord({ kind: 'face', category: 'face', title: `${report.headline} · ${purpose === 'hair' ? '헤어' : gender === 'm' ? '그루밍' : '메이크업'}`, summary: (report.summary || []).join(' '), lines, thumbSrc: document.getElementById('faceCanvas'), extra: { purpose, gender: gender || null } });
   });
   window.addEventListener('beauty:nail', (e) => {
-    const { result: r, report: rep } = e.detail || {}; if (!r || !rep) return;
+    const { result: r, report: rep, headline, summary, tryOn } = e.detail || {}; if (!r || !rep) return;
+    // 기록에서 상담 카드를 다시 그릴 만큼만 추린다 (쉐입 3개 · 피할 모양 · 길이 · 디자인 · 상담 문장 · 입혀 본 모양)
+    const nail = { headline: headline || '', summary: summary || '', tryOn: tryOn || null,
+      rep: { top: rep.top.map((x) => ({ key: x.key, score: x.score, why: [x.why?.[0] || ''], d: x.d || '' })), avoid: rep.avoid.map((x) => ({ key: x.key, warn: [x.warn?.[0] || ''] })), lengthTip: rep.lengthTip || [], design: (rep.design || []).map((d) => ({ k: d.k, t: d.t })), card: rep.card || [] } };
     saveRecord({ kind: 'nail', category: 'nailshape', title: `${rep.card?.[0]?.replace(/^손톱: /, '') || '손톱형'}`, summary: `추천 쉐입: ${rep.top.map((x) => x.key).join(' · ')}`,
-      lines: [...rep.card, '', ...rep.top.map((x, i) => `${i + 1}. ${x.key} ${x.score}점 — ${x.why[0]}`)], thumbSrc: document.getElementById('nailCanvas') });
+      lines: [...rep.card, '', ...rep.top.map((x, i) => `${i + 1}. ${x.key} ${x.score}점 — ${x.why[0]}`)], thumbSrc: document.getElementById('nailCanvas'), extra: { nail } });
+  });
+  // 손톱 쉐입 입혀 보기가 바뀌면 최근 손톱 기록의 사진(윤곽 + 입혀 본 모양)과 상담 카드의 입혀 본 모양을 바꾼다
+  window.addEventListener('beauty:nail-try', async (e) => {
+    const { tryOn, canvas } = e.detail || {}; if (!canvas) return;
+    const [thumb, img] = [await thumbOf(canvas), await thumbOf(canvas, 480, 0.8)];
+    const list = load();
+    const i = list.map((x, k) => [x, k]).reverse().find(([x]) => x.kind === 'nail' && Date.now() - x.t < 600000)?.[1];
+    if (i == null) return;
+    list[i] = { ...list[i], thumb, img, nail: list[i].nail ? { ...list[i].nail, tryOn: tryOn || null } : list[i].nail }; store(list); render();
   });
   window.addEventListener('finde:history', render);
   render();
@@ -304,4 +317,11 @@ export async function tattooRecordImage(r) {
   const photo = src ? await fetch(src).then((x) => x.blob()).catch(() => null) : null;
   const designer = (() => { try { return localStorage.getItem('finde-designer') === '1'; } catch { return false; } })();
   return tattooCardImage(r.tattoo, photo, { designer });
+}
+
+// ---- 기록 → 손톱 상담 카드 이미지 (저장해 둔 카드 데이터 + 윤곽 · 입혀 본 쉐입이 그려진 480px 사진으로, 결과 화면과 같은 렌더러) ----
+export async function nailRecordImage(r) {
+  if (!r.nail) throw new Error('손톱 상담 카드가 없는 기록');
+  const img = r.img || r.thumb ? await loadImg(r.img || r.thumb).catch(() => null) : null;
+  return nailCardImage({ canvas: img, rep: r.nail.rep, headline: r.nail.headline, summary: r.nail.summary, icons: NAIL_ICON, tryOn: r.nail.tryOn });
 }
