@@ -1,5 +1,5 @@
 // 내 얼굴 분석 — 셀카에서 얼굴 비율을 재고 얼굴형을 판단한다
-import { LOW_MEM } from './device.js';
+import { LOW_MEM, decodeScaled, imageDims } from './device.js';
 //
 //   const f = await analyzeFace(blob, { purpose: 'hair' });   // { ok, issues, shape, m, geo, ... }
 //
@@ -678,8 +678,9 @@ const TTA_KEYS = ['ratio', 'forehead', 'jaw', 'chin', 'jawAngle', 'jawBulge', 'c
 export async function analyzeFace(blob, { purpose = 'hair', tta = true } = {}) {
   const { face, seg } = await loadTasks();
   const focal35 = await readFocal35(blob).catch(() => null); // 사진 정보(EXIF)의 35mm 환산 초점거리 — 카메라 거리 어림용
-  const bmp = await createImageBitmap(blob);
-  const origW = bmp.width, origH = bmp.height;
+  const dims = await imageDims(blob);                       // 원본 크기 (카메라 거리 어림용) — 디코딩은 줄여서 한다
+  const bmp = await decodeScaled(blob, LOW_MEM ? 1024 : 1280);   // 큰 사진은 줄여서 디코딩 (아이폰 48MP 사진을 통째로 풀지 않게)
+  const origW = dims?.w || bmp.width, origH = dims?.h || bmp.height;
   const sc = Math.min(1, (LOW_MEM ? 1024 : 1280) / Math.max(bmp.width, bmp.height));   // 휴대폰은 조금 작게 (메모리)
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(bmp.width * sc); canvas.height = Math.round(bmp.height * sc);
