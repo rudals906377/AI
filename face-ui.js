@@ -464,12 +464,12 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       ${th.warn ? `<p class="th-warn">${esc(th.warn)}</p>` : ''}`;
   }
 
-  // AI 가 알아챈 것: 평균과 가장 다른 3가지를 숫자 · 100명 중 몇 번째 · 거울 확인 · 그래서 로 (결과 맨 위, 하나씩 나타남)
+  // FINDE 가 알아챈 것: 평균과 가장 다른 3가지를 숫자 · 100명 중 몇 번째 · 거울 확인 · 그래서 로 (결과 맨 위, 하나씩 나타남)
   function renderNoticed(items) {
     const box = $('faceNoticed'); if (!box) return;
     if (!items?.length) { box.classList.add('hidden'); return; }
     box.classList.remove('hidden');
-    box.innerHTML = `<h4>AI 가 알아챈 것 <small>평균과 가장 다른 ${items.length}가지 · 거울로 확인해 보세요</small></h4><ol>${items.map((it, i) => `<li style="animation-delay:${i * 180}ms">
+    box.innerHTML = `<h4>FINDE 가 알아챈 것 <small>평균과 가장 다른 ${items.length}가지 · 거울로 확인해 보세요</small></h4><ol>${items.map((it, i) => `<li style="animation-delay:${i * 180}ms">
       <b>${esc(it.title)}${it.soft ? ' <em>살짝</em>' : ''}</b>
       ${it.value ? `<span class="nt-num">${esc(it.value)} <small>평균 ${esc(it.avg)}</small> · 100명 중 <strong>${esc(it.pct)}</strong></span>` : `<span class="nt-num">100명 중 <strong>${esc(it.pct)}</strong></span>`}
       <span class="nt-mirror">거울 확인 · ${esc(it.mirror)}</span>
@@ -1043,7 +1043,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   });
   els.copyBtn.addEventListener('click', () => {
     if (!report) return;
-    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', 'AI 가 알아챈 것', ...(report.noticed || []).map((n) => `- ${n.title}${n.soft ? ' (살짝)' : ''}${n.value ? ` — ${n.value} (평균 ${n.avg}) · 100명 중 ${n.pct}` : ''}. ${n.mirror} → ${n.so}`), '', '측정 결과'];
+    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', 'FINDE 가 알아챈 것', ...(report.noticed || []).map((n) => `- ${n.title}${n.soft ? ' (살짝)' : ''}${n.value ? ` — ${n.value} (평균 ${n.avg}) · 100명 중 ${n.pct}` : ''}. ${n.mirror} → ${n.so}`), '', '측정 결과'];
     for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg})${r.pct ? ` · 100명 중 ${r.pct}` : ''} ${r.note}`);
     lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '얼굴 비율로 어림한 추천이라 재미로 봐 주세요. 취향과 개성이 언제나 먼저예요.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
