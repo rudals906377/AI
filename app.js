@@ -1,7 +1,7 @@
 // UI 제어 — 모델 로드, 입력 처리, 결과 렌더링
 import { env } from '@huggingface/transformers';
 import { createAnalyzer } from './analyzer.js';
-import { LOW_MEM } from './device.js';
+import { LOW_MEM, SAFE_LEVEL, CRASHED, IOS, guardStart, guardEnd, clearSafeMode, decodeScaled, imageDims } from './device.js';
 import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
@@ -36,7 +36,8 @@ env.allowLocalModels = false;
 // 휴대폰: 추론 뒤 작업 메모리를 돌려주고(아레나 끔), 사진을 조금 작게 다루고, 미리 분석 · 얼굴 모델 선로드를 하지 않는다 (탭이 메모리 초과로 새로 고쳐지는 일을 막기 위해)
 let SESSION_OPTS = LOW_MEM ? { enableCpuMemArena: false, enableMemPattern: false } : undefined;
 if (params.get('opt')) SESSION_OPTS = { ...(SESSION_OPTS || {}), graphOptimizationLevel: params.get('opt') };   // 고급: ?opt=basic|extended|all|disabled (메모리 실험용)
-const IMG_MAX = LOW_MEM ? 896 : 1024;
+const IMG_MAX = SAFE_LEVEL >= 2 ? 768 : LOW_MEM ? 896 : 1024;
+let currentDevice = null;   // 지금 쓰는 실행 방식 (webgpu | wasm) — 안전 모드 판단용
 
 // ---- DOM ----------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
@@ -110,7 +111,7 @@ async function init() {
   } catch { webgpu = false; f16 = false; }
   if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
   // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
-  if ((!webgpu || params.get('device') === 'wasm') && params.get('proxy') !== '0') useWasmProxy();
+  if ((!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1) && params.get('proxy') !== '0') useWasmProxy();
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
@@ -125,6 +126,7 @@ function useWasmProxy() {
 function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
   const rt = { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
+  if (SAFE_LEVEL >= 1 && rt.device === 'webgpu') Object.assign(rt, { device: 'wasm', ...RUNTIME[key].wasm });   // 안전 모드: 지난번 분석 중 화면이 새로 열렸으면 CPU 로
   // 고급 사용자용 URL 옵션: ?device=wasm&dtype=q8
   if (params.get('device')) rt.device = params.get('device');
   if (params.get('dtype')) { rt.dtype = params.get('dtype'); rt.mb = '?'; }
@@ -167,6 +169,8 @@ async function loadAnalyzer(key) {
     return;
   }
   let rt = runtimeFor(key);
+  currentDevice = rt.device;
+  guardStart('load', { device: rt.device });   // 모델을 받다가 화면이 새로 열리면 다음엔 안전 모드로
   els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
   els.modelNote.textContent = `${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'} · ${rt.mb === '?' ? '' : `약 ${rt.mb}MB · `}처음 한 번만 내려받고 브라우저에 캐시됩니다`;
   analyzerLoading = (async () => {
@@ -176,7 +180,7 @@ async function loadAnalyzer(key) {
       } catch (e) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
-        rt = { device: 'wasm', ...RUNTIME[key].wasm };
+        rt = { device: 'wasm', ...RUNTIME[key].wasm }; currentDevice = 'wasm';
         fellBack = true;   // 이후 짝 모델도 WASM 으로 (작업 스레드 설정은 첫 세션 전에만 바꿀 수 있어 그대로 둔다)
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
         analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, sessionOptions: SESSION_OPTS, onProgress: makeProgress(m.label) });
@@ -214,7 +218,7 @@ async function loadAnalyzer(key) {
         if (!lastResult) els.empty.classList.remove('hidden');
       }
     } finally {
-      analyzerLoading = null;
+      analyzerLoading = null; guardEnd();
       updateRunButton();
     }
   })();
@@ -267,6 +271,7 @@ async function openSample(s) {
 let imageSeq = 0;
 let currentSample = null;   // 지금 사진이 예시 사진이면 그 파일 이름 (분석 결과를 다시 쓰려고)
 async function setImage(blob, sample = null) {
+  guardEnd();   // 사진 고르기가 무사히 끝났다
   if (!blob || !blob.type?.startsWith('image/')) { if (blob) toast('사진 파일만 올릴 수 있어요'); return false; }
   const my = ++imageSeq;
   const small = await downscale(blob, IMG_MAX);
@@ -285,13 +290,15 @@ async function setImage(blob, sample = null) {
 // 큰 사진은 긴 변 기준으로 줄여서 처리 (속도·메모리)
 async function downscale(blob, max) {
   try {
-    const bmp = await createImageBitmap(blob);
+    const d = await imageDims(blob);
+    if (d && Math.max(d.w, d.h) <= max) return blob;   // 이미 작으면 그대로
+    const bmp = await decodeScaled(blob, max);           // 큰 사진은 줄여서 디코딩 (아이폰 48MP 사진을 통째로 풀지 않게)
     const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
-    if (scale === 1) { bmp.close?.(); return blob; }
+    if (scale === 1 && !d) { bmp.close?.(); return blob; }   // 크기를 못 읽었는데 디코딩해 보니 작다
     const c = document.createElement('canvas');
     c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
     c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
-    bmp.close?.();   // 원본 크기 비트맵은 바로 돌려준다 (휴대폰 메모리)
+    bmp.close?.();   // 원본 비트맵은 바로 돌려준다 (휴대폰 메모리)
     const out = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.92));
     c.width = c.height = 0;
     return out;
@@ -322,6 +329,7 @@ function showWaiting() {
   els.analyzing.querySelector('b').textContent = '사진을 받았어요 · AI를 준비하는 중이에요';
   els.analyzingSub.textContent = `${els.statusText.textContent} — 준비되면 바로 분석해요`;
 }
+for (const b of [els.pickBtn, els.cameraBtn, els.drop]) b?.addEventListener('click', () => guardStart('pick'));   // 사진을 고르는 동안 화면이 새로 열리면 안전 모드로
 for (const input of [els.file, els.camera]) {
   input.addEventListener('change', () => {
     pickImage(input.files[0]);
@@ -385,6 +393,7 @@ async function run() {
   if (!analyzer || !currentBlob) return;
   if (busy) { pending = true; return; }
   busy = true;
+  guardStart('style', { device: currentDevice });
   const seq = ++runSeq;
   els.run.disabled = true;
   els.run.textContent = '분석 중…';
@@ -417,7 +426,7 @@ async function run() {
     setStatus(`분석 중 오류: ${e.message}`, 0, 'error');
     if (els.empty.classList.contains('many')) { els.empty.innerHTML = EMPTY_HTML; els.empty.classList.remove('many'); }
   } finally {
-    busy = false;
+    guardEnd(); busy = false;
     els.resultCard.classList.remove('busy');
     clearInterval(ticker);
     els.analyzing.classList.add('hidden');
@@ -1083,6 +1092,15 @@ initHistory();
     document.getElementById('modeTabs')?.insertAdjacentElement('afterend', bar);
   } catch {}
 })();
+// 지난 분석(또는 사진 고르기) 중에 화면이 새로 열렸으면: 다음부턴 안전 모드(CPU · 메모리 절약 · 작은 사진)로 돌고 그 사실을 알린다
+if (CRASHED) {
+  const bar = document.createElement('div'); bar.className = 'recover'; bar.setAttribute('role', 'status');
+  const why = CRASHED.lastKind === 'pick' ? '사진을 고르는 동안' : CRASHED.lastKind === 'load' ? '분석 모델을 받는 동안' : '분석하는 동안';
+  const tip = IOS ? ' 아이폰은 다른 앱 안의 브라우저보다 Safari 에서 열면 더 안정적이에요 (아래 나침반 아이콘).' : '';
+  bar.innerHTML = `<span>지난번에 ${why} 화면이 새로 열려서, 이번엔 <b>더 가벼운 설정</b>(CPU · 메모리 절약${SAFE_LEVEL >= 2 ? ' · 작은 사진' : ''})으로 분석해요.${tip}</span><button type="button" class="ghost small" data-act="reset">원래 설정으로</button><button type="button" class="ghost small" data-act="close" aria-label="닫기">닫기</button>`;
+  bar.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.act === 'reset') { clearSafeMode(); location.reload(); return; } bar.remove(); });
+  document.getElementById('modeTabs')?.insertAdjacentElement('afterend', bar);
+}
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
 if (['face', 'nail', 'history'].includes(params.get('mode'))) faceUI.setMode(params.get('mode'), { scroll: false });
 

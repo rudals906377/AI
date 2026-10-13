@@ -1,5 +1,5 @@
 // 내 손톱형 분석 — 손등 사진 → 손가락별 손톱 윤곽 → 비율 측정 → 손톱형
-import { LOW_MEM } from './device.js';
+import { LOW_MEM, decodeScaled } from './device.js';
 //
 //   const r = await analyzeNails(blob);   // { ok, issues, fingers: [{ key, ko, m, outline }], summary, hand }
 //
@@ -178,7 +178,7 @@ export const modelsReady = () => ready;
 
 export async function analyzeNails(blob) {
   const { hand, seg, ort } = await loadTasks();
-  const bmp = await createImageBitmap(blob);
+  const bmp = await decodeScaled(blob, LOW_MEM ? 1280 : 1600);   // 큰 사진은 줄여서 디코딩
   const sc = Math.min(1, (LOW_MEM ? 1280 : 1600) / Math.max(bmp.width, bmp.height));   // 휴대폰은 조금 작게 (메모리)
   const canvas = document.createElement('canvas'); canvas.width = Math.round(bmp.width * sc); canvas.height = Math.round(bmp.height * sc);
   canvas.getContext('2d').drawImage(bmp, 0, 0, canvas.width, canvas.height); bmp.close?.();

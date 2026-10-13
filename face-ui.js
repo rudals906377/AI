@@ -4,6 +4,7 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
+import { guardStart, guardEnd } from './device.js';
 import { faceReport, rankStyles, styleFit, coupleChem, compareFrames, setHairPrefs } from './face-advice.js';
 import { salonSpec } from './salon-spec.js';
 import { accessoryAdvice } from './accessory-advice.js';
@@ -423,7 +424,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
         // 미리보기는 중앙값에 가장 가까운 장으로
         const chosen = frameBlobs[results.indexOf(results.find((r) => r.canvas === f.canvas))];
         if (chosen && chosen !== blob) { blob = chosen; if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src); els.preview.src = URL.createObjectURL(chosen); }
-      } else f = await analyzeFace(blob, { purpose });
+      } else { guardStart('face'); try { f = await analyzeFace(blob, { purpose }); } finally { guardEnd(); } }
       if (id !== seq) return;
       if (memo) mergeMemo(f);
       last = f;

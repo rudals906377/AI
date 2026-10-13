@@ -1,5 +1,6 @@
 // '내 손톱 분석' 화면: 손 사진 → nail.js 측정 → nail-advice.js 추천
 import { analyzeNails, preloadNails, modelsReady, TYPE_KO } from './nail.js';
+import { guardStart, guardEnd } from './device.js';
 import { SHAPES, nailReport, TYPE_LINE, nailCardImage, NAIL_ICON } from './nail-advice.js';
 
 const $ = (id) => document.getElementById(id);
@@ -95,7 +96,7 @@ async function run() {
   els.status.innerHTML = '<p class="st"><span class="spin"></span> 손톱을 재는 중… <small>처음에는 손 · 손톱 모델(약 20MB)을 내려받아요</small></p>';
   if (window.innerWidth < 900) $('nailResultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
   try {
-    const r = await analyzeNails(img);
+    guardStart('nail'); let r; try { r = await analyzeNails(img); } finally { guardEnd(); }
     if (id !== seq) return;
     busy = false; last = r;
     if (!r.ok) { renderRetake(r); return; }
