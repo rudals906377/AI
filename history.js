@@ -57,7 +57,7 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const items = shown.length ? shown.map((r) => `<article class="hist-item${open === r.id ? ' open' : ''}" data-id="${r.id}">
         <button type="button" class="hist-head" data-act="toggle">${r.thumb ? `<img src="${r.thumb}" alt="" />` : `<i class="hist-ph">${esc((CAT[r.category] || '')[0] || '·')}</i>`}
           <div><span class="hist-cat">${esc(CAT[r.category] || r.category)}</span><b>${esc(r.title)}</b><small>${esc(r.summary || '')}</small><time>${fmt(r.t)}</time></div></button>
-        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button><button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
+        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button>${r.order ? `<button type="button" class="ghost small" data-act="order">${r.order.face ? '상담 카드' : '요청서'} 이미지</button>` : ''}<button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
       </article>`).join('') : `<p class="hist-empty">${filter === 'all' ? '아직 기록이 없어요. 사진을 분석하면 여기에 차곡차곡 쌓여요.' : `${CAT[filter]} 기록이 아직 없어요.`}</p>`;
     grid.innerHTML = `<section class="card hist-card"><h2>내 기록 <small>이 기기에만 저장 · 사진 원본은 저장하지 않아요</small></h2>
       ${memoHtml}
@@ -72,11 +72,11 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const act = b.dataset.act, item = b.closest('.hist-item'), id = item?.dataset.id;
     if (act === 'toggle') { open = open === id ? null : id; render(); }
     else if (act === 'copy') { const r = load().find((x) => x.id === id); navigator.clipboard?.writeText([r.title, r.summary, '', ...(r.lines || [])].join('\n')).then(() => { b.textContent = '복사했어요'; }).catch(() => {}); }
-    else if (act === 'img') {
+    else if (act === 'img' || act === 'order') {
       const r = load().find((x) => x.id === id); if (!r) return;
       b.disabled = true; const t0 = b.textContent; b.textContent = '만드는 중…';
-      recordImage(r).then(async (blob) => {
-        const name = `FINDE-기록-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
+      (act === 'order' ? orderRecordImage(r) : recordImage(r)).then(async (blob) => {
+        const name = `FINDE-${act === 'order' ? (r.order?.face ? '상담카드' : '시술요청서') : '기록'}-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
         const file = new File([blob], name, { type: 'image/png' });
         if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: r.title }).catch(() => {}); return; }
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
@@ -91,12 +91,34 @@ export function initHistory({ onOpen = () => {} } = {}) {
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `finde-history-${new Date().toISOString().slice(0, 10)}.json`; document.body.append(a); a.click(); a.remove();
     }
   });
+  // 시술 요청서를 기록에 넣을 만큼만 추린다 (항목 · 값 · 다른 후보 · 색 견본 · 상담 때 정할 것 · 참고 · 내 얼굴 정보)
+  const slimOrder = (o, face) => o ? { title: o.title, to: o.to, genre: o.genre || null, text: o.text,
+    rows: (o.rows || []).map((x) => ({ label: x.label, value: x.value, alt: x.alt || null, extra: x.extra || null, sure: !!x.sure, measured: !!x.measured, swatch: x.swatch ? { hex: x.swatch.hex, name: x.swatch.name || null, level: x.swatch.level || null } : null })),
+    checks: o.checks || [], notes: o.notes || [],
+    face: face ? { headline: face.headline, traits: face.traits || [], ear: face.ear || null, avoid: face.avoid || [], fit: face.fit ? { score: face.fit.score, verdict: face.fit.verdict, reasons: (face.fit.reasons || []).slice(0, 3).map((x) => ({ pts: x.pts, text: x.text })), tip: face.fit.tip || null } : null } : null } : null;
+  // 요청서는 기록이 저장되기 전(색 견본은 뒤에)에도 올 수 있어, 제목별로 최신 요청서를 들고 있다가 기록이 생기면 붙인다
+  const pendingOrder = new Map();
+  const applyOrder = (title) => {
+    const o = pendingOrder.get(title); if (!o) return false;
+    const list = load();
+    const i = list.map((x, k) => [x, k]).reverse().find(([x]) => x.kind === 'style' && x.title === title && Date.now() - x.t < 120000)?.[1];
+    if (i == null) return false;
+    list[i] = { ...list[i], order: o }; store(list); render(); return true;
+  };
+  window.addEventListener('beauty:order', (e) => {
+    const { result: r, order, face } = e.detail || {}; if (!r || !order) return;
+    const title = r.genre?.name || r.headline || '스타일';
+    pendingOrder.set(title, slimOrder(order, face));
+    applyOrder(title);
+  });
   // 결과가 나올 때마다 저장
-  window.addEventListener('beauty:style', (e) => {
+  window.addEventListener('beauty:style', async (e) => {
     const r = e.detail?.result; if (!r || !r.is_beauty) return;
     const attrs = (r.attributes || []).filter((a) => a.score >= 0.3).map((a) => a.label);
-    saveRecord({ kind: 'style', category: r.category, title: r.genre?.name || r.headline || '스타일', summary: r.headline || attrs.slice(0, 4).join(' · '),
-      lines: [`장르: ${r.genre?.name || '-'}`, `특징: ${attrs.join(' · ')}`, ...(r.description ? [r.description] : []), ...(r.trends?.length ? [`트렌드: ${r.trends.map((t) => t.name || t).join(' · ')}`] : []), ...(r.tattoo ? ['', ...r.tattoo.text.split('\n')] : [])], thumbSrc: e.detail.blob || null });
+    const title = r.genre?.name || r.headline || '스타일';
+    await saveRecord({ kind: 'style', category: r.category, title, summary: r.headline || attrs.slice(0, 4).join(' · '),
+      lines: [`장르: ${r.genre?.name || '-'}`, `특징: ${attrs.join(' · ')}`, ...(r.description ? [r.description] : []), ...(r.trends?.length ? [`트렌드: ${r.trends.map((t) => t.name || t).join(' · ')}`] : []), ...(r.tattoo ? ['', ...r.tattoo.text.split('\n')] : [])], thumbSrc: e.detail.blob || null, extra: { order: slimOrder(r.order, null) } });
+    applyOrder(title);   // 기록이 생기기 전에 온 요청서(얼굴 정보 · 색 견본)를 붙인다
   });
   window.addEventListener('beauty:face', async (e) => {
     const { report, face, purpose, gender } = e.detail || {}; if (!report || !face?.ok) return;
@@ -177,6 +199,98 @@ export async function recordImage(r) {
   const c = document.createElement('canvas'); c.width = W; c.height = Math.min(H, 16000);
   const ctx = c.getContext('2d');
   ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, c.height);
+  draw(ctx, true);
+  return await new Promise((res) => c.toBlob(res, 'image/png'));
+}
+
+// ---- 기록 → 시술 요청서 · 미용실 상담 카드 이미지 (기록에 저장해 둔 요청서 항목으로 다시 그린다) ----------------------
+export async function orderRecordImage(r) {
+  const o = r.order; if (!o) throw new Error('요청서가 없는 기록');
+  try { await document.fonts?.ready; } catch {}
+  const W = 1080, P = 72, INNER = W - P * 2, LABEL_W = 230;
+  const img = r.img || r.thumb ? await loadImg(r.img || r.thumb).catch(() => null) : null;
+  const maxW = r.img ? Math.min(INNER, 640) : 320;
+  const s = img ? Math.min(maxW / img.width, 640 / img.height) : 0;
+  const iw = img ? Math.round(img.width * s) : 0, ih = img ? Math.round(img.height * s) : 0;
+  const face = o.face;
+  const swatchText = (sw) => [sw.hex, sw.name ? `${sw.name} 계열` : null, sw.level ? `약 ${sw.level}레벨` : null].filter(Boolean).join(' · ');
+  function wrap(ctx, str, max) {
+    const out = []; let line = '';
+    for (const ch of String(str ?? '')) { if (ctx.measureText(line + ch).width > max && line) { out.push(line); line = ch.trimStart(); } else line += ch; }
+    if (line) out.push(line);
+    return out;
+  }
+  function draw(ctx, paint) {
+    let y = P;
+    const text = (t, size, weight, color, x, maxW2, lh = 1.45) => {
+      ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+      const lines = wrap(ctx, t, maxW2);
+      lines.forEach((l, i) => paint && ctx.fillText(l, x, y + i * size * lh));
+      return lines.length * size * lh;
+    };
+    y += text(face ? `미용실 상담 카드 · ${o.title.replace('시술 요청서 · ', '')}` : o.title, 46, 700, C.text, P, INNER) + 4;
+    y += text(`FINDE · ${fmt(r.t)} 분석 · ${o.to}에게 보여 주세요 · 내 기록에서 다시 만듦`, 24, 400, C.muted, P, INNER) + 28;
+    if (img) {
+      if (paint) { ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip(); ctx.drawImage(img, P + (INNER - iw) / 2, y, iw, ih); ctx.restore(); }
+      y += ih + 36;
+    }
+    if (o.genre) { y += text('원하는 스타일', 24, 600, C.accent, P, INNER) + 2; y += text(o.genre, 40, 700, C.text, P, INNER) + 24; }
+    for (const x of o.rows) {
+      if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+      y += 18;
+      const top = y;
+      text(x.label, 27, 500, C.muted, P, LABEL_W);
+      const v = x.value + (x.measured ? ' (사진 속 색 기준)' : '') + (x.extra ? ` (${x.extra})` : '') + (x.alt ? ` / ${x.alt}일 수도 있음` : '');
+      let h = text(v, 30, 600, C.text, P + LABEL_W, INNER - LABEL_W);
+      if (x.swatch) {
+        y = top + h + 6;
+        if (paint) { ctx.fillStyle = x.swatch.hex; ctx.beginPath(); ctx.roundRect(P + LABEL_W, y + 2, 30, 30, 8); ctx.fill(); }
+        const sh = text(swatchText(x.measured ? { ...x.swatch, name: null } : x.swatch), 24, 400, C.muted, P + LABEL_W + 42, INNER - LABEL_W - 42);
+        h += 6 + Math.max(sh, 34);
+      }
+      y = top + Math.max(h, 40) + 14;
+    }
+    if (face) {
+      const pad = 28, top = y + 20;
+      const body = (on) => {
+        y = top + pad;
+        const add = (str, size, weight, color, gap = 6) => {
+          ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+          const lines = wrap(ctx, str, INNER - pad * 2);
+          if (on && paint) lines.forEach((l, i) => ctx.fillText(l, P + pad, y + i * size * 1.45));
+          y += lines.length * size * 1.45 + gap;
+        };
+        add('내 얼굴', 24, 600, C.accent, 2);
+        add(face.headline, 36, 700, C.text, 8);
+        if (face.traits?.length) add(face.traits.join(' · '), 26, 400, C.text, 10);
+        if (face.ear) add(`귀: ${face.ear}`, 26, 400, C.text, 10);
+        if (face.fit) add(`이 스타일과의 궁합 ${face.fit.score}점 — ${face.fit.verdict}`, 28, 700, C.accent, 6);
+        for (const x of face.fit?.reasons || []) add(`${x.pts > 0 ? '✓' : '△'} ${x.text}`, 24, 400, C.text, 4);
+        if (face.avoid?.length) { y += 8; add('피하고 싶은 것', 24, 600, C.accent, 2); for (const x of face.avoid) add(`· ${x}`, 24, 400, C.text, 4); }
+        return y - top + pad;
+      };
+      const h = body(false);
+      if (paint) { ctx.fillStyle = C.soft; ctx.beginPath(); ctx.roundRect(P, top, INNER, h, 20); ctx.fill(); }
+      body(true);
+      y = top + h + 8;
+    }
+    for (const [head, list] of [['상담 때 정할 것', o.checks], ['참고', o.notes]]) {
+      if (!list?.length) continue;
+      y += 24;
+      y += text(head, 28, 700, C.text, P, INNER) + 8;
+      for (const c of list) y += text(`· ${c}`, 25, 400, C.text, P, INNER) + 6;
+    }
+    y += 30;
+    if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+    y += 22;
+    y += text('사진을 AI 로 분석한 참고용 요약입니다. 실제 시술은 상담 후 정해 주세요.', 22, 400, C.muted, P, INNER);
+    return y + P;
+  }
+  const probe = document.createElement('canvas').getContext('2d');
+  const H = Math.ceil(draw(probe, false));
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
   draw(ctx, true);
   return await new Promise((res) => c.toBlob(res, 'image/png'));
 }
