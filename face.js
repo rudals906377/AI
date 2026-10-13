@@ -1,4 +1,5 @@
 // 내 얼굴 분석 — 셀카에서 얼굴 비율을 재고 얼굴형을 판단한다
+import { LOW_MEM } from './device.js';
 //
 //   const f = await analyzeFace(blob, { purpose: 'hair' });   // { ok, issues, shape, m, geo, ... }
 //
@@ -679,7 +680,7 @@ export async function analyzeFace(blob, { purpose = 'hair', tta = true } = {}) {
   const focal35 = await readFocal35(blob).catch(() => null); // 사진 정보(EXIF)의 35mm 환산 초점거리 — 카메라 거리 어림용
   const bmp = await createImageBitmap(blob);
   const origW = bmp.width, origH = bmp.height;
-  const sc = Math.min(1, 1280 / Math.max(bmp.width, bmp.height));
+  const sc = Math.min(1, (LOW_MEM ? 1024 : 1280) / Math.max(bmp.width, bmp.height));   // 휴대폰은 조금 작게 (메모리)
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(bmp.width * sc); canvas.height = Math.round(bmp.height * sc);
   const ctx = canvas.getContext('2d', { willReadFrequently: true });

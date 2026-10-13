@@ -840,3 +840,7 @@ body[data-designer] .idea-quip { display: none; }
 .style-noticed strong { font-weight: 600; }
 .style-noticed small { color: var(--muted); }
 .style-noticed .unsure { color: var(--muted); }
+
+/* 새로 고침 뒤 복구 안내 */
+.recover { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft, var(--bg)); border: 1px solid var(--line); font-size: 0.86rem; }
+.recover span { flex: 1 1 220px; }
