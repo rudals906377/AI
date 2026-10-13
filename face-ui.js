@@ -1032,7 +1032,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     if (!report) return;
     const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', '측정 결과'];
     for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg}) ${r.note}`);
-    lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '객관적인 얼굴 비율을 근거로 한 추천이에요. 참고만 해 주세요 — 각자의 취향과 개성을 존중합니다.');
+    lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '얼굴 비율로 어림한 추천이라 재미로 봐 주세요. 취향과 개성이 언제나 먼저예요.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
       if (!s.title) continue;   // 근거 그림 자료는 글로 옮기지 않는다
       lines.push(`- ${s.title}${s.points?.length ? ` (가장 필요한 건 ${s.points.join(' · ')})` : ''}${s.text ? `: ${s.text}` : ''}`);
