@@ -33,7 +33,7 @@
     <header class="top">
       <div class="brand">
         <h1 class="logo"><picture><source srcset="./brand/logo-dark.png" media="(prefers-color-scheme: dark)" /><img src="./brand/logo.png" alt="FINDE" width="190" height="46" /></picture><small class="brand-ko">파인드</small><span class="lab-badge lab-site">실험실</span><span class="lab-badge designer-badge hidden" id="designerBadge">디자이너 모드</span></h1>
-        <p>헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 설명하고, 셀카로 내 얼굴형에 맞는 헤어 · 메이크업을, 손 사진으로 어울리는 네일 쉐입을 추천합니다. 사진은 이 브라우저 밖으로 보내지 않습니다.</p>
+        <p>셀카 한 장으로 내 얼굴형과 "100명 중 몇 번째"를 알아보고, 어울리는 헤어 · 메이크업을 추천받아요. 헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 풀어 주고, 손 사진으로는 어울리는 네일 쉐입을 골라 줘요. 사진은 이 브라우저 밖으로 보내지 않아요.</p>
         <p class="lab-note">FINDE 앱에 넣기 전에 미리 열어 본 <b>실험실</b>이에요. 결과는 정답이 아니라 "이런 쪽이 어울릴 수 있어요"라는 제안이니 재미로 봐 주세요. 결과 아래 평가 버튼으로 맞는지 알려 주시면 조금씩 더 똑똑해져요.</p>
       </div>
       <div class="status" id="status">
@@ -44,8 +44,8 @@
     </header>
 
     <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
-      <button type="button" data-mode="style" class="active" aria-pressed="true">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
-      <button type="button" data-mode="face" aria-pressed="false">내 얼굴 분석<small>셀카로 얼굴형 · 맞춤 헤어 · 메이크업</small></button>
+      <button type="button" data-mode="face" class="active" aria-pressed="true">내 얼굴 분석<small>셀카 한 장으로 얼굴형 · 100명 중 몇 번째</small></button>
+      <button type="button" data-mode="style" aria-pressed="false">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
       <button type="button" data-mode="nail" aria-pressed="false">내 손톱 분석<small>손 사진으로 손톱형 · 어울리는 쉐입</small></button>
       <button type="button" data-mode="history" aria-pressed="false">내 기록<small>분석 결과 · 기억한 얼굴형</small></button>
     </nav>
@@ -104,7 +104,7 @@
       <!-- 결과 -->
       <section class="card" id="resultCard">
         <h2>분석 결과</h2>
-        <div class="analyzing hidden" id="analyzing" role="status" aria-live="polite"><span class="spin"></span><span><b>분석 중입니다…</b><small id="analyzingSub"></small></span></div>
+        <div class="analyzing hidden" id="analyzing" role="status" aria-live="polite"><span class="spin"></span><span><b>분석 중입니다…</b><small id="analyzingSub"></small><i class="prog" aria-hidden="true"><b id="analyzingBar"></b></i></span></div>
         <div class="result-empty" id="empty">
           <strong>사진을 올리거나 예시를 고르면 바로 분석합니다</strong>
           <small>장르, 트렌드 키워드, 설명, 속성별 근거가 여기에 나옵니다</small>

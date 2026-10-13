@@ -99,6 +99,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   // ---- 화면 전환 ------------------------------------------------------------------
   function setMode(mode, { scroll = true } = {}) {
     document.body.dataset.mode = mode;
+    try { localStorage.setItem('finde-mode', mode); } catch {}   // 다음에 열 때 같은 탭으로
     els.tabs.querySelectorAll('button').forEach((b) => { const on = b.dataset.mode === mode; b.classList.toggle('active', on); b.setAttribute('aria-pressed', on); });
     els.styleGrid.classList.toggle('hidden', mode !== 'style');
     els.faceGrid.classList.toggle('hidden', mode !== 'face');
@@ -557,13 +558,13 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     box.classList.remove('hidden');
     const zbar = (z) => { const w = Math.min(100, Math.abs(z) / 2.5 * 50); return `<i class="zb"><b style="${z >= 0 ? `left:50%;width:${w}%` : `right:50%;width:${w}%`}"></b></i>`; };
     const zsay = (m) => m.say || '';
-    box.innerHTML = `<b>왜 이 추천인가요</b><p class="muted small">내 얼굴 측정값에서 어떤 효과가 필요한지, 그 효과를 어떤 커트가 내는지 차례로 이어 보여 드려요. 막대는 평균(가운데)에서 얼마나 벗어났는지예요.</p>
+    box.innerHTML = `<details class="fold"${designer ? ' open' : ''}><summary><b>왜 이 추천인가요</b><small>근거 그림 · 눌러서 펼치기</small></summary><p class="muted small">내 얼굴 측정값에서 어떤 효과가 필요한지, 그 효과를 어떤 커트가 내는지 차례로 이어 보여 드려요. 막대는 평균(가운데)에서 얼마나 벗어났는지예요.</p>
       <div class="bs-rows">${basis.map((b) => `<div class="bs-row">
         <div class="bs-m">${b.from.length ? b.from.map((m) => `<div class="bs-mi"><span>${esc(m.label)} <small>${zsay(m)}</small></span>${zbar(m.z)}</div>`).join('') : `<div class="bs-mi"><span>얼굴형</span><small>${esc(SHAPE_KO[b.shape] || b.shape)}에 가까움</small></div>`}</div>
         <div class="bs-arrow" aria-hidden="true">→</div>
         <div class="bs-need"><span>${esc(b.label)}</span><i><b style="width:${b.strength}%"></b></i></div>
         <div class="bs-arrow" aria-hidden="true">→</div>
-        <div class="bs-cuts">${(b.cuts || []).map((n) => `<span>${esc(n)}</span>`).join('') || '<span class="muted">—</span>'}</div></div>`).join('')}</div>`;
+        <div class="bs-cuts">${(b.cuts || []).map((n) => `<span>${esc(n)}</span>`).join('') || '<span class="muted">—</span>'}</div></div>`).join('')}</div></details>`;
   }
   const SHAPE_KO = { oval: '계란형', round: '둥근형', long: '긴 얼굴형', square: '각진형', heart: '하트형', diamond: '마름모형' };
   // 미용실 시술 지시서 (추천 1위 커트)
@@ -574,9 +575,9 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     if (!first) { box.classList.add('hidden'); lastSpec = null; return; }
     const sp = salonSpec(first.name, report.traits, { gender: gender || null, hair: hairPrefs }); lastSpec = sp;
     box.classList.remove('hidden');
-    box.innerHTML = `<b>미용실 시술 지시서 · ${esc(sp.title)}</b><p class="muted small">추천 1위 커트를 디자이너가 쓰는 말로 정리했어요. 미용실에서 그대로 보여 주시면 돼요. 길이는 체형에 맞춰 조금씩 조정하게 돼요.</p>
+    box.innerHTML = `<details class="fold"${designer ? ' open' : ''}><summary><b>미용실 시술 지시서 · ${esc(sp.title)}</b><small>디자이너에게 보여 줄 때 · 눌러서 펼치기</small></summary><p class="muted small">추천 1위 커트를 디자이너가 쓰는 말로 정리했어요. 미용실에서 그대로 보여 주시면 돼요. 길이는 체형에 맞춰 조금씩 조정하게 돼요.</p>
       <table class="spec">${sp.rows.map((r) => `<tr><th>${esc(r.k)}</th><td>${esc(r.v)}</td></tr>`).join('')}</table>
-      <div class="row"><button type="button" class="ghost small" id="specCopy">지시서 복사</button></div>`;
+      <div class="row"><button type="button" class="ghost small" id="specCopy">지시서 복사</button></div></details>`;
     $('specCopy').onclick = async () => { try { await navigator.clipboard.writeText(sp.text); $('specCopy').textContent = '복사했어요'; } catch { $('specCopy').textContent = '복사가 막혀 있어요'; } };
   }
   // 안경 · 귀걸이

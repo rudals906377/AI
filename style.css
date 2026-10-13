@@ -844,3 +844,13 @@ body[data-designer] .idea-quip { display: none; }
 /* 새로 고침 뒤 복구 안내 */
 .recover { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; background: var(--accent-soft, var(--bg)); border: 1px solid var(--line); font-size: 0.86rem; }
 .recover span { flex: 1 1 220px; }
+
+/* 분석 진행 막대 (예상) */
+.analyzing .prog { display: block; height: 5px; margin-top: 8px; border-radius: 999px; background: var(--bar); overflow: hidden; }
+.analyzing .prog b { display: block; height: 100%; width: 2%; background: var(--accent); border-radius: inherit; transition: width .25s linear; }
+/* 전문가용 칸 접기 (근거 그림 · 시술 지시서) */
+details.fold > summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::before { content: "▸"; color: var(--muted); font-size: 0.8rem; }
+details.fold[open] > summary::before { content: "▾"; }
+details.fold > summary small { color: var(--muted); font-size: 0.76rem; }

@@ -405,6 +405,12 @@ async function run() {
   // 분석 중 문구를 돌려 가며 (기다리는 동안 무엇을 보는지)
   let wi = Math.floor(Math.random() * WORKING.length); const wb = els.analyzing.querySelector('b'); wb.textContent = '분석 중입니다…';
   const ticker = setInterval(() => { wb.textContent = WORKING[wi++ % WORKING.length]; }, 1600);
+  // 예상 진행 막대: 지난번 걸린 시간(이 기기)으로 어림해 95% 까지 차오르고, 끝나면 100%. 휴대폰(CPU)은 10~20초라 기다리는 느낌을 줄인다
+  const bar = $('analyzingBar'), t0 = performance.now();
+  let est = 4000; try { est = +localStorage.getItem('finde-run-ms') || (LOW_MEM ? 15000 : 4000); } catch {}
+  if (LOW_MEM) els.analyzingSub.textContent = `휴대폰은 CPU 로 계산해서 ${Math.round(est / 1000)}초쯤 걸려요`;
+  if (bar) { bar.style.transition = 'none'; bar.style.width = '2%'; }
+  const prog = setInterval(() => { if (bar) bar.style.width = `${Math.min(95, 100 * (1 - Math.exp(-(performance.now() - t0) / est)))}%`; }, 200);
   if (!lastResult) els.empty.classList.add('hidden');
   try {
     // 주인공이 여럿이면(여러 사람 · 사람과 동물 · 여러 마리 · 콜라주) 분석하지 않고 안내한다
@@ -431,7 +437,8 @@ async function run() {
     guardStart('after', { device: currentDevice }); clearTimeout(afterGuardT); afterGuardT = setTimeout(guardEnd, 12000);   // 결과가 나온 뒤 몇 초 사이(기록 저장 · 색 뽑기 · GPU 정리)에 화면이 새로 열려도 감지
     busy = false;
     els.resultCard.classList.remove('busy');
-    clearInterval(ticker);
+    clearInterval(ticker); clearInterval(prog); if (bar) bar.style.width = '100%';
+    try { const ms = performance.now() - t0; if (ms > 300) localStorage.setItem('finde-run-ms', String(Math.round(ms))); } catch {}
     els.analyzing.classList.add('hidden');
     if (!pending) els.resultCard.style.minHeight = '';
     if (!lastResult) els.empty.classList.remove('hidden');
@@ -1112,7 +1119,13 @@ if (CRASHED) {
   document.getElementById('modeTabs')?.insertAdjacentElement('afterend', bar);
 }
 const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastResult?.blob || currentBlob }), analyzeStyle, openSample: (file, category) => openSample({ file, category }), toast, copy });
-if (['face', 'nail', 'history'].includes(params.get('mode'))) faceUI.setMode(params.get('mode'), { scroll: false });
+// 첫 화면: 주소에 ?mode= 가 있으면 그것, 아니면 지난번에 쓰던 탭, 처음이면 '내 얼굴 분석' (셀카 한 장이 가장 재미있는 입구)
+{
+  const MODES = ['style', 'face', 'nail', 'history'];
+  let saved = null; try { saved = localStorage.getItem('finde-mode'); } catch {}
+  const mode = MODES.includes(params.get('mode')) ? params.get('mode') : MODES.includes(saved) ? saved : 'face';
+  faceUI.setMode(mode, { scroll: false });
+}
 
 
 init();

@@ -170,8 +170,8 @@ export async function faceCard({ report, ranked = [] }) {
   await fontsReady();
   const [c, ctx] = canvas();
   const key = report.shape.key;
-  faceOutline(ctx, key, W / 2, 290, 400);
-  let y = 580;
+  faceOutline(ctx, key, W / 2, 230, 300);   // 윤곽 그림은 작게 — 아래 '알아챈 것'과 베스트 스타일에 자리를 준다
+  let y = 470;
   ctx.textAlign = 'center';
   ctx.fillStyle = C.muted; font(ctx, 34, 600); ctx.fillText('내 얼굴형 분석', W / 2, y);
   ctx.fillStyle = C.text; font(ctx, 72, 800);
@@ -187,7 +187,23 @@ export async function faceCard({ report, ranked = [] }) {
     ctx.fillStyle = C.muted; font(ctx, 30, 700); ctx.textAlign = 'right'; ctx.fillText(`${Math.round(p.p * 100)}%`, W - PAD, y + 30); ctx.textAlign = 'left';
     y += 58;
   }
-  if (report.quip) y = quipBox(ctx, report.quip, y + 24, 2);
+  // FINDE 가 알아챈 것 (평균과 가장 다른 1~2가지 · 100명 중 몇 번째) — 공유할 때 가장 말이 되는 한 줄
+  const noticed = (report.noticed || []).filter((n) => n.pct).slice(0, 2);
+  if (noticed.length) {
+    const top = y + 30, pad = 32;
+    const lines = noticed.map((n) => ({ a: `${n.title}${n.soft ? ' (살짝)' : ''}`, b: `100명 중 ${n.pct}` }));
+    const h = pad * 2 + 44 + lines.length * 84;
+    ctx.fillStyle = C.card; rr(ctx, PAD, top, W - PAD * 2, h, 28); ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 2; rr(ctx, PAD, top, W - PAD * 2, h, 28); ctx.stroke();
+    ctx.fillStyle = C.accent; font(ctx, 30, 800); ctx.fillText('FINDE 가 알아챈 것', PAD + pad, top + pad + 30);
+    let ly = top + pad + 44;
+    for (const l of lines) {
+      ctx.fillStyle = C.text; font(ctx, 38, 800); ctx.fillText(l.a, PAD + pad, ly + 44);
+      ctx.fillStyle = C.accent; font(ctx, 32, 700); ctx.fillText(l.b, PAD + pad, ly + 82);
+      ly += 84;
+    }
+    y = top + h;
+  }
+  if (report.quip) y = quipBox(ctx, report.quip, y + 20, noticed.length ? 1 : 2);   // 알아챈 것이 있으면 한마디는 한 줄만
   // 베스트 스타일 순위 (있으면) — 없으면 추천 커트
   y += 60;
   if (ranked.length) {
