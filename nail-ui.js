@@ -1,6 +1,6 @@
 // '내 손톱 분석' 화면: 손 사진 → nail.js 측정 → nail-advice.js 추천
 import { analyzeNails, preloadNails, modelsReady, TYPE_KO } from './nail.js';
-import { SHAPES, nailReport, TYPE_LINE, nailCardImage } from './nail-advice.js';
+import { SHAPES, nailReport, TYPE_LINE, nailCardImage, NAIL_ICON } from './nail-advice.js';
 
 const $ = (id) => document.getElementById(id);
 const els = {
@@ -121,15 +121,8 @@ function renderRetake(r) {
 }
 
 // 쉐입 아이콘 (손톱 하나, 위가 끝)
-const ICON = {
-  라운드: 'M8 60V26a15 15 0 0 1 30 0v34',
-  오벌: 'M8 60V30C8 12 14 6 23 6s15 6 15 24v30',
-  라운드스퀘어: 'M8 60V12q0-5 5-5h20q5 0 5 5v48',
-  스퀘어: 'M8 60V7h30v53',
-  아몬드: 'M8 60V30Q10 10 23 4q13 6 15 26v30',
-  코핀: 'M8 60L12 8h22l4 52',
-  스틸레토: 'M8 60V36Q12 18 23 2q11 16 15 34v24',
-};
+// 쉐입 아이콘(SVG path)은 nail-advice.js 의 NAIL_ICON 을 쓴다 (기록에서 상담 카드를 다시 그릴 때도 필요)
+const ICON = NAIL_ICON;
 const icon = (k) => `<svg viewBox="0 0 46 64" aria-hidden="true"><path d="${ICON[k] || ICON.라운드}" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 50q15 -8 30 0" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".5"/></svg>`;
 
 function render() {
@@ -157,7 +150,7 @@ function render() {
     ? `<tr${f.key === 'thumb' ? ' class="muted"' : ''}><th scope="row">${esc(f.ko)}${f.key === 'thumb' ? ' <small>(참고)</small>' : ''}</th><td>${f2(f.m.ratio)} : 1</td><td>${f2(f.m.taper)}</td><td>${f2(f.m.cuticle)}</td><td>${Math.round(f.m.free * 100)}%</td></tr>`
     : `<tr class="muted"><th scope="row">${esc(f.ko)}</th><td colspan="4">손톱을 찾지 못했어요</td></tr>`).join('')}</tbody>`;
   els.card.textContent = ['[FINDE 손톱 상담 카드]', ...rep.card, '', '* 사진으로 잰 손톱 모양 참고 정보예요 (의학적 진단 아님)'].join('\n');
-  window.dispatchEvent(new CustomEvent('beauty:nail', { detail: { result: r, report: rep } }));
+  window.dispatchEvent(new CustomEvent('beauty:nail', { detail: { result: r, report: rep, headline: els.type.textContent, summary: els.summary.textContent, tryOn: tryShape ? { shape: tryShape, color: tryColor } : null } }));
 }
 
 // 가상 쉐입 입혀 보기: 고른 모양을 손톱 위에 그린다 (분할로 찾은 손톱 너비 · 길이 기준, 긴 모양은 끝을 늘려 그림)
@@ -170,8 +163,10 @@ function renderTry() {
   const sp = document.getElementById('nailShapePick'), cp = document.getElementById('nailColorPick'); if (!sp) return;
   sp.innerHTML = `<button type="button" data-s="" class="${tryShape ? '' : 'active'}">안 보기</button>` + Object.keys(SHAPES).map((k) => `<button type="button" data-s="${k}" class="${tryShape === k ? 'active' : ''}">${k}</button>`).join('');
   cp.innerHTML = NAIL_COLORS.map((c) => `<button type="button" data-c="${c}" class="${tryColor === c ? 'active' : ''}" style="background:${c}" aria-label="색 ${c}"></button>`).join('');
-  sp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryShape = b.dataset.s || null; renderTry(); if (last) drawOverlay(last); };
-  cp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryColor = b.dataset.c; renderTry(); if (last) drawOverlay(last); };
+  // 입혀 본 모양 · 색이 바뀌면 내 기록의 사진과 상담 카드도 그에 맞춘다
+  const tried = () => { if (!last) return; drawOverlay(last); window.dispatchEvent(new CustomEvent('beauty:nail-try', { detail: { tryOn: tryShape ? { shape: tryShape, color: tryColor } : null, canvas: els.canvas } })); };
+  sp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryShape = b.dataset.s || null; renderTry(); tried(); };
+  cp.onclick = (e) => { const b = e.target.closest('button'); if (!b) return; tryColor = b.dataset.c; renderTry(); tried(); };
 }
 function shapePath(m, geo) {
   const { l, r, yTop, yBot } = m.box, W = r - l + 1, cx = (l + r + 1) / 2, L0 = yBot - yTop + 1;
