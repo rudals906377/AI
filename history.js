@@ -4,6 +4,7 @@
 //
 // 저장하는 것: 날짜 · 분야 · 한 줄 판정 · 요약 · 글로 옮긴 결과(결과 복사와 같은 내용) · 작은 썸네일(160px JPEG). 원본 사진은 저장하지 않는다.
 // 최근 60개까지. 내보내기(JSON) · 하나 지우기 · 모두 지우기. 기억해 둔 얼굴형(beauty-face-memo-v1)도 함께 보여 준다.
+import { tattooCardImage } from './tattoo-advice.js';
 const KEY = 'finde-history-v1', MEMO_KEY = 'beauty-face-memo-v1', MAX = 60;
 const CAT = { hair: '헤어', nail: '네일아트', makeup: '메이크업', tattoo: '타투', face: '내 얼굴', nailshape: '내 손톱' };
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -57,7 +58,7 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const items = shown.length ? shown.map((r) => `<article class="hist-item${open === r.id ? ' open' : ''}" data-id="${r.id}">
         <button type="button" class="hist-head" data-act="toggle">${r.thumb ? `<img src="${r.thumb}" alt="" />` : `<i class="hist-ph">${esc((CAT[r.category] || '')[0] || '·')}</i>`}
           <div><span class="hist-cat">${esc(CAT[r.category] || r.category)}</span><b>${esc(r.title)}</b><small>${esc(r.summary || '')}</small><time>${fmt(r.t)}</time></div></button>
-        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button>${r.order ? `<button type="button" class="ghost small" data-act="order">${r.order.face ? '상담 카드' : '요청서'} 이미지</button>` : ''}<button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
+        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button>${r.order ? `<button type="button" class="ghost small" data-act="order">${r.order.face ? '상담 카드' : '요청서'} 이미지</button>` : ''}${r.tattoo ? `<button type="button" class="ghost small" data-act="tattoo">타투 상담 카드 이미지</button>` : ''}<button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
       </article>`).join('') : `<p class="hist-empty">${filter === 'all' ? '아직 기록이 없어요. 사진을 분석하면 여기에 차곡차곡 쌓여요.' : `${CAT[filter]} 기록이 아직 없어요.`}</p>`;
     grid.innerHTML = `<section class="card hist-card"><h2>내 기록 <small>이 기기에만 저장 · 사진 원본은 저장하지 않아요</small></h2>
       ${memoHtml}
@@ -72,11 +73,12 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const act = b.dataset.act, item = b.closest('.hist-item'), id = item?.dataset.id;
     if (act === 'toggle') { open = open === id ? null : id; render(); }
     else if (act === 'copy') { const r = load().find((x) => x.id === id); navigator.clipboard?.writeText([r.title, r.summary, '', ...(r.lines || [])].join('\n')).then(() => { b.textContent = '복사했어요'; }).catch(() => {}); }
-    else if (act === 'img' || act === 'order') {
+    else if (act === 'img' || act === 'order' || act === 'tattoo') {
       const r = load().find((x) => x.id === id); if (!r) return;
       b.disabled = true; const t0 = b.textContent; b.textContent = '만드는 중…';
-      (act === 'order' ? orderRecordImage(r) : recordImage(r)).then(async (blob) => {
-        const name = `FINDE-${act === 'order' ? (r.order?.face ? '상담카드' : '시술요청서') : '기록'}-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
+      const make = act === 'order' ? orderRecordImage(r) : act === 'tattoo' ? tattooRecordImage(r) : recordImage(r);
+      make.then(async (blob) => {
+        const name = `FINDE-${act === 'order' ? (r.order?.face ? '상담카드' : '시술요청서') : act === 'tattoo' ? '타투상담카드' : '기록'}-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
         const file = new File([blob], name, { type: 'image/png' });
         if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: r.title }).catch(() => {}); return; }
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
@@ -117,7 +119,7 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const attrs = (r.attributes || []).filter((a) => a.score >= 0.3).map((a) => a.label);
     const title = r.genre?.name || r.headline || '스타일';
     await saveRecord({ kind: 'style', category: r.category, title, summary: r.headline || attrs.slice(0, 4).join(' · '),
-      lines: [`장르: ${r.genre?.name || '-'}`, `특징: ${attrs.join(' · ')}`, ...(r.description ? [r.description] : []), ...(r.trends?.length ? [`트렌드: ${r.trends.map((t) => t.name || t).join(' · ')}`] : []), ...(r.tattoo ? ['', ...r.tattoo.text.split('\n')] : [])], thumbSrc: e.detail.blob || null, extra: { order: slimOrder(r.order, null) } });
+      lines: [`장르: ${r.genre?.name || '-'}`, `특징: ${attrs.join(' · ')}`, ...(r.description ? [r.description] : []), ...(r.trends?.length ? [`트렌드: ${r.trends.map((t) => t.name || t).join(' · ')}`] : []), ...(r.tattoo ? ['', ...r.tattoo.text.split('\n')] : [])], thumbSrc: e.detail.blob || null, extra: { order: slimOrder(r.order, null), tattoo: r.tattoo || null } });   // 타투 상담 카드는 그대로 저장해 두고 기록에서 다시 그린다
     applyOrder(title);   // 기록이 생기기 전에 온 요청서(얼굴 정보 · 색 견본)를 붙인다
   });
   window.addEventListener('beauty:face', async (e) => {
@@ -293,4 +295,13 @@ export async function orderRecordImage(r) {
   ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
   draw(ctx, true);
   return await new Promise((res) => c.toBlob(res, 'image/png'));
+}
+
+// ---- 기록 → 타투 상담 카드 이미지 (저장해 둔 카드 데이터 + 480px 사진으로, 결과 화면의 이미지 저장과 같은 렌더러) ----------
+export async function tattooRecordImage(r) {
+  if (!r.tattoo) throw new Error('타투 상담 카드가 없는 기록');
+  const src = r.img || r.thumb;
+  const photo = src ? await fetch(src).then((x) => x.blob()).catch(() => null) : null;
+  const designer = (() => { try { return localStorage.getItem('finde-designer') === '1'; } catch { return false; } })();
+  return tattooCardImage(r.tattoo, photo, { designer });
 }
