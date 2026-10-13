@@ -38,6 +38,7 @@ let SESSION_OPTS = LOW_MEM ? { enableCpuMemArena: false, enableMemPattern: false
 if (params.get('opt')) SESSION_OPTS = { ...(SESSION_OPTS || {}), graphOptimizationLevel: params.get('opt') };   // 고급: ?opt=basic|extended|all|disabled (메모리 실험용)
 const IMG_MAX = SAFE_LEVEL >= 2 ? 768 : LOW_MEM ? 896 : 1024;
 let currentDevice = null;   // 지금 쓰는 실행 방식 (webgpu | wasm) — 안전 모드 판단용
+let afterGuardT = null;     // 결과 뒤 감지 구간 타이머
 
 // ---- DOM ----------------------------------------------------------------------
 const $ = (id) => document.getElementById(id);
@@ -111,7 +112,7 @@ async function init() {
   } catch { webgpu = false; f16 = false; }
   if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
   // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
-  if ((!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1) && params.get('proxy') !== '0') useWasmProxy();
+  if ((!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && params.get('proxy') !== '0') useWasmProxy();
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
@@ -126,7 +127,8 @@ function useWasmProxy() {
 function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
   const rt = { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
-  if (SAFE_LEVEL >= 1 && rt.device === 'webgpu') Object.assign(rt, { device: 'wasm', ...RUNTIME[key].wasm });   // 안전 모드: 지난번 분석 중 화면이 새로 열렸으면 CPU 로
+  // 안전 모드(지난번 화면이 새로 열림) 또는 iPhone · iPad: WebGPU 대신 CPU(WASM). iOS 18 Safari 의 WebGPU 는 분석 직후 웹 프로세스가 죽는 사례가 있어 기본을 CPU 로 둔다 (?device=webgpu 로 다시 켤 수 있음)
+  if ((SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && rt.device === 'webgpu') Object.assign(rt, { device: 'wasm', ...RUNTIME[key].wasm });
   // 고급 사용자용 URL 옵션: ?device=wasm&dtype=q8
   if (params.get('device')) rt.device = params.get('device');
   if (params.get('dtype')) { rt.dtype = params.get('dtype'); rt.mb = '?'; }
@@ -426,7 +428,8 @@ async function run() {
     setStatus(`분석 중 오류: ${e.message}`, 0, 'error');
     if (els.empty.classList.contains('many')) { els.empty.innerHTML = EMPTY_HTML; els.empty.classList.remove('many'); }
   } finally {
-    guardEnd(); busy = false;
+    guardStart('after', { device: currentDevice }); clearTimeout(afterGuardT); afterGuardT = setTimeout(guardEnd, 12000);   // 결과가 나온 뒤 몇 초 사이(기록 저장 · 색 뽑기 · GPU 정리)에 화면이 새로 열려도 감지
+    busy = false;
     els.resultCard.classList.remove('busy');
     clearInterval(ticker);
     els.analyzing.classList.add('hidden');
@@ -1102,7 +1105,7 @@ initHistory();
 // 지난 분석(또는 사진 고르기) 중에 화면이 새로 열렸으면: 다음부턴 안전 모드(CPU · 메모리 절약 · 작은 사진)로 돌고 그 사실을 알린다
 if (CRASHED) {
   const bar = document.createElement('div'); bar.className = 'recover'; bar.setAttribute('role', 'status');
-  const why = CRASHED.lastKind === 'pick' ? '사진을 고르는 동안' : CRASHED.lastKind === 'load' ? '분석 모델을 받는 동안' : '분석하는 동안';
+  const why = CRASHED.lastKind === 'pick' ? '사진을 고르는 동안' : CRASHED.lastKind === 'load' ? '분석 모델을 받는 동안' : CRASHED.lastKind === 'after' ? '결과가 나온 직후에' : CRASHED.lastKind === 'colors' ? '사진 속 색을 뽑는 동안' : '분석하는 동안';
   const tip = IOS ? ' 아이폰은 다른 앱 안의 브라우저보다 Safari 에서 열면 더 안정적이에요 (아래 나침반 아이콘).' : '';
   bar.innerHTML = `<span>지난번에 ${why} 화면이 새로 열려서, 이번엔 <b>더 가벼운 설정</b>(CPU · 메모리 절약${SAFE_LEVEL >= 2 ? ' · 작은 사진' : ''})으로 분석해요.${tip}</span><button type="button" class="ghost small" data-act="reset">원래 설정으로</button><button type="button" class="ghost small" data-act="close" aria-label="닫기">닫기</button>`;
   bar.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.act === 'reset') { clearSafeMode(); location.reload(); return; } bar.remove(); });
