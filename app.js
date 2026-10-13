@@ -695,6 +695,9 @@ function renderOrder(r, colors) {
   els.orderBlock.classList.toggle('hidden', !r.is_beauty);
   els.jumpRow.classList.toggle('hidden', !r.is_beauty);
   const o = lastOrder = buildOrder(r, colors);
+  // 내 기록용: 요청서 + (얼굴 분석을 했으면) 상담 카드 정보. 색 견본은 사진 색을 뽑은 뒤 다시 오므로 그때 한 번 더 알린다
+  r.order = o;
+  window.dispatchEvent(new CustomEvent('beauty:order', { detail: { result: r, order: o, face: typeof faceUI !== 'undefined' ? faceUI.consultInfo(r) : null } }));
   els.orderTitle.textContent = o.title;
   els.orderTo.textContent = `${o.to}에게 보여 주세요`;
   els.orderGenre.innerHTML = o.genre ? `<small>원하는 스타일</small><b>${esc(o.genre)}</b>` : '';
