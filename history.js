@@ -8,24 +8,34 @@ const KEY = 'finde-history-v1', MEMO_KEY = 'beauty-face-memo-v1', MAX = 60;
 const CAT = { hair: '헤어', nail: '네일아트', makeup: '메이크업', tattoo: '타투', face: '내 얼굴', nailshape: '내 손톱' };
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch { return []; } };
-const store = (list) => { try { localStorage.setItem(KEY, JSON.stringify(list.slice(-MAX))); return true; } catch { return false; } };
+// 저장 공간이 모자라면(브라우저 localStorage 는 보통 5MB) 오래된 기록의 480px 사진부터 비우고, 그래도 안 되면 오래된 기록을 지운다
+const store = (list) => {
+  let l = list.slice(-MAX);
+  for (let tries = 0; tries < 80; tries++) {
+    try { localStorage.setItem(KEY, JSON.stringify(l)); return true; } catch {}
+    const k = l.findIndex((r) => r.img); if (k >= 0) l[k] = { ...l[k], img: null }; else if (l.length) l = l.slice(1); else return false;
+  }
+  return false;
+};
 const fmt = (t) => { const d = new Date(t); return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
 
-async function thumbOf(src) {
+// src 를 긴 변 size 픽셀의 JPEG dataURL 로 (목록용 160px · 기록에서 이미지 다시 만들 때 쓰는 480px)
+async function thumbOf(src, size = 160, q = 0.72) {
   try {
     let img = src;
     if (src instanceof Blob) { img = await createImageBitmap(src); }
     if (!img || !(img.width || img.naturalWidth)) return null;
-    const w = img.width || img.naturalWidth, h = img.height || img.naturalHeight, s = 160 / Math.max(w, h);
+    const w = img.width || img.naturalWidth, h = img.height || img.naturalHeight, s = Math.min(1, size / Math.max(w, h));
     const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w * s)); c.height = Math.max(1, Math.round(h * s));
     c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-    if (img.close) img.close();
-    return c.toDataURL('image/jpeg', 0.72);
+    if (img.close && src instanceof Blob) img.close();
+    return c.toDataURL('image/jpeg', q);
   } catch { return null; }
 }
 export async function saveRecord({ kind, category, title, summary, lines = [], thumbSrc = null, extra = {} }) {
   const thumb = thumbSrc ? await thumbOf(thumbSrc) : null;
-  const rec = { id: Date.now() + Math.random().toString(36).slice(2, 6), t: Date.now(), kind, category, title, summary, lines, thumb, ...extra };
+  const img = thumbSrc ? await thumbOf(thumbSrc, 480, 0.8) : null;   // 기록에서 '이미지로 저장'을 다시 눌렀을 때 쓸 사진 (원본은 저장하지 않는다)
+  const rec = { id: Date.now() + Math.random().toString(36).slice(2, 6), t: Date.now(), kind, category, title, summary, lines, thumb, img, ...extra };
   const list = load().filter((x) => !(x.kind === rec.kind && x.title === rec.title && Date.now() - x.t < 15000)); // 같은 결과를 몇 초 안에 두 번 저장하지 않게
   store([...list, rec]);
   window.dispatchEvent(new CustomEvent('finde:history'));
@@ -47,7 +57,7 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const items = shown.length ? shown.map((r) => `<article class="hist-item${open === r.id ? ' open' : ''}" data-id="${r.id}">
         <button type="button" class="hist-head" data-act="toggle">${r.thumb ? `<img src="${r.thumb}" alt="" />` : `<i class="hist-ph">${esc((CAT[r.category] || '')[0] || '·')}</i>`}
           <div><span class="hist-cat">${esc(CAT[r.category] || r.category)}</span><b>${esc(r.title)}</b><small>${esc(r.summary || '')}</small><time>${fmt(r.t)}</time></div></button>
-        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
+        <div class="hist-body"><pre>${esc((r.lines || []).join('\n'))}</pre><div class="row"><button type="button" class="ghost small" data-act="copy">복사</button><button type="button" class="ghost small" data-act="img">이미지로 저장</button><button type="button" class="ghost small" data-act="del">이 기록 지우기</button></div></div>
       </article>`).join('') : `<p class="hist-empty">${filter === 'all' ? '아직 기록이 없어요. 사진을 분석하면 여기에 차곡차곡 쌓여요.' : `${CAT[filter]} 기록이 아직 없어요.`}</p>`;
     grid.innerHTML = `<section class="card hist-card"><h2>내 기록 <small>이 기기에만 저장 · 사진 원본은 저장하지 않아요</small></h2>
       ${memoHtml}
@@ -62,11 +72,22 @@ export function initHistory({ onOpen = () => {} } = {}) {
     const act = b.dataset.act, item = b.closest('.hist-item'), id = item?.dataset.id;
     if (act === 'toggle') { open = open === id ? null : id; render(); }
     else if (act === 'copy') { const r = load().find((x) => x.id === id); navigator.clipboard?.writeText([r.title, r.summary, '', ...(r.lines || [])].join('\n')).then(() => { b.textContent = '복사했어요'; }).catch(() => {}); }
+    else if (act === 'img') {
+      const r = load().find((x) => x.id === id); if (!r) return;
+      b.disabled = true; const t0 = b.textContent; b.textContent = '만드는 중…';
+      recordImage(r).then(async (blob) => {
+        const name = `FINDE-기록-${(CAT[r.category] || r.category)}-${new Date(r.t).toISOString().slice(0, 10)}.png`;
+        const file = new File([blob], name, { type: 'image/png' });
+        if (matchMedia('(pointer: coarse)').matches && navigator.canShare?.({ files: [file] })) { await navigator.share({ files: [file], title: r.title }).catch(() => {}); return; }
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        b.textContent = '저장했어요';
+      }).catch((e) => { console.error(e); b.textContent = '만들지 못했어요'; }).finally(() => { b.disabled = false; setTimeout(() => { b.textContent = t0; }, 2000); });
+    }
     else if (act === 'del') { store(load().filter((x) => x.id !== id)); render(); }
     else if (act === 'clear') { if (confirm('기록을 모두 지울까요?')) { store([]); render(); } }
     else if (act === 'memo-clear') { try { localStorage.removeItem(MEMO_KEY); } catch {} render(); }
     else if (act === 'export') {
-      const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), records: load().map(({ thumb, ...r }) => r) }, null, 2)], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), records: load().map(({ thumb, img, ...r }) => r) }, null, 2)], { type: 'application/json' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `finde-history-${new Date().toISOString().slice(0, 10)}.json`; document.body.append(a); a.click(); a.remove();
     }
   });
@@ -93,4 +114,69 @@ export function initHistory({ onOpen = () => {} } = {}) {
   window.addEventListener('finde:history', render);
   render();
   return { render };
+}
+
+// ---- 기록 → 이미지 (저장해 둔 480px 사진 + 제목 · 요약 · 글로 옮긴 결과) ----------------------------------------
+// 원본 사진 · 측정값 전체를 저장하지 않으므로, 그때 화면의 결과 이미지와 똑같지는 않고 기록에 남긴 글을 결과지 모양으로 그린다
+const FONT = '"Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif';
+const C = { bg: '#fbf8f3', card: '#ffffff', text: '#2e2622', muted: '#74665a', accent: '#8f6654', accentInk: '#6f4b3b', line: '#e5dccf', soft: '#f3ebe2' };
+const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+export async function recordImage(r) {
+  try { await document.fonts?.ready; } catch {}
+  const W = 1080, P = 64, INNER = W - P * 2;
+  const img = r.img || r.thumb ? await loadImg(r.img || r.thumb).catch(() => null) : null;
+  const maxW = r.img ? Math.min(INNER, 640) : 320;   // 480px 사진은 640 까지만 키우고, 160px 썸네일뿐이면 작게
+  const s = img ? Math.min(maxW / img.width, 640 / img.height) : 0;
+  const iw = img ? Math.round(img.width * s) : 0, ih = img ? Math.round(img.height * s) : 0;
+  function wrap(ctx, str, max) {
+    const out = []; let line = '';
+    for (const ch of String(str ?? '')) { if (ctx.measureText(line + ch).width > max && line) { out.push(line); line = ch.trimStart(); } else line += ch; }
+    if (line) out.push(line);
+    return out;
+  }
+  function draw(ctx, paint) {
+    let y = P;
+    const text = (t, size, weight, color, x, maxW2, lh = 1.45, yy = null) => {
+      ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
+      const lines = wrap(ctx, t, maxW2), base = yy ?? y;
+      lines.forEach((l, i) => paint && ctx.fillText(l, x, base + i * size * lh));
+      return lines.length * size * lh;
+    };
+    const rect = (x, yy, w, h, rad, fill, stroke) => { if (!paint) return; ctx.beginPath(); ctx.roundRect(x, yy, w, h, rad); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); } };
+    y += text(`${CAT[r.category] || r.category} · 내 기록`, 24, 600, C.accentInk, P, INNER) + 6;
+    y += text(r.title || '', 42, 700, C.text, P, INNER, 1.3) + 6;
+    y += text(`FINDE · ${fmt(r.t)}`, 22, 400, C.muted, P, INNER) + 24;
+    if (img) {
+      if (paint) { ctx.save(); ctx.beginPath(); ctx.roundRect(P + (INNER - iw) / 2, y, iw, ih, 16); ctx.clip(); ctx.drawImage(img, P + (INNER - iw) / 2, y, iw, ih); ctx.restore(); }
+      y += ih + 10;
+      if (!r.img) y += text('(작은 썸네일만 남아 있어 사진이 흐릿해요)', 18, 400, C.muted, P, INNER) + 4;
+      y += 18;
+    }
+    if (r.summary) { const top = y; const h = text(r.summary, 24, 500, C.text, P + 22, INNER - 44, 1.5, top + 16) + 32; rect(P, top, INNER, h, 14, C.soft, null); text(r.summary, 24, 500, C.text, P + 22, INNER - 44, 1.5, top + 16); y = top + h + 18; }
+    // 글로 옮긴 결과: [제목] 은 머리글, '- ' 은 항목, '  · ' 은 하위 항목, 빈 줄은 간격
+    let first = true;
+    for (const raw of r.lines || []) {
+      const line = String(raw ?? '');
+      if (!line.trim()) { y += 10; continue; }
+      if (/^\[.*\]$/.test(line.trim())) { y += first ? 0 : 14; y += text(line.trim().slice(1, -1), 26, 700, C.text, P, INNER) + 8; first = false; continue; }
+      if (/^\s{2,}[·•]\s/.test(line)) { y += text(line.trim().replace(/^[·•]\s*/, '· '), 20, 400, C.muted, P + 36, INNER - 36, 1.5) + 4; continue; }
+      if (/^-\s/.test(line)) { y += text(line.replace(/^-\s*/, '· '), 21, 500, C.text, P + 10, INNER - 10, 1.5) + 5; continue; }
+      if (/^[^:\s][^:]{0,12}[^:\s]:\s/.test(line)) {   // '장르: 레이어드컷' 꼴 (비율 '상안부 : 중안부' 는 키가 공백으로 끝나므로 제외)
+        const [k, ...rest] = line.split(': '); const top = y; const hk = text(k, 20, 500, C.muted, P, 150, 1.5, top); const hv = text(rest.join(': '), 21, 600, C.text, P + 160, INNER - 160, 1.5, top); y = top + Math.max(hk, hv) + 6; continue; }
+      y += text(line, 21, 400, C.text, P, INNER, 1.5) + 5;
+      first = false;
+    }
+    y += 22;
+    if (paint) { ctx.fillStyle = C.line; ctx.fillRect(P, y, INNER, 2); }
+    y += 20;
+    y += text('이 기기의 내 기록에서 다시 만든 이미지예요. 사진 한 장을 AI 로 분석한 참고용 결과라 틀릴 수 있어요. (AI 생성 · FINDE)', 19, 400, C.muted, P, INNER);
+    return y + P;
+  }
+  const probe = document.createElement('canvas').getContext('2d');
+  const H = Math.ceil(draw(probe, false));
+  const c = document.createElement('canvas'); c.width = W; c.height = Math.min(H, 16000);
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, c.height);
+  draw(ctx, true);
+  return await new Promise((res) => c.toBlob(res, 'image/png'));
 }
