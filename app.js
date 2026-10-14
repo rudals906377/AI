@@ -105,6 +105,62 @@ function setStatus(text, pct = 0, cls = '', detail = '') {
 window.addEventListener('unhandledrejection', (e) => { const msg = String(e.reason?.message || e.reason || '').slice(0, 120); console.warn('[app] 처리되지 않은 오류', e.reason); if (busy) { busy = false; els.analyzing?.classList.add('hidden'); els.resultCard?.classList.remove('busy'); updateRunButton(); } if (msg && !/AbortError/.test(msg)) toast(`문제가 생겼어요: ${msg} · 다시 시도해 주세요`); });
 window.addEventListener('error', (e) => { if (e.message && /out of memory|메모리/i.test(e.message)) toast('메모리가 부족해요. 다른 탭을 닫고 다시 시도해 주세요'); });
 
+// ---- 분석 엔진(ONNX 런타임) 설정 단계 ------------------------------------------------
+// iPhone 등에서 엔진이 'no available backend found' 로 못 뜨는 일이 있다. ORT 는 한 번 실패한 초기화를 같은 화면에서 다시 하지 못하므로,
+// 실패하면 다음 설정을 기억해 두고 화면을 새로 연다(올려 둔 사진은 이어서 분석). 성공한 설정은 다음 방문에도 그대로 쓴다.
+//   ''        : 기본 (iPhone · iPad 는 가벼운 일반 WASM 빌드 + 작업 스레드)
+//   'noproxy' : 일반 WASM 빌드, 작업 스레드 없이
+//   'webgpu'  : WebGPU (지원할 때만)
+//   'asyncify': 라이브러리 기본 WASM 빌드, 작업 스레드 없이
+const ORT_STEPS = ['', 'noproxy', 'webgpu', 'asyncify'];
+const ORT_KEY = 'finde-ort', PENDING_KEY = 'finde-pending-photo';
+let ortStep = '';
+try { ortStep = localStorage.getItem(ORT_KEY) || ''; } catch {}
+if (params.has('ort')) ortStep = params.get('ort');
+if (!ORT_STEPS.includes(ortStep)) ortStep = '';
+function applyOrtBuild() {
+  try {
+    const w = env.backends?.onnx?.wasm, v = env.backends?.onnx?.versions?.web;
+    if (!w || !v) return;
+    // 일반 빌드(약 14MB)는 WebGPU 용 asyncify 빌드(약 27MB)의 절반이라 휴대폰 메모리에 덜 부담된다. WebGPU 를 쓰지 않을 때만
+    const plain = ortStep === 'noproxy' || (ortStep === '' && (IOS || params.get('ortbuild') === 'plain'));
+    if (plain) { const pre = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${v}/dist/`; w.wasmPaths = { mjs: `${pre}ort-wasm-simd-threaded.mjs`, wasm: `${pre}ort-wasm-simd-threaded.wasm` }; }
+  } catch (e) { console.warn('[app] WASM 빌드 설정 실패', e); }
+}
+// 엔진을 못 띄운 경우만 다음 단계로 (네트워크 실패는 제외 — 다시 시도하면 되는 문제)
+const isBackendFail = (e) => { const m = String(e?.message || e || ''); return !/Failed to fetch|Load failed|NetworkError|network error|HTTP \d/i.test(m) && /no available backend|initWasm|backend|WebAssembly|wasm|Out of memory|worker/i.test(m); };
+async function recoverBackend(e) {
+  if (!isBackendFail(e) || params.has('ort')) return false;
+  let i = ORT_STEPS.indexOf(ortStep) + 1;
+  if (ORT_STEPS[i] === 'webgpu' && !webgpu) i++;
+  const next = ORT_STEPS[i];
+  if (next == null) { try { localStorage.removeItem(ORT_KEY); } catch {} return false; }   // 다 해 봤으면 다음 방문엔 처음부터
+  try { localStorage.setItem(ORT_KEY, next); } catch { return false; }
+  setStatus('분석 엔진을 다른 설정으로 다시 준비할게요…', 0, 'loading');
+  // 올려 둔 사진은 줄여서 잠깐 맡겨 두었다가 새 화면에서 바로 분석한다
+  if (currentBlob) {
+    try {
+      const bmp = await decodeScaled(currentBlob, 1280);
+      const c = document.createElement('canvas'); c.width = bmp.width; c.height = bmp.height;
+      c.getContext('2d').drawImage(bmp, 0, 0); bmp.close?.();
+      sessionStorage.setItem(PENDING_KEY, c.toDataURL('image/jpeg', 0.9));
+    } catch (err) { console.warn('[app] 사진 맡기기 실패', err); }
+  }
+  guardEnd();   // 일부러 새로 여는 것이라 안전 모드로 치지 않는다
+  setTimeout(() => location.reload(), 400);
+  return true;
+}
+async function resumePendingPhoto() {
+  let url = null; try { url = sessionStorage.getItem(PENDING_KEY); sessionStorage.removeItem(PENDING_KEY); } catch {}
+  if (!url) return;
+  try {
+    const blob = await (await fetch(url)).blob();
+    faceUI.setMode('style', { scroll: false });
+    toast('설정을 바꿔 다시 준비했어요. 올린 사진을 이어서 분석해요');
+    await pickImage(blob);
+  } catch (err) { console.warn('[app] 맡겨 둔 사진 불러오기 실패', err); }
+}
+
 // ---- 초기화 -------------------------------------------------------------------
 async function init() {
   window.__appStarted = true;
@@ -115,7 +171,9 @@ async function init() {
   } catch { webgpu = false; f16 = false; }
   if (!webgpu) els.advNote.textContent += ' 이 브라우저에서는 느려요 (사진 1장에 수 분).';
   // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
-  if ((!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && params.get('proxy') !== '0') useWasmProxy();
+  const noProxy = ortStep === 'noproxy' || ortStep === 'webgpu' || ortStep === 'asyncify';
+  if (!noProxy && (!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && params.get('proxy') !== '0') useWasmProxy();
+  applyOrtBuild();
   setWasmThreads();
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
@@ -123,6 +181,7 @@ async function init() {
   // 휴대폰: 스타일 모델(약 94MB, 메모리 600MB 안팎)은 사진을 올릴 때 받는다 — 얼굴 · 손톱만 쓰는 사람은 안 받아도 되게
   if (LOW_MEM && !currentBlob) setStatus('사진을 올리면 분석 모델을 받아요 · 약 94MB, 처음 한 번만', 0, 'ready', '휴대폰에서는 필요할 때 받아 메모리를 아껴요');
   else await loadAnalyzer(modelKey);
+  resumePendingPhoto();
 }
 
 function useWasmProxy() {
@@ -141,7 +200,7 @@ function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
   const rt = { device: mode === 'wasm' ? 'wasm' : 'webgpu', ...RUNTIME[key][mode] };
   // 안전 모드(지난번 화면이 새로 열림) 또는 iPhone · iPad: WebGPU 대신 CPU(WASM). iOS 18 Safari 의 WebGPU 는 분석 직후 웹 프로세스가 죽는 사례가 있어 기본을 CPU 로 둔다 (?device=webgpu 로 다시 켤 수 있음)
-  if ((SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && rt.device === 'webgpu') Object.assign(rt, { device: 'wasm', ...RUNTIME[key].wasm });
+  if (ortStep !== 'webgpu' && (SAFE_LEVEL >= 1 || ortStep === 'noproxy' || (IOS && params.get('device') !== 'webgpu')) && rt.device === 'webgpu') Object.assign(rt, { device: 'wasm', ...RUNTIME[key].wasm });
   // 고급 사용자용 URL 옵션: ?device=wasm&dtype=q8
   if (params.get('device')) rt.device = params.get('device');
   if (params.get('dtype')) { rt.dtype = params.get('dtype'); rt.mb = '?'; }
@@ -225,8 +284,10 @@ async function loadAnalyzer(key) {
         els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
         setStatus(`${m.label}을 불러오지 못해 쓰던 모델을 그대로 써요 (${e.message})`, 100, 'ready');
         if (currentBlob && !lastResult) setTimeout(run, 0);
+      } else if (await recoverBackend(e)) {
+        return;   // 다른 설정으로 화면을 새로 연다
       } else {
-        setStatus(`모델 로드 실패: ${e.message}`, 0, 'error');
+        setStatus(`분석 엔진을 시작하지 못했어요. 화면을 새로 고쳐 다시 시도해 주세요 (${String(e.message).slice(0, 160)})`, 0, 'error');
         // 사진을 먼저 올려 두고 기다리던 화면을 정리한다
         els.analyzing.classList.add('hidden');
         els.resultCard.style.minHeight = '';
