@@ -108,7 +108,7 @@ async function run() {
     busy = false;
     els.status.innerHTML = modelsReady()
       ? `이 사진을 읽지 못했어요 (${esc(e.message)}). JPG · PNG 사진으로 다시 올려 주세요.`
-      : `손톱 분석 모델을 불러오지 못했어요 (${esc(e.message)}). 인터넷 연결을 확인하고 다시 시도해 주세요.`;
+      : `손톱 분석 모델을 불러오지 못했어요 (${esc(e.message)}). ${/GLctx|WebGL|webgl|context/i.test(e.message) ? '이 브라우저에서는 분석에 필요한 그래픽 기능(WebGL)을 쓸 수 없어요. 다른 브라우저(크롬 · 사파리 최신)에서 열어 주세요.' : '인터넷 연결을 확인하고 다시 시도해 주세요.'}`;
   }
 }
 

@@ -1,4 +1,5 @@
 // 실제 색 견본 — 사진에서 머리카락 · 입술 · 아이섀도 · 손톱 부분만 골라 실제 색을 뽑는다
+import { glCanvas } from './device.js';
 //
 //   const colors = await extractColors(blob, 'hair');   // { hair: { hex, name, level, palette } }
 //
@@ -28,24 +29,24 @@ function task(kind) {
   taskPromises[kind] ??= (async () => {
     const { m, fileset } = await lib();
     if (kind === 'hair') {
-      return m.ImageSegmenter.createFromOptions(fileset, {
+      return m.ImageSegmenter.createFromOptions(fileset, { canvas: glCanvas(),
         baseOptions: { modelAssetBuffer: await modelBytes('hair_segmenter.tflite'), delegate: 'CPU' },
         runningMode: 'IMAGE', outputCategoryMask: true, outputConfidenceMasks: false,
       });
     }
     if (kind === 'face') {
-      return m.FaceLandmarker.createFromOptions(fileset, {
+      return m.FaceLandmarker.createFromOptions(fileset, { canvas: glCanvas(),
         baseOptions: { modelAssetBuffer: await modelBytes('face_landmarker.task'), delegate: 'CPU' },
         runningMode: 'IMAGE', numFaces: 1,
       });
     }
     if (kind === 'object') {
-      return m.ObjectDetector.createFromOptions(fileset, {
+      return m.ObjectDetector.createFromOptions(fileset, { canvas: glCanvas(),
         baseOptions: { modelAssetBuffer: await modelBytes('efficientdet_lite0.tflite'), delegate: 'CPU' },
         runningMode: 'IMAGE', scoreThreshold: 0.3, maxResults: 12,
       });
     }
-    return m.HandLandmarker.createFromOptions(fileset, {
+    return m.HandLandmarker.createFromOptions(fileset, { canvas: glCanvas(),
       baseOptions: { modelAssetBuffer: await modelBytes('hand_landmarker.task'), delegate: 'CPU' },
       runningMode: 'IMAGE', numHands: 2, minHandDetectionConfidence: 0.3, minHandPresenceConfidence: 0.3,
     });

@@ -22,6 +22,9 @@
   <meta property="og:image:alt" content="FINDE — 얼굴형 궁합 카드 그림" />
   <meta property="og:locale" content="ko_KR" />
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://huggingface.co" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn-lfs-us-1.hf.co" />
   <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="./style.css" />
   <script type="importmap">
@@ -488,6 +491,11 @@
   <script type="module" src="./app.js" onerror="document.getElementById('statusText').textContent='스크립트 로드 실패 — 인터넷 연결을 확인하고 새로고침하세요'"></script>
   <script type="module" src="./nail-ui.js"></script>
   <script>
+    // 너무 오래된 브라우저(ES 모듈 · WebAssembly · createImageBitmap · fetch 가 없음)면 바로 안내
+    (function () {
+      var ok = 'noModule' in document.createElement('script') && typeof WebAssembly === 'object' && typeof createImageBitmap === 'function' && typeof fetch === 'function' && typeof Promise !== 'undefined';
+      if (!ok) { var t = document.getElementById('statusText'); if (t) t.textContent = '이 브라우저는 너무 오래돼서 실행할 수 없어요. 크롬 · 사파리 · 엣지 최신 버전으로 열어 주세요.'; }
+    })();
     // CDN(Transformers.js) 로드 실패 등으로 앱이 시작되지 않으면 20초 뒤 안내
     setTimeout(function () {
       var t = document.getElementById('statusText');

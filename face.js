@@ -1,5 +1,5 @@
 // 내 얼굴 분석 — 셀카에서 얼굴 비율을 재고 얼굴형을 판단한다
-import { LOW_MEM, decodeScaled, imageDims } from './device.js';
+import { LOW_MEM, decodeScaled, imageDims, glCanvas } from './device.js';
 //
 //   const f = await analyzeFace(blob, { purpose: 'hair' });   // { ok, issues, shape, m, geo, ... }
 //
@@ -558,9 +558,9 @@ function loadTasks() {
     const fileset = await m.FilesetResolver.forVisionTasks(`${MP}/wasm`);
     const bytes = async (f) => { const r = await assetFetch(`${MODEL_DIR}/${f}`); if (!r.ok) throw new Error(`${f} 을(를) 받지 못했어요 (${r.status})`); return new Uint8Array(await r.arrayBuffer()); };
     const [face, seg] = await Promise.all([
-      bytes('face_landmarker.task').then((b) => m.FaceLandmarker.createFromOptions(fileset, { baseOptions: { modelAssetBuffer: b, delegate: 'CPU' },
+      bytes('face_landmarker.task').then((b) => m.FaceLandmarker.createFromOptions(fileset, { canvas: glCanvas(), baseOptions: { modelAssetBuffer: b, delegate: 'CPU' },
         runningMode: 'IMAGE', numFaces: 3, outputFaceBlendshapes: true, outputFacialTransformationMatrixes: true })),
-      bytes('selfie_multiclass_256x256.tflite').then((b) => m.ImageSegmenter.createFromOptions(fileset, { baseOptions: { modelAssetBuffer: b, delegate: 'CPU' },
+      bytes('selfie_multiclass_256x256.tflite').then((b) => m.ImageSegmenter.createFromOptions(fileset, { canvas: glCanvas(), baseOptions: { modelAssetBuffer: b, delegate: 'CPU' },
         runningMode: 'IMAGE', outputCategoryMask: true, outputConfidenceMasks: false })),
     ]);
     return { face, seg };

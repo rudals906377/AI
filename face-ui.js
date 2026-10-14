@@ -4,14 +4,13 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
-import { guardStart, guardEnd } from './device.js';
+import { guardStart, guardEnd, WEBGL_OK } from './device.js';
 import { faceReport, rankStyles, styleFit, coupleChem, compareFrames, setHairPrefs } from './face-advice.js';
 import { salonSpec } from './salon-spec.js';
 import { accessoryAdvice } from './accessory-advice.js';
 import { colorSeason, regionLab } from './color-season.js';
 import { recolorHair, HAIR_COLORS } from './hair-color.js';
-import { reportPdf } from './report-pdf.js';
-import { faceCard, coupleCard, shareImage } from './share-card.js';
+// 결과지(report-pdf) · 공유 이미지(share-card)는 버튼을 눌렀을 때 import (첫 로딩을 가볍게)
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -107,6 +106,12 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     document.getElementById('historyGrid')?.classList.toggle('hidden', mode !== 'history');
     if (mode === 'history') window.dispatchEvent(new CustomEvent('finde:history'));
     if (mode === 'nail' && scroll) els.tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if ((mode === 'face' || mode === 'nail') && !WEBGL_OK && !document.getElementById('webglWarn')) {
+      // WebGL 이 없으면 얼굴 · 손톱 분석이 안 되므로 사진을 올리기 전에 알린다
+      const w = document.createElement('div'); w.id = 'webglWarn'; w.className = 'recover'; w.setAttribute('role', 'status');
+      w.innerHTML = '<span>이 브라우저는 그래픽 기능(WebGL)이 꺼져 있어 <b>얼굴 · 손톱 분석</b>을 쓸 수 없어요. 브라우저 설정에서 하드웨어 가속을 켜거나 크롬 · 사파리 최신 버전으로 열어 주세요. 스타일 사진 분석은 돼요.</span>';
+      els.tabs.insertAdjacentElement('afterend', w);
+    }
     if (mode === 'face') {
       preloadFace().catch(() => {}); // 모델을 미리 받아 둔다 (약 20MB, 처음 한 번)
       const { blob: sb } = getStyle();
@@ -434,7 +439,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     } catch (e) {
       console.error(e);
       if (id !== seq) return;
-      els.status.innerHTML = `얼굴 분석 모델을 불러오지 못했어요 (${esc(e.message)}). 인터넷 연결을 확인하고 다시 시도해 주세요.`;
+      els.status.innerHTML = `얼굴 분석 모델을 불러오지 못했어요 (${esc(e.message)}). ${/GLctx|WebGL|webgl|context/i.test(e.message) ? '이 브라우저에서는 분석에 필요한 그래픽 기능(WebGL)을 쓸 수 없어요. 다른 브라우저(크롬 · 사파리 최신)에서 열어 주세요.' : '인터넷 연결을 확인하고 다시 시도해 주세요.'}`;
     }
   }
   els.retakeBtn.addEventListener('click', () => els.shoot.click());
@@ -630,6 +635,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       const btn = $(id); btn.disabled = true; const t0 = btn.textContent; btn.textContent = '만드는 중…';
       try {
         const probsAll = last.shape.probs;
+        const [{ reportPdf }, { shareImage }] = await Promise.all([import('./report-pdf.js'), import('./share-card.js')]);
         const out = await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null, format, purpose });
         if (format === 'png') {
           const how = await shareImage(out, `FINDE-${purpose === 'makeup' ? (gender === 'm' ? '그루밍' : '메이크업') : '얼굴분석'}-${new Date().toISOString().slice(0, 10)}.png`, purpose === 'makeup' ? '내 얼굴 메이크업 분석 결과' : '내 얼굴 분석 결과');
@@ -740,7 +746,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   }
   els.coupleShare.addEventListener('click', async () => {
     if (!chem) return;
-    try { const blob = await coupleCard({ chem }); const how = await shareImage(blob, '얼굴형-케미.png', chem.title); if (how === 'downloaded') toast('케미 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)'); }
+    try { const { coupleCard, shareImage } = await import('./share-card.js'); const blob = await coupleCard({ chem }); const how = await shareImage(blob, '얼굴형-케미.png', chem.title); if (how === 'downloaded') toast('케미 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)'); }
     catch (e) { console.error(e); toast('이미지를 만들지 못했어요'); }
   });
 
@@ -1038,6 +1044,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     if (!report || !last?.ok) return;
     els.shareBtn.disabled = true;
     try {
+      const { faceCard, shareImage } = await import('./share-card.js');
       const blob = await faceCard({ report: { ...report, probs: last.shape.probs }, ranked: lastRanked.length ? lastRanked : galleryTop });
       const how = await shareImage(blob, '내-얼굴형-분석.png', '내 얼굴형 분석');
       if (how === 'downloaded') toast('공유 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)');
