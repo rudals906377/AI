@@ -100,3 +100,6 @@ export async function fetchRetry(input, init, { tries = 3, base = 700 } = {}) {
   }
   throw last;
 }
+
+// WebGL 을 쓸 수 있는지 (MediaPipe 얼굴 · 손 · 분할 모델이 필요로 한다). 하드웨어 가속을 끈 브라우저 · 일부 원격 데스크톱에서는 없다
+export const WEBGL_OK = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } })();

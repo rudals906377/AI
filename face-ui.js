@@ -4,7 +4,7 @@
 //   face.styleChanged(result);   // 스타일 분석 결과가 바뀌면 (헤어 · 메이크업이면 '내 얼굴 분석' 안내를 보여 준다)
 
 import { analyzeFace, combineFaces, preloadFace, liveCheck, classifyShape, zscores, FRAME, SEG } from './face.js';
-import { guardStart, guardEnd } from './device.js';
+import { guardStart, guardEnd, WEBGL_OK } from './device.js';
 import { faceReport, rankStyles, styleFit, coupleChem, compareFrames, setHairPrefs } from './face-advice.js';
 import { salonSpec } from './salon-spec.js';
 import { accessoryAdvice } from './accessory-advice.js';
@@ -106,6 +106,12 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     document.getElementById('historyGrid')?.classList.toggle('hidden', mode !== 'history');
     if (mode === 'history') window.dispatchEvent(new CustomEvent('finde:history'));
     if (mode === 'nail' && scroll) els.tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if ((mode === 'face' || mode === 'nail') && !WEBGL_OK && !document.getElementById('webglWarn')) {
+      // WebGL 이 없으면 얼굴 · 손톱 분석이 안 되므로 사진을 올리기 전에 알린다
+      const w = document.createElement('div'); w.id = 'webglWarn'; w.className = 'recover'; w.setAttribute('role', 'status');
+      w.innerHTML = '<span>이 브라우저는 그래픽 기능(WebGL)이 꺼져 있어 <b>얼굴 · 손톱 분석</b>을 쓸 수 없어요. 브라우저 설정에서 하드웨어 가속을 켜거나 크롬 · 사파리 최신 버전으로 열어 주세요. 스타일 사진 분석은 돼요.</span>';
+      els.tabs.insertAdjacentElement('afterend', w);
+    }
     if (mode === 'face') {
       preloadFace().catch(() => {}); // 모델을 미리 받아 둔다 (약 20MB, 처음 한 번)
       const { blob: sb } = getStyle();
