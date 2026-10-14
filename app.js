@@ -116,6 +116,7 @@ async function init() {
   if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
   // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
   if ((!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && params.get('proxy') !== '0') useWasmProxy();
+  setWasmThreads();
 
   els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
   await loadSamples();
@@ -126,6 +127,15 @@ async function init() {
 
 function useWasmProxy() {
   try { if (env.backends?.onnx?.wasm) env.backends.onnx.wasm.proxy = true; } catch (e) { console.warn('[app] WASM 작업 스레드 설정 실패', e); }
+}
+// WASM 스레드 수: 사이트가 cross-origin isolated 면 ORT 가 여러 스레드를 쓰는데, WebKit(사파리 · iOS)은 다중 스레드 WASM 으로 긴 추론 중 웹 프로세스가 죽는 일이 있어 1개로 고정. 그 밖은 최대 4개
+function setWasmThreads() {
+  try {
+    const w = env.backends?.onnx?.wasm; if (!w) return;
+    const webkitOnly = /AppleWebKit/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|Edg|OPR|Firefox/.test(navigator.userAgent);
+    w.numThreads = (webkitOnly || IOS || LOW_MEM) ? 1 : Math.max(1, Math.min(4, navigator.hardwareConcurrency || 2));
+    if (params.get('threads')) w.numThreads = Math.max(1, +params.get('threads') || 1);
+  } catch (e) { console.warn('[app] WASM 스레드 수 설정 실패', e); }
 }
 function runtimeFor(key) {
   const mode = webgpu ? (f16 ? 'webgpu_f16' : 'webgpu') : 'wasm';
