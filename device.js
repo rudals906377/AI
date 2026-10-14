@@ -69,3 +69,34 @@ export async function decodeScaled(blob, max) {
   }
   return createImageBitmap(blob);
 }
+
+// MediaPipe 작업에 넘길 WebGL 캔버스 — OffscreenCanvas 의 WebGL 을 못 쓰는 브라우저(일부 WebKit · 구형)에서도 돌게 보통 캔버스를 쓴다
+export const glCanvas = () => { try { return document.createElement('canvas'); } catch { return undefined; } };
+
+// 캔버스 roundRect 가 없는 브라우저(Safari 15 이하 · Chrome 98 이하 · Firefox 111 이하)용 폴리필
+(() => {
+  try {
+    const P = globalThis.CanvasRenderingContext2D?.prototype, O = globalThis.OffscreenCanvasRenderingContext2D?.prototype;
+    const poly = function (x, y, w, h, r) {
+      let [tl, tr, br, bl] = Array.isArray(r) ? (r.length === 1 ? [r[0], r[0], r[0], r[0]] : r.length === 2 ? [r[0], r[1], r[0], r[1]] : r.length === 3 ? [r[0], r[1], r[2], r[1]] : r) : [r, r, r, r];
+      const m = Math.min(Math.abs(w) / 2, Math.abs(h) / 2); tl = Math.min(tl || 0, m); tr = Math.min(tr || 0, m); br = Math.min(br || 0, m); bl = Math.min(bl || 0, m);
+      this.moveTo(x + tl, y); this.lineTo(x + w - tr, y); this.arcTo(x + w, y, x + w, y + tr, tr); this.lineTo(x + w, y + h - br); this.arcTo(x + w, y + h, x + w - br, y + h, br);
+      this.lineTo(x + bl, y + h); this.arcTo(x, y + h, x, y + h - bl, bl); this.lineTo(x, y + tl); this.arcTo(x, y, x + tl, y, tl); this.closePath();
+    };
+    for (const proto of [P, O]) if (proto && typeof proto.roundRect !== 'function') proto.roundRect = poly;
+  } catch {}
+})();
+
+// 네트워크가 흔들려도 몇 번 다시 시도하는 fetch (모델 · 사전 계산 파일용). 4xx 는 다시 시도하지 않는다
+export async function fetchRetry(input, init, { tries = 3, base = 700 } = {}) {
+  let last;
+  for (let i = 0; i < tries; i++) {
+    try {
+      const r = await fetch(input, init);
+      if (r.ok || (r.status >= 400 && r.status < 500)) return r;
+      last = new Error(`HTTP ${r.status}`);
+    } catch (e) { last = e; }
+    if (i < tries - 1) await new Promise((res) => setTimeout(res, base * 2 ** i));
+  }
+  throw last;
+}

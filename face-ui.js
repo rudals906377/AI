@@ -10,8 +10,7 @@ import { salonSpec } from './salon-spec.js';
 import { accessoryAdvice } from './accessory-advice.js';
 import { colorSeason, regionLab } from './color-season.js';
 import { recolorHair, HAIR_COLORS } from './hair-color.js';
-import { reportPdf } from './report-pdf.js';
-import { faceCard, coupleCard, shareImage } from './share-card.js';
+// 결과지(report-pdf) · 공유 이미지(share-card)는 버튼을 눌렀을 때 import (첫 로딩을 가볍게)
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -434,7 +433,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     } catch (e) {
       console.error(e);
       if (id !== seq) return;
-      els.status.innerHTML = `얼굴 분석 모델을 불러오지 못했어요 (${esc(e.message)}). 인터넷 연결을 확인하고 다시 시도해 주세요.`;
+      els.status.innerHTML = `얼굴 분석 모델을 불러오지 못했어요 (${esc(e.message)}). ${/GLctx|WebGL|webgl|context/i.test(e.message) ? '이 브라우저에서는 분석에 필요한 그래픽 기능(WebGL)을 쓸 수 없어요. 다른 브라우저(크롬 · 사파리 최신)에서 열어 주세요.' : '인터넷 연결을 확인하고 다시 시도해 주세요.'}`;
     }
   }
   els.retakeBtn.addEventListener('click', () => els.shoot.click());
@@ -630,6 +629,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       const btn = $(id); btn.disabled = true; const t0 = btn.textContent; btn.textContent = '만드는 중…';
       try {
         const probsAll = last.shape.probs;
+        const [{ reportPdf }, { shareImage }] = await Promise.all([import('./report-pdf.js'), import('./share-card.js')]);
         const out = await reportPdf({ report: { ...report, probsAll }, faceCanvas: els.canvas, spec: lastSpec, season: lastSeason, acc: lastAcc, cutEx, gender: gender || null, format, purpose });
         if (format === 'png') {
           const how = await shareImage(out, `FINDE-${purpose === 'makeup' ? (gender === 'm' ? '그루밍' : '메이크업') : '얼굴분석'}-${new Date().toISOString().slice(0, 10)}.png`, purpose === 'makeup' ? '내 얼굴 메이크업 분석 결과' : '내 얼굴 분석 결과');
@@ -740,7 +740,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   }
   els.coupleShare.addEventListener('click', async () => {
     if (!chem) return;
-    try { const blob = await coupleCard({ chem }); const how = await shareImage(blob, '얼굴형-케미.png', chem.title); if (how === 'downloaded') toast('케미 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)'); }
+    try { const { coupleCard, shareImage } = await import('./share-card.js'); const blob = await coupleCard({ chem }); const how = await shareImage(blob, '얼굴형-케미.png', chem.title); if (how === 'downloaded') toast('케미 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)'); }
     catch (e) { console.error(e); toast('이미지를 만들지 못했어요'); }
   });
 
@@ -1038,6 +1038,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     if (!report || !last?.ok) return;
     els.shareBtn.disabled = true;
     try {
+      const { faceCard, shareImage } = await import('./share-card.js');
       const blob = await faceCard({ report: { ...report, probs: last.shape.probs }, ranked: lastRanked.length ? lastRanked : galleryTop });
       const how = await shareImage(blob, '내-얼굴형-분석.png', '내 얼굴형 분석');
       if (how === 'downloaded') toast('공유 이미지를 저장했어요 (얼굴 사진은 넣지 않았어요)');

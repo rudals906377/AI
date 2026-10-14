@@ -6,14 +6,13 @@ import { createDescriber } from './advanced.js';
 import { TAXONOMY, CATEGORY_ORDER } from './taxonomy.js';
 import { josa } from './describe.js';
 import { buildOrder, swatchText } from './order.js';
-import { tattooCard, tattooCardImage } from './tattoo-advice.js';
+import { tattooCard } from './tattoo-advice.js';   // tattooCardImage 는 버튼을 눌렀을 때 import
 import { extractColors, COLOR_TARGETS, styleRegions, detectSubjects } from './colors.js';
 import { suitsFor } from './suits.js';
 import { initHistory } from './history.js';
 import { initFaceUI } from './face-ui.js';
 import { assetFetch } from './assets.js';
-import { styleCard, shareImage } from './share-card.js';
-import { resultImage } from './result-image.js';
+// 공유 이미지 · 결과 이미지 모듈은 버튼을 눌렀을 때 import (첫 로딩을 가볍게)
 import { quipFor, manyMessage, subjectNote, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
@@ -101,6 +100,10 @@ function setStatus(text, pct = 0, cls = '', detail = '') {
   els.statusBar.style.width = `${pct}%`;
   els.status.className = `status ${cls}`;
 }
+
+// 예상 못 한 오류: 조용히 멈추지 않게 알리고, '분석 중' 상태에 갇히지 않게 푼다
+window.addEventListener('unhandledrejection', (e) => { const msg = String(e.reason?.message || e.reason || '').slice(0, 120); console.warn('[app] 처리되지 않은 오류', e.reason); if (busy) { busy = false; els.analyzing?.classList.add('hidden'); els.resultCard?.classList.remove('busy'); updateRunButton(); } if (msg && !/AbortError/.test(msg)) toast(`문제가 생겼어요: ${msg} · 다시 시도해 주세요`); });
+window.addEventListener('error', (e) => { if (e.message && /out of memory|메모리/i.test(e.message)) toast('메모리가 부족해요. 다른 탭을 닫고 다시 시도해 주세요'); });
 
 // ---- 초기화 -------------------------------------------------------------------
 async function init() {
@@ -640,6 +643,7 @@ function renderTattoo(r) {
     if (!lastTattoo) return;
     const btn = e.currentTarget; btn.disabled = true;
     try {
+      const { tattooCardImage } = await import('./tattoo-advice.js');
       const blob = await tattooCardImage(lastTattoo, lastResult?.blob || currentBlob || null, { designer });
       const name = `타투상담카드-${new Date().toISOString().slice(0, 10)}.png`;
       const file = new File([blob], name, { type: 'image/png' });
@@ -1044,6 +1048,7 @@ $('shareStyle').addEventListener('click', async (e) => {
   if (!lastResult || !currentBlob) return;
   const b = e.currentTarget; b.disabled = true;
   try {
+    const { styleCard, shareImage } = await import('./share-card.js');
     const blob = await styleCard({ photo: lastResult.blob || currentBlob, result: lastResult, fit: faceUI.fitFor(lastResult) });
     const how = await shareImage(blob, `${(lastResult.genre?.name || '스타일').replace(/[\\/:*?"<>|\s]+/g, '-')}.png`, lastResult.headline);
     if (how === 'downloaded') toast('공유 이미지를 저장했어요');
@@ -1054,6 +1059,7 @@ $('saveResult').addEventListener('click', async (e) => {
   if (!lastResult || !currentBlob) return;
   const b = e.currentTarget; b.disabled = true;
   try {
+    const [{ resultImage }, { shareImage }] = await Promise.all([import('./result-image.js'), import('./share-card.js')]);
     const blob = await resultImage({ photo: lastResult.blob || currentBlob, result: lastResult, fit: faceUI.fitFor(lastResult), order: lastOrder, catLabel: TAXONOMY[lastResult.category]?.label || '스타일' });
     const how = await shareImage(blob, `FINDE-${TAXONOMY[lastResult.category]?.label || '스타일'}-분석결과-${new Date().toISOString().slice(0, 10)}.png`, `${lastResult.headline} · 분석 결과`);
     if (how === 'downloaded') toast('결과 이미지를 저장했어요');

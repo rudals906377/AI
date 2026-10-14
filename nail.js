@@ -1,5 +1,5 @@
 // 내 손톱형 분석 — 손등 사진 → 손가락별 손톱 윤곽 → 비율 측정 → 손톱형
-import { LOW_MEM, decodeScaled } from './device.js';
+import { LOW_MEM, decodeScaled, glCanvas } from './device.js';
 //
 //   const r = await analyzeNails(blob);   // { ok, issues, fingers: [{ key, ko, m, outline }], summary, hand }
 //
@@ -162,7 +162,7 @@ function loadTasks() {
     ]);
     const fileset = await mp.FilesetResolver.forVisionTasks(`${MP}/wasm`);
     const hb = await assetFetch('./models/mediapipe/hand_landmarker.task').then((r) => { if (!r.ok) throw new Error(`손 모델을 받지 못했어요 (${r.status})`); return r.arrayBuffer(); });
-    const hand = await mp.HandLandmarker.createFromOptions(fileset, {
+    const hand = await mp.HandLandmarker.createFromOptions(fileset, { canvas: glCanvas(),
       baseOptions: { modelAssetBuffer: new Uint8Array(hb), delegate: 'CPU' }, runningMode: 'IMAGE', numHands: 2, minHandDetectionConfidence: 0.3, minHandPresenceConfidence: 0.3,
     });
     ort.env.wasm.wasmPaths = ORT; ort.env.wasm.numThreads = 1;
