@@ -46,6 +46,16 @@
       </div>
     </header>
 
+    <section class="onboard hidden" id="onboard" aria-label="처음 쓰는 법">
+      <div class="ob-head"><b>처음이세요? 셀카 한 장이면 세 단계로 끝나요</b><button type="button" class="ob-close" id="obClose" aria-label="안내 닫기">닫기</button></div>
+      <ol class="ob-steps">
+        <li data-step="1"><i>1</i><div><b>정면 셀카 한 장 올리기</b><small>앞머리 넘기고 · 밝은 곳에서 · 무표정. 사진은 브라우저 밖으로 안 나가요</small><span class="ob-act"><button type="button" class="soft small" data-ob="shoot">셀카 찍기</button><button type="button" class="soft small" data-ob="pick">사진 올리기</button></span></div></li>
+        <li data-step="2"><i>2</i><div><b>FINDE 가 알아챈 것 확인</b><small>얼굴형 · 100명 중 몇 번째 · 상안부 중안부 하안부 비율</small><span class="ob-act"><button type="button" class="soft small" data-ob="noticed">결과 보러 가기</button></span></div></li>
+        <li data-step="3"><i>3</i><div><b>어울리는 헤어 · 메이크업 받고 저장</b><small>맞춤 추천을 읽고 이미지로 저장하거나 공유해 보세요</small><span class="ob-act"><button type="button" class="soft small" data-ob="save">추천 · 저장 보러 가기</button></span></div></li>
+      </ol>
+      <p class="ob-done hidden" id="obDone">다 해 봤어요! 이번엔 <b>스타일 사진 분석</b>에 하고 싶은 헤어 · 메이크업 사진을 올려 보세요. 내 얼굴형과의 궁합이 나와요.</p>
+    </section>
+
     <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
       <button type="button" data-mode="face" class="active" aria-pressed="true">내 얼굴 분석<small>셀카 한 장으로 얼굴형 · 100명 중 몇 번째</small></button>
       <button type="button" data-mode="style" aria-pressed="false">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>

@@ -1144,4 +1144,40 @@ const faceUI = initFaceUI({ getStyle: () => ({ result: lastResult, blob: lastRes
 }
 
 
+// 첫 방문 안내: 셀카 한 장 → FINDE 가 알아챈 것 확인 → 추천 보고 저장 · 공유. 다 하거나 닫으면 다시 보이지 않는다 (?guide=1 로 다시 볼 수 있음)
+(function onboarding() {
+  const KEY = 'finde-onboard-v2';
+  const box = document.getElementById('onboard');
+  if (!box) return;
+  try { if (localStorage.getItem(KEY) && !params.has('guide')) return; } catch { return; }
+  const done = new Set();
+  const save = () => { try { localStorage.setItem(KEY, '1'); } catch {} };
+  const paint = () => {
+    const now = [1, 2, 3].find((n) => !done.has(n));
+    box.querySelectorAll('li[data-step]').forEach((li) => {
+      const n = +li.dataset.step;
+      li.classList.toggle('done', done.has(n));
+      li.classList.toggle('now', n === now);
+    });
+    if (!now) { document.getElementById('obDone').classList.remove('hidden'); save(); }
+  };
+  const mark = (n) => { if (box.classList.contains('hidden') || done.has(n)) return; done.add(n); paint(); };
+  const show = (id) => { const el = document.getElementById(id); if (!el || el.classList.contains('hidden')) return false; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return true; };
+  box.classList.remove('hidden');
+  paint();
+  document.getElementById('obClose').addEventListener('click', () => { box.classList.add('hidden'); save(); });
+  box.addEventListener('click', (e) => {
+    const act = e.target.closest('[data-ob]')?.dataset.ob;
+    if (!act) return;
+    faceUI.setMode('face', { scroll: false });
+    if (act === 'shoot') document.getElementById('faceShoot')?.click();
+    else if (act === 'pick') document.getElementById('facePick')?.click();
+    else if (act === 'noticed') { if (!show('faceNoticed')) toast('정면 셀카를 올리면 FINDE 가 알아챈 것이 나와요'); }
+    else if (act === 'save') { if (!show('faceImage')) toast('셀카를 분석하면 추천과 저장 버튼이 나와요'); }
+  });
+  window.addEventListener('beauty:face', () => { mark(1); setTimeout(() => mark(2), 4000); }); // 결과를 잠깐 본 뒤 2단계도 지난 것으로
+  for (const id of ['faceImage', 'faceShare', 'facePdf', 'faceCopy']) document.getElementById(id)?.addEventListener('click', () => mark(3));
+})();
+
+
 init();
