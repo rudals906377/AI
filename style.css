@@ -68,6 +68,7 @@ header.top p { margin: 4px 0 0; color: var(--muted); font-size: 0.93rem; max-wid
   max-width: 100%;
 }
 .status #statusText { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.status.error #statusText { white-space: normal; overflow-wrap: anywhere; }
 .status .dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--warn); }
 .status.ready .dot { background: var(--ok); }
 .status.error .dot { background: #c0504d; }
