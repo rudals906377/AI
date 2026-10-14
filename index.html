@@ -36,8 +36,6 @@
     <header class="top">
       <div class="brand">
         <h1 class="logo"><picture><source srcset="./brand/logo-dark.png" media="(prefers-color-scheme: dark)" /><img src="./brand/logo.png" alt="FINDE" width="190" height="46" /></picture><small class="brand-ko">파인드</small><span class="lab-badge lab-site">실험실</span><span class="lab-badge designer-badge hidden" id="designerBadge">디자이너 모드</span></h1>
-        <p>셀카 한 장으로 내 얼굴형과 "100명 중 몇 번째"를 알아보고, 어울리는 헤어 · 메이크업을 추천받아요. 헤어 · 네일 · 메이크업 · 타투 사진을 올리면 스타일을 문장으로 풀어 주고, 손 사진으로는 어울리는 네일 쉐입을 골라 줘요. 사진은 이 브라우저 밖으로 보내지 않아요.</p>
-        <p class="lab-note">FINDE 앱에 넣기 전에 미리 열어 본 <b>실험실</b>이에요. 결과는 정답이 아니라 "이런 쪽이 어울릴 수 있어요"라는 제안이니 재미로 봐 주세요. 결과 아래 평가 버튼으로 맞는지 알려 주시면 조금씩 더 똑똑해져요.</p>
       </div>
       <div class="status" id="status">
         <span class="dot"></span>
@@ -57,10 +55,10 @@
     </section>
 
     <nav class="mode-tabs" id="modeTabs" aria-label="분석 종류">
-      <button type="button" data-mode="face" class="active" aria-pressed="true">내 얼굴 분석<small>셀카 한 장으로 얼굴형 · 100명 중 몇 번째</small></button>
-      <button type="button" data-mode="style" aria-pressed="false">스타일 사진 분석<small>헤어 · 네일 · 메이크업 · 타투 사진</small></button>
-      <button type="button" data-mode="nail" aria-pressed="false">내 손톱 분석<small>손 사진으로 손톱형 · 어울리는 쉐입</small></button>
-      <button type="button" data-mode="history" aria-pressed="false">내 기록<small>분석 결과 · 기억한 얼굴형</small></button>
+      <button type="button" data-mode="face" class="active" aria-pressed="true">내 얼굴 분석</button>
+      <button type="button" data-mode="style" aria-pressed="false">스타일 사진 분석</button>
+      <button type="button" data-mode="nail" aria-pressed="false">내 손톱 분석</button>
+      <button type="button" data-mode="history" aria-pressed="false">내 기록</button>
     </nav>
 
     <div class="grid hidden" id="historyGrid"></div>
@@ -74,7 +72,6 @@
           <img id="preview" class="hidden" alt="미리보기" />
           <div class="hint" id="dropHint">
             <strong>사진을 끌어다 놓거나 눌러서 올려 주세요</strong>
-            <small>붙여넣기(Ctrl+V)도 됩니다</small>
           </div>
         </label>
         <div class="row upload-row">
@@ -88,7 +85,7 @@
         <div class="samples" id="samples"></div>
 
         <details class="settings">
-          <summary>분석 설정 <small>모델, 카테고리, 고급 모드</small></summary>
+          <summary>분석 설정</summary>
         <h3>분석 모델</h3>
         <div class="seg" id="model">
           <button data-model="base" class="active">기본 · FashionSigLIP</button>
@@ -107,7 +104,7 @@
 
         <h3>고급 모드</h3>
         <label class="toggle"><input type="checkbox" id="advanced" /> 자유 서술 켜기</label>
-        <p class="note" id="advNote">사진을 보고 자유 형식으로 서술하는 소형 모델(LFM2.5-VL-450M, 약 420~630MB)을 추가로 내려받습니다. Chrome · Edge 최신 버전을 권장합니다.</p>
+        <p class="note" id="advNote">소형 서술 모델(약 420~630MB)을 추가로 내려받아요.</p>
         <div class="row">
           <button class="ghost" id="run" disabled>다시 분석하기</button>
         </div>
@@ -120,7 +117,6 @@
         <div class="analyzing hidden" id="analyzing" role="status" aria-live="polite"><span class="spin"></span><span><b>분석 중입니다…</b><small id="analyzingSub"></small><i class="prog" aria-hidden="true"><b id="analyzingBar"></b></i></span></div>
         <div class="result-empty" id="empty">
           <strong>사진을 올리거나 예시를 고르면 바로 분석합니다</strong>
-          <small>장르, 트렌드 키워드, 설명, 속성별 근거가 여기에 나옵니다</small>
         </div>
 
         <div id="result" class="hidden">
@@ -155,19 +151,17 @@
           <div class="suits hidden" id="suitsBlock">
             <h3>이런 분께 잘 어울려요</h3>
             <div class="suits-grid" id="suits"></div>
-            <p class="note">사진 속 스타일의 특징에 일반적인 스타일링 기준을 적용한 추천이에요. 사진 속 사람의 얼굴형이나 피부 톤을 진단한 결과는 아니에요.</p>
           </div>
 
           <div class="face-match style-fit hidden" id="styleFit"></div>
           <div class="face-cta hidden" id="faceCta">
-            <div><b id="faceCtaTitle">내 얼굴형에도 어울릴까요?</b><small>셀카 한 장으로 얼굴형과 비율을 재고, 이 스타일과의 궁합과 맞춤 추천을 알려 드려요.</small></div>
+            <div><b id="faceCtaTitle">내 얼굴형에도 어울릴까요?</b></div>
             <button class="primary small" id="faceCtaBtn" type="button">내 얼굴 분석하기</button>
           </div>
 
           <div class="colors hidden" id="colorBlock">
             <h3>사진 속 색 <small id="colorMeta"></small></h3>
             <div class="swatches" id="swatches"></div>
-            <p class="note">사진에서 해당 부위만 골라 뽑은 색이에요. 조명과 보정에 따라 실제 색과 다를 수 있어요.</p>
           </div>
 
           <section class="order" id="orderBlock" aria-labelledby="orderTitle">
@@ -187,7 +181,7 @@
           <section class="order tattoo-card hidden" id="tattooCard" aria-label="타투 상담 카드"></section>
 
           <div class="similar-block hidden" id="similarBlock">
-            <h3>비슷한 스타일 <small>예시 사진 중에서</small></h3>
+            <h3>비슷한 스타일</h3>
             <div class="similar" id="similar"></div>
           </div>
 
@@ -213,10 +207,10 @@
           <div class="chips" id="tags"></div>
 
           <div id="vlmBlock" class="hidden">
-            <h3>자유 서술 <small>생성형 AI 가 쓴 글 · 사실과 다를 수 있어요</small> <small id="vlmMeta"></small></h3>
+            <h3>자유 서술 <small id="vlmMeta"></small></h3>
             <div class="vlm" id="vlm"></div>
             <details id="vlmEnBox" class="en-box">
-              <summary>영어 원문 보기 (모델이 직접 관찰한 내용 · 번역은 자동 번역이라 일부 어색할 수 있어요)</summary>
+              <summary>영어 원문 보기</summary>
               <div class="vlm en" id="vlmEn"></div>
             </details>
           </div>
@@ -246,7 +240,6 @@
           <div class="hint" id="nailHint">
             <svg class="face-guide" viewBox="0 0 120 140" aria-hidden="true"><path d="M40 128V78l-8-34q-2-9 6-10t10 8l6 24V24q0-9 8-9t8 9v40l2-46q0-9 8-9t8 9l-1 48 4-34q1-8 8-7t7 9l-4 44q8-16 14-14t4 10l-16 40q-6 18-22 24v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M58 20h12M78 14h10M98 30h9M34 40h9" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".55"/></svg>
             <strong>손등 사진을 올려 주세요</strong>
-            <small>끌어다 놓기 · 붙여넣기(Ctrl+V)도 돼요</small>
           </div>
         </label>
         <div class="row upload-row">
@@ -254,27 +247,26 @@
           <button type="button" class="ghost" id="nailPick">사진 올리기</button>
           <input type="file" id="nailCamera" accept="image/*" capture="environment" hidden />
         </div>
-        <h3>조금만 알려 주세요 <small class="muted">(추천에 반영해요)</small></h3>
+        <h3>조금만 알려 주세요</h3>
         <div class="nail-q">
           <div class="seg seg-sm" data-q="life"><span class="seg-label">손 쓰는 정도</span><button type="button" data-v="normal" class="active">보통</button><button type="button" data-v="hands">타이핑 · 손을 많이 씀</button></div>
           <div class="seg seg-sm" data-q="length"><span class="seg-label">원하는 길이</span><button type="button" data-v="any" class="active">상관없음</button><button type="button" data-v="short">짧게</button><button type="button" data-v="mid">중간</button><button type="button" data-v="long">길게</button></div>
           <div class="seg seg-sm" data-q="natural"><span class="seg-label">방법</span><button type="button" data-v="any" class="active">상관없음</button><button type="button" data-v="natural">자연 손톱 그대로</button><button type="button" data-v="ext">젤 · 연장도 좋아요</button></div>
           <div class="seg seg-sm" data-q="curve"><span class="seg-label">옆에서 본 손톱 휨 (C커브)</span><button type="button" data-v="" class="active">모름</button><button type="button" data-v="flat">평평한 편</button><button type="button" data-v="mid">보통</button><button type="button" data-v="strong">많이 휨</button></div>
         </div>
-        <h3>이렇게 찍어 주세요</h3>
+        <details class="hair-q guide-fold"><summary>이렇게 찍어 주세요</summary>
         <ol class="guide">
           <li><b>손등이 위로</b> 오게 손을 책상에 평평하게 두고, 손가락을 살짝 벌려 주세요.</li>
           <li>휴대폰을 <b>손 바로 위</b>에서 내려다보며, 손목까지 한 손이 다 나오게 찍어 주세요.</li>
           <li><b>밝은 곳</b>에서 그림자 없이, 가능하면 <b>매니큐어 · 젤을 지운 맨손톱</b>으로 찍어 주세요.</li>
         </ol>
-        <p class="note">미용 목적의 손톱 모양 분석이에요. 손톱 건강이나 질환은 판단하지 않아요. 사진은 이 브라우저 안에서만 쓰고 저장하거나 보내지 않아요.</p>
+        </details>
       </section>
 
       <section class="card" id="nailResultCard">
         <h2>손톱 분석 결과</h2>
         <div class="result-empty" id="nailEmpty">
           <strong>손 사진을 올리면 손톱 모양을 재요</strong>
-          <small>손가락마다 손톱의 가로세로 비율, 끝쪽 퍼짐, 큐티클 라인을 재고 어울리는 네일 쉐입 · 길이 · 디자인을 추천해요</small>
         </div>
         <div class="face-status hidden" id="nailStatus" role="status" aria-live="polite"></div>
         <div class="hidden" id="nailResult">
@@ -301,12 +293,12 @@
             <div class="nv-row" data-q="outline"><span>초록 윤곽이 내 손톱을 잘 따라가요</span><button type="button" class="ghost small" data-v="1">맞아요</button><button type="button" class="ghost small" data-v="0">아니에요</button></div>
             <div class="nv-row" data-q="type"><span>손톱형 판정이 내 손톱과 비슷해요</span><button type="button" class="ghost small" data-v="1">맞아요</button><button type="button" class="ghost small" data-v="0">아니에요</button></div>
             <div class="nv-row" data-q="advice"><span>추천 쉐입이 마음에 들어요</span><button type="button" class="ghost small" data-v="1">맞아요</button><button type="button" class="ghost small" data-v="0">아니에요</button></div>
-            <small>사진은 저장하지 않고, 측정값과 답만 이 브라우저에 남아요. <button type="button" class="linklike hidden" id="nailVoteExport">평가 내보내기</button></small>
+            <small><button type="button" class="linklike hidden" id="nailVoteExport">평가 내보내기</button></small>
           </div>
           <h3>네일샵 상담 카드</h3>
           <pre class="nail-card" id="nailCard"></pre>
           <div class="row"><button type="button" class="primary small" id="nailCopy">상담 카드 복사</button><button type="button" class="ghost small" id="nailSave">이미지로 저장</button><button type="button" class="ghost small" id="nailAgain">다른 사진으로</button></div>
-          <p class="note">손톱 바탕(분홍 부분)의 비율과 큐티클 라인 모양을 잰 미용 참고 정보예요. 의학적 진단이 아니며, 손톱 건강이 걱정되면 피부과 전문의와 상담하세요.</p>
+          <p class="note">미용 참고 정보예요. 의학적 진단이 아니에요.</p>
         </div>
       </section>
     </div>
@@ -331,7 +323,6 @@
           <div class="seg seg-sm" data-hk="dens" aria-label="숱"><span class="seg-label">숱</span><button type="button" data-hv="thin">적은 편</button><button type="button" data-hv="normal">보통</button><button type="button" data-hv="thick">많은 편</button></div>
           <div class="seg seg-sm" data-hk="care" aria-label="손질 시간"><span class="seg-label">손질</span><button type="button" data-hv="low">간단하게</button><button type="button" data-hv="any">상관없음</button></div>
           <div class="seg seg-sm" data-hk="want" aria-label="원하는 길이"><span class="seg-label">원하는 길이</span><button type="button" data-hv="short">짧게</button><button type="button" data-hv="mid">단발</button><button type="button" data-hv="long">길게</button><button type="button" data-hv="any">상관없음</button></div>
-          <p class="muted small">한 번 더 누르면 선택이 풀려요. 답은 이 기기에만 저장돼요.</p>
         </details>
         <label class="drop face-drop" id="faceDrop">
           <input type="file" id="faceFile" accept="image/*" />
@@ -339,7 +330,6 @@
           <div class="hint" id="faceHint">
             <svg class="face-guide" viewBox="0 0 120 140" aria-hidden="true"><ellipse cx="60" cy="72" rx="38" ry="50" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/><path d="M38 60q8-5 16 0M66 60q8-5 16 0M52 92q8 5 16 0M60 66v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M22 52q4-40 38-42q34 2 38 42" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".45"/></svg>
             <strong>정면 셀카를 올려 주세요</strong>
-            <small>끌어다 놓기 · 붙여넣기(Ctrl+V)도 돼요</small>
           </div>
         </label>
         <div class="row upload-row">
@@ -349,26 +339,25 @@
         </div>
         <button type="button" class="ghost small hidden" id="faceUseStyle">스타일 분석에 올린 사진으로 분석하기</button>
 
-        <h3>이렇게 찍어 주세요</h3>
+        <details class="hair-q guide-fold"><summary>이렇게 찍어 주세요</summary>
         <ol class="guide">
           <li><b>앞머리 · 옆머리를 넘겨</b> 이마 · 귀 · 턱선이 다 보이게 해 주세요. 머리띠나 집게핀을 써도 좋아요.</li>
           <li><b>정면 · 무표정</b>으로, 입을 다물고 카메라를 눈높이에 맞춰 주세요.</li>
           <li><b>팔을 쭉 뻗은 거리</b>에서 찍어 주세요. 너무 가까우면 렌즈 때문에 얼굴이 길고 코가 커 보여요.</li>
           <li><b>안경 · 모자 · 마스크</b>는 벗고, 밝은 곳에서 찍어 주세요.</li>
         </ol>
-        <p class="note">머리카락이 얼굴선을 가리면 측정하지 않고 다시 찍어 달라고 알려 드려요. 사진과 측정값은 이 브라우저 안에서만 쓰고 저장하거나 보내지 않아요.</p>
+        </details>
       </section>
 
       <section class="card" id="faceResultCard">
         <h2>얼굴 분석 결과</h2>
         <div class="result-empty" id="faceEmpty">
           <strong>셀카를 올리면 얼굴형과 비율을 재요</strong>
-          <small>이마 · 광대 · 턱 너비, 얼굴 길이, 삼정, 턱 각도, 눈 · 코 · 입술 비율을 재고 맞춤 헤어 · 메이크업을 추천해요</small>
         </div>
         <div class="face-status hidden" id="faceStatus" role="status" aria-live="polite"></div>
 
         <div class="face-retake hidden" id="faceRetake">
-          <div class="retake-head"><b>다시 찍어 주세요</b><small>정확하게 재려면 아래를 고쳐 주세요. 붉게 칠한 곳이 얼굴을 가린 부분이에요.</small></div>
+          <div class="retake-head"><b>다시 찍어 주세요</b><small>붉게 칠한 곳이 얼굴을 가린 부분이에요.</small></div>
           <canvas id="faceRetakeCanvas" class="face-canvas" aria-label="얼굴을 가린 부분을 붉게 표시한 사진"></canvas>
           <ul class="issues" id="faceRetakeList"></ul>
           <div class="row"><button type="button" class="primary" id="faceRetakeBtn">다시 찍기</button></div>
@@ -404,7 +393,6 @@
           </nav>
           <div class="ftab" data-tab="advice" role="tabpanel">
           <h3 id="faceAdviceTitle">헤어 추천</h3>
-          <p class="respect" id="faceRespect">얼굴 비율로 어림한 추천이라 재미로 봐 주세요. 취향과 개성이 언제나 먼저예요.</p>
           <div class="basis hidden" id="faceBasis"></div>
           <div class="advice" id="faceAdvice"></div>
           <div class="spec-box hidden" id="faceSpec"></div>
@@ -430,16 +418,16 @@
             <p class="fr-status hidden" id="faceRankStatus" role="status" aria-live="polite"></p>
             <ol class="fr-list" id="faceRankList"></ol>
             <ul class="fr-skip hidden" id="faceRankSkip"></ul>
-            <p class="fr-note hidden" id="faceRankNote">점수는 얼굴 측정과 헤어 · 메이크업 추천표가 얼마나 맞는지를 더한 값이라, 고른 사진들끼리 비교하는 참고용이에요. 마음이 가는 스타일이 가장 좋은 스타일이에요.</p>
+            <p class="fr-note hidden" id="faceRankNote"></p>
           </section>
           </div>
           <div class="ftab hidden" data-tab="measure" role="tabpanel">
-          <h3>측정 결과 <small>광대 너비를 1 로 둔 비율 · 평균은 예시 얼굴 사진들의 평균</small></h3>
+          <h3>측정 결과</h3>
           <div class="table-wrap"><table class="measure" id="faceMeasures"></table></div>
           </div>
           <div class="ftab hidden" data-tab="fun" role="tabpanel">
           <section class="face-rank face-couple" id="faceCouple" aria-labelledby="faceCoupleTitle">
-            <div class="fr-head"><b id="faceCoupleTitle">친구 · 커플 케미</b><small>함께할 사람의 정면 셀카를 올리면 두 사람의 얼굴형 케미와 같이 하면 좋은 스타일을 알려 드려요. 재미로 봐 주세요 — 사진은 저장하지 않아요.</small></div>
+            <div class="fr-head"><b id="faceCoupleTitle">친구 · 커플 케미</b><small>상대의 정면 셀카를 올려 주세요</small></div>
             <div class="row">
               <button class="soft small" id="coupleBtn" type="button">상대 셀카 올리기</button>
               <button class="ghost small hidden" id="coupleShare" type="button">케미 이미지</button>
@@ -449,7 +437,7 @@
             <div class="couple-result hidden" id="coupleResult"></div>
           </section>
           <section class="face-rank face-ba" id="faceBA" aria-labelledby="faceBATitle">
-            <div class="fr-head"><b id="faceBATitle">시술 전후 비교</b><small>지금 분석한 사진을 '전'으로 두고, 머리를 바꾼 뒤 같은 각도로 찍은 사진을 올리면 얼굴 둘레 머리 실루엣(옆 볼륨 · 정수리 · 이마 · 기장)이 어떻게 바뀌었는지, 내 얼굴형에 더 맞는 쪽인지 알려 드려요.</small></div>
+            <div class="fr-head"><b id="faceBATitle">시술 전후 비교</b><small>시술 뒤 같은 각도로 찍은 사진을 올려 주세요</small></div>
             <div class="row"><button class="soft small" id="baBtn" type="button">시술 후 사진 올리기</button></div>
             <input type="file" id="baFile" accept="image/*" hidden>
             <p class="fr-status hidden" id="baStatus" role="status" aria-live="polite"></p>
@@ -463,9 +451,8 @@
             <button class="ghost small" id="facePdf" type="button">결과지 PDF</button>
             <button class="ghost small" id="faceAgain" type="button">다른 사진으로</button>
           </div>
-          <label class="remember"><input type="checkbox" id="faceRemember"> 이 기기에 내 얼굴형 기억하기 <small>측정값만 이 브라우저에 저장하고 사진은 저장하지 않아요. 다음에 스타일만 분석해도 궁합을 바로 볼 수 있어요.</small></label>
-          <p class="fit-export hidden" id="fitExportRow"><button class="link" id="fitExport" type="button"></button> <small>궁합 판단에 남긴 평가는 이 기기에만 저장돼요. 내보내면 점수 기준을 다듬는 데 쓸 수 있어요.</small></p>
-          <p class="note">사진 한 장으로 잰 비율에 널리 쓰이는 스타일링 기준을 적용한 참고용 결과예요. 얼굴형에는 정답이 없고, 카메라 거리 · 각도 · 표정에 따라 조금씩 달라질 수 있어요. 의학적 진단이나 시술 판단이 아니에요.</p>
+          <label class="remember"><input type="checkbox" id="faceRemember"> 이 기기에 내 얼굴형 기억하기</label>
+          <p class="fit-export hidden" id="fitExportRow"><button class="link" id="fitExport" type="button"></button></p>
         </div>
       </section>
     </div>
@@ -473,7 +460,6 @@
     <dialog class="cut-ex-dlg" id="cutExDialog" aria-label="커트 예시 사진">
       <div class="cut-ex-head"><b id="cutExTitle"></b><button type="button" class="ghost small" id="cutExClose">닫기</button></div>
       <div class="cut-ex-body" id="cutExBody"></div>
-      <p class="cut-ex-note">예시 사진은 상업 이용이 허용된 자유 라이선스 사진이에요. 같은 커트라도 모발 · 기장에 따라 모양이 달라 보일 수 있어요.</p>
     </dialog>
     <dialog class="cam" id="camDialog" aria-label="셀카 찍기">
       <div class="cam-view" id="camView">
@@ -484,7 +470,7 @@
         <div class="cam-box" id="camBox" role="status" aria-live="polite"><b id="camBoxMain">카메라를 준비하는 중…</b><small id="camBoxSub"></small></div>
         <div class="cam-ok" id="camOk" hidden><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><circle class="p" cx="20" cy="20" r="17"/></svg></div>
       </div>
-      <p class="note" id="camNote">얼굴과 목을 선에 맞춰 주세요. 자세가 맞으면 자동으로 찍어요. 앞머리 · 옆머리는 넘겨 이마 · 귀 · 턱선이 보이게 해 주세요. 양쪽 귀가 귀 모양 선에 함께 보이면 귀까지 분석해요.</p>
+      <p class="note" id="camNote">얼굴과 목을 선에 맞추면 자동으로 찍어요.</p>
       <div class="row"><button type="button" class="ghost" id="camShot">지금 찍기</button><button type="button" class="ghost" id="camCancel">취소</button></div>
     </dialog>
 

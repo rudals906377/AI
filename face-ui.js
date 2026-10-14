@@ -401,7 +401,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       }
     } finally {
       shooting = false; els.camShot.disabled = false;
-      els.camNote.textContent = '얼굴과 목을 선에 맞춰 주세요. 자세가 맞으면 자동으로 찍어요. 앞머리 · 옆머리는 넘겨 이마 · 귀 · 턱선이 보이게 해 주세요.';
+      els.camNote.textContent = '얼굴과 목을 선에 맞추면 자동으로 찍어요.';
       stopCam();
     }
     const good = frames.filter(Boolean);
@@ -832,8 +832,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     const why = new Map(); for (const x of skipped) why.set(x.skip, [...(why.get(x.skip) || []), x.i + 1]);
     els.rankSkip.innerHTML = [...why].map(([w, ns]) => `<li>${ns.join(' · ')}번 사진: ${esc(w)}</li>`).join('');
     const tie = ranked.length > 1 && ranked[0].score === ranked[1].score;
-    els.rankNote.textContent = `${tie ? '점수가 같을 때는 스타일이 더 또렷하게 보이는 사진을 위에 뒀어요. ' : ''}점수는 얼굴 측정과 헤어 · 메이크업 추천표가 얼마나 맞는지를 더한 값이라, 고른 사진들끼리 비교하는 참고용이에요. 마음이 가는 스타일이 가장 좋은 스타일이에요.`;
-    els.rankNote.classList.toggle('hidden', !ranked.length);
+    els.rankNote.textContent = tie ? '점수가 같을 때는 스타일이 더 또렷하게 보이는 사진을 위에 뒀어요.' : '';
+    els.rankNote.classList.toggle('hidden', !ranked.length || !tie);
     report.rank = ranked.map((r, k) => `${k + 1}. ${r.name} (궁합 ${r.score}점)`);
   }
   els.rankPick.addEventListener('click', () => els.rankFile.click());

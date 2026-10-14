@@ -113,7 +113,7 @@ async function init() {
     webgpu = !!adapter;
     f16 = !!adapter?.features?.has('shader-f16');
   } catch { webgpu = false; f16 = false; }
-  if (!webgpu) els.advNote.textContent += ' 이 브라우저는 WebGPU 를 지원하지 않아 고급 모드가 느립니다 (사진 1장에 수 분).';
+  if (!webgpu) els.advNote.textContent += ' 이 브라우저에서는 느려요 (사진 1장에 수 분).';
   // WebGPU 가 없으면 AI 계산(WASM)을 별도 작업 스레드(worker)에서 돌려, 분석하는 동안에도 화면 스크롤 · 터치가 멈추지 않게 한다
   if ((!webgpu || params.get('device') === 'wasm' || SAFE_LEVEL >= 1 || (IOS && params.get('device') !== 'webgpu')) && params.get('proxy') !== '0') useWasmProxy();
   setWasmThreads();
