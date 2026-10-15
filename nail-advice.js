@@ -75,7 +75,7 @@ export function nailReport(type, { life = 'normal', length = 'any', curve = null
   const want = { short: 0, mid: 1, long: 2 }[length];
   if (want != null) for (const [k, need] of Object.entries(NEED_LEN)) if (need > want) add(k, -18 * (need - want), length === 'short' ? '짧은 길이로는 모양이 제대로 나오지 않아요' : '이 길이로는 모양이 충분히 나오지 않아요', true);
   if (length === 'short') { add('라운드', 6, '짧은 손톱엔 라운드 · 숏 오벌 · 라운드스퀘어가 가장 무난해요'); add('라운드스퀘어', 5); add('오벌', 4); }
-  if (natural === 'natural') { add('코핀', -12, '코핀 · 스틸레토는 보통 젤 · 연장으로 만드는 모양이라 자연 손톱으로는 유지가 어려워요', true); add('스틸레토', -12); }
+  if (natural === 'natural') { const w = '코핀 · 스틸레토는 보통 젤 · 연장으로 만드는 모양이라 자연 손톱으로는 유지가 어려워요'; add('코핀', -12, w, true); add('스틸레토', -12, w, true); }
   // 기본: 라운드 · 라운드스퀘어는 누구에게나 무난
   add('라운드', 2); add('라운드스퀘어', 2);
   const list = Object.entries(S).map(([k, v]) => ({ key: k, ...SHAPES[k], ...v, score: Math.max(0, Math.min(100, Math.round(v.score))) })).sort((a, b) => b.score - a.score);
@@ -89,7 +89,8 @@ export function nailReport(type, { life = 'normal', length = 'any', curve = null
   const lengthTip = [
     '하얀 끝(프리엣지)은 분홍빛 손톱 바탕 길이의 절반 이하가 가장 균형 있어 보이고 잘 부러지지 않아요.',
     type.finger === 'short' ? '손가락이 짧은 편이면 너무 짧게 깎기보다 1~2mm 정도 길이를 남기면 손가락이 길어 보여요.' : null,
-    life === 'hands' ? '손을 많이 쓰면 손끝 살짝 위까지의 짧은 길이가 편해요.' : null,
+    // 손을 많이 쓰는데 길게 하고 싶다면 짧게 하라고 하지 않고, 길게 유지하는 방법을 알려 준다
+    life === 'hands' ? (length === 'long' ? '손을 많이 쓰면서 길게 하고 싶다면 모서리가 둥근 모양에 젤 · 연장으로 끝을 튼튼하게 해 주세요.' : '손을 많이 쓰면 손끝 살짝 위까지의 짧은 길이가 편해요.') : null,
   ].filter(Boolean);
   const design = [];
   if (type.width === 'wide') design.push({ k: '옆 여백 · 세로 라인', t: '양옆을 살짝 남기고 칠하거나 세로 라인 · 스트라이프를 넣으면 손톱이 갸름해 보여요. 가로 라인 · 두꺼운 일자 프렌치는 넓어 보일 수 있어요.' });

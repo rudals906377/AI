@@ -131,13 +131,22 @@ export function initHistory({ onOpen = () => {} } = {}) {
     for (const s of secs) { if (!s.title) continue; lines.push(`- ${s.title}${s.points?.length ? ` (가장 필요한 건 ${s.points.join(' · ')})` : ''}${s.text ? `: ${s.text}` : ''}`); for (const i of s.list || []) lines.push(`  · ${i.name}${i.fit != null ? ` ${i.fit}` : ''}${i.why ? ` — ${i.why}` : ''}`); }
     saveRecord({ kind: 'face', category: 'face', title: `${report.headline} · ${purpose === 'hair' ? '헤어' : gender === 'm' ? '그루밍' : '메이크업'}`, summary: (report.summary || []).join(' '), lines, thumbSrc: document.getElementById('faceCanvas'), extra: { purpose, gender: gender || null } });
   });
-  window.addEventListener('beauty:nail', (e) => {
+  let lastNail = null;   // 이 화면에서 마지막으로 분석한 손톱 사진의 기록 (저장 중이면 Promise)
+  window.addEventListener('beauty:nail', async (e) => {
     const { result: r, report: rep, headline, summary, tryOn } = e.detail || {}; if (!r || !rep) return;
     // 기록에서 상담 카드를 다시 그릴 만큼만 추린다 (쉐입 3개 · 피할 모양 · 길이 · 디자인 · 상담 문장 · 입혀 본 모양)
     const nail = { headline: headline || '', summary: summary || '', tryOn: tryOn || null,
       rep: { top: rep.top.map((x) => ({ key: x.key, score: x.score, why: [x.why?.[0] || ''], d: x.d || '' })), avoid: rep.avoid.map((x) => ({ key: x.key, warn: [x.warn?.[0] || ''] })), lengthTip: rep.lengthTip || [], design: (rep.design || []).map((d) => ({ k: d.k, t: d.t })), card: rep.card || [] } };
-    saveRecord({ kind: 'nail', category: 'nailshape', title: `${rep.card?.[0]?.replace(/^손톱: /, '') || '손톱형'}`, summary: `추천 쉐입: ${rep.top.map((x) => x.key).join(' · ')}`,
-      lines: [...rep.card, '', ...rep.top.map((x, i) => `${i + 1}. ${x.key} ${x.score}점 — ${x.why[0]}`)], thumbSrc: document.getElementById('nailCanvas'), extra: { nail } });
+    const fields = { title: `${rep.card?.[0]?.replace(/^손톱: /, '') || '손톱형'}`, summary: `추천 쉐입: ${rep.top.map((x) => x.key).join(' · ')}`,
+      lines: [...rep.card, '', ...rep.top.map((x, i) => `${i + 1}. ${x.key} ${x.score}점 — ${x.why[0]}`)] };
+    // 같은 사진에서 답(길이 · 손 쓰는 정도 …)만 바꾼 경우: 새 기록을 만들지 않고 가장 최근 손톱 기록을 고친다
+    if (e.detail.update) {
+      const id = (await lastNail?.catch(() => null))?.id;   // 막 저장 중이었다면 끝날 때까지 기다린다
+      const list = load();
+      const i = id ? list.findIndex((x) => x.id === id) : -1;
+      if (i >= 0) { list[i] = { ...list[i], ...fields, nail }; store(list); render(); return; }
+    }
+    lastNail = saveRecord({ kind: 'nail', category: 'nailshape', ...fields, thumbSrc: document.getElementById('nailCanvas'), extra: { nail } });
   });
   // 손톱 쉐입 입혀 보기가 바뀌면 최근 손톱 기록의 사진(윤곽 + 입혀 본 모양)과 상담 카드의 입혀 본 모양을 바꾼다
   window.addEventListener('beauty:nail-try', async (e) => {

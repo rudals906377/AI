@@ -235,7 +235,8 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
       (coarse ? els.camera : els.file).click();
     } finally { opening = false; }
   });
-  const stopCam = () => { guideOn = false; stream?.getTracks().forEach((t) => t.stop()); stream = null; if (els.cam.open) els.cam.close(); };
+  let camSession = 0;   // 취소 · 닫기마다 올라간다 — 연속 촬영 도중 취소하면 찍던 사진으로 분석하지 않게
+  const stopCam = () => { guideOn = false; camSession++; stream?.getTracks().forEach((t) => t.stop()); stream = null; if (els.cam.open) els.cam.close(); };
   els.camCancel.addEventListener('click', stopCam);
   els.cam.addEventListener('cancel', stopCam);
 
@@ -391,14 +392,17 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   async function shoot() {
     if (!els.video.videoWidth || shooting) return;
     shooting = true; els.camShot.disabled = true;
-    const frames = [];
+    const frames = [], session = camSession;
+    const cancelled = () => session !== camSession || !els.cam.open || !stream;
     try {
       for (let i = 0; i < BURST; i++) {
+        if (cancelled()) return;
         els.camBoxMain.textContent = `찍는 중 ${i + 1} / ${BURST}`; els.camBoxSub.textContent = '그대로 계세요';
         els.camNote.textContent = `찍는 중 ${i + 1} / ${BURST} — 그대로 계세요`;
         frames.push(await grabFrame());
         if (i < BURST - 1) await new Promise((r) => setTimeout(r, BURST_GAP));
       }
+      if (cancelled()) return;
     } finally {
       shooting = false; els.camShot.disabled = false;
       els.camNote.textContent = '얼굴과 목을 선에 맞추면 자동으로 찍어요.';
@@ -430,7 +434,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
         // 미리보기는 중앙값에 가장 가까운 장으로
         const chosen = frameBlobs[results.indexOf(results.find((r) => r.canvas === f.canvas))];
         if (chosen && chosen !== blob) { blob = chosen; if (els.preview.src.startsWith('blob:')) URL.revokeObjectURL(els.preview.src); els.preview.src = URL.createObjectURL(chosen); }
-      } else { guardStart('face'); try { f = await analyzeFace(blob, { purpose }); } finally { guardEnd(); } }
+      } else { guardStart('face'); try { f = await analyzeFace(blob, { purpose }); } finally { guardEnd('face'); } }
       if (id !== seq) return;
       if (memo) mergeMemo(f);
       last = f;
@@ -479,7 +483,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     box.innerHTML = `<h4>FINDE 가 알아챈 것 <small>평균과 가장 다른 ${items.length}가지 · 거울로 확인해 보세요</small></h4><ol>${items.map((it, i) => `<li style="animation-delay:${i * 180}ms">
       <b>${esc(it.title)}${it.soft ? ' <em>살짝</em>' : ''}</b>
       ${it.value ? `<span class="nt-num">${esc(it.value)} <small>평균 ${esc(it.avg)}</small> · 100명 중 <strong>${esc(it.pct)}</strong></span>` : `<span class="nt-num">100명 중 <strong>${esc(it.pct)}</strong></span>`}
-      <span class="nt-mirror">거울 확인 · ${esc(it.mirror)}</span>
+      ${it.mirror ? `<span class="nt-mirror">거울 확인 · ${esc(it.mirror)}</span>` : ''}
       <span class="nt-so">→ ${esc(it.so)}</span></li>`).join('')}</ol>`;
   }
 
@@ -802,7 +806,12 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
     for (let i = 0; i < todo.length; i++) {
       els.rankStatus.classList.remove('hidden');
       els.rankStatus.innerHTML = `<span class="spin"></span> 스타일 사진 ${picks.indexOf(todo[i]) + 1} / ${picks.length} 장을 살펴보는 중…`;
-      try { todo[i].res[want] = await analyzeStyle(todo[i].blob, want); } catch (e) { console.warn('[face] 스타일 분석 실패', e); todo[i].res[want] = null; if (/준비/.test(e.message)) toast(e.message); }
+      try { todo[i].res[want] = await analyzeStyle(todo[i].blob, want); } catch (e) {
+        console.warn('[face] 스타일 분석 실패', e);
+        // 모델을 준비하지 못한 경우는 결과로 남기지 않는다 — 다음에 사진을 더 넣거나 탭을 바꾸면 다시 시도
+        if (/준비/.test(e.message)) { toast(e.message); els.rankStatus.classList.add('hidden'); renderRank(); return; }
+        todo[i].res[want] = null;
+      }
       if (id !== rankSeq) return;
     }
     els.rankStatus.classList.add('hidden');
@@ -1052,7 +1061,7 @@ export function initFaceUI({ getStyle, analyzeStyle = null, openSample = null, t
   });
   els.copyBtn.addEventListener('click', () => {
     if (!report) return;
-    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', 'FINDE 가 알아챈 것', ...(report.noticed || []).map((n) => `- ${n.title}${n.soft ? ' (살짝)' : ''}${n.value ? ` — ${n.value} (평균 ${n.avg}) · 100명 중 ${n.pct}` : ''}. ${n.mirror} → ${n.so}`), '', '측정 결과'];
+    const lines = [`[${purpose === 'hair' ? '내 얼굴형' : '내 얼굴 메이크업'}] ${report.headline}`, ...report.summary, ...(report.thirds ? [`${report.thirds.line} — ${report.thirds.note}`] : []), '', 'FINDE 가 알아챈 것', ...(report.noticed || []).map((n) => `- ${n.title}${n.soft ? ' (살짝)' : ''}${n.value ? ` — ${n.value} (평균 ${n.avg}) · 100명 중 ${n.pct}` : ''}.${n.mirror ? ` ${n.mirror}` : ''} → ${n.so}`), '', '측정 결과'];
     for (const r of report.measures) lines.push(`- ${r.label}: ${r.value} (평균 ${r.avg})${r.pct ? ` · 100명 중 ${r.pct}` : ''} ${r.note}`);
     lines.push('', purpose === 'hair' ? '헤어 추천' : gender === 'm' ? '그루밍 추천' : '메이크업 추천', '얼굴 비율로 어림한 추천이라 재미로 봐 주세요. 취향과 개성이 언제나 먼저예요.');
     for (const s of purpose === 'hair' ? report.hair : report.makeup) {
