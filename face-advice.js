@@ -161,12 +161,16 @@ const SO = {
   mouth: ['립 끝을 살짝 늘려 그리면 균형이 좋아요.', '립을 입술 안쪽으로 또렷하게 그리면 깔끔해요.'],
   lipFull: ['틴트로 안쪽만 채우면 자연스럽게 도톰해 보여요.', '매트보다 글로시가 볼륨을 살려 줘요.'],
 };
+// 살짝(|z| 0.5~0.8) 다른 항목은 측정표 설명이 '평균에 가까워요'라서, 제목을 이 말로 따로 만든다
+const SUBJ = { ratio: '얼굴이', jawAngle: '턱선이', chin: '턱끝이', philtrum: '인중이', eyeSpacing: '미간이', eyeTilt: '눈꼬리가', eyeAspect: '눈매가', browGap: '눈썹과 눈 사이가', nose: '콧볼이', lips: '윗입술이', mouth: '입이', lipFull: '입술이' };
 // 평균과 가장 다른 항목 3개를 "AI 가 알아챈 것"으로 — 숫자 · 100명 중 몇 번째 · 거울 확인 힌트 · 그래서
 function noticed(rows) {
   const cands = rows.filter((r) => DIR[r.key] && Number.isFinite(r.z) && Math.abs(r.z) >= 0.5).sort((a, b) => Math.abs(b.z) - Math.abs(a.z)).slice(0, 3);
   const items = cands.map((r) => {
     const dir = r.z >= 0 ? 1 : 0, soft = Math.abs(r.z) < 0.8;
-    return { key: r.key, title: r.note.replace(/이에요\.?$/, ''), soft, value: r.value, avg: r.avg, pct: r.pct, mirror: MIRROR[r.key][dir], so: SO[r.key][dir] };
+    // 살짝 다른 항목은 거울 힌트(뚜렷한 경우의 기준선)가 맞지 않을 수 있어 넣지 않는다
+    const title = soft || r.note === '평균에 가까워요' ? `${SUBJ[r.key]} ${DIR[r.key][dir]} 편` : r.note.replace(/이에요\.?$/, '');
+    return { key: r.key, title, soft, value: r.value, avg: r.avg, pct: r.pct, mirror: soft ? null : MIRROR[r.key][dir], so: SO[r.key][dir] };
   });
   if (!items.length) items.push({ key: 'avg', title: '모든 비율이 평균에 아주 가까워요', soft: false, value: null, avg: null, pct: '가운데 쪽', mirror: '이마 · 광대 · 턱 너비와 눈 · 코 · 입 비율이 전부 평균 범위 안이에요.', so: '이런 얼굴이 오히려 드물어요. 대부분의 스타일이 무난하게 받아요.' });
   return items;
@@ -177,7 +181,7 @@ function measures(f, t) {
   const m = f.m, rows = [], NORM = normFor(f.normG);
   const fx = (x, d = 2) => x.toFixed(d);
   const row = (key, label, value, avg, note, zz) => rows.push({ key, label, value, avg, note: note || '평균에 가까워요', z: zz, pct: DIR[key] ? pctPhrase(zz, DIR[key]) : null });
-  row('ratio', '얼굴 길이 : 너비', `${fx(m.ratio)} : 1`, `${NORM.ratio[0]} : 1`, f.geo.hairlineFound ? say(t.long, '짧은 편', '긴 편') && `얼굴이 ${say(t.long, '짧은 편', '긴 편')}이에요` : '헤어라인이 안 보여 이마 높이는 어림값이에요', t.long);
+  row('ratio', '얼굴 길이 : 너비', `${fx(m.ratio)} : 1`, `${NORM.ratio[0]} : 1`, f.geo.hairlineFound ? say(t.long, '짧은 편', '긴 편') && `얼굴이 ${say(t.long, '짧은 편', '긴 편')}이에요` : '헤어라인이 안 보여 이마 높이는 어림값이에요', f.geo.hairlineFound ? t.long : NaN);
   row('widths', '이마 : 광대 : 턱 너비', `${fx(m.forehead)} : 1 : ${fx(m.jaw)}`, `${NORM.forehead[0]} : 1 : ${NORM.jaw[0]}`,
     [phrase('이마가', t.foreheadW, '좁은 편', '넓은 편'), phrase('턱이', t.jawW, '좁은 편', '넓은 편')].filter(Boolean).join(', ') + (Math.abs(t.foreheadW) >= 0.8 || Math.abs(t.jawW) >= 0.8 ? '이에요' : ''), Math.max(Math.abs(t.foreheadW), Math.abs(t.jawW)));
   row('jawAngle', '턱 모서리 각도', `${Math.round(m.jawAngle)}°`, `${NORM.jawAngle[0]}°`, say(t.jawSharp, '둥글고 완만한 편', '각진 편') && `턱선이 ${say(t.jawSharp, '둥글고 완만한 편', '각진 편')}이에요`, t.jawSharp);

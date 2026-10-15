@@ -140,7 +140,7 @@ export function tattooCard(r, { skin = null } = {}) {
   // 예상 시술 시간 · 회차
   const sz = SIZE[size] || SIZE.스몰, w = STYLE[style]?.w ?? 1;
   const dark = ['블랙워크', '블랙아웃', '풀컬러', '네오트래디셔널', '뉴스쿨', '이레즈미'].includes(style) || ['풀컬러'].includes(color);
-  const h = sz.h.map((x) => Math.round(x * w * (dark ? 1.15 : 1) * 2) / 2), ses = sz.s.map((x, i) => Math.max(1, Math.round(x * (w >= 1.3 ? 1.3 : 1))));
+  const h = sz.h.map((x) => Math.max(0.5, Math.round(x * w * (dark ? 1.15 : 1) * 2) / 2)), ses = sz.s.map((x, i) => Math.max(1, Math.round(x * (w >= 1.3 ? 1.3 : 1))));
   const plan = {
     size, cm: sz.cm, time: h[0] === h[1] ? fmtH(h[0]) : `${fmtH(h[0])} ~ ${fmtH(h[1])}`, sessions: ses[0] === ses[1] ? `${ses[0]}회` : `${ses[0]}~${ses[1]}회`,
     why: `${size || '스몰'} 크기(${sz.cm})${style ? ` × ${style}` : ''} 기준의 일반적인 범위예요. ${sizeSure ? '' : '사진만으로 크기는 어림이라 '}원하는 크기를 cm 로 정하면 작가가 정확히 알려 줘요.`,
@@ -173,7 +173,7 @@ export function tattooCard(r, { skin = null } = {}) {
 
 function toText({ r, style, motifs, subject, color, place, plan }) {
   const L = ['[타투 상담 카드]'];
-  if (r.genre?.name) L.push(`원하는 스타일: ${r.genre.name}`);
+  if (r.genre?.name && r.genre.level !== 'low') L.push(`원하는 스타일: ${r.genre.name}`);
   if (style) L.push(`장르: ${style.name}${style.sure ? '' : ' (추정)'}`);
   if (subject || motifs.length) L.push(`도안: ${[subject, ...motifs].filter(Boolean).join(' · ')}`);
   if (color.name) L.push(`컬러: ${color.name}`);
@@ -210,9 +210,14 @@ export async function tattooCardImage(card, photo, { designer = false } = {}) {
   }
   function draw(ctx, paint) {
     let y = P;
-    const text = (t, size, weight, color, x, maxW, lh = 1.45, yy = null) => {
+    const text = (t, size, weight, color, x, maxW, lh = 1.45, yy = null, maxLines = 99) => {
       ctx.font = `${weight} ${size}px ${FONT}`; ctx.fillStyle = color; ctx.textBaseline = 'top';
-      const lines = wrap(ctx, t, maxW), base = yy ?? y;
+      let lines = wrap(ctx, t, maxW); const base = yy ?? y;
+      if (lines.length > maxLines) {   // 넘치는 줄은 마지막 줄 끝을 '…'로 줄인다
+        lines = lines.slice(0, maxLines); let last = lines[maxLines - 1];
+        while (last.length > 1 && ctx.measureText(last + '…').width > maxW) last = last.slice(0, -1);
+        lines[maxLines - 1] = last.trimEnd() + '…';
+      }
       lines.forEach((l, i) => paint && ctx.fillText(l, x, base + i * size * lh));
       return lines.length * size * lh;
     };
@@ -236,8 +241,8 @@ export async function tattooCardImage(card, photo, { designer = false } = {}) {
       const x = P + (i % 2) * (bw + GAP), yy = y + Math.floor(i / 2) * (bh + GAP);
       rect(x, yy, bw, bh, 16, C.card, C.line);
       text(b[0], 21, 600, C.accentInk, x + 20, bw - 40, 1.3, yy + 18);
-      text(b[1], 34, 700, C.text, x + 20, bw - 40, 1.2, yy + 46);
-      text(b[2], 21, 400, C.muted, x + 20, bw - 40, 1.3, yy + 92);
+      text(b[1], 34, 700, C.text, x + 20, bw - 40, 1.2, yy + 46, 1);   // 칸 높이가 정해져 있어 한 줄씩만
+      text(b[2], 21, 400, C.muted, x + 20, bw - 40, 1.3, yy + 92, 1);
     });
     y += Math.ceil(boxes.length / 2) * (bh + GAP) + 4;
     y += text(card.plan.why, 22, 400, C.muted, P, INNER) + 10;

@@ -96,12 +96,12 @@ async function run() {
   els.status.innerHTML = '<p class="st"><span class="spin"></span> 손톱을 재는 중… <small>처음에는 손 · 손톱 모델(약 20MB)을 내려받아요</small></p>';
   if (window.innerWidth < 900) $('nailResultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
   try {
-    guardStart('nail'); let r; try { r = await analyzeNails(img); } finally { guardEnd(); }
+    guardStart('nail'); let r; try { r = await analyzeNails(img); } finally { guardEnd('nail'); }
     if (id !== seq) return;
     busy = false; last = r;
     if (!r.ok) { renderRetake(r); return; }
     els.status.classList.add('hidden');
-    render();
+    render({ fresh: true });
   } catch (e) {
     console.error(e);
     if (id !== seq) return;
@@ -126,7 +126,7 @@ function renderRetake(r) {
 const ICON = NAIL_ICON;
 const icon = (k) => `<svg viewBox="0 0 46 64" aria-hidden="true"><path d="${ICON[k] || ICON.라운드}" fill="currentColor" fill-opacity=".14" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 50q15 -8 30 0" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".5"/></svg>`;
 
-function render() {
+function render({ fresh = false } = {}) {   // fresh: 새 사진을 분석한 직후 (답만 바꾼 경우는 기록을 새로 만들지 않고 고친다)
   const r = last, t = r.type;
   const rep = lastRep = nailReport(t, { life: answers.life, length: answers.length, natural: answers.natural, curve: answers.curve || null });
   renderTry();
@@ -151,7 +151,7 @@ function render() {
     ? `<tr${f.key === 'thumb' ? ' class="muted"' : ''}><th scope="row">${esc(f.ko)}${f.key === 'thumb' ? ' <small>(참고)</small>' : ''}</th><td>${f2(f.m.ratio)} : 1</td><td>${f2(f.m.taper)}</td><td>${f2(f.m.cuticle)}</td><td>${Math.round(f.m.free * 100)}%</td></tr>`
     : `<tr class="muted"><th scope="row">${esc(f.ko)}</th><td colspan="4">손톱을 찾지 못했어요</td></tr>`).join('')}</tbody>`;
   els.card.textContent = ['[FINDE 손톱 상담 카드]', ...rep.card, '', '* 사진으로 잰 손톱 모양 참고 정보예요 (의학적 진단 아님)'].join('\n');
-  window.dispatchEvent(new CustomEvent('beauty:nail', { detail: { result: r, report: rep, headline: els.type.textContent, summary: els.summary.textContent, tryOn: tryShape ? { shape: tryShape, color: tryColor } : null } }));
+  window.dispatchEvent(new CustomEvent('beauty:nail', { detail: { update: !fresh, result: r, report: rep, headline: els.type.textContent, summary: els.summary.textContent, tryOn: tryShape ? { shape: tryShape, color: tryColor } : null } }));
 }
 
 // 가상 쉐입 입혀 보기: 고른 모양을 손톱 위에 그린다 (분할로 찾은 손톱 너비 · 길이 기준, 긴 모양은 끝을 늘려 그림)

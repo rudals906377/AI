@@ -9,12 +9,21 @@ const GUARD = 'finde-run-guard', SAFE = 'finde-safe';
 const readJson = (k) => { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch { return null; } };
 const writeJson = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 
-export function guardStart(kind, info = {}) { writeJson(GUARD, { kind, t: Date.now(), ...info }); }
-export function guardEnd() { writeJson(GUARD, null); }
+// 감지 표시는 종류(kind)마다 따로 둔다 — 한 작업이 끝나며 다른 작업(모델 받기 · 분석 · 색 뽑기 …)의 표시까지 지우지 않게
+const readGuards = () => { const g = readJson(GUARD); if (!g || typeof g !== 'object') return {}; return g.kind ? { [g.kind]: g } : g; };
+export function guardStart(kind, info = {}) { writeJson(GUARD, { ...readGuards(), [kind]: { kind, t: Date.now(), ...info } }); }
+export function guardEnd(kind) {
+  if (!kind) return writeJson(GUARD, null);   // 일부러 화면을 새로 열 때 등: 전부 지운다
+  const g = readGuards(); delete g[kind];
+  writeJson(GUARD, Object.keys(g).length ? g : null);
+}
+// 사용자가 직접 새로 고치거나 떠날 때는 pagehide 가 온다 — 이때는 '분석 중 화면이 죽음'이 아니므로 표시를 지운다
+// (메모리 부족으로 웹 프로세스가 죽으면 pagehide 없이 끝나므로 감지는 그대로 된다. 고르다 취소한 사진 고르기 표시도 여기서 정리된다)
+try { addEventListener('pagehide', (e) => { if (!e.persisted) writeJson(GUARD, null); }); } catch {}
 export function clearSafeMode() { writeJson(SAFE, null); writeJson(GUARD, null); }
 
 export const CRASHED = (() => {
-  const g = readJson(GUARD); writeJson(GUARD, null);
+  const g = Object.values(readGuards()).filter((x) => x && x.t).sort((a, b) => b.t - a.t)[0]; writeJson(GUARD, null);   // 가장 최근에 시작한 작업
   if (!g || !g.t || Date.now() - g.t > 10 * 60 * 1000) return null;
   const prev = readJson(SAFE) || { level: 0, count: 0 };
   const next = { level: Math.min(2, (prev.level || 0) + 1), count: (prev.count || 0) + 1, lastKind: g.kind, lastDevice: g.device || null, t: Date.now() };

@@ -102,7 +102,7 @@ function setStatus(text, pct = 0, cls = '', detail = '') {
 }
 
 // 예상 못 한 오류: 조용히 멈추지 않게 알리고, '분석 중' 상태에 갇히지 않게 푼다
-window.addEventListener('unhandledrejection', (e) => { const msg = String(e.reason?.message || e.reason || '').slice(0, 120); console.warn('[app] 처리되지 않은 오류', e.reason); if (busy) { busy = false; els.analyzing?.classList.add('hidden'); els.resultCard?.classList.remove('busy'); updateRunButton(); } if (msg && !/AbortError/.test(msg)) toast(`문제가 생겼어요: ${msg} · 다시 시도해 주세요`); });
+window.addEventListener('unhandledrejection', (e) => { const msg = String(e.reason?.message || e.reason || '').slice(0, 120); console.warn('[app] 처리되지 않은 오류', e.reason); if (msg && !/AbortError/.test(msg)) toast(`문제가 생겼어요: ${msg} · 다시 시도해 주세요`); });
 window.addEventListener('error', (e) => { if (e.message && /out of memory|메모리/i.test(e.message)) toast('메모리가 부족해요. 다른 탭을 닫고 다시 시도해 주세요'); });
 
 // ---- 분석 엔진(ONNX 런타임) 설정 단계 ------------------------------------------------
@@ -114,7 +114,7 @@ window.addEventListener('error', (e) => { if (e.message && /out of memory|메모
 //   'asyncify': 라이브러리 기본 WASM 빌드, 작업 스레드 없이
 const ORT_STEPS = ['', 'noproxy', 'webgpu', 'asyncify'];
 const ORT_KEY = 'finde-ort', PENDING_KEY = 'finde-pending-photo';
-let ortStep = '';
+let ortStep = '', reloading = false;
 try { ortStep = localStorage.getItem(ORT_KEY) || ''; } catch {}
 if (params.has('ort')) ortStep = params.get('ort');
 if (!ORT_STEPS.includes(ortStep)) ortStep = '';
@@ -146,11 +146,13 @@ async function recoverBackend(e) {
       sessionStorage.setItem(PENDING_KEY, c.toDataURL('image/jpeg', 0.9));
     } catch (err) { console.warn('[app] 사진 맡기기 실패', err); }
   }
+  reloading = true;
   guardEnd();   // 일부러 새로 여는 것이라 안전 모드로 치지 않는다
   setTimeout(() => location.reload(), 400);
   return true;
 }
 async function resumePendingPhoto() {
+  if (reloading) return;   // 이번 화면도 엔진을 못 띄워 다시 여는 중 — 사진은 다음 화면이 이어받는다
   let url = null; try { url = sessionStorage.getItem(PENDING_KEY); sessionStorage.removeItem(PENDING_KEY); } catch {}
   if (!url) return;
   try {
@@ -294,7 +296,7 @@ async function loadAnalyzer(key) {
         if (!lastResult) els.empty.classList.remove('hidden');
       }
     } finally {
-      analyzerLoading = null; guardEnd();
+      analyzerLoading = null; guardEnd('load');
       updateRunButton();
     }
   })();
@@ -347,7 +349,7 @@ async function openSample(s) {
 let imageSeq = 0;
 let currentSample = null;   // 지금 사진이 예시 사진이면 그 파일 이름 (분석 결과를 다시 쓰려고)
 async function setImage(blob, sample = null) {
-  guardEnd();   // 사진 고르기가 무사히 끝났다
+  guardEnd('pick');   // 사진 고르기가 무사히 끝났다
   if (!blob || !blob.type?.startsWith('image/')) { if (blob) toast('사진 파일만 올릴 수 있어요'); return false; }
   const my = ++imageSeq;
   const small = await downscale(blob, IMG_MAX);
@@ -469,6 +471,7 @@ async function run() {
   if (!analyzer || !currentBlob) return;
   if (busy) { pending = true; return; }
   busy = true;
+  clearTimeout(afterGuardT); guardEnd('after');   // 지난 결과의 감지 타이머가 이번 분석의 표시를 지우지 않게
   guardStart('style', { device: currentDevice });
   const seq = ++runSeq;
   els.run.disabled = true;
@@ -508,7 +511,7 @@ async function run() {
     setStatus(`분석 중 오류: ${e.message}`, 0, 'error');
     if (els.empty.classList.contains('many')) { els.empty.innerHTML = EMPTY_HTML; els.empty.classList.remove('many'); }
   } finally {
-    guardStart('after', { device: currentDevice }); clearTimeout(afterGuardT); afterGuardT = setTimeout(guardEnd, 12000);   // 결과가 나온 뒤 몇 초 사이(기록 저장 · 색 뽑기 · GPU 정리)에 화면이 새로 열려도 감지
+    guardEnd('style'); guardStart('after', { device: currentDevice }); clearTimeout(afterGuardT); afterGuardT = setTimeout(() => guardEnd('after'), 12000);   // 결과가 나온 뒤 몇 초 사이(기록 저장 · 색 뽑기 · GPU 정리)에 화면이 새로 열려도 감지
     busy = false;
     els.resultCard.classList.remove('busy');
     clearInterval(ticker); clearInterval(prog); if (bar) bar.style.width = '100%';
@@ -525,7 +528,8 @@ async function run() {
 async function ensureDescriber() {
   if (describer) return describer;
   if (!describerLoading) {
-    describerLoading = createDescriber({ device: webgpu ? 'webgpu' : 'wasm', fp16: f16, onProgress: makeProgress('고급 모델') })
+    const dev = webgpu && runtimeFor('base').device === 'webgpu' ? 'webgpu' : 'wasm';   // iPhone · 안전 모드 · 일반 WASM 빌드면 WebGPU 를 쓸 수 없다
+    describerLoading = createDescriber({ device: dev, fp16: dev === 'webgpu' && f16, onProgress: makeProgress('고급 모델') })
       .then((d) => { describer = d; setStatus('준비 완료 · 자유 서술 모드도 켜졌어요', 100, 'ready', '기본 + 고급(자유 서술) 모델'); return d; })
       .catch((e) => { console.error(e); setStatus(`고급 모델 로드 실패: ${e.message}`, 0, 'error'); els.advanced.checked = false; describerLoading = null; throw e; });
   }
@@ -787,14 +791,14 @@ async function startColors(r, { force = false } = {}) {
   const blob = r.blob || currentBlob, id = r.run_id;
   els.colorMeta.textContent = '';
   if (LOW_MEM && !force) {
-    els.swatches.innerHTML = `<span class="note">사진 속 실제 색은 부위 인식 모델을 하나 더 써요. 휴대폰 메모리를 아끼려고 누를 때만 뽑아요.</span><button type="button" class="ghost small" id="colorsGo">사진 속 색 뽑기</button>`;
+    els.swatches.innerHTML = `<button type="button" class="ghost small" id="colorsGo">사진 속 색 뽑기</button>`;
     els.swatches.querySelector('#colorsGo').addEventListener('click', () => startColors(r, { force: true }));
     return;
   }
   els.swatches.innerHTML = '<span class="note">색을 뽑는 중…</span>';
   let c = {};
   guardStart('colors', { device: currentDevice });   // 여기서 화면이 새로 열리면 다음부터 안전 모드
-  try { c = await extractColors(blob, r.category); } catch (e) { console.warn('색 추출 실패', e); c = null; } finally { guardEnd(); }
+  try { c = await extractColors(blob, r.category); } catch (e) { console.warn('색 추출 실패', e); c = null; } finally { guardEnd('colors'); }
   if (lastResult?.run_id !== id) return; // 그새 다른 사진을 분석했다
   if (!c) { els.swatches.innerHTML = '<span class="note">색을 뽑지 못했어요 (부위 인식 모델을 불러오지 못함).</span>'; return; }
   lastResult.colors = c;
@@ -1164,7 +1168,9 @@ if ('IntersectionObserver' in window) {
 // 내 얼굴 분석의 '원하는 스타일 비교'에서 사진 한 장을 분석한다 (화면의 결과 카드는 바꾸지 않음).
 // 인물 사진은 헤어 · 메이크업이 함께 보이므로, 자동 판단이 다른 쪽이어도 비교하려는 카테고리가 2순위 안에 있으면 그 기준으로 다시 본다
 async function analyzeStyle(blob, purpose) {
-  if (!analyzer) throw new Error('스타일 분석 모델을 준비하는 중이에요');
+  // 휴대폰은 스타일 모델을 필요할 때 받으므로, 여기서 받기 시작해 기다린다
+  if (!analyzer) { try { await (analyzerLoading || loadAnalyzer(modelKey)); } catch {} }
+  if (!analyzer) throw new Error('스타일 분석 모델을 준비하지 못했어요. 잠시 뒤 다시 시도해 주세요');
   let subjects = null;
   try { subjects = await detectSubjects(blob); } catch {}
   if (subjects && subjects.n >= 2) return { many: true };
@@ -1181,7 +1187,8 @@ initHistory();
     const list = JSON.parse(localStorage.getItem('finde-history-v1') || '[]'); const last = list[list.length - 1];
     if (!last || Date.now() - last.t > 3 * 60 * 1000) return;
     const bar = document.createElement('div'); bar.className = 'recover'; bar.setAttribute('role', 'status');
-    bar.innerHTML = `<span>방금 분석한 <b>${last.title ? String(last.title).replace(/[<>&]/g, '') : '결과'}</b>가 내 기록에 저장돼 있어요. 화면이 새로 고쳐졌다면 거기서 바로 볼 수 있어요.</span><button type="button" class="primary small" data-act="open">내 기록 열기</button><button type="button" class="ghost small" data-act="close" aria-label="닫기">닫기</button>`;
+    const t = last.title ? String(last.title).replace(/[<>&]/g, '') : '결과';
+    bar.innerHTML = `<span>방금 분석한 <b>${t}</b>${josa(t, '이/가').slice(t.length)} 내 기록에 저장돼 있어요. 화면이 새로 고쳐졌다면 거기서 바로 볼 수 있어요.</span><button type="button" class="primary small" data-act="open">내 기록 열기</button><button type="button" class="ghost small" data-act="close" aria-label="닫기">닫기</button>`;
     bar.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.act === 'open') faceUI.setMode('history'); bar.remove(); });
     document.getElementById('modeTabs')?.insertAdjacentElement('afterend', bar);
   } catch {}

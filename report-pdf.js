@@ -10,11 +10,19 @@ const font = (ctx, size, weight = 500) => { ctx.font = `${weight} ${size}px ${FO
 function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, y, w, h, r) : ctx.rect(x, y, w, h); }
 function wrap(ctx, text, x, y, maxW, lh, maxLines = 99) {
   const words = String(text || '').split(/(\s+)/); let line = '', n = 0;
-  for (const w of words) {
-    const t = line + w;
-    if (ctx.measureText(t).width > maxW && line) { ctx.fillText(line.trimEnd(), x, y); y += lh; line = w.trimStart(); if (++n >= maxLines - 1) { break; } } else line = t;
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i], t = line + w;
+    if (ctx.measureText(t).width > maxW && line) {
+      // 마지막 허용 줄이면 남은 글을 모두 붙이고, 아래에서 넘치는 만큼 '…'로 줄인다 (예전엔 넘친 단어 하나만 남고 나머지가 사라졌다)
+      if (n >= maxLines - 1) { line = t + words.slice(i + 1).join(''); break; }
+      ctx.fillText(line.trimEnd(), x, y); y += lh; n++; line = w.trimStart();
+    } else line = t;
   }
-  if (line) { let s = line.trimEnd(); while (ctx.measureText(s).width > maxW && s.length > 1) s = s.slice(0, -2) + '…'; ctx.fillText(s, x, y); y += lh; }
+  if (line) {
+    let s = line.trimEnd();
+    if (ctx.measureText(s).width > maxW) { while (s.length > 1 && ctx.measureText(s + '…').width > maxW) s = s.slice(0, -1); s = s.trimEnd() + '…'; }
+    ctx.fillText(s, x, y); y += lh;
+  }
   return y;
 }
 function loadImg(src) { return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
@@ -68,7 +76,7 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
   const notable = (report.measures || []).filter((m) => Math.abs(m.z) >= 0.8 && m.note).slice(0, 5);
   if (notable.length) {
     ry = head(ctx, '측정 요약 (평균과 다른 점)', rx, ry + 22);
-    for (const m of notable) { ctx.fillStyle = C.ink; font(ctx, 16, 700); ctx.fillText(m.label, rx, ry + 16); ctx.fillStyle = C.muted; font(ctx, 16, 500); ctx.fillText(`${m.value}  ·  ${m.note}`, rx + 190, ry + 16); ry += 26; }
+    for (const m of notable) { ctx.fillStyle = C.ink; font(ctx, 16, 700); ctx.fillText(m.label, rx, ry + 16); ctx.fillStyle = C.muted; font(ctx, 16, 500); ry = wrap(ctx, `${m.value}  ·  ${m.note}`, rx + 190, ry + 16, rw - 190, 22, 2) - 12; }   // 한 줄이면 예전처럼 26, 넘치면 두 줄로
   }
   const basis = mk ? [] : (report.hair || []).find((s) => s.key === 'basis')?.basis || [];
   if (basis.length) { ry = head(ctx, '추천 근거 (필요한 효과)', rx, ry + 18); ry = chipRow(ctx, basis.map((b) => b.label), rx, ry, rw); }
@@ -159,7 +167,7 @@ export async function reportPdf({ report, faceCanvas, spec, season, acc, cutEx =
   // 바닥 안내
   ctx.fillStyle = C.soft; ctx.fillRect(0, H - 70, W, 70);
   ctx.fillStyle = C.muted; font(ctx, 13, 500);
-  wrap(ctx, '사진 한 장으로 잰 비율을 근거로 한 참고용 결과예요. 얼굴형에는 정답이 없고 카메라 거리 · 각도 · 표정에 따라 달라질 수 있어요. 의학적 진단이 아니며, 실제 시술은 디자이너와 상담해 정해 주세요. 사진은 브라우저 밖으로 보내지 않았어요. · FINDE 실험실', PAD, H - 42, W - PAD * 2, 18, 2);
+  wrap(ctx, '사진 한 장으로 잰 비율을 근거로 한 참고용 결과예요. 카메라 거리 · 각도 · 표정에 따라 달라질 수 있고 의학적 진단이 아니에요. 실제 시술은 디자이너와 상담해 정해 주세요. 사진은 브라우저 밖으로 보내지 않았어요. · FINDE 실험실', PAD, H - 52, W - PAD * 2, 18, 3);
   if (format === 'png') return await new Promise((r) => c.toBlob(r, 'image/png'));
   // JPEG → PDF
   const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.9));
