@@ -59,7 +59,9 @@ WCAP = float(os.environ.get('WCAP', '3'))   # 사진별 가중치 상한 (중앙
 WCAPS = [float(x) for x in os.environ.get('WCAPS', '3,1').split(',')]
 
 
-FIT_STEPS = int(os.environ.get("FIT_STEPS", "150")); FIT_LR = float(os.environ.get("FIT_LR", "0.03"))
+# 최적화: 150 스텝 · 학습률 0.03 은 수렴하지 않아 λ 에 따라 학습 정확도까지 들쭉날쭉했고(앞머리 90 → 66 → 77%),
+# 사진 몇 장만 바뀌어도 헤드가 크게 달라졌다. 600 스텝 · 0.005 에서 λ 가 커질수록 학습 정확도가 고르게 내려가고 결과가 안정됐다.
+FIT_STEPS = int(os.environ.get("FIT_STEPS", "600")); FIT_LR = float(os.environ.get("FIT_LR", "0.005"))
 
 
 def fit(V, S, T, lam, present, steps=None, lr=None, smooth=0.05, sw=None, pen=0.0, wcap=None):
