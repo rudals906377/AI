@@ -706,7 +706,6 @@ function renderTattoo(r) {
       ${card.color.name ? `<div class="tc-box"><small>컬러</small><b>${esc(card.color.name)}</b><span>${card.color.skinNote ? '피부 톤 발색 안내 아래' : '블랙은 가장 오래 가요'}</span></div>` : ''}
     </div>
     <p class="muted small tc-why">${esc(card.plan.why)}</p>
-    <div class="tc-preview" id="tattooPreview"></div>
     ${designer && card.pro.length ? `<div class="tc-pro"><b>타투이스트 메모</b><ul>${li(card.pro)}</ul></div>` : ''}
     <details class="tc-sec" open><summary>미리 알아 둘 것 <small>${esc([card.style?.name, card.place?.name, card.color.name].filter(Boolean).join(' · '))}</small></summary>
       <ul>${li([...(card.style?.points || []), ...(card.place?.points || []), ...card.color.points, ...(card.color.skinNote ? [card.color.skinNote] : [])])}</ul></details>
@@ -715,9 +714,6 @@ function renderTattoo(r) {
     <details class="tc-sec"><summary>애프터케어 요약 <small>2~4주</small></summary><ul>${li(card.after)}</ul></details>
     <p class="muted small">통증 · 시간 · 회차는 일반적인 참고 범위예요. 사람과 작가마다 달라서, 실제 시술은 타투이스트와 상담해 정해 주세요.</p>
     <div class="row order-actions"><button class="primary small" id="tattooCopy" type="button">상담 카드 복사</button><button class="ghost small" id="tattooSave" type="button">이미지로 저장</button></div>`;
-  // 크기 미리 보기: 도안을 몸 실루엣 위에 cm 크기로 (눌렀을 때가 아니라 바로 보여 준다 — 가벼운 계산)
-  const photo = r.blob || currentBlob;
-  if (photo) import('./tattoo-preview.js').then(({ mountTattooPreview }) => { if (lastTattoo === card) mountTattooPreview($('tattooPreview'), { photo, place: card.place?.name?.replace(/\s*\(.*\)$/, '') || null, size: card.plan.size }); }).catch((e) => console.warn('[tattoo] 미리 보기 실패', e));
   box.querySelector('#tattooCopy').addEventListener('click', () => lastTattoo && copy(lastTattoo.text));
   box.querySelector('#tattooSave').addEventListener('click', async (e) => {
     if (!lastTattoo) return;
