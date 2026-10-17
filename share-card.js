@@ -192,7 +192,8 @@ export async function faceCard({ report, ranked = [] }) {
   if (noticed.length) {
     const top = y + 30, pad = 32;
     const lines = noticed.map((n) => ({ a: `${n.title}${n.soft ? ' (살짝)' : ''}`, b: `100명 중 ${n.pct}` }));
-    const h = pad * 2 + 44 + lines.length * 84;
+    const combo = report.combo;
+    const h = pad * 2 + 44 + lines.length * 84 + (combo ? 76 : 0);
     ctx.fillStyle = C.card; rr(ctx, PAD, top, W - PAD * 2, h, 28); ctx.fill(); ctx.strokeStyle = C.line; ctx.lineWidth = 2; rr(ctx, PAD, top, W - PAD * 2, h, 28); ctx.stroke();
     ctx.fillStyle = C.accent; font(ctx, 30, 800); ctx.fillText('FINDE 가 알아챈 것', PAD + pad, top + pad + 30);
     let ly = top + pad + 44;
@@ -200,6 +201,11 @@ export async function faceCard({ report, ranked = [] }) {
       ctx.fillStyle = C.text; font(ctx, 38, 800); ctx.fillText(l.a, PAD + pad, ly + 44);
       ctx.fillStyle = C.accent; font(ctx, 32, 700); ctx.fillText(l.b, PAD + pad, ly + 82);
       ly += 84;
+    }
+    if (combo) {   // 나만의 비율 조합 — 공유했을 때 '오' 하게 되는 한 줄
+      ctx.fillStyle = C.line; ctx.fillRect(PAD + pad, ly + 16, W - PAD * 2 - pad * 2, 2);
+      ctx.fillStyle = C.muted; font(ctx, 28, 700); ctx.fillText('이 조합을 가진 사람', PAD + pad, ly + 62);
+      ctx.fillStyle = C.accent; font(ctx, 40, 800); ctx.textAlign = 'right'; ctx.fillText(combo.text, W - PAD - pad, ly + 64); ctx.textAlign = 'left';
     }
     y = top + h;
   }

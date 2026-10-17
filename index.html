@@ -140,6 +140,7 @@
           </div>
           <div class="headline hidden" id="headline"></div>
           <p class="style-noticed hidden" id="styleNoticed"></p>
+          <figure class="style-look hidden" id="styleLook"><figcaption><b>AI 가 본 곳</b><small>이 부분만 따로 잘라서 판단했어요</small></figcaption><canvas id="styleLookCanvas" aria-label="AI 가 잘라 본 부위를 표시한 사진"></canvas><ul id="styleLookList"></ul></figure>
           <div class="desc" id="desc"></div>
           <p class="quip hidden" id="quip"><b>에디터 한마디</b><span id="quipText"></span></p>
           <details class="secondary hidden" id="secondary">
@@ -286,6 +287,9 @@
           <div class="nail-avoid hidden" id="nailAvoid"></div>
           <h3>길이 · 디자인</h3>
           <div class="advice" id="nailTips"></div>
+          <h3>손가락별로 보면</h3>
+          <p class="nail-find hidden" id="nailFind"></p>
+          <div class="nail-fingers" id="nailFingers"></div>
           <h3>손가락별 측정</h3>
           <div class="table-wrap"><table class="measure" id="nailMeasures"></table></div>
           <div class="nail-vote" id="nailVote" aria-label="결과 평가">
@@ -368,12 +372,18 @@
             <canvas id="faceCanvas" class="face-canvas" aria-label="측정선을 그린 내 얼굴 사진"></canvas>
             <div class="seg sample-tabs face-layer" id="faceLayer">
               <button type="button" data-layer="measure" class="active">측정선</button>
+              <button type="button" data-layer="tryon" hidden>발라 보기</button>
               <button type="button" data-layer="makeup" hidden>메이크업 위치</button>
               <button type="button" data-layer="photo">사진만</button>
               <button type="button" data-layer="color" hidden>헤어 컬러</button>
             </div>
             <figcaption class="face-legend" id="faceLegend"></figcaption>
             <div class="hair-palette hidden" id="hairPalette" role="group" aria-label="헤어 컬러 고르기"></div>
+            <div class="tryon hidden" id="tryonPanel">
+              <label class="tryon-split">원래 얼굴<input type="range" id="tryonSplit" min="0" max="100" value="50" aria-label="전후 비교 위치" />발라 본 얼굴</label>
+              <div class="tryon-row"><span>립</span><div class="hair-palette" id="tryonLips" role="group" aria-label="립 색 고르기"></div></div>
+              <div class="tryon-row" id="tryonBlushRow"><span>블러셔</span><div class="hair-palette" id="tryonBlush" role="group" aria-label="블러셔 색 고르기"></div></div>
+            </div>
           </figure>
           <div class="face-head">
             <small id="faceShapeLabel">내 얼굴형</small>
