@@ -15,6 +15,8 @@ ap.add_argument('--cat', default='makeup'); ap.add_argument('--regions', default
 ap.add_argument('--labels', default=f'{ROOT}/embeddings/marqo-fashionSigLIP.json')
 args = ap.parse_args(); OUT = args.work; CAT = args.cat; REGIONS = args.regions.split(','); MIN_GAIN = args.gain if args.gain is not None else args.min_gain
 spec = importlib.util.spec_from_file_location('th', f'{ROOT}/tools/train-heads.py'); th = importlib.util.module_from_spec(spec); spec.loader.exec_module(th)
+# 부위 헤드는 짧은 학습(150 스텝 · 0.03)이 교차 검증에서 조금 나았다 (사진이 적어 긴 학습은 과적합, TRAINING_LOG 라운드 7)
+th.FIT_STEPS = int(os.environ.get('FIT_STEPS', '150')); th.FIT_LR = float(os.environ.get('FIT_LR', '0.03'))
 tax = json.load(open(f'{OUT}/taxonomy.json')); lj, idx = th.load_index(args.labels, tax)
 man = json.load(open(f'{OUT}/manifest.json'))
 def load(region):
