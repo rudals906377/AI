@@ -916,12 +916,3 @@ details.fold > summary small { color: var(--muted); font-size: 0.76rem; }
 .nail-fingers figcaption b { font-size: .9rem; }
 .nail-fingers figcaption small { color: var(--muted); font-size: .72rem; }
 
-/* 타투 크기 미리 보기 */
-.tc-preview { margin: 10px 0; display: grid; gap: 8px; --tp-bg: #f3ebe2; }
-.tc-preview:empty { display: none; }
-.tp-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; } .tp-head small { color: var(--muted); font-size: .78rem; }
-.tp-canvas { width: 100%; max-width: 520px; height: auto; border-radius: 12px; border: 1px solid var(--line); touch-action: none; cursor: grab; }
-.tp-ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.tp-size { display: flex; align-items: center; gap: 6px; font-size: .85rem; } .tp-size input { accent-color: var(--accent); width: 140px; } .tp-size output { font-weight: 700; min-width: 4.5em; }
-.tp-skin { display: flex; gap: 6px; } .tp-skin button { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); padding: 0; cursor: pointer; }
-.tp-skin button.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
