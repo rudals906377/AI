@@ -59,9 +59,15 @@ WCAP = float(os.environ.get('WCAP', '3'))   # 사진별 가중치 상한 (중앙
 WCAPS = [float(x) for x in os.environ.get('WCAPS', '3,1').split(',')]
 
 
-def fit(V, S, T, lam, present, steps=150, lr=0.03, smooth=0.05, sw=None, pen=0.0, wcap=None):
+# 최적화: 150 스텝 · 학습률 0.03 은 수렴하지 않아 λ 에 따라 학습 정확도까지 들쭉날쭉했고(앞머리 90 → 66 → 77%),
+# 사진 몇 장만 바뀌어도 헤드가 크게 달라졌다. 600 스텝 · 0.005 에서 λ 가 커질수록 학습 정확도가 고르게 내려가고 결과가 안정됐다.
+FIT_STEPS = int(os.environ.get("FIT_STEPS", "600")); FIT_LR = float(os.environ.get("FIT_LR", "0.005"))
+
+
+def fit(V, S, T, lam, present, steps=None, lr=None, smooth=0.05, sw=None, pen=0.0, wcap=None):
     """V: N×D, S: N×C 0/1 정답 후보 마스크, T: C×D 초기(라벨 문장) 가중치. sw: 행별 추가 가중치 (없으면 모두 1).
     pen: 학습 사진이 없는 라벨의 편향을 학습된 라벨 평균보다 이만큼 낮춘다 (사진 없는 새 라벨이 다른 라벨의 답을 빼앗지 않게)."""
+    steps = steps or FIT_STEPS; lr = lr or FIT_LR
     N, D = V.shape; C = T.shape[0]
     D_ = np.zeros_like(T); b = np.zeros(C); logt = np.log(SCALE)
     mask = np.full(C, -1e9); mask[present] = 0.0            # 학습 데이터에 없는 라벨은 제외
