@@ -638,6 +638,7 @@ function render(r) {
   }
   els.headline.textContent = r.headline;
   renderStyleNoticed(r);
+  renderStyleLook(r);
   // 장르 (크게) + 옆에 트렌드 키워드
   const g = r.genre;
   els.genreLabel.textContent = `${TAXONOMY[r.category].label} 장르 · ${g.group} ${pct(g.score)}`;
@@ -705,6 +706,7 @@ function renderTattoo(r) {
       ${card.color.name ? `<div class="tc-box"><small>컬러</small><b>${esc(card.color.name)}</b><span>${card.color.skinNote ? '피부 톤 발색 안내 아래' : '블랙은 가장 오래 가요'}</span></div>` : ''}
     </div>
     <p class="muted small tc-why">${esc(card.plan.why)}</p>
+    <div class="tc-preview" id="tattooPreview"></div>
     ${designer && card.pro.length ? `<div class="tc-pro"><b>타투이스트 메모</b><ul>${li(card.pro)}</ul></div>` : ''}
     <details class="tc-sec" open><summary>미리 알아 둘 것 <small>${esc([card.style?.name, card.place?.name, card.color.name].filter(Boolean).join(' · '))}</small></summary>
       <ul>${li([...(card.style?.points || []), ...(card.place?.points || []), ...card.color.points, ...(card.color.skinNote ? [card.color.skinNote] : [])])}</ul></details>
@@ -713,6 +715,9 @@ function renderTattoo(r) {
     <details class="tc-sec"><summary>애프터케어 요약 <small>2~4주</small></summary><ul>${li(card.after)}</ul></details>
     <p class="muted small">통증 · 시간 · 회차는 일반적인 참고 범위예요. 사람과 작가마다 달라서, 실제 시술은 타투이스트와 상담해 정해 주세요.</p>
     <div class="row order-actions"><button class="primary small" id="tattooCopy" type="button">상담 카드 복사</button><button class="ghost small" id="tattooSave" type="button">이미지로 저장</button></div>`;
+  // 크기 미리 보기: 도안을 몸 실루엣 위에 cm 크기로 (눌렀을 때가 아니라 바로 보여 준다 — 가벼운 계산)
+  const photo = r.blob || currentBlob;
+  if (photo) import('./tattoo-preview.js').then(({ mountTattooPreview }) => { if (lastTattoo === card) mountTattooPreview($('tattooPreview'), { photo, place: card.place?.name?.replace(/\s*\(.*\)$/, '') || null, size: card.plan.size }); }).catch((e) => console.warn('[tattoo] 미리 보기 실패', e));
   box.querySelector('#tattooCopy').addEventListener('click', () => lastTattoo && copy(lastTattoo.text));
   box.querySelector('#tattooSave').addEventListener('click', async (e) => {
     if (!lastTattoo) return;
@@ -742,6 +747,38 @@ function renderStyleNoticed(r) {
   if (unsure) parts.push(`<span class="unsure"><b>가장 헷갈린 것</b> ${esc(unsure.group_label)} — ${esc(unsure.label)} ${pct(unsure.score)} 또는 ${esc(unsure.alternatives[0].label)} ${pct(unsure.alternatives[0].score)}</span>`);
   box.innerHTML = parts.join('');
   box.classList.toggle('hidden', !parts.length);
+}
+
+// AI 가 본 곳: 메이크업 · 헤어처럼 부위를 잘라 판단한 경우, 사진 위에 그 부위 상자와 거기서 본 것을 보여 준다
+const LOOK_COLOR = { eye: '#7ec4ff', lip: '#ff7f9b', face: '#ffd36b', hair: '#8fe08a', bangs: '#ffb067', head: '#cfa8ff' };
+async function renderStyleLook(r) {
+  const box = $('styleLook'); if (!box) return;
+  const boxes = r.region_boxes || {}, attrs = (r.attributes || []).filter((a) => a.region && boxes[a.region] && !a.all?.[0]?.hidden && a.level !== 'low');
+  const regions = Object.keys(boxes).filter((k) => attrs.some((a) => a.region === k));
+  if (!regions.length || !(r.blob || currentBlob)) { box.classList.add('hidden'); return; }
+  const id = r.run_id;
+  let bmp; try { bmp = await createImageBitmap(r.blob || currentBlob); } catch { box.classList.add('hidden'); return; }
+  if (lastResult && lastResult.run_id !== id) { bmp.close?.(); return; }   // 그새 다른 사진
+  const cv = $('styleLookCanvas'), s = Math.min(1, 720 / Math.max(bmp.width, bmp.height));
+  cv.width = Math.round(bmp.width * s); cv.height = Math.round(bmp.height * s);
+  const ctx = cv.getContext('2d'), W = cv.width, H = cv.height, k = Math.max(1, W / 360);
+  ctx.drawImage(bmp, 0, 0, W, H);
+  ctx.fillStyle = 'rgba(16,10,8,.34)'; ctx.fillRect(0, 0, W, H);   // 전체를 살짝 어둡게 하고, 본 곳만 원래 밝기로
+  // 큰 상자(머리 전체 · 얼굴)를 먼저, 작은 상자(눈 · 입술)를 위에
+  const area = ([x0, y0, x1, y1]) => (x1 - x0) * (y1 - y0);
+  for (const name of [...regions].sort((a, b) => area(boxes[b]) - area(boxes[a]))) {
+    const [x0, y0, x1, y1] = boxes[name], X = x0 * W, Y = y0 * H, BW = (x1 - x0) * W, BH = (y1 - y0) * H, col = LOOK_COLOR[name] || '#fff';
+    if (name !== 'head') { ctx.save(); ctx.beginPath(); ctx.rect(X, Y, BW, BH); ctx.clip(); ctx.drawImage(bmp, 0, 0, W, H); ctx.restore(); }
+    ctx.save(); ctx.lineWidth = 2.2 * k; ctx.strokeStyle = col; if (name === 'head' || name === 'face') ctx.setLineDash([6 * k, 4 * k]);
+    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 3 * k; ctx.strokeRect(X, Y, BW, BH); ctx.restore();
+    ctx.save(); ctx.font = `700 ${Math.round(12 * k)}px "Pretendard Variable", Pretendard, system-ui, sans-serif`;
+    const t = REGION_KO[name] || name, tw = ctx.measureText(t).width, th = 18 * k, ly = Y > th + 2 ? Y - th - 2 : Y + 2;
+    ctx.fillStyle = col; ctx.beginPath(); ctx.roundRect(Math.min(X, W - tw - 12 * k), ly, tw + 12 * k, th, 5 * k); ctx.fill();
+    ctx.fillStyle = '#21160f'; ctx.textBaseline = 'middle'; ctx.fillText(t, Math.min(X, W - tw - 12 * k) + 6 * k, ly + th / 2 + 0.5); ctx.restore();
+  }
+  bmp.close?.();
+  $('styleLookList').innerHTML = regions.map((name) => `<li><i style="background:${LOOK_COLOR[name] || '#fff'}"></i><b>${esc(REGION_KO[name] || name)}</b> ${attrs.filter((a) => a.region === name).sort((a, b) => b.score - a.score).slice(0, 4).map((a) => `${esc(a.group_label)} <strong>${esc(a.label)}</strong> <small>${pct(a.score)}</small>`).join(' · ')}</li>`).join('');
+  box.classList.remove('hidden');
 }
 
 // 부위를 잘라 판단한 그룹 표시 (analyzer.js 의 region)

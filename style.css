@@ -482,6 +482,24 @@ footer code { font-family: inherit; background: var(--bg-2); padding: 1px 6px; b
 .issues li.warn { border-left-color: var(--warn); }
 .issues li span { color: var(--muted); }
 #faceResult.enter > * { animation: fadeUp .5s var(--ease) both; }
+/* 결과를 한 번에 쏟지 않고 사진 → 얼굴형 → 알아챈 것 → 나머지 순으로 */
+#faceResult.enter > *:nth-child(2) { animation-delay: .25s; } #faceResult.enter > *:nth-child(3) { animation-delay: .5s; }
+#faceResult.enter > *:nth-child(4) { animation-delay: .75s; } #faceResult.enter > *:nth-child(n+5) { animation-delay: 1s; }
+@media (prefers-reduced-motion: reduce) { #faceResult.enter > * { animation: none; } }
+/* 분석 중 스캔 */
+.scan { position: relative; overflow: hidden; border-radius: 14px; background: var(--bg-2); max-width: 360px; aspect-ratio: 4 / 5; margin: 4px 0 10px; }
+.scan img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.85) brightness(.92); }
+.scan-line { position: absolute; left: 0; right: 0; top: 0; height: 22%; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--accent) 35%, transparent) 70%, color-mix(in srgb, #fff 85%, var(--accent)) 98%, transparent); animation: scanY 1.6s ease-in-out infinite alternate; }
+.scan-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.5) 1px, transparent 1.4px); background-size: 14px 14px; opacity: .35; mix-blend-mode: overlay; }
+@keyframes scanY { from { transform: translateY(-30%); } to { transform: translateY(380%); } }
+.scan-steps { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 4px; font-size: .9rem; }
+.scan-steps li { color: var(--muted); opacity: .45; padding-left: 22px; position: relative; transition: opacity .3s, color .3s; }
+.scan-steps li::before { content: ''; position: absolute; left: 4px; top: .45em; width: 9px; height: 9px; border-radius: 50%; border: 2px solid currentColor; box-sizing: border-box; }
+.scan-steps li.now { opacity: 1; color: var(--text); font-weight: 600; }
+.scan-steps li.now::before { border-color: var(--accent); border-top-color: transparent; animation: spin .8s linear infinite; }
+.scan-steps li.done { opacity: .85; }
+.scan-steps li.done::before { content: '✓'; border: 0; color: var(--ok); font-size: .8rem; top: .05em; left: 3px; width: auto; height: auto; }
+@media (prefers-reduced-motion: reduce) { .scan-line { animation: none; top: 40%; } .scan-steps li.now::before { animation: none; } }
 
 /* PC 웹캠 */
 .cam { border: 0; border-radius: 14px; padding: 16px; background: var(--card); color: var(--text); width: min(560px, calc(100vw - 32px)); }
@@ -672,6 +690,13 @@ button:focus-visible, a:focus-visible, summary:focus-visible, [role="tab"]:focus
 .rc-grid { display: grid; gap: 8px; margin-top: 8px; }
 .rc { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: start; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
 .rc.top { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.rc-focus { cursor: pointer; transition: border-color .15s, background .15s; }
+.rc-focus:hover { border-color: var(--accent); }
+.rc-focus.on { background: var(--accent-soft); border-color: var(--accent); }
+.rc-focus:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rc-hint { margin: 4px 0 0; font-size: .74rem; color: var(--accent-ink); font-weight: 600; }
+.face-legend .focus-cap { display: block; line-height: 1.55; font-size: .84rem; color: var(--text); }
+.face-legend .focus-cap .linklike { margin-left: 6px; }
 .rc-photo { width: 64px; height: 64px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); padding: 0; background: var(--card); cursor: zoom-in; }
 .rc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .rc-none { display: grid; place-items: center; cursor: default; color: var(--muted); font-weight: 700; font-size: 1.05rem; background: var(--soft, var(--card)); }
@@ -739,6 +764,14 @@ table.spec tr:last-child th, table.spec tr:last-child td { border-bottom: none; 
 .hair-palette button.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
 .hair-palette button span { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); font-size: 0.62rem; white-space: nowrap; color: var(--muted); margin-top: 2px; }
 .hair-palette { padding-bottom: 14px; }
+.tryon { display: grid; gap: 8px; }
+.tryon-split { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--muted); }
+.tryon-split input { flex: 1; accent-color: var(--accent); }
+.tryon-row { display: grid; grid-template-columns: 52px 1fr; align-items: start; gap: 6px; }
+.tryon-row > span { font-size: .82rem; font-weight: 600; padding-top: 8px; }
+.tryon .hair-palette { margin-top: 0; }
+.tryon .hair-palette button.rec { border-width: 3px; border-color: color-mix(in srgb, var(--accent) 70%, #fff); }
+.tryon .hair-palette button.none { background: repeating-linear-gradient(45deg, var(--card) 0 5px, var(--line) 5px 7px); }
 .nail-try { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 8px 0; background: var(--card); }
 .nail-try > b { font-size: 0.88rem; }
 .nail-try > b small { color: var(--muted); font-weight: 400; }
@@ -834,6 +867,12 @@ body[data-designer] .idea-quip { display: none; }
 .noticed .nt-mirror { font-size: 0.82rem; color: var(--muted); }
 .noticed .nt-so { font-size: 0.84rem; color: var(--accent-ink); }
 @keyframes nt-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.noticed .combo { margin-top: 10px; padding: 12px 14px; border-radius: 12px; background: var(--accent-soft); display: grid; gap: 3px; opacity: 0; animation: nt-in .6s var(--ease, ease) forwards; }
+.noticed .combo small { color: var(--accent-ink); font-weight: 700; font-size: .78rem; }
+.noticed .combo b { font-size: 1rem; } .noticed .combo b i { font-style: normal; color: var(--muted); font-weight: 500; margin: 0 2px; }
+.noticed .combo strong { font-size: 1.35rem; color: var(--accent-ink); letter-spacing: -.01em; }
+.noticed .combo span { font-size: .88rem; } .noticed .combo em { font-style: normal; font-size: .74rem; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .noticed .combo { animation: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .noticed li { animation: none; opacity: 1; } }
 .measure td.pct { white-space: nowrap; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
 /* 스타일 분석: 눈여겨본 디테일 · 가장 헷갈린 것 */
@@ -856,3 +895,33 @@ details.fold > summary::-webkit-details-marker { display: none; }
 details.fold > summary::before { content: "▸"; color: var(--muted); font-size: 0.8rem; }
 details.fold[open] > summary::before { content: "▾"; }
 details.fold > summary small { color: var(--muted); font-size: 0.76rem; }
+
+/* AI 가 본 곳 (스타일 사진) */
+.style-look { margin: 10px 0 4px; display: grid; gap: 8px; }
+.style-look figcaption { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.style-look figcaption small { color: var(--muted); font-size: .78rem; }
+.style-look canvas { width: 100%; max-width: 420px; height: auto; border-radius: 12px; display: block; }
+.style-look ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: .86rem; }
+.style-look li i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: 0; }
+.style-look li small { color: var(--muted); }
+
+/* 손가락별 손톱 카드 */
+.nail-find { margin: 4px 0 10px; padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); font-size: .9rem; line-height: 1.55; }
+.nail-find b { color: var(--accent-ink); margin-right: 6px; }
+.nail-fingers { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.nail-fingers .nf { margin: 0; display: grid; grid-template-columns: 64px 1fr; gap: 8px; align-items: start; padding: 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.nail-fingers .nf.thumb { opacity: .8; }
+.nail-fingers img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; display: block; }
+.nail-fingers figcaption { display: grid; gap: 1px; font-size: .8rem; line-height: 1.4; }
+.nail-fingers figcaption b { font-size: .9rem; }
+.nail-fingers figcaption small { color: var(--muted); font-size: .72rem; }
+
+/* 타투 크기 미리 보기 */
+.tc-preview { margin: 10px 0; display: grid; gap: 8px; --tp-bg: #f3ebe2; }
+.tc-preview:empty { display: none; }
+.tp-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; } .tp-head small { color: var(--muted); font-size: .78rem; }
+.tp-canvas { width: 100%; max-width: 520px; height: auto; border-radius: 12px; border: 1px solid var(--line); touch-action: none; cursor: grab; }
+.tp-ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.tp-size { display: flex; align-items: center; gap: 6px; font-size: .85rem; } .tp-size input { accent-color: var(--accent); width: 140px; } .tp-size output { font-weight: 700; min-width: 4.5em; }
+.tp-skin { display: flex; gap: 6px; } .tp-skin button { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); padding: 0; cursor: pointer; }
+.tp-skin button.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }

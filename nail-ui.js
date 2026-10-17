@@ -10,7 +10,7 @@ const els = {
   empty: $('nailEmpty'), status: $('nailStatus'), result: $('nailResult'), canvas: $('nailCanvas'),
   type: $('nailType'), summary: $('nailSummary'), warn: $('nailWarn'), top: $('nailTop'), avoid: $('nailAvoid'),
   tips: $('nailTips'), measures: $('nailMeasures'), card: $('nailCard'), copy: $('nailCopy'), save: $('nailSave'), again: $('nailAgain'),
-  vote: $('nailVote'), voteExport: $('nailVoteExport'),
+  vote: $('nailVote'), voteExport: $('nailVoteExport'), fingers: $('nailFingers'), find: $('nailFind'),
 };
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const toast = (t) => { const el = $('toast'); if (!el) return; el.textContent = t; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 1800); };
@@ -150,8 +150,47 @@ function render({ fresh = false } = {}) {   // fresh: 새 사진을 분석한 �
   els.measures.innerHTML = `<thead><tr><th>손가락</th><th>너비 : 길이</th><th>끝 퍼짐</th><th>큐티클 깊이</th><th>하얀 끝</th></tr></thead><tbody>${r.fingers.map((f) => f.m
     ? `<tr${f.key === 'thumb' ? ' class="muted"' : ''}><th scope="row">${esc(f.ko)}${f.key === 'thumb' ? ' <small>(참고)</small>' : ''}</th><td>${f2(f.m.ratio)} : 1</td><td>${f2(f.m.taper)}</td><td>${f2(f.m.cuticle)}</td><td>${Math.round(f.m.free * 100)}%</td></tr>`
     : `<tr class="muted"><th scope="row">${esc(f.ko)}</th><td colspan="4">손톱을 찾지 못했어요</td></tr>`).join('')}</tbody>`;
+  renderFingers(r);
   els.card.textContent = ['[FINDE 손톱 상담 카드]', ...rep.card, '', '* 사진으로 잰 손톱 모양 참고 정보예요 (의학적 진단 아님)'].join('\n');
   window.dispatchEvent(new CustomEvent('beauty:nail', { detail: { update: !fresh, result: r, report: rep, headline: els.type.textContent, summary: els.summary.textContent, tryOn: tryShape ? { shape: tryShape, color: tryColor } : null } }));
+}
+
+// 손가락별 카드: 손톱마다 잘라 본 사진 + 윤곽 + 한 줄 평, 그리고 다섯 손톱을 비교한 발견 한 줄
+const NN = { ratio: [0.80, 0.2], taper: [0.931, 0.129], cuticle: [0.057, 0.074] };   // nail.js NAIL_NORM 과 같은 기준 (손톱 851개)
+function fingerSay(m) {
+  const z = (k) => (m[k] - NN[k][0]) / NN[k][1];
+  const out = [];
+  const zr = z('ratio');
+  out.push(zr <= -0.6 ? '세로로 길쭉한 손톱' : zr >= 0.6 ? '가로로 넉넉한 손톱' : '가로세로 균형이 좋은 손톱');
+  const zt = z('taper');
+  if (zt >= 0.7) out.push('끝이 살짝 퍼져요'); else if (zt <= -0.7) out.push('끝으로 갈수록 갸름해져요');
+  const zc = z('cuticle');
+  if (zc >= 0.7) out.push('큐티클 라인이 둥글게 깊어요'); else if (zc <= -0.6) out.push('큐티클 라인이 납작한 편');
+  return out;
+}
+function fingerThumb(r, f, size = 132) {
+  const xs = f.outline.map((p) => p[0]), ys = f.outline.map((p) => p[1]);
+  const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+  const half = Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys)) * 0.68 + 6;
+  const c = document.createElement('canvas'); c.width = c.height = size;
+  const g = c.getContext('2d'), s = size / (half * 2), T = ([x, y]) => [(x - cx + half) * s, (y - cy + half) * s];
+  g.drawImage(r.canvas, cx - half, cy - half, half * 2, half * 2, 0, 0, size, size);
+  g.lineWidth = 2; g.lineJoin = 'round'; g.strokeStyle = f.key === 'thumb' ? 'rgba(255,255,255,.85)' : '#2ecc71';
+  g.beginPath(); f.outline.forEach((p, i) => { const [x, y] = T(p); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.closePath(); g.stroke();
+  return c.toDataURL('image/jpeg', 0.85);
+}
+function renderFingers(r) {
+  const list = r.fingers.filter((f) => f.m && f.outline);
+  if (!list.length) { els.fingers.innerHTML = ''; els.find.classList.add('hidden'); return; }
+  els.fingers.innerHTML = list.map((f) => `<figure class="nf${f.key === 'thumb' ? ' thumb' : ''}"><img src="${fingerThumb(r, f)}" alt="${esc(f.ko)} 손톱" /><figcaption><b>${esc(f.ko)}</b>${fingerSay(f.m).map((t) => `<span>${esc(t)}</span>`).join('')}<small>너비 : 길이 ${f.m.ratio.toFixed(2)} : 1</small></figcaption></figure>`).join('');
+  // 발견: 엄지를 뺀 손톱 중 가장 갸름한(너비 비율이 가장 작은) 손가락 — 반지 · 네일아트 포인트 자리로
+  const four = list.filter((f) => f.key !== 'thumb');
+  if (four.length >= 2) {
+    const slim = four.slice().sort((a, b) => a.m.ratio - b.m.ratio)[0], wide = four.slice().sort((a, b) => b.m.ratio - a.m.ratio)[0];
+    const gap = wide.m.ratio - slim.m.ratio;
+    els.find.innerHTML = `<b>발견</b> 가장 갸름한 손톱은 <strong>${esc(slim.ko)}</strong>예요 (너비 : 길이 ${slim.m.ratio.toFixed(2)} : 1). ${gap >= 0.08 ? `${esc(wide.ko)}보다 ${Math.round((gap / wide.m.ratio) * 100)}% 더 갸름해서, 파츠 · 포인트 아트를 올리면 가장 돋보이는 자리예요.` : '네 손톱 비율이 고르게 비슷해서, 같은 디자인을 열 손가락에 해도 균형이 잘 맞아요.'}`;
+    els.find.classList.remove('hidden');
+  } else els.find.classList.add('hidden');
 }
 
 // 가상 쉐입 입혀 보기: 고른 모양을 손톱 위에 그린다 (분할로 찾은 손톱 너비 · 길이 기준, 긴 모양은 끝을 늘려 그림)

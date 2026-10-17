@@ -20,7 +20,8 @@ import { compose } from './describe.js';
 export const DEFAULT_MODEL = 'Marqo/marqo-fashionSigLIP'; // 권장 기본 모델 (heads/ · embeddings/ 와 짝)
 const LOGIT_SCALE = 100; // 제로샷 소프트맥스 온도 (CLIP 의 exp(logit_scale))
 
-const SECONDARY_MIN = 0.25; // 2위 카테고리 확률이 이 이상이면 '함께 보이는 스타일'로 함께 설명
+const SECONDARY_MIN = 0.25;
+const boxesOf = new WeakMap();   // 부위 임베딩 → 그 부위 상자 // 2위 카테고리 확률이 이 이상이면 '함께 보이는 스타일'로 함께 설명
 
 export async function createAnalyzer({
   model = DEFAULT_MODEL,
@@ -144,9 +145,11 @@ export async function createAnalyzer({
       names.push(name); crops.push(await image.crop([X0, Y0, X1 - 1, Y1 - 1]));
     }
     if (!crops.length) return null;
+    const used = Object.fromEntries(names.map((n) => [n, boxes[n]]));
     // 한 장씩 돌린다 (묶어 돌리면 약간 빠르지만 값이 미세하게 달라져, 한 장씩 계산한 값으로 학습한 부위 헤드와 어긋난다)
     const out = {};
     for (const [i, c] of crops.entries()) out[names[i]] = (await vision.embed(c))[0];
+    boxesOf.set(out, used);   // 화면에 'AI 가 본 곳'을 그릴 수 있게 상자도 함께 기억
     return out;
   }
 
@@ -255,6 +258,7 @@ export async function createAnalyzer({
       image_size: { width: image.width, height: image.height },
       model,
       trained_heads: Object.keys(headIndex).length,
+      region_boxes: regionVecs ? boxesOf.get(regionVecs) || null : null,   // { eye: [x0, y0, x1, y1] (0~1), … } — 부위를 잘라 본 자리
       regions_used: [...new Set([...(regionVecs ? Object.keys(regionVecs) : []), ...(pd?.regions || [])])],
       ensemble: pd ? [model, pd.model] : null,
       // 피드백 학습용 특징값 (사진 대신 저장한다). JSON 출력에는 넣지 않는다

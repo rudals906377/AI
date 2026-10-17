@@ -170,10 +170,38 @@ function noticed(rows) {
     const dir = r.z >= 0 ? 1 : 0, soft = Math.abs(r.z) < 0.8;
     // 살짝 다른 항목은 거울 힌트(뚜렷한 경우의 기준선)가 맞지 않을 수 있어 넣지 않는다
     const title = soft || r.note === '평균에 가까워요' ? `${SUBJ[r.key]} ${DIR[r.key][dir]} 편` : r.note.replace(/이에요\.?$/, '');
-    return { key: r.key, title, soft, value: r.value, avg: r.avg, pct: r.pct, mirror: soft ? null : MIRROR[r.key][dir], so: SO[r.key][dir] };
+    return { key: r.key, z: r.z, title, soft, value: r.value, avg: r.avg, pct: r.pct, mirror: soft ? null : MIRROR[r.key][dir], so: SO[r.key][dir] };
   });
   if (!items.length) items.push({ key: 'avg', title: '모든 비율이 평균에 아주 가까워요', soft: false, value: null, avg: null, pct: '가운데 쪽', mirror: '이마 · 광대 · 턱 너비와 눈 · 코 · 입 비율이 전부 평균 범위 안이에요.', so: '이런 얼굴이 오히려 드물어요. 대부분의 스타일이 무난하게 받아요.' });
   return items;
+}
+
+// ---- 나만의 비율 조합 ------------------------------------------------------------------
+// 알아챈 특징들(평균과 다른 쪽)을 함께 가진 사람이 얼마나 드문지 — 각 특징의 '그쪽으로 이만큼 이상' 비율을 곱한 어림값.
+// 특징끼리 서로 독립이라고 보고 곱하므로 실제보다 조금 드물게 나올 수 있다 (화면에 '어림'이라고 쓴다)
+const COMBO_NAME = {
+  ratio: ['짧은 얼굴', '긴 얼굴'], jawAngle: ['둥근 턱선', '각진 턱선'], chin: ['뾰족한 턱끝', '넓은 턱끝'], philtrum: ['짧은 인중', '긴 인중'],
+  eyeSpacing: ['좁은 미간', '넓은 미간'], eyeTilt: ['순한 눈꼬리', '올라간 눈꼬리'], eyeAspect: ['가로로 긴 눈매', '동그란 눈매'],
+  browGap: ['눈에 가까운 눈썹', '여유 있는 눈썹 자리'], nose: ['날렵한 콧볼', '부드러운 콧볼'], lips: ['도톰한 윗입술', '얇은 윗입술'],
+  mouth: ['아담한 입', '시원한 입매'], lipFull: ['또렷한 얇은 입술', '도톰한 입술'],
+};
+const COMBO_SAY = [
+  [0.002, '1만 명 가운데서도 찾기 힘든 조합이에요. 사진 한 장에서도 개성이 먼저 보이는 얼굴이에요.'],
+  [0.01, '아주 드문 조합이에요. 같은 머리 · 메이크업을 해도 분위기가 남다르게 나와요.'],
+  [0.04, '흔하지 않은 조합이에요. 이 조합을 살리는 스타일이 가장 잘 어울려요.'],
+  [1, '나만의 비율 조합이에요. 장점이 되는 쪽을 살리면 인상이 또렷해져요.'],
+];
+function comboOf(noticed) {
+  const items = (noticed || []).filter((n) => COMBO_NAME[n.key] && Number.isFinite(n.z)).slice(0, 3);
+  if (items.length < 2) return null;   // 하나로는 '조합'이라 부르지 않는다
+  // 특징끼리 어느 정도 함께 다니므로(예: 긴 얼굴 · 긴 하안부) 그대로 곱하면 너무 드물게 나온다 → 각 비율은 3% 아래로 내리지 않고, 곱은 0.75 제곱으로 누그러뜨린다
+  let p = 1;
+  for (const it of items) p *= Math.max(0.03, 1 - PHI(Math.abs(it.z)));
+  p = p ** 0.75;
+  const names = items.map((it) => COMBO_NAME[it.key][it.z >= 0 ? 1 : 0]);
+  const per = p >= 0.01 ? 1000 : 10000;
+  const n = Math.max(1, Math.round(p * per));
+  return { names, p, per, n, text: `${per === 1000 ? '1,000' : '1만'} 명 중 약 ${n.toLocaleString('ko-KR')}명`, say: COMBO_SAY.find(([lim]) => p < lim)[1] };
 }
 
 // ---- 측정 표 ------------------------------------------------------------------------
@@ -1059,6 +1087,7 @@ export function faceReport(f, style = null, { gender = null } = {}) {
     shape: p[0], near, headline, summary, quip: ((q) => q[Math.round(p[0].p * 1000 + (p[1]?.p || 0) * 100 + f.m.ratio * 997) % q.length])(SHAPE_QUIP[p[0].key] || SHAPE_QUIP.oval),
     measures: measures(f, t),
     noticed: noticed(measures(f, t)),
+    combo: comboOf(noticed(measures(f, t))),   // 나만의 비율 조합 (알아챈 것이 2개 이상일 때)
     thirds: thirdsInfo(f, t),
     hair: hairAdvice(f, t, gender),
     makeup: gender === 'm' ? groomingAdvice(f, t) : makeupAdvice(f, t),
