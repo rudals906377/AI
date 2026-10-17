@@ -111,6 +111,12 @@ def acc_sets(P, S):
     return float(np.mean(S[np.arange(len(S)), P.argmax(1)] > 0)) if len(S) else float("nan")
 
 
+def src(e, i):
+    """교차 검증 폴드 단위: 작가가 있으면 작가, 없으면 출처 묶음(group). (train-knn.py 와 같은 기준)
+    사진마다 따로 나누면 같은 작가의 비슷한 사진이 학습 · 검증 폴드에 갈라져 과적합한 설정이 좋아 보인다"""
+    return e.get("creator") or e.get("group", i)
+
+
 def cv_select(V, S, T, present, groups=None, lams=(1.0, 3.0, 10.0, 30.0), alphas=(0.0, 0.25, 0.5, 0.75, 1.0), k=3, seed=0, sw=None, pens=(0.0, 1.0, 2.0, 4.0), wcap=None):
     """출처 단위 교차 검증: 같은 검색어·분류에서 온 사진은 같은 폴드에만 둔다.
     (같은 작가·앨범 사진이 학습과 검증에 나뉘면 성능이 부풀려 보이기 때문)
@@ -248,7 +254,7 @@ def main():
     if is_other.sum() >= 30 and "other" in idx:
         Tb = np.stack([unit(np.concatenate([idx[c]["detect"] for c in cats]).mean(0)), unit(idx["other"].mean(0))])
         Sb = np.stack([~is_other, is_other], 1).astype(float)
-        (cv_acc, lam, alpha, _), zs_cv, _, wc = cv_select_wcap(Xtr, Sb, Tb, [0, 1], groups=[tl[r].get("group", r) for r in rtr], pens=(0.0,))
+        (cv_acc, lam, alpha, _), zs_cv, _, wc = cv_select_wcap(Xtr, Sb, Tb, [0, 1], groups=[src(tl[r], r) for r in rtr], pens=(0.0,))
         W, b = fit(Xtr, Sb, Tb, lam, [0, 1], wcap=wc)
         heads["beauty"] = (W, b, alpha)
         Xb = Xev; Sbe = np.tile([1.0, 0.0], (len(Xev), 1))
@@ -262,7 +268,7 @@ def main():
     Xc = Xtr[~is_other]; rc = [r for r, o in zip(rtr, is_other) if not o]
     Scat = np.zeros((len(Xc), len(cats)))
     for i, r in enumerate(rc): Scat[i, cats.index(tl[r]["category"])] = 1
-    (cv_acc, lam, alpha, _), zs_cv, _, wc = cv_select_wcap(Xc, Scat, Tcat, list(range(len(cats))), groups=[tl[r].get("group", r) for r in rc], pens=(0.0,))
+    (cv_acc, lam, alpha, _), zs_cv, _, wc = cv_select_wcap(Xc, Scat, Tcat, list(range(len(cats))), groups=[src(tl[r], r) for r in rc], pens=(0.0,))
     W, b = fit(Xc, Scat, Tcat, lam, list(range(len(cats))), wcap=wc)
     heads["category"] = (W, b, alpha)
     Sev = np.zeros((len(Xev), len(cats)))
@@ -298,7 +304,7 @@ def main():
             real = lambda r: tl[r].get("license") in ("user-provided", "user-feedback")
             # 행마다 그룹별 가중치(gw)를 줄 수 있다: 새로 더한 사진이 그룹에 따라 기존 라벨과 기준이 조금 다를 때 덜 믿게 (없으면 1)
             sw = np.array([(args.user_weight if real(rtr[i]) else 1.0) * tl[rtr[i]].get("gw", {}).get(g["key"], 1.0) for i in rows])
-            (cv_acc, lam, alpha, pen), zs_cv, oof, wc = cv_select_wcap(V, S, T, present, groups=[tl[rtr[i]].get("group", rtr[i]) for i in rows], sw=sw)
+            (cv_acc, lam, alpha, pen), zs_cv, oof, wc = cv_select_wcap(V, S, T, present, groups=[src(tl[rtr[i]], rtr[i]) for i in rows], sw=sw)
             # 출처가 다른 사진에서 이득이 없거나, 헤드 자체가 너무 부정확하면(40% 미만) 쓰지 않는다
             use_head = not (cv_acc <= zs_cv + 0.01 or alpha == 0.0 or cv_acc < 0.4)
             # 확률 보정: 폴드 밖 예측(헤드를 안 쓰면 제로샷)으로 온도를 맞춘다
