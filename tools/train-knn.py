@@ -20,7 +20,7 @@ spec = importlib.util.spec_from_file_location('th', f'{ROOT}/tools/train-heads.p
 def main():
     ap = argparse.ArgumentParser()
     for a in ('tax', 'labels', 'train', 'train-meta', 'train-list', 'eval', 'eval-meta', 'eval-list', 'heads', 'out'): ap.add_argument('--' + a)
-    ap.add_argument('--commercial', action='store_true'); ap.add_argument('--include-user-provided', action='store_true')
+    ap.add_argument('--commercial', action='store_true'); ap.add_argument('--allow-nc-nd', action='store_true'); ap.add_argument('--include-user-provided', action='store_true')
     ap.add_argument('--user-weight', type=float, default=1.0); ap.add_argument('--k', type=int, default=15); ap.add_argument('--tau', type=float, default=30.0)
     ap.add_argument('--beta-max', type=float, default=0.4, help='섞는 비율 β 의 상한 (0.1 단위로 고른다)')
     ap.add_argument('--bank-exclude', default='', help='kNN 이웃에서 뺄 출처(group 접두어, 쉼표로). 예: b3 — 보조 에이전트 라벨의 잡음을 그대로 옮기지 않게')
@@ -30,7 +30,7 @@ def main():
     H = json.load(open(args.heads)); assert H['hash'] == tax['hash'] and H['model'] == lj['model']
     tl = json.load(open(args.train_list)); el = json.load(open(args.eval_list))
     if args.commercial:
-        free = lambda l: (bool(l) and l != '?' and l != 'user-provided' and not re.search(r'(^|[-\s])(nd|nc)([-\s]|$)', l.lower())) \
+        free = lambda l: (bool(l) and l != '?' and l != 'user-provided' and (args.allow_nc_nd or not re.search(r'(^|[-\s])(nd|nc)([-\s]|$)', l.lower()))) \
             or (l == 'user-provided' and args.include_user_provided)
         tl = [r for r in tl if free(r.get('license'))]
     Xtr, rtr = th.load_emb(args.train, args.train_meta, tl); Xev, rev = th.load_emb(args.eval, args.eval_meta, el)
