@@ -65,19 +65,11 @@ async function loadAnalyzer() {
       let a = 0, b = 0; for (const [x, y] of files.values()) { a += x; b += y; }
       if (b) setStatus(`모델 내려받는 중 ${Math.round((a / b) * 100)}%`, (a / b) * 100);
     };
-    // 앱과 같은 판단: 부위 잘라 보기(regions) · 타투 세부 모티브 · 정밀 모드는 기본 모델과 평균
+    // 앱과 같은 판단: 부위 잘라 보기(regions) · 타투 세부 모티브
     const make = (dev) => createAnalyzer({ model: m.id, device: dev, dtype: dev === 'webgpu' ? m.gpu : m.cpu, labelEmbeddings: emb, heads, motifs, regions: styleRegions, onProgress });
     let a;
     try { a = await make(device); } catch (e) { if (device !== 'webgpu') throw e; device = 'wasm'; a = await make('wasm'); }
-    let p = null;
-    if (m === MODELS.large) {
-      setStatus('정밀 모델과 함께 쓸 기본 모델을 불러오는 중…', 95);
-      const b = MODELS.base, bn = b.id.split('/').pop();
-      try {
-        const [be, bh, bm] = await Promise.all([fetch(`./embeddings/${bn}.json`).then((r) => r.json()), fetch(`./heads/${bn}.json`).then((r) => r.json()), opt(`./embeddings/motifs-${bn}.json`)]);
-        p = await createAnalyzer({ model: b.id, device, dtype: device === 'webgpu' ? b.gpu : b.cpu, labelEmbeddings: be, heads: bh, motifs: bm, regions: styleRegions });
-      } catch (e) { console.warn('기본 모델(짝) 로드 실패 → 정밀 모델만', e); }
-    }
+    const p = null;   // 앱과 같게 모델 하나만 (두 모델 섞기 없음)
     if (my !== loadGen) { a.dispose?.(); p?.dispose?.(); return; }
     analyzer = a; partner = p;
     setStatus(`준비 완료 · ${els.model.selectedOptions[0].textContent} · ${device === 'webgpu' ? 'WebGPU' : 'WASM'}`, 100, 'ready');

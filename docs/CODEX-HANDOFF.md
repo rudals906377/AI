@@ -49,7 +49,7 @@ DOM 을 쓰지 않는다. 웹 · React Native 어디서든 같은 코드를 쓴�
 
 | 하는 일 | 원본(웹) | 모델 · 크기 |
 |---|---|---|
-| 스타일 임베딩 | Transformers.js 4.3.0 (ONNX Runtime Web) | `Marqo/marqo-fashionSigLIP` q8 약 94MB (Hugging Face Hub). 정밀 모드 `Xenova/siglip-large-patch16-384`(PC 전용, 선택) |
+| 스타일 임베딩 | Transformers.js 4.3.0 (ONNX Runtime Web) | 기기마다 모델 하나: PC `Xenova/siglip-large-patch16-384` (WebGPU q4 약 208MB · CPU q8 약 329MB), 휴대폰 `Marqo/marqo-fashionSigLIP` q8 약 94MB (Hugging Face Hub). 두 모델 섞기 없음 |
 | 학습된 분류 헤드 | 순수 계산 | `heads/*.json` (35 헤드 + 부위 헤드 9) · `embeddings/*.json` (라벨 임베딩 · kNN) |
 | 얼굴 랜드마크 · 부위 분할 | MediaPipe Tasks Vision 1.0.1 | `models/mediapipe/face_landmarker.task` 3.8MB, `selfie_multiclass_256x256.tflite` 16MB, `hair_segmenter.tflite` 0.8MB |
 | 손 랜드마크 | MediaPipe | `hand_landmarker.task` 7.8MB |
