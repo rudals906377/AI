@@ -19,6 +19,7 @@ import { compose } from './describe.js';
 
 export const DEFAULT_MODEL = 'Marqo/marqo-fashionSigLIP'; // 권장 기본 모델 (heads/ · embeddings/ 와 짝)
 const LOGIT_SCALE = 100; // 제로샷 소프트맥스 온도 (CLIP 의 exp(logit_scale))
+const PARTNER_W = 0.25;   // 정밀 모드에서 짝(기본 모델) 확률 비중 (attributesFor 참고)
 
 const SECONDARY_MIN = 0.25;
 const boxesOf = new WeakMap();   // 부위 임베딩 → 그 부위 상자 // 2위 카테고리 확률이 이 이상이면 '함께 보이는 스타일'로 함께 설명
@@ -100,7 +101,8 @@ export async function createAnalyzer({
   }
 
   // 한 카테고리의 속성 그룹별 결과 (확률 높은 순 후보 · 신뢰도 단계)
-  // partner: 다른 모델의 같은 카테고리 그룹 분포 (groupDists 결과). 있으면 두 모델 확률을 평균한다 (교차 검증 +2%p).
+  // partner: 다른 모델의 같은 카테고리 그룹 분포 (groupDists 결과). 있으면 두 모델 확률을 섞는다 (교차 검증 +2%p).
+  // 짝(정밀 모드의 기본 모델) 비중 PARTNER_W: 평가 세트 v3 에서 0.25 가 반반(0.5)보다 나았다 (새 평가 사진 86.8 → 87.9%, 기존 사진은 같음)
   // 두 모델 모두 부위를 잘라 본 판단끼리 평균한다 (부위 그룹도 평균이 한 모델 단독보다 대체로 낫다)
   function attributesFor(cat, vec, topk, regionVecs, partner = null) {
     const def = TAXONOMY[cat];
@@ -108,7 +110,7 @@ export async function createAnalyzer({
     for (const g of def.groups) {
       dist[g.key] = groupProbs(`${cat}.${g.key}`, vec, index[cat].groups[g.key], regionVecs);
       const pd = partner?.dists[g.key];
-      if (pd && pd.length === dist[g.key].length) dist[g.key] = dist[g.key].map((x, i) => (x + pd[i]) / 2);
+      if (pd && pd.length === dist[g.key].length) dist[g.key] = dist[g.key].map((x, i) => (1 - PARTNER_W) * x + PARTNER_W * pd[i]);
     }
     fuseTone(def, dist);
     // 타투 '도안' 아래 세부 모티브 (장미 · 늑대 …): 도안 확률을 부모 확률로 쓴다

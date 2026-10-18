@@ -221,7 +221,7 @@ const loadHeads = (modelId) => loadJson(`./heads/${modelId.split('/').pop()}.jso
 // 타투 세부 모티브(장미 · 늑대 …) 문장 임베딩 · 학습 정보
 const loadMotifs = (modelId) => loadJson(`./embeddings/motifs-${modelId.split('/').pop()}.json`, '타투 모티브');
 
-// 정밀 모드는 정밀 모델과 기본 모델의 확률을 평균한다 (교차 검증 +2%p). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
+// 정밀 모드는 정밀 모델과 기본 모델의 확률을 섞는다 (정밀 0.75 : 기본 0.25, analyzer.js PARTNER_W). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
 let partner = null;
 let fellBack = false;   // WebGPU 로드가 실패해 WASM 으로 내려온 적이 있으면 true
 async function makeBase(rt) {
