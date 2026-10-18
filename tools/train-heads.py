@@ -201,6 +201,8 @@ def main():
     ap.add_argument("--min-samples", type=int, default=15)
     ap.add_argument("--commercial", action="store_true",
                     help="상업 이용과 개작이 모두 허용된 라이선스(CC0 · 퍼블릭 도메인 · BY · BY-SA)의 사진만 학습에 쓴다")
+    ap.add_argument("--allow-nc-nd", action="store_true",
+                    help="--commercial 이어도 비영리(NC) · 개작 금지(ND) 라이선스 사진을 학습에 넣는다 (비상업 단계용. 상업 출시 전에는 이 옵션 없이 다시 학습)")
     ap.add_argument("--include-user-provided", action="store_true",
                     help="--commercial 이어도 사용자가 올린 사진(license=user-provided, 권리 미확인)을 학습에 넣는다")
     ap.add_argument("--user-weight", type=float, default=1.0,
@@ -214,7 +216,7 @@ def main():
     if args.commercial:
         # ND(개작 금지) · NC(비영리) 는 뺀다. 라이선스 정보가 없는 사진도 뺀다.
         # 사용자가 올린 사진(user-provided)은 권리를 확인하기 전까지 기본으로 뺀다
-        free = lambda l: (bool(l) and l != "?" and l != "user-provided" and not re.search(r"(^|[-\s])(nd|nc)([-\s]|$)", l.lower())) \
+        free = lambda l: (bool(l) and l != "?" and l != "user-provided" and (args.allow_nc_nd or not re.search(r"(^|[-\s])(nd|nc)([-\s]|$)", l.lower()))) \
             or (l == "user-provided" and args.include_user_provided)
         n0 = len(tl); tl = [r for r in tl if free(r.get("license"))]
         print(f"commercial filter: keep {len(tl)} of {n0}", file=sys.stderr)
