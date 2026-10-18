@@ -16,10 +16,11 @@ import { assetFetch } from './assets.js';
 import { quipFor, manyMessage, subjectNote, WORKING } from './quips.js';
 
 // ---- 설정 -------------------------------------------------------------------
-// 기본 분석 모델 후보 — 검수된 평가 세트(사진 210장)로 6개 모델을 비교해 골랐다 (README 참고)
+// 분석 모델 — 기기마다 하나만 쓴다. 평가 세트 v3(1,349개 속성)에서 가장 정확한 SigLIP-L/384 를 쓰고,
+// 메모리가 작은 휴대폰(LOW_MEM)은 같은 방식으로 학습한 가벼운 FashionSigLIP 을 쓴다 (정밀 모델은 휴대폰 메모리를 넘을 수 있다)
 const MODELS = {
-  base:  { id: 'Marqo/marqo-fashionSigLIP',      label: '기본 · FashionSigLIP' },
-  large: { id: 'Xenova/siglip-large-patch16-384', label: '정밀 · SigLIP-L/384' },
+  base:  { id: 'Marqo/marqo-fashionSigLIP',      label: 'FashionSigLIP (휴대폰용)' },
+  large: { id: 'Xenova/siglip-large-patch16-384', label: 'SigLIP-L/384' },
 };
 // [모델][런타임] → { dtype, MB }  (라벨 문장 임베딩은 미리 계산해 두었으므로 비전 모델만 내려받는다)
 const RUNTIME = {
@@ -30,7 +31,7 @@ const RUNTIME = {
 // URL 로 시작 모델 지정 가능: ?model=base (발표 PC 사정에 맞춰 빠르게 전환)
 const params = new URLSearchParams(location.search);
 if (params.get('designer') === '1') { try { localStorage.setItem('finde-designer', '1'); } catch {} }
-let modelKey = MODELS[params.get('model')] ? params.get('model') : 'base';
+let modelKey = MODELS[params.get('model')] ? params.get('model') : LOW_MEM ? 'base' : 'large';
 env.allowLocalModels = false;
 // 휴대폰: 추론 뒤 작업 메모리를 돌려주고(아레나 끔), 사진을 조금 작게 다루고, 미리 분석 · 얼굴 모델 선로드를 하지 않는다 (탭이 메모리 초과로 새로 고쳐지는 일을 막기 위해)
 let SESSION_OPTS = LOW_MEM ? { enableCpuMemArena: false, enableMemPattern: false } : undefined;
@@ -221,29 +222,12 @@ const loadHeads = (modelId) => loadJson(`./heads/${modelId.split('/').pop()}.jso
 // 타투 세부 모티브(장미 · 늑대 …) 문장 임베딩 · 학습 정보
 const loadMotifs = (modelId) => loadJson(`./embeddings/motifs-${modelId.split('/').pop()}.json`, '타투 모티브');
 
-// 정밀 모드는 정밀 모델과 기본 모델의 확률을 섞는다 (정밀 0.75 : 기본 0.25, analyzer.js PARTNER_W). 기본 모델은 짝(partner)으로 메모리에 남겨 둔다
-let partner = null;
-let fellBack = false;   // WebGPU 로드가 실패해 WASM 으로 내려온 적이 있으면 true
-async function makeBase(rt) {
-  const m = MODELS.base;
-  return createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, sessionOptions: SESSION_OPTS, onProgress: makeProgress(m.label) });
-}
-
+// 두 모델을 함께 쓰지 않는다 (기기마다 모델 하나 · analyzer.js 의 partner 섞기는 쓰지 않음)
+let fallbackTo = null;   // 정밀 모델 로드 실패 → 가벼운 모델로 다시 (loadAnalyzer 가 끝난 뒤)
 async function loadAnalyzer(key) {
   if (analyzerLoading) return analyzerLoading;
   const prev = analyzer; analyzer = null; updateRunButton();
   const m = MODELS[key];
-  // 정밀 → 기본: 짝으로 남겨 둔 기본 모델을 그대로 쓴다
-  if (key === 'base' && partner) {
-    analyzer = partner; partner = null;
-    await prev?.dispose?.();
-    els.clipName.textContent = `${m.id}`;
-    els.modelNote.textContent = `${m.label} · 처음 한 번만 내려받고 브라우저에 캐시됩니다`;
-    setStatus('준비 완료 · 사진을 올려 보세요', 100, 'ready', `${m.label}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
-    updateRunButton();
-    if (currentBlob) setTimeout(run, 0);
-    return;
-  }
   let rt = runtimeFor(key);
   currentDevice = rt.device;
   guardStart('load', { device: rt.device });   // 모델을 받다가 화면이 새로 열리면 다음엔 안전 모드로
@@ -257,23 +241,11 @@ async function loadAnalyzer(key) {
         if (rt.device !== 'webgpu') throw e;
         console.warn('WebGPU 로드 실패 → WASM 으로 재시도', e);
         rt = { device: 'wasm', ...RUNTIME[key].wasm }; currentDevice = 'wasm';
-        fellBack = true;   // 이후 짝 모델도 WASM 으로 (작업 스레드 설정은 첫 세션 전에만 바꿀 수 있어 그대로 둔다)
         els.clipName.textContent = `${m.id} (${rt.device}/${rt.dtype})`;
         analyzer = await createAnalyzer({ model: m.id, device: rt.device, dtype: rt.dtype, labelEmbeddings: await loadEmbeddings(m.id), heads: await loadHeads(m.id), motifs: await loadMotifs(m.id), regions: styleRegions, sessionOptions: SESSION_OPTS, onProgress: makeProgress(m.label) });
       }
-      if (key === 'large') {
-        // 기본 모델을 이미 쓰고 있었으면 짝으로 남기고, 아니면 이어서 불러온다
-        if (prev?.model === MODELS.base.id) partner = prev;
-        else {
-          await prev?.dispose?.();
-          // 두 모델이 다 준비될 때까지는 분석하지 않는다 (먼저 누르면 정밀 모델 혼자 판단하게 되므로)
-          const main = analyzer; analyzer = null; updateRunButton();
-          setStatus('정밀 모델을 받았어요 · 함께 쓸 기본 모델을 불러오는 중…', 95, 'loading');
-          try { partner = await makeBase(fellBack ? { device: 'wasm', ...RUNTIME.base.wasm } : runtimeFor('base')); } catch (e) { console.warn('기본 모델(짝) 로드 실패 → 정밀 모델만 씁니다', e); partner = null; }
-          analyzer = main;
-        }
-      } else await prev?.dispose?.();
-      setStatus(`준비 완료 · 사진을 올려 보세요${key === 'large' ? ' (정밀 모드)' : ''}`, 100, 'ready', `${m.label}${key === 'large' && partner ? ' + 기본 모델 함께' : ''} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
+      await prev?.dispose?.();
+      setStatus('준비 완료 · 사진을 올려 보세요', 100, 'ready', `${m.label} · ${rt.device === 'webgpu' ? 'WebGPU' : 'WASM'}${analyzer.trainedHeads ? ` · 학습 헤드 ${analyzer.trainedHeads}개` : ''}`);
       if (currentBlob) setTimeout(run, 0); // 모델이 준비되기 전에 올려 둔 사진 (또는 모델을 바꾼 경우) 바로 분석
       // 스타일 모델이 준비된 뒤 한가할 때 얼굴 분석 모델(약 20MB)도 미리 받아 둔다 → '내 얼굴 분석'이 바로 열린다
       if (!LOW_MEM) (window.requestIdleCallback || ((f) => setTimeout(f, 2500)))(() => { warmUp().finally(() => faceUI.preload?.()); });   // 휴대폰은 필요할 때 받는다
@@ -286,6 +258,10 @@ async function loadAnalyzer(key) {
         els.model.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.model === modelKey));
         setStatus(`${m.label}을 불러오지 못해 쓰던 모델을 그대로 써요 (${e.message})`, 100, 'ready');
         if (currentBlob && !lastResult) setTimeout(run, 0);
+      } else if (key === 'large' && !/backend|wasm|webgpu/i.test(String(e?.message))) {
+        // 정밀 모델을 못 받았거나 메모리가 모자라면 가벼운 모델로 (모델 하나만 쓰는 것은 같다)
+        modelKey = 'base'; fallbackTo = 'base';
+        setStatus('이 기기에서는 가벼운 분석 모델로 바꿔 불러오는 중…', 5, 'loading');
       } else if (await recoverBackend(e)) {
         return;   // 다른 설정으로 화면을 새로 연다
       } else {
@@ -298,6 +274,7 @@ async function loadAnalyzer(key) {
     } finally {
       analyzerLoading = null; guardEnd('load');
       updateRunButton();
+      if (fallbackTo) { const k = fallbackTo; fallbackTo = null; setTimeout(() => loadAnalyzer(k).catch(() => {}), 0); }
     }
   })();
   return analyzerLoading;
@@ -477,7 +454,7 @@ async function run() {
   els.run.disabled = true;
   els.run.textContent = '분석 중…';
   els.resultCard.classList.add('busy');
-  els.analyzingSub.textContent = modelKey === 'large' ? '정밀 모드는 메이크업 사진에서 20~25초 걸릴 수 있어요' : '보통 몇 초면 끝나요';
+  els.analyzingSub.textContent = modelKey === 'large' ? '메이크업 사진은 부위를 잘라 보느라 10~20초 걸릴 수 있어요' : '보통 몇 초면 끝나요';
   els.analyzing.classList.remove('hidden');
   // 분석 중 문구를 돌려 가며 (기다리는 동안 무엇을 보는지)
   let wi = Math.floor(Math.random() * WORKING.length); const wb = els.analyzing.querySelector('b'); wb.textContent = '분석 중입니다…';
@@ -498,7 +475,7 @@ async function run() {
     const hit = key && sampleCache.get(key);
     if (!hit && SAFE_LEVEL < 1) try { subjects = await detectSubjects(blob); } catch (e) { console.warn('[app] 대상 세기 실패 → 그대로 분석', e); }   // 안전 모드: 대상 세기(부위 인식 모델)도 건너뛴다
     if (subjects && subjects.n >= 2) { showManySubjects(subjects); return; }
-    const result = hit ? structuredClone(hit) : await analyzer.analyze(blob, { category: currentCategory, partner: modelKey === 'large' ? partner : null });
+    const result = hit ? structuredClone(hit) : await analyzer.analyze(blob, { category: currentCategory });
     if (key && !hit) rememberSample(key, result);
     result.run_id = seq;
     result.blob = blob;
@@ -589,7 +566,7 @@ const PET_LINES = ['커플 산책룩의 완성은 헤어 맞춤이죠.', '같은
 async function renderPet(r) {
   const seq = r.run_id;
   let hr = r;
-  if (r.category !== 'hair') { try { hr = await analyzer.analyze(r.blob || currentBlob, { category: 'hair', partner: modelKey === 'large' ? partner : null }); } catch { return; } }
+  if (r.category !== 'hair') { try { hr = await analyzer.analyze(r.blob || currentBlob, { category: 'hair' }); } catch { return; } }
   if (lastResult?.run_id !== seq) return;
   const A = (g) => hr.attributes.find((a) => a.group === g && a.score >= 0.3);
   const len = A('length'), perm = A('perm'), color = A('color');
@@ -1207,7 +1184,7 @@ async function analyzeStyle(blob, purpose) {
   let subjects = null;
   try { subjects = await detectSubjects(blob); } catch {}
   if (subjects && subjects.n >= 2) return { many: true };
-  const opts = { partner: modelKey === 'large' ? partner : null };
+  const opts = {};
   const r = await analyzer.analyze(blob, { category: 'auto', ...opts });
   if (r.category === purpose || !r.is_beauty) return r;
   const alt = r.category_ranking.find((c) => c.key === purpose);

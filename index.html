@@ -87,9 +87,10 @@
         <details class="settings">
           <summary>분석 설정</summary>
         <h3>분석 모델</h3>
-        <div class="seg" id="model">
-          <button data-model="base" class="active">기본 · FashionSigLIP</button>
-          <button data-model="large">정밀 · SigLIP-L/384</button>
+        <!-- 모델은 기기마다 하나만 쓴다 (PC: SigLIP-L/384 · 휴대폰: FashionSigLIP). 고르는 버튼은 숨겨 둔다 -->
+        <div class="seg hidden" id="model">
+          <button data-model="base">FashionSigLIP</button>
+          <button data-model="large" class="active">SigLIP-L/384</button>
         </div>
         <p class="note" id="modelNote"></p>
 
