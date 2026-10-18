@@ -187,27 +187,6 @@
 {"img": "tattoo_style_be346906.jpg", "category": "tattoo", "labels": {"style": ["도트워크", "지오메트릭"], "subject": ["만다라·기하학"]}, "set": "v1"}
 {"img": "tattoo_style_a8d3585c.jpg", "category": "tattoo", "labels": {"style": ["도트워크", "지오메트릭"], "subject": ["만다라·기하학", "달·별·자연"], "color": ["블랙"], "size": ["미디엄", "대형"]}, "set": "v1"}
 {"img": "tattoo_style_0e1497be.jpg", "category": "tattoo", "labels": {"style": ["레터링"], "subject": ["문구·이니셜"], "placement": ["팔안쪽", "팔뚝"], "color": ["블랙"], "size": ["스몰"]}, "set": "v1"}
-{"img": "hair-01.jpg", "category": "hair", "labels": {"cut": ["태슬컷", "칼단발"], "perm": ["생머리"], "bangs": ["확인 불가"], "color": ["초코브라운"], "colorTech": ["전체 염색"], "styling": ["풀어내린 머리"]}, "set": "v1"}
-{"img": "hair-02.jpg", "category": "hair", "labels": {"cut": ["픽시컷"], "bangs": ["사이드뱅"], "color": ["비비드 레드", "레드와인"], "styling": ["풀어내린 머리"]}, "set": "v1"}
-{"img": "hair-03.jpg", "category": "hair", "labels": {"perm": ["히피펌", "내추럴 곱슬"], "bangs": ["확인 불가"], "color": ["골드블론드", "골드브라운"], "styling": ["풀어내린 머리"]}, "set": "v1"}
-{"img": "hair-04.jpg", "category": "hair", "labels": {"perm": ["생머리"], "bangs": ["앞머리 없음"], "color": ["초코브라운"], "colorTech": ["옴브레"], "styling": ["풀어내린 머리"]}, "set": "v1"}
-{"img": "hair-05.jpg", "category": "hair", "labels": {"color": ["골드블론드"]}, "set": "v1"}
-{"img": "hair-06.jpg", "category": "hair", "labels": {"cut": ["픽시컷"], "bangs": ["사이드뱅"], "color": ["초코브라운", "흑발"], "colorTech": ["전체 염색"], "styling": ["풀어내린 머리"]}, "set": "v1"}
-{"img": "nail-01.jpg", "category": "nail", "labels": {"part": ["핸드"], "color": ["라벤더·퍼플"], "design": ["원컬러", "드로잉"], "layout": ["원포인트"]}, "set": "v1"}
-{"img": "nail-02.jpg", "category": "nail", "labels": {"part": ["핸드"], "color": ["누드·베이지", "화이트"], "design": ["프렌치", "글리터"], "layout": ["원포인트"]}, "set": "v1"}
-{"img": "nail-03.jpg", "category": "nail", "labels": {"part": ["핸드"], "color": ["블랙", "라벤더·퍼플"], "design": ["드로잉"], "layout": ["동일디자인"]}, "set": "v1"}
-{"img": "nail-04.jpg", "category": "nail", "labels": {"part": ["핸드"], "color": ["레드", "하늘색"], "design": ["드로잉", "마블", "스트라이프"], "layout": ["오마카세"], "mood": ["겨울·홀리데이"]}, "set": "v1"}
-{"img": "nail-05.jpg", "category": "nail", "labels": {"part": ["핸드"], "color": ["레드"], "design": ["원컬러"], "layout": ["동일디자인"]}, "set": "v1"}
-{"img": "nail-06.jpg", "category": "nail", "labels": {"part": ["핸드"], "color": ["누드·베이지", "네이비·블루"], "design": ["프렌치", "플라워", "드로잉"], "layout": ["동일디자인"]}, "set": "v1"}
-{"img": "makeup-01.jpg", "category": "makeup", "labels": {"mood": ["웨딩", "글램"], "eye": ["글리터·펄", "음영 섀도"], "eyeLine": ["캣아이라인"], "lash": ["인형 속눈썹"], "brow": ["아치 눈썹"], "lip": ["레드"], "detail": ["큐빅·파츠"]}, "set": "v1"}
-{"img": "makeup-02.jpg", "category": "makeup", "labels": {"mood": ["글램"], "eye": ["핑크·코랄 섀도", "글리터·펄"], "eyeLine": ["캣아이라인"], "lash": ["인형 속눈썹"], "brow": ["아치 눈썹"], "lip": ["MLBB"]}, "set": "v1"}
-{"img": "makeup-03.jpg", "category": "makeup", "labels": {"mood": ["웨딩"], "eye": ["스모키"], "eyeLine": ["언더라인", "스머지 라인"], "lip": ["레드", "버건디·플럼"]}, "set": "v1"}
-{"img": "makeup-04.jpg", "category": "makeup", "labels": {"eye": ["섀도 없음"], "lip": ["레드"]}, "set": "v1"}
-{"img": "tattoo-01.jpg", "category": "tattoo", "labels": {"color": ["풀컬러"], "subject": ["나비·새"], "placement": ["팔뚝", "어깨·위팔"], "size": ["긴팔"]}, "set": "v1"}
-{"img": "tattoo-02.jpg", "category": "tattoo", "labels": {"style": ["리얼리즘", "블랙앤그레이"], "color": ["블랙앤그레이"], "subject": ["동물"], "placement": ["어깨·위팔"], "size": ["반팔"]}, "set": "v1"}
-{"img": "tattoo-03.jpg", "category": "tattoo", "labels": {}, "set": "v1"}
-{"img": "tattoo-04.jpg", "category": "tattoo", "labels": {"style": ["블랙앤그레이", "리얼리즘"], "color": ["블랙앤그레이"], "subject": ["천사·종교", "문구·이니셜"], "placement": ["등"], "size": ["등판"]}, "set": "v1"}
-{"img": "tattoo-05.jpg", "category": "tattoo", "labels": {}, "set": "v1"}
 {"img": "f4bd36c68d46.jpg", "category": "makeup", "labels": {"lip": ["레드"]}, "set": "v2", "license": "by 2.0", "page": "https://www.flickr.com/photos/10054785@N04/5999598973", "creator": "Kryziz Bonny"}
 {"img": "299f81e4cafa.jpg", "category": "hair", "labels": {"perm": ["생머리"], "styling": ["풀어내린 머리"], "length": ["긴머리"]}, "set": "v2", "license": "CC BY-SA 2.0", "page": "https://commons.wikimedia.org/wiki/File:Cheek_and_Septum.jpg", "creator": null}
 {"img": "9fcca8af96c4.jpg", "category": "hair", "labels": {"bangs": ["앞머리 없음"], "styling": ["풀어내린 머리"]}, "set": "v2", "license": "by-sa 2.0", "page": "https://www.flickr.com/photos/11677434@N04/6086340945", "creator": "gagilas"}
