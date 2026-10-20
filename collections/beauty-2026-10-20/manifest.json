@@ -39556,5 +39556,152 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d3cc3090737d46d1",
+    "file": "헤어/버즈컷/d3cc3090737d46d1.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "버즈컷"
+      }
+    ],
+    "width": 1199,
+    "height": 800,
+    "bytes": 58016,
+    "sha256": "d3cc3090737d46d168aee272949ea36e5feea44088e99881225983ced1120742",
+    "dhash": "1c1c181909080c0a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "198012bf38a6bb99",
+    "file": "헤어/버즈컷/198012bf38a6bb99.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "버즈컷"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 166606,
+    "sha256": "198012bf38a6bb99e9d209d049fc21db03eb9cec0456833db63555ecb06bc0f4",
+    "dhash": "7a72fbd2d29a9c86",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "48bea0d7f3310780",
+    "file": "타투/날짜 · 숫자/48bea0d7f3310780.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "문구·이니셜",
+        "label": "날짜 · 숫자"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 422048,
+    "sha256": "48bea0d7f3310780d105e671be0c5b202993114422c59f2ba9b4a5b7e640c128",
+    "dhash": "6c1c04c0e078be9f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2456577155ce690d",
+    "file": "타투/날짜 · 숫자/2456577155ce690d.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "문구·이니셜",
+        "label": "날짜 · 숫자"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 560247,
+    "sha256": "2456577155ce690d291eaabf1c290f3ed82d97a3310888b164674380b8ceff61",
+    "dhash": "2727131119181819",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ea090689c4a63294",
+    "file": "메이크업/립라인 강조/ea090689c4a63294.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "립라인 강조"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 150600,
+    "sha256": "ea090689c4a6329462f460b381caacdcfbb2e1f5f2486a6dd768c002e8094acc",
+    "dhash": "4f0e227333531f9d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5337379c8373ee70",
+    "file": "메이크업/그래픽 라인/5337379c8373ee70.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "그래픽 라인"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 310460,
+    "sha256": "5337379c8373ee70e28b5e66f9722943dd62d6ee7150ba467f57ae2f7bc751f8",
+    "dhash": "99d9a4e2ec70f1e8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "882780419be02007",
+    "file": "네일/브라운·모카/882780419be02007.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "브라운·모카"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 489698,
+    "sha256": "882780419be02007d459cbc2fada984b653021545cdc59edbc1a5f0324940183",
+    "dhash": "cfc3d1e97cecb430",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
