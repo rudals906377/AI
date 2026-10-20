@@ -38779,5 +38779,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e20dc14e939f7b0f",
+    "file": "헤어/S컬펌/e20dc14e939f7b0f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1170,
+    "height": 1557,
+    "bytes": 223206,
+    "sha256": "e20dc14e939f7b0febb92654856ee5dcf98e86a5de3d3ff43c3e2d1a1ae4c46f",
+    "dhash": "8dd830b39196de98",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cd8753913ac503ad",
+    "file": "네일/크롬/cd8753913ac503ad.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 73220,
+    "sha256": "cd8753913ac503ad714678b86f2f133ae5b7b95575386906cb16994f9f467e9b",
+    "dhash": "66e4ccdc370d8dc7",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
