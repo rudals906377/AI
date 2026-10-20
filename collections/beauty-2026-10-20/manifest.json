@@ -19753,5 +19753,320 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "75cecdb8099a304a",
+    "file": "헤어/스페이스번/75cecdb8099a304a.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "스페이스번"
+      }
+    ],
+    "width": 1080,
+    "height": 1349,
+    "bytes": 317150,
+    "sha256": "75cecdb8099a304a9a2666c073d78a74ce2b306b24d63524a08ffb792c4eb2fe",
+    "dhash": "6849796ae6e58da8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "86ef0e9933a4b77a",
+    "file": "헤어/슬릭번/86ef0e9933a4b77a.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 110044,
+    "sha256": "86ef0e9933a4b77aefdbc62e8f46b01247c566c2f80166825b2a42213e60cc9b",
+    "dhash": "d2e3cbcfcbc9cdcf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2db0e01303c87615",
+    "file": "헤어/똥머리/2db0e01303c87615.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "똥머리"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 225170,
+    "sha256": "2db0e01303c87615bf00af42404c0dcb564bf05561b657f91a9e40503270dc5f",
+    "dhash": "ff3b9e99b3d3d8fe",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "38fccae1e6d1393b",
+    "file": "네일/그레이/38fccae1e6d1393b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "그레이"
+      }
+    ],
+    "width": 2206,
+    "height": 2911,
+    "bytes": 285991,
+    "sha256": "38fccae1e6d1393bd182c66131680d5412bd589d47417839a2f7e2aa70dbc95b",
+    "dhash": "fe7c73e7cb4f4d7a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "70a7126d5f7213f9",
+    "file": "네일/캐릭터/70a7126d5f7213f9.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "캐릭터"
+      }
+    ],
+    "width": 1734,
+    "height": 2312,
+    "bytes": 161415,
+    "sha256": "70a7126d5f7213f9e2a04ac86dbf8332b14554670a5e63a4ff0e4a78631f752c",
+    "dhash": "49a9a985e404302c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5c1f8472d6027498",
+    "file": "메이크업/블랙/5c1f8472d6027498.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "블랙"
+      }
+    ],
+    "width": 1069,
+    "height": 1400,
+    "bytes": 1636269,
+    "sha256": "5c1f8472d6027498d24d015e47a28f57485c329ac6e7d8643400a883b212fc00",
+    "dhash": "373f6ff7d3f3e7e3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "17910bbf5cbe3350",
+    "file": "메이크업/오렌지/17910bbf5cbe3350.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "오렌지"
+      }
+    ],
+    "width": 1069,
+    "height": 1400,
+    "bytes": 1422603,
+    "sha256": "17910bbf5cbe335071a70410d27cf9ebcb92157f583d4112cf73a8d486046565",
+    "dhash": "3880e0b1e6e699e3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a5b613bbc13d2d4a",
+    "file": "메이크업/매트/a5b613bbc13d2d4a.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1069,
+    "height": 1400,
+    "bytes": 1665734,
+    "sha256": "a5b613bbc13d2d4aca6ef0cae077f06ea2dc3163f12b2dbab63dd0e5f571ef6b",
+    "dhash": "2a30636970707147",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e1865a55ead25aa0",
+    "file": "메이크업/눈앞머리 하이라이트/e1865a55ead25aa0.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1607,
+    "height": 2112,
+    "bytes": 134750,
+    "sha256": "e1865a55ead25aa0c6e4b2484a562036c7d9e1a601b7ff731e489ac5f497458d",
+    "dhash": "c8ca888899a88787",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9107dcef1555fe65",
+    "file": "메이크업/브라운/9107dcef1555fe65.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "브라운"
+      }
+    ],
+    "width": 1948,
+    "height": 2560,
+    "bytes": 292666,
+    "sha256": "9107dcef1555fe65a6fca6854e2a738aaa22956944ec4fabfd99f2a07e78220d",
+    "dhash": "d94387262606060c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "62b728a4c9c05887",
+    "file": "타투/눈/62b728a4c9c05887.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "눈"
+      }
+    ],
+    "width": 1280,
+    "height": 1600,
+    "bytes": 193727,
+    "sha256": "62b728a4c9c05887d67e9bf84a0c66f293d5afc863385738217082c2aedce814",
+    "dhash": "74366eb79b8b87d4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "911b8f661568469d",
+    "file": "타투/눈/911b8f661568469d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "눈"
+      }
+    ],
+    "width": 900,
+    "height": 1600,
+    "bytes": 125082,
+    "sha256": "911b8f661568469d366f415ed54c7965a04a227cb6fc6438658de82085e97721",
+    "dhash": "a4a0c88c8c8da8c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "353caef822e27749",
+    "file": "타투/바이오메카닉/353caef822e27749.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "바이오메카닉"
+      }
+    ],
+    "width": 1067,
+    "height": 1600,
+    "bytes": 121233,
+    "sha256": "353caef822e27749243e0135023e0da42c96848e27df92e8782e20760c4040c9",
+    "dhash": "98f8780e86eef1f8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cdfb0380c9f19dfa",
+    "file": "타투/블랙앤그레이/cdfb0380c9f19dfa.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "블랙앤그레이"
+      }
+    ],
+    "width": 1280,
+    "height": 1600,
+    "bytes": 162038,
+    "sha256": "cdfb0380c9f19dfa71edea3256e9d6821796b993ddeeb049db57d16fd7113547",
+    "dhash": "f2f4efcecedc686f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f42f13f8315df1c0",
+    "file": "타투/초현실 얼굴/f42f13f8315df1c0.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "초현실 얼굴"
+      }
+    ],
+    "width": 1281,
+    "height": 1600,
+    "bytes": 219180,
+    "sha256": "f42f13f8315df1c09ebefdccf914eb5c56a56b462baa0237ceacb4e2a6896bd5",
+    "dhash": "7179f1f0f06478f8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
