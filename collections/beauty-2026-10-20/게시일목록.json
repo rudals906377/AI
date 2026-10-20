@@ -10278,6 +10278,24 @@
       "sha256": "c03dd763e04bc2f2212b6c3a143b26511f62e41cb17af934202b34a6670ca7e2",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "bed3e06ca48e6c9d",
+      "sha256": "bed3e06ca48e6c9db1d0130cf96dd861ad494977d080f92a78d386980908a91d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "f43f522d97228d00",
+      "sha256": "f43f522d97228d00798b132561d2b1f7134112aad11cdb381b40d7240b57a718",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1d7c8b69523e1377",
+      "sha256": "1d7c8b69523e137720c0a68580c9ed5d6fa92b84faa05d584918d7dbfd9fe31e",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }

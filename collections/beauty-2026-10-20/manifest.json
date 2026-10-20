@@ -36091,5 +36091,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bed3e06ca48e6c9d",
+    "file": "타투/자물쇠/bed3e06ca48e6c9d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "시계·열쇠",
+        "label": "자물쇠"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 225254,
+    "sha256": "bed3e06ca48e6c9db1d0130cf96dd861ad494977d080f92a78d386980908a91d",
+    "dhash": "3362e6cccc8898f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f43f522d97228d00",
+    "file": "타투/거북/f43f522d97228d00.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거북"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 711903,
+    "sha256": "f43f522d97228d00798b132561d2b1f7134112aad11cdb381b40d7240b57a718",
+    "dhash": "3939392b238ac0e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1d7c8b69523e1377",
+    "file": "네일/펄·쉬머/1d7c8b69523e1377.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "펄·쉬머"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 122070,
+    "sha256": "1d7c8b69523e137720c0a68580c9ed5d6fa92b84faa05d584918d7dbfd9fe31e",
+    "dhash": "b3b7a66c4d5b7604",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
