@@ -41215,5 +41215,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6080225fd7d1f0f0",
+    "file": "메이크업/오렌지·테라코타 섀도/6080225fd7d1f0f0.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "오렌지·테라코타 섀도"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 151354,
+    "sha256": "6080225fd7d1f0f0b550b2902393d0f550361b2fc4787b3a3321ffd78bba457b",
+    "dhash": "8f84262313331386",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

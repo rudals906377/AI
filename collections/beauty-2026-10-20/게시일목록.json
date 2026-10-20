@@ -11742,6 +11742,12 @@
       "sha256": "4763f12072e660120f9f1cf97cab50773228edadd3df86ce0c16952ebc34bd45",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "6080225fd7d1f0f0",
+      "sha256": "6080225fd7d1f0f0b550b2902393d0f550361b2fc4787b3a3321ffd78bba457b",
+      "publishedDate": "2026-03-01",
+      "dateEvidence": "기사 머리말 2026.03.01 관찰; 한국 제작 뷰티 화보의 에르메스 개별 Beauty Note 확인"
     }
   ]
 }
