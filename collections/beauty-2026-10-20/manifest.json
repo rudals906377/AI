@@ -26788,5 +26788,299 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ab385fd2b46dd4c1",
+    "file": "헤어/애교머리/ab385fd2b46dd4c1.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "애교머리"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 173872,
+    "sha256": "ab385fd2b46dd4c1931626bf38a0a673967047621ad47ca527f8040bebaf7fe3",
+    "dhash": "7b671f9e1f9fccf0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8adc12bf9d147fc4",
+    "file": "헤어/애교머리/8adc12bf9d147fc4.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "애교머리"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 195425,
+    "sha256": "8adc12bf9d147fc427013b8bf04a2f3932ad18908a1a66e2e5086c11b5b839bb",
+    "dhash": "0786070687878ecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3fd9e68992ff5e74",
+    "file": "헤어/애교머리/3fd9e68992ff5e74.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "애교머리"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 349529,
+    "sha256": "3fd9e68992ff5e7495d7380f8dd46bab3f4cf721a58f665081cf3334dc75c231",
+    "dhash": "72622303b3a686ac",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5ef2aacc7752f1bf",
+    "file": "네일/겨울·홀리데이/5ef2aacc7752f1bf.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "겨울·홀리데이"
+      }
+    ],
+    "width": 1440,
+    "height": 1471,
+    "bytes": 223043,
+    "sha256": "5ef2aacc7752f1bf18b7eb18d04b4b11819ca7deccd49b2acb9173de82e07e1b",
+    "dhash": "beff8f8f0fe7c7ab",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e4caaf7098f71ccc",
+    "file": "네일/겨울·홀리데이/e4caaf7098f71ccc.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "겨울·홀리데이"
+      }
+    ],
+    "width": 1440,
+    "height": 1916,
+    "bytes": 431539,
+    "sha256": "e4caaf7098f71ccca8aa423218026b39d37b66c57da3b673321ec4475d278807",
+    "dhash": "c8e273918552438d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "05e2c9ab797913bc",
+    "file": "네일/겨울·홀리데이/05e2c9ab797913bc.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "겨울·홀리데이"
+      }
+    ],
+    "width": 1440,
+    "height": 900,
+    "bytes": 251393,
+    "sha256": "05e2c9ab797913bc91134c46c3088fc5a60ae560f67bcc58a7ec849d9d3ec8b0",
+    "dhash": "23349c088aa55554",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b97eaa46f9bff3d1",
+    "file": "네일/겨울·홀리데이/b97eaa46f9bff3d1.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "겨울·홀리데이"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 110053,
+    "sha256": "b97eaa46f9bff3d129493657bc9b13dfd96f1d01b1c2d1cdfd3294d8c12954b6",
+    "dhash": "dfff378b9f3b1f1e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "73963acbb2dc2c9f",
+    "file": "메이크업/볼드 눈썹/73963acbb2dc2c9f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "볼드 눈썹"
+      }
+    ],
+    "width": 537,
+    "height": 700,
+    "bytes": 258179,
+    "sha256": "73963acbb2dc2c9ff2d195968e8a7c206e03d0d1b1579870c0ae840f1e91950b",
+    "dhash": "81cf5a3b353d1d8b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7d3fbaa4b940e7c2",
+    "file": "메이크업/골드·브론즈 섀도/7d3fbaa4b940e7c2.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "골드·브론즈 섀도"
+      }
+    ],
+    "width": 537,
+    "height": 700,
+    "bytes": 247689,
+    "sha256": "7d3fbaa4b940e7c220ad04e7d33d5fae2a0d953371c764fea9c0780ef7973b8a",
+    "dhash": "f870797351f1192f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7b2e6e3a4bc156e1",
+    "file": "메이크업/하이라이터/7b2e6e3a4bc156e1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "하이라이터"
+      }
+    ],
+    "width": 537,
+    "height": 700,
+    "bytes": 237823,
+    "sha256": "7b2e6e3a4bc156e171ee02381856d978d901fc7565376ba65ee2aac6e633246b",
+    "dhash": "e66c6c1b39119d8b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2ddcb47eb90b8d70",
+    "file": "메이크업/매트/2ddcb47eb90b8d70.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 537,
+    "height": 700,
+    "bytes": 215201,
+    "sha256": "2ddcb47eb90b8d704abec211065739b185dd67eab196ac7409addea820f01654",
+    "dhash": "8c061e9e1b333b9b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9d90856d1181b5f4",
+    "file": "타투/풍신 · 뇌신/9d90856d1181b5f4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "풍신 · 뇌신"
+      }
+    ],
+    "width": 1440,
+    "height": 1918,
+    "bytes": 736834,
+    "sha256": "9d90856d1181b5f4296cf825ed0b817b0c3fe485a46efac6ccbe4873f2621e4a",
+    "dhash": "f0f872646663eaf8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e7b5b6794a410bfc",
+    "file": "타투/풍신 · 뇌신/e7b5b6794a410bfc.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "풍신 · 뇌신"
+      }
+    ],
+    "width": 3274,
+    "height": 4096,
+    "bytes": 1935295,
+    "sha256": "e7b5b6794a410bfc2733ef5dd82f17eb6647046b22c8c34f8184f50b8d2820a2",
+    "dhash": "8f87873737271f9b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7aa172b57c5c73a9",
+    "file": "타투/치카노/7aa172b57c5c73a9.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "치카노"
+      }
+    ],
+    "width": 2448,
+    "height": 3152,
+    "bytes": 1033834,
+    "sha256": "7aa172b57c5c73a97227b15660dfd01d6ec3f89653f5161a76b1619cb49a4248",
+    "dhash": "d0829ba0b130a8f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
