@@ -40396,5 +40396,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cbad83549c4201f7",
+    "file": "헤어/골드블론드/cbad83549c4201f7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "골드블론드"
+      }
+    ],
+    "width": 1022,
+    "height": 1362,
+    "bytes": 150334,
+    "sha256": "cbad83549c4201f73c68d13319d03324e12e1cfb1c69b2226d45988844ab7269",
+    "dhash": "3b0a8c993333775e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7955a440089d5e48",
+    "file": "메이크업/실버·그레이 섀도/7955a440089d5e48.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "실버·그레이 섀도"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 687918,
+    "sha256": "7955a440089d5e489ac11ca1e041ab511b3d2ab306aaa1974c410741e5ec90cd",
+    "dhash": "6363f0e4f2726c7c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f4c6c33cbf57d691",
+    "file": "메이크업/그래픽 라인/f4c6c33cbf57d691.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "그래픽 라인"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 504186,
+    "sha256": "f4c6c33cbf57d691a1ad8d07e7c1b5f50030ae589eed2d973db4e909e3fd81b5",
+    "dhash": "e3e3f3e742c3f3f6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
