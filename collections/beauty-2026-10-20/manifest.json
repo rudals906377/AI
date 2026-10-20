@@ -27922,5 +27922,278 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bbeaf28779832b6a",
+    "file": "헤어/포마드·슬릭백/bbeaf28779832b6a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "포마드·슬릭백"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 39804,
+    "sha256": "bbeaf28779832b6a8703fe781e2a2cbe2da41a0b8e15cc8551c3a48032f348e5",
+    "dhash": "1f2737371f0f4f75",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6de077befaa580d9",
+    "file": "헤어/포마드·슬릭백/6de077befaa580d9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "포마드·슬릭백"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 151776,
+    "sha256": "6de077befaa580d99452f8a71ee1b8fbcfa2c0e0eda91400454dede6a8461926",
+    "dhash": "9cb0f8b83d3d87cc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "95b1f0a3757795f3",
+    "file": "헤어/언더컷/95b1f0a3757795f3.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "언더컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 174779,
+    "sha256": "95b1f0a3757795f3f32c54e0c88c8fc7d3b1abf18a41552fc6cfe669fa5c2bec",
+    "dhash": "3c0c39786323138e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5beef5f00a608e4b",
+    "file": "헤어/포마드·슬릭백/5beef5f00a608e4b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "포마드·슬릭백"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 196470,
+    "sha256": "5beef5f00a608e4b4f5a1b3d468e4ed158fda45efdedfd0b8ed3d59197060052",
+    "dhash": "9cb99f373f1feecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "280bc81ee87450d8",
+    "file": "헤어/언더컷/280bc81ee87450d8.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "언더컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1595,
+    "bytes": 156825,
+    "sha256": "280bc81ee87450d840bb0ff705296bd1bdf6814bd3acc31d74e4522e5eb51bf0",
+    "dhash": "35257d3e9c103333",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b3d38f7b065e037f",
+    "file": "네일/쇠맛/b3d38f7b065e037f.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "쇠맛"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 1294165,
+    "sha256": "b3d38f7b065e037fe915d39c44cf071acd6900533dc208e521a1362c2a87472c",
+    "dhash": "4fa88e568cf9155e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "79d79de11c9a54a2",
+    "file": "네일/쇠맛/79d79de11c9a54a2.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "쇠맛"
+      }
+    ],
+    "width": 1440,
+    "height": 1655,
+    "bytes": 145978,
+    "sha256": "79d79de11c9a54a2cc4080330715bdaad5cfa05ac616c347e49fb004823583d5",
+    "dhash": "3b3d0f17264ece4c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "85f85dd585f19a8d",
+    "file": "네일/쇠맛/85f85dd585f19a8d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "쇠맛"
+      }
+    ],
+    "width": 1440,
+    "height": 1917,
+    "bytes": 651338,
+    "sha256": "85f85dd585f19a8da31a7c39461562965b0e50d9041635a74147637046cdae45",
+    "dhash": "f0652f96de6bc9dd",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf2aa90955fe5bcd",
+    "file": "메이크업/브러시업 눈썹/cf2aa90955fe5bcd.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "브러시업 눈썹"
+      }
+    ],
+    "width": 1706,
+    "height": 2560,
+    "bytes": 361778,
+    "sha256": "cf2aa90955fe5bcdeb6980e453612964610693784dcb3f511cd534a9699490bf",
+    "dhash": "4747072b69351f46",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "20dd5bf3f653012c",
+    "file": "타투/파스텔/20dd5bf3f653012c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "파스텔"
+      }
+    ],
+    "width": 1440,
+    "height": 1798,
+    "bytes": 560931,
+    "sha256": "20dd5bf3f653012ca14c4fe130774f908545b8194f6aae2e2cf2f2ddcb8cb9b3",
+    "dhash": "9dcfc1d8efb97071",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c68f4d36ef8aafdf",
+    "file": "타투/음식 · 음료/c68f4d36ef8aafdf.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "음식 · 음료"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 35114,
+    "sha256": "c68f4d36ef8aafdf09ae814c0931440587419b9ffb681e02757d80ad030f7acf",
+    "dhash": "1b00008484e47902",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6b7bd89db150ff30",
+    "file": "타투/고양이/6b7bd89db150ff30.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "고양이"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 259147,
+    "sha256": "6b7bd89db150ff30f8dfe663f79c852b45c407633ff33c7479e1a9b012ffdadc",
+    "dhash": "b09c8c2e2e2ce0a2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b75c028c886796e3",
+    "file": "타투/호랑이/b75c028c886796e3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "호랑이"
+      }
+    ],
+    "width": 1170,
+    "height": 1462,
+    "bytes": 306593,
+    "sha256": "b75c028c886796e3a5041dccfee56e4297c32de3df9c59d4c657f028241c35b9",
+    "dhash": "f01158140c0e0783",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
