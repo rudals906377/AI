@@ -11802,6 +11802,18 @@
       "sha256": "3189674ebafb79eb81d84319af76d6dfd1223e9f7c0690d9fe8c92bd42ebffff",
       "publishedDate": "2026-04-27",
       "dateEvidence": "한국어 네일 기사 게시일2026.04.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "720ac599f9ab07ea",
+      "sha256": "720ac599f9ab07ea9819c48c952182d5edc52beadca991905151fa9b9eb91f39",
+      "publishedDate": "2026-08-27",
+      "dateEvidence": "기사 머리말 2026년08월27일 및 2026년9월호 관찰; 한국 제작 디올 뷰티 화보의 파운데이션 피부 표현 설명 확인"
+    },
+    {
+      "id": "a24aa4a4e61a2f27",
+      "sha256": "a24aa4a4e61a2f27f9554daa0fe3ebec5403e91d9c3c52f0bd3b4c3adc7caa02",
+      "publishedDate": "2026-04-27",
+      "dateEvidence": "한국어 네일 기사 게시일2026.04.27 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }

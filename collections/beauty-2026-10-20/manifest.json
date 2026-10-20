@@ -41425,5 +41425,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "720ac599f9ab07ea",
+    "file": "메이크업/윤광/720ac599f9ab07ea.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "윤광"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 170196,
+    "sha256": "720ac599f9ab07ea9819c48c952182d5edc52beadca991905151fa9b9eb91f39",
+    "dhash": "991110213193ce82",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a24aa4a4e61a2f27",
+    "file": "네일/레이스/a24aa4a4e61a2f27.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "레이스"
+      }
+    ],
+    "width": 966,
+    "height": 1288,
+    "bytes": 116847,
+    "sha256": "a24aa4a4e61a2f27f9554daa0fe3ebec5403e91d9c3c52f0bd3b4c3adc7caa02",
+    "dhash": "e0c119191c0642e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
