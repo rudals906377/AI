@@ -11256,6 +11256,18 @@
       "sha256": "85326b30b9681abafb8965d4529746f36ba18b51090eb9c7cfab65029b44c32e",
       "publishedDate": "2026-04-24",
       "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.04.24 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b77ba403fac04df1",
+      "sha256": "b77ba403fac04df109fc9914a393f6ffcda445ba670b96591db011841978fc85",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "ed11598fe1e22d25",
+      "sha256": "ed11598fe1e22d25d73be1c9b8e5d34d295a62201130346e2c1a894c9b6b8aa8",
+      "publishedDate": "2026-04-06",
+      "dateEvidence": "기사 머리말 2026년 04월 06일과 하단 2026년4월호 관찰; 한국 뷰티 화보의 실제 시술 설명 확인"
     }
   ]
 }

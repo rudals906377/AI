@@ -39514,5 +39514,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b77ba403fac04df1",
+    "file": "타투/리본/b77ba403fac04df1.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "리본·체인",
+        "label": "리본"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 797368,
+    "sha256": "b77ba403fac04df109fc9914a393f6ffcda445ba670b96591db011841978fc85",
+    "dhash": "363636360e2c3834",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ed11598fe1e22d25",
+    "file": "메이크업/아트/ed11598fe1e22d25.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "아트"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 532542,
+    "sha256": "ed11598fe1e22d25d73be1c9b8e5d34d295a62201130346e2c1a894c9b6b8aa8",
+    "dhash": "2003204ccc6c0c41",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
