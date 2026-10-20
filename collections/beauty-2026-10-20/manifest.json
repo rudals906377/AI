@@ -37120,5 +37120,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "68aed0d3431d7063",
+    "file": "헤어/단발/68aed0d3431d7063.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 275074,
+    "sha256": "68aed0d3431d70639693728882b9440157ef9c59fba880d5ae786ef5b9b7c69c",
+    "dhash": "c6c6844348cdf0e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e056a2f38685813b",
+    "file": "메이크업/블러립/e056a2f38685813b.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "블러립"
+      }
+    ],
+    "width": 819,
+    "height": 1024,
+    "bytes": 84500,
+    "sha256": "e056a2f38685813bec9067cf7dc4a3a4d9012c04b968e95974655c51b5b0c16a",
+    "dhash": "617969737362661e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
