@@ -34495,5 +34495,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a849d08db758b7c5",
+    "file": "네일/펄·쉬머/a849d08db758b7c5.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "펄·쉬머"
+      }
+    ],
+    "width": 1121,
+    "height": 1400,
+    "bytes": 113768,
+    "sha256": "a849d08db758b7c5996fcefa70e52000234d20b5e7c0c95a119b902d0599b10b",
+    "dhash": "e0d0b1e3c3c5e7ff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
