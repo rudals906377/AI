@@ -41614,5 +41614,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f117417d5edd6b8",
+    "file": "헤어/브릿지/5f117417d5edd6b8.png",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "브릿지"
+      }
+    ],
+    "width": 1162,
+    "height": 1436,
+    "bytes": 3825976,
+    "sha256": "5f117417d5edd6b8b5fa68207bfae227be01881a4605d342c5439f8c56fd2252",
+    "dhash": "9e33e2ecfce7f93c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "060d50480b97b10d",
+    "file": "타투/파인라인/060d50480b97b10d.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "파인라인"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 529834,
+    "sha256": "060d50480b97b10d4d996fef92010953bee0d7901479a092f9d8c5dd79d819b7",
+    "dhash": "9818190b1c1907e7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8fda3057bc98081e",
+    "file": "타투/쇄골/8fda3057bc98081e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "쇄골"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 645397,
+    "sha256": "8fda3057bc98081ed3123b900d78cc122ccd0c8dd51a8c1dd72c5c0c3d34d740",
+    "dhash": "949081c37b371c4c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "70b6e832f753b08b",
+    "file": "메이크업/홍조 블러셔/70b6e832f753b08b.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1400,
+    "height": 1125,
+    "bytes": 180300,
+    "sha256": "70b6e832f753b08b818b7fb76284146c008bfad20959301e74dd38044ba741fc",
+    "dhash": "6bcbf3e0e8e87070",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
