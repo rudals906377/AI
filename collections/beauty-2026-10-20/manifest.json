@@ -38128,5 +38128,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "adb03a44dbfc203a",
+    "file": "헤어/댄디컷/adb03a44dbfc203a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "댄디컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 168694,
+    "sha256": "adb03a44dbfc203a62e023582581ed8d9fe05f757c1c7902be2355015c507e4c",
+    "dhash": "1e98e4c8cca6c64e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e62d38d7291c8204",
+    "file": "타투/도시 · 건물/e62d38d7291c8204.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "풍경·건물",
+        "label": "도시 · 건물"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 605382,
+    "sha256": "e62d38d7291c8204b3508d95de6635aff512725f1078b91add09b6f3d53eb05d",
+    "dhash": "9d8c0c1d1d392125",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6ad02e44cc3c9127",
+    "file": "메이크업/코랄 블러셔/6ad02e44cc3c9127.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "코랄 블러셔"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 421189,
+    "sha256": "6ad02e44cc3c91276793f59f527d6887b491357363227318990a4ebf61e047d2",
+    "dhash": "c892f9d8d8f0e0e5",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "986fbdfa012cd8e3",
+    "file": "메이크업/홍조 블러셔/986fbdfa012cd8e3.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 179314,
+    "sha256": "986fbdfa012cd8e38881d7f54bd5ed3482bcb91581f6e00e8cc32e648e72f240",
+    "dhash": "f3f1bf7fbffdf7ff",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6b26b23bd7d6c81c",
+    "file": "네일/도트/6b26b23bd7d6c81c.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "도트"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 110428,
+    "sha256": "6b26b23bd7d6c81c8542fa15eb739f3e7df2c4cbccdace1a6bbaa148d7347d04",
+    "dhash": "2c132812311a0d06",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

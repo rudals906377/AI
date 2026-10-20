@@ -10860,6 +10860,36 @@
       "sha256": "9babb9f95a33569ef753099b403f56f772762b4451bfa3c2c96b937879f52a88",
       "publishedDate": "2026-06-15",
       "dateEvidence": "한국 네일 트렌드 기사 헤더2026.06.15 확인; 실제 짧은 타원형 실버 팁 프렌치 검수"
+    },
+    {
+      "id": "adb03a44dbfc203a",
+      "sha256": "adb03a44dbfc203a62e023582581ed8d9fe05f757c1c7902be2355015c507e4c",
+      "publishedDate": "2026-06-13",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.06.13 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "e62d38d7291c8204",
+      "sha256": "e62d38d7291c8204b3508d95de6635aff512725f1078b91add09b6f3d53eb05d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "6ad02e44cc3c9127",
+      "sha256": "6ad02e44cc3c91276793f59f527d6887b491357363227318990a4ebf61e047d2",
+      "publishedDate": "2026-06-30",
+      "dateEvidence": "기사 머리말 2026년 06월 30일 및 SCENE1 코럴 핑크 오르가즘/SCENE2 핑크 오키드 임패션드의 서로 다른 시술 설명 관찰"
+    },
+    {
+      "id": "986fbdfa012cd8e3",
+      "sha256": "986fbdfa012cd8e38881d7f54bd5ed3482bcb91581f6e00e8cc32e648e72f240",
+      "publishedDate": "2026-06-30",
+      "dateEvidence": "기사 머리말 2026년 06월 30일 및 SCENE1 코럴 핑크 오르가즘/SCENE2 핑크 오키드 임패션드의 서로 다른 시술 설명 관찰"
+    },
+    {
+      "id": "6b26b23bd7d6c81c",
+      "sha256": "6b26b23bd7d6c81c8542fa15eb739f3e7df2c4cbccdace1a6bbaa148d7347d04",
+      "publishedDate": "2026-06-15",
+      "dateEvidence": "한국 네일 트렌드 기사 헤더2026.06.15 확인; 실제 긴 사각형 시술의 실버 점무늬 검수"
     }
   ]
 }
