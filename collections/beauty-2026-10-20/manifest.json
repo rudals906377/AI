@@ -29581,5 +29581,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6a9f2aa6f6b4fe14",
+    "file": "메이크업/애교살 강조/6a9f2aa6f6b4fe14.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "애교살 강조"
+      }
+    ],
+    "width": 1122,
+    "height": 1400,
+    "bytes": 266021,
+    "sha256": "6a9f2aa6f6b4fe14420f13ee86e5c887e5520ace98b3025a4c23ba42ecf99c0b",
+    "dhash": "ef4e4f7373713809",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5669f0d3bd139bd4",
+    "file": "메이크업/애교살 강조/5669f0d3bd139bd4.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "애교살 강조"
+      }
+    ],
+    "width": 1122,
+    "height": 1400,
+    "bytes": 262242,
+    "sha256": "5669f0d3bd139bd4a3701eb3af0d742f62b187484a1ac030ef990e6cdc1322d6",
+    "dhash": "ec4e6a58d9f8d9cf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "61ad0f7931d790d5",
+    "file": "메이크업/애교살 강조/61ad0f7931d790d5.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "애교살 강조"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 236572,
+    "sha256": "61ad0f7931d790d5150315fd2e5162dbb377801e783ba15e474291dbd9c03c07",
+    "dhash": "cb93377332262e1c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ccee1378ae1f677f",
+    "file": "타투/두들/ccee1378ae1f677f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 189617,
+    "sha256": "ccee1378ae1f677fe4b029ad65635e4ba9a61af1086c3c167e3ec4876205a303",
+    "dhash": "8589cd2d9cc6ecf0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9b9c6da240c16453",
+    "file": "타투/두들/9b9c6da240c16453.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 160456,
+    "sha256": "9b9c6da240c1645311ddc5909f124052be3aac737e3a62f977e4f3388e2737f4",
+    "dhash": "e0d4958dce4e6060",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "43b0ed55a318705b",
+    "file": "타투/두들/43b0ed55a318705b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 179335,
+    "sha256": "43b0ed55a318705b6a57c6a5fb502d0353f821cd274320c89d87953f1e5ab9f1",
+    "dhash": "8185858d8d8dc5c1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
