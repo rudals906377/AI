@@ -32689,5 +32689,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1f130439398aed4a",
+    "file": "네일/워터드롭/1f130439398aed4a.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "워터드롭"
+      }
+    ],
+    "width": 1200,
+    "height": 1499,
+    "bytes": 144134,
+    "sha256": "1f130439398aed4a55a2051e784b430c563aa1815a08a2f0af2f878b39acee7f",
+    "dhash": "4fceaece8e9b0f0f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
