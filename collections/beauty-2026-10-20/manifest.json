@@ -39451,5 +39451,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "807495a0f96b5e17",
+    "file": "헤어/포니테일/807495a0f96b5e17.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "포니테일"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 143431,
+    "sha256": "807495a0f96b5e17326b8d5db6de7dfe315acbad3005bf99fd74d605ebb25315",
+    "dhash": "1c5ae4616e0f0f0f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ef30ac7d134edc8b",
+    "file": "네일/라운드스퀘어/ef30ac7d134edc8b.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "라운드스퀘어"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 64146,
+    "sha256": "ef30ac7d134edc8b6c71ed90dc75a4e6191425455b4fe060a957e77c054d89a8",
+    "dhash": "13e663cd4591c9e9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
