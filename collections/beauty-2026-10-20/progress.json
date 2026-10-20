@@ -380,7 +380,7 @@
       "existing_count": 27,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 3
     },
     {
       "category": "헤어",
@@ -1420,7 +1420,7 @@
       "existing_count": 19,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "네일",
@@ -1470,7 +1470,7 @@
       "existing_count": 66,
       "shortage": false,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "네일",
@@ -1500,7 +1500,7 @@
       "existing_count": 7,
       "shortage": true,
       "target_new": 100,
-      "collected": 8
+      "collected": 10
     },
     {
       "category": "네일",
@@ -2040,7 +2040,7 @@
       "existing_count": 8,
       "shortage": true,
       "target_new": 100,
-      "collected": 5
+      "collected": 6
     },
     {
       "category": "네일",
@@ -2350,7 +2350,7 @@
       "existing_count": 156,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 2
     },
     {
       "category": "메이크업",
@@ -2580,7 +2580,7 @@
       "existing_count": 7,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -2590,7 +2590,7 @@
       "existing_count": 3,
       "shortage": true,
       "target_new": 100,
-      "collected": 8
+      "collected": 9
     },
     {
       "category": "메이크업",
@@ -3170,7 +3170,7 @@
       "existing_count": 4,
       "shortage": true,
       "target_new": 100,
-      "collected": 8
+      "collected": 9
     },
     {
       "category": "메이크업",
@@ -4070,7 +4070,7 @@
       "existing_count": 71,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -5540,7 +5540,7 @@
       "existing_count": 1,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -5623,6 +5623,6 @@
       "collected": 0
     }
   ],
-  "unique_images": 920,
+  "unique_images": 935,
   "completed_labels": 0
 }
