@@ -31030,5 +31030,215 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7b5cadcf15fe26e2",
+    "file": "헤어/애교머리/7b5cadcf15fe26e2.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "애교머리"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 116846,
+    "sha256": "7b5cadcf15fe26e27c885572c1f116e819c08433e68bf80395634ff42786d324",
+    "dhash": "468e07359d4d0db1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8c33a7d8e5459a01",
+    "file": "네일/워터드롭/8c33a7d8e5459a01.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "워터드롭"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 76562,
+    "sha256": "8c33a7d8e5459a01b9671017855bd6855ac48a9854c324120d24499faa476b85",
+    "dhash": "17831b42464c19b3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7ca496e404fbbb3f",
+    "file": "메이크업/언더 속눈썹/7ca496e404fbbb3f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 178249,
+    "sha256": "7ca496e404fbbb3f35bb0d547b338d9c85180f660228499d1094672645c67375",
+    "dhash": "4d0f21616979330f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ccc8830a090c5367",
+    "file": "메이크업/스머지 라인/ccc8830a090c5367.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "스머지 라인"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 136741,
+    "sha256": "ccc8830a090c5367b7c10f9115b0ec0ce3204a323d06fe1d85c7055f2824e687",
+    "dhash": "677339193d193b86",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2c9e4274c9937b3b",
+    "file": "메이크업/속눈썹 생략/2c9e4274c9937b3b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "속눈썹 생략"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 111721,
+    "sha256": "2c9e4274c9937b3bbe177938de3615be1bff2645bbb09981f0a205ba9b9c4fb0",
+    "dhash": "e677733169393b8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "374534f146a7e9a9",
+    "file": "메이크업/핑크·코랄 섀도/374534f146a7e9a9.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "핑크·코랄 섀도"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 202605,
+    "sha256": "374534f146a7e9a98d6bc9de2dd77d843d8110bc5715938d2751959f74666945",
+    "dhash": "213131316363070e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1437a29bb5763dae",
+    "file": "타투/음표/1437a29bb5763dae.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "음표"
+      }
+    ],
+    "width": 1193,
+    "height": 1207,
+    "bytes": 60045,
+    "sha256": "1437a29bb5763daeeaf1b27e3e59ae5d9662f4c5bdd78dc3641a666dcea9e5dc",
+    "dhash": "060626020327272d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d7c0a590b6bac1f5",
+    "file": "타투/음표/d7c0a590b6bac1f5.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "음표"
+      }
+    ],
+    "width": 1012,
+    "height": 1264,
+    "bytes": 68658,
+    "sha256": "d7c0a590b6bac1f5c2d58001715611d454bda8be3f8b203590dff725492a191c",
+    "dhash": "818187ce8c2c39dc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "36f0e46cad09c8aa",
+    "file": "타투/음표/36f0e46cad09c8aa.jpeg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "음표"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 87830,
+    "sha256": "36f0e46cad09c8aa96164cb552c4e84f8a73c8cf73a68c5d8e5c04593f634d8b",
+    "dhash": "c31f34c023071f2f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b5bd4fe857800f7c",
+    "file": "타투/음표/b5bd4fe857800f7c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "음표"
+      }
+    ],
+    "width": 3277,
+    "height": 4096,
+    "bytes": 1380890,
+    "sha256": "b5bd4fe857800f7cc469b9b4a1e70007452f15d09c3ff18409db00c6a6100e57",
+    "dhash": "939e5f290c020120",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
