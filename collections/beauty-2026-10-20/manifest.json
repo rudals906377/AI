@@ -15049,5 +15049,530 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d7fc41865b42b1c1",
+    "file": "헤어/젤리펌/d7fc41865b42b1c1.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 324822,
+    "sha256": "d7fc41865b42b1c1a922e102ee503507ce593d0a44b31a5d0f09a7e5160a23af",
+    "dhash": "9ccc283899d14f8f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d10530795d14f823",
+    "file": "헤어/젤리펌/d10530795d14f823.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 190362,
+    "sha256": "d10530795d14f823e850572a3b7d4f66ce9e1e40bd7dfd4a1e470481c5b07669",
+    "dhash": "18949c9e9e8286ba",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "04d3e4fbf7765bad",
+    "file": "헤어/젤리펌/04d3e4fbf7765bad.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 337494,
+    "sha256": "04d3e4fbf7765bad4159ea8f924d97b679e639b30067053d50dc63a1972758b5",
+    "dhash": "440012bada902ce1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b8142fe0c05fab41",
+    "file": "헤어/젤리펌/b8142fe0c05fab41.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1440,
+    "height": 1799,
+    "bytes": 119276,
+    "sha256": "b8142fe0c05fab4177cc0d911a4cb6d685ae541eebe0f1dae25c1bcb6c3d7a27",
+    "dhash": "0f4d333727154c70",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0073cfa1a6ae83cf",
+    "file": "헤어/젤리펌/0073cfa1a6ae83cf.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1079,
+    "height": 1349,
+    "bytes": 200812,
+    "sha256": "0073cfa1a6ae83cf1bf264431206d86ab4e77b193a33ac03a6162a37ab9c7fba",
+    "dhash": "e6cccd498f8787cb",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1d399fd778773162",
+    "file": "헤어/젤리펌/1d399fd778773162.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1200,
+    "height": 1499,
+    "bytes": 232364,
+    "sha256": "1d399fd7787731623be2fb266f5fb0766f3834f6035ced5c5cf8a7ff3904c954",
+    "dhash": "3030333213131a2e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a033aef97c3b651b",
+    "file": "네일/매트/a033aef97c3b651b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1080,
+    "height": 1438,
+    "bytes": 330740,
+    "sha256": "a033aef97c3b651bc184ce30840966ce03b2e9509329f129c3e45a2d8b8c931a",
+    "dhash": "4e22934e0cace0e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e5474c25f0dc0c42",
+    "file": "네일/매트/e5474c25f0dc0c42.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1080,
+    "height": 1438,
+    "bytes": 296895,
+    "sha256": "e5474c25f0dc0c42f4e5b25951d411bbe13220036104f0022029cfd447bb82bd",
+    "dhash": "0f4fad311ccfe378",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a99615a8a053b5c8",
+    "file": "네일/매트/a99615a8a053b5c8.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1080,
+    "height": 1438,
+    "bytes": 306785,
+    "sha256": "a99615a8a053b5c8961cff55195d5b88591d485cca4ee568c354e536d7ac15bf",
+    "dhash": "3d3b568ccf07828c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ebea24701e686274",
+    "file": "네일/매트/ebea24701e686274.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1080,
+    "height": 1438,
+    "bytes": 301547,
+    "sha256": "ebea24701e686274df3825153db4cebfe1b973a29f1191286f4b8e3671767354",
+    "dhash": "6e642d29cae0b08c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f88b49b9b1b2ad24",
+    "file": "메이크업/주근깨/f88b49b9b1b2ad24.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "주근깨"
+      }
+    ],
+    "width": 1401,
+    "height": 1939,
+    "bytes": 357464,
+    "sha256": "f88b49b9b1b2ad24812a9932402b992d6412e5ea49940e480bb711900a97c670",
+    "dhash": "333cb82ca5f3e1f9",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7239e542120b9690",
+    "file": "메이크업/컬러 아이라인/7239e542120b9690.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "컬러 아이라인"
+      }
+    ],
+    "width": 1424,
+    "height": 1871,
+    "bytes": 240674,
+    "sha256": "7239e542120b969021ae22e7c8d3ce4f9e80265628b5f1697e74856936c7f431",
+    "dhash": "defc302531313fec",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5d904b794d0c476c",
+    "file": "메이크업/언더 속눈썹/5d904b794d0c476c.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 180736,
+    "sha256": "5d904b794d0c476c545c8f07be5f2eb53741bba0dafa9402d0819f5aa1556d6d",
+    "dhash": "6b4e46563aba8e8c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "61f6bb2f29ee865b",
+    "file": "메이크업/언더 속눈썹/61f6bb2f29ee865b.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1923,
+    "height": 2560,
+    "bytes": 237108,
+    "sha256": "61f6bb2f29ee865b5166663ea49d6e35d5c47b9edafb502bc30a8e0bb27c0ffa",
+    "dhash": "989a581933636323",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9e77fb2febf2cfc0",
+    "file": "메이크업/애교살 강조/9e77fb2febf2cfc0.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "애교살 강조"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 134854,
+    "sha256": "9e77fb2febf2cfc09093e7b588060601c777284b83df58866d70cc853bfadba0",
+    "dhash": "e36516b7b71f1f3f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "23402e569d14153d",
+    "file": "메이크업/캣아이라인/23402e569d14153d.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 381376,
+    "sha256": "23402e569d14153d05f54c8916dea3b74e61af9c8c05b41473ceb0441b537520",
+    "dhash": "21e6cf07333b3b33",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fb6a89238f4b5d43",
+    "file": "메이크업/눈앞머리 하이라이트/fb6a89238f4b5d43.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1309,
+    "height": 1636,
+    "bytes": 317302,
+    "sha256": "fb6a89238f4b5d4384a80b539155d0d35c16da6cc614e42c40ae42d7606cc016",
+    "dhash": "8626640d14923313",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c237f3cd3618ed12",
+    "file": "메이크업/브러시업 눈썹/c237f3cd3618ed12.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "브러시업 눈썹"
+      }
+    ],
+    "width": 1006,
+    "height": 1400,
+    "bytes": 175515,
+    "sha256": "c237f3cd3618ed127a20fa00e08e5e87f6d32df2ae495b2169c23e39deb9ca6b",
+    "dhash": "0990e1eb79fb4f38",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9a65307d48eb553f",
+    "file": "타투/거북/9a65307d48eb553f.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거북"
+      }
+    ],
+    "width": 1200,
+    "height": 1445,
+    "bytes": 83396,
+    "sha256": "9a65307d48eb553fe6177477c8a0b5943ece2b71fb7ff699b8426aeed8264a7c",
+    "dhash": "306068ccccc0c0c7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ebc4978f761b9800",
+    "file": "타투/해파리/ebc4978f761b9800.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "해파리"
+      }
+    ],
+    "width": 1200,
+    "height": 1444,
+    "bytes": 73458,
+    "sha256": "ebc4978f761b9800394ebb1e76d343ef82af2c0900f639a2844bf664285f8f2d",
+    "dhash": "c3c3cbc96d6c3038",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "49d2781d3aba712d",
+    "file": "타투/수채화/49d2781d3aba712d.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "수채화"
+      }
+    ],
+    "width": 1200,
+    "height": 1396,
+    "bytes": 59942,
+    "sha256": "49d2781d3aba712d817cadd05f996db87b36f7988f77d0c20f270cd0ebca3090",
+    "dhash": "7171611505616161",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "99b6086b98b11177",
+    "file": "타투/물고기/99b6086b98b11177.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "물고기"
+      }
+    ],
+    "width": 1200,
+    "height": 1444,
+    "bytes": 69662,
+    "sha256": "99b6086b98b111778ae8fa63011d36f8c81ba230dfdcc9fa21025dcce52e2421",
+    "dhash": "efcfffcfcbd9cccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1ade629c4e5667dd",
+    "file": "타투/물고기/1ade629c4e5667dd.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "물고기"
+      }
+    ],
+    "width": 1200,
+    "height": 1446,
+    "bytes": 185790,
+    "sha256": "1ade629c4e5667dd79aee3eb682ca1d273bf8f78d259b095cfcc7cec8955f324",
+    "dhash": "7cf967e7d6f6eccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "17ffb2d9f70b04eb",
+    "file": "타투/조개 · 바다 생물/17ffb2d9f70b04eb.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 1200,
+    "height": 1444,
+    "bytes": 47140,
+    "sha256": "17ffb2d9f70b04ebbe11bc8de5c63062272602bede32bc26da1a311870e7e033",
+    "dhash": "c0e064606ce9f9f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2b9697312c10abf5",
+    "file": "타투/수채화/2b9697312c10abf5.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "수채화"
+      }
+    ],
+    "width": 1200,
+    "height": 1444,
+    "bytes": 58272,
+    "sha256": "2b9697312c10abf5a22819a2faaea5641e314c7d4e238695a9e02347c2c62039",
+    "dhash": "7171e1c9c9dbf3e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
