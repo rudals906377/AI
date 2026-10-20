@@ -33004,5 +33004,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "120f8447a3b82c14",
+    "file": "네일/하트·리본/120f8447a3b82c14.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "하트·리본"
+      }
+    ],
+    "width": 736,
+    "height": 981,
+    "bytes": 67577,
+    "sha256": "120f8447a3b82c1479594f84aebd810df0bbb28c85dd4c9ef26f1ff750123c72",
+    "dhash": "c783d159d6cc609a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
