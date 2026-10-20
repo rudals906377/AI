@@ -32269,5 +32269,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "641f232804184d8f",
+    "file": "메이크업/언더 속눈썹/641f232804184d8f.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 238118,
+    "sha256": "641f232804184d8f942d76e8b392c0a919267c509939dddc10689553e9853b89",
+    "dhash": "016130246d686105",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "09596fb7e2ea6034",
+    "file": "메이크업/코랄 블러셔/09596fb7e2ea6034.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "코랄 블러셔"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 164150,
+    "sha256": "09596fb7e2ea6034d0cbdf682b6fffc17e8067c3c7a411a2440077bf0e5e0fa9",
+    "dhash": "cdcc8c353773270e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b695dd76cf1004a0",
+    "file": "메이크업/눈앞머리 하이라이트/b695dd76cf1004a0.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 229784,
+    "sha256": "b695dd76cf1004a02274226c75e42b1d25e6a7f7078022a46cd6aad881e0d719",
+    "dhash": "a5eda8ececceca23",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "31583232cd0bcb70",
+    "file": "메이크업/내추럴 라인/31583232cd0bcb70.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "내추럴 라인"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 135546,
+    "sha256": "31583232cd0bcb703fc2f12c9b8157651c8f2e1931b0c58753e087d5d2fe4b94",
+    "dhash": "dd92330b1b333396",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

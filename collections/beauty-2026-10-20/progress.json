@@ -2560,7 +2560,7 @@
       "existing_count": 2,
       "shortage": true,
       "target_new": 100,
-      "collected": 14
+      "collected": 15
     },
     {
       "category": "메이크업",
@@ -2670,7 +2670,7 @@
       "existing_count": 98,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -2720,7 +2720,7 @@
       "existing_count": 23,
       "shortage": true,
       "target_new": 100,
-      "collected": 4
+      "collected": 5
     },
     {
       "category": "메이크업",
@@ -3080,7 +3080,7 @@
       "existing_count": 2,
       "shortage": true,
       "target_new": 100,
-      "collected": 2
+      "collected": 3
     },
     {
       "category": "메이크업",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1531,
+  "unique_images": 1535,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1530,
+  "goal_eligible_unique_images": 1534,
   "excluded_images": 1
 }
