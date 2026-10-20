@@ -9852,6 +9852,96 @@
       "sha256": "0b653052e5ec0b6f424947c42f114fc5c6b70371d80cf34a6d3679653f0ae405",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말2026.06.24 및 카우 패턴 설명·실제 손톱 원본 부모 확인"
+    },
+    {
+      "id": "c8551ae65bd2ef33",
+      "sha256": "c8551ae65bd2ef332fb0abb6b8f7752799d954fde32bf50925a2149fa8c4209c",
+      "publishedDate": "2026-09-27",
+      "dateEvidence": "기사 본문 상단 게시일 2026.09.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b6603f89ea2ae0e6",
+      "sha256": "b6603f89ea2ae0e669501130120b7706b72e0213af23fe69008cd3797cf3eb0f",
+      "publishedDate": "2026-09-27",
+      "dateEvidence": "기사 본문 상단 게시일 2026.09.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "0aea7775fb817c9a",
+      "sha256": "0aea7775fb817c9ac669c0cb0c11f13234276b062f756a9fa0b672434df72b14",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "10dc002b99a884c6",
+      "sha256": "10dc002b99a884c6f1623a7f24816c2bd7791ad267caec8e9757126c228d866d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "2740c7e199329ad0",
+      "sha256": "2740c7e199329ad04dce98270e046c3ce1bd31dc3b9500e57b1c0182d7cdde3d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "80c37a100acf8a73",
+      "sha256": "80c37a100acf8a73e07e2bd9391e8b8711e49f1425147d986b74b8d0692e0a71",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "381a90934145c5d8",
+      "sha256": "381a90934145c5d8d7fb1d1396ff5a84652022b6eeb5bcd7d6dfb96159175db0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "366269aba16633f7",
+      "sha256": "366269aba16633f753f7de83e79e7f881ec1c318d345d4f8f297030fba6f5680",
+      "publishedDate": "2026-06-29",
+      "dateEvidence": "기사 머리말 게시일 2026.06.29와 RED부터 VIOLET까지 각 독립 룩의 시술 설명 관찰"
+    },
+    {
+      "id": "b4a08f9b3c61cd97",
+      "sha256": "b4a08f9b3c61cd97230f1b555fb624de9e7e57d9a4f4c2df836be9ba9b3228c9",
+      "publishedDate": "2026-06-29",
+      "dateEvidence": "기사 머리말 게시일 2026.06.29와 RED부터 VIOLET까지 각 독립 룩의 시술 설명 관찰"
+    },
+    {
+      "id": "e217793b27c98517",
+      "sha256": "e217793b27c98517de9b0db0cb8e45c5c2fcb5c1492b23a212a4785331853689",
+      "publishedDate": "2026-06-29",
+      "dateEvidence": "기사 머리말 게시일 2026.06.29와 RED부터 VIOLET까지 각 독립 룩의 시술 설명 관찰"
+    },
+    {
+      "id": "255c24fd5c986877",
+      "sha256": "255c24fd5c9868771ac36589404d244ad8bc9fa5b6032bdd486517b609092cdf",
+      "publishedDate": "2026-06-29",
+      "dateEvidence": "기사 머리말 게시일 2026.06.29와 RED부터 VIOLET까지 각 독립 룩의 시술 설명 관찰"
+    },
+    {
+      "id": "f3e398d396848589",
+      "sha256": "f3e398d396848589cf2e72278aaf1c9ce0d6c559e6937b03a4646c37492beac2",
+      "publishedDate": "2026-06-29",
+      "dateEvidence": "기사 머리말 게시일 2026.06.29와 RED부터 VIOLET까지 각 독립 룩의 시술 설명 관찰"
+    },
+    {
+      "id": "e627ba255bf2818c",
+      "sha256": "e627ba255bf2818caa464ffa5c068ee0d3c0829dbf52e03bc5ea01f37402f893",
+      "publishedDate": "2026-06-29",
+      "dateEvidence": "기사 머리말 게시일 2026.06.29와 RED부터 VIOLET까지 각 독립 룩의 시술 설명 관찰"
+    },
+    {
+      "id": "cc53da98db23be74",
+      "sha256": "cc53da98db23be74c279d6afa4e9f5c4a18597ce2494313361b0433aad76500b",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말2026.06.24 및 실제 원본 장식·손톱 윤곽 부모 확인"
+    },
+    {
+      "id": "eb80c2af20bad432",
+      "sha256": "eb80c2af20bad4322621f26215628a088c68adaa17c0de0ca1326ac765ebb973",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말2026.06.24 및 실제 원본 장식·손톱 윤곽 부모 확인"
     }
   ]
 }
