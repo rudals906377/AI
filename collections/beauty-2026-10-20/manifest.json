@@ -29371,5 +29371,215 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "50fad9a34b7f41ca",
+    "file": "헤어/밀크브라운/50fad9a34b7f41ca.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "밀크브라운"
+      }
+    ],
+    "width": 1440,
+    "height": 1796,
+    "bytes": 151914,
+    "sha256": "50fad9a34b7f41ca5f2bbb52bf730613a46294a56f43cc88a184650748ac2f71",
+    "dhash": "101939189c9c8e43",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f27a5319550a6c12",
+    "file": "네일/자석/f27a5319550a6c12.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 125816,
+    "sha256": "f27a5319550a6c128cccb0b8d65e495595add55d0b1ea9895df8f59942fe4eb7",
+    "dhash": "70e0303294a3ccc6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "144fbbe0d464b52b",
+    "file": "네일/에메랄드·딥그린/144fbbe0d464b52b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "에메랄드·딥그린"
+      }
+    ],
+    "width": 1440,
+    "height": 1483,
+    "bytes": 341310,
+    "sha256": "144fbbe0d464b52b533b154e7918fad432d2d8b1a21eab19e94162e5d8082fe4",
+    "dhash": "8941416507c9cb26",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "343aba6e1da7271f",
+    "file": "메이크업/보송 매트/343aba6e1da7271f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "보송 매트"
+      }
+    ],
+    "width": 547,
+    "height": 700,
+    "bytes": 201732,
+    "sha256": "343aba6e1da7271f12fea851eceb47666c70e281618455a49eb1b1b2863d3574",
+    "dhash": "c20387c4c490c1a8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a103dbd89b881efc",
+    "file": "메이크업/그린·옐로 섀도/a103dbd89b881efc.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "그린·옐로 섀도"
+      }
+    ],
+    "width": 547,
+    "height": 700,
+    "bytes": 246532,
+    "sha256": "a103dbd89b881efccc15690c1465ed45410b4363e94c741325cbea87bfeba0db",
+    "dhash": "63cbf3e3b9f0f8b9",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4969dcc35c33cfb6",
+    "file": "메이크업/아트/4969dcc35c33cfb6.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "아트"
+      }
+    ],
+    "width": 547,
+    "height": 700,
+    "bytes": 268181,
+    "sha256": "4969dcc35c33cfb672f8740b4b36e308136d46a4bf7c78f8d47a441a3ece3470",
+    "dhash": "31143c3437170f3f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3f05d923fedffebc",
+    "file": "메이크업/스모키/3f05d923fedffebc.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "스모키"
+      }
+    ],
+    "width": 547,
+    "height": 700,
+    "bytes": 199769,
+    "sha256": "3f05d923fedffebc22681cf7128b70a4a65385561ce273c565236ecbea22e61b",
+    "dhash": "cbe7f4fc6573f77d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6821b0dcd1d337e1",
+    "file": "타투/두들/6821b0dcd1d337e1.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 611968,
+    "sha256": "6821b0dcd1d337e15c5efddc666a2ee88b6da461ec708f87f3584cddd7c36187",
+    "dhash": "b0b2b0303072b099",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f6cc76e569a29820",
+    "file": "타투/두들/f6cc76e569a29820.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 179324,
+    "sha256": "f6cc76e569a2982008008c205eaa28d5935e9e88849f092e9b4dd7860bd57fea",
+    "dhash": "80929e97cfc6e6e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "79633f49dabaac14",
+    "file": "타투/두들/79633f49dabaac14.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 464813,
+    "sha256": "79633f49dabaac144ed8fdb685260c980a059915b870daa11d719631217a8a3d",
+    "dhash": "4383014920303014",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
