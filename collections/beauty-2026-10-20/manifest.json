@@ -41698,5 +41698,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "32e168c6112fb5b0",
+    "file": "네일/투명·쉬어/32e168c6112fb5b0.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "투명·쉬어"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 247572,
+    "sha256": "32e168c6112fb5b07f47b3f78a0114baef40012b7ed01896be1e75504acaf351",
+    "dhash": "0f7bb3a6c8b27843",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
