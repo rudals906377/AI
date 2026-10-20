@@ -40459,5 +40459,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "32d008258f0433ef",
+    "file": "네일/자석/32d008258f0433ef.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 308004,
+    "sha256": "32d008258f0433ef69b5951f73f9b494eb74494af914ca52ad070b7e50644919",
+    "dhash": "000d440a28080200",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
