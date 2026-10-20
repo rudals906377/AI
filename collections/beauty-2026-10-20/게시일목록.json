@@ -11016,6 +11016,36 @@
       "sha256": "98bbcbf21d0547c42f23bb32abe7c1f296206101d822a5b956f51b7e20416b7d",
       "publishedDate": "2026-09-03",
       "dateEvidence": "한국 네일 기사 게시일 2026.09.03 확인; 사진 최초 게시일 별도 미확인; 깊이 있는 자석광 직접 확인"
+    },
+    {
+      "id": "f53f524a3ffc3082",
+      "sha256": "f53f524a3ffc3082f86932974d284d99bbcf75e0ca516ed1fe6f7ea31fc59742",
+      "publishedDate": "2026-07-21",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.07.21 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "289bbda674ea0755",
+      "sha256": "289bbda674ea07555e5ad93fcd1731116460e930a778d4ebe913bdd28293d8f3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "12b550745883e84e",
+      "sha256": "12b550745883e84e78e4c855aace3cd6fd7103c84eb6b152c58cf8ea59b2924d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "c2f1eb3714cee5c1",
+      "sha256": "c2f1eb3714cee5c197080b74f55ffb1d62eecc606c622642b93f3c3f76aec8ec",
+      "publishedDate": "2026-10-02",
+      "dateEvidence": "한국 뷰티 기사 게시일 2026.10.02 관찰; SNS 원사진 게시일은 미확인"
+    },
+    {
+      "id": "e244769b652d2c2d",
+      "sha256": "e244769b652d2c2d9fd7a747e38080713670c80d258d95d19d6c327da52ff756",
+      "publishedDate": "2026-09-03",
+      "dateEvidence": "한국 네일 기사 게시일 2026.09.03 확인; 사진 최초 게시일 별도 미확인; 자석광 직접 확인"
     }
   ]
 }
