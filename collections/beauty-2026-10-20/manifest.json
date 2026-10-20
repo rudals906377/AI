@@ -36007,5 +36007,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1e181e472999878a",
+    "file": "헤어/시스루뱅/1e181e472999878a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 274519,
+    "sha256": "1e181e472999878a9924c1ef9468ccb992434fc98950107441118ce1e254307b",
+    "dhash": "9c8ce1e8b0311378",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "49c379d05b857d53",
+    "file": "헤어/단발/49c379d05b857d53.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1080,
+    "height": 1437,
+    "bytes": 223865,
+    "sha256": "49c379d05b857d53a22002270339cfa8b80811bb3817e7e3a2a85061b19d1662",
+    "dhash": "4d8e8dc666e5e1c1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a80e3269cb314fe6",
+    "file": "메이크업/하이라이터/a80e3269cb314fe6.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "하이라이터"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 174020,
+    "sha256": "a80e3269cb314fe64735c97e0d5b4a56b121f5320a222d5e82c343d3f56b18ff",
+    "dhash": "8131313131319b4f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c03dd763e04bc2f2",
+    "file": "네일/플라워/c03dd763e04bc2f2.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "플라워"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 80668,
+    "sha256": "c03dd763e04bc2f2212b6c3a143b26511f62e41cb17af934202b34a6670ca7e2",
+    "dhash": "969393cbc9e3636f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
