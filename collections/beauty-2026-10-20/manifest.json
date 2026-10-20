@@ -39094,5 +39094,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1ade64834799b761",
+    "file": "메이크업/브러시업 눈썹/1ade64834799b761.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "브러시업 눈썹"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 130332,
+    "sha256": "1ade64834799b7611d68751386ada42573aa70c96853b7bf641cd18c5418f899",
+    "dhash": "676c38389cb23233",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

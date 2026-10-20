@@ -11136,6 +11136,12 @@
       "sha256": "fcd05dfd546f6f35a6314528297150227075484d37ff083402fdd8ebc08b605f",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1ade64834799b761",
+      "sha256": "1ade64834799b7611d68751386ada42573aa70c96853b7bf641cd18c5418f899",
+      "publishedDate": "2026-10-07",
+      "dateEvidence": "한국 뷰티 기사 머리말 게시일 2026.10.07 관찰; SNS 원사진 게시일은 미확인"
     }
   ]
 }
