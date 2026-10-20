@@ -11472,6 +11472,24 @@
       "sha256": "ec5c6b99f550cd8491472c5483e9f9db348196044c938481193a10957ea9e49b",
       "publishedDate": "2025-10-29",
       "dateEvidence": "공개 캣아이 네일 기사 게시일 2025.10.29 확인; 최초 사진 게시일 별도 미확인"
+    },
+    {
+      "id": "b7d61d69de78aaae",
+      "sha256": "b7d61d69de78aaaeef0ba7da0de67419afc00a6ec01b3e7bb64f079daaa5d6d4",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "ca7286e32446559c",
+      "sha256": "ca7286e32446559cec61bb036e5b38012319f742c5e16baa726f9e6b51e6582e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "6693da253d4a76b4",
+      "sha256": "6693da253d4a76b40f4feb636fb282ae6932ff9c01334d63fc4dd7c43dc1c88c",
+      "publishedDate": "2025-10-29",
+      "dateEvidence": "캣아이 네일 기사 게시일 2025.10.29 확인; 최초 사진 게시일 별도 미확인"
     }
   ]
 }
