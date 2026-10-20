@@ -40585,5 +40585,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "06cd60846e9a5d44",
+    "file": "타투/판다/06cd60846e9a5d44.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "판다"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 665115,
+    "sha256": "06cd60846e9a5d447436ba7fa968be5b515dd92b6583ad3212acf7cfd96e2bd7",
+    "dhash": "9c9cbc264c2697cf",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3fe65b393b0abcee",
+    "file": "메이크업/핑크·코랄 섀도/3fe65b393b0abcee.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "핑크·코랄 섀도"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 81720,
+    "sha256": "3fe65b393b0abceefe1b6842d240d5eaea01d29a206a9360f1a7b7bea879e79d",
+    "dhash": "a38304a0d0e17131",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

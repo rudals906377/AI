@@ -11562,6 +11562,18 @@
       "sha256": "0dfe4646da6fa54130aed1b1d2abbb9ef0e3304a683301eb414ad4ad7b5afa5b",
       "publishedDate": "2025-10-29",
       "dateEvidence": "자석 네일 기사 게시일 2025.10.29 확인; 최초 사진 게시일 별도 미확인"
+    },
+    {
+      "id": "06cd60846e9a5d44",
+      "sha256": "06cd60846e9a5d447436ba7fa968be5b515dd92b6583ad3212acf7cfd96e2bd7",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "3fe65b393b0abcee",
+      "sha256": "3fe65b393b0abceefe1b6842d240d5eaea01d29a206a9360f1a7b7bea879e79d",
+      "publishedDate": "2026-03-01",
+      "dateEvidence": "기사 머리말 2026.03.01 관찰; 한국 제작 뷰티 화보와 해당 완성 룩 Beauty Note 확인"
     }
   ]
 }
