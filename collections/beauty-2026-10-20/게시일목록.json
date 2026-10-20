@@ -10038,6 +10038,78 @@
       "sha256": "ce8edf3d8e282e5870cddb19d67a9057216a4c672dbcb34ce3a8e94281715a95",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말2026.06.24 및 실제 원본 손톱 표면의 선명한 유광 반사 부모 확인"
+    },
+    {
+      "id": "0e16f798af863742",
+      "sha256": "0e16f798af8637427b32fb0b0bb2d42da7e507b5a05b7329a5b9d93d54565cc0",
+      "publishedDate": "2026-06-04",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.06.04 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "d7a76bf1005545b2",
+      "sha256": "d7a76bf1005545b281d5cd1b4b3a2e92e443ce6c21e17b732cf9d345ad516acf",
+      "publishedDate": "2026-06-04",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.06.04 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "cbae26bd55ece73e",
+      "sha256": "cbae26bd55ece73e95d94f0952c67ec15de6d3dbe16802d887876b44fa24aacc",
+      "publishedDate": "2026-06-04",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.06.04 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6a5fc9cd4320cc6e",
+      "sha256": "6a5fc9cd4320cc6e0ef4e226e5e8ae670e2c5d7c78117c9f23caa76855d703b0",
+      "publishedDate": "2026-06-04",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.06.04 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b9516204bf87611c",
+      "sha256": "b9516204bf87611c09518b84cfb2108cf8be905d9a5ee4eedc5f0bc2379a350e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "f4955cda32780628",
+      "sha256": "f4955cda32780628ae32241a98c5d9492d5b6dd8cd69ef3860f5c95238e17a78",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "e13b15dda382ad29",
+      "sha256": "e13b15dda382ad29de089b8a074b92fa2f87eea2285ec94e103c5a00cae4ca1a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "3486afd7ff21f068",
+      "sha256": "3486afd7ff21f068d46794035a6470a857a662775be746f866fef18b96c60aa8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "3135f67111a8cba3",
+      "sha256": "3135f67111a8cba342c3c6a4df02ddd3706be509c67ea616498f8a703ca198c0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "c9a2ed60195cf64f",
+      "sha256": "c9a2ed60195cf64fb560c0d9f962c9af08d5efee58b139fb3c7afe3a5c761676",
+      "publishedDate": "2026-04-08",
+      "dateEvidence": "기사 머리말 게시일 2026년 04월 08일과 Germinate/Transform의 각 시술 설명 관찰"
+    },
+    {
+      "id": "af28c039e9d11ab4",
+      "sha256": "af28c039e9d11ab4a5e4230deb42168a24218e560e2284b5fe03d4455955e9a7",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말 게시일 2026.06.24 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "849f0ba36eb9f40f",
+      "sha256": "849f0ba36eb9f40f4deb9593570801cc297feb9f2e989bc27ce55dc1610fba47",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말 게시일 2026.06.24 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }
