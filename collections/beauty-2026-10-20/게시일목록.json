@@ -11112,6 +11112,30 @@
       "sha256": "d27b19c20bbb482e9862536c7bc0d3fb6f4cc1fd4a909a80a66c67100b64398c",
       "publishedDate": "2025-11-04",
       "dateEvidence": "한국 네일 기사 게시일 2025.11.04 및 본문 2025년 여름 결혼식 네일 맥락 확인; 원사진 정확 게시일 미확인"
+    },
+    {
+      "id": "3c7332994502a9fe",
+      "sha256": "3c7332994502a9fe9d4f7b400c2536ca28ed798c25fa6ca0c65d6077c6b7ac5a",
+      "publishedDate": "2026-04-09",
+      "dateEvidence": "한국 헤어 컬러 기사 게시일 2026.04.09 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "82f1bd8ee310885e",
+      "sha256": "82f1bd8ee310885e5ed330177e48ce2920650d6078e6cabe510f18a73ccd93a6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "8d95a7f78a6b8107",
+      "sha256": "8d95a7f78a6b8107e6bbe3aebdd841d10deefffa10ed1fc1cfd3681dd1770bd8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "fcd05dfd546f6f35",
+      "sha256": "fcd05dfd546f6f35a6314528297150227075484d37ff083402fdd8ebc08b605f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

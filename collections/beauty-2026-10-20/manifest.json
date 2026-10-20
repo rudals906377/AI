@@ -39010,5 +39010,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3c7332994502a9fe",
+    "file": "헤어/초코브라운/3c7332994502a9fe.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "초코브라운"
+      }
+    ],
+    "width": 1080,
+    "height": 1435,
+    "bytes": 223819,
+    "sha256": "3c7332994502a9fe9d4f7b400c2536ca28ed798c25fa6ca0c65d6077c6b7ac5a",
+    "dhash": "3b3b373666672c99",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "82f1bd8ee310885e",
+    "file": "타투/표범 · 재규어/82f1bd8ee310885e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "표범 · 재규어"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 918451,
+    "sha256": "82f1bd8ee310885e5ed330177e48ce2920650d6078e6cabe510f18a73ccd93a6",
+    "dhash": "68584c6545d5dcf0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8d95a7f78a6b8107",
+    "file": "타투/단검/8d95a7f78a6b8107.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "칼·무기",
+        "label": "단검"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 540847,
+    "sha256": "8d95a7f78a6b8107e6bbe3aebdd841d10deefffa10ed1fc1cfd3681dd1770bd8",
+    "dhash": "cf0e1e9c2c2c787c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fcd05dfd546f6f35",
+    "file": "타투/단검/fcd05dfd546f6f35.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "칼·무기",
+        "label": "단검"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 607637,
+    "sha256": "fcd05dfd546f6f35a6314528297150227075484d37ff083402fdd8ebc08b605f",
+    "dhash": "ecece4e4ecece4e4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
