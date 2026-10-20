@@ -27502,5 +27502,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8dbf975c745cafe9",
+    "file": "헤어/코퍼·오렌지/8dbf975c745cafe9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "코퍼·오렌지"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 364159,
+    "sha256": "8dbf975c745cafe93d709d6fd2e435672be17336e11cf1619bbbdd165e9c0d15",
+    "dhash": "d37371d5d31347eb",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1f444e1f50ee26ac",
+    "file": "네일/딥프렌치/1f444e1f50ee26ac.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "딥프렌치"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 774717,
+    "sha256": "1f444e1f50ee26ac93b09a35809cfd55450eb2b87c9cb2fd836b5091d18d9c29",
+    "dhash": "1fcf270e090b0f0c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5771ff3d08e46f6c",
+    "file": "네일/딥프렌치/5771ff3d08e46f6c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "딥프렌치"
+      }
+    ],
+    "width": 3024,
+    "height": 4032,
+    "bytes": 1882049,
+    "sha256": "5771ff3d08e46f6c37a2f241b414d9c6b5e1d254da7ceb42ef29166bffbdff2d",
+    "dhash": "e3d3dbef9f9fffff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "de73b1a59f09b646",
+    "file": "메이크업/컬러 아이라인/de73b1a59f09b646.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "컬러 아이라인"
+      }
+    ],
+    "width": 1069,
+    "height": 1400,
+    "bytes": 136825,
+    "sha256": "de73b1a59f09b64697ba7abcabc817d96239a7f712e6e6b41c0180c0d5956a6d",
+    "dhash": "f0c058bc9c9f9f1f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "22f651307699d075",
+    "file": "타투/시계·열쇠/22f651307699d075.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "시계·열쇠"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 537210,
+    "sha256": "22f651307699d075a7aecbe56539f4fabd3ad76aeb1775aa3094df1cb369ef8f",
+    "dhash": "a4c4263637331311",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7749b64f308bac74",
+    "file": "타투/음악·악기/7749b64f308bac74.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "음악·악기"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 853843,
+    "sha256": "7749b64f308bac7429841ac9bbd4c20ee6212047b71eac4903176289af1e1765",
+    "dhash": "f3f3fef9f1e3ddf5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
