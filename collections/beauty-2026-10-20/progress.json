@@ -570,7 +570,7 @@
       "existing_count": 12,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 4
     },
     {
       "category": "헤어",
@@ -1440,7 +1440,7 @@
       "existing_count": 28,
       "shortage": true,
       "target_new": 100,
-      "collected": 1
+      "collected": 3
     },
     {
       "category": "네일",
@@ -1550,7 +1550,7 @@
       "existing_count": 16,
       "shortage": true,
       "target_new": 100,
-      "collected": 1
+      "collected": 4
     },
     {
       "category": "네일",
@@ -2470,7 +2470,7 @@
       "existing_count": 87,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -2520,7 +2520,7 @@
       "existing_count": 44,
       "shortage": false,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "메이크업",
@@ -2640,7 +2640,7 @@
       "existing_count": 97,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -2650,7 +2650,7 @@
       "existing_count": 38,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -3100,7 +3100,7 @@
       "existing_count": 12,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -4220,7 +4220,7 @@
       "existing_count": 3,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -4310,7 +4310,7 @@
       "existing_count": 3,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -4500,7 +4500,7 @@
       "existing_count": 4,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -4640,7 +4640,7 @@
       "existing_count": 4,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -5623,6 +5623,6 @@
       "collected": 0
     }
   ],
-  "unique_images": 1102,
+  "unique_images": 1120,
   "completed_labels": 0
 }
