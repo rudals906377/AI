@@ -37309,5 +37309,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ea21d61ad2a4eda9",
+    "file": "헤어/투톤/ea21d61ad2a4eda9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "투톤"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 344484,
+    "sha256": "ea21d61ad2a4eda9ad424d8a9ca940a6f43e61464e139103b1c19813acf81f44",
+    "dhash": "6ce8f16060e2eec6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ff7bb83cd60243e9",
+    "file": "헤어/옴브레/ff7bb83cd60243e9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "옴브레"
+      }
+    ],
+    "width": 1200,
+    "height": 1499,
+    "bytes": 199961,
+    "sha256": "ff7bb83cd60243e9e7ba934790909adf5274454a04c18b2783d596d0db1be16f",
+    "dhash": "3939391f16160c08",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aa9530710b24696b",
+    "file": "네일/브라운·모카/aa9530710b24696b.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "브라운·모카"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 26220,
+    "sha256": "aa9530710b24696b7dec6d2e13ae560c47690167a56deb259e06ee905f31eccb",
+    "dhash": "13d64ee9752be6a4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "883dc58cf557dd44",
+    "file": "네일/코랄·피치/883dc58cf557dd44.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "코랄·피치"
+      }
+    ],
+    "width": 1051,
+    "height": 1400,
+    "bytes": 66842,
+    "sha256": "883dc58cf557dd4400ff99918f3fa4a9d3eb1c8306aeda46da473155a7fdde94",
+    "dhash": "f0e89c36733180c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
