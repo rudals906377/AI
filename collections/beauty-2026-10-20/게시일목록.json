@@ -9948,6 +9948,54 @@
       "sha256": "bef031ef641c9513edb379a59110ac4f814d47a06309b074935c8d23f4a4b5ee",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말2026.06.24 및 실제 원본의 얇은 컬러 팁 부모 확인"
+    },
+    {
+      "id": "44b4537e3bd11c98",
+      "sha256": "44b4537e3bd11c98b7e868f08675dc8452b08f1ca0c272f9cfc3000073e0fab9",
+      "publishedDate": "2026-08-21",
+      "dateEvidence": "담당 헤어 디자이너 인터뷰 기사 게시일 2026.08.21 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "a9dca6b46a8f498e",
+      "sha256": "a9dca6b46a8f498eab96fbfbbb8289217887cf256d0618a3a29c7e48724d879e",
+      "publishedDate": "2026-08-21",
+      "dateEvidence": "담당 헤어 디자이너 인터뷰 기사 게시일 2026.08.21 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "83184ab34ffbfa4f",
+      "sha256": "83184ab34ffbfa4fbd88bef8689c9039d226a13f34b91966b5706f84aaf42ece",
+      "publishedDate": "2026-08-21",
+      "dateEvidence": "담당 헤어 디자이너 인터뷰 기사 게시일 2026.08.21 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "1225e8a7a439466f",
+      "sha256": "1225e8a7a439466f2658ca2c2df3ddb3ed01debd4ff902a27436c87949ec46d0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "a111b393416be0c9",
+      "sha256": "a111b393416be0c9c4ad5db3493bee735a6d02c4afa581c18b249007b3ae1517",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "cc15473437f0b7f4",
+      "sha256": "cc15473437f0b7f4d3089d4bf37f66c469b0930f1035ed918d5c9e043486febe",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "9bbed13a8f27daad",
+      "sha256": "9bbed13a8f27daad2dbc9b0c150e5501ad34740acb48a18531ebe5ca54d51123",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말2026.06.24 및 실제 중앙 색 경계가 번진 네일 원본 부모 확인"
+    },
+    {
+      "id": "6929e523b1c436c7",
+      "sha256": "6929e523b1c436c72c0f56e4a544f7623accd28cfb28790b3051fdd16bad8282",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말2026.06.24 및 실제 중앙 색 경계가 번진 네일 원본 부모 확인"
     }
   ]
 }

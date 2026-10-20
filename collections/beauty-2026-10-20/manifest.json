@@ -34936,5 +34936,173 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "44b4537e3bd11c98",
+    "file": "헤어/애쉬베이지/44b4537e3bd11c98.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "애쉬베이지"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 133387,
+    "sha256": "44b4537e3bd11c98b7e868f08675dc8452b08f1ca0c272f9cfc3000073e0fab9",
+    "dhash": "0c491d2c604b5830",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a9dca6b46a8f498e",
+    "file": "헤어/애쉬블론드/a9dca6b46a8f498e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "애쉬블론드"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 147047,
+    "sha256": "a9dca6b46a8f498eab96fbfbbb8289217887cf256d0618a3a29c7e48724d879e",
+    "dhash": "31b1b13371e1e1cd",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "83184ab34ffbfa4f",
+    "file": "헤어/애쉬베이지/83184ab34ffbfa4f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "애쉬베이지"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 109792,
+    "sha256": "83184ab34ffbfa4fbd88bef8689c9039d226a13f34b91966b5706f84aaf42ece",
+    "dhash": "ccc8f0ccd4e8cccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1225e8a7a439466f",
+    "file": "타투/캐릭터/1225e8a7a439466f.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "캐릭터"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 616552,
+    "sha256": "1225e8a7a439466f2658ca2c2df3ddb3ed01debd4ff902a27436c87949ec46d0",
+    "dhash": "f8c44e46ac998b06",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a111b393416be0c9",
+    "file": "타투/잎사귀 · 넝쿨/a111b393416be0c9.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "잎사귀 · 넝쿨"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 568534,
+    "sha256": "a111b393416be0c9c4ad5db3493bee735a6d02c4afa581c18b249007b3ae1517",
+    "dhash": "8b67639bcbcde4e6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cc15473437f0b7f4",
+    "file": "타투/나비/cc15473437f0b7f4.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "나비"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 701481,
+    "sha256": "cc15473437f0b7f4d3089d4bf37f66c469b0930f1035ed918d5c9e043486febe",
+    "dhash": "b3f37777e7e733b3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9bbed13a8f27daad",
+    "file": "네일/에어브러시·블러/9bbed13a8f27daad.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "에어브러시·블러"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 143556,
+    "sha256": "9bbed13a8f27daad2dbc9b0c150e5501ad34740acb48a18531ebe5ca54d51123",
+    "dhash": "3979dcd6f2f858c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6929e523b1c436c7",
+    "file": "네일/에어브러시·블러/6929e523b1c436c7.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "에어브러시·블러"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 104682,
+    "sha256": "6929e523b1c436c72c0f56e4a544f7623accd28cfb28790b3051fdd16bad8282",
+    "dhash": "f83c6e5f374fefee",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
