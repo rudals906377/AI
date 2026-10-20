@@ -39241,5 +39241,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bd505575175880f6",
+    "file": "메이크업/버건디·플럼/bd505575175880f6.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "버건디·플럼"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 272718,
+    "sha256": "bd505575175880f6b5622a70bb8d29102d3a05fc32451a93136876c3baf1a6de",
+    "dhash": "b77b363b29313959",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5d2519df663f579a",
+    "file": "메이크업/핑크·코랄 섀도/5d2519df663f579a.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "핑크·코랄 섀도"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 227730,
+    "sha256": "5d2519df663f579ac93e393df50697a6cd6229f3aa0c9bb028a66043902d5af8",
+    "dhash": "3fffbcb8f5c5f95a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
