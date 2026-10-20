@@ -39724,5 +39724,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a12a1a91dfa2fd22",
+    "file": "타투/불꽃/a12a1a91dfa2fd22.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "달·별·자연",
+        "label": "불꽃"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 466644,
+    "sha256": "a12a1a91dfa2fd226b26227a07c5977e3f66535f03f84f13f03e567184c96d9b",
+    "dhash": "e0e068717068e0e2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f21dbdd61b700021",
+    "file": "메이크업/레드 섀도/f21dbdd61b700021.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "레드 섀도"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 169630,
+    "sha256": "f21dbdd61b7000214be6c78458dcf10eca73293e25613af9a37b6562136748a6",
+    "dhash": "3e4f8231080e1e94",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

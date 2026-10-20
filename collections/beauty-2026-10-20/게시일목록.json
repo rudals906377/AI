@@ -11316,6 +11316,18 @@
       "sha256": "1edafb2dc1891d97b2736abcd90d17d7346670dead0a40afe4e92bb430bf66b1",
       "publishedDate": "2026-09-24",
       "dateEvidence": "한국 네일 기사 게시일2026.09.24 확인; 사진 최초 게시일 별도 미확인; 짧고 평평한 끝과 둥근 모서리 실제 확인"
+    },
+    {
+      "id": "a12a1a91dfa2fd22",
+      "sha256": "a12a1a91dfa2fd226b26227a07c5977e3f66535f03f84f13f03e567184c96d9b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "f21dbdd61b700021",
+      "sha256": "f21dbdd61b7000214be6c78458dcf10eca73293e25613af9a37b6562136748a6",
+      "publishedDate": "2026-01-08",
+      "dateEvidence": "기사 머리말 2026년01월08일 관찰. 하단 2025년1월호 표기와 달라 원촬영 날짜 미확인; 2026 신규촬영으로 단정하지 않음"
     }
   ]
 }
