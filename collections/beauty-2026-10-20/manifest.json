@@ -14188,5 +14188,593 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3f9e102843b8afd5",
+    "file": "헤어/반묶음/3f9e102843b8afd5.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "반묶음"
+      }
+    ],
+    "width": 560,
+    "height": 700,
+    "bytes": 51516,
+    "sha256": "3f9e102843b8afd5495325fa779681dacc09e21a6d9f01532f3376af39993627",
+    "dhash": "4f2f33929998584f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eb3063da2c22ed1c",
+    "file": "네일/스월/eb3063da2c22ed1c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스월"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 53941,
+    "sha256": "eb3063da2c22ed1cefffd5141cef9dad70c436df0df554823c928a028abb8656",
+    "dhash": "b1a92899182954d2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f4d1e4d42a4dee0e",
+    "file": "네일/스월/f4d1e4d42a4dee0e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스월"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 32318,
+    "sha256": "f4d1e4d42a4dee0ebf75d41cfcc734dc810849991b421a16b0eea51526b56e64",
+    "dhash": "d3c1697120141fff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7b9cb1d1f69c8f26",
+    "file": "네일/스월/7b9cb1d1f69c8f26.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스월"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 32770,
+    "sha256": "7b9cb1d1f69c8f2654062402bf6c69888ec77dec0654895f134bdd64a3422a1b",
+    "dhash": "0fb72b0b3434b37a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a561c0f92d29646e",
+    "file": "네일/스월/a561c0f92d29646e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스월"
+      }
+    ],
+    "width": 474,
+    "height": 580,
+    "bytes": 30064,
+    "sha256": "a561c0f92d29646ef7a5fc65acbfc80682bd22cd538fbda3f0f58e2f75a0152b",
+    "dhash": "380c4d29c701e5e5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b43cc9132e239a45",
+    "file": "네일/매트/b43cc9132e239a45.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1080,
+    "height": 1438,
+    "bytes": 187216,
+    "sha256": "b43cc9132e239a455f28efbc6f446365dbfa169a57454c9714512eb7324e6363",
+    "dhash": "4f21386860b060e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2cb3ae13c9edf1f4",
+    "file": "메이크업/컬러 마스카라/2cb3ae13c9edf1f4.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 736,
+    "height": 1000,
+    "bytes": 78595,
+    "sha256": "2cb3ae13c9edf1f429c3154113235827559da2f6f7e242a4fac516252208de49",
+    "dhash": "e0f38320a0a4e8f4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1181b1f36fe04d14",
+    "file": "메이크업/컬러 마스카라/1181b1f36fe04d14.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 1200,
+    "height": 1553,
+    "bytes": 298319,
+    "sha256": "1181b1f36fe04d146b5369183bd7f7de1830c16ef5a80f5381aead51bfd17514",
+    "dhash": "aef929c83c0c3c90",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "05f28fe8d3db59a2",
+    "file": "메이크업/컬러 마스카라/05f28fe8d3db59a2.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 1000,
+    "height": 1250,
+    "bytes": 240080,
+    "sha256": "05f28fe8d3db59a2e9cb63196cf32655cca4796cc7dcb60d31a99f2f6b9bd023",
+    "dhash": "f370f0f1759839f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0035feb258cf670d",
+    "file": "메이크업/컬러 마스카라/0035feb258cf670d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 736,
+    "height": 974,
+    "bytes": 51037,
+    "sha256": "0035feb258cf670d5faf4bb22c79bb6266dd5a345f7c2ec377933f0fbc316bb5",
+    "dhash": "870f4cc7873c3cfc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ec6f47168ead06f8",
+    "file": "메이크업/컬러 마스카라/ec6f47168ead06f8.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 667,
+    "height": 1000,
+    "bytes": 106747,
+    "sha256": "ec6f47168ead06f8003d8a72752dcee978fe6be31424bd107a2f9e037b5d01c4",
+    "dhash": "61c9879d1f474739",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2f3bebb78d69e871",
+    "file": "메이크업/컬러 마스카라/2f3bebb78d69e871.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 960,
+    "height": 1200,
+    "bytes": 137088,
+    "sha256": "2f3bebb78d69e8716285e64ea98cd88a98017c1f82d5c4ff4b20958b26ae9c43",
+    "dhash": "7ce2d0d0c5e0e061",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "877acf09596d42da",
+    "file": "메이크업/컬러 마스카라/877acf09596d42da.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 736,
+    "height": 1104,
+    "bytes": 88382,
+    "sha256": "877acf09596d42da8a192a0ec41b3143f553a94f18333cf708affee0148244b4",
+    "dhash": "c9620e1b31293993",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bc21c832d4337cd3",
+    "file": "메이크업/컬러 마스카라/bc21c832d4337cd3.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 245087,
+    "sha256": "bc21c832d4337cd38de49f8a8a254a843527b373cce83a318d81a4091219dfea",
+    "dhash": "cfe9e1d8ccbef3ee",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f9a69c54fd1048b",
+    "file": "메이크업/컬러 마스카라/5f9a69c54fd1048b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 736,
+    "height": 920,
+    "bytes": 123945,
+    "sha256": "5f9a69c54fd1048bd53a003113b94d927505df627bddc8bc6b33f5086c542562",
+    "dhash": "c0e1e9c8c8e0e0e0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bbe4f844e8e9926b",
+    "file": "메이크업/컬러 마스카라/bbe4f844e8e9926b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 900,
+    "height": 1200,
+    "bytes": 115835,
+    "sha256": "bbe4f844e8e9926b20a7da96f651dab236fba587a6639964cefc70e45ff5f472",
+    "dhash": "810100c460e4c0c0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3ec7345db92bdfad",
+    "file": "타투/토끼/3ec7345db92bdfad.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "토끼"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 19482,
+    "sha256": "3ec7345db92bdfad4ed4b7c657572b155146c8568ff893b7331b0247715155d1",
+    "dhash": "3f3f06ce460c3978",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2bd05cfca64b6a37",
+    "file": "타투/토끼/2bd05cfca64b6a37.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "토끼"
+      }
+    ],
+    "width": 474,
+    "height": 481,
+    "bytes": 19228,
+    "sha256": "2bd05cfca64b6a37c2622cdfd326ce98a2a232899d3034258cdfcdfd49280670",
+    "dhash": "70786c6c6c713939",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fe2612ebb545ca6e",
+    "file": "타투/토끼/fe2612ebb545ca6e.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "토끼"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 25446,
+    "sha256": "fe2612ebb545ca6e03075c855bec8a2283886333acd80f4c0074af19d5715cdf",
+    "dhash": "e4f6cececc7c0f01",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "24436b459ca08b52",
+    "file": "타투/토끼/24436b459ca08b52.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "토끼"
+      }
+    ],
+    "width": 474,
+    "height": 586,
+    "bytes": 19596,
+    "sha256": "24436b459ca08b52a333856c7704238c74ff9907635b4121fc2745c0a7a44080",
+    "dhash": "f0f8f8fcfc7cfcfc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "62ce8ba31ca166e5",
+    "file": "타투/토끼/62ce8ba31ca166e5.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "토끼"
+      }
+    ],
+    "width": 423,
+    "height": 740,
+    "bytes": 19427,
+    "sha256": "62ce8ba31ca166e52e6fb441e50f1dac69fd5170369d07e7809d17f686d4637d",
+    "dhash": "3b3b337e9673a330",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4d88958c4904eb66",
+    "file": "타투/고래/4d88958c4904eb66.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 474,
+    "height": 514,
+    "bytes": 26616,
+    "sha256": "4d88958c4904eb666563b40b5a840c8ca7050344409f544817e1b9f4661a745f",
+    "dhash": "6e7a561e323b7366",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6eb787b1c8f03460",
+    "file": "타투/고래/6eb787b1c8f03460.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 24547,
+    "sha256": "6eb787b1c8f03460a275c2287a2ea0726c31852499ad0a896aaa8e0574357ed6",
+    "dhash": "74646d4fceccc6f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f9edaee696adc6d2",
+    "file": "타투/고래/f9edaee696adc6d2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 17565,
+    "sha256": "f9edaee696adc6d26a6afb3ce6e2b55f470962eb6cfd0fea0c747284d3c02dc6",
+    "dhash": "c363291c06e310d0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "af8207310737e756",
+    "file": "타투/고래/af8207310737e756.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 474,
+    "height": 617,
+    "bytes": 18961,
+    "sha256": "af8207310737e756214f30bbce49ea698b3c12a27d57ad876e60fa5bf64f07a8",
+    "dhash": "b070c49e36d8c8d9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a9d5cc4c3a535524",
+    "file": "타투/고래/a9d5cc4c3a535524.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 14024,
+    "sha256": "a9d5cc4c3a53552493d1799a9051f92bf851ee56db14ec505c1c64fa1ab34e23",
+    "dhash": "711c0705c4e4d080",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "088c0ea6800b6d9b",
+    "file": "타투/고래/088c0ea6800b6d9b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 473,
+    "height": 591,
+    "bytes": 27969,
+    "sha256": "088c0ea6800b6d9bc999fee0a15ad549d2a0b7d6b1a4c9f3fe2be9b37d687282",
+    "dhash": "67636323b3f3f2f2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e7209af79e8dc0c0",
+    "file": "타투/고래/e7209af79e8dc0c0.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "고래"
+      }
+    ],
+    "width": 474,
+    "height": 535,
+    "bytes": 26108,
+    "sha256": "e7209af79e8dc0c0f9cab92eff627160e27047f8f6e7ade41bef43a01c3ba721",
+    "dhash": "1e3c28093162e48c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
