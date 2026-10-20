@@ -10650,6 +10650,36 @@
       "sha256": "883dc58cf557dd4400ff99918f3fa4a9d3eb1c8306aeda46da473155a7fdde94",
       "publishedDate": "2026-02-20",
       "dateEvidence": "뷰티 기사 머리말 2026.02.20 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "365a1b374baff48f",
+      "sha256": "365a1b374baff48f4d83afa7bd8a5f80c91589f3e006b81418348d87eb97a0f5",
+      "publishedDate": "2026-06-23",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.06.23 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "8c45bbe391e061f0",
+      "sha256": "8c45bbe391e061f0548408111b93a71bfc21caac4f76736c5c9c237af3669012",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "9868e594a078d51c",
+      "sha256": "9868e594a078d51c43f88ceada6ad7bf90a765e3e194f5c7b3c0886f74aade31",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "b4a1b07cc31ef902",
+      "sha256": "b4a1b07cc31ef902371929a8f224867c91e536cafcf671afae489c97f24cccd5",
+      "publishedDate": "2026-02-20",
+      "dateEvidence": "뷰티 기사 머리말 2026.02.20 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "33d663d1fda259c8",
+      "sha256": "33d663d1fda259c8612ef23ac0cae5777df446710bb9ab100f40188a6c4597fe",
+      "publishedDate": "2026-02-20",
+      "dateEvidence": "뷰티 기사 머리말 2026.02.20 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }

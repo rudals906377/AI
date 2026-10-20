@@ -37393,5 +37393,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "365a1b374baff48f",
+    "file": "헤어/앞머리 없음/365a1b374baff48f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "앞머리 없음"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 64915,
+    "sha256": "365a1b374baff48f4d83afa7bd8a5f80c91589f3e006b81418348d87eb97a0f5",
+    "dhash": "f5c68f9786878780",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8c45bbe391e061f0",
+    "file": "타투/로고 · 엠블럼/8c45bbe391e061f0.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "로고 · 엠블럼"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 346403,
+    "sha256": "8c45bbe391e061f0548408111b93a71bfc21caac4f76736c5c9c237af3669012",
+    "dhash": "1080c0c0ec7c3e1f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9868e594a078d51c",
+    "file": "타투/네오트라이벌/9868e594a078d51c.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "네오트라이벌"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 343170,
+    "sha256": "9868e594a078d51c43f88ceada6ad7bf90a765e3e194f5c7b3c0886f74aade31",
+    "dhash": "e0e07068e8f0f0e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b4a1b07cc31ef902",
+    "file": "네일/라벤더·퍼플/b4a1b07cc31ef902.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "라벤더·퍼플"
+      }
+    ],
+    "width": 1080,
+    "height": 1347,
+    "bytes": 66178,
+    "sha256": "b4a1b07cc31ef902371929a8f224867c91e536cafcf671afae489c97f24cccd5",
+    "dhash": "9993cfb76b75290a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "33d663d1fda259c8",
+    "file": "네일/네이비·블루/33d663d1fda259c8.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "네이비·블루"
+      }
+    ],
+    "width": 1080,
+    "height": 1346,
+    "bytes": 93198,
+    "sha256": "33d663d1fda259c8612ef23ac0cae5777df446710bb9ab100f40188a6c4597fe",
+    "dhash": "e38733334f476e55",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
