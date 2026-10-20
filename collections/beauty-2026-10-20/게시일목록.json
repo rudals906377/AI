@@ -11766,6 +11766,24 @@
       "sha256": "383534195dc35acb432fe941b0a932861b7261e6241c39c867e9e151ed51c58c",
       "publishedDate": "2026-04-27",
       "dateEvidence": "한국어 네일 기사 게시일2026.04.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "efdc0b36ae1ec784",
+      "sha256": "efdc0b36ae1ec784daabddcb9996442733cb50eb39e74611db98e1982ca44ee4",
+      "publishedDate": "2025-05-13",
+      "dateEvidence": "한국 셀럽 묶음 헤어 스타일 기사 게시일 2025.05.13 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "933a627731341393",
+      "sha256": "933a6277313413939540d1d51744485b0bb7aec74b4c45f4a18e5e60f65bdf9d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "85e76a05fbeb4c1b",
+      "sha256": "85e76a05fbeb4c1b8278bac33bb80877e18d3327351e1da1bdb800295b8dc073",
+      "publishedDate": "2026-10-18",
+      "dateEvidence": "기사 머리말 2026.10.18 관찰; 국내 뷰티 기사의 개별 탈색 브로우 시술 설명 확인. 재게시된 사진의 원 게시일은 미확인"
     }
   ]
 }

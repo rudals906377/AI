@@ -41299,5 +41299,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "efdc0b36ae1ec784",
+    "file": "헤어/스페이스번/efdc0b36ae1ec784.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "스페이스번"
+      }
+    ],
+    "width": 1007,
+    "height": 1259,
+    "bytes": 128565,
+    "sha256": "efdc0b36ae1ec784daabddcb9996442733cb50eb39e74611db98e1982ca44ee4",
+    "dhash": "0d01177e27272317",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "933a627731341393",
+    "file": "타투/한글 레터링/933a627731341393.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "문구·이니셜",
+        "label": "한글 레터링"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 697762,
+    "sha256": "933a6277313413939540d1d51744485b0bb7aec74b4c45f4a18e5e60f65bdf9d",
+    "dhash": "d9d9f9f9d5fcf0f1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "85e76a05fbeb4c1b",
+    "file": "메이크업/탈색 눈썹/85e76a05fbeb4c1b.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "탈색 눈썹"
+      }
+    ],
+    "width": 1280,
+    "height": 1706,
+    "bytes": 244352,
+    "sha256": "85e76a05fbeb4c1b8278bac33bb80877e18d3327351e1da1bdb800295b8dc073",
+    "dhash": "5d392b27af27af87",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
