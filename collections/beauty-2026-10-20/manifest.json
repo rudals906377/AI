@@ -40501,5 +40501,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dbda191dd096f99c",
+    "file": "네일/스월/dbda191dd096f99c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스월"
+      }
+    ],
+    "width": 1178,
+    "height": 1547,
+    "bytes": 188363,
+    "sha256": "dbda191dd096f99c85969e04ec943aa2e06d7acb917ef18985c0482ff4500008",
+    "dhash": "7b77676bf5345402",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
