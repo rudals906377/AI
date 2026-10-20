@@ -25423,5 +25423,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7b4d371fbdacf1b6",
+    "file": "헤어/트위스트 묶음/7b4d371fbdacf1b6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "트위스트 묶음"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 2230272,
+    "sha256": "7b4d371fbdacf1b62dddf65a32c248f3b97dbb77b91dcb2506ca4874c42a8b3e",
+    "dhash": "d9199d1e0c0e8ec6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "02c84781f539c34c",
+    "file": "네일/여름/02c84781f539c34c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "여름"
+      }
+    ],
+    "width": 2066,
+    "height": 2754,
+    "bytes": 710790,
+    "sha256": "02c84781f539c34c37b4d704ef6102163376904d8947b22dff95c579bad51bd0",
+    "dhash": "0b1766256243c373",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "94cce9aa523b9fda",
+    "file": "메이크업/그래픽 라인/94cce9aa523b9fda.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "그래픽 라인"
+      }
+    ],
+    "width": 1000,
+    "height": 635,
+    "bytes": 359021,
+    "sha256": "94cce9aa523b9fda693480eb73ca12e17e23ffab8ac48c149eefa6e9cf28dc51",
+    "dhash": "f0f0c2e6a49c9292",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a4323a1ff6f812c5",
+    "file": "타투/화이트 잉크/a4323a1ff6f812c5.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "화이트 잉크"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 53445,
+    "sha256": "a4323a1ff6f812c57c9318256276c3d8bf6d033aa747add2a9026ec1f21aab10",
+    "dhash": "d05c6e1ff16e7c3c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
