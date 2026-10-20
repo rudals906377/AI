@@ -40522,5 +40522,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "debdbdc005d9efeb",
+    "file": "메이크업/레드 섀도/debdbdc005d9efeb.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "레드 섀도"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 99820,
+    "sha256": "debdbdc005d9efeb874e6ccf5ee58e34b8592abfec48bbc15baa834d2d88565b",
+    "dhash": "6883c1e8f0f0f0e0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ba0f25e269dddeae",
+    "file": "메이크업/드레이핑 블러셔/ba0f25e269dddeae.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "드레이핑 블러셔"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 78716,
+    "sha256": "ba0f25e269dddeae1c086e2137442693150e089f9c1af831114ee6ef79fae7b2",
+    "dhash": "f0703317b6321306",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0dfe4646da6fa541",
+    "file": "네일/라운드/0dfe4646da6fa541.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "라운드"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 133152,
+    "sha256": "0dfe4646da6fa54130aed1b1d2abbb9ef0e3304a683301eb414ad4ad7b5afa5b",
+    "dhash": "0c33c1888cd09038",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
