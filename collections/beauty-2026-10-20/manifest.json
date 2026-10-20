@@ -33256,5 +33256,194 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7df4bf25158007c6",
+    "file": "헤어/베이비뱅/7df4bf25158007c6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "베이비뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1462,
+    "bytes": 96624,
+    "sha256": "7df4bf25158007c64e53f9802bccf8e2133af3013bc46d21a7a70777040f707e",
+    "dhash": "c0c0c484b2928ecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "86dff05b1a5025d9",
+    "file": "헤어/처피뱅/86dff05b1a5025d9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1557,
+    "bytes": 163622,
+    "sha256": "86dff05b1a5025d957558b5fc10003e87f9367d5c4b6a9b6b3c569d4e963129b",
+    "dhash": "a7a682d8e88bc2c4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aff2bca996d0d79b",
+    "file": "헤어/베이비뱅/aff2bca996d0d79b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "베이비뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 878,
+    "bytes": 66329,
+    "sha256": "aff2bca996d0d79bc1799085d3ff3b69a5b8fb81ce0a212473a135f4c4637ebb",
+    "dhash": "6c3ebadad098b000",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eb7cfa23e08d61e0",
+    "file": "메이크업/블루 섀도/eb7cfa23e08d61e0.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "블루 섀도"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 673230,
+    "sha256": "eb7cfa23e08d61e032c895b5bd766f7a3ffb28074947d23380181912c3d5a6d5",
+    "dhash": "998173697139b983",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4feb980b778cd6c4",
+    "file": "메이크업/브러시업 눈썹/4feb980b778cd6c4.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "브러시업 눈썹"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 782974,
+    "sha256": "4feb980b778cd6c43cf944b7b512bf351e245a869bc5749dcbc00a321b0d7f0c",
+    "dhash": "7b672e3f333b2b36",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "06c75497b3dbf5af",
+    "file": "메이크업/레드/06c75497b3dbf5af.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "레드"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 694176,
+    "sha256": "06c75497b3dbf5af392066f10fe61462ac45b50cf5d0a16a48191845a69e0cd9",
+    "dhash": "2b87930b33230b33",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7fdffe22d03163f1",
+    "file": "네일/자석/7fdffe22d03163f1.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 736,
+    "height": 920,
+    "bytes": 63752,
+    "sha256": "7fdffe22d03163f15b6df1f3d813bae45fa971533585cd41c90ef10493a71b72",
+    "dhash": "0a160c12244a1400",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3e189ab3e5efc84e",
+    "file": "네일/자석/3e189ab3e5efc84e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 736,
+    "height": 920,
+    "bytes": 58166,
+    "sha256": "3e189ab3e5efc84e8be975742b9e3eb7fa0d3817e03864803d48232d58eadfe2",
+    "dhash": "2820068e8c295430",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3434a3bd47ec2609",
+    "file": "네일/자석/3434a3bd47ec2609.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 736,
+    "height": 920,
+    "bytes": 49143,
+    "sha256": "3434a3bd47ec2609bf004c96eedd6c8a895e762c1a6108f6dd5acae43d12d669",
+    "dhash": "7c9ab68db3a18310",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
