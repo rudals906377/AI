@@ -33088,5 +33088,173 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "726d2aeb92dfaf42",
+    "file": "헤어/사이드뱅/726d2aeb92dfaf42.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "사이드뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 147725,
+    "sha256": "726d2aeb92dfaf42ff6a1b07a20f22b8eb7dc003f45f2394c55ed4b7868d6052",
+    "dhash": "f060d01e48c9e167",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3ba83310d99a604f",
+    "file": "헤어/커튼뱅/3ba83310d99a604f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "커튼뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 71446,
+    "sha256": "3ba83310d99a604f0c58cc59edace2aa69b521ff8123584f90505088b34c4a06",
+    "dhash": "e061f1f361f1f0c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a23c3622eb6a2b8e",
+    "file": "헤어/사이드뱅/a23c3622eb6a2b8e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "사이드뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 91305,
+    "sha256": "a23c3622eb6a2b8ed9978f2e1de2fa66b43a522f882c479b4a7bfc7314305b3d",
+    "dhash": "5d496d278f0e0624",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "910ce04a0264dd65",
+    "file": "타투/인물/910ce04a0264dd65.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "인물"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 601951,
+    "sha256": "910ce04a0264dd65ee73dfcfca3e0f36801bc57e664587eb1e2c9c781c396f58",
+    "dhash": "6261717171717178",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "caf6fc6b3be251bf",
+    "file": "타투/해/caf6fc6b3be251bf.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "달·별·자연",
+        "label": "해"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 455882,
+    "sha256": "caf6fc6b3be251bf22438e4b9ec69b79a1215d314d435b83e382efce4f32e3ce",
+    "dhash": "41514c8c8e278ce8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "474c728536206169",
+    "file": "타투/달/474c728536206169.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "달·별·자연",
+        "label": "달"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 80665,
+    "sha256": "474c728536206169f093d92d63768eb1992f19f8b9f3b62ef0224e73a6bd583f",
+    "dhash": "662e8e1e1e1f3f3f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5759753ba185b355",
+    "file": "타투/전갈/5759753ba185b355.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "전갈"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 571979,
+    "sha256": "5759753ba185b35527723a036de16e6ae49cff6c2db62adf8a2f471e40e0b2db",
+    "dhash": "e0d8983e2f1a1973",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ff95c15efc702875",
+    "file": "타투/올드스쿨/ff95c15efc702875.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "올드스쿨"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 835518,
+    "sha256": "ff95c15efc702875107c4efdae4e2a71967f821b86df4c6d432bd8fe0aff2272",
+    "dhash": "1663e3e333333339",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

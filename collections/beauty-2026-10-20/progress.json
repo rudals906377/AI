@@ -690,7 +690,7 @@
       "existing_count": 138,
       "shortage": false,
       "target_new": 100,
-      "collected": 1
+      "collected": 3
     },
     {
       "category": "헤어",
@@ -700,7 +700,7 @@
       "existing_count": 11,
       "shortage": true,
       "target_new": 100,
-      "collected": 3
+      "collected": 4
     },
     {
       "category": "헤어",
@@ -3330,7 +3330,7 @@
       "existing_count": 52,
       "shortage": false,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "타투",
@@ -3650,7 +3650,7 @@
       "existing_count": 102,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -4410,7 +4410,7 @@
       "existing_count": 1,
       "shortage": true,
       "target_new": 100,
-      "collected": 3
+      "collected": 4
     },
     {
       "category": "타투",
@@ -4860,7 +4860,7 @@
       "existing_count": 10,
       "shortage": false,
       "target_new": 100,
-      "collected": 2
+      "collected": 3
     },
     {
       "category": "타투",
@@ -4870,7 +4870,7 @@
       "existing_count": 6,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1570,
+  "unique_images": 1578,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1569,
+  "goal_eligible_unique_images": 1577,
   "excluded_images": 1
 }
