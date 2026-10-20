@@ -39850,5 +39850,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "968a09d67958d6c2",
+    "file": "타투/해골/968a09d67958d6c2.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "해골"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 625083,
+    "sha256": "968a09d67958d6c25bc72e3dc76981b9ed00d8352676f93e6172aa171a1357df",
+    "dhash": "31796d6dd5d5d9e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
