@@ -10824,6 +10824,42 @@
       "sha256": "73bb5297eb03caa3e31b4d15957d519b43a6c9f550d223debd46a586cb3d4467",
       "publishedDate": "2026-09-01",
       "dateEvidence": "기사 머리말 2026년 09월 01일 및 본문의 실제 누드 피치 블러셔 설명 관찰"
+    },
+    {
+      "id": "a37bdbbed140cdec",
+      "sha256": "a37bdbbed140cdec88568c1b55766ce1629884c7e32efcc93db2f1ea3a7ce00e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d4728420f63320a7",
+      "sha256": "d4728420f63320a704c3a5c0747af66b1b8bde7300194b7acd54a03400d9cb42",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "0fe9bd025afef467",
+      "sha256": "0fe9bd025afef467f2b9127c27fffe5220cc98b408bf816e579d17919327c241",
+      "publishedDate": "2026-07-01",
+      "dateEvidence": "기사 머리말 2026년 07월 01일과 본문 피치빛 W 쉐입 치크 시술 설명 관찰"
+    },
+    {
+      "id": "6356056495a0d9ea",
+      "sha256": "6356056495a0d9eaa80aae6c216ea25178eaa6c7a1978ede35e6c2acc7bbbae1",
+      "publishedDate": "2026-06-15",
+      "dateEvidence": "한국 네일 트렌드 기사 헤더2026.06.15 확인, 실제 젤리형 단색 네일 특징 검수; 최초사진게시일별도미확인"
+    },
+    {
+      "id": "8fd1aa3fd34aead7",
+      "sha256": "8fd1aa3fd34aead7dbb5296112122e926c4433e7a45f483170289ed0ce940be0",
+      "publishedDate": "2026-06-15",
+      "dateEvidence": "한국 네일 트렌드 기사 헤더2026.06.15 확인; 실제 투명 긴팁과 실버 구슬 도트 검수"
+    },
+    {
+      "id": "9babb9f95a33569e",
+      "sha256": "9babb9f95a33569ef753099b403f56f772762b4451bfa3c2c96b937879f52a88",
+      "publishedDate": "2026-06-15",
+      "dateEvidence": "한국 네일 트렌드 기사 헤더2026.06.15 확인; 실제 짧은 타원형 실버 팁 프렌치 검수"
     }
   ]
 }

@@ -38002,5 +38002,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a37bdbbed140cdec",
+    "file": "타투/늑대/a37bdbbed140cdec.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "늑대"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 976655,
+    "sha256": "a37bdbbed140cdec88568c1b55766ce1629884c7e32efcc93db2f1ea3a7ce00e",
+    "dhash": "0b2f6371292b2333",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d4728420f63320a7",
+    "file": "타투/늑대/d4728420f63320a7.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "늑대"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 886659,
+    "sha256": "d4728420f63320a704c3a5c0747af66b1b8bde7300194b7acd54a03400d9cb42",
+    "dhash": "1d67675125052507",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0fe9bd025afef467",
+    "file": "메이크업/피치 블러셔/0fe9bd025afef467.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "피치 블러셔"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 190116,
+    "sha256": "0fe9bd025afef467f2b9127c27fffe5220cc98b408bf816e579d17919327c241",
+    "dhash": "e9c999393335191b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6356056495a0d9ea",
+    "file": "네일/시럽/6356056495a0d9ea.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "시럽"
+      }
+    ],
+    "width": 525,
+    "height": 700,
+    "bytes": 94822,
+    "sha256": "6356056495a0d9eaa80aae6c216ea25178eaa6c7a1978ede35e6c2acc7bbbae1",
+    "dhash": "1b1b3b168eefffff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8fd1aa3fd34aead7",
+    "file": "네일/도트/8fd1aa3fd34aead7.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "도트"
+      }
+    ],
+    "width": 1080,
+    "height": 1347,
+    "bytes": 46660,
+    "sha256": "8fd1aa3fd34aead7dbb5296112122e926c4433e7a45f483170289ed0ce940be0",
+    "dhash": "90302198c8f01e00",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9babb9f95a33569e",
+    "file": "네일/프렌치/9babb9f95a33569e.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "프렌치"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 162706,
+    "sha256": "9babb9f95a33569ef753099b403f56f772762b4451bfa3c2c96b937879f52a88",
+    "dhash": "e6be3e373b2b6cfd",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
