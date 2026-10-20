@@ -11370,6 +11370,30 @@
       "sha256": "39a19bb0bb52495fca8ce6f15ef4df1e1290b081dac8b4e2dec1a21ac7b9b950",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "f9c71babe1ebda72",
+      "sha256": "f9c71babe1ebda727db2d908ef204c890b5b1b122dcd875024ddbc214479bcf6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "742637f0a14f5123",
+      "sha256": "742637f0a14f5123b56fa8811bf63d6cddbc6489e4b8bf6c487d8a22720a50e0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "402cf93b31665813",
+      "sha256": "402cf93b31665813cae3efe66507be89753db3032aee0de45f9851676e4293ac",
+      "publishedDate": "2026-03-10",
+      "dateEvidence": "기사 머리말2026년03월10일 및 하단2026년3월호 관찰; 한국 뷰티 화보에서 새틴 립 제품·풀립 실제시술 설명 확인"
+    },
+    {
+      "id": "652c085c337b7879",
+      "sha256": "652c085c337b7879c794b80ff96cc7b77cd21ccb90f31a33559707451043cfb3",
+      "publishedDate": "2026-01-08",
+      "dateEvidence": "한국 네일 기사 작성일2026.01.08 확인; 최초 사진 게시일 별도 미확인; 실제 연한 하늘색 원컬러 육안 확인"
     }
   ]
 }
