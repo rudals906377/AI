@@ -1,0 +1,42 @@
+﻿파일,분야,라벨,가로,세로,큰얼굴,라벨검토,유사중복후보,SHA256,bytes
+헤어/가일컷/e54a3a6208b2815f.jpg,헤어,커트:가일컷,736,1308,없음,candidate_visual_reviewed,,e54a3a6208b2815f5e61510abf7739b14e33184ec12f9cb2656267b42657e569,111795
+헤어/가일컷/fe67905bc53f4130.jpg,헤어,커트:가일컷,736,1308,있음,candidate_visual_reviewed,,fe67905bc53f413060a080943433ace3ec3441674f839bbfa673c30414ea53c4,89332
+헤어/다운펌/be65b809455ec99f.jpg,헤어,펌·결:다운펌,1440,1440,있음,candidate_visual_reviewed,,be65b809455ec99f27637b27521b56d583495a9bbebb0b63f538f7a095412e43,390987
+헤어/집게핀 헤어/9f71d74ea75d0bef.jpg,헤어,스타일링(묶음 등):집게핀 헤어,474,842,없음,candidate_visual_reviewed,,9f71d74ea75d0bef2b51d1ad42070491f6455583a1cbc033b3ba9dea394414bd,58617
+헤어/집게핀 헤어/aa557487ffa404e9.jpg,헤어,스타일링(묶음 등):집게핀 헤어,474,639,없음,candidate_visual_reviewed,,aa557487ffa404e9ce65c07253e30c46f8134833955386b06b13a98e5c0204c9,31472
+헤어/집게핀 헤어/8d2f84ea86366b01.jpg,헤어,스타일링(묶음 등):집게핀 헤어,474,474,없음,candidate_visual_reviewed,,8d2f84ea86366b0186f817202cfb527f4f5f3e5e3be3484c5c5a7b5aa5268298,34857
+헤어/집게핀 헤어/43005ead5d24a567.jpg,헤어,스타일링(묶음 등):집게핀 헤어,474,474,없음,candidate_visual_reviewed,,43005ead5d24a56757be705ae18111453b8e6e9ed11aa45e14e632e1c14942e2,22927
+헤어/집게핀 헤어/48ce4a1e28d4f558.jpg,헤어,스타일링(묶음 등):집게핀 헤어,474,629,없음,candidate_visual_reviewed,,48ce4a1e28d4f55807bfc99f10f72625b1df5aeca3135295f3336ff8d62c98fd,36014
+헤어/아이비리그컷/60f50f640e23eb50.jpg,헤어,커트:아이비리그컷,360,540,있음,candidate_visual_reviewed,,60f50f640e23eb509364ec5da50b478677cc6ab9cc2e60eb3794547ac5f88a0c,26041
+헤어/아이비리그컷/e72301ed9f4243cb.jpg,헤어,커트:아이비리그컷,474,711,없음,candidate_visual_reviewed,,e72301ed9f4243cbe2b6a6325d282f372003915d3971d6b6e0260dc6889c6873,67988
+헤어/아이비리그컷/7b9832a693afc043.jpg,헤어,커트:아이비리그컷,474,805,있음,candidate_visual_reviewed,,7b9832a693afc04322eeff574abd8cff95149fcad4bb603e69bee7159e32fac5,44966
+네일/플레어/a6e4f94203d83b14.jpg,네일,손톱 모양:플레어,474,632,없음,candidate_visual_reviewed,,a6e4f94203d83b14729201e61b36f73aecfb20ae8277361196cdfaabae19cb5d,50036
+네일/플레어/1fa16b9b46f916f6.jpg,네일,손톱 모양:플레어,404,537,없음,candidate_visual_reviewed,,1fa16b9b46f916f677ffeeb8d52b1835270a1d60b427b0463b83d24932897b6a,23118
+네일/플레어/e1bdd70cef4ebf55.jpg,네일,손톱 모양:플레어,474,474,없음,candidate_visual_reviewed,,e1bdd70cef4ebf55c58d688dc9de98fdd35031924fb48b99c8dbd69455871797,30186
+네일/플레어/b856b75bb37a4fcc.jpg,네일,손톱 모양:플레어,474,474,없음,candidate_visual_reviewed,,b856b75bb37a4fcc2e7a8f8a7e96be9150036bd21ddf59265e51a5d7442b4ff0,29395
+네일/플레어/7162e5b1d907a541.jpg,네일,손톱 모양:플레어,405,720,없음,candidate_visual_reviewed,,7162e5b1d907a541f21e0fd13e91952b7ac7830831770486b03a58e4d2037e61,40612
+네일/플레어/7d967ec8bdece038.jpg,네일,손톱 모양:플레어,460,816,없음,candidate_visual_reviewed,,7d967ec8bdece0381f32be14e814a182332dbe83029cd76b27d9f6b5bede0c30,40588
+네일/립스틱/6b16d77d06fbbace.jpg,네일,손톱 모양:립스틱,473,591,없음,candidate_visual_reviewed,,6b16d77d06fbbace18a43d74d6220da2f23e64514870086678b6af6a63817c22,30229
+네일/립스틱/76e01fd8b94bd186.jpg,네일,손톱 모양:립스틱,474,861,없음,candidate_visual_reviewed,,76e01fd8b94bd18686b2e4468c21cac17df4d7e781e8a4cfe0caf469ed712e91,65200
+네일/립스틱/06d486012088339e.jpg,네일,손톱 모양:립스틱,474,436,없음,candidate_visual_reviewed,,06d486012088339e677bfc83ebf0754d3d6b05d35201e381088d49cb30de97d8,34392
+네일/립스틱/f987ac10719f9f7c.jpg,네일,손톱 모양:립스틱,474,711,없음,candidate_visual_reviewed,,f987ac10719f9f7c4b29966d92859e77d6b6af2dc4f9eb6c6aaeb635a7c4e51a,45409
+네일/립스틱/e62ae769af5f5f6a.jpg,네일,손톱 모양:립스틱,473,631,없음,candidate_visual_reviewed,,e62ae769af5f5f6a193565fdf594a2418bd991cfb2787a09d228f98fd41e15ca,39804
+네일/립스틱/69c11c64f837694d.jpg,네일,손톱 모양:립스틱,474,474,없음,candidate_visual_reviewed,,69c11c64f837694dd516be9693201b78e675efe1ab923b318e0327ef63823df0,27722
+네일/립스틱/d8e1fde7513b5635.jpg,네일,손톱 모양:립스틱,474,632,없음,candidate_visual_reviewed,,d8e1fde7513b56356c3abe12e8513026fc695c617c994740fb8e4a8d556160fc,33776
+네일/립스틱/1b6a5a38ddb0bfd2.jpg,네일,손톱 모양:립스틱,474,474,없음,candidate_visual_reviewed,,1b6a5a38ddb0bfd24b7be5b7fda22ae305de23ef96e538943d27fffbe4fc3d85,25960
+메이크업/뮤트 브라운/def3e33ba353bfed.jpg,메이크업,분위기:뮤트 브라운,474,628,있음,candidate_visual_reviewed,,def3e33ba353bfed2b4a75edf729080704919a7dc1046608937240c2fff01ecc,34403
+메이크업/뮤트 브라운/70e30b6ff547a194.jpg,메이크업,분위기:뮤트 브라운,474,681,있음,candidate_visual_reviewed,,70e30b6ff547a1947f9fd3313559e48b0ecabcf281f4a4da978b90ef32c6eedd,35031
+메이크업/탈색 눈썹/155d055067796b7f.jpg,메이크업,눈썹:탈색 눈썹,474,553,있음,candidate_visual_reviewed,,155d055067796b7fca923722c8506d226d1792a845c9b6cb3c64f99016436bb9,28832
+메이크업/탈색 눈썹/93c16c0d95869f08.jpg,메이크업,눈썹:탈색 눈썹,474,592,있음,candidate_visual_reviewed,,93c16c0d95869f081f7e45907948a65e567733b25a0c7722b820ab143103048f,34430
+메이크업/탈색 눈썹/40cd143b84c1c3c7.jpg,메이크업,눈썹:탈색 눈썹,474,632,있음,candidate_visual_reviewed,,40cd143b84c1c3c70df295653cde6549985c2d1c7e00ce6ec7effa0b609602f2,53555
+메이크업/탈색 눈썹/00f314d07cd9fea5.jpg,메이크업,눈썹:탈색 눈썹,474,631,있음,candidate_visual_reviewed,,00f314d07cd9fea51f6bdbe94f403cadac254b21a0b1225169bfad3cb6fda81e,34753
+메이크업/탈색 눈썹/0e2aa51cba932f65.jpg,메이크업,눈썹:탈색 눈썹,474,592,있음,candidate_visual_reviewed,,0e2aa51cba932f65fd272289a187dd00f97ab114eec88d50c253d1ee4cee301f,27395
+메이크업/탈색 눈썹/72dc27d9542470f6.jpg,메이크업,눈썹:탈색 눈썹,474,842,있음,candidate_visual_reviewed,,72dc27d9542470f67de83208ee5b624df972a7e8bcd4dce217bc778c3ded3474,65102
+메이크업/탈색 눈썹/66baba407d0e3a0a.jpg,메이크업,눈썹:탈색 눈썹,474,463,없음,candidate_visual_reviewed,,66baba407d0e3a0a3522ce2d77300d9d13c36688b85326a10abacd1ca271f69a,14387
+타투/해바라기/93bec6923b6c7c1b.jpg,타투,꽃·식물:해바라기,474,808,없음,candidate_visual_reviewed,,93bec6923b6c7c1b4e404aff1abe89df91d7bb684d0bae93be8971fe0fe03a3f,24641
+타투/해바라기/ef0eb0507e106d32.jpg,타투,꽃·식물:해바라기,474,524,없음,candidate_visual_reviewed,,ef0eb0507e106d32b2cdf8f5111ff22196c06c6c5169a255fcb632dff166759f,22476
+타투/해바라기/153aa70045965906.jpg,타투,꽃·식물:해바라기,474,662,없음,candidate_visual_reviewed,,153aa70045965906a401e30c34341b50cc1ae03f8456cd6f928c8894aef93fa6,32293
+타투/해바라기/90e454309203fe3b.jpg,타투,꽃·식물:해바라기,474,474,없음,candidate_visual_reviewed,,90e454309203fe3b3a888f1d74378f9897ed621e7be25370d7ce45d8bbe4e314,13052
+타투/해파리/59343fbdcce5370e.jpg,타투,동물:해파리,473,592,없음,candidate_visual_reviewed,,59343fbdcce5370e10c2d057ae3109603eef2a4427932f4aceda973c46747166,18723
+타투/해파리/a1a16786869b0857.jpg,타투,동물:해파리,474,684,없음,candidate_visual_reviewed,,a1a16786869b08574aab46e8dd827d6d7b2df947ee5a3105b47997c400805e2c,45373
+타투/해파리/439dc08525d48afe.jpg,타투,동물:해파리,474,711,없음,candidate_visual_reviewed,,439dc08525d48afec48e04482568f390a55615c32d9ed4e3ee8dc62044073191,13051
