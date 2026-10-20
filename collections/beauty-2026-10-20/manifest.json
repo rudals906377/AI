@@ -24499,5 +24499,278 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b9d5c12cf568d045",
+    "file": "헤어/애쉬브라운/b9d5c12cf568d045.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "애쉬브라운"
+      }
+    ],
+    "width": 1170,
+    "height": 1462,
+    "bytes": 526306,
+    "sha256": "b9d5c12cf568d04531a363674c58a6cbf72e3224baff4ae9d0d25a8292d910bb",
+    "dhash": "878d2d1387878ece",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b9fb12d33f00a094",
+    "file": "네일/오피스/b9fb12d33f00a094.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "오피스"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 192854,
+    "sha256": "b9fb12d33f00a0942ba17d5b320f72d59793bab614d48f17a1a7bed98afbb353",
+    "dhash": "4d1430323d9d3331",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c84eda1c1dd5ac0c",
+    "file": "네일/오피스/c84eda1c1dd5ac0c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "오피스"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 427857,
+    "sha256": "c84eda1c1dd5ac0c5a9ac245244f8b7aff564bfffc355425faf7f5286b0a9a7b",
+    "dhash": "b36341793d98dac8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3e0e05416ca5c3d7",
+    "file": "네일/오로라/3e0e05416ca5c3d7.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "오로라"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 216336,
+    "sha256": "3e0e05416ca5c3d7a5790a51251b83caa2b503deb553222601d78da4ee8199da",
+    "dhash": "1e3770308144322c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e32f115c588dc462",
+    "file": "네일/오로라/e32f115c588dc462.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "오로라"
+      }
+    ],
+    "width": 3024,
+    "height": 3024,
+    "bytes": 1227652,
+    "sha256": "e32f115c588dc46230517f80d126f6981ab9ce364c79ebbed3110df19ce1a4e7",
+    "dhash": "3614a9aa1222d321",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "46bb7c528c8df4b1",
+    "file": "메이크업/음영 섀도/46bb7c528c8df4b1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "음영 섀도"
+      }
+    ],
+    "width": 1080,
+    "height": 1349,
+    "bytes": 153791,
+    "sha256": "46bb7c528c8df4b15d3b7c9331daade39ff83f83902444b3000fe897ff69ae62",
+    "dhash": "3c8899d9f0f3f331",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d66f6a8f19ce8ac9",
+    "file": "메이크업/Y2K/d66f6a8f19ce8ac9.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "Y2K"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 373769,
+    "sha256": "d66f6a8f19ce8ac94cd7ae0885d1792f067fb68d96dc8d85b01750b6bf94023f",
+    "dhash": "e567643433b39b93",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "66b5e45e1ee7cb65",
+    "file": "메이크업/음영/66b5e45e1ee7cb65.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "음영"
+      }
+    ],
+    "width": 615,
+    "height": 700,
+    "bytes": 101032,
+    "sha256": "66b5e45e1ee7cb6522ab68016cde58440fdcca4c2cd24ecb5db41383bb028356",
+    "dhash": "91dc9698190c1cd8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d763aed3e85db36c",
+    "file": "타투/해골과 장미/d763aed3e85db36c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "해골과 장미"
+      }
+    ],
+    "width": 801,
+    "height": 1000,
+    "bytes": 51202,
+    "sha256": "d763aed3e85db36ceb99013546b3a4ba2544fd6801cbb7684a67de0dba213b1e",
+    "dhash": "dc9c9c9e8e8e3e8e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c6aab84822f5e9e8",
+    "file": "타투/해골과 장미/c6aab84822f5e9e8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "해골과 장미"
+      }
+    ],
+    "width": 640,
+    "height": 640,
+    "bytes": 41857,
+    "sha256": "c6aab84822f5e9e8e0395cd13e9840ec264281cd5351c5ed333d2777c7d02c57",
+    "dhash": "210b8b0b0b0b1701",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5ee5f8739920a8d3",
+    "file": "타투/성심/5ee5f8739920a8d3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "성심"
+      }
+    ],
+    "width": 809,
+    "height": 1000,
+    "bytes": 92193,
+    "sha256": "5ee5f8739920a8d3020a90a63e63143f72184cfa02fd3cac2c9aa8a35fa3bdc3",
+    "dhash": "cdc65316370d8d1d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f8ef5a2caa7c3dd4",
+    "file": "타투/성심/f8ef5a2caa7c3dd4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "성심"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 72486,
+    "sha256": "f8ef5a2caa7c3dd477192460777bf820fda04a627bfa01ae4b4476c4487d9c9d",
+    "dhash": "a7be7ddc98c21820",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e20e27466bbd996a",
+    "file": "타투/평화 · 음양/e20e27466bbd996a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "평화 · 음양"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 65355,
+    "sha256": "e20e27466bbd996a50372c7aa790329ec3b8b98e546238ecdb91394d419bb041",
+    "dhash": "b97979696931755b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
