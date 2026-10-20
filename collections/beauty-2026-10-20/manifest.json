@@ -30022,5 +30022,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "df355ae203b95312",
+    "file": "헤어/애교머리/df355ae203b95312.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "애교머리"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 466180,
+    "sha256": "df355ae203b95312b6386f8a0c393025805620f4942b0cc3c8beae320371c244",
+    "dhash": "60686c4c4c6c3c3c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b287f426538ebdfe",
+    "file": "헤어/밀크브라운/b287f426538ebdfe.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "밀크브라운"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 603274,
+    "sha256": "b287f426538ebdfe700be10a78709fa83d4a8604e21daa81833c084d03acad70",
+    "dhash": "06c76762f9f1f98d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0201c078129c3c86",
+    "file": "헤어/밀크브라운/0201c078129c3c86.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "밀크브라운"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 98330,
+    "sha256": "0201c078129c3c86305381b69fec3a8cdf980b9cdbbabef0624297bc739e935a",
+    "dhash": "64b6878797d6b600",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2cd49a61699c442f",
+    "file": "타투/수채화/2cd49a61699c442f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "수채화"
+      }
+    ],
+    "width": 869,
+    "height": 1085,
+    "bytes": 182041,
+    "sha256": "2cd49a61699c442f06168b26f0e817aca7167005adf9f86dd2a0121aee9a1a2e",
+    "dhash": "f676667b77ede97c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "887791b104638ce2",
+    "file": "타투/수채화/887791b104638ce2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "수채화"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 655025,
+    "sha256": "887791b104638ce2417580c0c258dc6c35ee0a210d3a4bc9c8ab21fe79d1ad68",
+    "dhash": "0101004c4163262f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
