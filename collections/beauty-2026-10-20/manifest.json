@@ -41383,5 +41383,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d5d50d4b45ae0c79",
+    "file": "타투/미니멀/d5d50d4b45ae0c79.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "미니멀"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 360947,
+    "sha256": "d5d50d4b45ae0c79da111f3202d57e37ad3227579d5218ee6e063c1dd6adeb6a",
+    "dhash": "c0c4c4e8e8a9b1b1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
