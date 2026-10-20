@@ -13033,5 +13033,1160 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8886ec88e824ae42",
+    "file": "헤어/슬릭번/8886ec88e824ae42.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 589,
+    "bytes": 31387,
+    "sha256": "8886ec88e824ae4214d2b78f17376cd7b591e1ad70e2e47f93d7586011d88ad3",
+    "dhash": "f1df65c453e3878f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d53d4f01a32ffc45",
+    "file": "헤어/슬릭번/d53d4f01a32ffc45.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 33525,
+    "sha256": "d53d4f01a32ffc45e4076f8d1b5b29b8ee081e96ec2781914e8795c4e72d0b7f",
+    "dhash": "7838d8c9e9e1c3cf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ed64580ef4a4d6fd",
+    "file": "헤어/슬릭번/ed64580ef4a4d6fd.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 23424,
+    "sha256": "ed64580ef4a4d6fd859531b91e55a2f5c889acf76e68f4950b1d249e8c7ef68c",
+    "dhash": "f0e0e1d39b179ef8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cb9d7b72b5ae24a9",
+    "file": "헤어/슬릭번/cb9d7b72b5ae24a9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 21023,
+    "sha256": "cb9d7b72b5ae24a90810107efe277cc7ad1ba2f8679c854c3e3824a26e5f2a16",
+    "dhash": "3038306627178ed8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b73fcc5959836094",
+    "file": "헤어/슬릭번/b73fcc5959836094.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 21245,
+    "sha256": "b73fcc59598360949cf26c310ffdc10d65639943d31787b0941198424497094d",
+    "dhash": "1b9e9edcce86cc20",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "84a713318892cab9",
+    "file": "헤어/슬릭번/84a713318892cab9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 23958,
+    "sha256": "84a713318892cab941f894f521be3a893e7612cbea76b1702c73edbc64be0aa8",
+    "dhash": "f8f8ee0f0da3f3f3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f0b27fb692ab1a0b",
+    "file": "헤어/슬릭번/f0b27fb692ab1a0b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 539,
+    "bytes": 35511,
+    "sha256": "f0b27fb692ab1a0b1d7811d0a2a3c8db6aa5cca0c3bd0c923dafa74184c614b4",
+    "dhash": "b8d9e2787978797a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6083568a54363b78",
+    "file": "헤어/슬릭번/6083568a54363b78.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 841,
+    "bytes": 33460,
+    "sha256": "6083568a54363b78a5f22e0a58df9808863fbc726ef4180b9791015288244f2f",
+    "dhash": "ecec79f2d99b97c7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d8affdaa61c88373",
+    "file": "헤어/슬릭번/d8affdaa61c88373.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 39836,
+    "sha256": "d8affdaa61c8837330f6ad9e42a3a191e3d3dd89861721bda78f929ff9622457",
+    "dhash": "e3311b3b3e3e763c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7f7c6713a10af94e",
+    "file": "헤어/슬릭번/7f7c6713a10af94e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 474,
+    "height": 839,
+    "bytes": 33476,
+    "sha256": "7f7c6713a10af94ef45a41e99a5b4ce544825c5543dbcd55cafb0036eaed6a3b",
+    "dhash": "333b371e06978387",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d83dd4c987c4a037",
+    "file": "헤어/반묶음/d83dd4c987c4a037.png",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "반묶음"
+      }
+    ],
+    "width": 1440,
+    "height": 2016,
+    "bytes": 1706923,
+    "sha256": "d83dd4c987c4a037b433d65f423e96b50414d40c6a971c89ff8ffb3904a80c5c",
+    "dhash": "272703c38b0f8686",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "477d1a2883492426",
+    "file": "헤어/크롭컷/477d1a2883492426.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "크롭컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 45886,
+    "sha256": "477d1a2883492426283515f154adbfd92f5e02b0c470bd190c3bbc8e2fa90156",
+    "dhash": "599f2726a6060e0c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "84cdfbf0f6ac2484",
+    "file": "헤어/댄디컷/84cdfbf0f6ac2484.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "댄디컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 68518,
+    "sha256": "84cdfbf0f6ac24848a130f00d4bc15533b5bae2f21939e95432be486ebb583a9",
+    "dhash": "128cccb486a68ecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8c12b0a43803a0db",
+    "file": "네일/치크/8c12b0a43803a0db.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 19389,
+    "sha256": "8c12b0a43803a0db48ec41da4d00b02c0c965e3bd0a75a73ceead5f5b4bc78a5",
+    "dhash": "01048a2835140821",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "30c8e1c83e662f37",
+    "file": "네일/치크/30c8e1c83e662f37.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 473,
+    "height": 596,
+    "bytes": 27478,
+    "sha256": "30c8e1c83e662f3743bc3d70e9a0fe9b75587d31d8f576b8504b0c3e3a3695c5",
+    "dhash": "8e0c060337270e8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "983d32458b1a40de",
+    "file": "네일/치크/983d32458b1a40de.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 24782,
+    "sha256": "983d32458b1a40de2fed0b46cbe2083bca03952760827c2734a05f966dc633ac",
+    "dhash": "3d1f1f0f8607b9fd",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf677226305226c3",
+    "file": "네일/치크/cf677226305226c3.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 35313,
+    "sha256": "cf677226305226c33c5a1a2b88405c515a5527b8f175a92fe25e2f99bf5b7ca5",
+    "dhash": "c3b3bd2d719aee1d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1d02ab1111168cfe",
+    "file": "네일/치크/1d02ab1111168cfe.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 30164,
+    "sha256": "1d02ab1111168cfe5f3e2dc3463e95c4335f0bc5a7f2df27fc28e94be4438b7f",
+    "dhash": "b497d35f7d3ff7ff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9f5d53d7325f4f3b",
+    "file": "네일/치크/9f5d53d7325f4f3b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 808,
+    "bytes": 32625,
+    "sha256": "9f5d53d7325f4f3b39f2caa36358128037a8c1c77bf9b81f883a770bbd0ebd42",
+    "dhash": "ab3991d44ccf1b99",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b07874bb1a6372e2",
+    "file": "네일/치크/b07874bb1a6372e2.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 470,
+    "bytes": 21328,
+    "sha256": "b07874bb1a6372e23b3518a489de56431093fbe2cceeab1a8a5d3938a463bba2",
+    "dhash": "f031921695716200",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "901a9f12b9b750c6",
+    "file": "네일/치크/901a9f12b9b750c6.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 23242,
+    "sha256": "901a9f12b9b750c61cd45ba0e418843553d0cd9cf383d4b440158ab70b11007c",
+    "dhash": "db37373545c39e76",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9407e2d7f75b29ff",
+    "file": "네일/치크/9407e2d7f75b29ff.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 473,
+    "height": 592,
+    "bytes": 25124,
+    "sha256": "9407e2d7f75b29ffeb4c3aed981cbc00bba925bd4afae3ba6c7d96122158e7f1",
+    "dhash": "37274bd3004cdcfc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3a3344e18ae01fd4",
+    "file": "네일/치크/3a3344e18ae01fd4.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 30537,
+    "sha256": "3a3344e18ae01fd40dcdfb18195dc876e6d5ae677f50e0f72cccf7caf419f8bf",
+    "dhash": "fefc7376bd4bc931",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7c3414b89da72943",
+    "file": "네일/치크/7c3414b89da72943.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 22248,
+    "sha256": "7c3414b89da729436244613946707f72f87bb1c95a6da935d011235872aa4979",
+    "dhash": "3b95db968c6c3918",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4c5c139763723e89",
+    "file": "네일/치크/4c5c139763723e89.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 474,
+    "height": 627,
+    "bytes": 23653,
+    "sha256": "4c5c139763723e8989a8b0376be545d59d740e8a994cead96c643c5dd3bfea6c",
+    "dhash": "f8f89bebdfd7a383",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b436c582befc89db",
+    "file": "네일/올리브·카키/b436c582befc89db.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 474,
+    "height": 641,
+    "bytes": 35023,
+    "sha256": "b436c582befc89db209adb38111cb8afcacd7060708358e47c0477d66c0219b1",
+    "dhash": "ffefb7efc7caeaee",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "633345203c70ec28",
+    "file": "네일/올리브·카키/633345203c70ec28.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 473,
+    "height": 673,
+    "bytes": 66081,
+    "sha256": "633345203c70ec2827f320a717b8164ca41f9601c281c0fd02034db81dc396c3",
+    "dhash": "ada5b71b73e14782",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8171e32b24f8403d",
+    "file": "네일/올리브·카키/8171e32b24f8403d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 42526,
+    "sha256": "8171e32b24f8403da532d0351d249dcd960d8184453c5153e8b67ad0ab5e71ae",
+    "dhash": "1b03c30a0c002025",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1abca982821b0db0",
+    "file": "네일/올리브·카키/1abca982821b0db0.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 473,
+    "height": 628,
+    "bytes": 23275,
+    "sha256": "1abca982821b0db0e977a000a0a689345d94460e43446661567812b0c642b5d2",
+    "dhash": "69fb9a997773e0c6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ca0106a0698d4468",
+    "file": "네일/올리브·카키/ca0106a0698d4468.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 31561,
+    "sha256": "ca0106a0698d44684a2cb46d4ad3e1987e72332ee166edfef5ebff7b65b9bbb4",
+    "dhash": "677715781e3e1c2d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cb313792b7d1550a",
+    "file": "네일/올리브·카키/cb313792b7d1550a.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 45641,
+    "sha256": "cb313792b7d1550a93d14de1664ac6fa77110e6b9f203087f0c94fd6c8ecc434",
+    "dhash": "160d393903330418",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "01cd30b6e12d21db",
+    "file": "네일/올리브·카키/01cd30b6e12d21db.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 474,
+    "height": 447,
+    "bytes": 38354,
+    "sha256": "01cd30b6e12d21db925ebe6648e5a1966870947e5d2510661206a9b2bbbaabc0",
+    "dhash": "831f2fc7d5ccf67c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "91c299881d8b130f",
+    "file": "네일/올리브·카키/91c299881d8b130f.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 39337,
+    "sha256": "91c299881d8b130faa648bf9103decbdf4680923628569e68abc6ea261c38ab8",
+    "dhash": "643b8bc162cb942d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7d05695ad5226fae",
+    "file": "네일/딥프렌치/7d05695ad5226fae.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "딥프렌치"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 46951,
+    "sha256": "7d05695ad5226faedfe0377c83c1e390e5b9fee60d2b6ae20738d98f88f55cfa",
+    "dhash": "2d5e3b975f9bc670",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8d7d43bb237e2308",
+    "file": "네일/딥프렌치/8d7d43bb237e2308.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "딥프렌치"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 19165,
+    "sha256": "8d7d43bb237e2308ac1401f0bf55f09467a5b86df52acb2aebb2aa748f144832",
+    "dhash": "03070703081f050c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "19d5e195b7670fe0",
+    "file": "네일/딥프렌치/19d5e195b7670fe0.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "딥프렌치"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 22203,
+    "sha256": "19d5e195b7670fe0e3623be3ad1bcb055e1beb040af91564539694fe37cdad67",
+    "dhash": "6b716ce7cff7fc7c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d499c6cc5cf1e350",
+    "file": "메이크업/드레이핑 블러셔/d499c6cc5cf1e350.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "드레이핑 블러셔"
+      }
+    ],
+    "width": 668,
+    "height": 1000,
+    "bytes": 103397,
+    "sha256": "d499c6cc5cf1e35040e93f97cc62fe9de3e8b7df212ecef9e9eab301863eea36",
+    "dhash": "4e4c7f7270391b56",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "589fea4e79190760",
+    "file": "메이크업/드레이핑 블러셔/589fea4e79190760.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "드레이핑 블러셔"
+      }
+    ],
+    "width": 736,
+    "height": 1032,
+    "bytes": 70996,
+    "sha256": "589fea4e79190760c320d8c81dc13d7a24b7e4bf77aa96497188e79ea8aeb1bc",
+    "dhash": "4c88c98538580d1c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "25b69e568edbc3cb",
+    "file": "타투/스마일 · 이모지/25b69e568edbc3cb.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 473,
+    "height": 631,
+    "bytes": 42301,
+    "sha256": "25b69e568edbc3cb2e795780edc58241f266eb0cb92ff1749f80708cc5f3e262",
+    "dhash": "87fffef087ccb061",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "011747ef1e347171",
+    "file": "타투/스마일 · 이모지/011747ef1e347171.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 474,
+    "height": 668,
+    "bytes": 26861,
+    "sha256": "011747ef1e3471713a97f42d28ef963321c10ec03c276a0a982282cb1233e621",
+    "dhash": "41c9c9c1c159181c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "66ff76fcb76532c8",
+    "file": "타투/스마일 · 이모지/66ff76fcb76532c8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 473,
+    "height": 474,
+    "bytes": 25788,
+    "sha256": "66ff76fcb76532c8614644f4e9607c6c82768248fc7883a6048eba07dcbb865e",
+    "dhash": "b2f8f8ec6b72767c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6e9a3e73555974cf",
+    "file": "타투/스마일 · 이모지/6e9a3e73555974cf.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 34149,
+    "sha256": "6e9a3e73555974cf409b4cc162be18e6413e44597d05ddec6dafdae6ad894eb3",
+    "dhash": "d3cbc9c9cae3d1c1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf1cce4aff74ca62",
+    "file": "타투/스마일 · 이모지/cf1cce4aff74ca62.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 320,
+    "height": 313,
+    "bytes": 17751,
+    "sha256": "cf1cce4aff74ca626219176e518c04247279812c1fed8cadd1b02a3641ddc283",
+    "dhash": "0d8e8697a7968e84",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aca622c2b820fe36",
+    "file": "타투/스마일 · 이모지/aca622c2b820fe36.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 474,
+    "height": 424,
+    "bytes": 26734,
+    "sha256": "aca622c2b820fe362313fde2d269b8118b3ffd4e0e79df40d0229e830c3b0755",
+    "dhash": "828a96968e8c8c96",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c618dc1cd1731a98",
+    "file": "타투/스마일 · 이모지/c618dc1cd1731a98.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 20755,
+    "sha256": "c618dc1cd1731a988fd3ea1782a37b506da4cc89e20ac96cd5cf9acfa62aeff7",
+    "dhash": "3291c8ec6b7f7c76",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "210ae1db194daae9",
+    "file": "타투/스마일 · 이모지/210ae1db194daae9.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 474,
+    "height": 571,
+    "bytes": 39248,
+    "sha256": "210ae1db194daae97568111b70b9037c502cdada71ba859fd0612bcfee52bb1b",
+    "dhash": "0c3e7ff7f6f08c0c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "585878110db09b81",
+    "file": "타투/스마일 · 이모지/585878110db09b81.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 18962,
+    "sha256": "585878110db09b813c5cac780f34c1a4c9caf2bf5c3df6d55918f572419059b3",
+    "dhash": "9652338399c1ccec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b14fb9141b82552d",
+    "file": "타투/스마일 · 이모지/b14fb9141b82552d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "스마일 · 이모지"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 39315,
+    "sha256": "b14fb9141b82552d6217a32b765071d710f6d7eb5795bc4f7b1f68f8a315bd4e",
+    "dhash": "1f1f1f1f1f27573f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4f6e66516eb0b973",
+    "file": "타투/무릎·팔꿈치/4f6e66516eb0b973.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 474,
+    "height": 589,
+    "bytes": 37619,
+    "sha256": "4f6e66516eb0b97320fded80eb108715196b5ad38731727320655fe4aa01e9ef",
+    "dhash": "bc5c1e9e86123731",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a59f91895c2c0e64",
+    "file": "타투/무릎·팔꿈치/a59f91895c2c0e64.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 61139,
+    "sha256": "a59f91895c2c0e64abe67d36ff2566b1386470d20523ac5ae768b2c2b024c00f",
+    "dhash": "8d193333b0320c9c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a8acb8255472d2e6",
+    "file": "타투/무릎·팔꿈치/a8acb8255472d2e6.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 473,
+    "height": 584,
+    "bytes": 35616,
+    "sha256": "a8acb8255472d2e6a284133851c645063a53e7b2ef0babc6629af83f22559381",
+    "dhash": "8c8c2623331a1a1c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2ec641fb404cb696",
+    "file": "타투/무릎·팔꿈치/2ec641fb404cb696.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 474,
+    "height": 554,
+    "bytes": 44591,
+    "sha256": "2ec641fb404cb6962647b5e1ba8ba7b2fceb9463400b46a2b5bc3ed6f75bc386",
+    "dhash": "3404191c74a18206",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e9cddd912146b92d",
+    "file": "타투/무릎·팔꿈치/e9cddd912146b92d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 474,
+    "height": 591,
+    "bytes": 37826,
+    "sha256": "e9cddd912146b92d132d26cab9263e767b6a5922a31e8ff43faefdc2befe656c",
+    "dhash": "313938989599a939",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c20872199663f6fa",
+    "file": "타투/무릎·팔꿈치/c20872199663f6fa.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 474,
+    "height": 587,
+    "bytes": 59648,
+    "sha256": "c20872199663f6fa30020b33e4afd763f27489def9c433e2618a4ffb4f6694dc",
+    "dhash": "1c8cc7e7233e32b1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0672a47ac61a0864",
+    "file": "타투/무릎·팔꿈치/0672a47ac61a0864.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "무릎·팔꿈치"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 40114,
+    "sha256": "0672a47ac61a0864492cd302c63f1c1b60188fe6c3619671ce65be0099d077e7",
+    "dhash": "0d8d6c3c381c9c8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
