@@ -33466,5 +33466,215 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "659e78eb1d9ad9a4",
+    "file": "헤어/숏 보브/659e78eb1d9ad9a4.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "숏 보브"
+      }
+    ],
+    "width": 876,
+    "height": 1095,
+    "bytes": 44288,
+    "sha256": "659e78eb1d9ad9a4e6670c3b5a21ea1ccfb3d3915681afdbf1358f2e3f8ce6ee",
+    "dhash": "298dc9e1ebc7c7cd",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dc3e8378cd260a57",
+    "file": "헤어/숏 보브/dc3e8378cd260a57.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "숏 보브"
+      }
+    ],
+    "width": 974,
+    "height": 1218,
+    "bytes": 105276,
+    "sha256": "dc3e8378cd260a5772409317dfc0474f4a4f5b6b331957e34bf5b1c62268357c",
+    "dhash": "898d9391646a3af1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5c1fc65234a41b25",
+    "file": "헤어/레이어드 숏컷/5c1fc65234a41b25.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드 숏컷"
+      }
+    ],
+    "width": 983,
+    "height": 1229,
+    "bytes": 120342,
+    "sha256": "5c1fc65234a41b255a5e90cfbdb18b7e2a68c7e2d72d7e78cd179ec90860b2db",
+    "dhash": "3971737302959fcc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c5614f898b6704c2",
+    "file": "헤어/픽시컷/c5614f898b6704c2.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "픽시컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 110312,
+    "sha256": "c5614f898b6704c2da4fbc28aef828a15089b64e6aa37ea49bf72ffbea9ef3c0",
+    "dhash": "2d2333333030b89a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a9abd7c9385e0e72",
+    "file": "헤어/레이어드컷/a9abd7c9385e0e72.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1438,
+    "bytes": 82592,
+    "sha256": "a9abd7c9385e0e7293f3df48f6b2519154f9fc2d6ed6e2098db85344966b3ebb",
+    "dhash": "e1e0e0e067263eb6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d322c5b29c80fca1",
+    "file": "타투/모란/d322c5b29c80fca1.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "모란"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 726881,
+    "sha256": "d322c5b29c80fca10c8a74b7e7fbefd4c5b998ad2ed8960d5d2fda1391a4397b",
+    "dhash": "635756c696941214",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4418e2153044f001",
+    "file": "타투/꽃·식물/4418e2153044f001.jpeg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 138399,
+    "sha256": "4418e2153044f001b7598db285d36681bc1f1fe4e14bc8b2dc112486eba91328",
+    "dhash": "292b6b4f4f3e383c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5e245d75e43ef22a",
+    "file": "타투/꽃·식물/5e245d75e43ef22a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 319586,
+    "sha256": "5e245d75e43ef22aa74b8fed8a2894b8e6da1ad4f0662d882b8286c9ba7470e2",
+    "dhash": "bffbd3c769e1f070",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dd6f88153d7836ae",
+    "file": "타투/꽃·식물/dd6f88153d7836ae.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 99685,
+    "sha256": "dd6f88153d7836aec4557ad5b9ba71fe2447b5534173e4ab0a342f258d666cb1",
+    "dhash": "fb080d8dc7672514",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fb440e209a6e146a",
+    "file": "타투/호랑이/fb440e209a6e146a.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "호랑이"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 802876,
+    "sha256": "fb440e209a6e146a943602dc85ce6f0a58b2cd6819c8040dffb87fb90c0514b4",
+    "dhash": "b3a3a3337f6d7860",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
