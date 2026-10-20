@@ -859,5 +859,341 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e08110a5acc26798",
+    "file": "헤어/리프컷/e08110a5acc26798.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 629,
+    "bytes": 53123,
+    "sha256": "e08110a5acc267987e9fc845636d4badd946e6daa1c9e362d77969ab7cc89e8b",
+    "dhash": "9e793a8202430e8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7f68dded095b75c7",
+    "file": "헤어/리프컷/7f68dded095b75c7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 843,
+    "bytes": 65140,
+    "sha256": "7f68dded095b75c79c56b86e26d7ea16f7c9e97b4d38a5411861f801034b0ae7",
+    "dhash": "4b45878313078ef1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a2acf0009a780827",
+    "file": "헤어/리프컷/a2acf0009a780827.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 40540,
+    "sha256": "a2acf0009a780827ffdd472daaae2f0ba4a0dddf6e9d035c625e8c967ec5f91a",
+    "dhash": "2627933537231f9c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6d8020f406f98025",
+    "file": "헤어/리프컷/6d8020f406f98025.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 593,
+    "bytes": 42473,
+    "sha256": "6d8020f406f98025ae76e848511962730966998b68edb4f0eae1b88c24c688ac",
+    "dhash": "3b1f060e969e8fcd",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "540ca66a2a9144be",
+    "file": "헤어/리프컷/540ca66a2a9144be.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 663,
+    "bytes": 32409,
+    "sha256": "540ca66a2a9144bea1619affbc53c9b6d3e8a4514bdb008c92fb1c4c7055f931",
+    "dhash": "fdfcbfa63b3b1f8c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7400b222b4e73ef1",
+    "file": "헤어/리프컷/7400b222b4e73ef1.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 38528,
+    "sha256": "7400b222b4e73ef14862609b9c966e5efe0966e13b2027ab219101d3c0fb2fec",
+    "dhash": "331819610109411b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7f3e4bff09e5e634",
+    "file": "헤어/리프컷/7f3e4bff09e5e634.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 707,
+    "bytes": 36589,
+    "sha256": "7f3e4bff09e5e6342be6f52f8c98e93d8c6171f3dd11a8554b95c9e0001da477",
+    "dhash": "c63367be3a1f1786",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fc00fa04d314dab6",
+    "file": "헤어/리프컷/fc00fa04d314dab6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 49819,
+    "sha256": "fc00fa04d314dab62ca0cd71cf3219ed5941b3d1ed29105b7d73994066300db4",
+    "dhash": "1e65e2936f3d290f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8f9cca305b5c74fe",
+    "file": "헤어/리프컷/8f9cca305b5c74fe.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 49615,
+    "sha256": "8f9cca305b5c74fe68fb9b53bd1ab3acdaac2831298aae838c592ad0cd7b6ba9",
+    "dhash": "212b1f0c85440d39",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "52705fffaa8cfc83",
+    "file": "헤어/리프컷/52705fffaa8cfc83.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 473,
+    "height": 592,
+    "bytes": 36716,
+    "sha256": "52705fffaa8cfc8360ea19d699649f6fcad7d0c600abc7b6f87c3e0a6f1d288f",
+    "dhash": "2b8b01153b330f3b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "46a34e96fcc85f38",
+    "file": "헤어/사과머리/46a34e96fcc85f38.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "사과머리"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 58054,
+    "sha256": "46a34e96fcc85f38809c66b456bbbd4b3dd4efa4c3308f30c9a2c46c921fd82d",
+    "dhash": "c8b38383736387a6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5413938436412c37",
+    "file": "헤어/사과머리/5413938436412c37.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "사과머리"
+      }
+    ],
+    "width": 474,
+    "height": 631,
+    "bytes": 62588,
+    "sha256": "5413938436412c378de89e8984b592a436be3b9811c2f3cb7c205cbefc46fb19",
+    "dhash": "db0e6664b39bcba6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4effb328ae717572",
+    "file": "헤어/사과머리/4effb328ae717572.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "사과머리"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 44784,
+    "sha256": "4effb328ae717572a4944a5f20a07fa353296d6fc7a0d53b2677e191bc3cce86",
+    "dhash": "ee0f0ef8e86224b8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cd2b869ac7563429",
+    "file": "헤어/사과머리/cd2b869ac7563429.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "사과머리"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 42122,
+    "sha256": "cd2b869ac7563429544b402f039a5b9e5bceefeb9c342692f51add03c5412c20",
+    "dhash": "30313163720b0000",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3b1f01685a8569e9",
+    "file": "헤어/사과머리/3b1f01685a8569e9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "사과머리"
+      }
+    ],
+    "width": 473,
+    "height": 671,
+    "bytes": 51305,
+    "sha256": "3b1f01685a8569e90210b7d937082c7f1e291e54d26feb10d0bc62105d8362f1",
+    "dhash": "b237333313b0b094",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ff426c62f89c7c0c",
+    "file": "헤어/사과머리/ff426c62f89c7c0c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "사과머리"
+      }
+    ],
+    "width": 473,
+    "height": 501,
+    "bytes": 35943,
+    "sha256": "ff426c62f89c7c0c6a2ad7f4d570c632f49b4b172297f53024d22647187fe702",
+    "dhash": "5237332333338346",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
