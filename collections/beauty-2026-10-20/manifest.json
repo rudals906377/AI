@@ -31576,5 +31576,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2c5491e1736e1b21",
+    "file": "네일/매트/2c5491e1736e1b21.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 900,
+    "height": 1350,
+    "bytes": 84202,
+    "sha256": "2c5491e1736e1b214184e64eb17d4571606f19675faf4dd7dfc4aebc7b2fdf76",
+    "dhash": "74d0b065c3cfcefc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aaf992b26d4dd84a",
+    "file": "타투/박쥐/aaf992b26d4dd84a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "박쥐"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 815840,
+    "sha256": "aaf992b26d4dd84a20cd16c8c4d6a1d0106e4d7a7ffdacd0ff18c032eec5fa83",
+    "dhash": "f8f06949c9f1e0e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a11a0568d91bb1de",
+    "file": "타투/박쥐/a11a0568d91bb1de.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "박쥐"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 801481,
+    "sha256": "a11a0568d91bb1de93ffcb7bd3504994118b8ab49eb3243b74dc128b94ebc6a3",
+    "dhash": "d0e0d0deb8f17bf9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6e837242f78a9829",
+    "file": "타투/사자/6e837242f78a9829.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "사자"
+      }
+    ],
+    "width": 1440,
+    "height": 1796,
+    "bytes": 710418,
+    "sha256": "6e837242f78a9829f3f3b46b5395628892125cc40c0f5138a2d208f6e091c190",
+    "dhash": "98181c16161e5c48",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a36ec44c3303054f",
+    "file": "타투/사자/a36ec44c3303054f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "사자"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 307120,
+    "sha256": "a36ec44c3303054f0ddbe577ad226a7739b9b930a4d98df0865c0955e044e6a4",
+    "dhash": "3830706879717970",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
