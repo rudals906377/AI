@@ -40060,5 +40060,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f64df24e9d7aa9a3",
+    "file": "타투/손/f64df24e9d7aa9a3.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "손"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 609435,
+    "sha256": "f64df24e9d7aa9a34bcfec5af69cb1e5b3231f98357d21e1842561227abd108a",
+    "dhash": "319dc6070d0c6451",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c281730e0473247a",
+    "file": "메이크업/보송 매트/c281730e0473247a.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "보송 매트"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 211502,
+    "sha256": "c281730e0473247a12a99231338c62e02f223e9e9c58416a703e6b644801f59a",
+    "dhash": "e7cd7cecf3ef7fff",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
