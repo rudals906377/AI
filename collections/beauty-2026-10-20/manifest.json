@@ -38884,5 +38884,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f1bb53a33926d034",
+    "file": "헤어/업스타일/f1bb53a33926d034.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "업스타일"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 135257,
+    "sha256": "f1bb53a33926d034f5a9b32cbb6a267fdf0c47330573cb76a854856eb7e63157",
+    "dhash": "3b3b3b2f171f1b63",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
