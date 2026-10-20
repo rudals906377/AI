@@ -33025,5 +33025,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "331308ec36f5551f",
+    "file": "네일/플라워/331308ec36f5551f.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "플라워"
+      }
+    ],
+    "width": 907,
+    "height": 1210,
+    "bytes": 76340,
+    "sha256": "331308ec36f5551f40845e9a804dd3904e12f86231284949c91305b59d7bf74c",
+    "dhash": "1801040e0087d9da",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
