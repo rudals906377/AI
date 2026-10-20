@@ -10140,6 +10140,48 @@
       "sha256": "52dbcde7efbca2ae404ed74431c1f0dc2dafb2d7ad6c15f8990a369a7d553f99",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말 2026.06.24 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "00f091482008e86f",
+      "sha256": "00f091482008e86f54f37c9803ff067b460d0f26c3f729af8649dfc5afa0a60f",
+      "publishedDate": "2026-10-03",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.10.03 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "58fb715785917e9d",
+      "sha256": "58fb715785917e9d2af3c5418adec79269589c883a91634f1321a0f58c84aed2",
+      "publishedDate": "2026-10-03",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.10.03 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "0cf6f24d7562c5fa",
+      "sha256": "0cf6f24d7562c5fabf55155070bbea834feef6325e72f6ed333cac037011ae55",
+      "publishedDate": "2026-10-03",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2026.10.03 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "acc7898aef4bbf0c",
+      "sha256": "acc7898aef4bbf0cb406c764af9f0c867bcbdcfe35f0e488ba8194160be8650f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "e253bdddc2ef30f1",
+      "sha256": "e253bdddc2ef30f174a2c762643dd61149a5fa7df77ca9762a3014f96958ea4b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "399423722ddb347b",
+      "sha256": "399423722ddb347b3a54fb199484f8e985aaa61821674e300debe1ed61dfc92b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "a02f317cc4b5a4f1",
+      "sha256": "a02f317cc4b5a4f10434cd9a6ceb3271af36f6499b10510e2a3b104dd49a3f00",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말 2026.06.24 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }

@@ -35608,5 +35608,152 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "00f091482008e86f",
+    "file": "헤어/업스타일/00f091482008e86f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "업스타일"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 220744,
+    "sha256": "00f091482008e86f54f37c9803ff067b460d0f26c3f729af8649dfc5afa0a60f",
+    "dhash": "49d999b6ba9ec7ff",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "58fb715785917e9d",
+    "file": "헤어/포니테일/58fb715785917e9d.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "포니테일"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 259753,
+    "sha256": "58fb715785917e9d2af3c5418adec79269589c883a91634f1321a0f58c84aed2",
+    "dhash": "8d8f0fcfc7c7e22a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0cf6f24d7562c5fa",
+    "file": "헤어/업스타일/0cf6f24d7562c5fa.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "업스타일"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 147463,
+    "sha256": "0cf6f24d7562c5fabf55155070bbea834feef6325e72f6ed333cac037011ae55",
+    "dhash": "de75c1c181c18181",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "acc7898aef4bbf0c",
+    "file": "타투/천사/acc7898aef4bbf0c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "천사"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 492288,
+    "sha256": "acc7898aef4bbf0cb406c764af9f0c867bcbdcfe35f0e488ba8194160be8650f",
+    "dhash": "cc8eaa9f1713d4f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e253bdddc2ef30f1",
+    "file": "타투/별자리 · 우주/e253bdddc2ef30f1.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "달·별·자연",
+        "label": "별자리 · 우주"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 669946,
+    "sha256": "e253bdddc2ef30f174a2c762643dd61149a5fa7df77ca9762a3014f96958ea4b",
+    "dhash": "c834304854b0b0e4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "399423722ddb347b",
+    "file": "타투/나침반/399423722ddb347b.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "나침반"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 537936,
+    "sha256": "399423722ddb347b3a54fb199484f8e985aaa61821674e300debe1ed61dfc92b",
+    "dhash": "3038397970787931",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a02f317cc4b5a4f1",
+    "file": "네일/롱네일/a02f317cc4b5a4f1.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 길이",
+        "label": "롱네일"
+      }
+    ],
+    "width": 1122,
+    "height": 1400,
+    "bytes": 221154,
+    "sha256": "a02f317cc4b5a4f10434cd9a6ceb3271af36f6499b10510e2a3b104dd49a3f00",
+    "dhash": "e3f3b0d0f55458fd",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
