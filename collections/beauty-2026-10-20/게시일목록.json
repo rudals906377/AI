@@ -11142,6 +11142,36 @@
       "sha256": "1ade64834799b7611d68751386ada42573aa70c96853b7bf641cd18c5418f899",
       "publishedDate": "2026-10-07",
       "dateEvidence": "한국 뷰티 기사 머리말 게시일 2026.10.07 관찰; SNS 원사진 게시일은 미확인"
+    },
+    {
+      "id": "a534fcb3b1d8121c",
+      "sha256": "a534fcb3b1d8121c71a67cdb51c67c47644a27aabcd5aaf27736944fd3b67cc7",
+      "publishedDate": "2026-04-09",
+      "dateEvidence": "한국 헤어 컬러 기사 게시일 2026.04.09 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6953727627d3f535",
+      "sha256": "6953727627d3f5350d50ef55ce5c55265322cc2763148995d0f6487627630805",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "26dd8848dce6c2ad",
+      "sha256": "26dd8848dce6c2ad025353c4bd22cec5907b23d11666eb6c034ffdf6c4b8981b",
+      "publishedDate": "2026-10-11",
+      "dateEvidence": "한국 수채화 메이크업 기사 머리말 게시일 2026.10.11 관찰; SNS 원사진 게시일은 미확인"
+    },
+    {
+      "id": "531a614602ae4fc6",
+      "sha256": "531a614602ae4fc653a1271719d69d95b9c24bc2446adff10c146d0483b8214f",
+      "publishedDate": "2026-10-11",
+      "dateEvidence": "한국 수채화 메이크업 기사 머리말 게시일 2026.10.11 관찰; SNS 원사진 게시일은 미확인"
+    },
+    {
+      "id": "775b33c795bc899e",
+      "sha256": "775b33c795bc899e91986051506300e35fc7bfab0bdaacb0083623e74f09f8ad",
+      "publishedDate": "2025-11-04",
+      "dateEvidence": "한국 네일 기사 게시일 2025.11.04 확인; 사진 최초 게시일 미확인; 검정 도트 패턴 직접 확인"
     }
   ]
 }

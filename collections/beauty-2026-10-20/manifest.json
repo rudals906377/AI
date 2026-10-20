@@ -39115,5 +39115,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a534fcb3b1d8121c",
+    "file": "헤어/흑발/a534fcb3b1d8121c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "흑발"
+      }
+    ],
+    "width": 1080,
+    "height": 1439,
+    "bytes": 221681,
+    "sha256": "a534fcb3b1d8121c71a67cdb51c67c47644a27aabcd5aaf27736944fd3b67cc7",
+    "dhash": "e84a881863727217",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6953727627d3f535",
+    "file": "타투/야생화 · 꽃다발/6953727627d3f535.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "야생화 · 꽃다발"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 134343,
+    "sha256": "6953727627d3f5350d50ef55ce5c55265322cc2763148995d0f6487627630805",
+    "dhash": "1e1c3cf8c860e0e6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "26dd8848dce6c2ad",
+    "file": "메이크업/언더 속눈썹/26dd8848dce6c2ad.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 121226,
+    "sha256": "26dd8848dce6c2ad025353c4bd22cec5907b23d11666eb6c034ffdf6c4b8981b",
+    "dhash": "f038b4b4343296cc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "531a614602ae4fc6",
+    "file": "메이크업/스파이키 속눈썹/531a614602ae4fc6.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "스파이키 속눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 878,
+    "bytes": 76528,
+    "sha256": "531a614602ae4fc653a1271719d69d95b9c24bc2446adff10c146d0483b8214f",
+    "dhash": "60e4e3e3f3a3e6e4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "775b33c795bc899e",
+    "file": "네일/도트/775b33c795bc899e.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "도트"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 592448,
+    "sha256": "775b33c795bc899e91986051506300e35fc7bfab0bdaacb0083623e74f09f8ad",
+    "dhash": "93062c4c90a0000e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
