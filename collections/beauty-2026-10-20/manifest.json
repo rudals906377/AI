@@ -31681,5 +31681,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ee5ed71b4784b8ee",
+    "file": "헤어/쉐도우펌/ee5ed71b4784b8ee.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "쉐도우펌"
+      }
+    ],
+    "width": 1000,
+    "height": 806,
+    "bytes": 53080,
+    "sha256": "ee5ed71b4784b8ee2b4e83bde9f0fb6f305144420ec66302c59e02058f2d6552",
+    "dhash": "39139307064e4c20",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "48b2aedbfcef7fce",
+    "file": "헤어/다운펌/48b2aedbfcef7fce.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "다운펌"
+      }
+    ],
+    "width": 1000,
+    "height": 1154,
+    "bytes": 324366,
+    "sha256": "48b2aedbfcef7fceb4aaaaaf6a1bc6a3f8b792af24617e2b1f830c21260555cb",
+    "dhash": "6133b63422323e8c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "edca3350dcfd94d1",
+    "file": "메이크업/실버·그레이 섀도/edca3350dcfd94d1.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "실버·그레이 섀도"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 91272,
+    "sha256": "edca3350dcfd94d1503bdbbca3df0727f4a78531c670b7932b4c719be4528bc7",
+    "dhash": "1f0f27373d7b7235",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9729256eae188a60",
+    "file": "메이크업/버건디·플럼/9729256eae188a60.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "버건디·플럼"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 162046,
+    "sha256": "9729256eae188a60fa70edbe6d6ebc1b57d44260aa2ad70cbcc38b9cbb04e765",
+    "dhash": "c2c2e2e2f0f0f0e0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "65292e2da7e989e3",
+    "file": "메이크업/레드 섀도/65292e2da7e989e3.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "레드 섀도"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 195675,
+    "sha256": "65292e2da7e989e3e240c66159e5c75501fcaf63f195b84305ae9ff1ae02bb2d",
+    "dhash": "9153706262e0e0a0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "01ed9ff5654823e2",
+    "file": "메이크업/뮤트 브라운/01ed9ff5654823e2.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "뮤트 브라운"
+      }
+    ],
+    "width": 1400,
+    "height": 1011,
+    "bytes": 186025,
+    "sha256": "01ed9ff5654823e216dbb74d8e025d79f1a2e171150a0f4754a2c74a94bc4bea",
+    "dhash": "4063f3da78b9f8d8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
