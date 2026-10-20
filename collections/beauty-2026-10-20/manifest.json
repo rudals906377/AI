@@ -35503,5 +35503,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f387fc9c19d085f5",
+    "file": "네일/드로잉/f387fc9c19d085f5.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "드로잉"
+      }
+    ],
+    "width": 1080,
+    "height": 1347,
+    "bytes": 121368,
+    "sha256": "f387fc9c19d085f59f02cb16036d931b74ea3dcf996fd2934264c75127f53cbe",
+    "dhash": "2420104026961a34",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
