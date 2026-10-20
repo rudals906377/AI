@@ -29728,5 +29728,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8e2109d36671cd8a",
+    "file": "헤어/처피뱅/8e2109d36671cd8a.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1440,
+    "height": 1918,
+    "bytes": 196572,
+    "sha256": "8e2109d36671cd8a37a9ea6c50289b61e557243844b15822874670518720747b",
+    "dhash": "b79595959d8db3a3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b1d28113ec03fa34",
+    "file": "헤어/처피뱅/b1d28113ec03fa34.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1921,
+    "height": 2560,
+    "bytes": 242790,
+    "sha256": "b1d28113ec03fa3437eb208b4ddb3a59b8e2e4788ab907f49512aaf4fb52b97a",
+    "dhash": "0f07042616666646",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "762fa885a647fb19",
+    "file": "헤어/처피뱅/762fa885a647fb19.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 315506,
+    "sha256": "762fa885a647fb19101063b731b5c35240705f46e7321aba5c03f972a2d93c7b",
+    "dhash": "3597c6c65a4ae6e2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "89fbe9f887c1229a",
+    "file": "헤어/처피뱅/89fbe9f887c1229a.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1200,
+    "height": 901,
+    "bytes": 44172,
+    "sha256": "89fbe9f887c1229a6fb338dabc86b76d407a84f6be0347989ad264a098df7630",
+    "dhash": "6cece8f8b2b2d2ce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "680434bb812e5701",
+    "file": "네일/자개/680434bb812e5701.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 480,
+    "height": 480,
+    "bytes": 33214,
+    "sha256": "680434bb812e57019e2ce7fddb726d5368f34ec3707ec63da3d8bc09362d35e1",
+    "dhash": "2d1d4b2d252b2a2a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2d8cfe2bc8e5d227",
+    "file": "네일/자개/2d8cfe2bc8e5d227.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 480,
+    "height": 480,
+    "bytes": 25817,
+    "sha256": "2d8cfe2bc8e5d2274a58cb8dda092ea3e106ebd1dbfd1eace3430816ce9f17cf",
+    "dhash": "0d9bd429e73f1d7f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
