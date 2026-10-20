@@ -40228,5 +40228,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "40c59328369002d5",
+    "file": "헤어/리프컷/40c59328369002d5.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "리프컷"
+      }
+    ],
+    "width": 1038,
+    "height": 1358,
+    "bytes": 126951,
+    "sha256": "40c59328369002d597d3f3a1ead2e5fa825c900c4cfde59e550bad9d0108e50d",
+    "dhash": "0e3e6f27968e8c90",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ec5c6b99f550cd84",
+    "file": "네일/스틸레토/ec5c6b99f550cd84.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "스틸레토"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 187830,
+    "sha256": "ec5c6b99f550cd8491472c5483e9f9db348196044c938481193a10957ea9e49b",
+    "dhash": "61a0bb3332321e8c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
