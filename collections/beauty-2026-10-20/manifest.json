@@ -40207,5 +40207,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "75e6d62f7d46474f",
+    "file": "헤어/가르마펌/75e6d62f7d46474f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가르마펌"
+      }
+    ],
+    "width": 1200,
+    "height": 1518,
+    "bytes": 147052,
+    "sha256": "75e6d62f7d46474f0b3ba982d7795ac20dfd583239e56d2defeada19cb888529",
+    "dhash": "4fc3e7afbe1e9ace",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
