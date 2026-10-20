@@ -10624,5 +10624,866 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d5c03b16803d4503",
+    "file": "네일/크롬하츠/d5c03b16803d4503.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 37469,
+    "sha256": "d5c03b16803d4503807b68957ee4579e8af2c63e57e3092d53d15085f37da006",
+    "dhash": "70f0b070b468e0c4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b44933c343e06ad",
+    "file": "네일/크롬하츠/8b44933c343e06ad.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 34485,
+    "sha256": "8b44933c343e06ad8905adcd9187b6491dd1b5306957feeecc6b555c3783e8d4",
+    "dhash": "3b3727cedc810f0f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "26eb8f82e70d8731",
+    "file": "네일/크롬하츠/26eb8f82e70d8731.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 31385,
+    "sha256": "26eb8f82e70d8731f055dc8aa7c11f08a58c1e52e8bd5ff6f2306a3b1e170506",
+    "dhash": "0703030d0ecce80e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3fb568757dc31ac3",
+    "file": "네일/크롬하츠/3fb568757dc31ac3.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 473,
+    "height": 586,
+    "bytes": 30917,
+    "sha256": "3fb568757dc31ac390a6a735439372276d19f8126cca52067c9b5ccb50dce869",
+    "dhash": "892bda3f4feb5b57",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eb278ca21a4ebc4b",
+    "file": "네일/크롬하츠/eb278ca21a4ebc4b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 31217,
+    "sha256": "eb278ca21a4ebc4bcde8d1cfde72abd76a6ca8cf7ef0d09707032f2acb506f49",
+    "dhash": "3e3e3f776f1f9e10",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ad512b8967163445",
+    "file": "네일/크롬하츠/ad512b8967163445.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 35985,
+    "sha256": "ad512b8967163445ea1d33cc4a2dc701545c2b1a672629e3fcd547b23c95452d",
+    "dhash": "c7173315493b9ab8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "59e017e940bd68c7",
+    "file": "네일/크롬하츠/59e017e940bd68c7.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 843,
+    "bytes": 35406,
+    "sha256": "59e017e940bd68c7fb1766ad25598526fe0fea91382e19f3fa4ec0c9570ccd42",
+    "dhash": "0f1f1f6d3f9c84e6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a18b325d56a56efe",
+    "file": "네일/크롬하츠/a18b325d56a56efe.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 662,
+    "bytes": 40642,
+    "sha256": "a18b325d56a56efeb360cb47bc53647bca6f2bba6002a5d8f8df0575f546c7de",
+    "dhash": "c70b1c86a8d0eacb",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d8fc5d3f66bf1cff",
+    "file": "네일/크롬하츠/d8fc5d3f66bf1cff.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 22769,
+    "sha256": "d8fc5d3f66bf1cff5d3355885a05d89ad4d887aa828622a6d60d610403c3b223",
+    "dhash": "0f0b372d3537150f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c313cc6667e8c209",
+    "file": "네일/크롬하츠/c313cc6667e8c209.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 473,
+    "height": 473,
+    "bytes": 30044,
+    "sha256": "c313cc6667e8c209e16cb1ae842bc4406416059b46d1590486778307d818d64f",
+    "dhash": "df266bd39f353532",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e0fddec6b598e388",
+    "file": "네일/크롬하츠/e0fddec6b598e388.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 608,
+    "bytes": 48983,
+    "sha256": "e0fddec6b598e3880ee6034034d77fbf7f06f0a144b3aac1c5874e92c2cf7873",
+    "dhash": "d7d322654bca3362",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3e62a145aef6fa2e",
+    "file": "네일/크롬하츠/3e62a145aef6fa2e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 593,
+    "bytes": 35996,
+    "sha256": "3e62a145aef6fa2eb4e0e976fd92985ea837b9da8cd51b1804918cfd7b66d9f0",
+    "dhash": "2124c81829d85078",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b497337df6a81526",
+    "file": "네일/크롬하츠/b497337df6a81526.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬하츠"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 37771,
+    "sha256": "b497337df6a815263fd30a73e39c403a23fc2fc381353bc6f17df8fd1a504a88",
+    "dhash": "19a793c78b8b85c5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2ed73bf39a5bb5ef",
+    "file": "헤어/핑크브라운/2ed73bf39a5bb5ef.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 52942,
+    "sha256": "2ed73bf39a5bb5efa7aa511a2de52b0c50f8809257a3974f4c4b355f4ff63afd",
+    "dhash": "cff137667236dd68",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0323d5fc79bf5d04",
+    "file": "헤어/핑크브라운/0323d5fc79bf5d04.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 620,
+    "bytes": 47043,
+    "sha256": "0323d5fc79bf5d045451d7e2fc64bd7e48493d62390140d8d6c51f9f51714352",
+    "dhash": "4c4c9231fdbbb77f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "83df4f4957dd15b8",
+    "file": "헤어/핑크브라운/83df4f4957dd15b8.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 560,
+    "bytes": 44951,
+    "sha256": "83df4f4957dd15b87a30b4ecdec4505dc36e3dd952ba5eb37fc17b042482f1cb",
+    "dhash": "9395f3df9e9cdcde",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2dba9d3dc881b50f",
+    "file": "헤어/핑크브라운/2dba9d3dc881b50f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 688,
+    "bytes": 52498,
+    "sha256": "2dba9d3dc881b50f0c21defe2619a84728ca4c6ddcc0426021eb143086569df5",
+    "dhash": "0f5f5b3f0efcf871",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "edc6f223d9d41df6",
+    "file": "헤어/핑크브라운/edc6f223d9d41df6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 46502,
+    "sha256": "edc6f223d9d41df6083a6aa0358f46408d02e674f781aea7aeb46cdba74d5d3f",
+    "dhash": "1d372f371f07070f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ba1efdcb1c1da57b",
+    "file": "헤어/핑크브라운/ba1efdcb1c1da57b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 843,
+    "bytes": 62464,
+    "sha256": "ba1efdcb1c1da57b1d26bfee83684a274cffc0e5a72cf9c8f9a8bb57b2368cf0",
+    "dhash": "3f7f7f63318f87b4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ca689f4a5e06ffac",
+    "file": "헤어/핑크브라운/ca689f4a5e06ffac.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 843,
+    "bytes": 66763,
+    "sha256": "ca689f4a5e06ffac97b3fad91868db6e65dec8cd4d43bb4baf195f274f60a971",
+    "dhash": "28134f4d0e971dcd",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fa9f159d050c5ac6",
+    "file": "헤어/핑크브라운/fa9f159d050c5ac6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 575,
+    "bytes": 41728,
+    "sha256": "fa9f159d050c5ac64a35666e080e92df106d108622d8d66b6e0d3819629d4e92",
+    "dhash": "cd45030905050f07",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "770d9e737c0630d7",
+    "file": "헤어/핑크브라운/770d9e737c0630d7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 470,
+    "bytes": 36717,
+    "sha256": "770d9e737c0630d75007fcad470ed0b851bda447530c4eb29ffe54d588c1a561",
+    "dhash": "372616078787060a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "acd8f2fea8fa439e",
+    "file": "헤어/핑크브라운/acd8f2fea8fa439e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 46956,
+    "sha256": "acd8f2fea8fa439ef2c6a80ea0b8a778b131e2e052c0bc2ad8c084e6062e56aa",
+    "dhash": "077c7b73311b3326",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a9a67eeea1db7288",
+    "file": "헤어/핑크브라운/a9a67eeea1db7288.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "핑크브라운"
+      }
+    ],
+    "width": 474,
+    "height": 633,
+    "bytes": 50497,
+    "sha256": "a9a67eeea1db7288fa22bcf74dc8776d987258afe2200b6a3111495f2c75502c",
+    "dhash": "ad9cac8c46c647c6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5b64c5a5e76535fc",
+    "file": "타투/문어 · 오징어/5b64c5a5e76535fc.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "문어 · 오징어"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 35947,
+    "sha256": "5b64c5a5e76535fce849d6ef9b4fccad47ca2eebfec814a7e480c3be24535284",
+    "dhash": "81050a33676f5f9f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4a0d8c9a2a46891b",
+    "file": "타투/문어 · 오징어/4a0d8c9a2a46891b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "문어 · 오징어"
+      }
+    ],
+    "width": 474,
+    "height": 757,
+    "bytes": 60462,
+    "sha256": "4a0d8c9a2a46891b708b6f5eccabe1e7db36f3124d8a0d5a83366d8fc89424e7",
+    "dhash": "e393365be7c69c18",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a706b8c4197b673a",
+    "file": "타투/문어 · 오징어/a706b8c4197b673a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "문어 · 오징어"
+      }
+    ],
+    "width": 474,
+    "height": 631,
+    "bytes": 21774,
+    "sha256": "a706b8c4197b673a054941522c06449eb2f60e2c90be2a15e2e54a80c485c212",
+    "dhash": "7e7e7e7f6f7fffff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3f725d0571d9730c",
+    "file": "타투/문어 · 오징어/3f725d0571d9730c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "문어 · 오징어"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 30721,
+    "sha256": "3f725d0571d9730c4cbd1bdabb86ead5031c41f94a7466755d208e7362cbb51b",
+    "dhash": "b0e4d49486aae2e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a2c6ec0bc4a11b8c",
+    "file": "타투/문어 · 오징어/a2c6ec0bc4a11b8c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "문어 · 오징어"
+      }
+    ],
+    "width": 474,
+    "height": 692,
+    "bytes": 84729,
+    "sha256": "a2c6ec0bc4a11b8cd58ef640ba80edd1a6d7e0c76d6844d56df9b783b1bde501",
+    "dhash": "c317256d76363e38",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c9c5ad46e0b52380",
+    "file": "타투/문어 · 오징어/c9c5ad46e0b52380.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "문어 · 오징어"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 50223,
+    "sha256": "c9c5ad46e0b523805138662aab719f7e03dae672ec911209103814e33b05679e",
+    "dhash": "d1502c2e160ab8f8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d630330e7f14b5e9",
+    "file": "타투/조개 · 바다 생물/d630330e7f14b5e9.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 474,
+    "height": 593,
+    "bytes": 36291,
+    "sha256": "d630330e7f14b5e9796d570c94b5a34866f126f316f95d26febe4be9ae8b5dc7",
+    "dhash": "1a1c392363c9cbc3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d6fe21b6ca4c5384",
+    "file": "타투/조개 · 바다 생물/d6fe21b6ca4c5384.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 473,
+    "height": 646,
+    "bytes": 35521,
+    "sha256": "d6fe21b6ca4c53844c507524b9307087978fd01b05a1c2517b73e7765e647765",
+    "dhash": "cf1d6ddebcb0c081",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "08508c05a24f7c02",
+    "file": "타투/조개 · 바다 생물/08508c05a24f7c02.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 474,
+    "height": 427,
+    "bytes": 18378,
+    "sha256": "08508c05a24f7c02fe6d4c9ba3644c3633998bb559d0abdf82927c0bdfbff70d",
+    "dhash": "c8c8d69494e4f0f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7caac93690a0926e",
+    "file": "타투/조개 · 바다 생물/7caac93690a0926e.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 474,
+    "height": 848,
+    "bytes": 34120,
+    "sha256": "7caac93690a0926e603e5158a86949db69e321a77b50b202643116a49b6226bc",
+    "dhash": "830b070e6e7d1b9d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c2c6c1baa46a60e6",
+    "file": "타투/조개 · 바다 생물/c2c6c1baa46a60e6.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 474,
+    "height": 498,
+    "bytes": 49064,
+    "sha256": "c2c6c1baa46a60e6e2ad7e73bdf27c621cdb43267f2b89dcc9aa3963637e713b",
+    "dhash": "ce8c8c8f878fe6f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "605d74c2ab1a725d",
+    "file": "메이크업/베리 블러셔/605d74c2ab1a725d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "베리 블러셔"
+      }
+    ],
+    "width": 473,
+    "height": 631,
+    "bytes": 21737,
+    "sha256": "605d74c2ab1a725d37c39ddbfe1174cb6d06fd12418b499ca5ab4917cc7a5380",
+    "dhash": "0079b9b779080037",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bec54ff5316dcdd1",
+    "file": "메이크업/베리 블러셔/bec54ff5316dcdd1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "베리 블러셔"
+      }
+    ],
+    "width": 473,
+    "height": 575,
+    "bytes": 26144,
+    "sha256": "bec54ff5316dcdd1ace97aa47a8e47201dd094400261def30396e2f67bc9cb11",
+    "dhash": "c74f0f97934fc3f3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8275f87c4e0fd535",
+    "file": "메이크업/피치/8275f87c4e0fd535.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "피치"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 22097,
+    "sha256": "8275f87c4e0fd5350753d5a6049872ab88a27f50ce242f20403848df5d18a335",
+    "dhash": "f0dc173337969696",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "05c3909aaed2a792",
+    "file": "메이크업/피치/05c3909aaed2a792.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "피치"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 32997,
+    "sha256": "05c3909aaed2a792b10a4d09847cc5e555554af5b9d58bdcfe8395b4c7b67b38",
+    "dhash": "63e0ccc4e430b8b8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b906ab7d20c40666",
+    "file": "메이크업/피치/b906ab7d20c40666.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "피치"
+      }
+    ],
+    "width": 474,
+    "height": 461,
+    "bytes": 24970,
+    "sha256": "b906ab7d20c40666a12a7a9e67905bd13ac14dd3d7b74bf8fd21a0e8c95af8c3",
+    "dhash": "9c9e3f331b6724e8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6da2ab54f3ea9959",
+    "file": "메이크업/피치/6da2ab54f3ea9959.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "피치"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 25280,
+    "sha256": "6da2ab54f3ea9959fcd5b9c9736695a38de691a8eb9793427cfee440dae199c4",
+    "dhash": "0303030737490540",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
