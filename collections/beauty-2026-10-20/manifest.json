@@ -37036,5 +37036,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "baae562d89f5747b",
+    "file": "메이크업/웨딩/baae562d89f5747b.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 819,
+    "height": 1024,
+    "bytes": 72566,
+    "sha256": "baae562d89f5747b755a038192af9704bc935c15d41c3c1d5370b701ad588271",
+    "dhash": "ad0f0f0c1a185973",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d6648b99ae1ce492",
+    "file": "메이크업/청순/d6648b99ae1ce492.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "청순"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 161946,
+    "sha256": "d6648b99ae1ce492349cbe83941a8db1a57c804f81a80e52bcbf2d9031dc5369",
+    "dhash": "70c8c8f0b0f0f073",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1872c62a7e23e59c",
+    "file": "네일/3D조형/1872c62a7e23e59c.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "3D조형"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 147656,
+    "sha256": "1872c62a7e23e59c6344ee795fb189cce50ea338cda1aa739170cf345cdcb52e",
+    "dhash": "4786c303236b4682",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1b9c26e4c1fc4a8f",
+    "file": "네일/자개/1b9c26e4c1fc4a8f.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 181400,
+    "sha256": "1b9c26e4c1fc4a8f9e574aa3b14c7c38949a47df99fda1b5c2b5930110a52641",
+    "dhash": "4b2b4f091b1b864c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
