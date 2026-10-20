@@ -22882,5 +22882,383 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2ae6c84c7c49d0ac",
+    "file": "헤어/올백/2ae6c84c7c49d0ac.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "올백"
+      }
+    ],
+    "width": 1080,
+    "height": 1347,
+    "bytes": 126622,
+    "sha256": "2ae6c84c7c49d0ac014e28d4588b91a06fb637d939a9e68e6f99a2c9a6ab757c",
+    "dhash": "61ebe2343272369d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2b31346529e06bb5",
+    "file": "헤어/올백/2b31346529e06bb5.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "올백"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 214187,
+    "sha256": "2b31346529e06bb549653d218ae4cc03e7a6984a889e72c26ee1c95249453031",
+    "dhash": "c9694d8786c2c6e7",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ebcb622f5f350c64",
+    "file": "네일/마이크로프렌치/ebcb622f5f350c64.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마이크로프렌치"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 1531981,
+    "sha256": "ebcb622f5f350c6498166ce9a0334e78bb785dae7badde789cf5d4c92c6dd02c",
+    "dhash": "95d84c3b432faa61",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f6d19f4c44ca4b7a",
+    "file": "네일/라운드/f6d19f4c44ca4b7a.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "라운드"
+      }
+    ],
+    "width": 1179,
+    "height": 1179,
+    "bytes": 114583,
+    "sha256": "f6d19f4c44ca4b7af4ce020b9126a645f737b00a60cddc846c23f90508b4ba2a",
+    "dhash": "3b33c5c949c59c1a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "54653a9c91da251c",
+    "file": "네일/마블/54653a9c91da251c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마블"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 458941,
+    "sha256": "54653a9c91da251c0f7dd37d90d6f5c62aa0da95d5b4a5686e9bda324a9257cd",
+    "dhash": "0f4366759685367d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b016bc1f2b6c956d",
+    "file": "네일/숏네일/b016bc1f2b6c956d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 길이",
+        "label": "숏네일"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 495512,
+    "sha256": "b016bc1f2b6c956dff072c255397543953e0b5cf47a2518dc46a8c479856c86d",
+    "dhash": "f7a34f0b5b1f9798",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3fc9142f076d4eda",
+    "file": "네일/라운드/3fc9142f076d4eda.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "라운드"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 120028,
+    "sha256": "3fc9142f076d4eda890dcf0e07a8ae678a88de3d39045864056e22bcba651785",
+    "dhash": "2f1e88796ccf0b99",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bb3cdaa2a94555a3",
+    "file": "네일/프렌치/bb3cdaa2a94555a3.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "프렌치"
+      }
+    ],
+    "width": 1078,
+    "height": 1077,
+    "bytes": 243352,
+    "sha256": "bb3cdaa2a94555a327d13bf960c59227561fbc2b1ce6a1c0d450c8c404074c59",
+    "dhash": "290f072f23ab2f6b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eaa852104904f33c",
+    "file": "메이크업/퍼플/eaa852104904f33c.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "퍼플"
+      }
+    ],
+    "width": 700,
+    "height": 525,
+    "bytes": 184679,
+    "sha256": "eaa852104904f33cabcf511c8ff4fa4ea7c7da544160da92ce1dfa7450e867bd",
+    "dhash": "64646cc8c8c8c898",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d27b05bdd4e23234",
+    "file": "메이크업/컬러 아이라인/d27b05bdd4e23234.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "컬러 아이라인"
+      }
+    ],
+    "width": 525,
+    "height": 700,
+    "bytes": 254268,
+    "sha256": "d27b05bdd4e232344621032dc23d83ab7e25bf757d8d16be56721b49294dd5c5",
+    "dhash": "e9e1c3e3f37b7332",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "521e9ae931250393",
+    "file": "메이크업/퍼플 섀도/521e9ae931250393.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "퍼플 섀도"
+      }
+    ],
+    "width": 525,
+    "height": 700,
+    "bytes": 234177,
+    "sha256": "521e9ae931250393b5ec7e7ee2314674927158fd5c57ed0db647d334a19dc0f2",
+    "dhash": "7b7376dedc7c6606",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e4fec9d61eda9ff1",
+    "file": "메이크업/캣아이라인/e4fec9d61eda9ff1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 700,
+    "height": 450,
+    "bytes": 122407,
+    "sha256": "e4fec9d61eda9ff1496c43dff936293af9b2128d941c4e687d1532bde04edd2d",
+    "dhash": "9796b2b29296c6c6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "de5e81df3ec2d28c",
+    "file": "타투/밴드 · 띠/de5e81df3ec2d28c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "만다라·기하학",
+        "label": "밴드 · 띠"
+      }
+    ],
+    "width": 1000,
+    "height": 752,
+    "bytes": 72161,
+    "sha256": "de5e81df3ec2d28cc5d4d810bd24f9f6a4d76258c2c1f19ecf788c81494b4f7b",
+    "dhash": "6060606060606161",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7a385fd17dd6ab67",
+    "file": "타투/라벤더/7a385fd17dd6ab67.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "라벤더"
+      }
+    ],
+    "width": 1000,
+    "height": 689,
+    "bytes": 34069,
+    "sha256": "7a385fd17dd6ab6743cbb10a7f348b255cb3fea7db13336da52421f2d1d2a47f",
+    "dhash": "e48c9c7cf1f3e3cb",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "34a1481cc15f824a",
+    "file": "타투/밴드 · 띠/34a1481cc15f824a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "만다라·기하학",
+        "label": "밴드 · 띠"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 52408,
+    "sha256": "34a1481cc15f824aa93b8b55545869568df81e84c6fcc7d176715fe226fc9fd0",
+    "dhash": "13373f7f4566666f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dcd77fab5715f0d3",
+    "file": "타투/클로버/dcd77fab5715f0d3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "클로버"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 75655,
+    "sha256": "dcd77fab5715f0d398141105e88441a06f3ca9513a6b2294057e8c9345c68d17",
+    "dhash": "1c3c399adbe1cec7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "730c86c9071637b8",
+    "file": "타투/모래시계/730c86c9071637b8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "모래시계"
+      }
+    ],
+    "width": 1000,
+    "height": 996,
+    "bytes": 67003,
+    "sha256": "730c86c9071637b83ce42855e25404214e7252060e43241b66ce9e35671e425b",
+    "dhash": "878b8f0f0e0ecee7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c8df8101c0f2fb69",
+    "file": "타투/모래시계/c8df8101c0f2fb69.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "모래시계"
+      }
+    ],
+    "width": 800,
+    "height": 1000,
+    "bytes": 71468,
+    "sha256": "c8df8101c0f2fb69a1f065f3bcce8357415a69ed55799f39ea4ee78721b7f294",
+    "dhash": "0b5b436f76343c8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
