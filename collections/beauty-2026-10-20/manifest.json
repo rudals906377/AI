@@ -39997,5 +39997,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "48d4975b5a084391",
+    "file": "헤어/똥머리/48d4975b5a084391.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "똥머리"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 379095,
+    "sha256": "48d4975b5a0843914474a84a7d0b2117a3e3ebdef370bf0389352a651b8f414c",
+    "dhash": "070e9d133a1e9800",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1f6dd7e0d3c15ef4",
+    "file": "메이크업/큐빅·파츠/1f6dd7e0d3c15ef4.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "큐빅·파츠"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 360240,
+    "sha256": "1f6dd7e0d3c15ef401090357cc786f1c054e3185c30625ac3d987e77d2c075aa",
+    "dhash": "e66423a313716131",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "73938b4d11261a42",
+    "file": "네일/도트/73938b4d11261a42.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "도트"
+      }
+    ],
+    "width": 1920,
+    "height": 1200,
+    "bytes": 53994,
+    "sha256": "73938b4d11261a42878651f2117805b51298e7ec8561bbef8314586e1a51fa5f",
+    "dhash": "c464cdc9906c98b0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
