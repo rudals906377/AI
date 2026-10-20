@@ -25864,5 +25864,152 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "71cc567ebb78fabc",
+    "file": "헤어/카라멜브라운/71cc567ebb78fabc.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "카라멜브라운"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 96028,
+    "sha256": "71cc567ebb78fabc9aaf4f3513365f3f75ed8ecb669fd17776066442956b8fc1",
+    "dhash": "070f1f9e8f8f8f8b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6f1878b0923ff3d3",
+    "file": "헤어/카라멜브라운/6f1878b0923ff3d3.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "카라멜브라운"
+      }
+    ],
+    "width": 2705,
+    "height": 3194,
+    "bytes": 1867944,
+    "sha256": "6f1878b0923ff3d30f26b4ed7bae76e9b9f6b3c44a013150bdaa60cfc624938c",
+    "dhash": "676767270717170f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b65cae8a75c42007",
+    "file": "네일/퐁당퐁당/b65cae8a75c42007.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "배치",
+        "label": "퐁당퐁당"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 73675,
+    "sha256": "b65cae8a75c4200785f517e2c73838ea7c50cca2f7dc0710fd62413ce55cfdc7",
+    "dhash": "3f3f3f1fa7653323",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8785128746994a5d",
+    "file": "네일/퐁당퐁당/8785128746994a5d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "배치",
+        "label": "퐁당퐁당"
+      }
+    ],
+    "width": 3425,
+    "height": 3880,
+    "bytes": 1004548,
+    "sha256": "8785128746994a5d70b153c0a9dfbf2433ffd54e6a86d146875cf299f0cecb13",
+    "dhash": "4f2b8dce86830381",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "76ca72910a8243be",
+    "file": "메이크업/실버·그레이 섀도/76ca72910a8243be.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "실버·그레이 섀도"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 269800,
+    "sha256": "76ca72910a8243be7d0a92720cac52f71b1646ba0dde4919c296bc37e04a98dd",
+    "dhash": "6466e0ececf07123",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dde2ec839086c837",
+    "file": "메이크업/블루 섀도/dde2ec839086c837.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "블루 섀도"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 281612,
+    "sha256": "dde2ec839086c8370b91bd45aa15f9e64b8ea86931f8bd0641e7f1855bb21767",
+    "dhash": "3ef9f9f8f0ddccf8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "74a85e43dda8e6f8",
+    "file": "타투/스케치/74a85e43dda8e6f8.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "스케치"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 67180,
+    "sha256": "74a85e43dda8e6f87f482c7c4ee568753f4efa555f01efbea1e88e244331067c",
+    "dhash": "e0b8e0e4e0f0f0d2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
