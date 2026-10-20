@@ -26347,5 +26347,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9377e3fedd0ae5b0",
+    "file": "헤어/그린·민트/9377e3fedd0ae5b0.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "그린·민트"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 378575,
+    "sha256": "9377e3fedd0ae5b02baf95e1dd2dbd9d4860c24ed76ed9846e9b16c9fcae465f",
+    "dhash": "790571f1f0f0c0c0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "807916c7da760689",
+    "file": "네일/코핀/807916c7da760689.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "코핀"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 98208,
+    "sha256": "807916c7da760689fb30e37fc697581e030d138963a13436cf95e4e303af9c22",
+    "dhash": "99fb71e9696f6d49",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dd4d1729c86536e9",
+    "file": "타투/트래쉬폴카/dd4d1729c86536e9.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "트래쉬폴카"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 126050,
+    "sha256": "dd4d1729c86536e9b337d032d40242dad1d79aff001809c3cd18a98f4fa364dd",
+    "dhash": "3038386870606868",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
