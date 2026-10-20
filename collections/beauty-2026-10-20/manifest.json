@@ -37561,5 +37561,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "181842023598dcb4",
+    "file": "메이크업/스모키/181842023598dcb4.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "스모키"
+      }
+    ],
+    "width": 1141,
+    "height": 1484,
+    "bytes": 97284,
+    "sha256": "181842023598dcb45528b0ab676e70a3f4879ae09f1af57ba633ecd25cc14d38",
+    "dhash": "3f3fdd3e23471e9d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
