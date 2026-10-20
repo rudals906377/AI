@@ -39871,5 +39871,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8351c71b4df9dd33",
+    "file": "헤어/생머리/8351c71b4df9dd33.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "생머리"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 199891,
+    "sha256": "8351c71b4df9dd33e8ecdd914d748a9ebfb4b06cc50e58ee71a6d00aeebf6207",
+    "dhash": "7078f4ee78536269",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "39a19bb0bb52495f",
+    "file": "타투/나침반/39a19bb0bb52495f.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "나침반"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 866417,
+    "sha256": "39a19bb0bb52495fca8ce6f15ef4df1e1290b081dac8b4e2dec1a21ac7b9b950",
+    "dhash": "34159d8f8b899991",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

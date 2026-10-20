@@ -11358,6 +11358,18 @@
       "sha256": "968a09d67958d6c25bc72e3dc76981b9ed00d8352676f93e6172aa171a1357df",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "8351c71b4df9dd33",
+      "sha256": "8351c71b4df9dd33e8ecdd914d748a9ebfb4b06cc50e58ee71a6d00aeebf6207",
+      "publishedDate": "2026-09-27",
+      "dateEvidence": "한국 스트레이트 헤어 기사 게시일 2026.09.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "39a19bb0bb52495f",
+      "sha256": "39a19bb0bb52495fca8ce6f15ef4df1e1290b081dac8b4e2dec1a21ac7b9b950",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
