@@ -38233,5 +38233,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cb27aa6bff472db8",
+    "file": "헤어/넘긴 앞머리/cb27aa6bff472db8.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "넘긴 앞머리"
+      }
+    ],
+    "width": 1080,
+    "height": 1377,
+    "bytes": 80583,
+    "sha256": "cb27aa6bff472db8b9fd344358839ad740c6aac4bb0672e595094f8381b0f64b",
+    "dhash": "1f3e3d2d279d98d8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b218918276adbb78",
+    "file": "헤어/풀뱅/b218918276adbb78.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "풀뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 123479,
+    "sha256": "b218918276adbb78285cd08395ccc4f185843205cdddaefa12c36f07cbe06686",
+    "dhash": "17973130140c8803",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
