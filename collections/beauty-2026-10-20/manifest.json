@@ -31324,5 +31324,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "36d92c5b89cdc3c7",
+    "file": "헤어/가일컷/36d92c5b89cdc3c7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 2353,
+    "height": 1824,
+    "bytes": 373893,
+    "sha256": "36d92c5b89cdc3c77e194170e994c5559328590a3b704c08d14fb18b47404358",
+    "dhash": "c949430606060e0c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f500189d17f45f7e",
+    "file": "헤어/가일컷/f500189d17f45f7e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 1000,
+    "height": 775,
+    "bytes": 242170,
+    "sha256": "f500189d17f45f7eace9feb545ea8747e24a0e46d96869d63bfdd179d4812d0d",
+    "dhash": "ccccf03333370e8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f061885fc8a78064",
+    "file": "헤어/쉐도우펌/f061885fc8a78064.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "쉐도우펌"
+      }
+    ],
+    "width": 720,
+    "height": 558,
+    "bytes": 137127,
+    "sha256": "f061885fc8a780645f9de13d24e71bb348619e33cb5130c7a54bcc6d51e1da36",
+    "dhash": "95079346c4d6c6cf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "caf04e2a04996c59",
+    "file": "타투/나침반/caf04e2a04996c59.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "나침반"
+      }
+    ],
+    "width": 3000,
+    "height": 3999,
+    "bytes": 707202,
+    "sha256": "caf04e2a04996c59c1f94e2eebef0e5cb59816a5205e4ee4afc6ddcd185a900b",
+    "dhash": "bcb8cc0f0f0e2082",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "061bd0a2e61d927a",
+    "file": "타투/나침반/061bd0a2e61d927a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "나침반"
+      }
+    ],
+    "width": 1440,
+    "height": 1667,
+    "bytes": 369775,
+    "sha256": "061bd0a2e61d927abb5a8741032443f5e67121b5b3e8ec6591252742fc202486",
+    "dhash": "73f86c48b191a030",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8ccebe8ead1c201d",
+    "file": "타투/나침반/8ccebe8ead1c201d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "나침반"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 265859,
+    "sha256": "8ccebe8ead1c201defc1ea1a6f5f2ecd7d77f6033789726561e3afc3956b4380",
+    "dhash": "33e3cf1f1e7cfc78",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
