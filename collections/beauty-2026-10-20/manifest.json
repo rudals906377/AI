@@ -12655,5 +12655,383 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d22659382a4b5791",
+    "file": "네일/하트·리본/d22659382a4b5791.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "하트·리본"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 40890,
+    "sha256": "d22659382a4b5791a1b02ec8733bcbbf2dab3f3656328e460813139a66f5d8ae",
+    "dhash": "0f0783060128f6b5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "76b4781c36c5bde4",
+    "file": "네일/스틸레토/76b4781c36c5bde4.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "스틸레토"
+      }
+    ],
+    "width": 474,
+    "height": 849,
+    "bytes": 38606,
+    "sha256": "76b4781c36c5bde49469f3e33cd43e98af6f30171f6832dbd621418edc4ae196",
+    "dhash": "3b62c7f7d6e8b040",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "22588f9877791254",
+    "file": "네일/연핑크/22588f9877791254.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "연핑크"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 31156,
+    "sha256": "22588f9877791254a9a3c5daa6ba7c093cc0a3bae875fbde80f667006639bef5",
+    "dhash": "195d6de9cb9e1e6d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "69f717df05d15ecb",
+    "file": "네일/연핑크/69f717df05d15ecb.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "연핑크"
+      }
+    ],
+    "width": 474,
+    "height": 466,
+    "bytes": 24358,
+    "sha256": "69f717df05d15ecb11c68a400d00881bc2a53b3a084624c824fcfcd13c831def",
+    "dhash": "3b53933327170f4e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8bef463df5a7e46e",
+    "file": "네일/네이비·블루/8bef463df5a7e46e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "네이비·블루"
+      }
+    ],
+    "width": 474,
+    "height": 852,
+    "bytes": 30978,
+    "sha256": "8bef463df5a7e46e234c1a3f3590d3242777ac0801c2f5a13615070a86a7299c",
+    "dhash": "90e6222f139d2e4f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d534ba4eaa3b9d6b",
+    "file": "네일/워터드롭/d534ba4eaa3b9d6b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "워터드롭"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 40077,
+    "sha256": "d534ba4eaa3b9d6b12357e377a648a7d96e8e0329ba9b5c3f552b318e5c64081",
+    "dhash": "83868fcec7cecd46",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "41f4cce6ea7223a3",
+    "file": "네일/파츠/41f4cce6ea7223a3.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "파츠"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 28193,
+    "sha256": "41f4cce6ea7223a317f276baf49a32ec7911cca58a7764d694ffb6fef2547d38",
+    "dhash": "ffffffd2e2e2c3c5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f860fee5411b3af",
+    "file": "헤어/풀뱅/5f860fee5411b3af.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "풀뱅"
+      }
+    ],
+    "width": 473,
+    "height": 538,
+    "bytes": 37571,
+    "sha256": "5f860fee5411b3af5a7eca43b7403132eb91b1ed9cf2f36776e652281613b5d5",
+    "dhash": "33633b1393939b8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d8ec5d298bf2a746",
+    "file": "헤어/풀뱅/d8ec5d298bf2a746.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "풀뱅"
+      }
+    ],
+    "width": 474,
+    "height": 634,
+    "bytes": 31399,
+    "sha256": "d8ec5d298bf2a7463d01513ab87962f3815fc084b0005c0cec3f462fc08bc2c7",
+    "dhash": "67676c2c68322e9d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ae2a7199d797bf70",
+    "file": "헤어/풀뱅/ae2a7199d797bf70.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "풀뱅"
+      }
+    ],
+    "width": 474,
+    "height": 593,
+    "bytes": 52481,
+    "sha256": "ae2a7199d797bf701eec36bd1aad386983b3489a5ba9c8e6a34645be3559bb86",
+    "dhash": "a527369617368e0c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cdb0d207a4b252af",
+    "file": "헤어/양갈래/cdb0d207a4b252af.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "양갈래"
+      }
+    ],
+    "width": 474,
+    "height": 590,
+    "bytes": 44102,
+    "sha256": "cdb0d207a4b252af8b841e472fb20dc7e34787ded7687c514206a998b183c51b",
+    "dhash": "2b0f0e1617311746",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ace811b4f63ad555",
+    "file": "헤어/골드블론드/ace811b4f63ad555.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "골드블론드"
+      }
+    ],
+    "width": 474,
+    "height": 604,
+    "bytes": 53857,
+    "sha256": "ace811b4f63ad5554a63055dcf628cd9e77d4a5597ce0c671ec5da3c343bc88a",
+    "dhash": "6a84c69393ab8fd4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "07c88ea64d530cbf",
+    "file": "헤어/긴머리/07c88ea64d530cbf.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "긴머리"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 48150,
+    "sha256": "07c88ea64d530cbf832f906370a8547149d2dcf4295a6f522db92b815439ad55",
+    "dhash": "0e8b072160641cf4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "737658754c29d69b",
+    "file": "헤어/하이라이트/737658754c29d69b.avif",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "하이라이트"
+      }
+    ],
+    "width": 570,
+    "height": 570,
+    "bytes": 75345,
+    "sha256": "737658754c29d69bc10083d3d84bc9bccbba5f98767a36f81339717b9fe77c8e",
+    "dhash": "d94d94b2f2b2f48d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a626a59f910f8c4b",
+    "file": "타투/꽃·식물/a626a59f910f8c4b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      }
+    ],
+    "width": 473,
+    "height": 631,
+    "bytes": 30302,
+    "sha256": "a626a59f910f8c4bdcc1ed16e4fc7f0fdeef9580cfb33e8c065dc24e12d9caeb",
+    "dhash": "e5456363e3d21a3c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4a126299e0ad3ce4",
+    "file": "타투/상어/4a126299e0ad3ce4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "상어"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 37516,
+    "sha256": "4a126299e0ad3ce4a05b87e790f43afca4b71d774e6309ea6ad63bbd01fe0cd8",
+    "dhash": "ce466b05b1b118b8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4e105d11b371f289",
+    "file": "메이크업/글로시/4e105d11b371f289.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 53324,
+    "sha256": "4e105d11b371f289e632634fd2f4da4635dd00179031d0be783c667397245805",
+    "dhash": "f0e03df3bf190587",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4b94a844fbba67f9",
+    "file": "메이크업/홍조 블러셔/4b94a844fbba67f9.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 474,
+    "height": 858,
+    "bytes": 35734,
+    "sha256": "4b94a844fbba67f9e6ec34ac753acabdda3ede54b1ca7175cfd780bda03f66b3",
+    "dhash": "b15337ef693983c6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
