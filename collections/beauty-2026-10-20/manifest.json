@@ -30652,5 +30652,383 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e380eb8094fcedd7",
+    "file": "헤어/태슬컷/e380eb8094fcedd7.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "태슬컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 278730,
+    "sha256": "e380eb8094fcedd70bc8819205820322899b5176acc63195124d4a03109cc9da",
+    "dhash": "9b193161f3f3f2e4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e462b90256a97903",
+    "file": "헤어/태슬컷/e462b90256a97903.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "태슬컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 116310,
+    "sha256": "e462b90256a979037ff3fe66a5dd08413bf5793debd2ea607a272caab1ea7211",
+    "dhash": "c3d2c20b0d35968c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4d99b0c3cddbfce4",
+    "file": "헤어/바깥C컬/4d99b0c3cddbfce4.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "바깥C컬"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 326002,
+    "sha256": "4d99b0c3cddbfce429da635adbd8dfcd10c3c40412d918affd171e4d14c24cc2",
+    "dhash": "b3e6aea4292c0000",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d9b56995e2aa1e49",
+    "file": "네일/니트·트위드/d9b56995e2aa1e49.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "니트·트위드"
+      }
+    ],
+    "width": 736,
+    "height": 736,
+    "bytes": 37328,
+    "sha256": "d9b56995e2aa1e495556187851ef1abe3894d157b40ed5314b74a8e3ebfb875e",
+    "dhash": "0342150c04160800",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c097acab779f578c",
+    "file": "네일/니트·트위드/c097acab779f578c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "니트·트위드"
+      }
+    ],
+    "width": 736,
+    "height": 736,
+    "bytes": 66034,
+    "sha256": "c097acab779f578c5ff62cce5a1c24fa805a1ffd7e7ef4b754a6de50f6ba002a",
+    "dhash": "6d93270f0f1b3d55",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7822dddc8b86ca89",
+    "file": "네일/하늘색/7822dddc8b86ca89.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "하늘색"
+      }
+    ],
+    "width": 1000,
+    "height": 1158,
+    "bytes": 91701,
+    "sha256": "7822dddc8b86ca8962e40543c4e75ad0c1d3365df8508f891ff254533c4f4ace",
+    "dhash": "07273b353f1e1f14",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "25e8c5daa54e9b84",
+    "file": "메이크업/홍조 블러셔/25e8c5daa54e9b84.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 93304,
+    "sha256": "25e8c5daa54e9b84874e114da269d5b03b30bf631ada02b5c897e7d5b094e121",
+    "dhash": "8e6c3f333b393b8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0b876322a0e5de8b",
+    "file": "메이크업/코랄 블러셔/0b876322a0e5de8b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "코랄 블러셔"
+      }
+    ],
+    "width": 1000,
+    "height": 1309,
+    "bytes": 173011,
+    "sha256": "0b876322a0e5de8b038b5dd15eade324621059b7359baaf81d640cded97d8d6d",
+    "dhash": "270c0d2b7333379e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "386e361ed5f7516c",
+    "file": "메이크업/코랄/386e361ed5f7516c.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "코랄"
+      }
+    ],
+    "width": 1000,
+    "height": 1309,
+    "bytes": 1018773,
+    "sha256": "386e361ed5f7516cbafedde9ae28e4cb52e9ac840996c2d51f5899fa810d2ca9",
+    "dhash": "070f36333931138e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "78259fb0954ad3e2",
+    "file": "타투/올드스쿨/78259fb0954ad3e2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "올드스쿨"
+      }
+    ],
+    "width": 1440,
+    "height": 1802,
+    "bytes": 364416,
+    "sha256": "78259fb0954ad3e2cece469e6c40e10e6e2030a83fd3c8646a8676aee1f1ec42",
+    "dhash": "6c1f9f161e178f07",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6100e219dec86656",
+    "file": "타투/곰인형/6100e219dec86656.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "곰인형"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 587163,
+    "sha256": "6100e219dec8665607bc3feac5f4fba20266ac26918ed5a3dbbddaa167502c50",
+    "dhash": "64e1f16868793020",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d2fb326800ca6bc2",
+    "file": "타투/곰인형/d2fb326800ca6bc2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "곰인형"
+      }
+    ],
+    "width": 1440,
+    "height": 1796,
+    "bytes": 142426,
+    "sha256": "d2fb326800ca6bc26d0c9d45d8f233fb49e4778af20bb757d7b38736d0627a36",
+    "dhash": "3a3f1f0f5f79f979",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ab5078b0d2c2ce9d",
+    "file": "타투/곰/ab5078b0d2c2ce9d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "곰"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 181692,
+    "sha256": "ab5078b0d2c2ce9d192e26ec9d13682ea95250b1fd68713c5d65ca43c2270fc2",
+    "dhash": "7676f6f6eee6f2f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d96894e6e2be6e2a",
+    "file": "타투/곰/d96894e6e2be6e2a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "곰"
+      }
+    ],
+    "width": 1280,
+    "height": 1600,
+    "bytes": 226929,
+    "sha256": "d96894e6e2be6e2a5092f74f0368091e9009817dd55ad6a2c312b6ea58da489c",
+    "dhash": "bdf9f9e9cdc9e1e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "53394431d242045a",
+    "file": "헤어/이너컬러/53394431d242045a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "이너컬러"
+      }
+    ],
+    "width": 612,
+    "height": 402,
+    "bytes": 92354,
+    "sha256": "53394431d242045ae11e1fb4110d05f8f4c1ef5960f4efd5abb71402bc4cbc2c",
+    "dhash": "ccc4c2e3e5cfc7e7",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "204b8af8a7aac600",
+    "file": "타투/닻/204b8af8a7aac600.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "닻"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 658543,
+    "sha256": "204b8af8a7aac600f4a0c756b431858d131505d90a436f3953737dcab320aab6",
+    "dhash": "32f38c040c0c8c8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "00bbdfc479bf9836",
+    "file": "타투/닻/00bbdfc479bf9836.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "닻"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 210822,
+    "sha256": "00bbdfc479bf98361dcf52230dd58992b8bc873c7e37031926d767f4a9d59d58",
+    "dhash": "e9cdcd8bc9999df9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0257b01c479230c5",
+    "file": "타투/닻/0257b01c479230c5.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "닻"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 400262,
+    "sha256": "0257b01c479230c5e0e4f5942851978846e1329ba27562ec84a07a7ab879ebf4",
+    "dhash": "8d91ab89492c3c70",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
