@@ -41026,5 +41026,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "45d366fc057d26ca",
+    "file": "네일/과일/45d366fc057d26ca.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "과일"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 41494,
+    "sha256": "45d366fc057d26caf9b3fb4e5a628f7dadda57b99b68859062bcceb3a9d7cf94",
+    "dhash": "a6ac999a24250200",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1fc33fa95c3bba18",
+    "file": "네일/과일/1fc33fa95c3bba18.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "과일"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 156508,
+    "sha256": "1fc33fa95c3bba1823205ab1266bc0f2c0c2a52ff8653776011dea84d6e98814",
+    "dhash": "d860d2ecd2cdf3bc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
