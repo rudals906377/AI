@@ -11190,6 +11190,30 @@
       "sha256": "5d2519df663f579ac93e393df50697a6cd6229f3aa0c9bb028a66043902d5af8",
       "publishedDate": "2026-01-07",
       "dateEvidence": "기사 머리말 2026년 01월 07일 관찰. 하단 호수 표기는 2025년 1월호로 달라 원촬영 날짜 미확인; 2026 신규촬영으로 단정하지 않음"
+    },
+    {
+      "id": "54ac2f9f4ba1c8f8",
+      "sha256": "54ac2f9f4ba1c8f8b12f6de01d20b5761961a972fe3420f23fb8ef18fd7f87f8",
+      "publishedDate": "2026-08-15",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.08.15 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "ad1f2f34995c0304",
+      "sha256": "ad1f2f34995c03044e85e19f9bb2bdf183fa3b8f4104fc4b0582e6d46d092fb1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "f1c35eafc31dd063",
+      "sha256": "f1c35eafc31dd063e80c76a2072328231b01a6b397cb415488476d34e383c2b2",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "0c8bd9a1b31d0057",
+      "sha256": "0c8bd9a1b31d0057bc01d4c311e731cbc18758ca5d90b1d2db6797af648fa444",
+      "publishedDate": "2026-03-17",
+      "dateEvidence": "한국 네일 기사 게시일 2026.03.17 확인; 사진 최초 게시일 미확인; 장식 없는 밀키 단색 직접 확인"
     }
   ]
 }
