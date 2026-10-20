@@ -10680,6 +10680,24 @@
       "sha256": "33d663d1fda259c8612ef23ac0cae5777df446710bb9ab100f40188a6c4597fe",
       "publishedDate": "2026-02-20",
       "dateEvidence": "뷰티 기사 머리말 2026.02.20 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "63ef6d6c61060cc7",
+      "sha256": "63ef6d6c61060cc7a9c61cded9cb322dff8b571ce599fe7be0fa1989a631b5e9",
+      "publishedDate": "2026-03-27",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.03.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "5b71f04fd5b00b07",
+      "sha256": "5b71f04fd5b00b07d491310a09461481911669ef81625de3981df508b9314e61",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "3808b14a4cfb7bb5",
+      "sha256": "3808b14a4cfb7bb515389698a65a3d9dadd0ed15a377514d9cedbbed5391b8c3",
+      "publishedDate": "2026-07-17",
+      "dateEvidence": "기사 게시일 2026.07.17 및 HANDS-FREE SEASIDE 시술 설명 관찰"
     }
   ]
 }

@@ -37498,5 +37498,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "63ef6d6c61060cc7",
+    "file": "헤어/단발/63ef6d6c61060cc7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 219059,
+    "sha256": "63ef6d6c61060cc7a9c61cded9cb322dff8b571ce599fe7be0fa1989a631b5e9",
+    "dhash": "9918197970535d09",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5b71f04fd5b00b07",
+    "file": "타투/왕관/5b71f04fd5b00b07.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "왕관"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 289970,
+    "sha256": "5b71f04fd5b00b07d491310a09461481911669ef81625de3981df508b9314e61",
+    "dhash": "3931391939793939",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3808b14a4cfb7bb5",
+    "file": "메이크업/주근깨/3808b14a4cfb7bb5.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "주근깨"
+      }
+    ],
+    "width": 1141,
+    "height": 1484,
+    "bytes": 124660,
+    "sha256": "3808b14a4cfb7bb515389698a65a3d9dadd0ed15a377514d9cedbbed5391b8c3",
+    "dhash": "b9333e3633930e1f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
