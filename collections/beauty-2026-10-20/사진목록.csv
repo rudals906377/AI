@@ -441,7 +441,7 @@
 타투/자물쇠/a276e4eb9434dd3c.jpg,타투,시계·열쇠:자물쇠,474,711,없음,candidate_visual_reviewed,,a276e4eb9434dd3c814e15146c037c681e8f788fd8014677e280168ca1e81dde,44101
 타투/자물쇠/77441bc338b74492.jpg,타투,시계·열쇠:자물쇠,473,314,없음,candidate_visual_reviewed,,77441bc338b7449287d20eac8c80f5b2f688a915d98cc8242cb1abb65d05a1ad,13884
 타투/자물쇠/a14b07a27766c1c9.jpg,타투,시계·열쇠:자물쇠,474,519,없음,candidate_visual_reviewed,,a14b07a27766c1c991aaa17e955064f72bcc729c241cbf4348dbd0de6e42dfe4,23817
-타투/자물쇠/64129cb64c00299d.jpg,타투,시계·열쇠:자물쇠,474,706,없음,candidate_visual_reviewed,,64129cb64c00299de3274dd09faae780ef519e3589b4b2c87e380063bc466f21,29583
+타투/자물쇠/64129cb64c00299d.jpg,타투,시계·열쇠:자물쇠,474,706,없음,excluded_ai_watermark,,64129cb64c00299de3274dd09faae780ef519e3589b4b2c87e380063bc466f21,29583
 타투/자물쇠/a1ec2dcc487dd65e.jpg,타투,시계·열쇠:자물쇠,474,472,없음,candidate_visual_reviewed,,a1ec2dcc487dd65ed6c3dac782c178b156e8530910b13ea11f68660181894a87,53067
 타투/자물쇠/42f1d6da8fc37e4f.jpg,타투,시계·열쇠:자물쇠,473,475,없음,candidate_visual_reviewed,,42f1d6da8fc37e4fb51c77c8f1ca43cceddbfdf012e39dd2626b02a799a3f0ff,32745
 타투/자물쇠/224d5fc320e00d52.jpg,타투,시계·열쇠:자물쇠,474,850,없음,candidate_visual_reviewed,,224d5fc320e00d52bfab52cfe6e54bb02058e6cbb6483e31653715e63468657b,74343
@@ -1179,3 +1179,16 @@
 메이크업/레드 섀도/05d9e72160b496ae.jpg,메이크업,아이섀도:레드 섀도,1000,1310,있음,candidate_visual_reviewed,,05d9e72160b496aef65305aaa7c45bedc2bba554d97436faee1c8a7c08c2b226,353743
 타투/피아노 · 악기/5fdf6d3e71fdfb0d.jpg,타투,음악·악기:피아노 · 악기,1000,664,없음,candidate_visual_reviewed,,5fdf6d3e71fdfb0d5159a210cd0dbfb85e0da028fb6c09f0ef30843d47f0e109,40759
 타투/피아노 · 악기/99a3fe6ff75463fc.jpg,타투,음악·악기:피아노 · 악기,804,1000,없음,candidate_visual_reviewed,,99a3fe6ff75463fc8035400884459fbfa6c266c7458ded36c5d7c18a18722522,51636
+헤어/A라인 보브/33fc539120c22029.webp,헤어,커트:A라인 보브,1440,1440,있음,candidate_visual_reviewed,,33fc539120c220296802919d8cdd0639af89ecc710f7aabb75134e08d9a464dc,252078
+헤어/A라인 보브/2c1483f844851e87.jpg,헤어,커트:A라인 보브,2160,2880,있음,candidate_visual_reviewed,,2c1483f844851e87462d7d4f44f54c322c4f22c82fe91147b1e8d5004ff1d065,1913497
+네일/캐릭터/5aaad4eb42c37252.jpg,네일,디자인:캐릭터,1440,1440,없음,candidate_visual_reviewed,,5aaad4eb42c37252295284a69d208dbb4d8ae717a7826e2e97c4bfee8759d10c,365354
+네일/캐릭터/55c14b64c8b6fc1b.jpg,네일,디자인:캐릭터,1440,1920,없음,candidate_visual_reviewed,,55c14b64c8b6fc1b234ddb338669281bfc7049fc37ecc7693dd44e623ad06924,428654
+네일/크롬/a88d18189354075d.jpg,네일,디자인:크롬,1440,1440,없음,candidate_visual_reviewed,,a88d18189354075d44bcc8e68d33b5f705992fc5c21b4b26a1f4eaa84beaf9da,175226
+네일/크롬/db6d58cac8482dcb.jpg,네일,디자인:크롬,3072,4096,없음,candidate_visual_reviewed,,db6d58cac8482dcbb57bc6a7c5ea38ce8ff57bb1f17afcaab557d44d49b412cd,2770133
+메이크업/쇠맛/15ac7a746a67beff.jpg,메이크업,분위기:쇠맛,1080,1350,있음,candidate_visual_reviewed,,15ac7a746a67beff2c9f39fbe392e9060a1508a41ead79c86ea649303af5c558,395839
+메이크업/쇠맛/a41f434a34a8a072.jpg,메이크업,분위기:쇠맛,1080,810,있음,candidate_visual_reviewed,,a41f434a34a8a0727a78808013a187e3333c9b38f056d75156b578403070f2bb,303669
+메이크업/쇠맛/49a3a1ad767655b9.jpg,메이크업,분위기:쇠맛,1080,810,있음,candidate_visual_reviewed,,49a3a1ad767655b95759ae32b832c8609c37e06d834a2de3cc8d5b703d1b6f18,269510
+타투/성 · 탑/bb9a20c1bc5a1e96.jpg,타투,풍경·건물:성 · 탑,800,1000,없음,candidate_visual_reviewed,,bb9a20c1bc5a1e9637faa6dd8bcbfe3a222fd77161030b609204d283e1a88089,81172
+타투/총/d970130fc84a530b.jpg,타투,사물:총,1000,1000,없음,candidate_visual_reviewed,,d970130fc84a530b736a8f1d22074dc4ed60c5830e15b3769ac893cf731b26aa,66242
+타투/조각상/7fd8c53d9479eab7.jpg,타투,인물:조각상,1000,1000,없음,candidate_visual_reviewed,,7fd8c53d9479eab78e4f25dbecc4c5a2259e05fd1422509e5efbfdf54df8931f,69446
+타투/조각상/25b8facced2f6a2e.jpg,타투,인물:조각상,750,588,없음,candidate_visual_reviewed,,25b8facced2f6a2e36bb3350e3810242c81b0d16309ef21eb1cf8bc42f759358,40378

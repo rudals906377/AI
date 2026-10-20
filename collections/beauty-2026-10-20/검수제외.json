@@ -1,0 +1,11 @@
+[
+  {
+    "id": "64129cb64c00299d",
+    "file": "타투/자물쇠/64129cb64c00299d.jpg",
+    "sha256": "64129cb64c00299de3274dd09faae780ef519e3589b4b2c87e380063bc466f21",
+    "bytes": 29583,
+    "status": "excluded_ai_watermark",
+    "reason": "Grok 표시가 보이는 이미지로 목표 수량과 다음 학습 검수 대상에서 제외. 기존 원본은 복원 가능하게 보존.",
+    "counted_toward_goal": false
+  }
+]
