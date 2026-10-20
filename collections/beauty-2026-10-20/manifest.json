@@ -18220,5 +18220,383 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "반려견 참고사진과 실제 피부 타투가 함께 있는 비교 원본. 학습 전 참고사진을 제외하고 실제 피부 위 타투 영역만 크롭 검수 필요. 최종 라벨 검토 필요."
+  },
+  {
+    "id": "b2c97736f021634d",
+    "file": "네일/과일/b2c97736f021634d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "과일"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 297752,
+    "sha256": "b2c97736f021634d440d30fa5f8307bfb392bf83f2153302bc9e4fd261fbbd00",
+    "dhash": "1d3dfd9afaf4ec8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bfea24c0ec6f590d",
+    "file": "네일/체크/bfea24c0ec6f590d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "체크"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 133545,
+    "sha256": "bfea24c0ec6f590d3dabb3200f6f6fd75da69ee271248762363389498a1798a0",
+    "dhash": "fcfe3365c520ce87",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0869dc92f4267d9e",
+    "file": "네일/자석/0869dc92f4267d9e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 1051,
+    "height": 1400,
+    "bytes": 244727,
+    "sha256": "0869dc92f4267d9ef88cf49c76d3f67845b0c2d05fdc1d008accd6d282143f7e",
+    "dhash": "0b540934120184c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9e9dd75cfa551f67",
+    "file": "네일/하늘색/9e9dd75cfa551f67.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "하늘색"
+      }
+    ],
+    "width": 1080,
+    "height": 1210,
+    "bytes": 129345,
+    "sha256": "9e9dd75cfa551f6727403004d652ea4334d4e451279d36cb1e7fd274acc0ffa0",
+    "dhash": "376fc7962872632e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b19a9fa4fb54b835",
+    "file": "네일/플라워/b19a9fa4fb54b835.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "플라워"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 82662,
+    "sha256": "b19a9fa4fb54b8354010c8cd4cd07ec55373817e20bd1d4ba1c4404addbc2cc8",
+    "dhash": "fffffbef9fbff6e4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e4af419b1d8ad5a5",
+    "file": "네일/플라워/e4af419b1d8ad5a5.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "플라워"
+      }
+    ],
+    "width": 1080,
+    "height": 1247,
+    "bytes": 97298,
+    "sha256": "e4af419b1d8ad5a51c747fc1cdeed97233b80017c0f0587b22779a8ab24f3b28",
+    "dhash": "150f170a35295ba7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "465c8552428e0f3d",
+    "file": "네일/그라데이션/465c8552428e0f3d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "그라데이션"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 89961,
+    "sha256": "465c8552428e0f3da1482e8dc6c7b251db474ec16c55a44e8e4bc16cd3c3e82e",
+    "dhash": "f2f26ddeb76b9ab4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7c272022b29206c2",
+    "file": "네일/크롬/7c272022b29206c2.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 97356,
+    "sha256": "7c272022b29206c24775fc96a2e0ee2b538ee27e92706d50e6fecfb618bcad1e",
+    "dhash": "c7188b638cbd3078",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "21d06bd2cca4e788",
+    "file": "메이크업/러블리·핑크/21d06bd2cca4e788.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "러블리·핑크"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 153510,
+    "sha256": "21d06bd2cca4e788be2210759f704917258531a5ff36a46fc0f05f96c497a4e3",
+    "dhash": "f0f8fcbcb8b8b3f1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1a47ec7ec76a45df",
+    "file": "메이크업/하이라이터/1a47ec7ec76a45df.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "하이라이터"
+      }
+    ],
+    "width": 1266,
+    "height": 1583,
+    "bytes": 138830,
+    "sha256": "1a47ec7ec76a45df700798b0f2962149fd806086d440f1b1a589d94c39135c96",
+    "dhash": "e14777737bd9fcec",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "88b9b9fb172b8208",
+    "file": "메이크업/드레이핑 블러셔/88b9b9fb172b8208.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "드레이핑 블러셔"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 214520,
+    "sha256": "88b9b9fb172b820862aa6946362735de6e25780e6a6a9289fcd8b968ee75673e",
+    "dhash": "72474622d971797b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "525418cd0a818cea",
+    "file": "메이크업/홍조 블러셔/525418cd0a818cea.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 272820,
+    "sha256": "525418cd0a818cea2ef3b2a25488587cfae1afed0c86f862401aa03479879f20",
+    "dhash": "a88cec6ca4a4b0e4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "591be30dcc9f2341",
+    "file": "메이크업/숙취 블러셔/591be30dcc9f2341.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "숙취 블러셔"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 358100,
+    "sha256": "591be30dcc9f2341c88f5e87a9d5eba64fdb4648fb4fd4fc389b879466a920ad",
+    "dhash": "121a9ad2f3796a0e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "abd3a5b03e5c8221",
+    "file": "타투/과일/abd3a5b03e5c8221.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "과일"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 223335,
+    "sha256": "abd3a5b03e5c8221d5bdeb9595e404d6788d013fbb6f2d53874290ee5062ef82",
+    "dhash": "08848509217392a7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ccafb27b335393e0",
+    "file": "타투/사슴/ccafb27b335393e0.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "사슴"
+      }
+    ],
+    "width": 1160,
+    "height": 1658,
+    "bytes": 231910,
+    "sha256": "ccafb27b335393e0c185d956d50493f1cd220031e8aaf95f3e3339d60eec7d70",
+    "dhash": "294d4d4f17716163",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf5bec766a53c9bf",
+    "file": "타투/사무라이 · 무사/cf5bec766a53c9bf.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "사무라이 · 무사"
+      }
+    ],
+    "width": 1160,
+    "height": 1881,
+    "bytes": 417541,
+    "sha256": "cf5bec766a53c9bff76e7c210ee6ef6e99fa75c50b4b7f82916e1ff59f2fe7f0",
+    "dhash": "c389212b0d27a7a3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "da35c0df09d99f7a",
+    "file": "타투/강아지/da35c0df09d99f7a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 1160,
+    "height": 1427,
+    "bytes": 234419,
+    "sha256": "da35c0df09d99f7a6dd3e08816df81fb161db1fbca15c1008b2468c9b1b5ed62",
+    "dhash": "c7c384a6360c3c1b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "12949b444a76315d",
+    "file": "타투/제비 · 작은 새/12949b444a76315d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "제비 · 작은 새"
+      }
+    ],
+    "width": 1160,
+    "height": 1741,
+    "bytes": 245520,
+    "sha256": "12949b444a76315d7c44fd853a9eb7af49c0d8a83727930c0f742bfb514ab700",
+    "dhash": "6070607868f0da59",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
