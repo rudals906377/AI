@@ -40333,5 +40333,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c462c4288e389408",
+    "file": "타투/기하학 도형/c462c4288e389408.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "만다라·기하학",
+        "label": "기하학 도형"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 254477,
+    "sha256": "c462c4288e38940830a17d888ba42983639dd1d7d7e666fb38bf5cb51ce2f38b",
+    "dhash": "b332302829303138",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e5a63b3633715e43",
+    "file": "네일/마블/e5a63b3633715e43.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마블"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 132561,
+    "sha256": "e5a63b3633715e439ab263be45c1491dc25ecbaefd6c9042c4e53bac712d94ce",
+    "dhash": "3010321215120800",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "77ed3162f680f38e",
+    "file": "네일/벨벳/77ed3162f680f38e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "벨벳"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 140393,
+    "sha256": "77ed3162f680f38eaba639414f4e5d525c71db7c9ff681c81f6f65ef99ee7636",
+    "dhash": "347460f8cce5fbff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
