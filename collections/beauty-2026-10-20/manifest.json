@@ -39367,5 +39367,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0f2d23d71bf3c7e1",
+    "file": "타투/산/0f2d23d71bf3c7e1.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "달·별·자연",
+        "label": "산"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 894040,
+    "sha256": "0f2d23d71bf3c7e180dd94948b20848777364b690c789d062fce714d6b77b29f",
+    "dhash": "71696dd5456d7961",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f03b7a7148ac92a9",
+    "file": "메이크업/드레이핑 블러셔/f03b7a7148ac92a9.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "드레이핑 블러셔"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 290606,
+    "sha256": "f03b7a7148ac92a9c59a754da308e14b66578e53cd3a5d9eea3a20e2fd85453d",
+    "dhash": "dcde8a597571730f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "50b66eb9fc83c2ea",
+    "file": "메이크업/캣아이라인/50b66eb9fc83c2ea.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 234822,
+    "sha256": "50b66eb9fc83c2ea4916fdbff4d2481fe24f4771bfb5531c9134072599c55866",
+    "dhash": "f978307b783c381e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ac7b9227cef94e70",
+    "file": "네일/프렌치/ac7b9227cef94e70.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "프렌치"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 159616,
+    "sha256": "ac7b9227cef94e7035dda998cd427295214bf053c233288be7b781d1ee07fc69",
+    "dhash": "28c3c2888799e254",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
