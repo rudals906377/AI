@@ -40900,5 +40900,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bcb2ece9f3b35db1",
+    "file": "타투/허리·골반/bcb2ece9f3b35db1.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "허리·골반"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 192517,
+    "sha256": "bcb2ece9f3b35db19d3bc56940b4907873c880305b9de367b865e1afcda3fa61",
+    "dhash": "07e0860f08d8c8e8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d9f4e76d8b1670da",
+    "file": "메이크업/주근깨/d9f4e76d8b1670da.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "주근깨"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 134436,
+    "sha256": "d9f4e76d8b1670da7edbaf9342bf42d99b9b58dd77cf700dfda60eb7de78bd35",
+    "dhash": "1f1f0f1c3e660e59",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f820988efbe4fa48",
+    "file": "네일/네이비·블루/f820988efbe4fa48.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "네이비·블루"
+      }
+    ],
+    "width": 1080,
+    "height": 1172,
+    "bytes": 97632,
+    "sha256": "f820988efbe4fa48fdcc476d43324b614d96b4917560756702056b5545a015d7",
+    "dhash": "9f1b75da89ad5ab9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

@@ -11652,6 +11652,24 @@
       "sha256": "96a571ad7fd035a00550c8e9a03ede264a00f6d6e827994ed931f6ea72cc963b",
       "publishedDate": "2026-08-03",
       "dateEvidence": "기사 머리말 2026년08월03일 관찰; 한국 제작 웨딩 뷰티 화보와 개별 브라이덜 시술 맥락 확인"
+    },
+    {
+      "id": "bcb2ece9f3b35db1",
+      "sha256": "bcb2ece9f3b35db19d3bc56940b4907873c880305b9de367b865e1afcda3fa61",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d9f4e76d8b1670da",
+      "sha256": "d9f4e76d8b1670da7edbaf9342bf42d99b9b58dd77cf700dfda60eb7de78bd35",
+      "publishedDate": "2026-08-03",
+      "dateEvidence": "기사 머리말 2026년08월03일 관찰; 한국 제작 브라이덜 화보의 별도 완성 룩 실제사진 확인"
+    },
+    {
+      "id": "f820988efbe4fa48",
+      "sha256": "f820988efbe4fa48fdcc476d43324b614d96b4917560756702056b5545a015d7",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "공개한국뷰티기사 게시일2026.06.24확인;원사진 최초게시일 별도미확인"
     }
   ]
 }
