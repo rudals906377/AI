@@ -38968,5 +38968,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d6be3e770f715f84",
+    "file": "헤어/코퍼·오렌지/d6be3e770f715f84.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "코퍼·오렌지"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 132760,
+    "sha256": "d6be3e770f715f849a933d26e3cc55e07d6ca086283e8641d8462a8535c4252e",
+    "dhash": "6666031351713307",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d27b19c20bbb482e",
+    "file": "네일/웨딩/d27b19c20bbb482e.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 1280,
+    "height": 1596,
+    "bytes": 163726,
+    "sha256": "d27b19c20bbb482e9862536c7bc0d3fb6f4cc1fd4a909a80a66c67100b64398c",
+    "dhash": "88c0e3f8f0e3ab99",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
