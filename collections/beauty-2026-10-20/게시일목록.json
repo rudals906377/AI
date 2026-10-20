@@ -11796,6 +11796,12 @@
       "sha256": "d5d50d4b45ae0c79da111f3202d57e37ad3227579d5218ee6e063c1dd6adeb6a",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "3189674ebafb79eb",
+      "sha256": "3189674ebafb79eb81d84319af76d6dfd1223e9f7c0690d9fe8c92bd42ebffff",
+      "publishedDate": "2026-04-27",
+      "dateEvidence": "한국어 네일 기사 게시일2026.04.27 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }
