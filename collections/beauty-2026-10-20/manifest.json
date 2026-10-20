@@ -40732,5 +40732,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "65f0fdbc8acbb9f6",
+    "file": "메이크업/음영 섀도/65f0fdbc8acbb9f6.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "음영 섀도"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 107020,
+    "sha256": "65f0fdbc8acbb9f68c306c87bdd08080312ed973747c8677f3bac2fa787ee020",
+    "dhash": "607c35c3b070308b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8430292a8eb83168",
+    "file": "메이크업/매트/8430292a8eb83168.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 65078,
+    "sha256": "8430292a8eb831687eb0e850ea9b974f813576cea93b9bfbb77e93766f73e447",
+    "dhash": "47079b92333930ba",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "12b634f71c2f6d3b",
+    "file": "네일/여름/12b634f71c2f6d3b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "여름"
+      }
+    ],
+    "width": 1080,
+    "height": 1351,
+    "bytes": 108958,
+    "sha256": "12b634f71c2f6d3b256246729db34e4b063178449d9f7fb31d1d6db0ea3fcabd",
+    "dhash": "57d3d3a989c5703c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
