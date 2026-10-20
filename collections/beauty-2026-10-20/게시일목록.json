@@ -11328,6 +11328,30 @@
       "sha256": "f21dbdd61b7000214be6c78458dcf10eca73293e25613af9a37b6562136748a6",
       "publishedDate": "2026-01-08",
       "dateEvidence": "기사 머리말 2026년01월08일 관찰. 하단 2025년1월호 표기와 달라 원촬영 날짜 미확인; 2026 신규촬영으로 단정하지 않음"
+    },
+    {
+      "id": "ed6c158eee279848",
+      "sha256": "ed6c158eee2798489b4e3e969146bbaa0e1d425b5cc63193a459462c29004c7d",
+      "publishedDate": "2025-12-01",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2025.12.01 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "a3ef291b46ededbd",
+      "sha256": "a3ef291b46ededbd7e9da7d19aa8755cb6df44d586d78f5143882e7bca29fa27",
+      "publishedDate": "2025-12-01",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2025.12.01 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "eb70a6d6fc8fc2c7",
+      "sha256": "eb70a6d6fc8fc2c7427e57301454c44ebde7f3bf5b54be2c3723374f09bde315",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "c18fca0998a5e29e",
+      "sha256": "c18fca0998a5e29ee7d037195ff73437012c792e7716bf5813566abe07cdd333",
+      "publishedDate": "2026-01-08",
+      "dateEvidence": "기사 머리말 2026년01월08일 관찰. 하단2025년1월호 표기와 달라 원촬영 날짜 미확인; 2026 신규촬영으로 단정하지 않음"
     }
   ]
 }
