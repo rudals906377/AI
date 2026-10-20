@@ -41782,5 +41782,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4bdf95a8b8163289",
+    "file": "타투/어깨·위팔/4bdf95a8b8163289.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "어깨·위팔"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 548577,
+    "sha256": "4bdf95a8b8163289bf81b072646906e934b16a46e81dc0aa5eb28f4cf756cace",
+    "dhash": "e8cccccc9cacc4e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "efce3bd122a73c95",
+    "file": "네일/아몬드/efce3bd122a73c95.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "아몬드"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 136672,
+    "sha256": "efce3bd122a73c95ddac73804ca86335c2d2d211830b04cb550d93b18fae98b8",
+    "dhash": "05302d02dafcd809",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

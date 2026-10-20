@@ -11904,6 +11904,18 @@
       "sha256": "f229814287a9975666e60b9432d919eec77c2e96f671f2f2c3d6d65501e9feaf",
       "publishedDate": "2026-01-07",
       "dateEvidence": "한국 뷰티 기사 머리말 2026.01.07 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "4bdf95a8b8163289",
+      "sha256": "4bdf95a8b8163289bf81b072646906e934b16a46e81dc0aa5eb28f4cf756cace",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "efce3bd122a73c95",
+      "sha256": "efce3bd122a73c95ddac73804ca86335c2d2d211830b04cb550d93b18fae98b8",
+      "publishedDate": "2026-01-07",
+      "dateEvidence": "한국 뷰티 기사 머리말 2026.01.07 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }
