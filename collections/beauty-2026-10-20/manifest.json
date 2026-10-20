@@ -41719,5 +41719,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ceb556bfa808f2bc",
+    "file": "헤어/레드와인/ceb556bfa808f2bc.png",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "레드와인"
+      }
+    ],
+    "width": 1155,
+    "height": 1456,
+    "bytes": 3659318,
+    "sha256": "ceb556bfa808f2bc5e0bb892c2f652ccb9e8c0149b61c5fe40253f15cf12b2cd",
+    "dhash": "1e8b1919b0717961",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "967fca9ae77dca3d",
+    "file": "메이크업/글로시/967fca9ae77dca3d.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 558420,
+    "sha256": "967fca9ae77dca3d921ad3dfea53ec8b7a0064a9a24bf181f142360964db94be",
+    "dhash": "cbcde49898706021",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f229814287a99756",
+    "file": "네일/라운드스퀘어/f229814287a99756.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "라운드스퀘어"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 76120,
+    "sha256": "f229814287a9975666e60b9432d919eec77c2e96f671f2f2c3d6d65501e9feaf",
+    "dhash": "716313632b070604",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
