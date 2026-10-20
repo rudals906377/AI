@@ -29014,5 +29014,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "161b3e1e048af329",
+    "file": "메이크업/베리 블러셔/161b3e1e048af329.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "베리 블러셔"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 218892,
+    "sha256": "161b3e1e048af329a02103f0bcbcc6cfb276c0d6b27475840c300c4ac8e42925",
+    "dhash": "31b1a1e37333338e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "595c9250888beb7e",
+    "file": "메이크업/캣아이라인/595c9250888beb7e.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 106142,
+    "sha256": "595c9250888beb7eadd0582bfca73aba5db613c0cc298139265b685a9f64325f",
+    "dhash": "179ec3707b1f06c1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c9096f6822377c66",
+    "file": "메이크업/언더라인/c9096f6822377c66.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "언더라인"
+      }
+    ],
+    "width": 1924,
+    "height": 2560,
+    "bytes": 395846,
+    "sha256": "c9096f6822377c66e873159598af3060995c70e3c5514aec3cc1359b2e2022d2",
+    "dhash": "0707cbb4f0736030",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
