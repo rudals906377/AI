@@ -11820,6 +11820,30 @@
       "sha256": "2f6a30d1a9abe67db3eb8a51bf4839aad00c7ddd1b9c88592ead84a847e947a9",
       "publishedDate": "2026-04-27",
       "dateEvidence": "한국어 네일 기사 게시일2026.04.27 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "00551c922d53837b",
+      "sha256": "00551c922d53837bbb5407ea8546f7f3096e640cdea75fbc40a429a6b13bb0af",
+      "publishedDate": "2026-06-25",
+      "dateEvidence": "한국 젤리펌 스타일 분석 기사 게시일 2026.06.25 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b84970a763c12030",
+      "sha256": "b84970a763c120306ce61f1d9a1d74f7955e5c22bfb68c66f40910c8d20c6182",
+      "publishedDate": "2026-06-25",
+      "dateEvidence": "한국 젤리펌 스타일 분석 기사 게시일 2026.06.25 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "e2ed4bf1a1794d2e",
+      "sha256": "e2ed4bf1a1794d2e8ee8a10ec5af957176011137627564d086e504886d27eb73",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "128897898a450dc7",
+      "sha256": "128897898a450dc7a7df2823942093920c09ad6a6006419f76e0fa51f45248c9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

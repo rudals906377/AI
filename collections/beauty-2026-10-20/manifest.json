@@ -41488,5 +41488,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "00551c922d53837b",
+    "file": "헤어/젤리펌/00551c922d53837b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "젤리펌"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 142257,
+    "sha256": "00551c922d53837bbb5407ea8546f7f3096e640cdea75fbc40a429a6b13bb0af",
+    "dhash": "d6fc79b3d29882e6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b84970a763c12030",
+    "file": "헤어/커튼뱅/b84970a763c12030.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "커튼뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1349,
+    "bytes": 211506,
+    "sha256": "b84970a763c120306ce61f1d9a1d74f7955e5c22bfb68c66f40910c8d20c6182",
+    "dhash": "7831bcce69317979",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e2ed4bf1a1794d2e",
+    "file": "타투/척추/e2ed4bf1a1794d2e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "척추"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 533204,
+    "sha256": "e2ed4bf1a1794d2e8ee8a10ec5af957176011137627564d086e504886d27eb73",
+    "dhash": "f8baa9a8ecececf8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "128897898a450dc7",
+    "file": "타투/국기 · 지도/128897898a450dc7.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "국기 · 지도"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 667546,
+    "sha256": "128897898a450dc7a7df2823942093920c09ad6a6006419f76e0fa51f45248c9",
+    "dhash": "71717969e9d1d9f9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
