@@ -39493,5 +39493,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "85326b30b9681aba",
+    "file": "헤어/슬릭번/85326b30b9681aba.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "슬릭번"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 188547,
+    "sha256": "85326b30b9681abafb8965d4529746f36ba18b51090eb9c7cfab65029b44c32e",
+    "dhash": "95a767171f1f9f67",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
