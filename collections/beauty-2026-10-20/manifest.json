@@ -29854,5 +29854,173 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aabea39b41a26914",
+    "file": "네일/미니멀/aabea39b41a26914.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "미니멀"
+      }
+    ],
+    "width": 800,
+    "height": 1000,
+    "bytes": 38544,
+    "sha256": "aabea39b41a2691410000a2f9271cb89345b275dcdb4725af16911e4c2a98ab4",
+    "dhash": "02160f4e14000000",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6b047e9fedca6cd2",
+    "file": "타투/동양화/6b047e9fedca6cd2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 668571,
+    "sha256": "6b047e9fedca6cd2daa32a5f1128ba90be8c3a98bcb06ffc9024b19bc0a6cafe",
+    "dhash": "38717466e2b09891",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2d68bdc872637ee3",
+    "file": "타투/동양화/2d68bdc872637ee3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 252751,
+    "sha256": "2d68bdc872637ee34286d8e700ad37baf65866116425e831bf120c3b48fdd744",
+    "dhash": "9c98b212180e0606",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c1f624642d69388e",
+    "file": "타투/동양화/c1f624642d69388e.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 325993,
+    "sha256": "c1f624642d69388eae2d7ecc7bc8b8d52958da22d61efcab32e012bd3a57f0f2",
+    "dhash": "c989891111414301",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e67f312864ae0450",
+    "file": "타투/동양화/e67f312864ae0450.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 1144,
+    "height": 1430,
+    "bytes": 403731,
+    "sha256": "e67f312864ae04508a41fc052ba1b28c28cac0d393392d4ff3a574c7972cbe1d",
+    "dhash": "614d5dc99d98d8e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cde65d6ad105f4c8",
+    "file": "타투/동양화/cde65d6ad105f4c8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 3283,
+    "height": 4096,
+    "bytes": 1034284,
+    "sha256": "cde65d6ad105f4c8ff0d6f1695f0ec51eccabe2dba756557154901ea4b057f01",
+    "dhash": "961733233313cccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "52b15c687ad9ff5a",
+    "file": "타투/파스텔/52b15c687ad9ff5a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "파스텔"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 405499,
+    "sha256": "52b15c687ad9ff5ac3108b4b11086628865f0811dbd3c1027ca806e6a68e01fc",
+    "dhash": "bc7cdc98999392c6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2ce59a718fe20297",
+    "file": "타투/파스텔/2ce59a718fe20297.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "파스텔"
+      }
+    ],
+    "width": 911,
+    "height": 911,
+    "bytes": 90663,
+    "sha256": "2ce59a718fe202973c901b61d851d6827e594ac8f3882b10102086d8cd990a29",
+    "dhash": "e1e4cc8cbcd8f0f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
