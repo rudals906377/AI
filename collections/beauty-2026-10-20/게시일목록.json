@@ -10902,6 +10902,30 @@
       "sha256": "b218918276adbb78285cd08395ccc4f185843205cdddaefa12c36f07cbe06686",
       "publishedDate": "2026-06-13",
       "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.06.13 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "43186476ac4c26fc",
+      "sha256": "43186476ac4c26fcc2e438df3d1e4818ff05ae97edbca210c26bd6218dfa0cc6",
+      "publishedDate": "2026-06-18",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.06.18 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "63ea7660e2ebbe63",
+      "sha256": "63ea7660e2ebbe63d1f7ef5268b8ec14716430f9f5fd62e6880b9903899570c8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d9744f3e2cf00385",
+      "sha256": "d9744f3e2cf00385e9a98c6a832d3654dabae9bc729569c69cb138ec3099d0a9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "608b7db60d4d444e",
+      "sha256": "608b7db60d4d444e14f3ea38047a3a6949cda7b695b62bf17109ea0afb3b73cb",
+      "publishedDate": "2026-07-06",
+      "dateEvidence": "기사 머리말 2026년 07월 06일과 본문의 브로우 쉐이퍼 시술 설명 관찰"
     }
   ]
 }
