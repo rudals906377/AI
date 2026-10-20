@@ -30127,5 +30127,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0dd725a7304ab9a2",
+    "file": "메이크업/오버립/0dd725a7304ab9a2.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "오버립"
+      }
+    ],
+    "width": 1080,
+    "height": 1347,
+    "bytes": 111416,
+    "sha256": "0dd725a7304ab9a23c6508fa8346318e1c3cc650b6d19421386b3cf88838d107",
+    "dhash": "0f07177138cace8d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "abf45141a9074e8f",
+    "file": "메이크업/오버립/abf45141a9074e8f.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "오버립"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 79088,
+    "sha256": "abf45141a9074e8fff393d68e4e08b4608bd8c00a794ce82ab46267be4ab6911",
+    "dhash": "2332860919190b07",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e546fa0dca6726c7",
+    "file": "메이크업/오버립/e546fa0dca6726c7.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "오버립"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 104982,
+    "sha256": "e546fa0dca6726c7af03b50661d60e9939bed0a17a4486e4f26bd981342b4da4",
+    "dhash": "1481616363733333",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2bce6261a01a84e4",
+    "file": "메이크업/오버립/2bce6261a01a84e4.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "오버립"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 105372,
+    "sha256": "2bce6261a01a84e4d330a54c85076ebc178eddfbd79417ee0a9835cce7f6437c",
+    "dhash": "edada7171756168e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "85392a733fb6a401",
+    "file": "메이크업/오버립/85392a733fb6a401.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "오버립"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 95226,
+    "sha256": "85392a733fb6a401104a7210630302078993fd1407b964e4777f30b9c89d7d58",
+    "dhash": "9b9bcee6f3731fdf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9f9abb4e2c0aeec4",
+    "file": "메이크업/오버립/9f9abb4e2c0aeec4.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "오버립"
+      }
+    ],
+    "width": 1080,
+    "height": 810,
+    "bytes": 22914,
+    "sha256": "9f9abb4e2c0aeec41a4b9bf72578c4269f31da776138aeac21fa44c502cc0caa",
+    "dhash": "3a38397979716066",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
