@@ -10452,6 +10452,78 @@
       "sha256": "af1106b35d61dd652772b4e9d70b77f6913ec4677ed45665dbcfe865b3792026",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "af707797dadc9244",
+      "sha256": "af707797dadc924418340df50d36bf7a476eb05335e711832a3e2a0ff715795d",
+      "publishedDate": "2026-09-26",
+      "dateEvidence": "한국 헤어 컬러 스타일 기사 게시일 2026.09.26 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "4c3902139f98c829",
+      "sha256": "4c3902139f98c82923dacc3fee92dc2c820e6d3413f66a1a7afbf1d7bf5b58d0",
+      "publishedDate": "2026-09-26",
+      "dateEvidence": "한국 헤어 컬러 스타일 기사 게시일 2026.09.26 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "5c6ec03679c05c90",
+      "sha256": "5c6ec03679c05c90409b10cd9b15f2194d8205a13f7cd9e5ff009b6a870764cb",
+      "publishedDate": "2026-09-26",
+      "dateEvidence": "한국 헤어 컬러 스타일 기사 게시일 2026.09.26 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "84c7de3fe6e5065f",
+      "sha256": "84c7de3fe6e5065fa2a24f9133049e45f52fae138606e78c164d80d39884bae4",
+      "publishedDate": "2026-08-28",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.08.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "7f75eae0ee517181",
+      "sha256": "7f75eae0ee5171817f604220aaf216ff05bd32dad496b04a98db3e72a3d7fbaf",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "a8c505d4c680de1c",
+      "sha256": "a8c505d4c680de1c25bf3bdb70fe3cd33f597b2d7740638e4772ed48e5fcbc5c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1514bad4690b9fe4",
+      "sha256": "1514bad4690b9fe428b2b7379f7f5cf81c7e9a618d7b89dd752174ea9cf06d35",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "0780046120e0cdf8",
+      "sha256": "0780046120e0cdf88cc5455ac3e2f8de3eed406e62207e27aa9d44448939878e",
+      "publishedDate": "2026-08-29",
+      "dateEvidence": "기사 머리말 게시일 2026년 08월 29일과 프라다/구찌 각 브랜드 시술 설명 관찰"
+    },
+    {
+      "id": "615fb31d12643746",
+      "sha256": "615fb31d126437469b2e527c8bc5878fa8f3105694c3bd1979a2174467059b5a",
+      "publishedDate": "2026-08-27",
+      "dateEvidence": "기사 머리말 게시일 2026년 08월 27일과 샤넬/디올 각 시술 설명 관찰"
+    },
+    {
+      "id": "0853c1b7beed5793",
+      "sha256": "0853c1b7beed5793e9038ab9a19a75fe6f3a153ff8c006b1d4354e503ff2c386",
+      "publishedDate": "2026-08-27",
+      "dateEvidence": "기사 머리말 게시일 2026년 08월 27일과 샤넬/디올 각 시술 설명 관찰"
+    },
+    {
+      "id": "3a9e5c1b60b72642",
+      "sha256": "3a9e5c1b60b72642a9fa16848fbfa36bf4972a37b816ddda5bf04a28d4d65562",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "aeb94722ad83cf66",
+      "sha256": "aeb94722ad83cf66500f453b17580ce833af214822dd3f85c20d22fcc4de3297",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
