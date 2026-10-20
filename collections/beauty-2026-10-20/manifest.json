@@ -21832,5 +21832,383 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "686406fee894068e",
+    "file": "헤어/페이드컷/686406fee894068e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "페이드컷"
+      }
+    ],
+    "width": 2336,
+    "height": 3114,
+    "bytes": 775694,
+    "sha256": "686406fee894068e62c19ca6e8dfe31c0c1b3919eec6051837bfd0c45c187022",
+    "dhash": "0b9f17238183c7f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0f157b063a0ed565",
+    "file": "헤어/페이드컷/0f157b063a0ed565.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "페이드컷"
+      }
+    ],
+    "width": 1290,
+    "height": 1720,
+    "bytes": 406902,
+    "sha256": "0f157b063a0ed565d6b237770e68fcc8a4e6091a5f3a069c4bb5f2045ac48b65",
+    "dhash": "06c00abe16169699",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f4750603230ce78e",
+    "file": "헤어/페이드컷/f4750603230ce78e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "페이드컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1788,
+    "bytes": 727789,
+    "sha256": "f4750603230ce78e8d6157159dfe562df4e56a91437c0b4ddf49336993ae400e",
+    "dhash": "2f3f37963e1e8e78",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8c578d1500bee94b",
+    "file": "헤어/페이드컷/8c578d1500bee94b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "페이드컷"
+      }
+    ],
+    "width": 2883,
+    "height": 3844,
+    "bytes": 1707490,
+    "sha256": "8c578d1500bee94b13aa593762e34c80b36f9c9a5749c577267fea2ca74ce3ad",
+    "dhash": "4f373c22434ecec3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "189d412ba8267c5c",
+    "file": "네일/스테인드글라스/189d412ba8267c5c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스테인드글라스"
+      }
+    ],
+    "width": 2132,
+    "height": 2842,
+    "bytes": 375665,
+    "sha256": "189d412ba8267c5cc6b857a9a8d0fd59b8caa75f7c30227f8586acec00600e4e",
+    "dhash": "f0668c98d099cde1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b2a15cb42d54305a",
+    "file": "네일/스테인드글라스/b2a15cb42d54305a.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스테인드글라스"
+      }
+    ],
+    "width": 1080,
+    "height": 988,
+    "bytes": 57704,
+    "sha256": "b2a15cb42d54305aaeead46aa448cdb1628aa2bced590985bf4a919ebacc85d4",
+    "dhash": "7c07171f4fcbcfdc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9a9d43a1c6c23c7c",
+    "file": "네일/스테인드글라스/9a9d43a1c6c23c7c.jpeg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스테인드글라스"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 101460,
+    "sha256": "9a9d43a1c6c23c7cbf15540f8ad34bdbc561a613e23dddd1a6aeddcff48b530f",
+    "dhash": "3899b9abc74f0c8e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4cee8260b7b96196",
+    "file": "메이크업/컬러 마스카라/4cee8260b7b96196.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "컬러 마스카라"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 174293,
+    "sha256": "4cee8260b7b96196f69a262c546cfcd953dc53cd91a3e094ff5657871ee71c12",
+    "dhash": "53192b3733338ecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5a2e6e734d867e9f",
+    "file": "메이크업/그린·옐로 섀도/5a2e6e734d867e9f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "그린·옐로 섀도"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 92581,
+    "sha256": "5a2e6e734d867e9f20e46c6d7562fa72f8c341451c54a86811ffcbee546dad7a",
+    "dhash": "99d99c91c79b18e0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2aac1e0732dacc07",
+    "file": "메이크업/페이스 페인팅/2aac1e0732dacc07.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "페이스 페인팅"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 316937,
+    "sha256": "2aac1e0732dacc07985baa79ed081dde2610087e31342befe52ca75a202a780d",
+    "dhash": "8b13694c3313968e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "02f98b66a6b5f75c",
+    "file": "메이크업/컬러 섀도/02f98b66a6b5f75c.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "컬러 섀도"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 172556,
+    "sha256": "02f98b66a6b5f75cc780a0236e68e195b82e98efe152052f245a92e6fc4b07d5",
+    "dhash": "2706173c7d378f0e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a8ab9a36c084687a",
+    "file": "메이크업/매트/a8ab9a36c084687a.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 147994,
+    "sha256": "a8ab9a36c084687a09a48518adfb4e61dadba963511aa60d51707b392be26a1e",
+    "dhash": "5c9e8e1b29557933",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f9f281a7efa2f7ed",
+    "file": "메이크업/페이스 페인팅/f9f281a7efa2f7ed.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "페이스 페인팅"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 216650,
+    "sha256": "f9f281a7efa2f7edcd1536a5dc49ac1a2d65c04dbebd900a6d204cab4d0757bf",
+    "dhash": "1f1f553333bcf84b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "029e9f11e7a1732c",
+    "file": "타투/거미/029e9f11e7a1732c.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거미"
+      }
+    ],
+    "width": 1200,
+    "height": 1191,
+    "bytes": 156118,
+    "sha256": "029e9f11e7a1732c23f653db5af909d75f3abf47ed4be354940631f3e81cb621",
+    "dhash": "48c8cbcedeccc4d8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9de73ffb779e9f22",
+    "file": "타투/뱀과 꽃/9de73ffb779e9f22.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "뱀",
+        "label": "뱀과 꽃"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 194424,
+    "sha256": "9de73ffb779e9f22a47c420eb3ccc60f3e9827c37dc7c155c821f502c4e08c0c",
+    "dhash": "2b6b8f0f0f8f8b0a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "58f6747d202615be",
+    "file": "타투/거북/58f6747d202615be.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거북"
+      }
+    ],
+    "width": 1200,
+    "height": 1194,
+    "bytes": 119566,
+    "sha256": "58f6747d202615bee9c621f698f4948055f153de99769dd052a4d2d8d375b3c1",
+    "dhash": "10000c0604212300",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c884b8d029799d9e",
+    "file": "타투/파도/c884b8d029799d9e.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "파도"
+      }
+    ],
+    "width": 1200,
+    "height": 1190,
+    "bytes": 59822,
+    "sha256": "c884b8d029799d9ec4c0e9dc692d58ebfd026536ed828102accc90e50a3d54fd",
+    "dhash": "63434a6828343438",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f9f9abb1c4826c1a",
+    "file": "타투/용/f9f9abb1c4826c1a.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "용"
+      }
+    ],
+    "width": 1200,
+    "height": 1186,
+    "bytes": 97722,
+    "sha256": "f9f9abb1c4826c1a4401b0a68e9163fd8db45a43aeeb5c18194d516ebf6e66bd",
+    "dhash": "8fcfcfcfcecfcfcb",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
