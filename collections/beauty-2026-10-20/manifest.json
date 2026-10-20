@@ -27082,5 +27082,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c34f539d22171810",
+    "file": "헤어/크롭컷/c34f539d22171810.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "크롭컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 52081,
+    "sha256": "c34f539d22171810116bbfa050afe5df83ce3e01e5016fe000be87b960acf9d6",
+    "dhash": "2b33331f1f0e0f3b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "14a102a56917cb00",
+    "file": "네일/미니멀/14a102a56917cb00.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "미니멀"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 318014,
+    "sha256": "14a102a56917cb005a73108d02add71adc6d7651e96c2c66f682c26c8b6c7a47",
+    "dhash": "c0ccc9ed54daea6c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a92832b053effb61",
+    "file": "메이크업/글로시/a92832b053effb61.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 537,
+    "height": 700,
+    "bytes": 295818,
+    "sha256": "a92832b053effb61786c2749d5e3e802cf3a90576a7483c1190e056ca4201293",
+    "dhash": "f9717c6cf8f87d23",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c3f7e7fe58884553",
+    "file": "메이크업/버건디·플럼/c3f7e7fe58884553.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "버건디·플럼"
+      }
+    ],
+    "width": 537,
+    "height": 700,
+    "bytes": 204423,
+    "sha256": "c3f7e7fe5888455356e380ea94bc4d3bafb9021f9998d4582dcba9cb0b10cb9d",
+    "dhash": "be7e5c3633333b9e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "697623bbb99e8aa6",
+    "file": "타투/동양화/697623bbb99e8aa6.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 584877,
+    "sha256": "697623bbb99e8aa6f2cecffafdb2c9e011583d9702fb012d5210dfbbe29e1f7b",
+    "dhash": "d1b9b90c0c697949",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b2693711f43b91e",
+    "file": "타투/동양화/8b2693711f43b91e.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "동양화"
+      }
+    ],
+    "width": 1440,
+    "height": 1799,
+    "bytes": 364032,
+    "sha256": "8b2693711f43b91e50ceba56cd1590d85fd4b784952d9ca096032b6107dc2a94",
+    "dhash": "12121242484892c1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
