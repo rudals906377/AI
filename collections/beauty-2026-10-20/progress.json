@@ -800,7 +800,7 @@
       "existing_count": 8,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "헤어",
@@ -2140,7 +2140,7 @@
       "existing_count": 28,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 2
     },
     {
       "category": "네일",
@@ -2180,7 +2180,7 @@
       "existing_count": 2,
       "shortage": true,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "네일",
@@ -2190,7 +2190,7 @@
       "existing_count": 1,
       "shortage": true,
       "target_new": 100,
-      "collected": 2
+      "collected": 3
     },
     {
       "category": "네일",
@@ -2250,7 +2250,7 @@
       "existing_count": 10,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -2290,7 +2290,7 @@
       "existing_count": 2,
       "shortage": true,
       "target_new": 100,
-      "collected": 3
+      "collected": 4
     },
     {
       "category": "메이크업",
@@ -3170,7 +3170,7 @@
       "existing_count": 4,
       "shortage": true,
       "target_new": 100,
-      "collected": 9
+      "collected": 10
     },
     {
       "category": "메이크업",
@@ -4270,7 +4270,7 @@
       "existing_count": 3,
       "shortage": true,
       "target_new": 100,
-      "collected": 1
+      "collected": 3
     },
     {
       "category": "타투",
@@ -5210,7 +5210,7 @@
       "existing_count": 1,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -5550,7 +5550,7 @@
       "existing_count": 0,
       "shortage": true,
       "target_new": 100,
-      "collected": 6
+      "collected": 7
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1193,
+  "unique_images": 1205,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1192,
+  "goal_eligible_unique_images": 1204,
   "excluded_images": 1
 }
