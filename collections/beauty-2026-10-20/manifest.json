@@ -34117,5 +34117,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2560d78b3588eae4",
+    "file": "헤어/반묶음/2560d78b3588eae4.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "반묶음"
+      }
+    ],
+    "width": 1200,
+    "height": 1599,
+    "bytes": 286432,
+    "sha256": "2560d78b3588eae48096efd64c20a9f1724a105586e7cedd0029765637d7ee12",
+    "dhash": "7c791386673139ca",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f3376260198dd7bb",
+    "file": "헤어/반묶음/f3376260198dd7bb.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "반묶음"
+      }
+    ],
+    "width": 1170,
+    "height": 1565,
+    "bytes": 555532,
+    "sha256": "f3376260198dd7bb1fb933ad91d65cff45ee2cb36e34e1c646fdd0ca9ddb7ed5",
+    "dhash": "3c9981c162668340",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7ac01fdf51f4f92a",
+    "file": "헤어/반묶음/7ac01fdf51f4f92a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "반묶음"
+      }
+    ],
+    "width": 1170,
+    "height": 1463,
+    "bytes": 178021,
+    "sha256": "7ac01fdf51f4f92a1a72b11dfe1e126acf87d233b71bc5cfc0ac32671e65b5a0",
+    "dhash": "727078727032b021",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "be02dc222ceb4db1",
+    "file": "네일/별/be02dc222ceb4db1.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "별"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 74216,
+    "sha256": "be02dc222ceb4db1f2e8e2538e438401019b746ab727193b8eb1f085e9883f5c",
+    "dhash": "6e7f7a55ca4f071e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ce4259a213027e1c",
+    "file": "네일/도트/ce4259a213027e1c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "도트"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 64214,
+    "sha256": "ce4259a213027e1cd5e97e31921538b8c47d73b7ff6251ecca977327c8eed46a",
+    "dhash": "336381152a48cc16",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fe8b5778d85a79e8",
+    "file": "네일/플라워/fe8b5778d85a79e8.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "플라워"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 97558,
+    "sha256": "fe8b5778d85a79e88affdafe82a646bd3101565af0ebce9df5c3aab7b9b085ab",
+    "dhash": "6761e1ead75ceae3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
