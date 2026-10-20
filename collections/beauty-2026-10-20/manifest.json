@@ -27628,5 +27628,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9b8c93c1bee18ec3",
+    "file": "타투/파도·바다/9b8c93c1bee18ec3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "파도·바다"
+      }
+    ],
+    "width": 3000,
+    "height": 3750,
+    "bytes": 1601113,
+    "sha256": "9b8c93c1bee18ec3ce423c977658b428fcdfdded90ad504759e3b74c6ff5b425",
+    "dhash": "e8f8f0f0c0c0c440",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
