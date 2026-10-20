@@ -10962,6 +10962,54 @@
       "sha256": "6741518176da8921c3c3ff1d11cf837455275c0e5125d3c8236cc994abab89a6",
       "publishedDate": "2026-09-29",
       "dateEvidence": "한국 네일 컬러 기사 헤더2026.09.29 확인; 실제 저장 파일의 차분한 로즈 톤 확인; 최초사진게시일 별도미확인"
+    },
+    {
+      "id": "6784d68daf49aba6",
+      "sha256": "6784d68daf49aba6b9b730fc2f7c24c5b44123bc75d65c3cfb3ffa31e66da164",
+      "publishedDate": "2026-08-28",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.08.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "7f727af66a8f5646",
+      "sha256": "7f727af66a8f5646ba0442b5a9b2bb4ff7b49a036c32605e2a634f392ae58fb1",
+      "publishedDate": "2026-08-28",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.08.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "29291bb21a4cee88",
+      "sha256": "29291bb21a4cee889606b1aa4f87da65f3152cdde223c441cca1ae7dc0185e1a",
+      "publishedDate": "2026-08-28",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.08.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "5d27472f7a2f6b75",
+      "sha256": "5d27472f7a2f6b758bfa5f459cbd59ddbdaf471e0d6697652f6fb9cc653917e7",
+      "publishedDate": "2026-08-28",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.08.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "0964e584b54667af",
+      "sha256": "0964e584b54667afefedfec5d92164932ad98a84bac4c2841582e5b302834c6c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "7687c95973ce7563",
+      "sha256": "7687c95973ce7563255632dfe8be98b1db39c12de85e45515a2841a7a105dff5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "07b51113947c6c9e",
+      "sha256": "07b51113947c6c9e0ca3f9c94b1cf3751f8340d7d750bea55fa4941aea57a50d",
+      "publishedDate": "2026-08-14",
+      "dateEvidence": "기사 머리말 2026년 08월 14일 및 각 사진 아래 #44 누드 라발리에/#1 언드레스드 핑크 캡션과 보송 질감 설명 관찰"
+    },
+    {
+      "id": "b597f8bfb36758d9",
+      "sha256": "b597f8bfb36758d9c2fcc3fabad2e567aeb468f85f322ad46e6aa81b0e3dc2e1",
+      "publishedDate": "2026-08-14",
+      "dateEvidence": "기사 머리말 2026년 08월 14일 및 각 사진 아래 #44 누드 라발리에/#1 언드레스드 핑크 캡션과 보송 질감 설명 관찰"
     }
   ]
 }

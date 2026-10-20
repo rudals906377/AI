@@ -38485,5 +38485,173 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6784d68daf49aba6",
+    "file": "헤어/양갈래/6784d68daf49aba6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "양갈래"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 119210,
+    "sha256": "6784d68daf49aba6b9b730fc2f7c24c5b44123bc75d65c3cfb3ffa31e66da164",
+    "dhash": "4b961737737373db",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7f727af66a8f5646",
+    "file": "헤어/양갈래/7f727af66a8f5646.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "양갈래"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 205197,
+    "sha256": "7f727af66a8f5646ba0442b5a9b2bb4ff7b49a036c32605e2a634f392ae58fb1",
+    "dhash": "ac0470b170341c58",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "29291bb21a4cee88",
+    "file": "헤어/양갈래/29291bb21a4cee88.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "양갈래"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 257771,
+    "sha256": "29291bb21a4cee889606b1aa4f87da65f3152cdde223c441cca1ae7dc0185e1a",
+    "dhash": "0f8f0f6524611b8b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5d27472f7a2f6b75",
+    "file": "헤어/넘긴 앞머리/5d27472f7a2f6b75.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "넘긴 앞머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 121203,
+    "sha256": "5d27472f7a2f6b758bfa5f459cbd59ddbdaf471e0d6697652f6fb9cc653917e7",
+    "dhash": "2726a8878490b0c2",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0964e584b54667af",
+    "file": "타투/국기 · 지도/0964e584b54667af.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "국기 · 지도"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 477828,
+    "sha256": "0964e584b54667afefedfec5d92164932ad98a84bac4c2841582e5b302834c6c",
+    "dhash": "3c7c246d79617170",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7687c95973ce7563",
+    "file": "타투/시계/7687c95973ce7563.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "시계·열쇠",
+        "label": "시계"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 675310,
+    "sha256": "7687c95973ce7563255632dfe8be98b1db39c12de85e45515a2841a7a105dff5",
+    "dhash": "9832363773737333",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "07b51113947c6c9e",
+    "file": "메이크업/블러립/07b51113947c6c9e.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "블러립"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 202804,
+    "sha256": "07b51113947c6c9e0ca3f9c94b1cf3751f8340d7d750bea55fa4941aea57a50d",
+    "dhash": "0f075ba9e1e36323",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b597f8bfb36758d9",
+    "file": "메이크업/매트/b597f8bfb36758d9.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 267904,
+    "sha256": "b597f8bfb36758d9c2fcc3fabad2e567aeb468f85f322ad46e6aa81b0e3dc2e1",
+    "dhash": "30f8c8ccf2f27070",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
