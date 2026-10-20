@@ -38947,5 +38947,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f4106bd1e1c819db",
+    "file": "네일/3D조형/f4106bd1e1c819db.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "3D조형"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 131146,
+    "sha256": "f4106bd1e1c819db61d2d53ace840400674d6fe966d6b8f0c4fbdd13dbd0b7b8",
+    "dhash": "2f1f1f5b99aaaaec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
