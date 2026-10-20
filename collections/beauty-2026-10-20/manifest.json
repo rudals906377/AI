@@ -40102,5 +40102,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b5f2c59dd957e43a",
+    "file": "헤어/가일컷/b5f2c59dd957e43a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 1200,
+    "height": 1597,
+    "bytes": 222505,
+    "sha256": "b5f2c59dd957e43a53bf3acfcca67544ad00220d2c5dcc04700df77146ed53e3",
+    "dhash": "9231791717632e8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "69e470972e47305e",
+    "file": "타투/아기 · 아이/69e470972e47305e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "아기 · 아이"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 645195,
+    "sha256": "69e470972e47305ec8daf96d7988fea58d5ba315f5f9bdd0e86709b52d3e56c8",
+    "dhash": "793d0747a686964d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "481eff9d0a7dd8f1",
+    "file": "타투/초현실 얼굴/481eff9d0a7dd8f1.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "초현실 얼굴"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 103363,
+    "sha256": "481eff9d0a7dd8f1873235812f078f146a8ecadb89c586d982a432fc5667ca98",
+    "dhash": "e070078d94c4f8e8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1c5b23b604e1b686",
+    "file": "메이크업/윤광/1c5b23b604e1b686.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "윤광"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 253968,
+    "sha256": "1c5b23b604e1b6861b3858f4d69d49fa5d211780ad0197028bd74a14314f8238",
+    "dhash": "e3c78fe6e2f15979",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c273a1905a84f0c2",
+    "file": "네일/딥프렌치/c273a1905a84f0c2.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "딥프렌치"
+      }
+    ],
+    "width": 1015,
+    "height": 1353,
+    "bytes": 125210,
+    "sha256": "c273a1905a84f0c26756b08a1a05a1b2072e4baf2a792eb2ae002647449e2485",
+    "dhash": "e3978b470d95d2da",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

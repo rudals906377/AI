@@ -11424,6 +11424,36 @@
       "sha256": "c281730e0473247a12a99231338c62e02f223e9e9c58416a703e6b644801f59a",
       "publishedDate": "2026-03-03",
       "dateEvidence": "기사 머리말2026년03월03일 및 하단2026년3월호 관찰; 한국 뷰티 화보에서 내추럴 매트 베이스 실제사용 설명 확인"
+    },
+    {
+      "id": "b5f2c59dd957e43a",
+      "sha256": "b5f2c59dd957e43a53bf3acfcca67544ad00220d2c5dcc04700df77146ed53e3",
+      "publishedDate": "2026-10-09",
+      "dateEvidence": "한국 남성 헤어 스타일 기사 게시일 2026.10.09 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "69e470972e47305e",
+      "sha256": "69e470972e47305ec8daf96d7988fea58d5ba315f5f9bdd0e86709b52d3e56c8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "481eff9d0a7dd8f1",
+      "sha256": "481eff9d0a7dd8f1873235812f078f146a8ecadb89c586d982a432fc5667ca98",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1c5b23b604e1b686",
+      "sha256": "1c5b23b604e1b6861b3858f4d69d49fa5d211780ad0197028bd74a14314f8238",
+      "publishedDate": "2026-03-03",
+      "dateEvidence": "기사 머리말2026년03월03일 및 하단2026년3월호 관찰; 한국 뷰티 화보 글로우 베이스 실제시술 설명 확인"
+    },
+    {
+      "id": "c273a1905a84f0c2",
+      "sha256": "c273a1905a84f0c26756b08a1a05a1b2072e4baf2a792eb2ae002647449e2485",
+      "publishedDate": "2026-03-16",
+      "dateEvidence": "한국 네일 기사 게시일2026.03.16 확인; 사진 최초 게시일 별도 미확인; 깊고 넓은 흰 프렌치 영역 육안 확인"
     }
   ]
 }
