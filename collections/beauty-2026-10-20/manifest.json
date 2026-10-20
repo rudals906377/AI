@@ -31240,5 +31240,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "52f51215c05ad362",
+    "file": "헤어/가일컷/52f51215c05ad362.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 1000,
+    "height": 775,
+    "bytes": 456038,
+    "sha256": "52f51215c05ad3625402fef748db467444f617d38be279bbf6dc260047adc4c7",
+    "dhash": "492333731f1f0f4f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3bb4c0e68dd1c67d",
+    "file": "헤어/다운펌/3bb4c0e68dd1c67d.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "다운펌"
+      }
+    ],
+    "width": 1000,
+    "height": 750,
+    "bytes": 90016,
+    "sha256": "3bb4c0e68dd1c67d9987f3d24f223fc16ac1037c4e338eef4e4a664351972173",
+    "dhash": "0f37064f86968e4c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3adccd00b2e05d10",
+    "file": "헤어/다운펌/3adccd00b2e05d10.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "다운펌"
+      }
+    ],
+    "width": 1000,
+    "height": 1248,
+    "bytes": 102562,
+    "sha256": "3adccd00b2e05d10959d8c4e78ad25852feb209baff6c06215375e7538d79712",
+    "dhash": "414d6337b636178d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0f41de18afd00414",
+    "file": "헤어/가르마펌/0f41de18afd00414.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가르마펌"
+      }
+    ],
+    "width": 1000,
+    "height": 775,
+    "bytes": 143804,
+    "sha256": "0f41de18afd0041478636b3130447bc79471011ce8704b0fbfef1179bf7559b2",
+    "dhash": "cccececcc6c6cecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
