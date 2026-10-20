@@ -29077,5 +29077,299 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ebeb3e4c78b78fed",
+    "file": "헤어/가일컷/ebeb3e4c78b78fed.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1170,
+    "bytes": 200133,
+    "sha256": "ebeb3e4c78b78fed0cb0c8d3b211d63e332cef46777ba2752c57476520353ed6",
+    "dhash": "73639898bbba9eca",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7c62f4efae80db2c",
+    "file": "헤어/가일컷/7c62f4efae80db2c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1832,
+    "bytes": 355495,
+    "sha256": "7c62f4efae80db2c142117dfac17676176e6ed6820204f046170753fccc89051",
+    "dhash": "734b3307cf848cc8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9b4840f5af121d5d",
+    "file": "헤어/사이드뱅/9b4840f5af121d5d.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "사이드뱅"
+      }
+    ],
+    "width": 965,
+    "height": 1287,
+    "bytes": 170015,
+    "sha256": "9b4840f5af121d5d8398cd6e6d79f672c52e2868254c68801f1456f94e7aff3e",
+    "dhash": "7f1f71c28b130fee",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "10235a6efee8290a",
+    "file": "헤어/애즈펌/10235a6efee8290a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "애즈펌"
+      }
+    ],
+    "width": 1440,
+    "height": 1795,
+    "bytes": 193330,
+    "sha256": "10235a6efee8290a72d09041e0f2aa875ed840484cab36c57f887b37306f2fc4",
+    "dhash": "17dff831697a1f0f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2dcb57d0b3698125",
+    "file": "헤어/가일컷/2dcb57d0b3698125.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "가일컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 627908,
+    "sha256": "2dcb57d0b369812525ec9b45f60e2fda51b8f86a0468d51800a391af87c66a2d",
+    "dhash": "93a9f09631393b8f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b7a9048868483c2f",
+    "file": "헤어/넘긴 앞머리/b7a9048868483c2f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "넘긴 앞머리"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 162794,
+    "sha256": "b7a9048868483c2f104613d025b5247041ff7e35af3ef4e33db70b1743113c17",
+    "dhash": "1b1b938303138f68",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ef82e27ce76f5295",
+    "file": "네일/시럽/ef82e27ce76f5295.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "시럽"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 632373,
+    "sha256": "ef82e27ce76f5295908e2ffb234491b0a7ed0822eecbb46e5b09e46786435a4f",
+    "dhash": "060c336f56a850f3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "92f4a03be376a810",
+    "file": "네일/마블/92f4a03be376a810.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마블"
+      }
+    ],
+    "width": 2565,
+    "height": 2565,
+    "bytes": 312833,
+    "sha256": "92f4a03be376a8105169d5becbd5922a9fdd697e9cf2b180db4f046d87889489",
+    "dhash": "e1e1c1e30f3fe5e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "49ca1005c5dffba0",
+    "file": "메이크업/윤광/49ca1005c5dffba0.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "윤광"
+      }
+    ],
+    "width": 934,
+    "height": 1400,
+    "bytes": 175718,
+    "sha256": "49ca1005c5dffba02a9c3513097e37ac55d8544ce227f95a8a0885928981f991",
+    "dhash": "f9feececf1d4e24f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2d19fd0cecfd021f",
+    "file": "메이크업/홍조 블러셔/2d19fd0cecfd021f.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1440,
+    "height": 1919,
+    "bytes": 115946,
+    "sha256": "2d19fd0cecfd021f6a79db452c2e195940aca53dc6c73c184dd924886ee2e7ea",
+    "dhash": "538987cf9c842c99",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b53e18823d865ebb",
+    "file": "타투/기타/b53e18823d865ebb.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "기타"
+      }
+    ],
+    "width": 1440,
+    "height": 1801,
+    "bytes": 420783,
+    "sha256": "b53e18823d865ebb177cfa93fed16bad331ca11f854be2443d7e25f3b37f6e76",
+    "dhash": "f3e2cc9fd7edfc3c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ff908ba7dd6ef417",
+    "file": "타투/두들/ff908ba7dd6ef417.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "두들"
+      }
+    ],
+    "width": 3024,
+    "height": 3023,
+    "bytes": 557612,
+    "sha256": "ff908ba7dd6ef417c05b32217d98b9ee5dcb82691714033ba338a09c2dffac65",
+    "dhash": "3332322933131303",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e0bacc1d98705388",
+    "file": "타투/기타/e0bacc1d98705388.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "기타"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 311231,
+    "sha256": "e0bacc1d987053889f6c198168c3c9796591d1e2ac5471a8db2ef5e1f8e78f88",
+    "dhash": "4060301111191918",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "38132514331e724e",
+    "file": "메이크업/홍조 블러셔/38132514331e724e.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 334782,
+    "sha256": "38132514331e724e8b75ac132a2f2158ed836bfae7021e70f45aacbb97d9c168",
+    "dhash": "109292b8c8f0f871",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
