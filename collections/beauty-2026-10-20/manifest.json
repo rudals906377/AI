@@ -35755,5 +35755,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6844f306f19c87b7",
+    "file": "메이크업/주근깨/6844f306f19c87b7.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "주근깨"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 150900,
+    "sha256": "6844f306f19c87b7a06ad0bc67395a06d25f227f89f9bab5a7f9c3cd6bb483ec",
+    "dhash": "73e31af8ccd4d4e8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "87714e59e26513d1",
+    "file": "메이크업/홍조 블러셔/87714e59e26513d1.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 150496,
+    "sha256": "87714e59e26513d188b5c7368b0469ee36f736c058fd116f19425dbe7f204f5a",
+    "dhash": "7b36333333b396ce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7874be44251aa9e7",
+    "file": "타투/심전도/7874be44251aa9e7.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "심전도"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 518738,
+    "sha256": "7874be44251aa9e7aa0b4ae32fd7dd4840e9817a411eb09fc95ce7ae36adf98f",
+    "dhash": "2737b78f8e2e3625",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4204a59a479712b6",
+    "file": "타투/트럼프 카드 · 주사위/4204a59a479712b6.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "트럼프 카드 · 주사위"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 640724,
+    "sha256": "4204a59a479712b6fe43be043149dc51e7c06f7cb903eb6a53f12601cc3d48b5",
+    "dhash": "c0e1e1e1e363736b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ece3cb1449e27a24",
+    "file": "네일/하트·리본/ece3cb1449e27a24.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "하트·리본"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 154740,
+    "sha256": "ece3cb1449e27a24dea9c7b56a2b26f1a531a8d169e41b4a24caab5591dcb8e3",
+    "dhash": "d0d0e1e5c3c7e7ff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

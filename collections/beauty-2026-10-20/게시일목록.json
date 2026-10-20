@@ -10182,6 +10182,36 @@
       "sha256": "a02f317cc4b5a4f10434cd9a6ceb3271af36f6499b10510e2a3b104dd49a3f00",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말 2026.06.24 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6844f306f19c87b7",
+      "sha256": "6844f306f19c87b7a06ad0bc67395a06d25f227f89f9bab5a7f9c3cd6bb483ec",
+      "publishedDate": "2026-04-09",
+      "dateEvidence": "기사 머리말 게시일 2026년 04월 09일과 각 Softdrift/Midnightinstinct/Dawnglow 시술 설명 관찰"
+    },
+    {
+      "id": "87714e59e26513d1",
+      "sha256": "87714e59e26513d188b5c7368b0469ee36f736c058fd116f19425dbe7f204f5a",
+      "publishedDate": "2026-04-09",
+      "dateEvidence": "기사 머리말 게시일 2026년 04월 09일과 각 Softdrift/Midnightinstinct/Dawnglow 시술 설명 관찰"
+    },
+    {
+      "id": "7874be44251aa9e7",
+      "sha256": "7874be44251aa9e7aa0b4ae32fd7dd4840e9817a411eb09fc95ce7ae36adf98f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "4204a59a479712b6",
+      "sha256": "4204a59a479712b6fe43be043149dc51e7c06f7cb903eb6a53f12601cc3d48b5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "ece3cb1449e27a24",
+      "sha256": "ece3cb1449e27a24dea9c7b56a2b26f1a531a8d169e41b4a24caab5591dcb8e3",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
