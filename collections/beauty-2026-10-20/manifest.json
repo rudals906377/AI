@@ -34915,5 +34915,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bef031ef641c9513",
+    "file": "네일/마이크로프렌치/bef031ef641c9513.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마이크로프렌치"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 170828,
+    "sha256": "bef031ef641c9513edb379a59110ac4f814d47a06309b074935c8d23f4a4b5ee",
+    "dhash": "4d1b3652e9d4da64",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
