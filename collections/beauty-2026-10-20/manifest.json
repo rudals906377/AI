@@ -41005,5 +41005,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3455e7320d68e0a2",
+    "file": "네일/체크/3455e7320d68e0a2.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "체크"
+      }
+    ],
+    "width": 1080,
+    "height": 1343,
+    "bytes": 115348,
+    "sha256": "3455e7320d68e0a221367c20d257c5ecf6f66efd2de3a749c077fa3f76042b35",
+    "dhash": "192e0e2e272939c3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
