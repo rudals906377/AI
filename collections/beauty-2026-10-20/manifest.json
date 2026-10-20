@@ -28615,5 +28615,404 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "254f1ef2f10a057e",
+    "file": "헤어/글램펌/254f1ef2f10a057e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 151453,
+    "sha256": "254f1ef2f10a057e7e175debf83fb7a85905a1c0af5cf91b8bd99824bc1c760a",
+    "dhash": "0f8f8e8e8ececeec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ec28d568c9102dbf",
+    "file": "헤어/글램펌/ec28d568c9102dbf.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 202847,
+    "sha256": "ec28d568c9102dbf8cf4d7576b19dd3cf41f19e979aef069fad6f21800f761a9",
+    "dhash": "8b9b978fcfcfcfe6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "581e6900e5ca2284",
+    "file": "헤어/글램펌/581e6900e5ca2284.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 328174,
+    "sha256": "581e6900e5ca2284e34dd0dbd74dbb012546c40628ac9ba5d00fd5c7fb12ea2a",
+    "dhash": "8b1f1e0c8d8c464d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "191de74d68f31488",
+    "file": "헤어/글램펌/191de74d68f31488.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 202583,
+    "sha256": "191de74d68f314886063fffdb794df2c11a37e57872c796ad9e7910258246b08",
+    "dhash": "070b0f86860c0cc0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a0a884fe65754b03",
+    "file": "네일/글레이즈드/a0a884fe65754b03.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "글레이즈드"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 115132,
+    "sha256": "a0a884fe65754b035e42b0c5d8127054d9d2ccd82a9f7fafe887ce5441a54621",
+    "dhash": "168f9f0f2b79bb7c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6e0d4e6925b2ff36",
+    "file": "네일/글레이즈드/6e0d4e6925b2ff36.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "글레이즈드"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 614373,
+    "sha256": "6e0d4e6925b2ff3627b43e94c0a227919756045cde7b22453a95b6f55b0390ef",
+    "dhash": "c1e0c7091b58fecf",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c270cd7896a2d465",
+    "file": "네일/글레이즈드/c270cd7896a2d465.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "글레이즈드"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 140295,
+    "sha256": "c270cd7896a2d4650928a3005c0753ca3497a38153b5a15dec15456c6e166f3f",
+    "dhash": "cc59dbddececacec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6eec968139678d4a",
+    "file": "메이크업/러블리·핑크/6eec968139678d4a.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "러블리·핑크"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 241870,
+    "sha256": "6eec968139678d4a3e852f9027486c5b774d8c17ec785c60ae5bd4c9683ddb84",
+    "dhash": "5e5b9b8b9393978e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "de2caadfe2101136",
+    "file": "메이크업/걸크러시/de2caadfe2101136.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "걸크러시"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 268878,
+    "sha256": "de2caadfe21011360a35e1198cd8a36d8b3e0e158fce9d2f746181b3e0ab1e85",
+    "dhash": "6031131333333317",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "56afc67a941d952d",
+    "file": "메이크업/언더라인/56afc67a941d952d.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "언더라인"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 59190,
+    "sha256": "56afc67a941d952da88356556c7deceea4cf5fc7dd6ddf60ca3deee08278196f",
+    "dhash": "79d5c9f17131310d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b5bba098f38e8510",
+    "file": "메이크업/뮤트 브라운/b5bba098f38e8510.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "뮤트 브라운"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 126458,
+    "sha256": "b5bba098f38e85104e9bd657f5713f4f888145f3145a71dded135fa89024e357",
+    "dhash": "34380807e3e5e3e3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e077310838394600",
+    "file": "타투/반려동물/e077310838394600.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "반려동물"
+      }
+    ],
+    "width": 1440,
+    "height": 1439,
+    "bytes": 136118,
+    "sha256": "e07731083839460075a8a0e9ad7e121b70edc05a281866e47e90aca8a57809ab",
+    "dhash": "80c01c0ec7fb3f0f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "15b117599074ac55",
+    "file": "타투/고양이/15b117599074ac55.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "고양이"
+      }
+    ],
+    "width": 2801,
+    "height": 3734,
+    "bytes": 3149791,
+    "sha256": "15b117599074ac55c2428bf6b05ba8a559d425c7b9937e4ed611320450206506",
+    "dhash": "c1c2e09abce1e3e8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "abf3813a197319a4",
+    "file": "타투/강아지/abf3813a197319a4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 357144,
+    "sha256": "abf3813a197319a46c88cdb7b94c8a321b7fba5e0157bc1304ede14bffc815f8",
+    "dhash": "236109090f041949",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "272a5baf6f473707",
+    "file": "타투/강아지/272a5baf6f473707.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 249919,
+    "sha256": "272a5baf6f4737073f45f4b40a507ce9c0670662af933d8d3f1db005a928db1e",
+    "dhash": "07372f6f6f7b7b7b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b7143e92a229a4de",
+    "file": "타투/강아지/b7143e92a229a4de.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 281417,
+    "sha256": "b7143e92a229a4de45d940619ee432709e3ab84434a03636e80fef7dff5cd311",
+    "dhash": "fcff9494d6d6f9fc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4e1bd88e438d0eb1",
+    "file": "타투/강아지/4e1bd88e438d0eb1.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 722025,
+    "sha256": "4e1bd88e438d0eb14c442d624a864e955b0b1661ccf8da7b37ef4047709a85c4",
+    "dhash": "31310f0f0f0f3313",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a0956e4a79b7c23d",
+    "file": "타투/강아지/a0956e4a79b7c23d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 272251,
+    "sha256": "a0956e4a79b7c23d9593fdbeb2eb07c12391c77d4037df17e4b0f6b319d5f9cb",
+    "dhash": "0f77c3cf9fde70c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eed0d0351ef15012",
+    "file": "타투/고양이/eed0d0351ef15012.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "고양이"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 411953,
+    "sha256": "eed0d0351ef150121eb986071ec2f4fb9ff1bd4dd9bfcff942153054b1ee47fd",
+    "dhash": "233323070f233120",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
