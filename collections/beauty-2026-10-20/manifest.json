@@ -17821,5 +17821,404 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "469ef648d51ddcad",
+    "file": "헤어/커튼뱅/469ef648d51ddcad.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "커튼뱅"
+      }
+    ],
+    "width": 1121,
+    "height": 1400,
+    "bytes": 193064,
+    "sha256": "469ef648d51ddcad48fee96087a6d70f1aa2a27472fade58cd0502834d4deacd",
+    "dhash": "ce9a186d3233168e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ff00bb595a017456",
+    "file": "헤어/커튼뱅/ff00bb595a017456.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "커튼뱅"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 198458,
+    "sha256": "ff00bb595a017456d10380b391bdeac16bcc1129fad8f11b97069c635f5acfcf",
+    "dhash": "7664431313095911",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b736485af15c5c18",
+    "file": "헤어/커튼뱅/b736485af15c5c18.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "커튼뱅"
+      }
+    ],
+    "width": 1537,
+    "height": 2049,
+    "bytes": 161596,
+    "sha256": "b736485af15c5c1881e00eeb0b7c5c471976f4dc6a5fb649a9068ab247341a12",
+    "dhash": "e0e1e6e7ce9c1d3d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bc0fb7a651c9e1e7",
+    "file": "헤어/베이비뱅/bc0fb7a651c9e1e7.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "베이비뱅"
+      }
+    ],
+    "width": 1280,
+    "height": 1696,
+    "bytes": 93362,
+    "sha256": "bc0fb7a651c9e1e79e5d42cb0660ae08ba935dd0245f8491a10b01a3cf4c4e6e",
+    "dhash": "011f0f2f27150f3f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "870297df4d4bd5f8",
+    "file": "네일/자석/870297df4d4bd5f8.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자석"
+      }
+    ],
+    "width": 1600,
+    "height": 1600,
+    "bytes": 251825,
+    "sha256": "870297df4d4bd5f8902ee8ee2dbcd33ca0bcd20ae3c43a62e8803320c3358f16",
+    "dhash": "f8fceef4f2e8f038",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f16c3250ee4e07cc",
+    "file": "네일/마블/f16c3250ee4e07cc.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마블"
+      }
+    ],
+    "width": 2160,
+    "height": 2880,
+    "bytes": 348765,
+    "sha256": "f16c3250ee4e07cc1e6e7163e32b6815f71b027e0529ce0e9824f142f2c46017",
+    "dhash": "f379a58d496e444c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3b074494405bb425",
+    "file": "네일/패디/3b074494405bb425.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손·발",
+        "label": "패디"
+      }
+    ],
+    "width": 1206,
+    "height": 1608,
+    "bytes": 199781,
+    "sha256": "3b074494405bb425d47904d4027665d750ff6c817299583a0d8d2d7b8efc9f77",
+    "dhash": "021393130d6f07c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "42783b0efa81a5d8",
+    "file": "네일/벨벳/42783b0efa81a5d8.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "벨벳"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 142647,
+    "sha256": "42783b0efa81a5d84daed1ed0fec8d759c7fc2f436cfd59eacca0d0ce85b0b55",
+    "dhash": "22081c040d0d0b0b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1bc407f22737d4c8",
+    "file": "네일/벨벳/1bc407f22737d4c8.png",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "벨벳"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 412073,
+    "sha256": "1bc407f22737d4c836a75a48c8e81421b26d491fb48a2285023a93b3e17f69cb",
+    "dhash": "7e5e7e6870201020",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1cb9adcee1307e23",
+    "file": "메이크업/볼드 눈썹/1cb9adcee1307e23.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "볼드 눈썹"
+      }
+    ],
+    "width": 910,
+    "height": 1400,
+    "bytes": 218656,
+    "sha256": "1cb9adcee1307e234e9b3185ae8e478257a868caa98a0e2a39c2ce70c513cdba",
+    "dhash": "5c5cf4f0e8f0f070",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "72dc7e68813eb98d",
+    "file": "메이크업/오렌지/72dc7e68813eb98d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "오렌지"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 320545,
+    "sha256": "72dc7e68813eb98dc2783fa827cb47217a8d592afbf3c7892b7a2fcb2409916b",
+    "dhash": "349ce13361717317",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b66ca85372dd6f8",
+    "file": "메이크업/인형 속눈썹/8b66ca85372dd6f8.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "인형 속눈썹"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 275055,
+    "sha256": "8b66ca85372dd6f89312fa9e7d0b59c61353307fb435f66a9025cfd8f2e7fa75",
+    "dhash": "e886ccc5517271f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf750c9d0429d695",
+    "file": "메이크업/볼드 눈썹/cf750c9d0429d695.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "볼드 눈썹"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 217992,
+    "sha256": "cf750c9d0429d695090c38e46cbd6c6281ed654e1b0c3c152d7388db4028e87b",
+    "dhash": "f8eca4e898f87478",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1da6da57219e5123",
+    "file": "메이크업/페스티벌/1da6da57219e5123.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "페스티벌"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 294240,
+    "sha256": "1da6da57219e51233c1f65da9cf9159de5db14efebc855ba28514aa92107ffaf",
+    "dhash": "be331b1593f1f2dc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b896f46d9565c7a6",
+    "file": "타투/강아지/b896f46d9565c7a6.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 700,
+    "height": 661,
+    "bytes": 93846,
+    "sha256": "b896f46d9565c7a6c4fb182004200ccaf0d5959087fe72dc08f315ebc20cf492",
+    "dhash": "7951d3731493bbb1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "반려견 참고사진과 실제 피부 타투가 함께 있는 비교 원본. 학습 전 참고사진을 제외하고 실제 피부 위 타투 영역만 크롭 검수 필요. 최종 라벨 검토 필요."
+  },
+  {
+    "id": "aa189be0e4abfb35",
+    "file": "타투/강아지/aa189be0e4abfb35.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 91888,
+    "sha256": "aa189be0e4abfb351ece1bea976232e83ab0646e98902098025b4fbae40dfc7a",
+    "dhash": "30727bbcb3bbba30",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "반려견 참고사진과 실제 피부 타투가 함께 있는 비교 원본. 학습 전 참고사진을 제외하고 실제 피부 위 타투 영역만 크롭 검수 필요. 최종 라벨 검토 필요."
+  },
+  {
+    "id": "db6ab2258c9981d8",
+    "file": "타투/강아지/db6ab2258c9981d8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 111137,
+    "sha256": "db6ab2258c9981d8270fdd32b139d45c33db07b1f87f3778e2269caf61546859",
+    "dhash": "e3a72dbb1b4931a7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "반려견 참고사진과 실제 피부 타투가 함께 있는 비교 원본. 학습 전 참고사진을 제외하고 실제 피부 위 타투 영역만 크롭 검수 필요. 최종 라벨 검토 필요."
+  },
+  {
+    "id": "071cfc08277847c3",
+    "file": "타투/강아지/071cfc08277847c3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 94110,
+    "sha256": "071cfc08277847c35ebdf6faa2a76af9c4c74e15c3be8b6d687a8e659513b26c",
+    "dhash": "93939393f3636667",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "반려견 참고사진과 실제 피부 타투가 함께 있는 비교 원본. 학습 전 참고사진을 제외하고 실제 피부 위 타투 영역만 크롭 검수 필요. 최종 라벨 검토 필요."
+  },
+  {
+    "id": "837e482619f2ba1a",
+    "file": "타투/강아지/837e482619f2ba1a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 700,
+    "height": 687,
+    "bytes": 75981,
+    "sha256": "837e482619f2ba1a16a9f0cb06a6c9366dd3078fefdab34b12dea810abe9a5d2",
+    "dhash": "3959122060717131",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "반려견 참고사진과 실제 피부 타투가 함께 있는 비교 원본. 학습 전 참고사진을 제외하고 실제 피부 위 타투 영역만 크롭 검수 필요. 최종 라벨 검토 필요."
   }
 ]
