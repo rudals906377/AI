@@ -32353,5 +32353,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "12f982c7a8f9bbbe",
+    "file": "헤어/태슬컷/12f982c7a8f9bbbe.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "태슬컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 217182,
+    "sha256": "12f982c7a8f9bbbe0965c60972470a9d2b7ed046272b146fba4941e1975ad8a4",
+    "dhash": "186c733a733b1a98",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6ee0812f2a86f93c",
+    "file": "타투/연꽃/6ee0812f2a86f93c.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "연꽃"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 679740,
+    "sha256": "6ee0812f2a86f93cfca7f75f6a620c7b6122377cd73ed88fac8db751e7c3cf9c",
+    "dhash": "cccec747c3c16043",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "86c3e0bea8abfea4",
+    "file": "타투/연꽃/86c3e0bea8abfea4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "연꽃"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 246132,
+    "sha256": "86c3e0bea8abfea4b28005904fd6738716372434a8609e2094288a72d73e519e",
+    "dhash": "9293838282222207",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

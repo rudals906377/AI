@@ -90,7 +90,7 @@
       "existing_count": 5,
       "shortage": true,
       "target_new": 100,
-      "collected": 5
+      "collected": 6
     },
     {
       "category": "헤어",
@@ -4100,7 +4100,7 @@
       "existing_count": 28,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 2
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1535,
+  "unique_images": 1538,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1534,
+  "goal_eligible_unique_images": 1537,
   "excluded_images": 1
 }
