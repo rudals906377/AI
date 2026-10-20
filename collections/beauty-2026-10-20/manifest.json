@@ -30526,5 +30526,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2bc5a63074e072f1",
+    "file": "메이크업/얇은 눈썹/2bc5a63074e072f1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 1212,
+    "height": 1400,
+    "bytes": 140012,
+    "sha256": "2bc5a63074e072f1146b3ea30d73bab619b8ad1d3c205b85be2704b32894e71f",
+    "dhash": "da82c6c6c47070f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "126bf22d4d1bfdaa",
+    "file": "메이크업/남자 메이크업/126bf22d4d1bfdaa.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1047,
+    "height": 1400,
+    "bytes": 57736,
+    "sha256": "126bf22d4d1bfdaadef2129a69adc88e4a43b1c20a2d89899467be0565900d54",
+    "dhash": "c7cdb3331bd999c3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dc4ba61bc38a80c2",
+    "file": "메이크업/남자 메이크업/dc4ba61bc38a80c2.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 934,
+    "height": 1400,
+    "bytes": 49867,
+    "sha256": "dc4ba61bc38a80c237642f40d522917eae21bd7e7aa6d0b8ec303a0fbd4ec571",
+    "dhash": "39399b0b03cd8687",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b6b6a1c5ceaab36b",
+    "file": "타투/발목·발등/b6b6a1c5ceaab36b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1230,
+    "height": 1537,
+    "bytes": 225013,
+    "sha256": "b6b6a1c5ceaab36b61c169f8822a37c9b526b345f74d539dc86b2d4b8b2558cc",
+    "dhash": "17e3190d77dbcbc6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d61f1cbeda198218",
+    "file": "타투/발목·발등/d61f1cbeda198218.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1230,
+    "height": 1537,
+    "bytes": 154141,
+    "sha256": "d61f1cbeda198218f53212382cbb9d80d48a502012c4236b533aba2c0b1283a5",
+    "dhash": "745fcf0c0c000040",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8fe2c10bd86eb78e",
+    "file": "타투/발목·발등/8fe2c10bd86eb78e.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1230,
+    "height": 1537,
+    "bytes": 216302,
+    "sha256": "8fe2c10bd86eb78e5b0606d17a352a3c8dfbd2e5e8431c0ade252ccd85b8eae9",
+    "dhash": "beafce0f0f5f3f2d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
