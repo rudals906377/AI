@@ -23638,5 +23638,278 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "343b01a1721818b4",
+    "file": "헤어/매직 스트레이트/343b01a1721818b4.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "매직 스트레이트"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 226603,
+    "sha256": "343b01a1721818b4d616fe444fe6eadb31d50d5cd5857b287f146df431d3c512",
+    "dhash": "039f9f0d8d4c4cc8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ee1eaa39a145ee4d",
+    "file": "헤어/매직 스트레이트/ee1eaa39a145ee4d.jpeg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "매직 스트레이트"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 110997,
+    "sha256": "ee1eaa39a145ee4db67f000d91bea2197d309a8eb3719a7602a839007eac2488",
+    "dhash": "32988e868e8e8e6c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d2fbc29b4470cda3",
+    "file": "네일/체크/d2fbc29b4470cda3.jpeg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "체크"
+      }
+    ],
+    "width": 1440,
+    "height": 1103,
+    "bytes": 71503,
+    "sha256": "d2fbc29b4470cda3ccf1f475ebd832c5c1d2b0965c6f2ab31ac5542c651e4466",
+    "dhash": "73f1f31a8f4b1f1e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "05da3140e126b1f7",
+    "file": "네일/체크/05da3140e126b1f7.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "체크"
+      }
+    ],
+    "width": 3250,
+    "height": 3756,
+    "bytes": 460882,
+    "sha256": "05da3140e126b1f740971a13e9c764cf624e14cd0cb29267b23c17c754aeabad",
+    "dhash": "786536d9688f8c4c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "77417d0e891a512c",
+    "file": "네일/체크/77417d0e891a512c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "체크"
+      }
+    ],
+    "width": 960,
+    "height": 1280,
+    "bytes": 193798,
+    "sha256": "77417d0e891a512cacc515a1f87a026d40f780378957a036becc54b41955b26b",
+    "dhash": "713c6e666f630b23",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4e706ba96f4bb9e8",
+    "file": "네일/체크/4e706ba96f4bb9e8.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "체크"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 134717,
+    "sha256": "4e706ba96f4bb9e86c96030100469d5d01a5b1b03e83632236d6af387a8b3044",
+    "dhash": "652536260f1d979c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a5aeb4d819dae4b3",
+    "file": "메이크업/퍼플/a5aeb4d819dae4b3.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "퍼플"
+      }
+    ],
+    "width": 1072,
+    "height": 1400,
+    "bytes": 1164264,
+    "sha256": "a5aeb4d819dae4b3230fa0deb6a919f309149e7a5cb5858dc185962e9ffda5a4",
+    "dhash": "98cc9696969696cc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1c91297cabd2b57b",
+    "file": "타투/촛불 · 램프/1c91297cabd2b57b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "촛불 · 램프"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 42884,
+    "sha256": "1c91297cabd2b57b5aadd4a7c15fac9535c2ab7f6bae3d4caac1ccfe71ec8c17",
+    "dhash": "736b6b6b6bebe3e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e4505399acce2478",
+    "file": "타투/지구본/e4505399acce2478.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "지구본"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 68732,
+    "sha256": "e4505399acce2478a0d69c177c0fe1e3dbfbed289d254390f89ec05d4d9ec871",
+    "dhash": "58581c4c18183106",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8af03f1f17be0691",
+    "file": "타투/지구본/8af03f1f17be0691.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "지구본"
+      }
+    ],
+    "width": 800,
+    "height": 1000,
+    "bytes": 76099,
+    "sha256": "8af03f1f17be06913dd661588467747357b97b66c3f38e6542db3446a98abba1",
+    "dhash": "171f0e1b3b2b0694",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ca5c1bc056126f79",
+    "file": "타투/열기구 · 풍선/ca5c1bc056126f79.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "열기구 · 풍선"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 52183,
+    "sha256": "ca5c1bc056126f79374e2c051c7f75d43c83a6c4c4f6cb2160dcc6a0f46bc92b",
+    "dhash": "be373e2e6e6e76b6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8959fc4bbcfd16ca",
+    "file": "타투/열기구 · 풍선/8959fc4bbcfd16ca.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "열기구 · 풍선"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 37670,
+    "sha256": "8959fc4bbcfd16ca3a3f4f76b760a1487c1cdccbc531059dcdac0c5ab9843e49",
+    "dhash": "0d1d3d0f9f3d3d26",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "950fa6eb29db65a7",
+    "file": "타투/열기구 · 풍선/950fa6eb29db65a7.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "열기구 · 풍선"
+      }
+    ],
+    "width": 1000,
+    "height": 1000,
+    "bytes": 75971,
+    "sha256": "950fa6eb29db65a7b65128adb00f76d59daa6f92b72a399b4eda6456d119eb46",
+    "dhash": "0c4c040480010141",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
