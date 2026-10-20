@@ -40711,5 +40711,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bb1129aeb0104248",
+    "file": "메이크업/블루 섀도/bb1129aeb0104248.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "블루 섀도"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 206496,
+    "sha256": "bb1129aeb01042484dab0f69684ea63d7577e7e99a39ad1bfc46daa09dfa39d1",
+    "dhash": "b934393b333b660e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
