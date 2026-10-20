@@ -38842,5 +38842,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9b1bdfd05bff5eee",
+    "file": "헤어/땋은머리/9b1bdfd05bff5eee.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "땋은머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 110081,
+    "sha256": "9b1bdfd05bff5eee9627778c034ea9d0803549367951954d5d7bf11762fa7a35",
+    "dhash": "d9dcf4f0f4f4f4f8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "115bb959c749524a",
+    "file": "네일/프렌치/115bb959c749524a.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "프렌치"
+      }
+    ],
+    "width": 1170,
+    "height": 1557,
+    "bytes": 57014,
+    "sha256": "115bb959c749524a833f6197c9927fdfca4e2eea64d1b0074f08ff6d913fb81a",
+    "dhash": "01149a1313330bcb",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

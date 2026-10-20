@@ -11064,6 +11064,18 @@
       "sha256": "e80375ad3d517e8d9684ca10b941b14a00d04ebb4f7af1aa7e406ee1412c69e3",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "9b1bdfd05bff5eee",
+      "sha256": "9b1bdfd05bff5eee9627778c034ea9d0803549367951954d5d7bf11762fa7a35",
+      "publishedDate": "2026-07-21",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.07.21 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "115bb959c749524a",
+      "sha256": "115bb959c749524a833f6197c9927fdfca4e2eea64d1b0074f08ff6d913fb81a",
+      "publishedDate": "2026-09-03",
+      "dateEvidence": "한국 네일 기사 게시일 2026.09.03 확인; 사진 최초 게시일 별도 미확인; 자유단 실버 프렌치 경계 직접 확인"
     }
   ]
 }
