@@ -37834,5 +37834,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2f32b4974c5b35ee",
+    "file": "헤어/레이어드컷/2f32b4974c5b35ee.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1552,
+    "bytes": 337299,
+    "sha256": "2f32b4974c5b35eef314f478c8fe5027681c7d7e4b8a7bcd44e3cea6357701ae",
+    "dhash": "e363e31b1b1a5a44",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3913187c21f8bfd9",
+    "file": "헤어/레이어드컷/3913187c21f8bfd9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 202395,
+    "sha256": "3913187c21f8bfd94ec14a9ea75c2ea869851eb611ba5ac36a92ffc096a66347",
+    "dhash": "08b8b05ccb939701",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5bce374cff1b8cb8",
+    "file": "타투/달/5bce374cff1b8cb8.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "달·별·자연",
+        "label": "달"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 525939,
+    "sha256": "5bce374cff1b8cb871638a255cb9ab027883bde0e403302d3f70124ce189c09a",
+    "dhash": "f838397363e6e7e7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9f62f357ae5aa10f",
+    "file": "타투/이니셜/9f62f357ae5aa10f.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "문구·이니셜",
+        "label": "이니셜"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 649612,
+    "sha256": "9f62f357ae5aa10f91b88bc4b284fb8f271e008437988c588b0585e57506f69f",
+    "dhash": "e1e1c9c9c9c9f1e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8a14b142d0e15403",
+    "file": "메이크업/남자 메이크업/8a14b142d0e15403.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 191276,
+    "sha256": "8a14b142d0e154032c2bcb2943d2cee1d73012aa064625edec7a4a8da1b12220",
+    "dhash": "c7cbcbcb3fa69f96",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "987209a7d5b8b7b4",
+    "file": "메이크업/홍조 블러셔/987209a7d5b8b7b4.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1200,
+    "height": 1505,
+    "bytes": 94618,
+    "sha256": "987209a7d5b8b7b44f201ebf7c81576b24ce3c0d095039c8fa05897ac1bb71cf",
+    "dhash": "f0343cd18999c7e6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
