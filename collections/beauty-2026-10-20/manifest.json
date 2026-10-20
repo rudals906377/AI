@@ -37960,5 +37960,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b93d557f2651bd45",
+    "file": "헤어/레이어드 숏컷/b93d557f2651bd45.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드 숏컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 303302,
+    "sha256": "b93d557f2651bd450ec45cff70b12129dd6a0748ff5b7f5a76d4d5fb61c35f16",
+    "dhash": "4f0c1cfbc9cefa12",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "73bb5297eb03caa3",
+    "file": "메이크업/피치 블러셔/73bb5297eb03caa3.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "피치 블러셔"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 275804,
+    "sha256": "73bb5297eb03caa3e31b4d15957d519b43a6c9f550d223debd46a586cb3d4467",
+    "dhash": "4d8f87e3d3f61e1c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
