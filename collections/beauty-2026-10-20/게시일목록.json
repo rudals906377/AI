@@ -9828,6 +9828,30 @@
       "sha256": "a849d08db758b7c5996fcefa70e52000234d20b5e7c0c95a119b902d0599b10b",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말2026.06.24 및 실제 손톱의 미세 진주광 입자 부모 시각 확인"
+    },
+    {
+      "id": "df2e7d46f483eb9c",
+      "sha256": "df2e7d46f483eb9cb3866d28b165e40d7b076d5a027312596f3bf283b0284563",
+      "publishedDate": "2025-12-22",
+      "dateEvidence": "기사 본문 상단 게시일 2025.12.22 확인; 사진 최초 게시일은 별도 미확인"
+    },
+    {
+      "id": "6088a7fea63da016",
+      "sha256": "6088a7fea63da0160a8fbe6b7e9efbc3203379f2edf12bbaf4b28ea872554f3b",
+      "publishedDate": "2025-12-22",
+      "dateEvidence": "기사 본문 상단 게시일 2025.12.22 확인; 사진 최초 게시일은 별도 미확인"
+    },
+    {
+      "id": "827a7010da0a627b",
+      "sha256": "827a7010da0a627becb3dae9bc22ffb4eaa67ffed44ca75a5f5e94540dfa0c09",
+      "publishedDate": "2026-07-21",
+      "dateEvidence": "기사 머리말2026.07.21과 한국 립 연출 맥락 확인; 원 SNS 최초일 별도 미확인"
+    },
+    {
+      "id": "0b653052e5ec0b6f",
+      "sha256": "0b653052e5ec0b6f424947c42f114fc5c6b70371d80cf34a6d3679653f0ae405",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말2026.06.24 및 카우 패턴 설명·실제 손톱 원본 부모 확인"
     }
   ]
 }

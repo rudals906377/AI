@@ -34516,5 +34516,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "df2e7d46f483eb9c",
+    "file": "헤어/하이라이트/df2e7d46f483eb9c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "하이라이트"
+      }
+    ],
+    "width": 1080,
+    "height": 1439,
+    "bytes": 207237,
+    "sha256": "df2e7d46f483eb9cb3866d28b165e40d7b076d5a027312596f3bf283b0284563",
+    "dhash": "527228294a2a2000",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6088a7fea63da016",
+    "file": "헤어/레드와인/6088a7fea63da016.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "레드와인"
+      }
+    ],
+    "width": 1080,
+    "height": 810,
+    "bytes": 82334,
+    "sha256": "6088a7fea63da0160a8fbe6b7e9efbc3203379f2edf12bbaf4b28ea872554f3b",
+    "dhash": "6cec66763691cceb",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "827a7010da0a627b",
+    "file": "메이크업/글로시/827a7010da0a627b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 525,
+    "height": 700,
+    "bytes": 20642,
+    "sha256": "827a7010da0a627becb3dae9bc22ffb4eaa67ffed44ca75a5f5e94540dfa0c09",
+    "dhash": "64c091c981c9999b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0b653052e5ec0b6f",
+    "file": "네일/호피·애니멀/0b653052e5ec0b6f.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "호피·애니멀"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 88268,
+    "sha256": "0b653052e5ec0b6f424947c42f114fc5c6b70371d80cf34a6d3679653f0ae405",
+    "dhash": "e40e9367da37ccb8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
