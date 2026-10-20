@@ -651,8 +651,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "0e2aa51cba932f65",
-    "file": "메이크업/탈색 눈썹/0e2aa51cba932f65.jpg",
+    "id": "39612a51d6d4aa32",
+    "file": "메이크업/탈색 눈썹/39612a51d6d4aa32.png",
     "category": "메이크업",
     "labels": [
       {
@@ -661,15 +661,25 @@
       }
     ],
     "width": 474,
-    "height": 592,
-    "bytes": 27395,
-    "sha256": "0e2aa51cba932f65fd272289a187dd00f97ab114eec88d50c253d1ee4cee301f",
-    "dhash": "0533703caf36168c",
+    "height": 537,
+    "bytes": 211501,
+    "sha256": "39612a51d6d4aa32cb5ef6e8aa7dda1db4dea220c63bba5e31b82efcf3bb9fb7",
+    "dhash": "0513307caf26369e",
     "large_face": true,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        55,
+        474,
+        592
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "72dc27d9542470f6",
@@ -1764,8 +1774,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "fe03f8b2d9fb4977",
-    "file": "헤어/쉼표머리/fe03f8b2d9fb4977.jpg",
+    "id": "19ade007074cbe75",
+    "file": "헤어/쉼표머리/19ade007074cbe75.png",
     "category": "헤어",
     "labels": [
       {
@@ -1774,15 +1784,25 @@
       }
     ],
     "width": 474,
-    "height": 465,
-    "bytes": 33060,
-    "sha256": "fe03f8b2d9fb4977c07cafe630aab7aa4e6da359e41f55b43d36822ee24ef2e3",
-    "dhash": "25353939392f0f4a",
+    "height": 414,
+    "bytes": 212732,
+    "sha256": "19ade007074cbe75e4f2a6244973eeb23cfefa6b98711d0420bade4dbf6e2145",
+    "dhash": "35393939292f1f48",
     "large_face": true,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        0,
+        474,
+        414
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "a3cff902acf4c9d9",
@@ -3507,8 +3527,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "7b7ba8f03f56a936",
-    "file": "네일/스마일·이모지/7b7ba8f03f56a936.jpg",
+    "id": "a058c66cb9cb85f0",
+    "file": "네일/스마일·이모지/a058c66cb9cb85f0.png",
     "category": "네일",
     "labels": [
       {
@@ -3517,15 +3537,25 @@
       }
     ],
     "width": 474,
-    "height": 833,
-    "bytes": 30204,
-    "sha256": "7b7ba8f03f56a9364b2e187a44bada911453c172ba549bebfc475150f3178c0d",
-    "dhash": "c0809073e79b73ce",
+    "height": 768,
+    "bytes": 239420,
+    "sha256": "a058c66cb9cb85f0beec3f7c20bfed873295f173502af83708e24cd6b3ae055c",
+    "dhash": "d0c09132e7cb3be7",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        65,
+        474,
+        833
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "fcb3c522c12cc80c",
@@ -3591,8 +3621,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "b36277c0f267ce78",
-    "file": "네일/스마일·이모지/b36277c0f267ce78.jpg",
+    "id": "f8d0cbbd27366dbb",
+    "file": "네일/스마일·이모지/f8d0cbbd27366dbb.png",
     "category": "네일",
     "labels": [
       {
@@ -3601,15 +3631,25 @@
       }
     ],
     "width": 474,
-    "height": 529,
-    "bytes": 31529,
-    "sha256": "b36277c0f267ce78070aadc3e8ee5223efb3691fbae1f8d5b3a017fe2719002d",
-    "dhash": "642dab3634262686",
+    "height": 423,
+    "bytes": 217465,
+    "sha256": "f8d0cbbd27366dbbf56fe812915da86550c29db7c876f3347f587a4d7a34b312",
+    "dhash": "2d29aa1634242626",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        56,
+        474,
+        479
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "655a6d2d88cb06e6",
@@ -6195,8 +6235,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "808ac6ba6736f437",
-    "file": "네일/레이스/808ac6ba6736f437.jpg",
+    "id": "cd25c979f17677c2",
+    "file": "네일/레이스/cd25c979f17677c2.png",
     "category": "네일",
     "labels": [
       {
@@ -6205,15 +6245,25 @@
       }
     ],
     "width": 474,
-    "height": 532,
-    "bytes": 30594,
-    "sha256": "808ac6ba6736f4377788b5b5f88633494f383a3016b84314792867d25935689c",
-    "dhash": "3f9eed71a0327370",
+    "height": 469,
+    "bytes": 223653,
+    "sha256": "cd25c979f17677c2719c8d991e170a795949ed1da7f0760b5948ea90369a4fb9",
+    "dhash": "3f9f8d75b1a27273",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        63,
+        474,
+        532
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "5ed296e2e3085eba",
@@ -6951,8 +7001,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "89e52de6d2168942",
-    "file": "헤어/테이퍼컷/89e52de6d2168942.jpg",
+    "id": "e9ba1c62e4692e9c",
+    "file": "헤어/테이퍼컷/e9ba1c62e4692e9c.png",
     "category": "헤어",
     "labels": [
       {
@@ -6960,16 +7010,26 @@
         "label": "테이퍼컷"
       }
     ],
-    "width": 474,
-    "height": 842,
-    "bytes": 44526,
-    "sha256": "89e52de6d2168942a63e5a995d75cb40be845da3308a77c02aaabe14d736b277",
-    "dhash": "b10f2627070f0f82",
+    "width": 460,
+    "height": 732,
+    "bytes": 267183,
+    "sha256": "e9ba1c62e4692e9cba7b2a19b20d5c30f48779d973952105d7ddf5da03d5e030",
+    "dhash": "372f2607070f0f83",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        8,
+        26,
+        468,
+        758
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "2d09ebe9ba2cde83",
@@ -7056,8 +7116,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "3e66165f212d6265",
-    "file": "헤어/테이퍼컷/3e66165f212d6265.jpg",
+    "id": "fe4e03abb879554e",
+    "file": "헤어/테이퍼컷/fe4e03abb879554e.png",
     "category": "헤어",
     "labels": [
       {
@@ -7065,16 +7125,26 @@
         "label": "테이퍼컷"
       }
     ],
-    "width": 474,
+    "width": 462,
     "height": 592,
-    "bytes": 47061,
-    "sha256": "3e66165f212d626598a34135474345841ecc64dc23c316e1418df59185f44272",
-    "dhash": "7931938301296f0e",
+    "bytes": 330508,
+    "sha256": "fe4e03abb879554ef5b1b214f9e2d3796d751a34a70d0c5a263b571f04861811",
+    "dhash": "7931938301694f1e",
     "large_face": true,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        0,
+        462,
+        592
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "3a3bb60d702bb370",
@@ -9114,8 +9184,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "f618ed91f0febecc",
-    "file": "타투/체인/f618ed91f0febecc.jpg",
+    "id": "4e98c3f60e71ec7f",
+    "file": "타투/체인/4e98c3f60e71ec7f.png",
     "category": "타투",
     "labels": [
       {
@@ -9124,15 +9194,25 @@
       }
     ],
     "width": 473,
-    "height": 593,
-    "bytes": 49793,
-    "sha256": "f618ed91f0febecc5fda6ba86254c43132fa0206ff3c3b2233d90d1a6e3568f4",
-    "dhash": "0f537b6e339b0bae",
+    "height": 547,
+    "bytes": 346657,
+    "sha256": "4e98c3f60e71ec7f5ea5c3130a98e7c999d528dd9ad46251b04aa68281a25bd9",
+    "dhash": "2fd77b4a321b8b0b",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        46,
+        473,
+        593
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "0c5006d3e3b3d2c6",
@@ -9513,8 +9593,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "d6d41b36a6eda5db",
-    "file": "메이크업/스파이키 속눈썹/d6d41b36a6eda5db.jpg",
+    "id": "0979901e70c68183",
+    "file": "메이크업/스파이키 속눈썹/0979901e70c68183.png",
     "category": "메이크업",
     "labels": [
       {
@@ -9523,15 +9603,25 @@
       }
     ],
     "width": 474,
-    "height": 541,
-    "bytes": 27551,
-    "sha256": "d6d41b36a6eda5db00b601ad0ce9040cb4f357187f4a1bfaa5fe16a8e2073249",
-    "dhash": "303c9f89bdf3b33a",
+    "height": 509,
+    "bytes": 230847,
+    "sha256": "0979901e70c68183de0e85a60062509088889616a6f5334ab91655917e556bd3",
+    "dhash": "341d8f99fdf3333a",
     "large_face": true,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        0,
+        474,
+        509
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "89c541c21bfa0b7a",
@@ -10584,8 +10674,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "360a4ea0073f6496",
-    "file": "네일/멜팅·드리핑/360a4ea0073f6496.jpg",
+    "id": "265c073d30526b76",
+    "file": "네일/멜팅·드리핑/265c073d30526b76.png",
     "category": "네일",
     "labels": [
       {
@@ -10594,19 +10684,29 @@
       }
     ],
     "width": 474,
-    "height": 474,
-    "bytes": 31043,
-    "sha256": "360a4ea0073f6496fcec051b1365ded174a09af53be6b7c47d4152bfe592544e",
-    "dhash": "e64c5dfb366953bf",
+    "height": 432,
+    "bytes": 235930,
+    "sha256": "265c073d30526b7661352561d5bdfc6a181d14c89b477aef1bac75c9ef6ff7c0",
+    "dhash": "ec4dd9b3246953bf",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        0,
+        474,
+        432
+      ],
+      "resampled": false
+    }
   },
   {
-    "id": "561257510a9e99a1",
-    "file": "네일/멜팅·드리핑/561257510a9e99a1.jpg",
+    "id": "3131c818dead723b",
+    "file": "네일/멜팅·드리핑/3131c818dead723b.png",
     "category": "네일",
     "labels": [
       {
@@ -10614,16 +10714,26 @@
         "label": "멜팅·드리핑"
       }
     ],
-    "width": 474,
-    "height": 482,
-    "bytes": 31386,
-    "sha256": "561257510a9e99a129d2b387cd1f724ee88cb53b0b8aed88e7b508e553589d74",
-    "dhash": "1c130b061a2bac95",
+    "width": 421,
+    "height": 469,
+    "bytes": 221497,
+    "sha256": "3131c818dead723b106617a8647d0c4bb607a11ab8c5bdb4eb6d2970ba5ef773",
+    "dhash": "1f0b2d031535aa8a",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        53,
+        7,
+        474,
+        476
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "d5c03b16803d4503",
@@ -10836,8 +10946,8 @@
     "note": "학습 전 최종 라벨 검토 필요"
   },
   {
-    "id": "e0fddec6b598e388",
-    "file": "네일/크롬하츠/e0fddec6b598e388.jpg",
+    "id": "47c2078492bd59a3",
+    "file": "네일/크롬하츠/47c2078492bd59a3.png",
     "category": "네일",
     "labels": [
       {
@@ -10846,15 +10956,25 @@
       }
     ],
     "width": 474,
-    "height": 608,
-    "bytes": 48983,
-    "sha256": "e0fddec6b598e3880ee6034034d77fbf7f06f0a144b3aac1c5874e92c2cf7873",
-    "dhash": "d7d322654bca3362",
+    "height": 538,
+    "bytes": 331184,
+    "sha256": "47c2078492bd59a3126c93e7159368b0638f552a8ce26be47c7587126dace92e",
+    "dhash": "d7d722245f679a33",
     "large_face": false,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
-    "note": "학습 전 최종 라벨 검토 필요"
+    "note": "학습 전 최종 라벨 검토 필요",
+    "preparation": {
+      "operation": "ui_edge_crop",
+      "crop_xyxy": [
+        0,
+        63,
+        474,
+        601
+      ],
+      "resampled": false
+    }
   },
   {
     "id": "3e62a145aef6fa2e",
