@@ -31849,5 +31849,173 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "031a5c6514117c69",
+    "file": "헤어/빌드펌/031a5c6514117c69.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "빌드펌"
+      }
+    ],
+    "width": 1707,
+    "height": 2560,
+    "bytes": 580074,
+    "sha256": "031a5c6514117c69d2313f8b5fda48f8a289f68f715d7a967f7162d1d1ba02cd",
+    "dhash": "2024241b9b9393ce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "78f5ed695e66b7c6",
+    "file": "타투/강아지/78f5ed695e66b7c6.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "강아지"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 553254,
+    "sha256": "78f5ed695e66b7c622f4ffef4158a670efe0ccf4fa2d7b2d3ca2e61a89914c5c",
+    "dhash": "f06060e8ece8e8e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3f5220a22a96f23e",
+    "file": "타투/호랑이/3f5220a22a96f23e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "호랑이"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 546435,
+    "sha256": "3f5220a22a96f23eb5abbcbecd01a3aad8f8eaf523b8fd8809c07b6305a1a094",
+    "dhash": "3936766e6e6efaf2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "107f8951c2411874",
+    "file": "타투/성모 · 예수/107f8951c2411874.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "성모 · 예수"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 231428,
+    "sha256": "107f8951c241187456b61f31293662afa20c3509cca83e0fa91c8643056e7ca6",
+    "dhash": "49317570a39ae6ee",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b85ecb083b0b126",
+    "file": "메이크업/세미매트/8b85ecb083b0b126.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "세미매트"
+      }
+    ],
+    "width": 1685,
+    "height": 2383,
+    "bytes": 287514,
+    "sha256": "8b85ecb083b0b126014f4aa8829183d44fa91fb38ee011b6cfe2e894322923fe",
+    "dhash": "0706861713212366",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b012ca92981236a2",
+    "file": "메이크업/큐빅·파츠/b012ca92981236a2.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "큐빅·파츠"
+      }
+    ],
+    "width": 1777,
+    "height": 2383,
+    "bytes": 430822,
+    "sha256": "b012ca92981236a24cb78d3203249f5ca43acd12a61fdfb4439d6581e8bc1ed7",
+    "dhash": "c8b8f4ecf0f1712f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "61d6fc22e7259809",
+    "file": "메이크업/퍼플 섀도/61d6fc22e7259809.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "퍼플 섀도"
+      }
+    ],
+    "width": 1685,
+    "height": 2383,
+    "bytes": 392122,
+    "sha256": "61d6fc22e7259809d2ef619abd186407f21627a7064168b3d9a52603a86d8d6c",
+    "dhash": "90e161e4d0d2f133",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b86605384d7d3d04",
+    "file": "메이크업/눈앞머리 하이라이트/b86605384d7d3d04.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1200,
+    "height": 849,
+    "bytes": 85988,
+    "sha256": "b86605384d7d3d04724522758623e475a480c5006286518975eae0c9323593b8",
+    "dhash": "2313330331313303",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
