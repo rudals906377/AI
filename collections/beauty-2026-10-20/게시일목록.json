@@ -10524,6 +10524,30 @@
       "sha256": "aeb94722ad83cf66500f453b17580ce833af214822dd3f85c20d22fcc4de3297",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "c76979d65068a091",
+      "sha256": "c76979d65068a09107e34df49b5b8101a140fe428f1685eff2e0037416a7f829",
+      "publishedDate": "2022-08-30",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2022.08.30 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "3b6fdeff293acd29",
+      "sha256": "3b6fdeff293acd29979e3c6fcded9147d7491780f52ca5e6e37b19c498f7024a",
+      "publishedDate": "2026-08-07",
+      "dateEvidence": "한국 네일 화보 머리말 2026.08.07 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "a7e267f900f4927a",
+      "sha256": "a7e267f900f4927a32cf164477c9f3ee8d930ff8e02dbaf6fae1a964f4173112",
+      "publishedDate": "2026-08-07",
+      "dateEvidence": "한국 네일 화보 머리말 2026.08.07 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "5fb4812e2b4d4531",
+      "sha256": "5fb4812e2b4d45310aa591b5caa77e0373cf89137e5e1ed2a7ea445144477e3f",
+      "publishedDate": "2026-08-07",
+      "dateEvidence": "한국 네일 화보 머리말 2026.08.07 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }

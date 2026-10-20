@@ -36952,5 +36952,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c76979d65068a091",
+    "file": "헤어/옴브레/c76979d65068a091.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "옴브레"
+      }
+    ],
+    "width": 740,
+    "height": 931,
+    "bytes": 99320,
+    "sha256": "c76979d65068a09107e34df49b5b8101a140fe428f1685eff2e0037416a7f829",
+    "dhash": "c303222423b393b0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3b6fdeff293acd29",
+    "file": "네일/민트·그린/3b6fdeff293acd29.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "민트·그린"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 304910,
+    "sha256": "3b6fdeff293acd29979e3c6fcded9147d7491780f52ca5e6e37b19c498f7024a",
+    "dhash": "327073232b17034f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a7e267f900f4927a",
+    "file": "네일/드로잉/a7e267f900f4927a.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "드로잉"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 237424,
+    "sha256": "a7e267f900f4927a32cf164477c9f3ee8d930ff8e02dbaf6fae1a964f4173112",
+    "dhash": "4c4cc90c0c4e0fa7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5fb4812e2b4d4531",
+    "file": "네일/블랙/5fb4812e2b4d4531.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "블랙"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 117358,
+    "sha256": "5fb4812e2b4d45310aa591b5caa77e0373cf89137e5e1ed2a7ea445144477e3f",
+    "dhash": "67c68e1613332785",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
