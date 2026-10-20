@@ -28594,5 +28594,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b531c82316bc756",
+    "file": "메이크업/홍조 블러셔/8b531c82316bc756.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 232792,
+    "sha256": "8b531c82316bc7560c8f4d6f4dd3098decda108ee8308fa85527cbf4e81dd707",
+    "dhash": "c24066e3733b1b87",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
