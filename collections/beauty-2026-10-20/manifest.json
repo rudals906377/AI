@@ -36154,5 +36154,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0a92d0d04a7f8c68",
+    "file": "메이크업/주근깨/0a92d0d04a7f8c68.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "주근깨"
+      }
+    ],
+    "width": 1200,
+    "height": 749,
+    "bytes": 115812,
+    "sha256": "0a92d0d04a7f8c683f56a606969ae076cd05fd136ebbf060b3517c6ce08371de",
+    "dhash": "37262b33111b5971",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "25bd972281eef7cf",
+    "file": "메이크업/컬러 아이라인/25bd972281eef7cf.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "컬러 아이라인"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 217848,
+    "sha256": "25bd972281eef7cfecbe6378edbae5388e63b44a1a2053bd0ab4c53d6a6753ce",
+    "dhash": "61e3e368ccee6c9c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "adcf0842c9c407d6",
+    "file": "네일/오로라/adcf0842c9c407d6.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "오로라"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 160032,
+    "sha256": "adcf0842c9c407d6d829b2655132c61c0e9de5f61532c6f0ee144b121f43be23",
+    "dhash": "aca9310254a9b37f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

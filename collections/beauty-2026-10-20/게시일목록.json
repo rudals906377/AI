@@ -10296,6 +10296,24 @@
       "sha256": "1d7c8b69523e137720c0a68580c9ed5d6fa92b84faa05d584918d7dbfd9fe31e",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "0a92d0d04a7f8c68",
+      "sha256": "0a92d0d04a7f8c683f56a606969ae076cd05fd136ebbf060b3517c6ce08371de",
+      "publishedDate": "2026-03-12",
+      "dateEvidence": "기사 머리말 게시일 2026.03.12와 Lavender Flush/Under the Green 각 시술 설명 관찰"
+    },
+    {
+      "id": "25bd972281eef7cf",
+      "sha256": "25bd972281eef7cfecbe6378edbae5388e63b44a1a2053bd0ab4c53d6a6753ce",
+      "publishedDate": "2026-03-12",
+      "dateEvidence": "기사 머리말 게시일 2026.03.12와 Lavender Flush/Under the Green 각 시술 설명 관찰"
+    },
+    {
+      "id": "adcf0842c9c407d6",
+      "sha256": "adcf0842c9c407d6d829b2655132c61c0e9de5f61532c6f0ee144b121f43be23",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
