@@ -11700,6 +11700,18 @@
       "sha256": "1fc33fa95c3bba1823205ab1266bc0f2c0c2a52ff8653776011dea84d6e98814",
       "publishedDate": "2026-06-24",
       "dateEvidence": "한국어 네일 기사 게시일2026.06.24 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "cfe34957d05a8206",
+      "sha256": "cfe34957d05a8206fdb5e762fb7c128d38ab61f7c403206bf4c51aa936643ed6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "01f2b44d1ab54a5a",
+      "sha256": "01f2b44d1ab54a5a78be4f62f59ce1c5145b591edddf15268b0d193d99d5be06",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

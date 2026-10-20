@@ -41068,5 +41068,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cfe34957d05a8206",
+    "file": "타투/이레즈미/cfe34957d05a8206.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "이레즈미"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 862069,
+    "sha256": "cfe34957d05a8206fdb5e762fb7c128d38ab61f7c403206bf4c51aa936643ed6",
+    "dhash": "74ae979b998b8ecc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "01f2b44d1ab54a5a",
+    "file": "타투/상어/01f2b44d1ab54a5a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "상어"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 105188,
+    "sha256": "01f2b44d1ab54a5a78be4f62f59ce1c5145b591edddf15268b0d193d99d5be06",
+    "dhash": "993d7cdc9c989186",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
