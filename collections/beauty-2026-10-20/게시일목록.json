@@ -11712,6 +11712,18 @@
       "sha256": "01f2b44d1ab54a5a78be4f62f59ce1c5145b591edddf15268b0d193d99d5be06",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "f4555f1a50fdac85",
+      "sha256": "f4555f1a50fdac859bfc90679324181f1b04742f4dba2ce1d1a44a7d8828bc7e",
+      "publishedDate": "2025-11-13",
+      "dateEvidence": "한국 셀럽 앞머리 스타일 기사 게시일 2025.11.13 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "328378abf92edbfd",
+      "sha256": "328378abf92edbfda6dca8f23136d8e0fea1f17408095d58a54c94447ebb9396",
+      "publishedDate": "2025-11-13",
+      "dateEvidence": "한국 셀럽 앞머리 스타일 기사 게시일 2025.11.13 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }
