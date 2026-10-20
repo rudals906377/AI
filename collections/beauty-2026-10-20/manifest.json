@@ -14776,5 +14776,278 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4ca34cbe730165e7",
+    "file": "헤어/처피뱅/4ca34cbe730165e7.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1536,
+    "height": 2048,
+    "bytes": 198838,
+    "sha256": "4ca34cbe730165e73cf71785dc6b95ce57ef8407ce82f2955cf2ec7c7f27fd46",
+    "dhash": "074fc9f533f3d2cf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f7564dd73fe5ff4c",
+    "file": "헤어/처피뱅/f7564dd73fe5ff4c.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 155566,
+    "sha256": "f7564dd73fe5ff4cb577e7a51a3c789498c381fd99841bf6163dd844ad19c5f1",
+    "dhash": "3cb9033333131f4e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e009ec5a4a7023c7",
+    "file": "헤어/처피뱅/e009ec5a4a7023c7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1125,
+    "height": 1381,
+    "bytes": 1284822,
+    "sha256": "e009ec5a4a7023c7c49c20563dc8ab42742c0de8509940230aa61636d3d882c2",
+    "dhash": "61313bbeb6b2f2d6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a47617b3189fb67a",
+    "file": "헤어/태슬컷/a47617b3189fb67a.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "태슬컷"
+      }
+    ],
+    "width": 961,
+    "height": 1200,
+    "bytes": 80488,
+    "sha256": "a47617b3189fb67a99fcc31287f2061c1da3f46d07a30c4f34d7211a73c1ba88",
+    "dhash": "91d3706905130f0d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "42434e3b50d19285",
+    "file": "헤어/태슬컷/42434e3b50d19285.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "태슬컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 67098,
+    "sha256": "42434e3b50d192858d0ab7fe8231f889cd60e4b8a9526a984b93ef393ac63115",
+    "dhash": "9c1c142676373d9d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cafbaf13d7c5a5f1",
+    "file": "헤어/보브컷/cafbaf13d7c5a5f1.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "보브컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 149030,
+    "sha256": "cafbaf13d7c5a5f1b027a421dd868aedbc010c7fc9ddec8b0511143a149a7192",
+    "dhash": "170f0f8d8bcbe6a6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "abeaa8893d7fd7ae",
+    "file": "메이크업/블러립/abeaa8893d7fd7ae.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "블러립"
+      }
+    ],
+    "width": 1000,
+    "height": 655,
+    "bytes": 152960,
+    "sha256": "abeaa8893d7fd7ae90c5ef452f3f5679be0ac52c5ac04a200225a9fc3ef751f3",
+    "dhash": "3df78624a2e1c941",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e0e176b398857c22",
+    "file": "메이크업/블러립/e0e176b398857c22.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "블러립"
+      }
+    ],
+    "width": 1039,
+    "height": 1400,
+    "bytes": 200756,
+    "sha256": "e0e176b398857c2236b6760eb99c638abe7772ae587e38cbfe3fb197e0225086",
+    "dhash": "5e9c90e3f7f06802",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "35c73fa6b05ae6e1",
+    "file": "메이크업/버건디·플럼/35c73fa6b05ae6e1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "버건디·플럼"
+      }
+    ],
+    "width": 1039,
+    "height": 1400,
+    "bytes": 257802,
+    "sha256": "35c73fa6b05ae6e14b6b7631fb80ea840ef72da75851da52fcf41b67a3268952",
+    "dhash": "63c1c4a4b0e0e171",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d106f40779596300",
+    "file": "메이크업/매트/d106f40779596300.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1038,
+    "height": 1400,
+    "bytes": 283282,
+    "sha256": "d106f40779596300dc3861c730796ca5954265d3582827ab98381b48524da45b",
+    "dhash": "2c79716363737323",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "308a749fb24e8544",
+    "file": "메이크업/큐빅·파츠/308a749fb24e8544.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "큐빅·파츠"
+      }
+    ],
+    "width": 1039,
+    "height": 1400,
+    "bytes": 187951,
+    "sha256": "308a749fb24e8544c679d848cb999f4702b14cdebd47f6bde24c09b50ccbd63f",
+    "dhash": "418686a6a66460f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a3dd04c6f614f601",
+    "file": "메이크업/윤광/a3dd04c6f614f601.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "윤광"
+      }
+    ],
+    "width": 1039,
+    "height": 1400,
+    "bytes": 231527,
+    "sha256": "a3dd04c6f614f6012195e0eafaa026786f67e71c35000f0645cffafc76092b39",
+    "dhash": "3c6fe191d1612307",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "63b60b1e814bde14",
+    "file": "타투/물고기/63b60b1e814bde14.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "물고기"
+      }
+    ],
+    "width": 1200,
+    "height": 1446,
+    "bytes": 92578,
+    "sha256": "63b60b1e814bde1428e3411a2a57f69826494b0ff707c1993b9a8753277ceb94",
+    "dhash": "fc782c889838f898",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
