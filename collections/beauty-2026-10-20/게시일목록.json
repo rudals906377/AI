@@ -10386,6 +10386,72 @@
       "sha256": "c64b9140d99e492237353543bd8214aba7fb2de9d256ed9b3fb288b3e96933c5",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "12de75166175ead6",
+      "sha256": "12de75166175ead63a203646148ebaed2c7a7944d90076b32c2a6599098ffa2f",
+      "publishedDate": "2025-12-22",
+      "dateEvidence": "한국 헤어 컬러 스타일 기사 게시일 2025.12.22 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "0f816e41e7e40b52",
+      "sha256": "0f816e41e7e40b521aab30ed155956de1dc29e8c2415269b766574e5758b31f5",
+      "publishedDate": "2025-12-22",
+      "dateEvidence": "한국 헤어 컬러 스타일 기사 게시일 2025.12.22 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "86cf89a9a30822b6",
+      "sha256": "86cf89a9a30822b6ac2f3f9eb9ea617f1ca5f16409d9cc574afce11ce1b4df33",
+      "publishedDate": "2026-01-02",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.01.02 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "27680ee2240a8999",
+      "sha256": "27680ee2240a8999505eb7c076528a1388dbc849e404e6e71ca0b47ee394e3a8",
+      "publishedDate": "2022-11-07",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2022.11.07 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "cfe490a69c23544c",
+      "sha256": "cfe490a69c23544cb85a24ebf9d750044d80f6b19c8c39de1c9f38a2d2dd0b3b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "6e38143d8557b5c0",
+      "sha256": "6e38143d8557b5c08e03d5f595b8f52016948dbed4bfd000098b850f110f0618",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1315e211229f9fff",
+      "sha256": "1315e211229f9fff961d5ce3b3914bb9de4303a2873a670d80f647c041f0b127",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1d9820fc214bb0ee",
+      "sha256": "1d9820fc214bb0ee78c270e1ee5bc35adf03eecf3289a630eb28d9eb980a78aa",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 기사 게시일 2026.10.15 및 핑크/블루 하이라이터 사례 설명 관찰; 원래 SNS 사진 게시일은 별도 미확인"
+    },
+    {
+      "id": "171feb4d884a6314",
+      "sha256": "171feb4d884a6314624c937c0bd39258e042fe886fb38cf539182acebdc815c6",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 기사 게시일 2026.10.15 및 핑크/블루 하이라이터 사례 설명 관찰; 원래 SNS 사진 게시일은 별도 미확인"
+    },
+    {
+      "id": "07b15eda5c16d945",
+      "sha256": "07b15eda5c16d945fd593aec7425d529f8597e1044437645d2793680e65cd6b5",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 기사 게시일 2026.10.15 및 옐로·그린 하이라이터 사례 설명 관찰; 원래 SNS 사진 게시일은 별도 미확인"
+    },
+    {
+      "id": "af1106b35d61dd65",
+      "sha256": "af1106b35d61dd652772b4e9d70b77f6913ec4677ed45665dbcfe865b3792026",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }

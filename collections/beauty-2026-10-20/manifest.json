@@ -36469,5 +36469,236 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "12de75166175ead6",
+    "file": "헤어/초코브라운/12de75166175ead6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "초코브라운"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 190057,
+    "sha256": "12de75166175ead63a203646148ebaed2c7a7944d90076b32c2a6599098ffa2f",
+    "dhash": "cb7dfc3233319bce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0f816e41e7e40b52",
+    "file": "헤어/초코브라운/0f816e41e7e40b52.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "초코브라운"
+      }
+    ],
+    "width": 1080,
+    "height": 1348,
+    "bytes": 92243,
+    "sha256": "0f816e41e7e40b521aab30ed155956de1dc29e8c2415269b766574e5758b31f5",
+    "dhash": "58b0e06373626071",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "86cf89a9a30822b6",
+    "file": "헤어/중단발/86cf89a9a30822b6.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "중단발"
+      }
+    ],
+    "width": 1080,
+    "height": 720,
+    "bytes": 66261,
+    "sha256": "86cf89a9a30822b6ac2f3f9eb9ea617f1ca5f16409d9cc574afce11ce1b4df33",
+    "dhash": "9e0c043333b1f1c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "27680ee2240a8999",
+    "file": "헤어/브릿지/27680ee2240a8999.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "브릿지"
+      }
+    ],
+    "width": 740,
+    "height": 924,
+    "bytes": 109205,
+    "sha256": "27680ee2240a8999505eb7c076528a1388dbc849e404e6e71ca0b47ee394e3a8",
+    "dhash": "e0b1e1f1b296cf63",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cfe490a69c23544c",
+    "file": "타투/캐릭터/cfe490a69c23544c.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "캐릭터"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 665639,
+    "sha256": "cfe490a69c23544cb85a24ebf9d750044d80f6b19c8c39de1c9f38a2d2dd0b3b",
+    "dhash": "601c3e2f97c7e7e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6e38143d8557b5c0",
+    "file": "타투/독수리 · 매/6e38143d8557b5c0.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "독수리 · 매"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 36242,
+    "sha256": "6e38143d8557b5c08e03d5f595b8f52016948dbed4bfd000098b850f110f0618",
+    "dhash": "e222232387077b72",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1315e211229f9fff",
+    "file": "타투/닭/1315e211229f9fff.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "닭"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 285926,
+    "sha256": "1315e211229f9fff961d5ce3b3914bb9de4303a2873a670d80f647c041f0b127",
+    "dhash": "7e3f3f7f7b1b37be",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1d9820fc214bb0ee",
+    "file": "메이크업/눈앞머리 하이라이트/1d9820fc214bb0ee.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 95111,
+    "sha256": "1d9820fc214bb0ee78c270e1ee5bc35adf03eecf3289a630eb28d9eb980a78aa",
+    "dhash": "3d38327222360e60",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "171feb4d884a6314",
+    "file": "메이크업/눈앞머리 하이라이트/171feb4d884a6314.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1170,
+    "height": 1463,
+    "bytes": 148522,
+    "sha256": "171feb4d884a6314624c937c0bd39258e042fe886fb38cf539182acebdc815c6",
+    "dhash": "ceccc88921717121",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "07b15eda5c16d945",
+    "file": "메이크업/그린·옐로 섀도/07b15eda5c16d945.png",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "그린·옐로 섀도"
+      }
+    ],
+    "width": 491,
+    "height": 600,
+    "bytes": 318753,
+    "sha256": "07b15eda5c16d945fd593aec7425d529f8597e1044437645d2793680e65cd6b5",
+    "dhash": "d9dbe666f27a331f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "af1106b35d61dd65",
+    "file": "네일/버터옐로/af1106b35d61dd65.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "버터옐로"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 158254,
+    "sha256": "af1106b35d61dd652772b4e9d70b77f6913ec4677ed45665dbcfe865b3792026",
+    "dhash": "74e8b291b284c5e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
