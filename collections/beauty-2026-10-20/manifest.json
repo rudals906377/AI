@@ -38359,5 +38359,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4cd4f87ae33e1565",
+    "file": "헤어/S컬펌/4cd4f87ae33e1565.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 296113,
+    "sha256": "4cd4f87ae33e156549faaea9418be2ca3379c7c6391c1522cecd1218c7c8daf0",
+    "dhash": "e1d7d8633b3b1934",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b0b830ba626b190e",
+    "file": "헤어/바깥C컬/b0b830ba626b190e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "바깥C컬"
+      }
+    ],
+    "width": 665,
+    "height": 887,
+    "bytes": 79146,
+    "sha256": "b0b830ba626b190e15f9a77d52df0973bb82045b4350996de625ff65f1660742",
+    "dhash": "e6665cb06363270e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d52ec7c43cec33d3",
+    "file": "헤어/숏 보브/d52ec7c43cec33d3.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "숏 보브"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 114211,
+    "sha256": "d52ec7c43cec33d3d0943a216677332907d177481ff8df79a8866577fec459e3",
+    "dhash": "2c1c0c1c0c0c080d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f023247ad7ddbb26",
+    "file": "메이크업/레드 섀도/f023247ad7ddbb26.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "레드 섀도"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 390330,
+    "sha256": "f023247ad7ddbb266ba2fd5aaaf8318ec37809ae1f23e7849763908e979fabce",
+    "dhash": "1830f0f0ed63331b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "15b60579c4444348",
+    "file": "메이크업/아트/15b60579c4444348.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "아트"
+      }
+    ],
+    "width": 1638,
+    "height": 2048,
+    "bytes": 233656,
+    "sha256": "15b60579c44443489951fdb2d0a6dd2bb96fc5f8614a079d6ecd6848a1171e90",
+    "dhash": "8b8fc7471f1c0401",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6741518176da8921",
+    "file": "네일/더스티로즈/6741518176da8921.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "더스티로즈"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 342854,
+    "sha256": "6741518176da8921c3c3ff1d11cf837455275c0e5125d3c8236cc994abab89a6",
+    "dhash": "9fce66a6860ce800",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
