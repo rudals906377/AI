@@ -10314,6 +10314,72 @@
       "sha256": "adcf0842c9c407d6d829b2655132c61c0e9de5f61532c6f0ee144b121f43be23",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "f1eab2135c4a069b",
+      "sha256": "f1eab2135c4a069bbcbbf1ae974d6e62ce0ca6a8174a6042a9ef72dbf1e47c57",
+      "publishedDate": "2025-12-23",
+      "dateEvidence": "한국 뷰티 스타일 기사 게시일 2025.12.23 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "95ee4489b7606b4c",
+      "sha256": "95ee4489b7606b4cf437422c0f17cde2d05014cfd6ee5357b819a6c556b1863d",
+      "publishedDate": "2026-03-03",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.03.03 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b256c8ea371efa56",
+      "sha256": "b256c8ea371efa56ff2c131068583b4f447b4d84a76fcc3ecf539f68a7bd30cc",
+      "publishedDate": "2026-03-03",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.03.03 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "9a0e1f28ca66ae91",
+      "sha256": "9a0e1f28ca66ae91a2447e5f5a5fa77dfb891bab95994ec0fc7dad3fdfb7e994",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "c5e5c93e8cbc0eb8",
+      "sha256": "c5e5c93e8cbc0eb8e37bcdf8c9d29c952d0c77d099fb03da14d26c3bc864fe44",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "bdd3b3f2ece476e2",
+      "sha256": "bdd3b3f2ece476e2e5a35d9111a2d0285cff86877e9090ed0ab18244d1d84890",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "608efc13ccd304d7",
+      "sha256": "608efc13ccd304d7237de36c7ae86321fd2c95a579150ca62bee820e13ef4ff7",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "0ade35cf594f473f",
+      "sha256": "0ade35cf594f473f25ebb37865f798ac71556e0dfd70960df5802d87dafa8c8f",
+      "publishedDate": "2026-03-12",
+      "dateEvidence": "기사 머리말 게시일 2026.03.12와 Mint Cream Spring/Petal Orange/Sheer White 각 시술 설명 관찰"
+    },
+    {
+      "id": "4ace6847ece5aae2",
+      "sha256": "4ace6847ece5aae2efd6857007087eaa630cfd5a4d8037285aa15e1604a484d7",
+      "publishedDate": "2026-03-12",
+      "dateEvidence": "기사 머리말 게시일 2026.03.12와 Mint Cream Spring/Petal Orange/Sheer White 각 시술 설명 관찰"
+    },
+    {
+      "id": "00430f898a11093b",
+      "sha256": "00430f898a11093b97dc719de58fb4bfa8ced9877e69a0f1c827f8236d44de24",
+      "publishedDate": "2026-03-12",
+      "dateEvidence": "기사 머리말 게시일 2026.03.12와 Mint Cream Spring/Petal Orange/Sheer White 각 시술 설명 관찰"
+    },
+    {
+      "id": "2431a4ed193fdba4",
+      "sha256": "2431a4ed193fdba44cf042c255d229243e51b45931deea8193eb1de886679e80",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
