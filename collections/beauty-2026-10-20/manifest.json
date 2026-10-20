@@ -38905,5 +38905,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "809572e9c4f067a3",
+    "file": "메이크업/얇은 눈썹/809572e9c4f067a3.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 122392,
+    "sha256": "809572e9c4f067a3200927dc7f22c837ef539c9d64c3e9ccaf32f49c6d1295e8",
+    "dhash": "99d8f1f0f1783c5e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8e97972021634686",
+    "file": "메이크업/얇은 눈썹/8e97972021634686.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 930,
+    "height": 930,
+    "bytes": 140388,
+    "sha256": "8e9797202163468601ce45c750e3e66abc034bfaf9cd5adfe47912a983b77970",
+    "dhash": "73979c9636339393",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

@@ -2810,7 +2810,7 @@
       "existing_count": 2,
       "shortage": true,
       "target_new": 100,
-      "collected": 12
+      "collected": 14
     },
     {
       "category": "메이크업",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1847,
+  "unique_images": 1849,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1846,
+  "goal_eligible_unique_images": 1848,
   "excluded_images": 1
 }
