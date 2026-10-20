@@ -36448,5 +36448,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c64b9140d99e4922",
+    "file": "네일/하늘색/c64b9140d99e4922.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "하늘색"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 129194,
+    "sha256": "c64b9140d99e492237353543bd8214aba7fb2de9d256ed9b3fb288b3e96933c5",
+    "dhash": "473194a848c8d953",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
