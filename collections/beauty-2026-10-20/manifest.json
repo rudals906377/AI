@@ -31450,5 +31450,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f6d5ea29202fab0f",
+    "file": "네일/워터드롭/f6d5ea29202fab0f.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "워터드롭"
+      }
+    ],
+    "width": 1440,
+    "height": 1917,
+    "bytes": 124133,
+    "sha256": "f6d5ea29202fab0fb60bdd7ca8fa75bab115e169678c65458e3e37f65b20fa4a",
+    "dhash": "4375e52d3a3c7fff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d991ad82b8f5d513",
+    "file": "네일/워터드롭/d991ad82b8f5d513.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "워터드롭"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 73936,
+    "sha256": "d991ad82b8f5d513d9af7be02c3bd2f748c8979abd79ec26b069129b553514cd",
+    "dhash": "1a0f1f1bcf43705c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
