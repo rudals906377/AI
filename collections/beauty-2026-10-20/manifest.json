@@ -33046,5 +33046,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6eb68090de81c2f3",
+    "file": "네일/그레이/6eb68090de81c2f3.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "그레이"
+      }
+    ],
+    "width": 1200,
+    "height": 1501,
+    "bytes": 177045,
+    "sha256": "6eb68090de81c2f3f6e36ea40ef3f007c6834306874f2f6a764346c34b671b81",
+    "dhash": "b5d34b2ebfbfbfff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5dce8bbadee75275",
+    "file": "네일/자개/5dce8bbadee75275.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 1199,
+    "height": 1405,
+    "bytes": 95045,
+    "sha256": "5dce8bbadee75275ee86b45622ad2b10b3572a3bf172e5deeb9bf590d07e25fb",
+    "dhash": "43c72329410b86c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
