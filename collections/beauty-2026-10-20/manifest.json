@@ -30295,5 +30295,236 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "355de2f23dd0123b",
+    "file": "네일/그라데이션/355de2f23dd0123b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "그라데이션"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 177308,
+    "sha256": "355de2f23dd0123bb7021fb4288c226198d354aac5397cdde8257f3ec7acef83",
+    "dhash": "d3d3d3d363e2b499",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cd5e055ce88e356d",
+    "file": "헤어/블루블랙/cd5e055ce88e356d.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "블루블랙"
+      }
+    ],
+    "width": 801,
+    "height": 801,
+    "bytes": 85011,
+    "sha256": "cd5e055ce88e356d871e1dac53474118db0b90e3c60f6f9c77c7c0f2d4f7835d",
+    "dhash": "2e0e0f37074bc3e6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "57e4c93be6b7728f",
+    "file": "헤어/집게핀 헤어/57e4c93be6b7728f.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "집게핀 헤어"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 448526,
+    "sha256": "57e4c93be6b7728f7f54568fbb3bb0785784cde7dc5b551792cd21d7ad4c4ad5",
+    "dhash": "5b3b93d39b93cb49",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e93ea768e031aab3",
+    "file": "헤어/집게핀 헤어/e93ea768e031aab3.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "집게핀 헤어"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 120228,
+    "sha256": "e93ea768e031aab3ead643f1ec47cbb347852731b631c0f7785e32bc5d961ac4",
+    "dhash": "07878e8787b69794",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a635d9cb1209592b",
+    "file": "헤어/집게핀 헤어/a635d9cb1209592b.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "집게핀 헤어"
+      }
+    ],
+    "width": 1536,
+    "height": 2048,
+    "bytes": 258788,
+    "sha256": "a635d9cb1209592b0fc41281b8cbd3447408635781839108f7e53765d0f2feb8",
+    "dhash": "c6c7cdcdae6d7cf1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f3a7a75430344aee",
+    "file": "타투/발목·발등/f3a7a75430344aee.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 273297,
+    "sha256": "f3a7a75430344aee77489059a927483f49eb33759d5792c026ac78efed12e8d2",
+    "dhash": "d3f93ec659196c7c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4e5c437ccc7b944d",
+    "file": "타투/발목·발등/4e5c437ccc7b944d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 3076,
+    "height": 4096,
+    "bytes": 2645059,
+    "sha256": "4e5c437ccc7b944d83d4ba1701e9800f367c6de465e4d5b94872d0c1d4ab3bc3",
+    "dhash": "e06cc0e0f81c0c0c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "18151e1ba1a12a40",
+    "file": "타투/발목·발등/18151e1ba1a12a40.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 62778,
+    "sha256": "18151e1ba1a12a4009ec313dc6a42084180849bf40ad58185c76991965bb3a29",
+    "dhash": "1e1c9e8e060703e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "917c4957d0d20c7f",
+    "file": "타투/발목·발등/917c4957d0d20c7f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 624247,
+    "sha256": "917c4957d0d20c7f957e5577890be89b84d17c0695a99aa3b0d456336db817f4",
+    "dhash": "e3793b72f3717096",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cd970954cc753415",
+    "file": "타투/발목·발등/cd970954cc753415.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1230,
+    "height": 1537,
+    "bytes": 154167,
+    "sha256": "cd970954cc75341562e10a1397ad89f1976c1601ab1f329538bff458923e466a",
+    "dhash": "bf0f100c0cc03010",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "13aefc3f6f67840c",
+    "file": "타투/발목·발등/13aefc3f6f67840c.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "발목·발등"
+      }
+    ],
+    "width": 1230,
+    "height": 1537,
+    "bytes": 204577,
+    "sha256": "13aefc3f6f67840c23cbb411b57c84eba018b5a4b60ffbe138c3fe7efcebc0d8",
+    "dhash": "0039ef3f3ffff3ef",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
