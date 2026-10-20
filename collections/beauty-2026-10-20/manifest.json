@@ -41257,5 +41257,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "69172aa48e1f83c4",
+    "file": "네일/레이스/69172aa48e1f83c4.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "레이스"
+      }
+    ],
+    "width": 1091,
+    "height": 1454,
+    "bytes": 90565,
+    "sha256": "69172aa48e1f83c4867e09ee63fbbb1ac985f300dd453e77e44d297f1114c0fc",
+    "dhash": "090a1f4bd9b1223e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "383534195dc35acb",
+    "file": "네일/레이스/383534195dc35acb.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "레이스"
+      }
+    ],
+    "width": 578,
+    "height": 771,
+    "bytes": 45739,
+    "sha256": "383534195dc35acb432fe941b0a932861b7261e6241c39c867e9e151ed51c58c",
+    "dhash": "33666400071c1e17",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
