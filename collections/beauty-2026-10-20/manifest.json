@@ -37162,5 +37162,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "57da5d30b7e2abff",
+    "file": "헤어/바깥C컬/57da5d30b7e2abff.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "바깥C컬"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 94108,
+    "sha256": "57da5d30b7e2abff383d2aed778a30eb6118a66863532d3ecd71e86f794a7a11",
+    "dhash": "e17062e0636c7133",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "807a6dc98bf36961",
+    "file": "타투/나무/807a6dc98bf36961.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "나무"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 586364,
+    "sha256": "807a6dc98bf36961a0096eeb52bc666c4ff69c0c2664497cc7f63e181217fc9e",
+    "dhash": "ccccccb698c78686",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cd78d28092efc4ce",
+    "file": "타투/나무/cd78d28092efc4ce.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "나무"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 358500,
+    "sha256": "cd78d28092efc4ce60661e12410ca4e5df65c8cf109760f23e5a8f60ecbca108",
+    "dhash": "818b9b039b981931",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1cfb435971d48424",
+    "file": "메이크업/언더 속눈썹/1cfb435971d48424.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 2560,
+    "height": 1565,
+    "bytes": 261522,
+    "sha256": "1cfb435971d48424a76d7e330e0ac06fda5ac437abb544bfae0834057de526c3",
+    "dhash": "54b1e1e17979b919",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a6a9e26eb3219edd",
+    "file": "네일/원컬러/a6a9e26eb3219edd.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "원컬러"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 61818,
+    "sha256": "a6a9e26eb3219edd4a4d3a73161d066cfd98a2e3fe9f06f91fb7b9d53bbbc2aa",
+    "dhash": "3b3fcfefcfafdf9e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

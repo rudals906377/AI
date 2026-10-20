@@ -10584,6 +10584,36 @@
       "sha256": "e056a2f38685813bec9067cf7dc4a3a4d9012c04b968e95974655c51b5b0c16a",
       "publishedDate": "2026-08-26",
       "dateEvidence": "기사 머리말 게시일 2026년 08월 26일과 #999 레드 잉크 블러 시술 설명 관찰"
+    },
+    {
+      "id": "57da5d30b7e2abff",
+      "sha256": "57da5d30b7e2abff383d2aed778a30eb6118a66863532d3ecd71e86f794a7a11",
+      "publishedDate": "2026-06-19",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.06.19 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "807a6dc98bf36961",
+      "sha256": "807a6dc98bf36961a0096eeb52bc666c4ff69c0c2664497cc7f63e181217fc9e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "cd78d28092efc4ce",
+      "sha256": "cd78d28092efc4ce60661e12410ca4e5df65c8cf109760f23e5a8f60ecbca108",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1cfb435971d48424",
+      "sha256": "1cfb435971d48424a76d7e330e0ac06fda5ac437abb544bfae0834057de526c3",
+      "publishedDate": "2026-03-27",
+      "dateEvidence": "기사 머리말 게시일 2026년 03월 27일과 Wednesday Code 위아래 마스카라 시술 설명 관찰"
+    },
+    {
+      "id": "a6a9e26eb3219edd",
+      "sha256": "a6a9e26eb3219edd4a4d3a73161d066cfd98a2e3fe9f06f91fb7b9d53bbbc2aa",
+      "publishedDate": "2026-02-20",
+      "dateEvidence": "뷰티 기사 머리말 2026.02.20 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
