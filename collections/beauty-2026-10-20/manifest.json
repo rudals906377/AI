@@ -38821,5 +38821,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e80375ad3d517e8d",
+    "file": "타투/악마/e80375ad3d517e8d.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "악마"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 637991,
+    "sha256": "e80375ad3d517e8d9684ca10b941b14a00d04ebb4f7af1aa7e406ee1412c69e3",
+    "dhash": "e860727838585878",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
