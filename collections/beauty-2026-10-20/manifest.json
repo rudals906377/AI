@@ -15574,5 +15574,446 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ad2a4db4d02a2105",
+    "file": "헤어/허쉬컷/ad2a4db4d02a2105.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "허쉬컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 317129,
+    "sha256": "ad2a4db4d02a2105405d54bc83e2649a1be8ca343bf88f2cc0cd873f6db8b521",
+    "dhash": "5a7617133313070e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "db0fe5a4a27df963",
+    "file": "헤어/허쉬컷/db0fe5a4a27df963.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "허쉬컷"
+      }
+    ],
+    "width": 799,
+    "height": 999,
+    "bytes": 233519,
+    "sha256": "db0fe5a4a27df96317bde6dd7ab4584457979816f93c54fa196b54198e25591b",
+    "dhash": "f6e36f6f2f27359d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3c1b3c3edd995d1a",
+    "file": "헤어/허쉬컷/3c1b3c3edd995d1a.avif",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "허쉬컷"
+      }
+    ],
+    "width": 869,
+    "height": 977,
+    "bytes": 21967,
+    "sha256": "3c1b3c3edd995d1ae7ec1977c11bf3e9fe9fb91084388e2c8c1805001d195d1a",
+    "dhash": "2e0e0d0e3e3e1e66",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "284376a4d60c4228",
+    "file": "네일/웨딩/284376a4d60c4228.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 1440,
+    "height": 960,
+    "bytes": 182339,
+    "sha256": "284376a4d60c4228c59d288dfbd3640ef735cca719dc0ea5145a70a8f1c9eb61",
+    "dhash": "d9d9dc5c8bcfce9e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f7973a065b35076b",
+    "file": "네일/웨딩/f7973a065b35076b.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 349516,
+    "sha256": "f7973a065b35076b38f393a4a39870261f2c836e314295073a28cedc867ef420",
+    "dhash": "1d3b7365d272338e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2f66fc763afd7524",
+    "file": "네일/웨딩/2f66fc763afd7524.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 1440,
+    "height": 960,
+    "bytes": 233487,
+    "sha256": "2f66fc763afd75247964cf3516bee164b1dfaf6a082ad23678f34880b6c910ba",
+    "dhash": "a081810191001818",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e8fda982984f6658",
+    "file": "네일/웨딩/e8fda982984f6658.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 1440,
+    "height": 960,
+    "bytes": 172665,
+    "sha256": "e8fda982984f6658fe6323370581a2f67061e62980819af335332e871e7347d1",
+    "dhash": "9290a09080a8c072",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "815c8c9e129f43cb",
+    "file": "네일/웨딩/815c8c9e129f43cb.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 1440,
+    "height": 1007,
+    "bytes": 178579,
+    "sha256": "815c8c9e129f43cb07d0a1924c43979a8a2f055094315bf589761f8de636d78f",
+    "dhash": "33331e9d87a3a9ec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "15d5a1980c4b47e5",
+    "file": "네일/웨딩/15d5a1980c4b47e5.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "웨딩"
+      }
+    ],
+    "width": 3024,
+    "height": 4042,
+    "bytes": 1477618,
+    "sha256": "15d5a1980c4b47e5ac218685a6d69b8d2d99c00dedf6b89fd0afc69963ff85ad",
+    "dhash": "011a710c330c0e0c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a7f5256bb81ad6cd",
+    "file": "네일/3D조형/a7f5256bb81ad6cd.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "3D조형"
+      }
+    ],
+    "width": 4095,
+    "height": 4095,
+    "bytes": 1490131,
+    "sha256": "a7f5256bb81ad6cdf98c0e691b3c9f0c4c89c1a12f3d912291fefe0d7079e02e",
+    "dhash": "190110184d373b39",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3926874543b22473",
+    "file": "네일/레이스/3926874543b22473.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "레이스"
+      }
+    ],
+    "width": 1206,
+    "height": 1206,
+    "bytes": 113765,
+    "sha256": "3926874543b2247360fae2089a7fde05303b051e58636ca96d40c06f6f6ae17e",
+    "dhash": "8282c0246a589021",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bcbd885b2083cc06",
+    "file": "메이크업/남자 메이크업/bcbd885b2083cc06.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 277024,
+    "sha256": "bcbd885b2083cc063c643bab9a6af8f3220f0f1241d773237cc3711faec66493",
+    "dhash": "858dace479793838",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7d5d9b24ae38bff3",
+    "file": "메이크업/남자 메이크업/7d5d9b24ae38bff3.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1400,
+    "height": 932,
+    "bytes": 235415,
+    "sha256": "7d5d9b24ae38bff340f7af6b8713cb7eebb94d09e50b8ee7a6cf3a8827fadf24",
+    "dhash": "e4cc9c999c9c0d07",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "da01636fb9e926fe",
+    "file": "메이크업/남자 메이크업/da01636fb9e926fe.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 245534,
+    "sha256": "da01636fb9e926fe5ca4b4ac840f3e1ef4984f59f9ca09e15a37716c8d7aa352",
+    "dhash": "4a0b038928243616",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bbae81cda266d16c",
+    "file": "메이크업/남자 메이크업/bbae81cda266d16c.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1000,
+    "height": 1250,
+    "bytes": 323363,
+    "sha256": "bbae81cda266d16ccf9326b705345b008ff917c76128092e157fde9b54014c97",
+    "dhash": "0727273331391b87",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "17276fbdc44b234d",
+    "file": "메이크업/남자 메이크업/17276fbdc44b234d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 236239,
+    "sha256": "17276fbdc44b234d5e2b9c05029134bd0fde09eedf435f4966c2eec3d5c574e9",
+    "dhash": "e6623b386c72361e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d3816756eaf83a3b",
+    "file": "타투/개구리/d3816756eaf83a3b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "개구리"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 65726,
+    "sha256": "d3816756eaf83a3bec10d0a1e9455e0ad79b2fb8b672a2a5d213e74e6689286b",
+    "dhash": "cecccc6aa8ccc8c8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "864a370748a9d21f",
+    "file": "타투/개구리/864a370748a9d21f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "개구리"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 62367,
+    "sha256": "864a370748a9d21fe7f35c88967e0cbaabd65f6c942beac25613e4dce716d5f9",
+    "dhash": "47634e4ece4a4343",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "378f078e9a9b7092",
+    "file": "타투/개구리/378f078e9a9b7092.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "개구리"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 41321,
+    "sha256": "378f078e9a9b7092e9c9df11a754cd1af9833aff7d94bdf1e4389b7a74dde12a",
+    "dhash": "fb7e7e7e7e7b7b7b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f2b0bab5aa0ef23",
+    "file": "타투/개구리/5f2b0bab5aa0ef23.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "개구리"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 60122,
+    "sha256": "5f2b0bab5aa0ef23b7034de756fd3baed2dd8d132648bb82fc7bf6139179b1e4",
+    "dhash": "c0c082068ec06071",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "19c127756a409553",
+    "file": "타투/개구리/19c127756a409553.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "개구리"
+      }
+    ],
+    "width": 700,
+    "height": 700,
+    "bytes": 45250,
+    "sha256": "19c127756a409553a26a0403399595bb5f3868bbe63abd165a349a24348eee82",
+    "dhash": "66464e4b4d492120",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
