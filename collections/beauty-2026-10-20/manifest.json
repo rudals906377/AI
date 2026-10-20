@@ -37708,5 +37708,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6418c49f429db50b",
+    "file": "헤어/시스루뱅/6418c49f429db50b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 565868,
+    "sha256": "6418c49f429db50bd02db9f2518ba958900a82ccaa3dd5786ea3399d9c7e44af",
+    "dhash": "0b0707a069392d06",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f999871f7ee48ae",
+    "file": "헤어/단발/5f999871f7ee48ae.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 189539,
+    "sha256": "5f999871f7ee48ae7dd15a34718ec14a6943c9bcbf0dfe163042aebaef572ce4",
+    "dhash": "000c16151c9ade1a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8bc5861458771a8c",
+    "file": "메이크업/페이스 페인팅/8bc5861458771a8c.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "페이스 페인팅"
+      }
+    ],
+    "width": 2560,
+    "height": 1565,
+    "bytes": 533024,
+    "sha256": "8bc5861458771a8c8b408f84e1f2851fc97b3a71e80d4cc9c80b817c59522e70",
+    "dhash": "6be9e1e9697070f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d933ba4d29e5c55e",
+    "file": "메이크업/고딕·뱀파이어/d933ba4d29e5c55e.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "고딕·뱀파이어"
+      }
+    ],
+    "width": 2560,
+    "height": 1565,
+    "bytes": 334866,
+    "sha256": "d933ba4d29e5c55e63ba6d86a687e872e88ab9493a9a848f0c6e2bf89d4b9a04",
+    "dhash": "3139393931333333",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "70742f8361536d5c",
+    "file": "네일/파츠/70742f8361536d5c.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "파츠"
+      }
+    ],
+    "width": 1920,
+    "height": 2560,
+    "bytes": 111008,
+    "sha256": "70742f8361536d5c584b61289466546400c11927a50c56fe0fd17f006b2af03d",
+    "dhash": "c4672b98c973b666",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "722d2969d7ddffe3",
+    "file": "네일/그라데이션/722d2969d7ddffe3.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "그라데이션"
+      }
+    ],
+    "width": 1179,
+    "height": 1570,
+    "bytes": 31520,
+    "sha256": "722d2969d7ddffe31c16e1c3c60032258f4f2372f28b46135f70401a2637ea48",
+    "dhash": "27cfcd4dcc0f3365",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

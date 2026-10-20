@@ -10740,6 +10740,42 @@
       "sha256": "b088efef68a9b511646ca4473f909d84769e2589261ce1ef7a03c21a93176e88",
       "publishedDate": "2026-07-24",
       "dateEvidence": "한국 공개 살롱 시술을 설명한 기사 머리말 2026.07.24 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6418c49f429db50b",
+      "sha256": "6418c49f429db50bd02db9f2518ba958900a82ccaa3dd5786ea3399d9c7e44af",
+      "publishedDate": "2026-10-06",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.10.06 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "5f999871f7ee48ae",
+      "sha256": "5f999871f7ee48ae7dd15a34718ec14a6943c9bcbf0dfe163042aebaef572ce4",
+      "publishedDate": "2026-08-31",
+      "dateEvidence": "한국 헤어 컬 스타일 기사 게시일 2026.08.31 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "8bc5861458771a8c",
+      "sha256": "8bc5861458771a8c8b408f84e1f2851fc97b3a71e80d4cc9c80b817c59522e70",
+      "publishedDate": "2026-03-27",
+      "dateEvidence": "기사 머리말 2026년 03월 27일 및 UNCANNY GAZE·SOFT VAMPIRE 실제 시술 설명 관찰"
+    },
+    {
+      "id": "d933ba4d29e5c55e",
+      "sha256": "d933ba4d29e5c55e63ba6d86a687e872e88ab9493a9a848f0c6e2bf89d4b9a04",
+      "publishedDate": "2026-03-27",
+      "dateEvidence": "기사 머리말 2026년 03월 27일 및 UNCANNY GAZE·SOFT VAMPIRE 실제 시술 설명 관찰"
+    },
+    {
+      "id": "70742f8361536d5c",
+      "sha256": "70742f8361536d5c584b61289466546400c11927a50c56fe0fd17f006b2af03d",
+      "publishedDate": "2026-07-24",
+      "dateEvidence": "한국 공개 살롱 시술을 설명한 기사 머리말 2026.07.24 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "722d2969d7ddffe3",
+      "sha256": "722d2969d7ddffe31c16e1c3c60032258f4f2372f28b46135f70401a2637ea48",
+      "publishedDate": "2026-07-24",
+      "dateEvidence": "한국 공개 살롱 시술을 설명한 기사 머리말 2026.07.24 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
