@@ -41467,5 +41467,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2f6a30d1a9abe67d",
+    "file": "네일/레이스/2f6a30d1a9abe67d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "레이스"
+      }
+    ],
+    "width": 1009,
+    "height": 1345,
+    "bytes": 162269,
+    "sha256": "2f6a30d1a9abe67db3eb8a51bf4839aad00c7ddd1b9c88592ead84a847e947a9",
+    "dhash": "7f7d6f5fd4f87c3e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
