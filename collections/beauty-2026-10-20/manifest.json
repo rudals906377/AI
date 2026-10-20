@@ -1195,5 +1195,635 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d9a38ec3f012ac65",
+    "file": "헤어/쉼표머리/d9a38ec3f012ac65.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 32013,
+    "sha256": "d9a38ec3f012ac658e54273f59f1093d101f9d0366e05efc57b71f6653eea23b",
+    "dhash": "287959331397968f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a06956c93f581354",
+    "file": "헤어/쉼표머리/a06956c93f581354.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 700,
+    "bytes": 33615,
+    "sha256": "a06956c93f58135436e6e553de2e9048c0b2bc0cf200c0d1277145906a79f450",
+    "dhash": "7079636341612704",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a2f89c2f3db5a2c9",
+    "file": "헤어/쉼표머리/a2f89c2f3db5a2c9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 777,
+    "bytes": 29139,
+    "sha256": "a2f89c2f3db5a2c9f6e77ac069072e10e366804a22d8328a358bc211baa0c3e2",
+    "dhash": "557171697163635d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d222e79bf0c81a26",
+    "file": "헤어/쉼표머리/d222e79bf0c81a26.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 36263,
+    "sha256": "d222e79bf0c81a266f140da6e7ac72abe47a9b83a234e956d628d548d20767e8",
+    "dhash": "f1f273313371b109",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "51489f13c5640f46",
+    "file": "헤어/쉼표머리/51489f13c5640f46.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 758,
+    "bytes": 47198,
+    "sha256": "51489f13c5640f46dbcb15b9479655eaf039dd0c0d38e2ff5f1747bd35a9db9b",
+    "dhash": "286ac3633707271f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "96679bb7b3d5d49f",
+    "file": "헤어/쉼표머리/96679bb7b3d5d49f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 631,
+    "bytes": 26501,
+    "sha256": "96679bb7b3d5d49fbf14198472f8fbb6392c0604e3c64ba2b9b0c43538bbcf24",
+    "dhash": "0e371b8e9f9396ce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0a0797b29e15f008",
+    "file": "헤어/쉼표머리/0a0797b29e15f008.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 462,
+    "height": 641,
+    "bytes": 29712,
+    "sha256": "0a0797b29e15f008cda2729d6b84510bd50585faafb91a3d2f56bc7cbfdb5a28",
+    "dhash": "110f4f52311d1d0f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "972e8d71c6355063",
+    "file": "헤어/쉼표머리/972e8d71c6355063.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 592,
+    "bytes": 20786,
+    "sha256": "972e8d71c63550633823fb98c2a89da38557510d40092d0b71ac55d21818f282",
+    "dhash": "f0731f9e3b33338e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "13f53580ec8689a7",
+    "file": "헤어/쉼표머리/13f53580ec8689a7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 826,
+    "bytes": 32291,
+    "sha256": "13f53580ec8689a7480e72d674fc5f543d82051ffd068c720cc10e27b3e094dc",
+    "dhash": "428280808eb63b17",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "38bf515e4cd3036a",
+    "file": "헤어/쉼표머리/38bf515e4cd3036a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 22299,
+    "sha256": "38bf515e4cd3036ad861776a55a8ea629f608ecfd60a432afb6c62924f3e29ef",
+    "dhash": "31330f9e9e1e1e8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3122a5c747e9e1c0",
+    "file": "헤어/쉼표머리/3122a5c747e9e1c0.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 710,
+    "bytes": 28241,
+    "sha256": "3122a5c747e9e1c0bfd93c77358f3b1a053c93dee2bb6e6391fafbd07ce67bca",
+    "dhash": "6df97063e1311b0d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3e9f87f24808abba",
+    "file": "헤어/쉼표머리/3e9f87f24808abba.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 711,
+    "bytes": 29218,
+    "sha256": "3e9f87f24808abbaeeb6ed6b341f33e77ab1a7788a5f450222ef0a01c77e7203",
+    "dhash": "60cede9c9932360e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "254b414de24ab549",
+    "file": "헤어/쉼표머리/254b414de24ab549.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 713,
+    "bytes": 39758,
+    "sha256": "254b414de24ab549198740d5305fa6d9f33664259407a1a0d47829bc475138d5",
+    "dhash": "494961224166968e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "184ea8cd6b8d8a6e",
+    "file": "헤어/쉼표머리/184ea8cd6b8d8a6e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 677,
+    "bytes": 41847,
+    "sha256": "184ea8cd6b8d8a6e03106f2ba42816d274b9968d5beaf3f91c53db01d30d36d2",
+    "dhash": "ce4d6eb3b327068e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "be18d44d581bcaef",
+    "file": "헤어/쉼표머리/be18d44d581bcaef.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 545,
+    "bytes": 35459,
+    "sha256": "be18d44d581bcaef60738c804df157150e72ebc8d3f8edcfd00ea55f3d035dcb",
+    "dhash": "f2e6cadaf0f0f1cd",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "43a19096c13fd9d8",
+    "file": "헤어/쉼표머리/43a19096c13fd9d8.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 46592,
+    "sha256": "43a19096c13fd9d855c2d0f91a4654f93b434844c0d2d5e258039a04b3b94b48",
+    "dhash": "e3e7a76771494993",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3b62e83505f173cd",
+    "file": "헤어/쉼표머리/3b62e83505f173cd.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 621,
+    "bytes": 48168,
+    "sha256": "3b62e83505f173cd830119b556c9c43b2ead1175454da7417f1b5309e889e2e1",
+    "dhash": "192466e8b1b6b713",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e6fad93e5fff54d2",
+    "file": "헤어/쉼표머리/e6fad93e5fff54d2.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 42786,
+    "sha256": "e6fad93e5fff54d2ed010bd3346baca8a4f916ac40c8f83ae0948354b4010313",
+    "dhash": "333f59c4f87173f5",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0daf40795a265e59",
+    "file": "헤어/쉼표머리/0daf40795a265e59.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 474,
+    "bytes": 50064,
+    "sha256": "0daf40795a265e5907f2454c9405ebc9f54a9113e0720da157c8f206d64f8e1b",
+    "dhash": "ccc4869391938783",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aafbc02ed1e7571b",
+    "file": "헤어/쉼표머리/aafbc02ed1e7571b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 315,
+    "bytes": 15209,
+    "sha256": "aafbc02ed1e7571b51d61a467483669c12ad68cd3e3065f05cab20dfd60596c6",
+    "dhash": "373796cdd7d6cecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a6886a941ed0bb0b",
+    "file": "헤어/쉼표머리/a6886a941ed0bb0b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 492,
+    "bytes": 29199,
+    "sha256": "a6886a941ed0bb0bc153e256ce487f3500b536861a8e3227c2299d520abde792",
+    "dhash": "070e33536363178e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6775923a49e0b705",
+    "file": "헤어/쉼표머리/6775923a49e0b705.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 592,
+    "bytes": 25786,
+    "sha256": "6775923a49e0b70551186bee94a85f4439e716695fbb26f63faafda9e9442716",
+    "dhash": "73332368f1332387",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ca7efac300585887",
+    "file": "헤어/쉼표머리/ca7efac300585887.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 632,
+    "bytes": 27155,
+    "sha256": "ca7efac30058588781751993ad15b406ab7e8f3fbf06dd7ebd651458b1442669",
+    "dhash": "61691b0c1c66661c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d5723212588d5ca9",
+    "file": "헤어/쉼표머리/d5723212588d5ca9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 631,
+    "bytes": 28868,
+    "sha256": "d5723212588d5ca9d4534d372eb3f449fb185d123576772588ad422a2c3dee59",
+    "dhash": "459933236462b60c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cb8ae17c9c9af898",
+    "file": "헤어/쉼표머리/cb8ae17c9c9af898.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 718,
+    "bytes": 22122,
+    "sha256": "cb8ae17c9c9af89814e02f420080270641b7facfa8a4cf308ca682dcf36bb311",
+    "dhash": "d432333371321608",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2c83e9b63557ffe3",
+    "file": "헤어/쉼표머리/2c83e9b63557ffe3.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 843,
+    "bytes": 21903,
+    "sha256": "2c83e9b63557ffe33d8715e4c280a7c6e69581881f08d544b603d05094ccf031",
+    "dhash": "266666ccf8797918",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "583c92233758d52a",
+    "file": "헤어/쉼표머리/583c92233758d52a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 842,
+    "bytes": 46386,
+    "sha256": "583c92233758d52a5456e1e0a1d8ca480302135167a5d36bb42e8dd049dc0070",
+    "dhash": "a5e46c1693890307",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fe03f8b2d9fb4977",
+    "file": "헤어/쉼표머리/fe03f8b2d9fb4977.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 465,
+    "bytes": 33060,
+    "sha256": "fe03f8b2d9fb4977c07cafe630aab7aa4e6da359e41f55b43d36822ee24ef2e3",
+    "dhash": "25353939392f0f4a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a3cff902acf4c9d9",
+    "file": "헤어/쉼표머리/a3cff902acf4c9d9.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 474,
+    "height": 478,
+    "bytes": 19193,
+    "sha256": "a3cff902acf4c9d949608183b7c08289e0a1596a95f88311456752202f1b8727",
+    "dhash": "230e8e861797978e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f6cbc9f3b375da97",
+    "file": "헤어/쉼표머리/f6cbc9f3b375da97.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 473,
+    "height": 415,
+    "bytes": 25343,
+    "sha256": "f6cbc9f3b375da9718b2811b8894e838d54506d37e8fce892e9225e6da30f60c",
+    "dhash": "d6286850333b1f0d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
