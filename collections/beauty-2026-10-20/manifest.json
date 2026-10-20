@@ -24772,5 +24772,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "16222144c8d9b470",
+    "file": "헤어/머쉬룸컷/16222144c8d9b470.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "머쉬룸컷"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 352608,
+    "sha256": "16222144c8d9b47006015a835e59a211c01352a37f5571849a7e37f6f4acb73d",
+    "dhash": "e6dc8c071f0f4b63",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "30a17584c058434f",
+    "file": "네일/오피스/30a17584c058434f.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "오피스"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 122706,
+    "sha256": "30a17584c058434f34a0379a8d95ed73e8453888f648fd6246ef27225fef07bf",
+    "dhash": "84080f63596053cf",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "933b577f4263e021",
+    "file": "네일/오피스/933b577f4263e021.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "오피스"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 202075,
+    "sha256": "933b577f4263e0210d407dccabda34be3f906278d6f819f5d2d4a8e04dcacaec",
+    "dhash": "707e67c78a1d1727",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "05d9e72160b496ae",
+    "file": "메이크업/레드 섀도/05d9e72160b496ae.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "레드 섀도"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 353743,
+    "sha256": "05d9e72160b496aef65305aaa7c45bedc2bba554d97436faee1c8a7c08c2b226",
+    "dhash": "1f5f7ffb7170311c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5fdf6d3e71fdfb0d",
+    "file": "타투/피아노 · 악기/5fdf6d3e71fdfb0d.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "피아노 · 악기"
+      }
+    ],
+    "width": 1000,
+    "height": 664,
+    "bytes": 40759,
+    "sha256": "5fdf6d3e71fdfb0d5159a210cd0dbfb85e0da028fb6c09f0ef30843d47f0e109",
+    "dhash": "96b6968e9e96b6b4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "99a3fe6ff75463fc",
+    "file": "타투/피아노 · 악기/99a3fe6ff75463fc.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "음악·악기",
+        "label": "피아노 · 악기"
+      }
+    ],
+    "width": 804,
+    "height": 1000,
+    "bytes": 51636,
+    "sha256": "99a3fe6ff75463fc8035400884459fbfa6c266c7458ded36c5d7c18a18722522",
+    "dhash": "919191911b3b263e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
