@@ -1660,7 +1660,7 @@
       "existing_count": 9,
       "shortage": true,
       "target_new": 100,
-      "collected": 10
+      "collected": 11
     },
     {
       "category": "네일",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1587,
+  "unique_images": 1588,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1586,
+  "goal_eligible_unique_images": 1587,
   "excluded_images": 1
 }
