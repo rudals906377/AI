@@ -31807,5 +31807,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "68531385269eae1a",
+    "file": "네일/마이크로프렌치/68531385269eae1a.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마이크로프렌치"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 90852,
+    "sha256": "68531385269eae1abc87f1ca783462a920c7ad66b1713a1f9ae3852f549972c5",
+    "dhash": "0707178707064cf8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4d14e87fbc604d07",
+    "file": "네일/마이크로프렌치/4d14e87fbc604d07.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마이크로프렌치"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 105196,
+    "sha256": "4d14e87fbc604d077cec5cfcfbda28cb513e7a13b776f5fa073b3088f6291766",
+    "dhash": "c1c1d9dc94c8f80a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
