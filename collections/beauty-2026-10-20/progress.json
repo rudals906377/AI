@@ -170,7 +170,7 @@
       "existing_count": 0,
       "shortage": true,
       "target_new": 100,
-      "collected": 30
+      "collected": 43
     },
     {
       "category": "헤어",
@@ -620,7 +620,7 @@
       "existing_count": 0,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "헤어",
@@ -5623,6 +5623,6 @@
       "collected": 0
     }
   ],
-  "unique_images": 87,
+  "unique_images": 101,
   "completed_labels": 0
 }
