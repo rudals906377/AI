@@ -11622,6 +11622,24 @@
       "sha256": "12b634f71c2f6d3b256246729db34e4b063178449d9f7fb31d1d6db0ea3fcabd",
       "publishedDate": "2026-06-24",
       "dateEvidence": "한국 뷰티 기사 게시일2026.06.24확인;원사진 최초게시일 별도미확인"
+    },
+    {
+      "id": "ffb5dec36c398f01",
+      "sha256": "ffb5dec36c398f01948d2bd579dee983eba4907deb222eb8c5c150bc6f999788",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "9ef285067874979f",
+      "sha256": "9ef285067874979fcfc0c2506771f65c19582cb575300acd6eeb04d216128c67",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "209281909766bd2d",
+      "sha256": "209281909766bd2d8609324d7258d58ff270917afbf242fd6ca4943dac413c17",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "공개 한국 뷰티 기사 게시일2026.06.24확인;원사진 최초게시일 별도미확인"
     }
   ]
 }

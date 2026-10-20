@@ -40795,5 +40795,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ffb5dec36c398f01",
+    "file": "타투/치카노/ffb5dec36c398f01.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "치카노"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 188239,
+    "sha256": "ffb5dec36c398f01948d2bd579dee983eba4907deb222eb8c5c150bc6f999788",
+    "dhash": "0626cc19264c9894",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9ef285067874979f",
+    "file": "타투/패턴 · 문양/9ef285067874979f.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "만다라·기하학",
+        "label": "패턴 · 문양"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 671274,
+    "sha256": "9ef285067874979fcfc0c2506771f65c19582cb575300acd6eeb04d216128c67",
+    "dhash": "b131e3f9f9dbe5f1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "209281909766bd2d",
+    "file": "네일/메탈릭/209281909766bd2d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "메탈릭"
+      }
+    ],
+    "width": 1080,
+    "height": 1269,
+    "bytes": 90570,
+    "sha256": "209281909766bd2d8609324d7258d58ff270917afbf242fd6ca4943dac413c17",
+    "dhash": "000033316e3e3911",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
