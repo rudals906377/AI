@@ -33676,5 +33676,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dab41508499ae639",
+    "file": "메이크업/레드/dab41508499ae639.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "레드"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 134832,
+    "sha256": "dab41508499ae63952caa9970c2c1514dcf7dca3edca54bf9f14072ef9a0200d",
+    "dhash": "19695d75f5f97123",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "07c41e13c754a7c1",
+    "file": "메이크업/말린장미/07c41e13c754a7c1.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "말린장미"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 142642,
+    "sha256": "07c41e13c754a7c13d256772c86569211d944eb3b639cad5ba0b44bb6e47a22e",
+    "dhash": "1aa68a866464785b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8dfa25d4b7e2f588",
+    "file": "메이크업/누드·베이지/8dfa25d4b7e2f588.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "누드·베이지"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 181240,
+    "sha256": "8dfa25d4b7e2f588c29310f082f5ac325d3240600615c6cb91a528d36389ee87",
+    "dhash": "03e726ef71f9f958",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c08da93f20a84c5f",
+    "file": "메이크업/새틴/c08da93f20a84c5f.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "새틴"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 107534,
+    "sha256": "c08da93f20a84c5fce4333d2258141e04532b2b4f5eab80e13902dfbafc5faae",
+    "dhash": "f8a931f169b3dbf8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3cdc3407338613e7",
+    "file": "네일/벨벳/3cdc3407338613e7.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "벨벳"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 125066,
+    "sha256": "3cdc3407338613e7e1e4012f56125f3674c6ac2c893a491371c355d7c1679db6",
+    "dhash": "f868434e260e8e93",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
