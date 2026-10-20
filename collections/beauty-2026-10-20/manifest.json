@@ -32122,5 +32122,152 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "39e688824e49889a",
+    "file": "헤어/투블럭컷/39e688824e49889a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "투블럭컷"
+      }
+    ],
+    "width": 1991,
+    "height": 2560,
+    "bytes": 403728,
+    "sha256": "39e688824e49889a8e3154df1e3c6cc523cf5a16dee922560ebbc54101a03589",
+    "dhash": "4723439b9b9b8726",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8754d6e99c6ff206",
+    "file": "네일/3D조형/8754d6e99c6ff206.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "3D조형"
+      }
+    ],
+    "width": 828,
+    "height": 1024,
+    "bytes": 121517,
+    "sha256": "8754d6e99c6ff206854fe781df4e58f36791c54af7861f4f4f95e0254f80aa81",
+    "dhash": "e52c6767716e1819",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f334a347b5dc5259",
+    "file": "타투/나비/f334a347b5dc5259.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "나비"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 634223,
+    "sha256": "f334a347b5dc5259d73ffa74ce6e880d256770ab480e8702a87e6a0999b3c839",
+    "dhash": "191c0c0f0f030b0e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b3f70332543849f2",
+    "file": "타투/나비/b3f70332543849f2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "나비"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 114863,
+    "sha256": "b3f70332543849f28d5207a20d95952d5a59e6d4aed77df19a0647b3e0da1349",
+    "dhash": "c763f4d098b8b8c4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "38fae716df1bbbf7",
+    "file": "타투/네오트라이벌/38fae716df1bbbf7.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "네오트라이벌"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 796246,
+    "sha256": "38fae716df1bbbf709d8b4b138d07017567aed8569f98c2c8c986106da512d12",
+    "dhash": "f0f0e0cadad0e0e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "92368f78cd1d9e3d",
+    "file": "타투/꽃·식물/92368f78cd1d9e3d.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 656217,
+    "sha256": "92368f78cd1d9e3d352431148309dd2ee1cbc7bb43279072f6071acd0ccba60b",
+    "dhash": "797c7eee729b8cec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5c67ee3135b04cf2",
+    "file": "타투/국화/5c67ee3135b04cf2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "국화"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 152677,
+    "sha256": "5c67ee3135b04cf2174bea7cd328a800c0bd79fb6484e7455e3f65d57e00c69c",
+    "dhash": "0808501030303032",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
