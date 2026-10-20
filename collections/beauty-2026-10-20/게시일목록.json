@@ -10218,6 +10218,42 @@
       "sha256": "83f249e614db80b4b1b2e49a165ab9815810730ee3aaace2d056d62316898762",
       "publishedDate": "2026-05-14",
       "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "351811de6c5f085b",
+      "sha256": "351811de6c5f085bbb3e3e526e40b86c68123434b6fe4a7bf57af4fc50b9e292",
+      "publishedDate": "2026-02-26",
+      "dateEvidence": "기사 머리말 게시일 2026년 02월 26일과 로즈 핑크 립/메탈릭 모브 아이 룩 시술 설명 관찰"
+    },
+    {
+      "id": "eee56580e08e597f",
+      "sha256": "eee56580e08e597fb7048f6b1cbd2df66c82408a647cfd499e7c74874ce57c29",
+      "publishedDate": "2026-02-26",
+      "dateEvidence": "기사 머리말 게시일 2026년 02월 26일과 로즈 핑크 립/메탈릭 모브 아이 룩 시술 설명 관찰"
+    },
+    {
+      "id": "2b1e62065068e634",
+      "sha256": "2b1e62065068e634effe16111d16f0ccc977cffd024674b293cdd4757ec85acc",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "01696fa5bb07da4f",
+      "sha256": "01696fa5bb07da4f56dbf990e114a63794a8254d78b199bf94bf712fcf688db3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "42209775151e1cd2",
+      "sha256": "42209775151e1cd2bce67162078cc98e2185cf869183b5b5943b16aff4cb83be",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "d6be3fb3b5b3eb9a",
+      "sha256": "d6be3fb3b5b3eb9a3fc6620fbc92ade21489eed5a64efb03f7bd304d6f56b3c5",
+      "publishedDate": "2026-05-14",
+      "dateEvidence": "기사 머리말 2026.05.14 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }

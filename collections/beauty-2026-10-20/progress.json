@@ -1380,7 +1380,7 @@
       "existing_count": 75,
       "shortage": false,
       "target_new": 100,
-      "collected": 2
+      "collected": 3
     },
     {
       "category": "네일",
@@ -1450,7 +1450,7 @@
       "existing_count": 45,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "네일",
@@ -2260,7 +2260,7 @@
       "existing_count": 105,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "메이크업",
@@ -2860,7 +2860,7 @@
       "existing_count": 126,
       "shortage": false,
       "target_new": 100,
-      "collected": 2
+      "collected": 3
     },
     {
       "category": "메이크업",
@@ -3300,7 +3300,7 @@
       "existing_count": 133,
       "shortage": false,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -4930,7 +4930,7 @@
       "existing_count": 38,
       "shortage": false,
       "target_new": 100,
-      "collected": 2
+      "collected": 3
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1703,
+  "unique_images": 1709,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1702,
+  "goal_eligible_unique_images": 1708,
   "excluded_images": 1
 }
