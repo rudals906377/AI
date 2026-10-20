@@ -35524,5 +35524,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "874213be46ed39fe",
+    "file": "메이크업/버건디·플럼/874213be46ed39fe.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "버건디·플럼"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 115482,
+    "sha256": "874213be46ed39fe807363fe8bf3a1e4e20f99cb7f8532c9a3d18c93f3656e25",
+    "dhash": "333119cf0d2c7bc5",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8ec81ab5a1f76d53",
+    "file": "메이크업/블루 섀도/8ec81ab5a1f76d53.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "블루 섀도"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 251134,
+    "sha256": "8ec81ab5a1f76d53cabcdb8ee48c230398fa3c3ba235549b8bd070902e426c54",
+    "dhash": "66e2e2e1e1e3c42c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8f662b2e4ceaf6fd",
+    "file": "네일/누드·베이지/8f662b2e4ceaf6fd.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "누드·베이지"
+      }
+    ],
+    "width": 813,
+    "height": 685,
+    "bytes": 137346,
+    "sha256": "8f662b2e4ceaf6fd13d12c10eca42d1c8dfe395359210a1723859aefef954a97",
+    "dhash": "060fbb671b260eb8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "52dbcde7efbca2ae",
+    "file": "네일/라인아트/52dbcde7efbca2ae.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "라인아트"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 72284,
+    "sha256": "52dbcde7efbca2ae404ed74431c1f0dc2dafb2d7ad6c15f8990a369a7d553f99",
+    "dhash": "17cf673327331308",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

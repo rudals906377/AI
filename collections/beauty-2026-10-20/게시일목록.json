@@ -10116,6 +10116,30 @@
       "sha256": "f387fc9c19d085f59f02cb16036d931b74ea3dcf996fd2934264c75127f53cbe",
       "publishedDate": "2026-06-24",
       "dateEvidence": "기사 머리말 2026.06.24 확인; 손톱 위 물고기 드로잉 실제 사진, 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "874213be46ed39fe",
+      "sha256": "874213be46ed39fe807363fe8bf3a1e4e20f99cb7f8532c9a3d18c93f3656e25",
+      "publishedDate": "2026-04-08",
+      "dateEvidence": "기사 머리말 게시일 2026년 04월 08일과 Ignite/Illuminate 시술 설명 관찰"
+    },
+    {
+      "id": "8ec81ab5a1f76d53",
+      "sha256": "8ec81ab5a1f76d53cabcdb8ee48c230398fa3c3ba235549b8bd070902e426c54",
+      "publishedDate": "2026-04-08",
+      "dateEvidence": "기사 머리말 게시일 2026년 04월 08일과 Ignite/Illuminate 시술 설명 관찰"
+    },
+    {
+      "id": "8f662b2e4ceaf6fd",
+      "sha256": "8f662b2e4ceaf6fd13d12c10eca42d1c8dfe395359210a1723859aefef954a97",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말 2026.06.24 확인; 원본 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "52dbcde7efbca2ae",
+      "sha256": "52dbcde7efbca2ae404ed74431c1f0dc2dafb2d7ad6c15f8990a369a7d553f99",
+      "publishedDate": "2026-06-24",
+      "dateEvidence": "기사 머리말 2026.06.24 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
