@@ -40858,5 +40858,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7297ca600da596cb",
+    "file": "헤어/바깥C컬/7297ca600da596cb.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "바깥C컬"
+      }
+    ],
+    "width": 698,
+    "height": 930,
+    "bytes": 75320,
+    "sha256": "7297ca600da596cb2ff04ae2fe8ca970dd49acfcfc1e172d9ac70f99c022c030",
+    "dhash": "d29ceeee76767333",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
