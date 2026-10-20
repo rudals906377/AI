@@ -10704,6 +10704,42 @@
       "sha256": "181842023598dcb45528b0ab676e70a3f4879ae09f1af57ba633ecd25cc14d38",
       "publishedDate": "2026-07-17",
       "dateEvidence": "기사 게시일 2026.07.17과 각 완성 룩의 눈화장 시술 설명 관찰"
+    },
+    {
+      "id": "de50f6aab6258506",
+      "sha256": "de50f6aab625850688baf4f7b58dc2a257cb012713fee48b9fffc2330a0d41a7",
+      "publishedDate": "2026-10-19",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.10.19 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "7318b1ac26bc9b08",
+      "sha256": "7318b1ac26bc9b0801aaa58b4d28f4e4e53d0c253282270d4d9df4694c4ce4a0",
+      "publishedDate": "2026-10-19",
+      "dateEvidence": "한국 헤어 스타일 기사 게시일 2026.10.19 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "2bdf16098c0adf60",
+      "sha256": "2bdf16098c0adf60cab306734afd9b4fd53ae03485897e8bb93472c1ab53b8a8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "8a57dc92bd0b3901",
+      "sha256": "8a57dc92bd0b390152484805762fbec2f83f047becb4c99b84e90b49d25ceee6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "2e152e4a0a499dfa",
+      "sha256": "2e152e4a0a499dfa47cc8dd1c4244e2d19ba38dbc00c23b54787f775347cc206",
+      "publishedDate": "2026-08-07",
+      "dateEvidence": "한국 뷰티 기사 게시일 2026.08.07 관찰; 수록 SNS 원사진 게시일은 별도로 확인되지 않음"
+    },
+    {
+      "id": "b088efef68a9b511",
+      "sha256": "b088efef68a9b511646ca4473f909d84769e2589261ce1ef7a03c21a93176e88",
+      "publishedDate": "2026-07-24",
+      "dateEvidence": "한국 공개 살롱 시술을 설명한 기사 머리말 2026.07.24 확인; 원본 최초 게시일 별도 미확인"
     }
   ]
 }
