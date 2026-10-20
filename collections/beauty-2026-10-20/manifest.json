@@ -40627,5 +40627,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "81e4381d689c9024",
+    "file": "헤어/숏 보브/81e4381d689c9024.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "숏 보브"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 184736,
+    "sha256": "81e4381d689c902411621d9727234d85bceb948e16af724bb0492a02815e6e3e",
+    "dhash": "dcc8729794cce8fc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "34cde2aca54eecf8",
+    "file": "타투/도트워크/34cde2aca54eecf8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "도트워크"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 319974,
+    "sha256": "34cde2aca54eecf8d84206af87febfcc27856e74bface0d9a4bfa19a39c7a9d9",
+    "dhash": "f070684d9648c80c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2763b7142ba044d0",
+    "file": "네일/캐릭터/2763b7142ba044d0.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "캐릭터"
+      }
+    ],
+    "width": 1080,
+    "height": 1091,
+    "bytes": 95395,
+    "sha256": "2763b7142ba044d026ca4891d53f9cdb53cce3fba06d94facd09d7d96c947d82",
+    "dhash": "699a94a1aab49415",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

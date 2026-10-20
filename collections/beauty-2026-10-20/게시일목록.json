@@ -11574,6 +11574,24 @@
       "sha256": "3fe65b393b0abceefe1b6842d240d5eaea01d29a206a9360f1a7b7bea879e79d",
       "publishedDate": "2026-03-01",
       "dateEvidence": "기사 머리말 2026.03.01 관찰; 한국 제작 뷰티 화보와 해당 완성 룩 Beauty Note 확인"
+    },
+    {
+      "id": "81e4381d689c9024",
+      "sha256": "81e4381d689c902411621d9727234d85bceb948e16af724bb0492a02815e6e3e",
+      "publishedDate": "2026-10-08",
+      "dateEvidence": "한국 단발 헤어 기사 게시일 2026.10.08 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "34cde2aca54eecf8",
+      "sha256": "34cde2aca54eecf8d84206af87febfcc27856e74bface0d9a4bfa19a39c7a9d9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "2763b7142ba044d0",
+      "sha256": "2763b7142ba044d026ca4891d53f9cdb53cce3fba06d94facd09d7d96c947d82",
+      "publishedDate": "2025-07-18",
+      "dateEvidence": "한국 네일 아티스트 공개 시술 기사 게시일 2025.07.18 확인; 최근1년 부족 캐릭터 라벨 후보 없어2년범위확장, 최초 사진 게시일 별도 미확인"
     }
   ]
 }
