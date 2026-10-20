@@ -40963,5 +40963,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "87afd61d457ffb5b",
+    "file": "헤어/투톤/87afd61d457ffb5b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "염색 기법",
+        "label": "투톤"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 393456,
+    "sha256": "87afd61d457ffb5b3936ebcff744a23f11ad9508d31d6efd4696e6df63a21ac1",
+    "dhash": "039b971b3b137c3a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
