@@ -35230,5 +35230,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ce8edf3d8e282e58",
+    "file": "네일/유광/ce8edf3d8e282e58.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "유광"
+      }
+    ],
+    "width": 821,
+    "height": 1027,
+    "bytes": 92294,
+    "sha256": "ce8edf3d8e282e5870cddb19d67a9057216a4c672dbcb34ce3a8e94281715a95",
+    "dhash": "08c0428821c9261c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
