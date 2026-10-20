@@ -11844,6 +11844,12 @@
       "sha256": "128897898a450dc7a7df2823942093920c09ad6a6006419f76e0fa51f45248c9",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "5ade541f3ebe1808",
+      "sha256": "5ade541f3ebe180829e72d5fe22f4986824e8cd8f57bac22d0870cdf2926021d",
+      "publishedDate": "2026-04-06",
+      "dateEvidence": "한국 셀럽 파마 스타일 기사 게시일 2026.04.06 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }
