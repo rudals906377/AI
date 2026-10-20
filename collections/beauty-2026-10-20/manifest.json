@@ -18598,5 +18598,362 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "247a453ad6e46551",
+    "file": "헤어/블루·퍼플/247a453ad6e46551.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "블루·퍼플"
+      }
+    ],
+    "width": 600,
+    "height": 600,
+    "bytes": 120095,
+    "sha256": "247a453ad6e46551f1213bf202d0ff74f0d55d2da71df5f504a341cf0aa031e2",
+    "dhash": "06b2b1b072713726",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "27aa2fa11c5552d6",
+    "file": "네일/스트라이프/27aa2fa11c5552d6.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스트라이프"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 93268,
+    "sha256": "27aa2fa11c5552d65a9917399717bb12067457169b95bb72e6d95a5be0f37432",
+    "dhash": "5f2d0790980b6961",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b07e88d3cf273cbe",
+    "file": "네일/스트라이프/b07e88d3cf273cbe.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스트라이프"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 123793,
+    "sha256": "b07e88d3cf273cbe99ae688572e42f7983244e63a0fa1f90d095d68588fe2c10",
+    "dhash": "7c7878e8e3e4fcfe",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "806a37f1d74b1a5c",
+    "file": "네일/스트라이프/806a37f1d74b1a5c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스트라이프"
+      }
+    ],
+    "width": 1080,
+    "height": 1385,
+    "bytes": 99515,
+    "sha256": "806a37f1d74b1a5cebee5706a2a1ebcd5c39a93fcd512e375840ad08956503f9",
+    "dhash": "d2daeaccca505000",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "074e2e674c37801f",
+    "file": "네일/스트라이프/074e2e674c37801f.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스트라이프"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 324782,
+    "sha256": "074e2e674c37801fdd017a2cbc3cdc67bd7d76009102a5110760abfa7cab9a73",
+    "dhash": "0f9a9b83cbccfcf8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4962398fe530d8da",
+    "file": "네일/스트라이프/4962398fe530d8da.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스트라이프"
+      }
+    ],
+    "width": 1080,
+    "height": 1339,
+    "bytes": 163055,
+    "sha256": "4962398fe530d8da9ab092b88a7461560895326506db91c867a578effd09b5f0",
+    "dhash": "785819333332968c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf8d935e54de6395",
+    "file": "네일/브라운·모카/cf8d935e54de6395.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "브라운·모카"
+      }
+    ],
+    "width": 1080,
+    "height": 1342,
+    "bytes": 140795,
+    "sha256": "cf8d935e54de6395df87114a20a9b8353798eb25bd9bdc7d0be22578f3e9bf7f",
+    "dhash": "b165cad4e5adebf6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "98eaf13507a69224",
+    "file": "메이크업/얇은 눈썹/98eaf13507a69224.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 1121,
+    "height": 1400,
+    "bytes": 163484,
+    "sha256": "98eaf13507a69224cb1c9e39a14e558551f3cef3f4f7c6403b53063658527d39",
+    "dhash": "1a3130341696960d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "de676374a35fcc7e",
+    "file": "메이크업/얇은 눈썹/de676374a35fcc7e.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 188944,
+    "sha256": "de676374a35fcc7e3f017e508f2421f3cbcff5e6ff1b8ec24ad3e9337326b33f",
+    "dhash": "377138c7f379d9d6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ba68e04375955d26",
+    "file": "메이크업/얇은 눈썹/ba68e04375955d26.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 720,
+    "height": 900,
+    "bytes": 90461,
+    "sha256": "ba68e04375955d26d90dd7b6cc3a9b1884a34f7a7ce5215386c9a6887cd04ef3",
+    "dhash": "2f1d9b1b79793b8f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "86d8428e8a9d362b",
+    "file": "메이크업/얇은 눈썹/86d8428e8a9d362b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "얇은 눈썹"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 245714,
+    "sha256": "86d8428e8a9d362bfbdfb1326434b313b5d6591cbddadacaa52e332b3f7a2da2",
+    "dhash": "5c793934703c3c3c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9474cbace3e9f383",
+    "file": "메이크업/아치 눈썹/9474cbace3e9f383.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "아치 눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 196316,
+    "sha256": "9474cbace3e9f383f205d6d3d414412ca1c896bd5bc1927a806a1a7c0a4af946",
+    "dhash": "7573b2f0f0f0c8cc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0fde00df0c3eb6fd",
+    "file": "타투/사신/0fde00df0c3eb6fd.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "사신"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 285875,
+    "sha256": "0fde00df0c3eb6fd0568b4c5983b0665905c17bd33de1d3f2d07e1d15b6a063e",
+    "dhash": "63034b17070bb3c9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a388efecc61030f1",
+    "file": "타투/뼈 · 해골 손/a388efecc61030f1.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "뼈 · 해골 손"
+      }
+    ],
+    "width": 768,
+    "height": 637,
+    "bytes": 71129,
+    "sha256": "a388efecc61030f101adb27dcbb52a48a4299e5aa7ec4eb1c9cac7ebfef233a4",
+    "dhash": "f4ccc63333793b9b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "26569149e0ed7efa",
+    "file": "타투/등판/26569149e0ed7efa.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "크기",
+        "label": "등판"
+      }
+    ],
+    "width": 768,
+    "height": 768,
+    "bytes": 96870,
+    "sha256": "26569149e0ed7efa43205acf43e64bd348ed93f2ee72f6f8f317f93324be44e5",
+    "dhash": "5969192d37772d07",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dd09da74de6fbcfe",
+    "file": "타투/전갈/dd09da74de6fbcfe.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "전갈"
+      }
+    ],
+    "width": 768,
+    "height": 768,
+    "bytes": 80485,
+    "sha256": "dd09da74de6fbcfeb42078ef4618301f007d0f6a3a1568b64bf866a752cdecb0",
+    "dhash": "1c19399323258109",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "807f1e42bdc2ea59",
+    "file": "타투/칼·무기/807f1e42bdc2ea59.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "칼·무기"
+      }
+    ],
+    "width": 768,
+    "height": 768,
+    "bytes": 66936,
+    "sha256": "807f1e42bdc2ea590f6e3e356b9dc8f2f8058e8aae049670a31b6f4ab27445b7",
+    "dhash": "2c2c1617878787c5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
