@@ -32017,5 +32017,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "35a6d3f59dc78bc8",
+    "file": "헤어/C컬펌/35a6d3f59dc78bc8.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "C컬펌"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 161432,
+    "sha256": "35a6d3f59dc78bc863a291df873bb102651f0387181337cb360cee0c5eb4b1cc",
+    "dhash": "b8b032361613130b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b388fd5599479cf7",
+    "file": "헤어/S컬펌/b388fd5599479cf7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1440,
+    "height": 1795,
+    "bytes": 159620,
+    "sha256": "b388fd5599479cf7928a9956c1ee3895e62968f10c2692eff02d70ad6e007494",
+    "dhash": "3e6f6963330b073e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7fd6a21eaeddeaa5",
+    "file": "네일/플레어/7fd6a21eaeddeaa5.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "플레어"
+      }
+    ],
+    "width": 600,
+    "height": 750,
+    "bytes": 166452,
+    "sha256": "7fd6a21eaeddeaa5447572fc952c8fdbdf7db3bc1a56a456cd23ef71c2325b39",
+    "dhash": "fed69e285c381c78",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3c9f67a38adf8f33",
+    "file": "네일/플레어/3c9f67a38adf8f33.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "플레어"
+      }
+    ],
+    "width": 600,
+    "height": 797,
+    "bytes": 46176,
+    "sha256": "3c9f67a38adf8f33965a2e3f6329ce9a3a79cb2e23a585a3b79d2a7a9df566fa",
+    "dhash": "c6272733890e6444",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fa582a5824398f64",
+    "file": "네일/플레어/fa582a5824398f64.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "플레어"
+      }
+    ],
+    "width": 600,
+    "height": 750,
+    "bytes": 30386,
+    "sha256": "fa582a5824398f64bfe4c2b5a5ea7fe9dcea48ffc0c81a7016c10dd52ce41f2c",
+    "dhash": "3c0e302c383998a8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
