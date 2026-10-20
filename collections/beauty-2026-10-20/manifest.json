@@ -28195,5 +28195,404 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "137b3eab948b98fd",
+    "file": "헤어/글램펌/137b3eab948b98fd.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1439,
+    "height": 1439,
+    "bytes": 221305,
+    "sha256": "137b3eab948b98fd3826040275315fab35908979be2b177b106e3edc6967a1a7",
+    "dhash": "67cbcbffdb9c9ccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "edac2c87d42e8024",
+    "file": "네일/자개/edac2c87d42e8024.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 1440,
+    "height": 1404,
+    "bytes": 173413,
+    "sha256": "edac2c87d42e8024e959150797ec5635f2525a70bef69b030b8fa506fb9202ec",
+    "dhash": "3fdf6f3f772b69da",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "57631e98d18699d6",
+    "file": "네일/자개/57631e98d18699d6.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 3277,
+    "height": 4096,
+    "bytes": 1173371,
+    "sha256": "57631e98d18699d65ed3d380cd38d6a7019757979d44a2d044d0d973aa25d145",
+    "dhash": "3b36958f475999e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f35a152187768e59",
+    "file": "네일/자개/f35a152187768e59.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "자개"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 1354722,
+    "sha256": "f35a152187768e59d5c6bc6ca8b36cff0bf3895fd0244712aa902024bad6e0b8",
+    "dhash": "d74f1db1907079cd",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d79536ebf5e1687e",
+    "file": "메이크업/눈앞머리 하이라이트/d79536ebf5e1687e.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1280,
+    "height": 1920,
+    "bytes": 171190,
+    "sha256": "d79536ebf5e1687e7afa5fbafd4caefeccd8e632e332a625df97f32b3a9edac9",
+    "dhash": "0c0c0c34e4e0370f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a0f7d0169868a2d2",
+    "file": "메이크업/글로시/a0f7d0169868a2d2.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1280,
+    "height": 1920,
+    "bytes": 275800,
+    "sha256": "a0f7d0169868a2d271db87c3da8db6f57d888530f01346a460893edc6e064474",
+    "dhash": "23861ed1b032870e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6008617fd0250511",
+    "file": "메이크업/하이라이터/6008617fd0250511.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "하이라이터"
+      }
+    ],
+    "width": 1280,
+    "height": 1920,
+    "bytes": 106238,
+    "sha256": "6008617fd0250511e43fa238ab762eecba764f6debd10bc07c33ace000d0426f",
+    "dhash": "b4a684e271690f1f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7b8fac3be31a06d2",
+    "file": "메이크업/글로시/7b8fac3be31a06d2.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 176042,
+    "sha256": "7b8fac3be31a06d28b01e0224e342c8907e9012599d9df4a929211be831d694c",
+    "dhash": "0642743737339b0f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "25e1d002a48b0cd2",
+    "file": "타투/학/25e1d002a48b0cd2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "학"
+      }
+    ],
+    "width": 3050,
+    "height": 3812,
+    "bytes": 1240591,
+    "sha256": "25e1d002a48b0cd2e3d6409d04be8eb7dbe4a5c331be071afa746784588773a4",
+    "dhash": "949494d5ccac210c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b0201a019866f07",
+    "file": "타투/학/8b0201a019866f07.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "학"
+      }
+    ],
+    "width": 1440,
+    "height": 1800,
+    "bytes": 180524,
+    "sha256": "8b0201a019866f0734259794ba82fdeba8fa0fb7b5c04785a7372d8b3d4eef6e",
+    "dhash": "092921242a3a6041",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6b97f1d5bf836cd8",
+    "file": "타투/학/6b97f1d5bf836cd8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "학"
+      }
+    ],
+    "width": 1440,
+    "height": 1918,
+    "bytes": 415344,
+    "sha256": "6b97f1d5bf836cd8ce07380d913d78b825715469b829891a073056311a6140bc",
+    "dhash": "f4e167cfdedee4ec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6b1118ec04ae9cbe",
+    "file": "타투/학/6b1118ec04ae9cbe.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "학"
+      }
+    ],
+    "width": 3072,
+    "height": 4096,
+    "bytes": 1162408,
+    "sha256": "6b1118ec04ae9cbe1f57d69e5fe3c30024b010db1aa68c7ec971498d1aab73e1",
+    "dhash": "23210f0f0f192125",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c744c5eed1a0f0a5",
+    "file": "타투/거북/c744c5eed1a0f0a5.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거북"
+      }
+    ],
+    "width": 1440,
+    "height": 1799,
+    "bytes": 127949,
+    "sha256": "c744c5eed1a0f0a52cb10c8818740a77ddf22b8248b789a6031c9c1de8f9086b",
+    "dhash": "30008098c6ef3f1f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d18b878a99d5823f",
+    "file": "타투/거북/d18b878a99d5823f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거북"
+      }
+    ],
+    "width": 1440,
+    "height": 1566,
+    "bytes": 265063,
+    "sha256": "d18b878a99d5823f06edc00625d3395a857e8e682eb92c09d8ecedb0ddb79aea",
+    "dhash": "0607170a0e9e6c20",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5bca1a64d7be89c8",
+    "file": "타투/풍경·건물/5bca1a64d7be89c8.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "풍경·건물"
+      }
+    ],
+    "width": 1440,
+    "height": 1799,
+    "bytes": 443147,
+    "sha256": "5bca1a64d7be89c84a6856f05e578991274a909c25993137fe69bbf6ffc68745",
+    "dhash": "db8e8c8cdc9c36b6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0e719a3a2ccabcea",
+    "file": "타투/풍경·건물/0e719a3a2ccabcea.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "풍경·건물"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 105151,
+    "sha256": "0e719a3a2ccabcea6ed6291854ea8245270a7d126765b9eaf603abe6738375fd",
+    "dhash": "eb67cfdffdfdfded",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "83d3724b15815472",
+    "file": "타투/해골·다크/83d3724b15815472.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "해골·다크"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 169464,
+    "sha256": "83d3724b15815472210654d35993f86ec3304b62d12fd8af126bfec92a1b6d3d",
+    "dhash": "b88c96de68286079",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "27d927c82e500249",
+    "file": "타투/조개 · 바다 생물/27d927c82e500249.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "조개 · 바다 생물"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 502342,
+    "sha256": "27d927c82e500249b54dbb9f3bee06a460803eb195cd5d04189dfdc58eb3cd92",
+    "dhash": "9939b9b17170b299",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "96a92c653eebe509",
+    "file": "타투/독수리 · 매/96a92c653eebe509.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "독수리 · 매"
+      }
+    ],
+    "width": 1440,
+    "height": 1894,
+    "bytes": 664514,
+    "sha256": "96a92c653eebe5095fbfe0ce4cf11a11bc1875a034a5df068ac269ea71b652d5",
+    "dhash": "0f07878e9e97cdf9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
