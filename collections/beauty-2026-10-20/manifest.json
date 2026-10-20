@@ -27208,5 +27208,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1c1f161605d8dac0",
+    "file": "메이크업/볼드 눈썹/1c1f161605d8dac0.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "볼드 눈썹"
+      }
+    ],
+    "width": 1000,
+    "height": 1310,
+    "bytes": 72943,
+    "sha256": "1c1f161605d8dac0fbf9227c477675833cccb30ba6a82fb0a0d508be0356fbc6",
+    "dhash": "83c3e3e1d9697117",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "31c71e2c49ac60b4",
+    "file": "타투/용/31c71e2c49ac60b4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "용"
+      }
+    ],
+    "width": 1268,
+    "height": 929,
+    "bytes": 587138,
+    "sha256": "31c71e2c49ac60b40c780f3c187b0609f5f9d8ef4286ccf18f5b5dd60e36cf4b",
+    "dhash": "68a88c5616970f19",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
