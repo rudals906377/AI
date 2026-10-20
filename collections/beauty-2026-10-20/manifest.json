@@ -26725,5 +26725,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ad4e7c7362984e1f",
+    "file": "메이크업/컬러 아이라인/ad4e7c7362984e1f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "컬러 아이라인"
+      }
+    ],
+    "width": 1400,
+    "height": 933,
+    "bytes": 230348,
+    "sha256": "ad4e7c7362984e1f95883b748cafa261162c0a49062330a28a66adafe5938c53",
+    "dhash": "b4a4a0f2d8c84d26",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d8586f0e17d99895",
+    "file": "타투/힌두 신/d8586f0e17d99895.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "힌두 신"
+      }
+    ],
+    "width": 1440,
+    "height": 1440,
+    "bytes": 164469,
+    "sha256": "d8586f0e17d9989537afd03cbe7adc59ace9d84062050a3dd10ff81df80020ae",
+    "dhash": "cfdbdb8f8fbbbfee",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0a52ab050b72c90e",
+    "file": "타투/힌두 신/0a52ab050b72c90e.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "힌두 신"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 219058,
+    "sha256": "0a52ab050b72c90e9820dd432e4cfab89cc44180f0036f0d0f97bb3a0b31005b",
+    "dhash": "3303000e1e1e2673",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
