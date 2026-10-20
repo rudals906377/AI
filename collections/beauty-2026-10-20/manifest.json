@@ -39703,5 +39703,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1edafb2dc1891d97",
+    "file": "네일/라운드스퀘어/1edafb2dc1891d97.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "라운드스퀘어"
+      }
+    ],
+    "width": 1268,
+    "height": 1585,
+    "bytes": 104534,
+    "sha256": "1edafb2dc1891d97b2736abcd90d17d7346670dead0a40afe4e92bb430bf66b1",
+    "dhash": "4a4a4a4a465edefc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
