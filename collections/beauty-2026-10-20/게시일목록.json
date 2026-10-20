@@ -11730,6 +11730,18 @@
       "sha256": "7b5c1d0215758d5920b6ad9bc63f715919929598aded7095c09e9fa5ded6784e",
       "publishedDate": "2026-06-24",
       "dateEvidence": "한국어 네일 기사 게시일2026.06.24 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "3fe0e185464eda78",
+      "sha256": "3fe0e185464eda780422ed2d27cd86264324b3426bd60e119f18d329b971bbe0",
+      "publishedDate": "2025-11-13",
+      "dateEvidence": "한국 셀럽 앞머리 스타일 기사 게시일 2025.11.13 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "4763f12072e66012",
+      "sha256": "4763f12072e660120f9f1cf97cab50773228edadd3df86ce0c16952ebc34bd45",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

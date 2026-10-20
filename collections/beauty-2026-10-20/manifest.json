@@ -41173,5 +41173,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3fe0e185464eda78",
+    "file": "헤어/시스루뱅/3fe0e185464eda78.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 154384,
+    "sha256": "3fe0e185464eda780422ed2d27cd86264324b3426bd60e119f18d329b971bbe0",
+    "dhash": "353161031713070c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4763f12072e66012",
+    "file": "타투/트라이벌/4763f12072e66012.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "트라이벌"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 154795,
+    "sha256": "4763f12072e660120f9f1cf97cab50773228edadd3df86ce0c16952ebc34bd45",
+    "dhash": "c8cc8ac9d1d1c6c4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
