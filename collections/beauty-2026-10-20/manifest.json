@@ -37267,5 +37267,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f7c479def1a31c7e",
+    "file": "네일/민트·그린/f7c479def1a31c7e.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "민트·그린"
+      }
+    ],
+    "width": 1080,
+    "height": 1230,
+    "bytes": 74792,
+    "sha256": "f7c479def1a31c7e5b678e1d8864a6cb0fecd819b7fdf56d4578e86a9c412176",
+    "dhash": "4d9a33291397108c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "691b5885f8beb9ab",
+    "file": "네일/연핑크/691b5885f8beb9ab.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "연핑크"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 71710,
+    "sha256": "691b5885f8beb9ab571f64d30744bb5d3807147d76fd7db5962ae49f800d4a29",
+    "dhash": "2a561425291b9318",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
