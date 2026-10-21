@@ -45646,5 +45646,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5a4d6efefd155225",
+    "file": "헤어/생머리/5a4d6efefd155225.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "생머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 185429,
+    "sha256": "5a4d6efefd1552254cdbf0b6b851989c73971d5549c5e7da63ebfcc34f3f86cc",
+    "dhash": "0c0c24a4cccc88b0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f132c7dce6f08e42",
+    "file": "메이크업/피치 블러셔/f132c7dce6f08e42.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "피치 블러셔"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 275318,
+    "sha256": "f132c7dce6f08e423ccf35ebf766cd077e4dc1e112e2b0204ab6b677633cd651",
+    "dhash": "3319d9ff9f9d9c9c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

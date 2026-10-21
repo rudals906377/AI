@@ -13008,6 +13008,18 @@
       "sha256": "172d85308b0e2dc9eb17884296351fc8f2dbba3bd6fb90304b850072773ac098",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "5a4d6efefd155225",
+      "sha256": "5a4d6efefd1552254cdbf0b6b851989c73971d5549c5e7da63ebfcc34f3f86cc",
+      "publishedDate": "2026-07-01",
+      "dateEvidence": "한국 앞머리 스타일 기사 게시일 2026.07.01 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "f132c7dce6f08e42",
+      "sha256": "f132c7dce6f08e423ccf35ebf766cd077e4dc1e112e2b0204ab6b677633cd651",
+      "publishedDate": "2026-09-05",
+      "dateEvidence": "기사 2026.09.05 게시일과 장원영 피치 치크 시술 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
