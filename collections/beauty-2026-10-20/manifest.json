@@ -42349,5 +42349,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0420767833e50a66",
+    "file": "헤어/울프컷/0420767833e50a66.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "울프컷"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 269327,
+    "sha256": "0420767833e50a661707dbead8eafec99755dc89c5fd02b2f12a3006786c4911",
+    "dhash": "f936379e98f0f2e2",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "553c73d7419a1ade",
+    "file": "타투/목·귀뒤/553c73d7419a1ade.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "목·귀뒤"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 642354,
+    "sha256": "553c73d7419a1adebd9cbc99b88310b0edeb2bb18dd40f7a07cb5089cdfff8b1",
+    "dhash": "ccf8f0cccdf1b7b3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b785ba5887ee7b15",
+    "file": "메이크업/컬러 섀도/b785ba5887ee7b15.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "컬러 섀도"
+      }
+    ],
+    "width": 882,
+    "height": 887,
+    "bytes": 105628,
+    "sha256": "b785ba5887ee7b1542da5f67275d1fc26c04b47e4498b728202388a99151a181",
+    "dhash": "a54cd2c3e2e1e3c3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c7d6afe7b043434d",
+    "file": "네일/레드/c7d6afe7b043434d.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "레드"
+      }
+    ],
+    "width": 1170,
+    "height": 1356,
+    "bytes": 137584,
+    "sha256": "c7d6afe7b043434d28ce1338fea0038c460d14d3fee7f1f13e2a6e9f57ee2f0c",
+    "dhash": "1656ce2ecbcbcccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

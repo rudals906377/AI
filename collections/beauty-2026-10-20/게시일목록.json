@@ -12066,6 +12066,30 @@
       "sha256": "2bf0a0c3d23fe185c9ee2d2ca4913e30052d865ccab2a784b15546b35e3cb5d8",
       "publishedDate": "2026-08-21",
       "dateEvidence": "기사 2026.08.21 게시일 관찰; SNS 인용 사진의 블랙 스모키 시술 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "0420767833e50a66",
+      "sha256": "0420767833e50a661707dbead8eafec99755dc89c5fd02b2f12a3006786c4911",
+      "publishedDate": "2026-09-14",
+      "dateEvidence": "한국 남성 헤어 기사 게시일 2026.09.14 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "553c73d7419a1ade",
+      "sha256": "553c73d7419a1adebd9cbc99b88310b0edeb2bb18dd40f7a07cb5089cdfff8b1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "b785ba5887ee7b15",
+      "sha256": "b785ba5887ee7b1542da5f67275d1fc26c04b47e4498b728202388a99151a181",
+      "publishedDate": "2026-08-13",
+      "dateEvidence": "기사 2026.08.13 게시일 관찰; SNS 사진을 인용한 컬러 플레이 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "c7d6afe7b043434d",
+      "sha256": "c7d6afe7b043434d28ce1338fea0038c460d14d3fee7f1f13e2a6e9f57ee2f0c",
+      "publishedDate": null,
+      "dateEvidence": "공개 핀 실제 사진은 선명한 레드 원컬러 네일. 사진 게시일은 미확인; 검색 결과 갱신일을 촬영·게시일로 쓰지 않음."
     }
   ]
 }
