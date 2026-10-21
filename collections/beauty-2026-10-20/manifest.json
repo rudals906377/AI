@@ -43084,5 +43084,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d8477d93f0b41d83",
+    "file": "타투/해골/d8477d93f0b41d83.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "해골"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 274010,
+    "sha256": "d8477d93f0b41d83ddd72e5ded6cf4e4303364e7d1372a5cc07fce3453202d51",
+    "dhash": "fff8f8f8f0e0e488",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf21c2d99e78e815",
+    "file": "타투/장미/cf21c2d99e78e815.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "장미"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 296435,
+    "sha256": "cf21c2d99e78e815013f8ae09a4c255be9190e438c31451290a329e1a2199e94",
+    "dhash": "c0c07030981c1e1e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

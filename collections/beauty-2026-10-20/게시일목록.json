@@ -12276,6 +12276,18 @@
       "sha256": "3da38f72422df1a7055124dcd458c307b44c0b721a0bb3474e2bc6772a55f9ca",
       "publishedDate": null,
       "dateEvidence": "공개 한국 네일샵 설명에 2026년5월 아트 명시; 정확 게시일은 미확인. 실제 파일의 은색 글리터 입자 확인."
+    },
+    {
+      "id": "d8477d93f0b41d83",
+      "sha256": "d8477d93f0b41d83ddd72e5ded6cf4e4303364e7d1372a5cc07fce3453202d51",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "cf21c2d99e78e815",
+      "sha256": "cf21c2d99e78e815013f8ae09a4c255be9190e438c31451290a329e1a2199e94",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
