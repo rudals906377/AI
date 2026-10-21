@@ -42286,5 +42286,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "548f06aaca863861",
+    "file": "헤어/숏 보브/548f06aaca863861.png",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "숏 보브"
+      }
+    ],
+    "width": 1175,
+    "height": 1562,
+    "bytes": 2431508,
+    "sha256": "548f06aaca863861e3b0ff07d4a3a3390db091ef1fd46b28393d6e000bfa8f8f",
+    "dhash": "e3f3e3c797b7c7c3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "03d11d6bd6753db1",
+    "file": "타투/쇄골/03d11d6bd6753db1.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "쇄골"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 82988,
+    "sha256": "03d11d6bd6753db110fbde18b893008b8c0b29cb18e4d60c1e9c484e81707795",
+    "dhash": "c49c9a4cddcffd7a",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2bf0a0c3d23fe185",
+    "file": "메이크업/스모키/2bf0a0c3d23fe185.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "스모키"
+      }
+    ],
+    "width": 1170,
+    "height": 877,
+    "bytes": 93488,
+    "sha256": "2bf0a0c3d23fe185c9ee2d2ca4913e30052d865ccab2a784b15546b35e3cb5d8",
+    "dhash": "98b0b4b0b0b2f0e0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

@@ -12048,6 +12048,24 @@
       "sha256": "ac7748a97c97ab72f1ca779d54eb3526a119330ce8639a0e574d71ff69258965",
       "publishedDate": "2026-08-21",
       "dateEvidence": "기사 2026.08.21 게시일 관찰; SNS 인용 사진의 스모키 시술 설명이며 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "548f06aaca863861",
+      "sha256": "548f06aaca863861e3b0ff07d4a3a3390db091ef1fd46b28393d6e000bfa8f8f",
+      "publishedDate": "2026-06-02",
+      "dateEvidence": "한국 뷰티 기사 게시일 2026.06.02 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "03d11d6bd6753db1",
+      "sha256": "03d11d6bd6753db110fbde18b893008b8c0b29cb18e4d60c1e9c484e81707795",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "2bf0a0c3d23fe185",
+      "sha256": "2bf0a0c3d23fe185c9ee2d2ca4913e30052d865ccab2a784b15546b35e3cb5d8",
+      "publishedDate": "2026-08-21",
+      "dateEvidence": "기사 2026.08.21 게시일 관찰; SNS 인용 사진의 블랙 스모키 시술 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
