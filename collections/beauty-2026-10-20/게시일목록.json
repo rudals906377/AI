@@ -12468,6 +12468,36 @@
       "sha256": "6f4530f73d75d8e35bbcf3d51539fe3d7d7fd7d35bee3659613ada5c6092d1d9",
       "publishedDate": null,
       "dateEvidence": "한국 네일 살롱 공개 시술 설명의 2월만 확인, 게시연도·정확한 날짜 미확인; 최근 사진으로 추정하지 않음"
+    },
+    {
+      "id": "014fff0b418b5f34",
+      "sha256": "014fff0b418b5f34b271d982c4f670d1e3018730cc40921eaded13c2b86c8b6b",
+      "publishedDate": "2026-09-16",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.16 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "2eece5772783bd12",
+      "sha256": "2eece5772783bd121834bac3011813a890f6bab0d7dc39d59ab673fb2fb24939",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "0040f369ed4b4b29",
+      "sha256": "0040f369ed4b4b298cd236fcd4508967ec8a72ec25979a6a6051b547d75cc344",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "5f5aaeb4781fe1f4",
+      "sha256": "5f5aaeb4781fe1f475fc4ba309342208570d1b9fdb3e7cea463c27a30155f30a",
+      "publishedDate": "2026-09-19",
+      "dateEvidence": "기사 2026.09.19 게시일과 이솔 라임그린 아이 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "674e4461ebe5405a",
+      "sha256": "674e4461ebe5405afb00cf84dc0d62b5ad4bc5acfcd2d32e7232be2c7d28426f",
+      "publishedDate": null,
+      "dateEvidence": "공개 Korean fall nail 스타일 설명 확인, 게시일 미확인; 최근으로 추정하지 않음"
     }
   ]
 }

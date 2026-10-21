@@ -43756,5 +43756,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "014fff0b418b5f34",
+    "file": "헤어/단발/014fff0b418b5f34.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 135477,
+    "sha256": "014fff0b418b5f34b271d982c4f670d1e3018730cc40921eaded13c2b86c8b6b",
+    "dhash": "8393131387868c48",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2eece5772783bd12",
+    "file": "타투/팔뚝/2eece5772783bd12.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "팔뚝"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 629427,
+    "sha256": "2eece5772783bd121834bac3011813a890f6bab0d7dc39d59ab673fb2fb24939",
+    "dhash": "1b9b838b13111111",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0040f369ed4b4b29",
+    "file": "타투/레터링/0040f369ed4b4b29.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "레터링"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 201997,
+    "sha256": "0040f369ed4b4b298cd236fcd4508967ec8a72ec25979a6a6051b547d75cc344",
+    "dhash": "0000f09092f8ff03",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f5aaeb4781fe1f4",
+    "file": "메이크업/그린·옐로 섀도/5f5aaeb4781fe1f4.png",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "그린·옐로 섀도"
+      }
+    ],
+    "width": 1200,
+    "height": 1621,
+    "bytes": 2389066,
+    "sha256": "5f5aaeb4781fe1f475fc4ba309342208570d1b9fdb3e7cea463c27a30155f30a",
+    "dhash": "11333326662d1c47",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "674e4461ebe5405a",
+    "file": "네일/스퀘어/674e4461ebe5405a.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "스퀘어"
+      }
+    ],
+    "width": 600,
+    "height": 800,
+    "bytes": 43627,
+    "sha256": "674e4461ebe5405afb00cf84dc0d62b5ad4bc5acfcd2d32e7232be2c7d28426f",
+    "dhash": "5f95161617ab534b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
