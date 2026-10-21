@@ -11928,6 +11928,30 @@
       "sha256": "c6ee3ea29d18502d5af9606737b87b517d7782828defd788548585912d01c582",
       "publishedDate": "2026-01-07",
       "dateEvidence": "한국 뷰티 기사2026.01.07 크롬글라스 설명 관찰; 최초 개별 사진 게시일 별도 미확인"
+    },
+    {
+      "id": "5fb9c74759ab3165",
+      "sha256": "5fb9c74759ab31656592b9cacb61a23d53519d0613164b67d58dcf9e1ba34e8d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 한국 살롱 공개 스타일 기사 리프컷 섹션과 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1c3401108d41418d",
+      "sha256": "1c3401108d41418d19d3a3efe9b5db9ab598f8124494777980875da6702f2323",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "7b3ecd8f96eebb5f",
+      "sha256": "7b3ecd8f96eebb5f585763c9e67356425b4cadd45340b3328705a670c295a171",
+      "publishedDate": "2026-03-03",
+      "dateEvidence": "기사 머리말 2026년 03월 03일 및 하단 2026년 3월호 관찰; 별도 블라우스 룩의 로즈우드 립 오일 시술 설명 확인"
+    },
+    {
+      "id": "b6566ddbb476dc21",
+      "sha256": "b6566ddbb476dc21d757ad47d41b8a4b203eeaff61a44a8966f8a2ad26232efe",
+      "publishedDate": "2026-01-07",
+      "dateEvidence": "한국 뷰티 기사2026.01.07 베이지글라스 설명 관찰; 최초 개별 사진 게시일 별도 미확인"
     }
   ]
 }
