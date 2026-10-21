@@ -13368,6 +13368,12 @@
       "sha256": "3a0dcc10966f2fcbd1b087c8e069c392ef7692c824fbe4ffbc8d6ad7b3bd3a2b",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 가을 네일 기사 2026/10/15 및 번트오렌지② 제목 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "c5b0697b2f52fdd4",
+      "sha256": "c5b0697b2f52fdd4c253d6ea5c6814cce801d8104dba0f8f09f18057e34bcfe0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

@@ -46906,5 +46906,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c5b0697b2f52fdd4",
+    "file": "타투/심전도/c5b0697b2f52fdd4.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "심전도"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 381854,
+    "sha256": "c5b0697b2f52fdd4c253d6ea5c6814cce801d8104dba0f8f09f18057e34bcfe0",
+    "dhash": "7f6f739b9fcf0707",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
