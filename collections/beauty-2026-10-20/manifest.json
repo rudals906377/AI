@@ -43378,5 +43378,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "03e508a36d31a707",
+    "file": "타투/장미/03e508a36d31a707.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "장미"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 637321,
+    "sha256": "03e508a36d31a707b8dc2746133d2d12eb7e9ff0e14ea8a8483849429b33bc12",
+    "dhash": "c0c0c0cac9c9e0e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "65bd3c328c98e846",
+    "file": "메이크업/홍조 블러셔/65bd3c328c98e846.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 270682,
+    "sha256": "65bd3c328c98e846eeffd5b9cae71a22da29a5c7c0569580b4bb93cf2bbf87e6",
+    "dhash": "f1535373636b7333",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3228d6027620fd42",
+    "file": "메이크업/언더 속눈썹/3228d6027620fd42.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 282723,
+    "sha256": "3228d6027620fd42e7a34ba938f33af846d3fcf96a747449b82fe0914dc7b592",
+    "dhash": "36be1d99db53f3fe",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c102244e54ec469b",
+    "file": "메이크업/레드/c102244e54ec469b.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "레드"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 234836,
+    "sha256": "c102244e54ec469bee453e0781b1f0fb2180fd029f5938e7accae9ab073430e1",
+    "dhash": "76f09f0f0e9e9e0f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f8cfe0946ec5acd4",
+    "file": "네일/마블/f8cfe0946ec5acd4.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마블"
+      }
+    ],
+    "width": 712,
+    "height": 700,
+    "bytes": 58155,
+    "sha256": "f8cfe0946ec5acd4c9843859b065b8efed4c9566723e19488cf87471d66cab19",
+    "dhash": "b527162f1b1f97c7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

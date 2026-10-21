@@ -12360,6 +12360,36 @@
       "sha256": "4bc5c4b7bf061731ca2b42c536cd9c2ca47ae240476df8276c456940f535e449",
       "publishedDate": null,
       "dateEvidence": "한국 네일샵 공개 도트 시술 설명과 6월 아트 문구 관찰; 연도·정확 게시일 미확인. 실제 불규칙 붉은 점 선명."
+    },
+    {
+      "id": "03e508a36d31a707",
+      "sha256": "03e508a36d31a707b8dc2746133d2d12eb7e9ff0e14ea8a8483849429b33bc12",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "65bd3c328c98e846",
+      "sha256": "65bd3c328c98e846eeffd5b9cae71a22da29a5c7c0569580b4bb93cf2bbf87e6",
+      "publishedDate": "2026-03-25",
+      "dateEvidence": "기사 2026.03.25 게시일과 국내 제작 SPORTY BLUSH 화보 및 메이크업 설명 관찰; 원사진 촬영일은 별도 미확인"
+    },
+    {
+      "id": "3228d6027620fd42",
+      "sha256": "3228d6027620fd42e7a34ba938f33af846d3fcf96a747449b82fe0914dc7b592",
+      "publishedDate": "2026-03-25",
+      "dateEvidence": "기사 2026.03.25 게시일과 국내 제작 ACTIVE ACCESSORY 화보 및 언더 래시 부착 설명 관찰; 원사진 촬영일은 별도 미확인"
+    },
+    {
+      "id": "c102244e54ec469b",
+      "sha256": "c102244e54ec469bee453e0781b1f0fb2180fd029f5938e7accae9ab073430e1",
+      "publishedDate": "2026-03-25",
+      "dateEvidence": "기사 2026.03.25 게시일과 국내 제작 STAY RED 화보 및 레드 립 시술 설명 관찰; 원사진 촬영일은 별도 미확인"
+    },
+    {
+      "id": "f8cfe0946ec5acd4",
+      "sha256": "f8cfe0946ec5acd4c9843859b065b8efed4c9566723e19488cf87471d66cab19",
+      "publishedDate": null,
+      "dateEvidence": "공개 핀 게시일 미확인. 실제 갈색·검정 잉크형 흐름무늬와 선명한 손톱 경계 확인; 최신으로 추정하지 않음."
     }
   ]
 }
