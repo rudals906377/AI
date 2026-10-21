@@ -46360,5 +46360,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "981aa3cb8d1e0c0d",
+    "file": "네일/버터옐로/981aa3cb8d1e0c0d.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "버터옐로"
+      }
+    ],
+    "width": 1168,
+    "height": 1460,
+    "bytes": 172465,
+    "sha256": "981aa3cb8d1e0c0d6a5df83c4e7f0922cfa09203a1c1bd5d63b3b4b54f6fe20e",
+    "dhash": "edf5bae365b9f18d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
