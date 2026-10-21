@@ -44890,5 +44890,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "192cdaa7953e9720",
+    "file": "헤어/픽시컷/192cdaa7953e9720.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "픽시컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 256609,
+    "sha256": "192cdaa7953e9720cd58c348a0b33481ad345b2f4f47d51f9316f03da403e4cf",
+    "dhash": "cfce0ccc8838f9f8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4cfb704199a92493",
+    "file": "타투/나방/4cfb704199a92493.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "나방"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 658582,
+    "sha256": "4cfb704199a9249356d0e320d7882878a9b1b1a5d6ca29df3937f62dc5b0bd99",
+    "dhash": "313130306d6b3336",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "49049d88d2e7011e",
+    "file": "메이크업/언더 속눈썹/49049d88d2e7011e.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1080,
+    "height": 1439,
+    "bytes": 171710,
+    "sha256": "49049d88d2e7011ee389bfa3dd5a5b3e4ba60df314f22f5997038ab3f641707b",
+    "dhash": "ccf4d2a9f171f2f1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

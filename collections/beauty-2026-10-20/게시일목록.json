@@ -12792,6 +12792,24 @@
       "sha256": "40ebd48daaff2b8a10ee11757d0c71e4eb6443810f1addf1c0f5e6cac9657609",
       "publishedDate": "2026-07-02",
       "dateEvidence": "공개 기사 2026/07/02 확인; 원 SNS 사진 최초 게시일 미확인. 최근 촬영으로 추정하지 않음"
+    },
+    {
+      "id": "192cdaa7953e9720",
+      "sha256": "192cdaa7953e9720cd58c348a0b33481ad345b2f4f47d51f9316f03da403e4cf",
+      "publishedDate": "2026-08-07",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.08.07 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "4cfb704199a92493",
+      "sha256": "4cfb704199a9249356d0e320d7882878a9b1b1a5d6ca29df3937f62dc5b0bd99",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "49049d88d2e7011e",
+      "sha256": "49049d88d2e7011ee389bfa3dd5a5b3e4ba60df314f22f5997038ab3f641707b",
+      "publishedDate": "2026-09-23",
+      "dateEvidence": "기사 2026.09.23 게시일과 최예나 언더 속눈썹 배치 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
