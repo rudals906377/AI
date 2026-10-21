@@ -47074,5 +47074,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4ef72d4e38026b0d",
+    "file": "헤어/글램펌/4ef72d4e38026b0d.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 194287,
+    "sha256": "4ef72d4e38026b0d8ab4b1b227d67e26e86dbf087919a99b8675d744ac37da87",
+    "dhash": "fc7c3233363c1c32",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6a997ccb211e94aa",
+    "file": "타투/날개/6a997ccb211e94aa.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "날개"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 818666,
+    "sha256": "6a997ccb211e94aa1dec588483a51062afd62fab0795127dd6800781a628c68a",
+    "dhash": "faaaaaa22b2fe4f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ab70f1d7bcc37190",
+    "file": "네일/호피·애니멀/ab70f1d7bcc37190.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "호피·애니멀"
+      }
+    ],
+    "width": 1136,
+    "height": 1420,
+    "bytes": 93195,
+    "sha256": "ab70f1d7bcc37190d211f7c363978c525c602ee020d07b29f7a121a97d34a1b3",
+    "dhash": "a665342a60d4a8d0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

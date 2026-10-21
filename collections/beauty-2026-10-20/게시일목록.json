@@ -13416,6 +13416,24 @@
       "sha256": "a8cdfbc18902333d723a25c788b4f993d26b53a04b499b233bbae2bba0f1d7b0",
       "publishedDate": "2026-10-06",
       "dateEvidence": "공개 시ャン티이 화이트 네일 기사 게시일 2026/10/06 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "4ef72d4e38026b0d",
+      "sha256": "4ef72d4e38026b0d8ab4b1b227d67e26e86dbf087919a99b8675d744ac37da87",
+      "publishedDate": "2025-12-09",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2025.12.09 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6a997ccb211e94aa",
+      "sha256": "6a997ccb211e94aa1dec588483a51062afd62fab0795127dd6800781a628c68a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "ab70f1d7bcc37190",
+      "sha256": "ab70f1d7bcc37190d211f7c363978c525c602ee020d07b29f7a121a97d34a1b3",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 가을 네일 기사 게시일 2026/10/15와 애니멀② 확인; 원사진 최초 게시일 별도 미확인"
     }
   ]
 }
