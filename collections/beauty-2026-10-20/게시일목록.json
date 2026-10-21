@@ -13626,6 +13626,18 @@
       "sha256": "8bc55659d0005140c17a5649fb8aff1bc5934f9a88cc5fbbd2e8d4985bbc59e3",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 기사 표시 2026-10-15 및 포도네일② 단일사진 일치 관찰; 원사진 최초 게시일 미확인"
+    },
+    {
+      "id": "ba76ca210d36d2ff",
+      "sha256": "ba76ca210d36d2ff0dec8a04445da41b3942907e9e3456d4355475ae2e78a5b8",
+      "publishedDate": "2026-01-12",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.01.12 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "3c722a710f773f50",
+      "sha256": "3c722a710f773f5019364a4b63ad4d5e1af7efc733d2796bad909845a1568437",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
