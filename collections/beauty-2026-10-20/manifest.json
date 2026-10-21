@@ -42727,5 +42727,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6044e48053a95413",
+    "file": "헤어/S컬펌/6044e48053a95413.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 179519,
+    "sha256": "6044e48053a95413ce5eb7a66b4d8f105a703c5de11695eed97147768cd3d670",
+    "dhash": "b13333333716cd61",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
