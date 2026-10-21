@@ -44218,5 +44218,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5a40b9c0b6eb1115",
+    "file": "메이크업/캣아이라인/5a40b9c0b6eb1115.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1199,
+    "height": 899,
+    "bytes": 88159,
+    "sha256": "5a40b9c0b6eb1115181ee81d4b58bd67b8c3cc94ca1759016a035310ce20997b",
+    "dhash": "69495a3838381b8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b7eaafe0076ef5de",
+    "file": "네일/유광/b7eaafe0076ef5de.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "유광"
+      }
+    ],
+    "width": 1152,
+    "height": 1440,
+    "bytes": 38580,
+    "sha256": "b7eaafe0076ef5de7cc8b09536295c93a6fea9b3df579d9e45f2afdcdd3100ee",
+    "dhash": "f88c9e3671700000",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
