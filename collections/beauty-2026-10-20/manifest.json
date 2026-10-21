@@ -44953,5 +44953,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7e334dd92c34886a",
+    "file": "헤어/업스타일/7e334dd92c34886a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "업스타일"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 101583,
+    "sha256": "7e334dd92c34886ac854bbcde7079a21959bac8ee3fd6d173be0ba26b8c520aa",
+    "dhash": "2783c8383031383e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8eb1b409270ea88d",
+    "file": "타투/발자국/8eb1b409270ea88d.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "발자국"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 757465,
+    "sha256": "8eb1b409270ea88d2ee47eb2cf5e333b2af4b0bd6e561191f724d7ee69e8d9cd",
+    "dhash": "1d9d3f351d1d5979",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
