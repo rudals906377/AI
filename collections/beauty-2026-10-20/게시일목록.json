@@ -12978,6 +12978,24 @@
       "sha256": "a66309c7b99b5d084a3dfa93622e6408097aaee0c59e0940ea44f24a41539b36",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 링크 경로의 연도만으로 날짜를 확정하지 않음. 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "4b11d4d86ecaf4dc",
+      "sha256": "4b11d4d86ecaf4dc8c865ffcd8be40fca0ef8f343030988806896dceda774a42",
+      "publishedDate": "2026-07-01",
+      "dateEvidence": "한국 앞머리 스타일 기사 게시일 2026.07.01 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "7e65905332a09b1e",
+      "sha256": "7e65905332a09b1ed5c5b9e539c0f5055e6853701221584ddcdb1fa578fb8198",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "e178d766f4c3fe79",
+      "sha256": "e178d766f4c3fe79e7cd9459bbe8856de267d874a22ba6682c3e3152f2be0958",
+      "publishedDate": "2026-09-25",
+      "dateEvidence": "기사 2026.09.25 게시일과 모모 치크 시술 사진 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }

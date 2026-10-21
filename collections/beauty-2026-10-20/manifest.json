@@ -45541,5 +45541,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4b11d4d86ecaf4dc",
+    "file": "헤어/처피뱅/4b11d4d86ecaf4dc.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "처피뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1463,
+    "bytes": 298825,
+    "sha256": "4b11d4d86ecaf4dc8c865ffcd8be40fca0ef8f343030988806896dceda774a42",
+    "dhash": "83991933b1b03105",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7e65905332a09b1e",
+    "file": "타투/치카노/7e65905332a09b1e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "치카노"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 979622,
+    "sha256": "7e65905332a09b1ed5c5b9e539c0f5055e6853701221584ddcdb1fa578fb8198",
+    "dhash": "c78e1b3bfad87461",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e178d766f4c3fe79",
+    "file": "메이크업/캣아이라인/e178d766f4c3fe79.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 180792,
+    "sha256": "e178d766f4c3fe79e7cd9459bbe8856de267d874a22ba6682c3e3152f2be0958",
+    "dhash": "8e27f5fc7878327a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
