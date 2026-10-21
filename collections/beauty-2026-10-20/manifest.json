@@ -43861,5 +43861,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2a28faeeb82cfc8a",
+    "file": "헤어/생머리/2a28faeeb82cfc8a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "생머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 64124,
+    "sha256": "2a28faeeb82cfc8a08869c7ebe2fad8299683b7936d133d5e0b790bf7c7dbc87",
+    "dhash": "0d4c8c0e8e4ccc8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bd9817bef13b504d",
+    "file": "메이크업/눈앞머리 하이라이트/bd9817bef13b504d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1170,
+    "height": 878,
+    "bytes": 49632,
+    "sha256": "bd9817bef13b504dd420ca22958f982010dfe6397ee87abc5a96bc84bf58249d",
+    "dhash": "d084e0b4b4a4a4a4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0ca8627a59b1af39",
+    "file": "네일/오벌/0ca8627a59b1af39.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "오벌"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 98701,
+    "sha256": "0ca8627a59b1af39890d2d2cfed6a1b0c16d7fdb65c55c90267092ce47e28b23",
+    "dhash": "df2f2979c9c6c393",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
