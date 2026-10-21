@@ -12996,6 +12996,18 @@
       "sha256": "e178d766f4c3fe79e7cd9459bbe8856de267d874a22ba6682c3e3152f2be0958",
       "publishedDate": "2026-09-25",
       "dateEvidence": "기사 2026.09.25 게시일과 모모 치크 시술 사진 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "d8fd247a37f200e3",
+      "sha256": "d8fd247a37f200e3f5589b94f1771fcf870806cfd926660953603dce7c5be8e2",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "172d85308b0e2dc9",
+      "sha256": "172d85308b0e2dc9eb17884296351fc8f2dbba3bd6fb90304b850072773ac098",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
     }
   ]
 }

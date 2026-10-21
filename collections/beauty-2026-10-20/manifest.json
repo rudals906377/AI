@@ -45604,5 +45604,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d8fd247a37f200e3",
+    "file": "타투/나침반/d8fd247a37f200e3.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "나침반"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 129150,
+    "sha256": "d8fd247a37f200e3f5589b94f1771fcf870806cfd926660953603dce7c5be8e2",
+    "dhash": "c848858cc8c4c4d8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "172d85308b0e2dc9",
+    "file": "네일/미니멀/172d85308b0e2dc9.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "미니멀"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 176555,
+    "sha256": "172d85308b0e2dc9eb17884296351fc8f2dbba3bd6fb90304b850072773ac098",
+    "dhash": "af577e2d1d5beff5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
