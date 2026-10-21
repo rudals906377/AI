@@ -350,7 +350,7 @@
       "existing_count": 4,
       "shortage": true,
       "target_new": 100,
-      "collected": 10
+      "collected": 11
     },
     {
       "category": "헤어",
@@ -1370,7 +1370,7 @@
       "existing_count": 84,
       "shortage": false,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "네일",
@@ -2670,7 +2670,7 @@
       "existing_count": 98,
       "shortage": false,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "메이크업",
@@ -5380,7 +5380,7 @@
       "existing_count": 1,
       "shortage": true,
       "target_new": 100,
-      "collected": 1
+      "collected": 2
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 2170,
+  "unique_images": 2174,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 2169,
+  "goal_eligible_unique_images": 2173,
   "excluded_images": 1
 }

@@ -13020,6 +13020,30 @@
       "sha256": "f132c7dce6f08e423ccf35ebf766cd077e4dc1e112e2b0204ab6b677633cd651",
       "publishedDate": "2026-09-05",
       "dateEvidence": "기사 2026.09.05 게시일과 장원영 피치 치크 시술 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "e22e5011f2f73dcc",
+      "sha256": "e22e5011f2f73dccb024c4545db6eae1f9fe693fc111e4967249350074a06e20",
+      "publishedDate": "2026-07-01",
+      "dateEvidence": "한국 앞머리 스타일 기사 게시일 2026.07.01 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "bd24380a9f9975cf",
+      "sha256": "bd24380a9f9975cf3cfc8646d2d9d86bf587f3be7b5e9caf936ba15401d7210e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "62b0cc4366ee5f3a",
+      "sha256": "62b0cc4366ee5f3a90b3b58fa9204ece42218f366157c6077f86c7b5c5690b22",
+      "publishedDate": "2026-09-05",
+      "dateEvidence": "기사 2026.09.05 게시일과 가을 시술 사진 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "8c8f3c666734226c",
+      "sha256": "8c8f3c666734226c9cc75c01fa3dc7abc4dbf8e072e9ad837d69771b8f4a3df3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
     }
   ]
 }
