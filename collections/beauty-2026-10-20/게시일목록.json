@@ -12390,6 +12390,18 @@
       "sha256": "f8cfe0946ec5acd4c9843859b065b8efed4c9566723e19488cf87471d66cab19",
       "publishedDate": null,
       "dateEvidence": "공개 핀 게시일 미확인. 실제 갈색·검정 잉크형 흐름무늬와 선명한 손톱 경계 확인; 최신으로 추정하지 않음."
+    },
+    {
+      "id": "c76aad1932df3fd7",
+      "sha256": "c76aad1932df3fd7e7524ac2d537b2986309d56c9c22523703af6a1df9d7d761",
+      "publishedDate": "2026-09-29",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.29 확인; 원사진 최초 게시일은 별도 미확인"
+    },
+    {
+      "id": "3fe5df432c817ac1",
+      "sha256": "3fe5df432c817ac1a6714cb07176ad723c54a72d157d67b6514910800b25397a",
+      "publishedDate": null,
+      "dateEvidence": "공개 핀 게시일 미확인. 양손 보이는 열 손톱 모두 같은 붉은 원컬러·장식 없는 배치 확인; 최신으로 추정하지 않음."
     }
   ]
 }

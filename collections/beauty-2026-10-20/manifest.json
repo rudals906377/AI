@@ -43483,5 +43483,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c76aad1932df3fd7",
+    "file": "헤어/단발/c76aad1932df3fd7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1200,
+    "height": 1200,
+    "bytes": 112015,
+    "sha256": "c76aad1932df3fd7e7524ac2d537b2986309d56c9c22523703af6a1df9d7d761",
+    "dhash": "6ce2e323313193ce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3fe5df432c817ac1",
+    "file": "네일/동일디자인/3fe5df432c817ac1.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "배치",
+        "label": "동일디자인"
+      }
+    ],
+    "width": 828,
+    "height": 830,
+    "bytes": 44409,
+    "sha256": "3fe5df432c817ac1a6714cb07176ad723c54a72d157d67b6514910800b25397a",
+    "dhash": "61713397379e0f02",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
