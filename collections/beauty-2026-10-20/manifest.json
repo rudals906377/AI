@@ -44365,5 +44365,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c857ad92e2936ff7",
+    "file": "네일/매트/c857ad92e2936ff7.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1140,
+    "height": 1425,
+    "bytes": 47638,
+    "sha256": "c857ad92e2936ff706b9f79b8cf70bb2a634669f7b375e0719f3889da4f40bd4",
+    "dhash": "b4d0d1a3e3c7ecfc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

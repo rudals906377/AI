@@ -12642,6 +12642,12 @@
       "sha256": "9f81a1d62a933bd607429b2949afd0671a90895d98dbdffdea7d3cfe5d0a270f",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "c857ad92e2936ff7",
+      "sha256": "c857ad92e2936ff706b9f79b8cf70bb2a634669f7b375e0719f3889da4f40bd4",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "일본 뷰티 기사2026/07/02와 소프트매트 시술 설명 확인; 원 SNS 최초게시일 미확인"
     }
   ]
 }
