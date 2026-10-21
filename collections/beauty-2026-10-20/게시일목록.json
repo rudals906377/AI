@@ -12228,6 +12228,54 @@
       "sha256": "ce7ad757ac3f9eba89db95046383fc050114bbff7d5b8fbd520ed35ca736577a",
       "publishedDate": "2026-08-20",
       "dateEvidence": "한국 헤어스타일 기사 게시일 2026.08.20 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "efea87b4563c4e53",
+      "sha256": "efea87b4563c4e5310d5adb0daf535d77e8ebd2292903ba57011058a5d5d067e",
+      "publishedDate": "2026-07-11",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.11 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "e684faadc1135ed4",
+      "sha256": "e684faadc1135ed481d8dcbef759570400197d5a2613ed30a370cc8b77362339",
+      "publishedDate": "2026-07-11",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.11 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "d65c6bdebadeabf6",
+      "sha256": "d65c6bdebadeabf615be41335dfa057cd3be4c81466f278c42385d772c401c15",
+      "publishedDate": "2026-07-11",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.11 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "ab8c315f7f4ceb0a",
+      "sha256": "ab8c315f7f4ceb0a4452f963ade998a9f183e87213308073abe140fa2f9447d3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "27a3cfdbc4a01c32",
+      "sha256": "27a3cfdbc4a01c32c0b97a16c8f97eb758f8f3c4cee02ac3545d1d221cfffe15",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "4cbe4f466876e534",
+      "sha256": "4cbe4f466876e534fe7626bdb77293e5315d2c230709058ca211ecff2ceae535",
+      "publishedDate": "2026-07-28",
+      "dateEvidence": "기사 2026.07.28 게시일 관찰; 남자 아이돌 음영 메이크업 설명과 SNS 인용 사진이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "c5c9e4b492058446",
+      "sha256": "c5c9e4b4920584469eba7593262bd0dd047bc1f0c674ecc2bd0224938c49afff",
+      "publishedDate": "2026-07-28",
+      "dateEvidence": "기사 2026.07.28 게시일 관찰; 남자 아이돌 치크 시술 설명과 SNS 인용 사진이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "3da38f72422df1a7",
+      "sha256": "3da38f72422df1a7055124dcd458c307b44c0b721a0bb3474e2bc6772a55f9ca",
+      "publishedDate": null,
+      "dateEvidence": "공개 한국 네일샵 설명에 2026년5월 아트 명시; 정확 게시일은 미확인. 실제 파일의 은색 글리터 입자 확인."
     }
   ]
 }
