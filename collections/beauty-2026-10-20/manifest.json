@@ -42748,5 +42748,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c9f584ffa8e74539",
+    "file": "타투/얼굴·두피/c9f584ffa8e74539.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "얼굴·두피"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 674436,
+    "sha256": "c9f584ffa8e74539fe354fdd271f7653d520b7f09bcb0432a34e201f5eff28ef",
+    "dhash": "d4e069e8e8e8e869",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "15dc0b2300fa6c1d",
+    "file": "메이크업/핑크·코랄 섀도/15dc0b2300fa6c1d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "핑크·코랄 섀도"
+      }
+    ],
+    "width": 1170,
+    "height": 936,
+    "bytes": 143075,
+    "sha256": "15dc0b2300fa6c1db73151a43e477b5959c304fd847e0d5c9a10762e2bd7a2b9",
+    "dhash": "4343c3c3e3b3b3b3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "37ac17926a159cf4",
+    "file": "네일/핫핑크/37ac17926a159cf4.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "핫핑크"
+      }
+    ],
+    "width": 736,
+    "height": 981,
+    "bytes": 69499,
+    "sha256": "37ac17926a159cf4076a406118cfa75114b04a47ebf71de7ebaaf96c0b797b27",
+    "dhash": "1cb971624cc68e1b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

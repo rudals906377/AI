@@ -12180,6 +12180,24 @@
       "sha256": "6044e48053a95413ce5eb7a66b4d8f105a703c5de11695eed97147768cd3d670",
       "publishedDate": "2025-11-28",
       "dateEvidence": "한국 뷰티 기사 게시일 2025.11.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "c9f584ffa8e74539",
+      "sha256": "c9f584ffa8e74539fe354fdd271f7653d520b7f09bcb0432a34e201f5eff28ef",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "15dc0b2300fa6c1d",
+      "sha256": "15dc0b2300fa6c1db73151a43e477b5959c304fd847e0d5c9a10762e2bd7a2b9",
+      "publishedDate": "2026-08-14",
+      "dateEvidence": "기사 2026.08.14 게시일 관찰; SNS 인용 사진의 핑크 아이 메이크업 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "37ac17926a159cf4",
+      "sha256": "37ac17926a159cf4076a406118cfa75114b04a47ebf71de7ebaaf96c0b797b27",
+      "publishedDate": null,
+      "dateEvidence": "최근 한국 핫핑크 시술 검색 후 공개 핀 원본 육안 검수. 진한 핫핑크 전체 도포가 명확하며 게시일 미확인, 검색어로 날짜를 추정하지 않음."
     }
   ]
 }
