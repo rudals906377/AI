@@ -47305,5 +47305,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1637d338c37765de",
+    "file": "헤어/베이비뱅/1637d338c37765de.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "베이비뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 88114,
+    "sha256": "1637d338c37765de5e8b33502e584ba846d24865b3e4bacbdff8b36bbcd8864e",
+    "dhash": "4f8f9f3319092b26",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e149a710f331d707",
+    "file": "타투/게임 · 영화 캐릭터/e149a710f331d707.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "캐릭터",
+        "label": "게임 · 영화 캐릭터"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 737964,
+    "sha256": "e149a710f331d7071e0955269497bfdbfcf5551e64ceaaf948ea01c6e0663fde",
+    "dhash": "f89c8e8e9ecce0f2",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6df9c5561e43ef90",
+    "file": "메이크업/그린·옐로 섀도/6df9c5561e43ef90.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "그린·옐로 섀도"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 175220,
+    "sha256": "6df9c5561e43ef907a38295a2dd0f0d31d8af453246df3098fadc6ea6308b139",
+    "dhash": "a8a4b2b292984818",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "59143d82d48272d6",
+    "file": "네일/브라운·모카/59143d82d48272d6.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "브라운·모카"
+      }
+    ],
+    "width": 965,
+    "height": 1207,
+    "bytes": 38701,
+    "sha256": "59143d82d48272d6c59a64f293b0612abcd225f3cc14fec7303a38dd48f619ea",
+    "dhash": "1c4cc2e260743239",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

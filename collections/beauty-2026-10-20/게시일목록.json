@@ -13482,6 +13482,30 @@
       "sha256": "1d131183af81fb45730e33cdf35b214519caa3ac329de56dab4bf7ab8464373c",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀④ 확인; 원사진 최초일 별도 미확인"
+    },
+    {
+      "id": "1637d338c37765de",
+      "sha256": "1637d338c37765de5e8b33502e584ba846d24865b3e4bacbdff8b36bbcd8864e",
+      "publishedDate": "2026-09-14",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.14 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "e149a710f331d707",
+      "sha256": "e149a710f331d7071e0955269497bfdbfcf5551e64ceaaf948ea01c6e0663fde",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "6df9c5561e43ef90",
+      "sha256": "6df9c5561e43ef907a38295a2dd0f0d31d8af453246df3098fadc6ea6308b139",
+      "publishedDate": "2026-06-02",
+      "dateEvidence": "기사 2026년06월02일 표시와 젬스톤 컬렉션 민트 배경·갈색 보브·민트 섀도 독립 룩 실제 사진 일치 관찰; 별도 원촬영일 미확인"
+    },
+    {
+      "id": "59143d82d48272d6",
+      "sha256": "59143d82d48272d6c59a64f293b0612abcd225f3cc14fec7303a38dd48f619ea",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀⑤ 확인; 원사진 최초일 별도 미확인"
     }
   ]
 }
