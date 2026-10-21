@@ -12516,6 +12516,36 @@
       "sha256": "0ca8627a59b1af39890d2d2cfed6a1b0c16d7fdb65c55c90267092ce47e28b23",
       "publishedDate": null,
       "dateEvidence": "한국 네일 살롱 공개 이달의아트 시술 설명 확인, 게시일 미확인; 최근으로 추정하지 않음"
+    },
+    {
+      "id": "54420b5f69521ba5",
+      "sha256": "54420b5f69521ba5a3260472a4bd0ba97edc8195c28a2e03864ff2bbcce15983",
+      "publishedDate": "2026-09-10",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.10 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "c97f801d8cf0c243",
+      "sha256": "c97f801d8cf0c243778d1c2e250bd87c05039c03adb38767919ea24e06bbebe7",
+      "publishedDate": "2026-09-10",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.10 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b1403ddbecb173aa",
+      "sha256": "b1403ddbecb173aaf6777bf760e91e72163cea4d52c1fdb692c77cba431c310c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "418778e3b04855e9",
+      "sha256": "418778e3b04855e92c7c569f3b0049249f40bb8ce791a3a14d8ebb177054c514",
+      "publishedDate": "2026-08-20",
+      "dateEvidence": "기사 2026.08.20 게시일과 안유진 눈앞 라임펄 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "c82e9d724f863ed9",
+      "sha256": "c82e9d724f863ed9d0101469081e14bb85f625bbadf933be5d560744f8a220ac",
+      "publishedDate": null,
+      "dateEvidence": "공개 이미지에서 무광 질감 확인; 게시일 미확인, 최근으로 추정하지 않음"
     }
   ]
 }

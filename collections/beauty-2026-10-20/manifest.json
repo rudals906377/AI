@@ -43924,5 +43924,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "54420b5f69521ba5",
+    "file": "헤어/풀뱅/54420b5f69521ba5.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "풀뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 123266,
+    "sha256": "54420b5f69521ba5a3260472a4bd0ba97edc8195c28a2e03864ff2bbcce15983",
+    "dhash": "1a1b12b292920e0c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c97f801d8cf0c243",
+    "file": "헤어/시스루뱅/c97f801d8cf0c243.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1463,
+    "bytes": 140092,
+    "sha256": "c97f801d8cf0c243778d1c2e250bd87c05039c03adb38767919ea24e06bbebe7",
+    "dhash": "4b8fced7f7b7aee6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b1403ddbecb173aa",
+    "file": "타투/사신/b1403ddbecb173aa.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "사신"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 431928,
+    "sha256": "b1403ddbecb173aaf6777bf760e91e72163cea4d52c1fdb692c77cba431c310c",
+    "dhash": "873038496d3d58dc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "418778e3b04855e9",
+    "file": "메이크업/눈앞머리 하이라이트/418778e3b04855e9.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "눈앞머리 하이라이트"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 94038,
+    "sha256": "418778e3b04855e92c7c569f3b0049249f40bb8ce791a3a14d8ebb177054c514",
+    "dhash": "010e3434b4322f38",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c82e9d724f863ed9",
+    "file": "네일/매트/c82e9d724f863ed9.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 640,
+    "height": 640,
+    "bytes": 43539,
+    "sha256": "c82e9d724f863ed9d0101469081e14bb85f625bbadf933be5d560744f8a220ac",
+    "dhash": "5ffb3f0f3f3c2040",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
