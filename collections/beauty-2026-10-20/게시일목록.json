@@ -13386,6 +13386,18 @@
       "sha256": "9127c237e526a08cde87f3c38bedf2209cbe00b12f62a3225bf094bb5cd6fb80",
       "publishedDate": "2026-09-22",
       "dateEvidence": "공개 피스타치오 네일 기사 게시일 2026/09/22 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "870080fe32b22410",
+      "sha256": "870080fe32b22410664d3b3ca62305441eb3f52d9649c4f326c92ec6588e3fd1",
+      "publishedDate": "2025-12-11",
+      "dateEvidence": "한국 포니테일 스타일 기사 게시일 2025.12.11 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "105390d339ce8673",
+      "sha256": "105390d339ce86739fb2e5d7e2ed8007a2edb62933084a80762d7fb34f4b2c61",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

@@ -46969,5 +46969,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "870080fe32b22410",
+    "file": "헤어/앞머리 없음/870080fe32b22410.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "앞머리 없음"
+      }
+    ],
+    "width": 1200,
+    "height": 1514,
+    "bytes": 256250,
+    "sha256": "870080fe32b22410664d3b3ca62305441eb3f52d9649c4f326c92ec6588e3fd1",
+    "dhash": "4e66d921273e1f1f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "105390d339ce8673",
+    "file": "타투/사신/105390d339ce8673.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "사신"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 767058,
+    "sha256": "105390d339ce86739fb2e5d7e2ed8007a2edb62933084a80762d7fb34f4b2c61",
+    "dhash": "48664c43332cccce",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
