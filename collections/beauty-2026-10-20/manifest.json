@@ -43126,5 +43126,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d16f9282bcc32d9b",
+    "file": "헤어/빌드펌/d16f9282bcc32d9b.png",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "빌드펌"
+      }
+    ],
+    "width": 876,
+    "height": 1056,
+    "bytes": 1025273,
+    "sha256": "d16f9282bcc32d9b763e93cb860fb728dd132dd8e3df055f9ef45563f063efa2",
+    "dhash": "637133333337968c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dbe44a8c032ee0f7",
+    "file": "메이크업/노메이크업룩/dbe44a8c032ee0f7.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "노메이크업룩"
+      }
+    ],
+    "width": 929,
+    "height": 1161,
+    "bytes": 101650,
+    "sha256": "dbe44a8c032ee0f7afad783f055d14d9101072f68f114f26e48132ac64b369db",
+    "dhash": "6f6fb6eab8bc9fb4",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8da602bf39f33a78",
+    "file": "메이크업/노메이크업룩/8da602bf39f33a78.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "노메이크업룩"
+      }
+    ],
+    "width": 915,
+    "height": 1144,
+    "bytes": 80074,
+    "sha256": "8da602bf39f33a782c6a981b15d11aa8b5438bcc91608489533a7177e8908628",
+    "dhash": "0130b03073f3c66e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

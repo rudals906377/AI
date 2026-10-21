@@ -12288,6 +12288,24 @@
       "sha256": "cf21c2d99e78e815013f8ae09a4c255be9190e438c31451290a329e1a2199e94",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d16f9282bcc32d9b",
+      "sha256": "d16f9282bcc32d9b763e93cb860fb728dd132dd8e3df055f9ef45563f063efa2",
+      "publishedDate": "2025-04-21",
+      "dateEvidence": "한국 살롱 공개 시술 글 게시일 2025-04-21 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "dbe44a8c032ee0f7",
+      "sha256": "dbe44a8c032ee0f7afad783f055d14d9101072f68f114f26e48132ac64b369db",
+      "publishedDate": "2026-04-02",
+      "dateEvidence": "기사 2026.04.02 게시일 관찰; SNS 인용 사진의 최소 눈화장 메이크업 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "8da602bf39f33a78",
+      "sha256": "8da602bf39f33a782c6a981b15d11aa8b5438bcc91608489533a7177e8908628",
+      "publishedDate": "2026-04-02",
+      "dateEvidence": "기사 2026.04.02 게시일 관찰; SNS 인용 사진의 미니멀 메이크업 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
