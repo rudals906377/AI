@@ -13050,6 +13050,12 @@
       "sha256": "9434d14df979131761f0539dcc67c1906a518559af9ea21c49c88dd5155a6009",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 공개 설명의 7월 행사만으로 연도를 추정하지 않음. 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "0400aad4e08541da",
+      "sha256": "0400aad4e08541dae9a8e4f5a2df99eae12ff6574fe97e3dad28bd1d2e2b90d0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
     }
   ]
 }
