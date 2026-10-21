@@ -13458,6 +13458,30 @@
       "sha256": "d730414dabd71bf983443b2c0157b45b3eb35fe21badef58708af66a6a050291",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀③ 확인; 원사진 최초일 별도 미확인"
+    },
+    {
+      "id": "904d5bceecc2153f",
+      "sha256": "904d5bceecc2153f0ac6e1425eb6dc43154cc4d6cae2c516961e93778989ff3b",
+      "publishedDate": "2025-07-29",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2025.07.29 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6160b56d95e04134",
+      "sha256": "6160b56d95e041343dd4d1e013edb3fde0449c320d57151c61aaef39ea4e4d5b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "65c96e79665d6a94",
+      "sha256": "65c96e79665d6a94c74ec2f6a6604453e094e1a0db2e9a2ab6b23013867b93e4",
+      "publishedDate": "2026-06-02",
+      "dateEvidence": "기사 2026년06월02일 표시와 젬스톤 컬렉션 핑크 배경·눈밑 파츠·분홍 얼음 사진 일치 관찰; 별도 원촬영일 미확인"
+    },
+    {
+      "id": "1d131183af81fb45",
+      "sha256": "1d131183af81fb45730e33cdf35b214519caa3ac329de56dab4bf7ab8464373c",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀④ 확인; 원사진 최초일 별도 미확인"
     }
   ]
 }

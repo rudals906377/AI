@@ -47221,5 +47221,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "904d5bceecc2153f",
+    "file": "헤어/넘긴 앞머리/904d5bceecc2153f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "넘긴 앞머리"
+      }
+    ],
+    "width": 960,
+    "height": 1280,
+    "bytes": 203548,
+    "sha256": "904d5bceecc2153f0ac6e1425eb6dc43154cc4d6cae2c516961e93778989ff3b",
+    "dhash": "636072780a981070",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6160b56d95e04134",
+    "file": "타투/슈가 스컬/6160b56d95e04134.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "해골·다크",
+        "label": "슈가 스컬"
+      }
+    ],
+    "width": 4000,
+    "height": 4000,
+    "bytes": 522152,
+    "sha256": "6160b56d95e041343dd4d1e013edb3fde0449c320d57151c61aaef39ea4e4d5b",
+    "dhash": "797d6d7d6474e8f1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "65c96e79665d6a94",
+    "file": "메이크업/큐빅·파츠/65c96e79665d6a94.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "포인트",
+        "label": "큐빅·파츠"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 185810,
+    "sha256": "65c96e79665d6a94c74ec2f6a6604453e094e1a0db2e9a2ab6b23013867b93e4",
+    "dhash": "a7232383c3c61c9a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1d131183af81fb45",
+    "file": "네일/오벌/1d131183af81fb45.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "오벌"
+      }
+    ],
+    "width": 1149,
+    "height": 1436,
+    "bytes": 45300,
+    "sha256": "1d131183af81fb45730e33cdf35b214519caa3ac329de56dab4bf7ab8464373c",
+    "dhash": "030202080c05814b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
