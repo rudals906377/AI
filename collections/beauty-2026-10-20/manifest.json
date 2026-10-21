@@ -42895,5 +42895,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ce7ad757ac3f9eba",
+    "file": "헤어/사이드뱅/ce7ad757ac3f9eba.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "사이드뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 211737,
+    "sha256": "ce7ad757ac3f9eba89db95046383fc050114bbff7d5b8fbd520ed35ca736577a",
+    "dhash": "f0f0e8c071d3dd4f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
