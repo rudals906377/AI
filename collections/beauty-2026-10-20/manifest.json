@@ -44995,5 +44995,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9aeff294a79409cb",
+    "file": "헤어/똥머리/9aeff294a79409cb.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "똥머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 187367,
+    "sha256": "9aeff294a79409cbec06c7f4058339f1c8058da1822f844d83659be74a59ae15",
+    "dhash": "a1a4865911194bce",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fe5b801a2485bada",
+    "file": "타투/도마뱀 · 카멜레온/fe5b801a2485bada.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "도마뱀 · 카멜레온"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 450007,
+    "sha256": "fe5b801a2485bada8f840f86ad58f388007c77b649743890d9e681a629c2486e",
+    "dhash": "bf7e96b8ece4f1f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "34fe1f589d895e83",
+    "file": "메이크업/홍조 블러셔/34fe1f589d895e83.jpeg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "블러셔·윤곽",
+        "label": "홍조 블러셔"
+      }
+    ],
+    "width": 680,
+    "height": 850,
+    "bytes": 78461,
+    "sha256": "34fe1f589d895e83cad1a25fee87cbcd119d717cfb2ad1b9136f7bd4aa881293",
+    "dhash": "8e8c0716969c8c30",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "311c2b99dab1b998",
+    "file": "네일/시크·힙/311c2b99dab1b998.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "시크·힙"
+      }
+    ],
+    "width": 736,
+    "height": 1308,
+    "bytes": 87026,
+    "sha256": "311c2b99dab1b998199c088c89bc9c9a6add1bc57b3a38247890cbc72504bd1d",
+    "dhash": "5860040800090d04",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

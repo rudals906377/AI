@@ -12822,6 +12822,30 @@
       "sha256": "8eb1b409270ea88d2ee47eb2cf5e333b2af4b0bd6e561191f724d7ee69e8d9cd",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "9aeff294a79409cb",
+      "sha256": "9aeff294a79409cbec06c7f4058339f1c8058da1822f844d83659be74a59ae15",
+      "publishedDate": "2026-08-03",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.08.03 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "fe5b801a2485bada",
+      "sha256": "fe5b801a2485bada8f840f86ad58f388007c77b649743890d9e681a629c2486e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "34fe1f589d895e83",
+      "sha256": "34fe1f589d895e83cad1a25fee87cbcd119d717cfb2ad1b9136f7bd4aa881293",
+      "publishedDate": "2026-09-22",
+      "dateEvidence": "기사 2026.09.22 게시일과 스텔라 볼중앙 치크 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "311c2b99dab1b998",
+      "sha256": "311c2b99dab1b998199c088c89bc9c9a6add1bc57b3a38247890cbc72504bd1d",
+      "publishedDate": null,
+      "dateEvidence": "공개 화면에서 게시일 확인 불가. 날짜 미확인 예외로 실제 원본 품질 검수 통과"
     }
   ]
 }
