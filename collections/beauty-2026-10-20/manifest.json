@@ -43231,5 +43231,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "58cfffb8a219d270",
+    "file": "타투/옆구리/58cfffb8a219d270.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "옆구리"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 778471,
+    "sha256": "58cfffb8a219d2702e812ab26ffd4f5948807995014e654e54392ccddeece6cd",
+    "dhash": "83c5616567c3c7c7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3e08f6dbd2b64d87",
+    "file": "메이크업/볼드 눈썹/3e08f6dbd2b64d87.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "볼드 눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 239714,
+    "sha256": "3e08f6dbd2b64d87cdf74cf1c359f57b56f01b756259f527397ead156047ecb0",
+    "dhash": "45070329e0ccc461",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b02b4c010cc69fa8",
+    "file": "네일/스트라이프/b02b4c010cc69fa8.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스트라이프"
+      }
+    ],
+    "width": 1199,
+    "height": 1432,
+    "bytes": 127636,
+    "sha256": "b02b4c010cc69fa8c5005e153ccff3fc0fb7028aa0a25487b8d02ebe8edde72f",
+    "dhash": "9f0f0f158c2da599",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
