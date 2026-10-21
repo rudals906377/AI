@@ -13224,6 +13224,18 @@
       "sha256": "92eac3d65610f2d96940021d9bbcfacc716bfa2ac800501a1ad0eba2d95e6304",
       "publishedDate": "2026-07-02",
       "dateEvidence": "기사 공개일 2026/07/02와 寒色チークネイル⑦ 사진 화면 확인; 원 SNS 최초일 미확인"
+    },
+    {
+      "id": "4640e992aa3e2c61",
+      "sha256": "4640e992aa3e2c614df4f0aac97f5fba8697b3f3c776f23e4ed62df2b6b46918",
+      "publishedDate": "2025-10-14",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2025.10.14 확인; 원사진 최초 게시일 별도 미확인, 최근 2년 우선 범위"
+    },
+    {
+      "id": "92ba152a6492a283",
+      "sha256": "92ba152a6492a2830bf53fade730ef34e43ffdfab2cce2518825f16e92a103cf",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

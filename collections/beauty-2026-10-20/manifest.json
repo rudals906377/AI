@@ -46402,5 +46402,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4640e992aa3e2c61",
+    "file": "헤어/허쉬컷/4640e992aa3e2c61.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "허쉬컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 321616,
+    "sha256": "4640e992aa3e2c614df4f0aac97f5fba8697b3f3c776f23e4ed62df2b6b46918",
+    "dhash": "86816962c3e3e3b9",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "92ba152a6492a283",
+    "file": "타투/거미/92ba152a6492a283.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "거미"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 445459,
+    "sha256": "92ba152a6492a2830bf53fade730ef34e43ffdfab2cce2518825f16e92a103cf",
+    "dhash": "d0d0f9e86c787038",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
