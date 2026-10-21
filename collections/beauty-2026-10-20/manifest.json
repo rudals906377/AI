@@ -47578,5 +47578,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "adf6a75861c8237c",
+    "file": "헤어/태슬컷/adf6a75861c8237c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "태슬컷"
+      }
+    ],
+    "width": 1080,
+    "height": 1439,
+    "bytes": 170028,
+    "sha256": "adf6a75861c8237c4051aaeebdc459c0a352e3551e2eebebde7f92ee559af0be",
+    "dhash": "dacecacee0f695c9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
