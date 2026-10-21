@@ -46234,5 +46234,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ad9b2620c9d251e0",
+    "file": "헤어/C컬펌/ad9b2620c9d251e0.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "C컬펌"
+      }
+    ],
+    "width": 1080,
+    "height": 815,
+    "bytes": 134534,
+    "sha256": "ad9b2620c9d251e0b6fa22c925ed91b3bad186ea410b061c741b71471ebd4493",
+    "dhash": "a687d79bbbafaf9b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eeb3bf2472749dd9",
+    "file": "메이크업/언더 속눈썹/eeb3bf2472749dd9.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 1461,
+    "bytes": 175971,
+    "sha256": "eeb3bf2472749dd9a10e274b234f42dd396eb69be654092cf007eeaab50caaea",
+    "dhash": "793933a29a96cecc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "99fa6fe308534bb6",
+    "file": "네일/누드·베이지/99fa6fe308534bb6.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "누드·베이지"
+      }
+    ],
+    "width": 1033,
+    "height": 1292,
+    "bytes": 31616,
+    "sha256": "99fa6fe308534bb6c03c8124730cfe1517e9fa144b55558088d33cbf9327619d",
+    "dhash": "6ece7f3090101011",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

@@ -13176,6 +13176,24 @@
       "sha256": "8a891dd261f19eb4fb75b07eec129209d67f9581b5cd8f1d5f6ddc595efe3c1b",
       "publishedDate": "2026-07-02",
       "dateEvidence": "기사 공개일 2026/07/02와 ベアネイル⑫ 사진을 화면에서 확인; 원 SNS 최초일 미확인"
+    },
+    {
+      "id": "ad9b2620c9d251e0",
+      "sha256": "ad9b2620c9d251e0b6fa22c925ed91b3bad186ea410b061c741b71471ebd4493",
+      "publishedDate": "2026-03-27",
+      "dateEvidence": "한국 단발 스타일 기사 게시일 2026.03.27 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "eeb3bf2472749dd9",
+      "sha256": "eeb3bf2472749dd9a10e274b234f42dd396eb69be654092cf007eeaab50caaea",
+      "publishedDate": "2026-09-26",
+      "dateEvidence": "기사 2026.09.26 게시일과 레이 위아래 롱래시 시술 사진 실제 내용 일치 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "99fa6fe308534bb6",
+      "sha256": "99fa6fe308534bb6c03c8124730cfe1517e9fa144b55558088d33cbf9327619d",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "기사 공개일 2026/07/02와 ベアネイル④ 사진 화면 확인; 원 SNS 최초일 미확인"
     }
   ]
 }
