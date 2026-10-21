@@ -44113,5 +44113,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "39b1d02acd83eaa3",
+    "file": "헤어/넘긴 앞머리/39b1d02acd83eaa3.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "넘긴 앞머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1463,
+    "bytes": 153426,
+    "sha256": "39b1d02acd83eaa31c90e5c23ebf42fbce2b1d65d6af44953393bad828c09b86",
+    "dhash": "6d373018dfdd7963",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "288983b834caf7af",
+    "file": "헤어/스페이스번/288983b834caf7af.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "스페이스번"
+      }
+    ],
+    "width": 1170,
+    "height": 1511,
+    "bytes": 206388,
+    "sha256": "288983b834caf7af5c438d0947c9c3764b9feabd40050d163da62d3f394ad84c",
+    "dhash": "6f64361e4e6d7033",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fccd658666ef06c0",
+    "file": "타투/왕관/fccd658666ef06c0.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "왕관"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 353412,
+    "sha256": "fccd658666ef06c02c2f393eb692665637978c57edd5a529bf9d0c2ba6240c4b",
+    "dhash": "e6e6767eeeecb4fc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "33360c84e3fde326",
+    "file": "타투/파인라인/33360c84e3fde326.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "파인라인"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 502814,
+    "sha256": "33360c84e3fde3261a1d3f935123e142776f9fa6b3ab9bfa9c6dbb1095c16a27",
+    "dhash": "47420203101c0464",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1aa66517becd9447",
+    "file": "메이크업/글로시/1aa66517becd9447.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 254165,
+    "sha256": "1aa66517becd944726457435cecdebd42a0e9dfef6a614e9d761e094f9a1cd1b",
+    "dhash": "6e6be95c187969cd",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
