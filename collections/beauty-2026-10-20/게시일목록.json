@@ -12402,6 +12402,24 @@
       "sha256": "3fe5df432c817ac1a6714cb07176ad723c54a72d157d67b6514910800b25397a",
       "publishedDate": null,
       "dateEvidence": "공개 핀 게시일 미확인. 양손 보이는 열 손톱 모두 같은 붉은 원컬러·장식 없는 배치 확인; 최신으로 추정하지 않음."
+    },
+    {
+      "id": "e83a9c70f0134d3c",
+      "sha256": "e83a9c70f0134d3c4d446fbd4393e632963e883bb620574c1811b7935ef9fa56",
+      "publishedDate": "2026-09-19",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.19 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "bcbc6e7b0d40638d",
+      "sha256": "bcbc6e7b0d40638dc0be5b9b29a838a46a05a5e76bfcf6bdf9b96ad7c74a0eda",
+      "publishedDate": "2026-04-16",
+      "dateEvidence": "기사 2026.04.16 게시일과 리즈 고광택 립 소개 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "cf70ba2e41731d8c",
+      "sha256": "cf70ba2e41731d8ca0763947650dab93f05cb4fdc82af50692fe0e9943a7149b",
+      "publishedDate": null,
+      "dateEvidence": "서울 네일스튜디오 공개 시술 설명 관찰; 정확 게시일 미확인. 실제 양손 손톱 시술사진으로 핸드 특징 명확."
     }
   ]
 }

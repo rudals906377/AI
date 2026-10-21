@@ -43525,5 +43525,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e83a9c70f0134d3c",
+    "file": "헤어/레이어드컷/e83a9c70f0134d3c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드컷"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 156539,
+    "sha256": "e83a9c70f0134d3c4d446fbd4393e632963e883bb620574c1811b7935ef9fa56",
+    "dhash": "0e0e3b3b16968e4c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bcbc6e7b0d40638d",
+    "file": "메이크업/글로시/bcbc6e7b0d40638d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1080,
+    "height": 810,
+    "bytes": 53318,
+    "sha256": "bcbc6e7b0d40638dc0be5b9b29a838a46a05a5e76bfcf6bdf9b96ad7c74a0eda",
+    "dhash": "9c9999d1f1313119",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cf70ba2e41731d8c",
+    "file": "네일/핸드/cf70ba2e41731d8c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손·발",
+        "label": "핸드"
+      }
+    ],
+    "width": 736,
+    "height": 981,
+    "bytes": 71473,
+    "sha256": "cf70ba2e41731d8ca0763947650dab93f05cb4fdc82af50692fe0e9943a7149b",
+    "dhash": "1d167475081c9cb4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
