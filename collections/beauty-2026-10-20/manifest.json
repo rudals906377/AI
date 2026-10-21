@@ -44050,5 +44050,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "abf93b1344d18bd2",
+    "file": "타투/성모 · 예수/abf93b1344d18bd2.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "성모 · 예수"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 775503,
+    "sha256": "abf93b1344d18bd26f22980b9dbfe66e579016d01666ae26f2bb6c9bf64b76f4",
+    "dhash": "2f376575ecec4923",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

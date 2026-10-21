@@ -12552,6 +12552,12 @@
       "sha256": "03a2f0524db54d3c7c61170295555f2ae2badf33e18be12d0bbbacba23e30006",
       "publishedDate": null,
       "dateEvidence": "천안 네일 살롱 공개 패디젤 시술 설명 확인; 게시일 미확인, 최근으로 추정하지 않음"
+    },
+    {
+      "id": "abf93b1344d18bd2",
+      "sha256": "abf93b1344d18bd26f22980b9dbfe66e579016d01666ae26f2bb6c9bf64b76f4",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
