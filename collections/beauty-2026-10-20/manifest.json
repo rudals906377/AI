@@ -46801,5 +46801,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "485ea48810d4d308",
+    "file": "헤어/물결펌/485ea48810d4d308.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "물결펌"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 127258,
+    "sha256": "485ea48810d4d308c65232a334e769d468cc944c0fa031223760efdee39a7ca0",
+    "dhash": "6e240d8ccc4ce7e3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "05dea1ad4b9453fc",
+    "file": "타투/인어/05dea1ad4b9453fc.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "파도·바다",
+        "label": "인어"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 498251,
+    "sha256": "05dea1ad4b9453fc311cc4aeb76a983a463fde5cec11009d1ec537d125c94099",
+    "dhash": "4d0b71ec88b090c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5f212419d3cc388b",
+    "file": "네일/테라코타·브릭/5f212419d3cc388b.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "테라코타·브릭"
+      }
+    ],
+    "width": 1054,
+    "height": 1318,
+    "bytes": 66010,
+    "sha256": "5f212419d3cc388ba69eb4eb0ba05cc49315200944f7eaa0fb479c225c2647ae",
+    "dhash": "aeaaaa2a8ec36e7c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
