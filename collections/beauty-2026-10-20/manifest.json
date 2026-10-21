@@ -46444,5 +46444,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "efca161e4d044a6b",
+    "file": "헤어/S컬펌/efca161e4d044a6b.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 88516,
+    "sha256": "efca161e4d044a6b69f2c1444d7612cad155c5cb4b941f86c1a39a2bc687e77f",
+    "dhash": "d0cc1c557b1f9f0d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d2c6b040d8b4a367",
+    "file": "메이크업/블러립/d2c6b040d8b4a367.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "블러립"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 107716,
+    "sha256": "d2c6b040d8b4a3675dc2fd513d206f91f6846eef4a601b377e92d10b94febd0e",
+    "dhash": "332313230c2c1f9b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
