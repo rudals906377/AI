@@ -43189,5 +43189,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "123ec756a4826e6e",
+    "file": "헤어/레이어드컷/123ec756a4826e6e.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드컷"
+      }
+    ],
+    "width": 966,
+    "height": 1288,
+    "bytes": 107167,
+    "sha256": "123ec756a4826e6e9eb22ddf0913ae829f6d1f6a5cbf6961f291b1c1bfc0a5c8",
+    "dhash": "338b1f1f1e9f8de1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "450e8dfe74b40636",
+    "file": "네일/글리터/450e8dfe74b40636.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "글리터"
+      }
+    ],
+    "width": 1199,
+    "height": 1499,
+    "bytes": 206067,
+    "sha256": "450e8dfe74b40636cde65dd418b62f7a120970ac34149afed68f70228e768706",
+    "dhash": "aca69d8ba80ca416",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
