@@ -44323,5 +44323,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8b4935180ca2e974",
+    "file": "헤어/밀크브라운/8b4935180ca2e974.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "밀크브라운"
+      }
+    ],
+    "width": 1200,
+    "height": 900,
+    "bytes": 71313,
+    "sha256": "8b4935180ca2e9744c06dcfb69783a256aa76588e957896343db5b0a31a52fea",
+    "dhash": "e4e438b838399958",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9f81a1d62a933bd6",
+    "file": "타투/화살/9f81a1d62a933bd6.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "화살"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 760044,
+    "sha256": "9f81a1d62a933bd607429b2949afd0671a90895d98dbdffdea7d3cfe5d0a270f",
+    "dhash": "4e161a0c4ced7d7b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

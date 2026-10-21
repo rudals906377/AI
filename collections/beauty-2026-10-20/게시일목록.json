@@ -12630,6 +12630,18 @@
       "sha256": "6e9e67462520d118a23cfb3625eba87b66348818be922c88c720c277aadf414d",
       "publishedDate": "2026-07-02",
       "dateEvidence": "일본 뷰티 기사 공개일2026/07/02 및 한국 숏 베어네일 시술 설명 확인; 원 SNS 최초 게시일 미확인"
+    },
+    {
+      "id": "8b4935180ca2e974",
+      "sha256": "8b4935180ca2e9744c06dcfb69783a256aa76588e957896343db5b0a31a52fea",
+      "publishedDate": "2026-09-01",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.01 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "9f81a1d62a933bd6",
+      "sha256": "9f81a1d62a933bd607429b2949afd0671a90895d98dbdffdea7d3cfe5d0a270f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
