@@ -42643,5 +42643,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2056d4e68b3448fa",
+    "file": "헤어/시스루뱅/2056d4e68b3448fa.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 1199,
+    "height": 1495,
+    "bytes": 229527,
+    "sha256": "2056d4e68b3448faefaa5efe934a08c8fe6f6cb511748768cc4802b100a3504c",
+    "dhash": "9919173373333f9e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9c223d3f952b9285",
+    "file": "타투/등/9c223d3f952b9285.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "등"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 682365,
+    "sha256": "9c223d3f952b928505d4be4780a77ef14a874226ce5a48b5288abcec0cfe1eec",
+    "dhash": "999bb32b6353b3e7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "df19b64f83e1be23",
+    "file": "타투/날개뼈/df19b64f83e1be23.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "날개뼈"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 100170,
+    "sha256": "df19b64f83e1be235146757a7e22cfd1de31080a6375cf145fa272aed38cd94c",
+    "dhash": "e2c0c8882820a0c1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2b2dd9750784c5c6",
+    "file": "네일/드로잉/2b2dd9750784c5c6.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "드로잉"
+      }
+    ],
+    "width": 1080,
+    "height": 1061,
+    "bytes": 76268,
+    "sha256": "2b2dd9750784c5c673ae0a089daac573adf7ad6a8560461e33fe7bcc386a0a77",
+    "dhash": "b030f16cf3e51078",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

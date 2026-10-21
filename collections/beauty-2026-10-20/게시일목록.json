@@ -12150,6 +12150,30 @@
       "sha256": "61f208f337c167585ca0ae85461effa43e8c83c1b8fed72d1f4fd328857ad9ea",
       "publishedDate": "2026-07-07",
       "dateEvidence": "기사 2026.07.07 게시일 관찰; SNS 인용 사진의 크리미하고 촉촉한 립 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "2056d4e68b3448fa",
+      "sha256": "2056d4e68b3448faefaa5efe934a08c8fe6f6cb511748768cc4802b100a3504c",
+      "publishedDate": "2025-11-28",
+      "dateEvidence": "한국 뷰티 기사 게시일 2025.11.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "9c223d3f952b9285",
+      "sha256": "9c223d3f952b928505d4be4780a77ef14a874226ce5a48b5288abcec0cfe1eec",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "df19b64f83e1be23",
+      "sha256": "df19b64f83e1be235146757a7e22cfd1de31080a6375cf145fa272aed38cd94c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "2b2dd9750784c5c6",
+      "sha256": "2b2dd9750784c5c673ae0a089daac573adf7ad6a8560461e33fe7bcc386a0a77",
+      "publishedDate": null,
+      "dateEvidence": "공개 핀 실제 파일에서 손톱 위 클로버 선·색면 드로잉 확인. 게시일 미확인; 보드 갱신일을 사진 게시일로 쓰지 않음."
     }
   ]
 }
