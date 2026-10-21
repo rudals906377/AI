@@ -47767,5 +47767,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8702565c4d0ec113",
+    "file": "헤어/앞머리 없음/8702565c4d0ec113.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "앞머리 없음"
+      }
+    ],
+    "width": 1200,
+    "height": 1499,
+    "bytes": 185761,
+    "sha256": "8702565c4d0ec11389f62944a1cb5932ef23bcf207578b306b231c512955acdf",
+    "dhash": "eedcd9d0d1c995b7",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8bc55659d0005140",
+    "file": "네일/시럽/8bc55659d0005140.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "시럽"
+      }
+    ],
+    "width": 1179,
+    "height": 1474,
+    "bytes": 111758,
+    "sha256": "8bc55659d0005140c17a5649fb8aff1bc5934f9a88cc5fbbd2e8d4985bbc59e3",
+    "dhash": "8c084c8ccc1c17ec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
