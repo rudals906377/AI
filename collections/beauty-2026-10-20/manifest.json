@@ -46612,5 +46612,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f17efcf37dbe5fd4",
+    "file": "네일/올리브·카키/f17efcf37dbe5fd4.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "올리브·카키"
+      }
+    ],
+    "width": 934,
+    "height": 1168,
+    "bytes": 27095,
+    "sha256": "f17efcf37dbe5fd41da4d4da2c571e8b57c0e0e5c57e85a1e823ba6c5036bb5c",
+    "dhash": "80c0d8100c1838e0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
