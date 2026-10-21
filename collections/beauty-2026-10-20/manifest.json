@@ -44260,5 +44260,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b2d8eb150de9f8b4",
+    "file": "헤어/카라멜브라운/b2d8eb150de9f8b4.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "카라멜브라운"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 166041,
+    "sha256": "b2d8eb150de9f8b4faea002d7f64c5c8df7decd3be7484fcd396991078e2721c",
+    "dhash": "a0e0a1a96866e6cf",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9beef5f876ab26d1",
+    "file": "메이크업/언더 속눈썹/9beef5f876ab26d1.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "언더 속눈썹"
+      }
+    ],
+    "width": 1200,
+    "height": 900,
+    "bytes": 94650,
+    "sha256": "9beef5f876ab26d136d2a603eacea442d8394e4affeaaf21cfa65882acef0ed6",
+    "dhash": "e868b0f164787172",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6e9e67462520d118",
+    "file": "네일/숏네일/6e9e67462520d118.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 길이",
+        "label": "숏네일"
+      }
+    ],
+    "width": 1140,
+    "height": 1425,
+    "bytes": 33054,
+    "sha256": "6e9e67462520d118a23cfb3625eba87b66348818be922c88c720c277aadf414d",
+    "dhash": "e0f13271330f0361",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

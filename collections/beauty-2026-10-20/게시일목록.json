@@ -12612,6 +12612,24 @@
       "sha256": "b7eaafe0076ef5de7cc8b09536295c93a6fea9b3df579d9e45f2afdcdd3100ee",
       "publishedDate": "2026-07-02",
       "dateEvidence": "일본 뷰티 기사 공개일 2026/07/02 확인, 베어네일 단일사진; 원 SNS 최초 게시일 미확인"
+    },
+    {
+      "id": "b2d8eb150de9f8b4",
+      "sha256": "b2d8eb150de9f8b4faea002d7f64c5c8df7decd3be7484fcd396991078e2721c",
+      "publishedDate": "2026-09-01",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.01 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "9beef5f876ab26d1",
+      "sha256": "9beef5f876ab26d136d2a603eacea442d8394e4affeaaf21cfa65882acef0ed6",
+      "publishedDate": "2026-08-31",
+      "dateEvidence": "기사 2026.08.31 게시일과 최예나 언더 속눈썹 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "6e9e67462520d118",
+      "sha256": "6e9e67462520d118a23cfb3625eba87b66348818be922c88c720c277aadf414d",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "일본 뷰티 기사 공개일2026/07/02 및 한국 숏 베어네일 시술 설명 확인; 원 SNS 최초 게시일 미확인"
     }
   ]
 }
