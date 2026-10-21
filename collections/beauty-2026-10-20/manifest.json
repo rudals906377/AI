@@ -46507,5 +46507,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b1fe7d4408758742",
+    "file": "헤어/비비드 레드/b1fe7d4408758742.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "비비드 레드"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 119569,
+    "sha256": "b1fe7d440875874268726289e803d123a56ed539029a6e4d70dc63888a74fbed",
+    "dhash": "c0d6d5c4d0f0b098",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ff5bc8ba8e89a8f0",
+    "file": "메이크업/립라인 강조/ff5bc8ba8e89a8f0.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "립라인 강조"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 85744,
+    "sha256": "ff5bc8ba8e89a8f0c50059527a4f77c78385d53b6c9609558245d2146bb238da",
+    "dhash": "e37af8cdcdd17336",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e5a78ebd769e5012",
+    "file": "네일/호피·애니멀/e5a78ebd769e5012.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "호피·애니멀"
+      }
+    ],
+    "width": 1159,
+    "height": 1449,
+    "bytes": 161576,
+    "sha256": "e5a78ebd769e50121aff0c09ee104e035755cad14431ce2aae931be99b401e25",
+    "dhash": "8aca5ba79cb8d080",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
