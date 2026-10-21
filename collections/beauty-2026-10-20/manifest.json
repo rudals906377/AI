@@ -45772,5 +45772,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9434d14df9791317",
+    "file": "네일/실버/9434d14df9791317.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "실버"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 196914,
+    "sha256": "9434d14df979131761f0539dcc67c1906a518559af9ea21c49c88dd5155a6009",
+    "dhash": "063f9cb8c796073c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
