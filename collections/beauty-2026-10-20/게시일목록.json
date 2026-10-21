@@ -12198,6 +12198,30 @@
       "sha256": "37ac17926a159cf4076a406118cfa75114b04a47ebf71de7ebaaf96c0b797b27",
       "publishedDate": null,
       "dateEvidence": "최근 한국 핫핑크 시술 검색 후 공개 핀 원본 육안 검수. 진한 핫핑크 전체 도포가 명확하며 게시일 미확인, 검색어로 날짜를 추정하지 않음."
+    },
+    {
+      "id": "59854be9f7dc829c",
+      "sha256": "59854be9f7dc829c71baac26d09ac54d19c08ef87dd0620ca89992ab2f178122",
+      "publishedDate": "2026-08-18",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.08.18 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "be346e106bd95e82",
+      "sha256": "be346e106bd95e8296ffa133045bd8b17d4877778d1011a1abbb480d0d5252c5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "62f274446ae0394e",
+      "sha256": "62f274446ae0394ed4061080e1ff22cbfbace0878f4ca05300b294bf2d4458fc",
+      "publishedDate": "2026-08-14",
+      "dateEvidence": "기사 2026.08.14 게시일 관찰; SNS 인용 사진의 언더 래시 시술 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "363cd59917d06485",
+      "sha256": "363cd59917d064856257d7dd9c0269c29fa89911b6c9eaa55ea7357c026115a3",
+      "publishedDate": null,
+      "dateEvidence": "최근 한국 화이트 원컬러 검색 후 공개 핀 원본에서 불투명 흰색 전체 도포 실제 확인. 게시일 미확인; 최근 사진으로 추정하지 않음."
     }
   ]
 }
