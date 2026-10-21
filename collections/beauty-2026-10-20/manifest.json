@@ -46486,5 +46486,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b7806db6f19bf2e2",
+    "file": "타투/독수리 · 매/b7806db6f19bf2e2.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "독수리 · 매"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 708332,
+    "sha256": "b7806db6f19bf2e23a66fbbeb68f6e3c8ced18f65592772b7e07082ee7e69993",
+    "dhash": "4c840dcd0d193929",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

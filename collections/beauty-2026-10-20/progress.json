@@ -4570,7 +4570,7 @@
       "existing_count": 9,
       "shortage": false,
       "target_new": 100,
-      "collected": 3
+      "collected": 4
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 2208,
+  "unique_images": 2209,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 2207,
+  "goal_eligible_unique_images": 2208,
   "excluded_images": 1
 }

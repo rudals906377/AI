@@ -13248,6 +13248,12 @@
       "sha256": "d2c6b040d8b4a3675dc2fd513d206f91f6846eef4a601b377e92d10b94febd0e",
       "publishedDate": "2026-03-24",
       "dateEvidence": "기사 2026.03.24 게시일과 BOLD & CHIC 벨벳 레드 립 시술 사진·설명 실제 일치 관찰; 원 촬영일 미확인"
+    },
+    {
+      "id": "b7806db6f19bf2e2",
+      "sha256": "b7806db6f19bf2e23a66fbbeb68f6e3c8ced18f65592772b7e07082ee7e69993",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
