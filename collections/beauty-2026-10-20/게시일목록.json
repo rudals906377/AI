@@ -13374,6 +13374,12 @@
       "sha256": "c5b0697b2f52fdd4c253d6ea5c6814cce801d8104dba0f8f09f18057e34bcfe0",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "1892b491faf2a43f",
+      "sha256": "1892b491faf2a43fd8d848e969571033c532d96ae8cd70d1b7044408cf4de2f5",
+      "publishedDate": "2026-09-25",
+      "dateEvidence": "공개 마그넷 네일 기사 게시일 2026/09/25 확인; 대표 사진의 원사진 최초일 별도 미확인"
     }
   ]
 }

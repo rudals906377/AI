@@ -46927,5 +46927,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1892b491faf2a43f",
+    "file": "네일/마블/1892b491faf2a43f.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "마블"
+      }
+    ],
+    "width": 1085,
+    "height": 1085,
+    "bytes": 69193,
+    "sha256": "1892b491faf2a43fd8d848e969571033c532d96ae8cd70d1b7044408cf4de2f5",
+    "dhash": "64c68a0315090902",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
