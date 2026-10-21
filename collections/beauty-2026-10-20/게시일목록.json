@@ -13314,6 +13314,18 @@
       "sha256": "b25fd31c4b1e850d244530f81a35812acb4fac9d857fc68ee75cc84225d3fc5a",
       "publishedDate": "2026-10-15",
       "dateEvidence": "기사 공개일 2026/10/15와 抹茶ラテネイル④ 사진·시럽 시술 설명 화면 확인; 원 SNS 최초일 미확인"
+    },
+    {
+      "id": "9d5b5d11926b6985",
+      "sha256": "9d5b5d11926b69856fe69ab97313922542fce3606bbc022a7e478fa985893783",
+      "publishedDate": "2026-08-09",
+      "dateEvidence": "한국 K-글래스 헤어 기사 게시일 2026.08.09 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "1818d322e96d79b3",
+      "sha256": "1818d322e96d79b37fe29b611dbf1af8dea8e27236d0af2c6837bdbc36c35194",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

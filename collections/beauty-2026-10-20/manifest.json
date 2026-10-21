@@ -46717,5 +46717,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9d5b5d11926b6985",
+    "file": "헤어/중단발/9d5b5d11926b6985.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "중단발"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 147762,
+    "sha256": "9d5b5d11926b69856fe69ab97313922542fce3606bbc022a7e478fa985893783",
+    "dhash": "6460b86c1c12160c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1818d322e96d79b3",
+    "file": "타투/음식 · 음료/1818d322e96d79b3.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "음식 · 음료"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 797944,
+    "sha256": "1818d322e96d79b37fe29b611dbf1af8dea8e27236d0af2c6837bdbc36c35194",
+    "dhash": "cbcf9f87a7072387",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
