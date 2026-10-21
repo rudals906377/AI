@@ -13152,6 +13152,30 @@
       "sha256": "b6bd1a60e055e2226873838ee1db413c510a1f00386b6a2847c8e508f80ffe70",
       "publishedDate": "2026-07-02",
       "dateEvidence": "기사 공개일 2026/07/02와 ベアネイル⑤ 사진을 화면에서 확인; 원 SNS 최초일 미확인"
+    },
+    {
+      "id": "2b177828861ab7de",
+      "sha256": "2b177828861ab7deffa3e0857a65565d620e66a942d7804e45d13fdf957b5a8d",
+      "publishedDate": "2026-03-18",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.03.18 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "aa2c055861aeef5e",
+      "sha256": "aa2c055861aeef5e46f282eecec9a60a2c1027d0bed91ccb258792ced8ec9a91",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "bf14e9edae792f9e",
+      "sha256": "bf14e9edae792f9e892709e4268ca979858bd39a10e82cd65fdc80563e11fc3b",
+      "publishedDate": "2026-09-26",
+      "dateEvidence": "기사 2026.09.26 게시일과 나린의 롱래시 시술 사진 실제 내용 일치 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "8a891dd261f19eb4",
+      "sha256": "8a891dd261f19eb4fb75b07eec129209d67f9581b5cd8f1d5f6ddc595efe3c1b",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "기사 공개일 2026/07/02와 ベアネイル⑫ 사진을 화면에서 확인; 원 SNS 최초일 미확인"
     }
   ]
 }

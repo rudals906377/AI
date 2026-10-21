@@ -46150,5 +46150,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2b177828861ab7de",
+    "file": "헤어/칼단발/2b177828861ab7de.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "칼단발"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 129641,
+    "sha256": "2b177828861ab7deffa3e0857a65565d620e66a942d7804e45d13fdf957b5a8d",
+    "dhash": "c8208688d5d1d3cf",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "aa2c055861aeef5e",
+    "file": "타투/데이지/aa2c055861aeef5e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "데이지"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 472286,
+    "sha256": "aa2c055861aeef5e46f282eecec9a60a2c1027d0bed91ccb258792ced8ec9a91",
+    "dhash": "f161e9c9d9e9e9e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bf14e9edae792f9e",
+    "file": "메이크업/인형 속눈썹/bf14e9edae792f9e.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "인형 속눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 1559,
+    "bytes": 220701,
+    "sha256": "bf14e9edae792f9e892709e4268ca979858bd39a10e82cd65fdc80563e11fc3b",
+    "dhash": "dfdbd958f8303113",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8a891dd261f19eb4",
+    "file": "네일/투명·쉬어/8a891dd261f19eb4.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "마감 질감",
+        "label": "투명·쉬어"
+      }
+    ],
+    "width": 978,
+    "height": 1223,
+    "bytes": 26421,
+    "sha256": "8a891dd261f19eb4fb75b07eec129209d67f9581b5cd8f1d5f6ddc595efe3c1b",
+    "dhash": "4fc1462ecf4c1f73",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
