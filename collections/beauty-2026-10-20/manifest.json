@@ -47011,5 +47011,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4e4541b751ffbd68",
+    "file": "헤어/포니테일/4e4541b751ffbd68.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "포니테일"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 215498,
+    "sha256": "4e4541b751ffbd68597f266c7fb6d07ab6901dee2eda12963ac02e4756c6e8c0",
+    "dhash": "bf63d727e5e3e787",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b17b815c2ba5a011",
+    "file": "메이크업/윤광/b17b815c2ba5a011.webp",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "베이스",
+        "label": "윤광"
+      }
+    ],
+    "width": 1676,
+    "height": 2048,
+    "bytes": 235264,
+    "sha256": "b17b815c2ba5a011e2551ea2805d4fe57715d0b1d46ea2e76f85ff33f50c0962",
+    "dhash": "c79c9934766539d6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

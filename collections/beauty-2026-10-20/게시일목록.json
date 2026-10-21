@@ -13398,6 +13398,18 @@
       "sha256": "105390d339ce86739fb2e5d7e2ed8007a2edb62933084a80762d7fb34f4b2c61",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "4e4541b751ffbd68",
+      "sha256": "4e4541b751ffbd68597f266c7fb6d07ab6901dee2eda12963ac02e4756c6e8c0",
+      "publishedDate": "2025-12-11",
+      "dateEvidence": "한국 포니테일 스타일 기사 게시일 2025.12.11 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "b17b815c2ba5a011",
+      "sha256": "b17b815c2ba5a011e2551ea2805d4fe57715d0b1d46ea2e76f85ff33f50c0962",
+      "publishedDate": "2026-02-12",
+      "dateEvidence": "기사 2026년02월12일 및 2026년2월호 표시와 흰 꽃 헤어밴드·퍼플 아이래시 완성룩 실제 사진 일치 관찰; 별도 원촬영일 미확인"
     }
   ]
 }
