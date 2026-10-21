@@ -47851,5 +47851,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d3c67a4de2b1e6a6",
+    "file": "타투/봉황 · 불사조/d3c67a4de2b1e6a6.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "용·호랑이·잉어",
+        "label": "봉황 · 불사조"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 648370,
+    "sha256": "d3c67a4de2b1e6a660cbc0f3bf33bed3ee1bcda559536c656213dec025c418c3",
+    "dhash": "aa68717969d4f8f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7bb7ed84c7750158",
+    "file": "메이크업/레드/7bb7ed84c7750158.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "레드"
+      }
+    ],
+    "width": 2560,
+    "height": 2048,
+    "bytes": 477415,
+    "sha256": "7bb7ed84c77501580729272b05cfe447b9d5e3fedfac6b56173a40fa438f835e",
+    "dhash": "2b3d3c343632b296",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

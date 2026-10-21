@@ -13638,6 +13638,18 @@
       "sha256": "3c722a710f773f5019364a4b63ad4d5e1af7efc733d2796bad909845a1568437",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d3c67a4de2b1e6a6",
+      "sha256": "d3c67a4de2b1e6a660cbc0f3bf33bed3ee1bcda559536c656213dec025c418c3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "7bb7ed84c7750158",
+      "sha256": "7bb7ed84c77501580729272b05cfe447b9d5e3fedfac6b56173a40fa438f835e",
+      "publishedDate": "2026-05-01",
+      "dateEvidence": "기사 2026/05/01 표시와 돌체앤가바나 프레시 룩·플러티 레드 시술 설명의 오렌지 배경 단일 실제 사진 일치 관찰; 별도 원촬영일 미확인"
     }
   ]
 }
