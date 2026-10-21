@@ -11964,6 +11964,12 @@
       "sha256": "cf865729ca34dcf756548f333a2c909a41ae5bd8142a8382fc5790bdac8a97df",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "62462d1403e1d57f",
+      "sha256": "62462d1403e1d57f816b9c5b179f5ed026b2d13980e459f7da57485f223a74c5",
+      "publishedDate": "2026-03-21",
+      "dateEvidence": "한국 셀럽 번 헤어 기사 게시일 2026.03.21 확인; 사진 최초 게시일 별도 미확인"
     }
   ]
 }

@@ -41992,5 +41992,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "62462d1403e1d57f",
+    "file": "헤어/올백/62462d1403e1d57f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "올백"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 317391,
+    "sha256": "62462d1403e1d57f816b9c5b179f5ed026b2d13980e459f7da57485f223a74c5",
+    "dhash": "11199cc464644c64",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
