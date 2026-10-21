@@ -2620,7 +2620,7 @@
       "existing_count": 152,
       "shortage": false,
       "target_new": 100,
-      "collected": 4
+      "collected": 5
     },
     {
       "category": "메이크업",
@@ -3790,7 +3790,7 @@
       "existing_count": 21,
       "shortage": true,
       "target_new": 100,
-      "collected": 0
+      "collected": 1
     },
     {
       "category": "타투",
@@ -5623,8 +5623,8 @@
       "collected": 1
     }
   ],
-  "unique_images": 1996,
+  "unique_images": 1998,
   "completed_labels": 0,
-  "goal_eligible_unique_images": 1995,
+  "goal_eligible_unique_images": 1997,
   "excluded_images": 1
 }

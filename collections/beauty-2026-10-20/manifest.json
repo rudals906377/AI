@@ -42034,5 +42034,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2423c4e1c38a5233",
+    "file": "타투/손목/2423c4e1c38a5233.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "손목"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 488074,
+    "sha256": "2423c4e1c38a5233a44c3b493c7ff300b528977e1e1e257c568deff3c3a48d46",
+    "dhash": "8183101b4fcf9c1b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3d565b94fc9847ce",
+    "file": "메이크업/캣아이라인/3d565b94fc9847ce.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 107200,
+    "sha256": "3d565b94fc9847ce85220753178049e91324003459802d523db3e43f494b93c8",
+    "dhash": "f5e3667763676638",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
