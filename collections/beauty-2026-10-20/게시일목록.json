@@ -12912,6 +12912,18 @@
       "sha256": "c140cf9815ccc8c44e245b0aa68663478d9f000a6827e3ecdd0006c5e17ead69",
       "publishedDate": null,
       "dateEvidence": "공개 화면에서 게시일 확인 불가. 날짜 미확인 예외로 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "28ec475ae25d2652",
+      "sha256": "28ec475ae25d2652b4bf6a1a7d3cf664d7ba819ff37b9a35375a2900c9c60769",
+      "publishedDate": "2026-07-17",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.17 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "40474fec56773d4d",
+      "sha256": "40474fec56773d4d88aae7990f93d044178ae73dab8aa3fde698247c9a8eb2df",
+      "publishedDate": "2026-10-13",
+      "dateEvidence": "기사 2026.10.13 게시일과 문가영 시술 사진 설명 관찰; 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }

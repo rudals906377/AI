@@ -45310,5 +45310,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "28ec475ae25d2652",
+    "file": "헤어/시스루뱅/28ec475ae25d2652.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 1170,
+    "height": 1463,
+    "bytes": 224306,
+    "sha256": "28ec475ae25d2652b4bf6a1a7d3cf664d7ba819ff37b9a35375a2900c9c60769",
+    "dhash": "993b33333d1d1d8b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "40474fec56773d4d",
+    "file": "메이크업/아치 눈썹/40474fec56773d4d.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "눈썹",
+        "label": "아치 눈썹"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 107954,
+    "sha256": "40474fec56773d4d88aae7990f93d044178ae73dab8aa3fde698247c9a8eb2df",
+    "dhash": "ded6e6f6f0f8bcbc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
