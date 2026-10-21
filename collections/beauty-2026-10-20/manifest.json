@@ -42097,5 +42097,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c989b77c3da2e632",
+    "file": "헤어/물결펌/c989b77c3da2e632.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "물결펌"
+      }
+    ],
+    "width": 1170,
+    "height": 1558,
+    "bytes": 120923,
+    "sha256": "c989b77c3da2e632cd514ee53c08aaf9a2b242944b8e5ef656afe563f560b24a",
+    "dhash": "6373733736272f0d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "4b2806dd880dbea4",
+    "file": "헤어/글램펌/4b2806dd880dbea4.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "글램펌"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 232681,
+    "sha256": "4b2806dd880dbea4a5d7ef9d3b55aaa71f271249ad2fd07ebbb137d343b2b388",
+    "dhash": "8cc6c6f3d3d6978f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d03efa25b2430eee",
+    "file": "타투/팔안쪽/d03efa25b2430eee.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "팔안쪽"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 432618,
+    "sha256": "d03efa25b2430eee1e6e0353fa8e6c64979039a4fe68daabc2bc10ebf09feb9b",
+    "dhash": "80c06060e0f1f1f1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c1be760958e590be",
+    "file": "타투/레터링/c1be760958e590be.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "레터링"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 749221,
+    "sha256": "c1be760958e590be66b5ecb5b02b2ef3b32270d9ce11dccbe0c7a4050d581e76",
+    "dhash": "a9ab29686a69a1e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "34f9d0e1265b921f",
+    "file": "메이크업/캣아이라인/34f9d0e1265b921f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "캣아이라인"
+      }
+    ],
+    "width": 1080,
+    "height": 1440,
+    "bytes": 100071,
+    "sha256": "34f9d0e1265b921f2df44f86850e0eb21203df778f91fd29ff045b41803e36d4",
+    "dhash": "1c1d2cacb4b4dcde",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

@@ -11994,6 +11994,36 @@
       "sha256": "816ef6e2048331d587e8299b339ced87e7ccb94d1d214fba2501bb9dc7a2c4ea",
       "publishedDate": "2026-10-08",
       "dateEvidence": "기사 2026.10.08 게시일 관찰; 기존 SNS 사진을 인용한 메이크업 설명이며 원래 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "c989b77c3da2e632",
+      "sha256": "c989b77c3da2e632cd514ee53c08aaf9a2b242944b8e5ef656afe563f560b24a",
+      "publishedDate": "2026-10-07",
+      "dateEvidence": "한국 뷰티 기사 게시일 2026.10.07 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "4b2806dd880dbea4",
+      "sha256": "4b2806dd880dbea4a5d7ef9d3b55aaa71f271249ad2fd07ebbb137d343b2b388",
+      "publishedDate": "2026-10-07",
+      "dateEvidence": "한국 뷰티 기사 게시일 2026.10.07 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "d03efa25b2430eee",
+      "sha256": "d03efa25b2430eee1e6e0353fa8e6c64979039a4fe68daabc2bc10ebf09feb9b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "c1be760958e590be",
+      "sha256": "c1be760958e590be66b5ecb5b02b2ef3b32270d9ce11dccbe0c7a4050d581e76",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "34f9d0e1265b921f",
+      "sha256": "34f9d0e1265b921f2df44f86850e0eb21203df778f91fd29ff045b41803e36d4",
+      "publishedDate": "2026-10-03",
+      "dateEvidence": "기사 2026.10.03 게시일 관찰; 기존 SNS 사진을 인용한 캣츠 아이 설명이며 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
