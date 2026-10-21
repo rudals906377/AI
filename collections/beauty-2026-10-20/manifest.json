@@ -44029,5 +44029,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "03a2f0524db54d3c",
+    "file": "네일/패디/03a2f0524db54d3c.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손·발",
+        "label": "패디"
+      }
+    ],
+    "width": 1200,
+    "height": 1501,
+    "bytes": 257874,
+    "sha256": "03a2f0524db54d3c7c61170295555f2ae2badf33e18be12d0bbbacba23e30006",
+    "dhash": "9c98d6a5296ade9b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
