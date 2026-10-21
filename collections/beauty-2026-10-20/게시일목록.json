@@ -13278,6 +13278,12 @@
       "sha256": "cc39611927f0f3324a7cfb1914c0d83138744e36e48fbc7eb08a07a28660892a",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d6f09a8f2568a302",
+      "sha256": "d6f09a8f2568a3025d1e2fcb9b241f537846c9487f9ab987b26cd06267bb3055",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }

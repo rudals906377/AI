@@ -46591,5 +46591,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d6f09a8f2568a302",
+    "file": "타투/촛불 · 램프/d6f09a8f2568a302.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "촛불 · 램프"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 604560,
+    "sha256": "d6f09a8f2568a3025d1e2fcb9b241f537846c9487f9ab987b26cd06267bb3055",
+    "dhash": "f5e4cd8f8e4eec1c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
