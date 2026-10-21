@@ -13080,6 +13080,12 @@
       "sha256": "d8158a1f680e9b0cf0bc18bdabc19744eb52e5a0c84c55d58904a40093f09f2e",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "ac3b75dd3f821d14",
+      "sha256": "ac3b75dd3f821d147f02646231fb72d6459ebd1382db405bf7dcb8aa1495e6b4",
+      "publishedDate": "2026-03-24",
+      "dateEvidence": "기사 2026.03.24 게시일과 임현주 하이라이터 시술 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
