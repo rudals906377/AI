@@ -44449,5 +44449,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9c8e946b25f8a071",
+    "file": "헤어/보브컷/9c8e946b25f8a071.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "보브컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 153156,
+    "sha256": "9c8e946b25f8a07179240ce01f1e3249c136178347c9959ff019052fcc012bf6",
+    "dhash": "f9fef46b69799b00",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1499de31695ce938",
+    "file": "메이크업/글로시/1499de31695ce938.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 253031,
+    "sha256": "1499de31695ce9388649ad58d643482008f4df788f82c8434b7c07453fc3a7ad",
+    "dhash": "3c65b370f3f3e36b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "390f5ca3116ed118",
+    "file": "네일/청순·러블리/390f5ca3116ed118.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "청순·러블리"
+      }
+    ],
+    "width": 1162,
+    "height": 1452,
+    "bytes": 89230,
+    "sha256": "390f5ca3116ed118eddfb9aa1c7b9ab45b1ef747f2894b53fcbed14882ee0ce4",
+    "dhash": "868e4d53971d1850",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
