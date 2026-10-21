@@ -13194,6 +13194,24 @@
       "sha256": "99fa6fe308534bb6c03c8124730cfe1517e9fa144b55558088d33cbf9327619d",
       "publishedDate": "2026-07-02",
       "dateEvidence": "기사 공개일 2026/07/02와 ベアネイル④ 사진 화면 확인; 원 SNS 최초일 미확인"
+    },
+    {
+      "id": "7a2e5988d34a11f5",
+      "sha256": "7a2e5988d34a11f5ce70965ef49444a814e9c1d88dcb55eea66538d0a74f2368",
+      "publishedDate": "2026-03-27",
+      "dateEvidence": "한국 단발 스타일 기사 게시일 2026.03.27 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "24c839801efdff62",
+      "sha256": "24c839801efdff623a553784ecc7f7aa8826d3f8f55f1349475e2c617e83123f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "eeff9bed3761da2d",
+      "sha256": "eeff9bed3761da2d6e613f3df3ddb91692303bca0023264e37091fd4cdbbdd9d",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "기사 공개일 2026/07/02와 寒色チークネイル③ 사진 화면 확인; 원 SNS 최초일 미확인"
     }
   ]
 }

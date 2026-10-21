@@ -46297,5 +46297,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7a2e5988d34a11f5",
+    "file": "헤어/커튼뱅/7a2e5988d34a11f5.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "커튼뱅"
+      }
+    ],
+    "width": 1080,
+    "height": 1348,
+    "bytes": 124729,
+    "sha256": "7a2e5988d34a11f5ce70965ef49444a814e9c1d88dcb55eea66538d0a74f2368",
+    "dhash": "b999c9ec70360c6c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "24c839801efdff62",
+    "file": "타투/열쇠/24c839801efdff62.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "시계·열쇠",
+        "label": "열쇠"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 698373,
+    "sha256": "24c839801efdff623a553784ecc7f7aa8826d3f8f55f1349475e2c617e83123f",
+    "dhash": "3634756d69199d79",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eeff9bed3761da2d",
+    "file": "네일/치크/eeff9bed3761da2d.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 1007,
+    "height": 1259,
+    "bytes": 64073,
+    "sha256": "eeff9bed3761da2d6e613f3df3ddb91692303bca0023264e37091fd4cdbbdd9d",
+    "dhash": "3834f3e7f772b1e3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
