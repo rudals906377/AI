@@ -41824,5 +41824,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6f55b87a8030fd78",
+    "file": "네일/연핑크/6f55b87a8030fd78.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "연핑크"
+      }
+    ],
+    "width": 1050,
+    "height": 1400,
+    "bytes": 227486,
+    "sha256": "6f55b87a8030fd78c77129481e6248137c6434c004bb632e037e871086018142",
+    "dhash": "2223266667643e1e",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
