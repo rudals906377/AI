@@ -47662,5 +47662,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c77da0c41f1bf559",
+    "file": "헤어/똥머리/c77da0c41f1bf559.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "똥머리"
+      }
+    ],
+    "width": 1081,
+    "height": 1351,
+    "bytes": 140125,
+    "sha256": "c77da0c41f1bf559c1dcb1d4b022c80816af726f807a3bc7f1fbe498c029e7a6",
+    "dhash": "e4d8cc9899616231",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "1d2e3ebd8d1e9f84",
+    "file": "메이크업/글로시/1d2e3ebd8d1e9f84.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 2048,
+    "height": 2560,
+    "bytes": 506769,
+    "sha256": "1d2e3ebd8d1e9f84c20d6a64385a549d64a60e724e731ea4a01fc4d5ac9e96f9",
+    "dhash": "71c306074b8f8317",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b5308af2fb2111dc",
+    "file": "네일/오렌지/b5308af2fb2111dc.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "오렌지"
+      }
+    ],
+    "width": 1071,
+    "height": 1339,
+    "bytes": 123700,
+    "sha256": "b5308af2fb2111dc858da07a69a3a7f899ec868c27012e0072f64e6fcfd4277b",
+    "dhash": "184e072727371d99",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
