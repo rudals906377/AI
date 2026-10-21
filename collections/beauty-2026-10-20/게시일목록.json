@@ -12090,6 +12090,30 @@
       "sha256": "c7d6afe7b043434d28ce1338fea0038c460d14d3fee7f1f13e2a6e9f57ee2f0c",
       "publishedDate": null,
       "dateEvidence": "공개 핀 실제 사진은 선명한 레드 원컬러 네일. 사진 게시일은 미확인; 검색 결과 갱신일을 촬영·게시일로 쓰지 않음."
+    },
+    {
+      "id": "9cf23cbba0be884b",
+      "sha256": "9cf23cbba0be884b34ad571ab285a8414d7a9e8a21a203849557bb998342a4c2",
+      "publishedDate": "2026-09-14",
+      "dateEvidence": "한국 남성 헤어 기사 게시일 2026.09.14 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "88efc423184a5631",
+      "sha256": "88efc423184a56315347878a944962edfd6f3e00a302eb7646fd023e70464cda",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "7a39250219984849",
+      "sha256": "7a39250219984849b100e2ececc4a545cb609c012f67926907b921e25eab48e9",
+      "publishedDate": "2026-08-13",
+      "dateEvidence": "기사 2026.08.13 게시일 관찰; SNS 인용 사진의 블루·실버 펄 시술 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "17c57d37619bd2fc",
+      "sha256": "17c57d37619bd2fc6f9e14da6f2ed099187168d78cb84a5cfc1f7ff2d56a8a16",
+      "publishedDate": null,
+      "dateEvidence": "공개 핀 실제 파일에서 손톱 가장자리 반투명한 레드 시럽층 확인. 게시일 미확인; 최근 사진이라고 추정하지 않음."
     }
   ]
 }
