@@ -12114,6 +12114,24 @@
       "sha256": "17c57d37619bd2fc6f9e14da6f2ed099187168d78cb84a5cfc1f7ff2d56a8a16",
       "publishedDate": null,
       "dateEvidence": "공개 핀 실제 파일에서 손톱 가장자리 반투명한 레드 시럽층 확인. 게시일 미확인; 최근 사진이라고 추정하지 않음."
+    },
+    {
+      "id": "465fc07b8d490223",
+      "sha256": "465fc07b8d4902234e5f84bd770668edeb22f8b8d1183c4c80dcd9921907ae14",
+      "publishedDate": "2026-09-14",
+      "dateEvidence": "한국 남성 헤어 기사 게시일 2026.09.14 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "c46a41dac5c431f2",
+      "sha256": "c46a41dac5c431f28be02e1c4b83f6f3e8f71b4904559aa06e850c4ea0000fc3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "d20c1ee963aedc61",
+      "sha256": "d20c1ee963aedc61055f0a8fdd7ce91552d7f74ad7e7b1a7231324c9db17d9d4",
+      "publishedDate": null,
+      "dateEvidence": "한국 네일샵의 공개 시술 설명과 같은 단일색 전체 도포 원본을 실제 확인. 게시일 미확인; 최근 사진으로 추정하지 않음."
     }
   ]
 }
