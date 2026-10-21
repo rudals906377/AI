@@ -41845,5 +41845,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c6ee3ea29d18502d",
+    "file": "네일/크롬/c6ee3ea29d18502d.webp",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "크롬"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 116636,
+    "sha256": "c6ee3ea29d18502d5af9606737b87b517d7782828defd788548585912d01c582",
+    "dhash": "130b4f2da96505c3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
