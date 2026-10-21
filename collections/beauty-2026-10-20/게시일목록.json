@@ -12024,6 +12024,30 @@
       "sha256": "34f9d0e1265b921f2df44f86850e0eb21203df778f91fd29ff045b41803e36d4",
       "publishedDate": "2026-10-03",
       "dateEvidence": "기사 2026.10.03 게시일 관찰; 기존 SNS 사진을 인용한 캣츠 아이 설명이며 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "5b61c0dfa2913fa4",
+      "sha256": "5b61c0dfa2913fa416c5355ff5686a2dfcae77ce96326fba391f602015f02fb0",
+      "publishedDate": "2026-06-02",
+      "dateEvidence": "한국 뷰티 기사 게시일 2026.06.02 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "eb6a8a8b9597f6d3",
+      "sha256": "eb6a8a8b9597f6d34764fe8673124c84e707076847a7ee809571fc8189fd51d1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "bf1342bdc3339e4e",
+      "sha256": "bf1342bdc3339e4e848a244f4297822a7b1c050f744c77f7d1be0c388f15477c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "ac7748a97c97ab72",
+      "sha256": "ac7748a97c97ab72f1ca779d54eb3526a119330ce8639a0e574d71ff69258965",
+      "publishedDate": "2026-08-21",
+      "dateEvidence": "기사 2026.08.21 게시일 관찰; SNS 인용 사진의 스모키 시술 설명이며 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }
