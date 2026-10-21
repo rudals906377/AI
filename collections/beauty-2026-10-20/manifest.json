@@ -47599,5 +47599,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "8180791cd56666dc",
+    "file": "네일/원컬러/8180791cd56666dc.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "원컬러"
+      }
+    ],
+    "width": 1166,
+    "height": 1457,
+    "bytes": 49150,
+    "sha256": "8180791cd56666dcb8ca9a56663ea21f9f9a430d279200a804530c36899bca6e",
+    "dhash": "f4d0d0a171c3e7ec",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
