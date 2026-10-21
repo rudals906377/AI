@@ -12456,6 +12456,18 @@
       "sha256": "57677754e024a83b85937ebbb67d7d4fae4963edc795d5b7424e28a56496f61f",
       "publishedDate": "2026-09-26",
       "dateEvidence": "기사 2026.09.26 게시일과 박규영 아래 속눈썹 강조 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "25c2d17fcb829de2",
+      "sha256": "25c2d17fcb829de2f9f2b3a6ec3014621c26d7b4264d5058b9e5dbb49a9ce404",
+      "publishedDate": "2026-09-16",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.09.16 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "6f4530f73d75d8e3",
+      "sha256": "6f4530f73d75d8e35bbcf3d51539fe3d7d7fd7d35bee3659613ada5c6092d1d9",
+      "publishedDate": null,
+      "dateEvidence": "한국 네일 살롱 공개 시술 설명의 2월만 확인, 게시연도·정확한 날짜 미확인; 최근 사진으로 추정하지 않음"
     }
   ]
 }
