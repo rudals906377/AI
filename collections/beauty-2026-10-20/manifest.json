@@ -46570,5 +46570,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cc39611927f0f332",
+    "file": "타투/보석 · 다이아몬드/cc39611927f0f332.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "보석 · 다이아몬드"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 567978,
+    "sha256": "cc39611927f0f3324a7cfb1914c0d83138744e36e48fbc7eb08a07a28660892a",
+    "dhash": "e7f95d1b25277367",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
