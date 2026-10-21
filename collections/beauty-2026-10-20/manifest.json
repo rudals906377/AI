@@ -47053,5 +47053,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a8cdfbc18902333d",
+    "file": "네일/밀키화이트/a8cdfbc18902333d.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "밀키화이트"
+      }
+    ],
+    "width": 1093,
+    "height": 1092,
+    "bytes": 58615,
+    "sha256": "a8cdfbc18902333d723a25c788b4f993d26b53a04b499b233bbae2bba0f1d7b0",
+    "dhash": "640a172147274dbd",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
