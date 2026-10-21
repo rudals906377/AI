@@ -44701,5 +44701,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b825a142c9fb0085",
+    "file": "헤어/단발/b825a142c9fb0085.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "단발"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 97077,
+    "sha256": "b825a142c9fb00850715d167b94df1fd1e17be7a2d35e4bc1e1c0487dd55ab31",
+    "dhash": "e071f0f0f2e2e6e6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ab3d435d68ae7848",
+    "file": "타투/사슴/ab3d435d68ae7848.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "사슴"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 756275,
+    "sha256": "ab3d435d68ae7848dd5aec45238dcc1df8f361848ccdc645d1a207f91cd39755",
+    "dhash": "29090d0c4c1470f0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "eac4f99898786ffc",
+    "file": "메이크업/글로시/eac4f99898786ffc.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1170,
+    "height": 1557,
+    "bytes": 193681,
+    "sha256": "eac4f99898786ffced97f025f8589f2968377aafc1a731a5daf022533b8a6b26",
+    "dhash": "b1c0406070723906",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "46b4fd768a37aa9d",
+    "file": "네일/치크/46b4fd768a37aa9d.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "치크"
+      }
+    ],
+    "width": 1119,
+    "height": 1399,
+    "bytes": 49693,
+    "sha256": "46b4fd768a37aa9d4c57d07658b88b6b88abade27579f403b8ad4f3e28f4fe11",
+    "dhash": "0f6bab554baa949b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

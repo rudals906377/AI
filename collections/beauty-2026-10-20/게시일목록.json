@@ -12738,6 +12738,30 @@
       "sha256": "2233726352efa2d21ba43fd8b3449ab1b14fa3ea69ec96a48f536112507c6ce8",
       "publishedDate": "2026-08-11",
       "dateEvidence": "기사 2026.08.11 게시일과 글레이즈드 립 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "b825a142c9fb0085",
+      "sha256": "b825a142c9fb00850715d167b94df1fd1e17be7a2d35e4bc1e1c0487dd55ab31",
+      "publishedDate": "2026-08-26",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.08.26 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "ab3d435d68ae7848",
+      "sha256": "ab3d435d68ae7848dd5aec45238dcc1df8f361848ccdc645d1a207f91cd39755",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "eac4f99898786ffc",
+      "sha256": "eac4f99898786ffced97f025f8589f2968377aafc1a731a5daf022533b8a6b26",
+      "publishedDate": "2026-08-11",
+      "dateEvidence": "기사 2026.08.11 게시일과 글레이즈드 립 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "46b4fd768a37aa9d",
+      "sha256": "46b4fd768a37aa9d4c57d07658b88b6b88abade27579f403b8ad4f3e28f4fe11",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "기사 공개일 2026/07/02 확인; 원 SNS 게시일 미확인. 최근 촬영으로 추정하지 않음"
     }
   ]
 }
