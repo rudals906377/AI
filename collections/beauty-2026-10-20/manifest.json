@@ -44785,5 +44785,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dfbde411ba4e8bd0",
+    "file": "네일/롱네일/dfbde411ba4e8bd0.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 길이",
+        "label": "롱네일"
+      }
+    ],
+    "width": 1012,
+    "height": 1265,
+    "bytes": 26259,
+    "sha256": "dfbde411ba4e8bd013aceb89d527d9bdb2c81fef33db7db66ae48aea02c1f3a7",
+    "dhash": "555548aaaaa8d410",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
