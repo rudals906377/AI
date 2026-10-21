@@ -46003,5 +46003,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5e920d8dc03907b1",
+    "file": "타투/총/5e920d8dc03907b1.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "총"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 480705,
+    "sha256": "5e920d8dc03907b18fe1e67fd9f52586916dbada7c2fb1432ad2e0da08f2fa63",
+    "dhash": "0020f2a93b9fe676",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "70d13347575ddb71",
+    "file": "메이크업/고딕·뱀파이어/70d13347575ddb71.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "고딕·뱀파이어"
+      }
+    ],
+    "width": 1200,
+    "height": 1395,
+    "bytes": 267294,
+    "sha256": "70d13347575ddb71c39326a3b666348c87ddf7227b4b64b0d0cfca7753cd547d",
+    "dhash": "ae66e6f2f0f0f874",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "49fb99cabfe218b2",
+    "file": "네일/핫핑크/49fb99cabfe218b2.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "핫핑크"
+      }
+    ],
+    "width": 828,
+    "height": 987,
+    "bytes": 134643,
+    "sha256": "49fb99cabfe218b2fe6aa992ff611a481ffb7ffa76659b378fbe59dc2dc80505",
+    "dhash": "aba6f7debd9d2db5",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

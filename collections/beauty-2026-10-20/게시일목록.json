@@ -13110,6 +13110,24 @@
       "sha256": "7448e318a85da1b9d4c330318a18ffb82566637ffa329c4ca5c2a4aa07c44d60",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "5e920d8dc03907b1",
+      "sha256": "5e920d8dc03907b18fe1e67fd9f52586916dbada7c2fb1432ad2e0da08f2fa63",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "70d13347575ddb71",
+      "sha256": "70d13347575ddb71c39326a3b666348c87ddf7227b4b64b0d0cfca7753cd547d",
+      "publishedDate": "2026-03-02",
+      "dateEvidence": "기사 2026.03.02 게시일과 엘라 뱀파이어 메이크업 시술 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "49fb99cabfe218b2",
+      "sha256": "49fb99cabfe218b2fe6aa992ff611a481ffb7ffa76659b378fbe59dc2dc80505",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 원본 품질 검수 통과"
     }
   ]
 }
