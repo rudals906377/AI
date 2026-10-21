@@ -13506,6 +13506,24 @@
       "sha256": "59143d82d48272d6c59a64f293b0612abcd225f3cc14fec7303a38dd48f619ea",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀⑤ 확인; 원사진 최초일 별도 미확인"
+    },
+    {
+      "id": "a7083c4ccf25b5ac",
+      "sha256": "a7083c4ccf25b5ac308cae5b8bc4ccec2f559212eb420ce89a45dfee4c30b1a9",
+      "publishedDate": "2026-05-17",
+      "dateEvidence": "한국 제작 헤어 화보 기사 게시일 2026.05.17 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "388918a5790c33f4",
+      "sha256": "388918a5790c33f4405d25da051399e8bfd2e9a7baa6da1a4d0253707f364d54",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "a299301661a3f6a6",
+      "sha256": "a299301661a3f6a6f3ca097660c3f063a9db09f695fba9a4a492999def3313f0",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀⑥ 타이거 설명 확인; 원사진 최초일 별도 미확인"
     }
   ]
 }

@@ -47389,5 +47389,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a7083c4ccf25b5ac",
+    "file": "헤어/골드블론드/a7083c4ccf25b5ac.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "머리색",
+        "label": "골드블론드"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 335040,
+    "sha256": "a7083c4ccf25b5ac308cae5b8bc4ccec2f559212eb420ce89a45dfee4c30b1a9",
+    "dhash": "645a6b6bdffdf97b",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "388918a5790c33f4",
+    "file": "타투/기도하는 손/388918a5790c33f4.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "천사·종교",
+        "label": "기도하는 손"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 701178,
+    "sha256": "388918a5790c33f4405d25da051399e8bfd2e9a7baa6da1a4d0253707f364d54",
+    "dhash": "ae6656debcf4dccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a299301661a3f6a6",
+    "file": "네일/호피·애니멀/a299301661a3f6a6.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "호피·애니멀"
+      }
+    ],
+    "width": 924,
+    "height": 1156,
+    "bytes": 70457,
+    "sha256": "a299301661a3f6a6f3ca097660c3f063a9db09f695fba9a4a492999def3313f0",
+    "dhash": "cf9239389c8c8111",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
