@@ -42076,5 +42076,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "816ef6e2048331d5",
+    "file": "메이크업/언더라인/816ef6e2048331d5.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "언더라인"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 128078,
+    "sha256": "816ef6e2048331d587e8299b339ced87e7ccb94d1d214fba2501bb9dc7a2c4ea",
+    "dhash": "cdec7a3b33b21216",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
