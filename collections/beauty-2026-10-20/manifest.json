@@ -44386,5 +44386,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7ec03f46a75b1ebc",
+    "file": "헤어/S컬펌/7ec03f46a75b1ebc.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1170,
+    "height": 1306,
+    "bytes": 85993,
+    "sha256": "7ec03f46a75b1ebc7e762de88fcefe59f4c48373ba56ac72cee4bf07eee673ef",
+    "dhash": "9494b6b6b0713138",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "77e15994ece3a52f",
+    "file": "메이크업/글로시/77e15994ece3a52f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 213977,
+    "sha256": "77e15994ece3a52fa865a0b05cf90ca371b2d910bb4cda0ba71362a5b7736bd1",
+    "dhash": "e3d3f367b1311942",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a80cacd760cd176e",
+    "file": "네일/원포인트/a80cacd760cd176e.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "배치",
+        "label": "원포인트"
+      }
+    ],
+    "width": 1170,
+    "height": 1462,
+    "bytes": 45550,
+    "sha256": "a80cacd760cd176e791ba9891e620519182d47f97e58ead88a82dd46e9d84d37",
+    "dhash": "0a0100611b45071b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
