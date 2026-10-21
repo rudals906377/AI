@@ -44071,5 +44071,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ba4330e3cb42ec37",
+    "file": "메이크업/매트/ba4330e3cb42ec37.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "매트"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 129494,
+    "sha256": "ba4330e3cb42ec379d8d7ee6197dd6be0493715dae186ebf7fa57875aca90c32",
+    "dhash": "aca6f23bb9190920",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7a0dcc273ab1d20e",
+    "file": "네일/화려한/7a0dcc273ab1d20e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "화려한"
+      }
+    ],
+    "width": 1125,
+    "height": 1114,
+    "bytes": 137802,
+    "sha256": "7a0dcc273ab1d20e6086b88d8b74628191f8f7daab816e69fe3b9d3c83604a0b",
+    "dhash": "e7c71b2f73ab8b87",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
