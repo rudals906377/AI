@@ -13608,6 +13608,12 @@
       "sha256": "503cbcab8ea59cc59e2a83fb1dee2257f6887f8fe8af301a0fb9d16e0ae73c62",
       "publishedDate": null,
       "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "cda90dddfc3cd36a",
+      "sha256": "cda90dddfc3cd36a31e9d689cdb60bd270faef892e5b8af2bca38035638fff44",
+      "publishedDate": "2026-09-01",
+      "dateEvidence": "공개 기사 표시 2026/09/01 및 흰 슬리브리스 첫 단일 사진 일치 관찰; 원촬영일 미확인"
     }
   ]
 }

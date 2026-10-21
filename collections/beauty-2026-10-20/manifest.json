@@ -47746,5 +47746,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "cda90dddfc3cd36a",
+    "file": "메이크업/노메이크업룩/cda90dddfc3cd36a.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "노메이크업룩"
+      }
+    ],
+    "width": 2560,
+    "height": 1707,
+    "bytes": 399279,
+    "sha256": "cda90dddfc3cd36a31e9d689cdb60bd270faef892e5b8af2bca38035638fff44",
+    "dhash": "4747476e6c6c6c29",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
