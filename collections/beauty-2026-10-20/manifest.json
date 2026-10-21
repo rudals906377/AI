@@ -47620,5 +47620,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2f381b9de9988f01",
+    "file": "헤어/땋은머리/2f381b9de9988f01.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "땋은머리"
+      }
+    ],
+    "width": 1200,
+    "height": 900,
+    "bytes": 105244,
+    "sha256": "2f381b9de9988f01d7e4788e2118eaa5073b05ad47c061faa58a09a1a5bf0138",
+    "dhash": "0d4bca4696b6959d",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c624ddd8cab406fd",
+    "file": "타투/리얼리즘/c624ddd8cab406fd.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "리얼리즘"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 599932,
+    "sha256": "c624ddd8cab406fd8b15461d5282d163dbbe5b281cc6207e02170d568f323056",
+    "dhash": "d8dc1b330f1d98e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

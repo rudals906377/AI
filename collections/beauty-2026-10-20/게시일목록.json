@@ -13572,6 +13572,18 @@
       "sha256": "8180791cd56666dcb8ca9a56663ea21f9f9a430d279200a804530c36899bca6e",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 기사 표시 2026-10-15 및 말차라테② 사진 일치 관찰; 원사진 최초 게시일 미확인"
+    },
+    {
+      "id": "2f381b9de9988f01",
+      "sha256": "2f381b9de9988f01d7e4788e2118eaa5073b05ad47c061faa58a09a1a5bf0138",
+      "publishedDate": "2026-01-12",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.01.12 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "c624ddd8cab406fd",
+      "sha256": "c624ddd8cab406fd8b15461d5282d163dbbe5b281cc6207e02170d568f323056",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
