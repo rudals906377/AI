@@ -46759,5 +46759,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "dfecf51b824d345a",
+    "file": "헤어/긴머리/dfecf51b824d345a.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "긴머리"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 246884,
+    "sha256": "dfecf51b824d345a82479b02daacff012211e812f3156b0ce99ce5223a80e0c6",
+    "dhash": "1c384c4c4d3d2d9f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "627e1f9fcf64f173",
+    "file": "네일/호피·애니멀/627e1f9fcf64f173.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "호피·애니멀"
+      }
+    ],
+    "width": 1146,
+    "height": 1433,
+    "bytes": 50622,
+    "sha256": "627e1f9fcf64f173739ae7cf51c17df1c265fbbd90d1d0aa3830e47c34153f91",
+    "dhash": "8713f3399b1bffff",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
