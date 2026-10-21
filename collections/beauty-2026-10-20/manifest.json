@@ -45079,5 +45079,47 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d10d070563489467",
+    "file": "타투/카메라/d10d070563489467.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "사물",
+        "label": "카메라"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 523010,
+    "sha256": "d10d0705634894676a481a1a6899a1b4d843e25b3cbd0f1a7e06a48e9f841c10",
+    "dhash": "4f1f7ededca0871c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "126e12bf7f792909",
+    "file": "네일/오마카세/126e12bf7f792909.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "배치",
+        "label": "오마카세"
+      }
+    ],
+    "width": 736,
+    "height": 981,
+    "bytes": 62680,
+    "sha256": "126e12bf7f7929094ac640c64edde79534a9194212db86625b42fea169bb882f",
+    "dhash": "0c1946d34f0f0202",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

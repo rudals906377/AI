@@ -12846,6 +12846,18 @@
       "sha256": "311c2b99dab1b998199c088c89bc9c9a6add1bc57b3a38247890cbc72504bd1d",
       "publishedDate": null,
       "dateEvidence": "공개 화면에서 게시일 확인 불가. 날짜 미확인 예외로 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "d10d070563489467",
+      "sha256": "d10d0705634894676a481a1a6899a1b4d843e25b3cbd0f1a7e06a48e9f841c10",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "126e12bf7f792909",
+      "sha256": "126e12bf7f7929094ac640c64edde79534a9194212db86625b42fea169bb882f",
+      "publishedDate": null,
+      "dateEvidence": "공개 화면에서 게시일 확인 불가. 날짜 미확인 예외로 실제 원본 품질 검수 통과"
     }
   ]
 }
