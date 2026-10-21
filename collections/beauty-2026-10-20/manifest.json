@@ -47515,5 +47515,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5fdac41211052c88",
+    "file": "헤어/시스루뱅/5fdac41211052c88.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "앞머리",
+        "label": "시스루뱅"
+      }
+    ],
+    "width": 960,
+    "height": 1280,
+    "bytes": 116351,
+    "sha256": "5fdac41211052c885ba2111ba30091b866f8d788dd4ba4f9becd18653fd40157",
+    "dhash": "2c286272716973e6",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9be9a41e62f00074",
+    "file": "타투/공룡/9be9a41e62f00074.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "공룡"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 630456,
+    "sha256": "9be9a41e62f00074c78b9971caa07ad2d8b350b4bf6a37f255c9bc99c39ac866",
+    "dhash": "707070d8cce6f8f8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2d281bd563be586c",
+    "file": "네일/그라데이션/2d281bd563be586c.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "그라데이션"
+      }
+    ],
+    "width": 1160,
+    "height": 1451,
+    "bytes": 53816,
+    "sha256": "2d281bd563be586c54cbfd3c359897a81daca9e2187938eb01ddc095024d1762",
+    "dhash": "f79f17174b0c0484",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

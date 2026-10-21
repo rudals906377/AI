@@ -13542,6 +13542,24 @@
       "sha256": "e79a0cb2748c32b900d0eaa3470aa0a3176070930dfbeebf1c475cec7d64ec80",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 가을 네일 기사 2026/10/15와 애니멀⑩ 확인; 원사진 최초일 별도 미확인"
+    },
+    {
+      "id": "5fdac41211052c88",
+      "sha256": "5fdac41211052c885ba2111ba30091b866f8d788dd4ba4f9becd18653fd40157",
+      "publishedDate": "2026-02-03",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.02.03 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "9be9a41e62f00074",
+      "sha256": "9be9a41e62f00074c78b9971caa07ad2d8b350b4bf6a37f255c9bc99c39ac866",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "2d281bd563be586c",
+      "sha256": "2d281bd563be586c54cbfd3c359897a81daca9e2187938eb01ddc095024d1762",
+      "publishedDate": "2026-10-15",
+      "dateEvidence": "공개 기사 표시 2026-10-15 및 말차라테① 사진 일치 관찰; 원사진 최초 게시일 미확인"
     }
   ]
 }
