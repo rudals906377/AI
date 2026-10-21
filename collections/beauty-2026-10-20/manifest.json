@@ -47725,5 +47725,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "503cbcab8ea59cc5",
+    "file": "타투/여성 초상/503cbcab8ea59cc5.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "여성 초상"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 794995,
+    "sha256": "503cbcab8ea59cc59e2a83fb1dee2257f6887f8fe8af301a0fb9d16e0ae73c62",
+    "dhash": "0808189899191949",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]

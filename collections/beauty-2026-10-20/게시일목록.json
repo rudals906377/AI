@@ -13602,6 +13602,12 @@
       "sha256": "b5308af2fb2111dc858da07a69a3a7f899ec868c27012e0072f64e6fcfd4277b",
       "publishedDate": "2026-10-15",
       "dateEvidence": "공개 기사 표시 2026-10-15 및 번트오렌지⑥ 실제 사진 일치 관찰; 원사진 최초 게시일 미확인"
+    },
+    {
+      "id": "503cbcab8ea59cc5",
+      "sha256": "503cbcab8ea59cc59e2a83fb1dee2257f6887f8fe8af301a0fb9d16e0ae73c62",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
     }
   ]
 }
