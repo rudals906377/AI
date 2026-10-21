@@ -12132,6 +12132,24 @@
       "sha256": "d20c1ee963aedc61055f0a8fdd7ce91552d7f74ad7e7b1a7231324c9db17d9d4",
       "publishedDate": null,
       "dateEvidence": "한국 네일샵의 공개 시술 설명과 같은 단일색 전체 도포 원본을 실제 확인. 게시일 미확인; 최근 사진으로 추정하지 않음."
+    },
+    {
+      "id": "7ad41547746a9b38",
+      "sha256": "7ad41547746a9b38e13fc122bf543bf9c254424d510e4ce275b61d92fccac9c4",
+      "publishedDate": "2025-11-28",
+      "dateEvidence": "한국 뷰티 기사 게시일 2025.11.28 확인; 사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "57b8ad9954a64aad",
+      "sha256": "57b8ad9954a64aad6736632cc8d55088bd2efb3bfeb8ca08d76aa57730fe7e35",
+      "publishedDate": "2026-07-07",
+      "dateEvidence": "기사 2026.07.07 게시일 관찰; SNS 인용 사진의 매트 블러립 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "61f208f337c16758",
+      "sha256": "61f208f337c167585ca0ae85461effa43e8c83c1b8fed72d1f4fd328857ad9ea",
+      "publishedDate": "2026-07-07",
+      "dateEvidence": "기사 2026.07.07 게시일 관찰; SNS 인용 사진의 크리미하고 촉촉한 립 설명이며 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }

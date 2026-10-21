@@ -42580,5 +42580,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7ad41547746a9b38",
+    "file": "헤어/포니테일/7ad41547746a9b38.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "포니테일"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 236382,
+    "sha256": "7ad41547746a9b38e13fc122bf543bf9c254424d510e4ce275b61d92fccac9c4",
+    "dhash": "d0c0d8ccf8f163e3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "57b8ad9954a64aad",
+    "file": "메이크업/블러립/57b8ad9954a64aad.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "블러립"
+      }
+    ],
+    "width": 1080,
+    "height": 1439,
+    "bytes": 131878,
+    "sha256": "57b8ad9954a64aad6736632cc8d55088bd2efb3bfeb8ca08d76aa57730fe7e35",
+    "dhash": "7634999d9d11258f",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "61f208f337c16758",
+    "file": "메이크업/글로시/61f208f337c16758.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 655,
+    "height": 876,
+    "bytes": 101904,
+    "sha256": "61f208f337c167585ca0ae85461effa43e8c83c1b8fed72d1f4fd328857ad9ea",
+    "dhash": "081949f2e8f0f2c0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
