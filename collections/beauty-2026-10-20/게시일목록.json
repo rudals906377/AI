@@ -12924,6 +12924,42 @@
       "sha256": "40474fec56773d4d88aae7990f93d044178ae73dab8aa3fde698247c9a8eb2df",
       "publishedDate": "2026-10-13",
       "dateEvidence": "기사 2026.10.13 게시일과 문가영 시술 사진 설명 관찰; 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "b574c6243353ec2f",
+      "sha256": "b574c6243353ec2fbec887672f3ca31e073cdecc3d9eb601459b28c66d27bb28",
+      "publishedDate": "2026-07-01",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.01 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "297de43ef1b1eead",
+      "sha256": "297de43ef1b1eead9bf4308fe58bcee50535cb09b35a6170dc6fba6862fb6eff",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "468352c123ccd867",
+      "sha256": "468352c123ccd8676a00f30e5163e759f761769d14697c88eb187401c38ae345",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "b7e6a9a63650b288",
+      "sha256": "b7e6a9a63650b2884b9fbc9d85ff1727bbee803c4166d7f8c3fedaf17df84a6d",
+      "publishedDate": "2026-10-02",
+      "dateEvidence": "기사 2026.10.02 게시일과 키키 하음 하이 블러셔 Y2K 시술 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "3f1a34aeaca9864e",
+      "sha256": "3f1a34aeaca9864e4b10c33552d3ec1f1b31ce8ae4e74ab4a25fb5881e444705",
+      "publishedDate": "2026-10-02",
+      "dateEvidence": "기사 2026.10.02 게시일 및 장원영 치크 시술 사진 설명 관찰; 원 SNS 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "7e41072d39a40274",
+      "sha256": "7e41072d39a40274b7c801d0f79b1168a9c0b8c1f08319478d295df6ec9bbd33",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일의 선명한 글리터 조각과 골드 팁·장식 검수 통과"
     }
   ]
 }

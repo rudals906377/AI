@@ -45352,5 +45352,131 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b574c6243353ec2f",
+    "file": "헤어/중단발/b574c6243353ec2f.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "기장",
+        "label": "중단발"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 159291,
+    "sha256": "b574c6243353ec2fbec887672f3ca31e073cdecc3d9eb601459b28c66d27bb28",
+    "dhash": "606969f1b2b0df7f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "297de43ef1b1eead",
+    "file": "타투/깃털/297de43ef1b1eead.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "깃털"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 676753,
+    "sha256": "297de43ef1b1eead9bf4308fe58bcee50535cb09b35a6170dc6fba6862fb6eff",
+    "dhash": "0743434048584848",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "468352c123ccd867",
+    "file": "타투/과일/468352c123ccd867.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "과일"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 386634,
+    "sha256": "468352c123ccd8676a00f30e5163e759f761769d14697c88eb187401c38ae345",
+    "dhash": "657736b21a361958",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b7e6a9a63650b288",
+    "file": "메이크업/Y2K/b7e6a9a63650b288.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "Y2K"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 211787,
+    "sha256": "b7e6a9a63650b2884b9fbc9d85ff1727bbee803c4166d7f8c3fedaf17df84a6d",
+    "dhash": "343c38b0d0d1d0c0",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3f1a34aeaca9864e",
+    "file": "메이크업/인형 속눈썹/3f1a34aeaca9864e.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "속눈썹",
+        "label": "인형 속눈썹"
+      }
+    ],
+    "width": 1199,
+    "height": 901,
+    "bytes": 184851,
+    "sha256": "3f1a34aeaca9864e4b10c33552d3ec1f1b31ce8ae4e74ab4a25fb5881e444705",
+    "dhash": "92969492f4c4c78c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7e41072d39a40274",
+    "file": "네일/글리터/7e41072d39a40274.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "글리터"
+      }
+    ],
+    "width": 750,
+    "height": 745,
+    "bytes": 57938,
+    "sha256": "7e41072d39a40274b7c801d0f79b1168a9c0b8c1f08319478d295df6ec9bbd33",
+    "dhash": "0e0f6e561e9f4bd9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
