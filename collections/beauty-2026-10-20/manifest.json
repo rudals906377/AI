@@ -46381,5 +46381,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "92eac3d65610f2d9",
+    "file": "네일/별/92eac3d65610f2d9.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "별"
+      }
+    ],
+    "width": 1007,
+    "height": 1259,
+    "bytes": 20993,
+    "sha256": "92eac3d65610f2d96940021d9bbcfacc716bfa2ac800501a1ad0eba2d95e6304",
+    "dhash": "e303870302830386",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
