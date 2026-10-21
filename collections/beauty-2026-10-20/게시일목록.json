@@ -12768,6 +12768,30 @@
       "sha256": "dfbde411ba4e8bd013aceb89d527d9bdb2c81fef33db7db66ae48aea02c1f3a7",
       "publishedDate": "2026-07-02",
       "dateEvidence": "기사 공개일 2026/07/02 확인; 원 SNS 사진 최초 게시일 미확인. 최근 촬영으로 추정하지 않음"
+    },
+    {
+      "id": "6dad852fd3087d1c",
+      "sha256": "6dad852fd3087d1c6e82e4fd58c0c9b306250f9b679c6d83171ec92140b41657",
+      "publishedDate": "2026-08-07",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.08.07 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "ae3dd95f8daad338",
+      "sha256": "ae3dd95f8daad338c644b90d8bd0c10748bb361c4955eae62a9bb6052625d7c9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "980f8132a0e1968f",
+      "sha256": "980f8132a0e1968ff9b2c70d3d3dd6aa3e1d20063d4a27177c311194d852fa41",
+      "publishedDate": "2026-09-23",
+      "dateEvidence": "기사 2026.09.23 게시일과 슬기의 베이지브라운 섀도 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "40ebd48daaff2b8a",
+      "sha256": "40ebd48daaff2b8a10ee11757d0c71e4eb6443810f1addf1c0f5e6cac9657609",
+      "publishedDate": "2026-07-02",
+      "dateEvidence": "공개 기사 2026/07/02 확인; 원 SNS 사진 최초 게시일 미확인. 최근 촬영으로 추정하지 않음"
     }
   ]
 }

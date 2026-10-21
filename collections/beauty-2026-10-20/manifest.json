@@ -44806,5 +44806,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6dad852fd3087d1c",
+    "file": "헤어/픽시컷/6dad852fd3087d1c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "픽시컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1462,
+    "bytes": 90833,
+    "sha256": "6dad852fd3087d1c6e82e4fd58c0c9b306250f9b679c6d83171ec92140b41657",
+    "dhash": "61717171717353e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ae3dd95f8daad338",
+    "file": "타투/공작/ae3dd95f8daad338.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "나비·새",
+        "label": "공작"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 622043,
+    "sha256": "ae3dd95f8daad338c644b90d8bd0c10748bb361c4955eae62a9bb6052625d7c9",
+    "dhash": "0f1e346d49dbdbf3",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "980f8132a0e1968f",
+    "file": "메이크업/음영 섀도/980f8132a0e1968f.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "음영 섀도"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 224565,
+    "sha256": "980f8132a0e1968ff9b2c70d3d3dd6aa3e1d20063d4a27177c311194d852fa41",
+    "dhash": "f063637378f8b81a",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "40ebd48daaff2b8a",
+    "file": "네일/롱네일/40ebd48daaff2b8a.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 길이",
+        "label": "롱네일"
+      }
+    ],
+    "width": 1075,
+    "height": 1344,
+    "bytes": 65601,
+    "sha256": "40ebd48daaff2b8a10ee11757d0c71e4eb6443810f1addf1c0f5e6cac9657609",
+    "dhash": "fe3e6dcc3569c4e4",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
