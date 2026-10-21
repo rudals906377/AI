@@ -12858,6 +12858,36 @@
       "sha256": "126e12bf7f7929094ac640c64edde79534a9194212db86625b42fea169bb882f",
       "publishedDate": null,
       "dateEvidence": "공개 화면에서 게시일 확인 불가. 날짜 미확인 예외로 실제 원본 품질 검수 통과"
+    },
+    {
+      "id": "a55edb06bd56c494",
+      "sha256": "a55edb06bd56c494b6bfbe5610483de9be698ba8e09826cd06b6f4954219a17a",
+      "publishedDate": "2026-07-17",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.17 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "fd4294167493de0c",
+      "sha256": "fd4294167493de0c27155073d2103a42a8e39ceab4a5f6b598a25ee86e624fca",
+      "publishedDate": "2026-07-17",
+      "dateEvidence": "한국 헤어스타일 기사 게시일 2026.07.17 확인; 원사진 최초 게시일 별도 미확인"
+    },
+    {
+      "id": "a80b502534e9403b",
+      "sha256": "a80b502534e9403b96aee8a6412a7034573d1cc566d322572ef2b0502fb28600",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인; 실제 파일 품질 검수 통과"
+    },
+    {
+      "id": "e9d6f2a1e61f9feb",
+      "sha256": "e9d6f2a1e61f9feb1746601d5c3437f1f989011e08fe2244f5c507d8f67d1716",
+      "publishedDate": "2026-09-03",
+      "dateEvidence": "기사 2026.09.03 게시일과 슬기의 언더 음영 시술 설명 관찰; 원 SNS 사진 촬영·게시일 미확인, 최근 촬영이라고 추정하지 않음"
+    },
+    {
+      "id": "e4e0b5e54ab6072e",
+      "sha256": "e4e0b5e54ab6072e80dc2e8025bd11f6349a5d7cbd11fd6622704123072c130a",
+      "publishedDate": "2026-09-03",
+      "dateEvidence": "기사 2026.09.03 게시일과 로제 애쉬 언더 음영 설명 관찰; 원 SNS 촬영·게시일은 미확인, 최근 촬영이라고 추정하지 않음"
     }
   ]
 }

@@ -45121,5 +45121,110 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a55edb06bd56c494",
+    "file": "헤어/레이어드컷/a55edb06bd56c494.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 369148,
+    "sha256": "a55edb06bd56c494b6bfbe5610483de9be698ba8e09826cd06b6f4954219a17a",
+    "dhash": "e3cb1971292ccc8c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "fd4294167493de0c",
+    "file": "헤어/땋은머리/fd4294167493de0c.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "땋은머리"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 186029,
+    "sha256": "fd4294167493de0c27155073d2103a42a8e39ceab4a5f6b598a25ee86e624fca",
+    "dhash": "bda494b496878fcc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a80b502534e9403b",
+    "file": "타투/클로버/a80b502534e9403b.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "클로버"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 714255,
+    "sha256": "a80b502534e9403b96aee8a6412a7034573d1cc566d322572ef2b0502fb28600",
+    "dhash": "00020a0e0e424020",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e9d6f2a1e61f9feb",
+    "file": "메이크업/음영 섀도/e9d6f2a1e61f9feb.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "음영 섀도"
+      }
+    ],
+    "width": 1170,
+    "height": 877,
+    "bytes": 110008,
+    "sha256": "e9d6f2a1e61f9feb1746601d5c3437f1f989011e08fe2244f5c507d8f67d1716",
+    "dhash": "7c7d7d793878787c",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e4e0b5e54ab6072e",
+    "file": "메이크업/스모키/e4e0b5e54ab6072e.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이섀도",
+        "label": "스모키"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 187050,
+    "sha256": "e4e0b5e54ab6072e80dc2e8025bd11f6349a5d7cbd11fd6622704123072c130a",
+    "dhash": "61a4a7f17170f1e1",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
