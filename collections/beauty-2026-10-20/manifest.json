@@ -47452,5 +47452,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "9714de116de2dd42",
+    "file": "헤어/반묶음/9714de116de2dd42.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "반묶음"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 200437,
+    "sha256": "9714de116de2dd42665a35633322a8a8db5222f5a74290147cc7ffa56165aa59",
+    "dhash": "19f1d4989fd64c0c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c374d8809dd7c47b",
+    "file": "타투/벚꽃/c374d8809dd7c47b.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "꽃·식물",
+        "label": "벚꽃"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 694096,
+    "sha256": "c374d8809dd7c47bac5567c3f5270c661b0a197934b01810c26d35a82fc75566",
+    "dhash": "5a4c0d0d2d0d2525",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e79a0cb2748c32b9",
+    "file": "네일/숏네일/e79a0cb2748c32b9.avif",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 길이",
+        "label": "숏네일"
+      }
+    ],
+    "width": 762,
+    "height": 953,
+    "bytes": 45696,
+    "sha256": "e79a0cb2748c32b900d0eaa3470aa0a3176070930dfbeebf1c475cec7d64ec80",
+    "dhash": "dc3c3cecf1e3671b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
