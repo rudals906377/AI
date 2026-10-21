@@ -44638,5 +44638,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "d3dcedbcc5ed5aa3",
+    "file": "헤어/땋은머리/d3dcedbcc5ed5aa3.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "땋은머리"
+      }
+    ],
+    "width": 1200,
+    "height": 1500,
+    "bytes": 337192,
+    "sha256": "d3dcedbcc5ed5aa32d6df6239058635bec9ad2ab9aecf00c184bf7aa1ea2bad1",
+    "dhash": "ce2d9fc6653973bc",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "5d71c41e40ce27cc",
+    "file": "타투/코끼리/5d71c41e40ce27cc.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "동물",
+        "label": "코끼리"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 502997,
+    "sha256": "5d71c41e40ce27cc24b624feb70072b0a149eb7c7b7dbfe64ae3d6e1a34044c5",
+    "dhash": "e343d8c884807073",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2233726352efa2d2",
+    "file": "메이크업/글로시/2233726352efa2d2.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 170468,
+    "sha256": "2233726352efa2d21ba43fd8b3449ab1b14fa3ea69ec96a48f536112507c6ce8",
+    "dhash": "7739713232b1b838",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
