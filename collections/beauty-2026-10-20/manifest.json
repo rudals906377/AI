@@ -45478,5 +45478,68 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2b02db91c1c8dbb7",
+    "file": "헤어/레이어드 숏컷/2b02db91c1c8dbb7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "레이어드 숏컷"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 220658,
+    "sha256": "2b02db91c1c8dbb767308edb7783044e2034e040750d1d6043857534619f5789",
+    "dhash": "4cfa321a938391d8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "76316e2bd37b6a03",
+    "file": "메이크업/글로시/76316e2bd37b6a03.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 질감",
+        "label": "글로시"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 336744,
+    "sha256": "76316e2bd37b6a031443d5b707bb251a35d61771d27da37f3ab367b1c6424aa0",
+    "dhash": "7467676666261da7",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a66309c7b99b5d08",
+    "file": "네일/오벌/a66309c7b99b5d08.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "오벌"
+      }
+    ],
+    "width": 1000,
+    "height": 1300,
+    "bytes": 54015,
+    "sha256": "a66309c7b99b5d084a3dfa93622e6408097aaee0c59e0940ea44f24a41539b36",
+    "dhash": "aae4e13acccc0e28",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
