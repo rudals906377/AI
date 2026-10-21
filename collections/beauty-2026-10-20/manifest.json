@@ -45226,5 +45226,89 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "11f1096247cb44c7",
+    "file": "헤어/S컬펌/11f1096247cb44c7.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "펌·결",
+        "label": "S컬펌"
+      }
+    ],
+    "width": 1170,
+    "height": 1560,
+    "bytes": 531976,
+    "sha256": "11f1096247cb44c782bf1fd32b4cc8b745242c9358bfcfc4e48938fc586371b0",
+    "dhash": "9e657161cb9687ed",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "bc57ce67ceac558f",
+    "file": "타투/트럼프 카드 · 주사위/bc57ce67ceac558f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "하트·심볼",
+        "label": "트럼프 카드 · 주사위"
+      }
+    ],
+    "width": 720,
+    "height": 720,
+    "bytes": 143403,
+    "sha256": "bc57ce67ceac558fceb209697a027fc96b6e73505111a099e87cf5ad6805ae59",
+    "dhash": "9888c6e27138dccc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "553ec25ba4219f94",
+    "file": "메이크업/누드·베이지/553ec25ba4219f94.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "립 색",
+        "label": "누드·베이지"
+      }
+    ],
+    "width": 1200,
+    "height": 1598,
+    "bytes": 224971,
+    "sha256": "553ec25ba4219f94a8b1e7bd5ff36b99c220faee14f50fd6cf81c2d8253c05a2",
+    "dhash": "e86061353333868e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c140cf9815ccc8c4",
+    "file": "네일/오마카세/c140cf9815ccc8c4.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "배치",
+        "label": "오마카세"
+      }
+    ],
+    "width": 1200,
+    "height": 1598,
+    "bytes": 120224,
+    "sha256": "c140cf9815ccc8c44e245b0aa68663478d9f000a6827e3ecdd0006c5e17ead69",
+    "dhash": "a0a1a5ed782d0f1b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
