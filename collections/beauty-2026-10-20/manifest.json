@@ -42013,5 +42013,26 @@
     "label_status": "candidate_visual_reviewed",
     "near_duplicate_candidates": [],
     "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ce43bf2b58df00c5",
+    "file": "헤어/똥머리/ce43bf2b58df00c5.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "스타일링(묶음 등)",
+        "label": "똥머리"
+      }
+    ],
+    "width": 1200,
+    "height": 1600,
+    "bytes": 465287,
+    "sha256": "ce43bf2b58df00c5eda17f6db285048e16a98cd9419169793665f9cfb85bdf87",
+    "dhash": "0e1e0c3d999eb6a7",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
   }
 ]
