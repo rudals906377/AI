@@ -15,6 +15,10 @@
   python3 tools/finetune-heads.py --heads heads/marqo-fashionSigLIP.json --labels embeddings/marqo-fashionSigLIP.json \
       --tax /tmp/taxonomy.json --feedback beauty-review-*.jsonl --out heads/marqo-fashionSigLIP.json
   (먼저 --dry-run 으로 바뀌는 그룹과 교차 검증 결과만 볼 수 있다)
+
+라벨 하나를 겨냥해 모은 사진(드문 라벨만 많음)으로 이어 학습하면 그 라벨 쪽으로 기울어 평범한 사진을 틀린다 (R16).
+  → tools/pseudo-anchors.py 로 라벨이 없는 그룹에 지금 헤드가 확신한 답을 기준점(source: pseudo)으로 함께 넣고,
+    tools/select-groups.py 로 평가 세트에서 줄지 않고 답 분포가 크게 바뀌지 않는 그룹만 받아들인다.
 """
 import argparse, base64, glob, importlib.util, json, os, sys
 import numpy as np
@@ -93,6 +97,8 @@ def main():
     ap.add_argument("--min-rows", type=int, default=8, help="이보다 피드백이 적은 그룹은 손대지 않는다")
     ap.add_argument("--lams", default="0.3,1,3,10,30")
     ap.add_argument("--min-gain", type=float, default=0.02, help="교차 검증 정확도가 이만큼 이상 오른 그룹만 바꾼다")
+    ap.add_argument("--pseudo-weight", type=float, default=0.5,
+                    help="source 가 pseudo 인 행(tools/pseudo-anchors.py 가 만든 기준점)의 가중치")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
     heads = json.load(open(a.heads)); tax = json.load(open(a.tax))
@@ -109,7 +115,7 @@ def main():
             if r.get("model") != heads["model"] or r.get("hash") != tax["hash"]: continue
             v = np.frombuffer(base64.b64decode(r["emb"]), dtype=np.float32)
             if len(v) != dim: continue
-            rows.append((r["category"], r.get("labels") or {}, v / np.linalg.norm(v), 3.0 if r.get("source") == "expert-review" else 1.0))
+            rows.append((r["category"], r.get("labels") or {}, v / np.linalg.norm(v), 3.0 if r.get("source") == "expert-review" else a.pseudo_weight if r.get("source") == "pseudo" else 1.0))
     print(f"피드백 {len(rows)}행 (파일 {len(files)}개)", file=sys.stderr)
     lams = [float(x) for x in a.lams.split(",")]
     changed, report = 0, []
