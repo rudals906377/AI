@@ -51070,6 +51070,10 @@
       {
         "group": "톤",
         "label": "뉴트럴"
+      },
+      {
+        "group": "립 질감",
+        "label": "블러립"
       }
     ],
     "width": 1200,
@@ -51224,6 +51228,636 @@
     "bytes": 38493,
     "sha256": "9824c8671158fb1c9cea9ba1776cd3c3b7e0c6d487a9606974a12f220963d2e8",
     "dhash": "65649c9692939e8e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "b874e67fc780b9fe",
+    "file": "타투/팔뚝/b874e67fc780b9fe.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "블랙"
+      },
+      {
+        "group": "위치",
+        "label": "팔뚝"
+      }
+    ],
+    "width": 1280,
+    "height": 827,
+    "bytes": 768401,
+    "sha256": "b874e67fc780b9fe98f5cd017201bd01cad04f6b61f904891fd7357d8c120691",
+    "dhash": "0f0909293b330b1b",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "a06dffb95752ce72",
+    "file": "헤어/커트/a06dffb95752ce72.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "커트",
+        "label": "쉼표머리"
+      }
+    ],
+    "width": 1195,
+    "height": 1600,
+    "bytes": 51870,
+    "sha256": "a06dffb95752ce725247c50a9fe45145a4376570a4707973ce07cf3e18fede4c",
+    "dhash": "8686c6cc9484f0f0",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "ea8914042e4ee6e4",
+    "file": "타투/가슴/ea8914042e4ee6e4.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "위치",
+        "label": "가슴"
+      },
+      {
+        "group": "색",
+        "label": "블랙"
+      }
+    ],
+    "width": 819,
+    "height": 1024,
+    "bytes": 67913,
+    "sha256": "ea8914042e4ee6e45db293d5ab8a422646e7354f5c212afacff8de5eb2f54f74",
+    "dhash": "2b0b331796964ea8",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e7abf7e5ff641eb2",
+    "file": "타투/여성 초상/e7abf7e5ff641eb2.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "인물",
+        "label": "여성 초상"
+      }
+    ],
+    "width": 700,
+    "height": 1174,
+    "bytes": 90872,
+    "sha256": "e7abf7e5ff641eb2823d3cc9a4bb102e84743fe16374da7b5994072e09ab3a6a",
+    "dhash": "c7cb87aba383b3c7",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "3b57e8a71b80063e",
+    "file": "네일/그레이/3b57e8a71b80063e.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "색",
+        "label": "그레이"
+      }
+    ],
+    "width": 564,
+    "height": 751,
+    "bytes": 47967,
+    "sha256": "3b57e8a71b80063e4240d7e21f9e23597bd70a49a11ebb2ee84d2d65e891224a",
+    "dhash": "846252e289983569",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "14130c55c911d9d2",
+    "file": "헤어/뉴트럴/14130c55c911d9d2.jpg",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "톤",
+        "label": "뉴트럴"
+      }
+    ],
+    "width": 900,
+    "height": 350,
+    "bytes": 40054,
+    "sha256": "14130c55c911d9d2e96c5743e349c33b55b9b64fd250eaf7de432f97d5dc6828",
+    "dhash": "6772302070612939",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "86db20030d7cee66",
+    "file": "네일/가을·무드/86db20030d7cee66.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "가을·무드"
+      }
+    ],
+    "width": 785,
+    "height": 1047,
+    "bytes": 42446,
+    "sha256": "86db20030d7cee66239acfedcb5927516df0aad18f4ed154955d22c73987d4eb",
+    "dhash": "4d8e278f21bb0c8d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6bfec886a2a93979",
+    "file": "네일/코핀/6bfec886a2a93979.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "손톱 모양",
+        "label": "코핀"
+      }
+    ],
+    "width": 1080,
+    "height": 1349,
+    "bytes": 83829,
+    "sha256": "6bfec886a2a93979492ee2236de4301374e2f7bd2f0ae5f5ba8f22a12adc913a",
+    "dhash": "0b41f0fc78ecdcf6",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "959ba45e3658b555",
+    "file": "타투/해골·다크/959ba45e3658b555.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "해골·다크"
+      },
+      {
+        "group": "해골·다크",
+        "label": "해골"
+      },
+      {
+        "group": "색",
+        "label": "블랙"
+      },
+      {
+        "group": "위치",
+        "label": "팔뚝"
+      }
+    ],
+    "width": 946,
+    "height": 946,
+    "bytes": 108532,
+    "sha256": "959ba45e3658b5558b81e72240906b5ae98ab9e65edae693618787aca270dd8e",
+    "dhash": "31919a9e8cce86ca",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "463b3feb258ffc88",
+    "file": "네일/타이다이/463b3feb258ffc88.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "타이다이"
+      }
+    ],
+    "width": 1280,
+    "height": 1280,
+    "bytes": 118042,
+    "sha256": "463b3feb258ffc880573f47d640a1d1cc5ea529acd264d13ad523c13a0d3c577",
+    "dhash": "1869c9d252c6cf4d",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요; 단일 손톱 사진에서 여러 손톱의 다색 번짐 타이다이 디자인이 선명함. 사이트 UI, 콜라주, 문구, 광고, AI 표시가 보이지 않음. 가장 가까운 기존 해시는 dHash 거리 14이나 서로 다른 주제의 헤어컷. 같은 라벨 근접 후보와 시각 비교에서도 디자인이 다름."
+  },
+  {
+    "id": "9b0c90bc05fcc3f6",
+    "file": "타투/블랙워크/9b0c90bc05fcc3f6.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "블랙워크"
+      },
+      {
+        "group": "색",
+        "label": "블랙"
+      },
+      {
+        "group": "위치",
+        "label": "팔뚝"
+      },
+      {
+        "group": "위치",
+        "label": "어깨·위팔"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 412222,
+    "sha256": "9b0c90bc05fcc3f6999535b698e94c0ee7336dd06b0a5912e3dbe4511aac8758",
+    "dhash": "1e76747f4f4c4c4c",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요; 단일 팔 사진에 넓은 흑색 블랙워크 타투가 선명하며 사이트 UI·콜라주·문구·광고·AI 표시가 보이지 않음. 얼굴은 나오지 않음. 가장 가까운 기존 타투 해시는 dHash 거리 16. 고정 Git blob으로 비교한 도끼 타투와는 모티브·구성이 다름."
+  },
+  {
+    "id": "c486ca5190b79f6a",
+    "file": "타투/블랙워크/c486ca5190b79f6a.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "블랙워크"
+      },
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      },
+      {
+        "group": "주제",
+        "label": "동물"
+      },
+      {
+        "group": "주제",
+        "label": "뱀"
+      },
+      {
+        "group": "색",
+        "label": "블랙"
+      },
+      {
+        "group": "색",
+        "label": "블랙앤그레이"
+      },
+      {
+        "group": "위치",
+        "label": "어깨·위팔"
+      }
+    ],
+    "width": 1440,
+    "height": 1920,
+    "bytes": 211374,
+    "sha256": "c486ca5190b79f6a322cfd59363cb723ba2164ceb171ac1dbad7b4666c6f5ff5",
+    "dhash": "b6a6eec6c78ecec9",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요; 단일 사진에서 뱀과 장미의 블랙워크 타투가 선명하고 팔 윗부분에 위치함. 사이트 UI·콜라주·문구·광고·AI 표시가 보이지 않음. 부모는 일반/좌우반전 근접 후보를 이미지로 대조했고 서로 다른 구도 및 헤어 사진임을 확인."
+  },
+  {
+    "id": "28f2adf7eac657d3",
+    "file": "메이크업/인라인/28f2adf7eac657d3.avif",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "인라인"
+      }
+    ],
+    "width": 598,
+    "height": 598,
+    "bytes": 45550,
+    "sha256": "28f2adf7eac657d3dacdd67f00b37610bea07c7afafd67c62acedb379939f8da",
+    "dhash": "ee76fce6c3e19998",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "41c5e7601720cd3f",
+    "file": "타투/고양이/41c5e7601720cd3f.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "반려동물",
+        "label": "고양이"
+      },
+      {
+        "group": "주제",
+        "label": "꽃·식물"
+      },
+      {
+        "group": "스타일",
+        "label": "블랙워크"
+      },
+      {
+        "group": "색",
+        "label": "블랙앤그레이"
+      },
+      {
+        "group": "위치",
+        "label": "어깨·위팔"
+      },
+      {
+        "group": "위치",
+        "label": "팔뚝"
+      },
+      {
+        "group": "위치",
+        "label": "배·복부"
+      }
+    ],
+    "width": 3745,
+    "height": 4681,
+    "bytes": 2056935,
+    "sha256": "41c5e7601720cd3f97d9816e49b20a70ddf752739cf3b6507674be188452784c",
+    "dhash": "cecccececcd8dcc8",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6f949b9f9d72303a",
+    "file": "메이크업/남자 메이크업/6f949b9f9d72303a.png",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "남자 메이크업"
+      }
+    ],
+    "width": 1050,
+    "height": 1464,
+    "bytes": 1021591,
+    "sha256": "6f949b9f9d72303aa997123505020a7170faee74dc2856e4e9225319aa884e0e",
+    "dhash": "e1572e2e7676363e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "2855024ed24be134",
+    "file": "메이크업/아트/2855024ed24be134.avif",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "아트"
+      }
+    ],
+    "width": 1200,
+    "height": 800,
+    "bytes": 44227,
+    "sha256": "2855024ed24be13475a381eae4b2100ccc3ed3fc2486102dd4d1cfa041b0e28c",
+    "dhash": "d899593131523620",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "36192cdbf68ce314",
+    "file": "타투/만다라·기하학/36192cdbf68ce314.avif",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "만다라·기하학"
+      }
+    ],
+    "width": 2400,
+    "height": 4240,
+    "bytes": 393760,
+    "sha256": "36192cdbf68ce31447c23ca05dc9917bfdc8631e5c5963a3f21c4e3cc64694e5",
+    "dhash": "f4e0cc9431393122",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "6adbd1c20b99a13b",
+    "file": "타투/만다라·기하학/6adbd1c20b99a13b.jpg",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "주제",
+        "label": "만다라·기하학"
+      }
+    ],
+    "width": 4250,
+    "height": 6375,
+    "bytes": 2777827,
+    "sha256": "6adbd1c20b99a13b53bbc29603854ad03f21d387f3bfe8aba825220c8637c92e",
+    "dhash": "13736363616173e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "861dfbd48207cb72",
+    "file": "메이크업/컬러 아이라인/861dfbd48207cb72.jpg",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "아이라인",
+        "label": "컬러 아이라인"
+      },
+      {
+        "group": "아이라인",
+        "label": "그래픽 라인"
+      }
+    ],
+    "width": 3648,
+    "height": 5472,
+    "bytes": 1859089,
+    "sha256": "861dfbd48207cb7227e6247565dc7e4514532fdf8a47d123ec85b0f319aadfca",
+    "dhash": "0f3763636b39078e",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "c2704805c6cf2ce9",
+    "file": "네일/타이다이/c2704805c6cf2ce9.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "타이다이"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 244577,
+    "sha256": "c2704805c6cf2ce9550444bf9f475a657c0a67d991f824b4912463a90e6270b4",
+    "dhash": "b84d45a3d6371f1f",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "0b147057e43cda17",
+    "file": "타투/화이트 잉크/0b147057e43cda17.webp",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "색",
+        "label": "화이트 잉크"
+      }
+    ],
+    "width": 1600,
+    "height": 900,
+    "bytes": 69166,
+    "sha256": "0b147057e43cda17b62fe08dc0651e033d1ca873630364a9817bf46ccf6dfeb3",
+    "dhash": "cfcf2707c3c07030",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "87ef8bd8abb53f19",
+    "file": "네일/스테인드글라스/87ef8bd8abb53f19.jpg",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "스테인드글라스"
+      }
+    ],
+    "width": 1080,
+    "height": 1080,
+    "bytes": 74340,
+    "sha256": "87ef8bd8abb53f19245fb3d878a1b3afb2f413b916999f32037eeb4f15ba0741",
+    "dhash": "abc1e0c0b8fc78fc",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "e25c86f9fda3ee1e",
+    "file": "타투/사이버시길리즘/e25c86f9fda3ee1e.png",
+    "category": "타투",
+    "labels": [
+      {
+        "group": "스타일",
+        "label": "사이버시길리즘"
+      }
+    ],
+    "width": 2260,
+    "height": 1272,
+    "bytes": 2140091,
+    "sha256": "e25c86f9fda3ee1eaa81a56f46a31fd65e12ba553ad7aed8c80665cab70b1a3f",
+    "dhash": "70787870f1f1e9e1",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "f8b603ac2cd0480c",
+    "file": "메이크업/웜톤/f8b603ac2cd0480c.png",
+    "category": "메이크업",
+    "labels": [
+      {
+        "group": "톤",
+        "label": "웜톤"
+      }
+    ],
+    "width": 721,
+    "height": 649,
+    "bytes": 1127950,
+    "sha256": "f8b603ac2cd0480c9d298952cda8e084a8fadcf19d8958b4fd2ccb69ad82951f",
+    "dhash": "616060e2909191c3",
+    "large_face": true,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "7934ce01e68762b3",
+    "file": "네일/화려한/7934ce01e68762b3.png",
+    "category": "네일",
+    "labels": [
+      {
+        "group": "디자인",
+        "label": "화려한"
+      }
+    ],
+    "width": 1120,
+    "height": 1400,
+    "bytes": 1200140,
+    "sha256": "7934ce01e68762b372b7604bd58929f0595d3c1bdace8884177a7cea3e710619",
+    "dhash": "24993d5e0f1b97cf",
+    "large_face": false,
+    "face_review": "visual",
+    "label_status": "candidate_visual_reviewed",
+    "near_duplicate_candidates": [],
+    "note": "학습 전 최종 라벨 검토 필요"
+  },
+  {
+    "id": "682934c7ac7223f0",
+    "file": "헤어/보이시/682934c7ac7223f0.webp",
+    "category": "헤어",
+    "labels": [
+      {
+        "group": "분위기",
+        "label": "보이시"
+      }
+    ],
+    "width": 1080,
+    "height": 1350,
+    "bytes": 56800,
+    "sha256": "682934c7ac7223f0a69d78ccf3a22382041923d9bcdeb9a0e9a1caabc5adef41",
+    "dhash": "b1f03b0fce9b8bc7",
     "large_face": true,
     "face_review": "visual",
     "label_status": "candidate_visual_reviewed",

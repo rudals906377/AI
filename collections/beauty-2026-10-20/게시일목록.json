@@ -13674,6 +13674,1074 @@
       "sha256": "9303f7395b678e033a0d66fa0d64c29ff4409de8534830290d3c3656e76ac1a8",
       "publishedDate": "2026-08-17",
       "dateEvidence": "게시물 하단 화면은 8월 17일. 같은 화면 날짜 요소의 공개 tooltip title에 2026년 8월 17일과 datetime 2026-08-17T14:28:07.000Z 표시 확인."
+    },
+    {
+      "id": "20af13a91527cf4b",
+      "sha256": "20af13a91527cf4be038f1bc229e8a6d42e0f502a0860db44110914f9b2a375a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "6188363b6856991f",
+      "sha256": "6188363b6856991fac1fac6391d4d1541f425b9daabe85280e5b61982731e888",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "a19aa6e04487e826",
+      "sha256": "a19aa6e04487e8266e90d1eadf4d75b186fa6ecd8d908047d615dd12ab39a7e4",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "11d3cb8d50b63c19",
+      "sha256": "11d3cb8d50b63c19208227690d924fd8b22dd0912fc62a28e269e3f0072385f0",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "6ed8993e19bdb6fc",
+      "sha256": "6ed8993e19bdb6fc4e5e84cee7485b7195d3761d6fda3ce35d1beabb98551576",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c4e4c7a58de785ea",
+      "sha256": "c4e4c7a58de785eaf51a400316e78356d838553bc3ff0841ce05afbea145d46f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "6d125ed902ae128b",
+      "sha256": "6d125ed902ae128b0a140da6f48793851381868e1b3e8c2b45348f36a1d2b373",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "39b6bb0e334328b5",
+      "sha256": "39b6bb0e334328b5f58cde0687b82d9959d33e1b18b33be00d7cd4ff051239c9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "0e54159c4d27af1b",
+      "sha256": "0e54159c4d27af1b934ddaa10fe2c7edc78f3e57a15c17829e5d6839b895607b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7db3e94a48dab65b",
+      "sha256": "7db3e94a48dab65bbda192e7fd5f6007d46ac83d69114458a84b509fb1eb16ba",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "570191976c0e7b84",
+      "sha256": "570191976c0e7b8484ab58e5978b4df6fccce8a6e630bbfc53ae78e67b8dd412",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "cd17a8914b188b9e",
+      "sha256": "cd17a8914b188b9ef1fb52aabd6ef4a2cd3bcbdcfff6b0ef3b22aa9b2609c14d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f8a4773ef8c0f330",
+      "sha256": "f8a4773ef8c0f33084af3dd928e43cadc82e93800fd2441b143d3ea85ff4042d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "70b29819d914586c",
+      "sha256": "70b29819d914586ce290bacb60314ad47bc20c68644678166e4d1d917e933446",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "838cd2661f28b021",
+      "sha256": "838cd2661f28b021ee47f1690c081231e278d4aa3c515bd49d62fa2c6201c226",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "04d8e1251a55817e",
+      "sha256": "04d8e1251a55817e70b23811c76c714de38331c0871fb1f7c1866a11a7e1395d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c5bea216282f84eb",
+      "sha256": "c5bea216282f84ebd2db35e87db5ae3b55c4ca56be8d1da0a4a2628045738b25",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4275af8714c7684e",
+      "sha256": "4275af8714c7684e5255e44dfd2439478944a315b182c51bed50f89b50110f86",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "96c502ae36ccd84b",
+      "sha256": "96c502ae36ccd84b99f855bc4682fe90c36a4fcd556d69bfadacc569f0c36a6f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "d435b085333649a3",
+      "sha256": "d435b085333649a38f790f5cecd35fcec205d255166ca798011c25e3504269dd",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c9f6e3d1146304ad",
+      "sha256": "c9f6e3d1146304ad254cda100e747c1135b0a854b0011ba739ef963111411fc5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c0429dade7ce9ff6",
+      "sha256": "c0429dade7ce9ff6188ab3038064241cb9656dcfb47cd35b21df7b9c80e2372e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "55508769db10520d",
+      "sha256": "55508769db10520d69b172857e53c80304a9da7fad1cc5986ed4cdb3fff25758",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "cd5170ae7565775e",
+      "sha256": "cd5170ae7565775e6395c0a78ca47424aeb609b7ceb03e7a83ebfc2f28785d0a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7dc39cc49b16ac2a",
+      "sha256": "7dc39cc49b16ac2af7c6448de80c2bc1276ef7481da1eaed200c113a12003185",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7536c7bd401a81b6",
+      "sha256": "7536c7bd401a81b674dfcffcf185e9e309f3408c309fe4186a80b3b213bbf4b5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c5440d79c9f11405",
+      "sha256": "c5440d79c9f1140566c45db765a3f37b0b171de9aa9a351782a21503c1d2684f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c617d57d5fc56c6f",
+      "sha256": "c617d57d5fc56c6fd6be9ffa22a254fc7bae2ff7de0681d1fdd9e2d48cf88cad",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4c75abf96a73a559",
+      "sha256": "4c75abf96a73a559214bf09563446e362bc3dbe86b7eac1b3a455340ad094343",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "ed733d590e833e79",
+      "sha256": "ed733d590e833e79f388c784c9da465fc55e9902eabc645ae9b56b47c3f61135",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9269369ab78868dd",
+      "sha256": "9269369ab78868dd831aa963a952a502b74ba62e8b6666075fe3cc1c1647be4e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "5ae5d81a5cde3af6",
+      "sha256": "5ae5d81a5cde3af6a1758adfd45f927876e69e7c30ea15905cbcc54fcfb213ca",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c14adc763a310fdf",
+      "sha256": "c14adc763a310fdf9d8b8fc21485c21894cc499ed103a52b1abcbcd5e3b2e141",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c517608369a88eff",
+      "sha256": "c517608369a88effe6aa8027ace13b5594a69ac64f2c965af254de057532ea74",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "b232a33f8551751e",
+      "sha256": "b232a33f8551751ee80969e7ad8f56dce77d22b7e87c1336f91e3b3d366e2001",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "08c9773a8616eadc",
+      "sha256": "08c9773a8616eadc1a06acd0b3dd7965b660857548bba6b8c3398b4fb8460399",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9824c00eb2fbd60d",
+      "sha256": "9824c00eb2fbd60dc944a60636da8ae438ae8ba6fdee1efa38911a113f14b59a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "3cfbfd8dd45f2526",
+      "sha256": "3cfbfd8dd45f2526139e9123ae6878305cf9dd5b01dcf1806ddd6fe8a13bb84a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f02a7e3942b5c361",
+      "sha256": "f02a7e3942b5c361132e17a20204c1e59f73eb0c3fc2c06331a127ace9b257ba",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "41dbc396ebd8b193",
+      "sha256": "41dbc396ebd8b193764e606ef29f72a2c82d1b451f483be9bb535381481cdb80",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "ab755ee250dedca7",
+      "sha256": "ab755ee250dedca760ec60cffe18f90228fb9349ebd7b5637ce2caaecf149229",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "ec94c7b25ac551f9",
+      "sha256": "ec94c7b25ac551f9a5b71a8200a705217115c5f457539ed61ab76e26ba51f14b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fbef6709a8fff4bd",
+      "sha256": "fbef6709a8fff4bd5ba94c453fe14998d352532ba0e64904de1038c80ceb91f8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "133febc9485f17c9",
+      "sha256": "133febc9485f17c9fb5d3c9af5fe61091f5f5ab24f03a2570ddf36fce7c38ab7",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4c8b9759d3d9101c",
+      "sha256": "4c8b9759d3d9101c26ef77448ff94a1a421147cac007b597a9feffeea8dcbfae",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9e4d42d0d891f188",
+      "sha256": "9e4d42d0d891f18874adade962415413ceb987ae713a2d53ef5dbd94fec45bef",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "082472da189d5305",
+      "sha256": "082472da189d53055c522de94c7ecfa7078925239284a71c5cd80cd3b77c377c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fd6a4ad939cedcfa",
+      "sha256": "fd6a4ad939cedcfa6c1e2f8962117b2d354bb3dc8852df9c207238d8b32514f2",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f3f1e3aecbf119fa",
+      "sha256": "f3f1e3aecbf119faf7b3e26a5470b3fa4269617f96f43df1e0189d5cb5c8887e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "763bba4fe6302789",
+      "sha256": "763bba4fe6302789d7d67b5d9586cb95e79c6dde9da860c047e15e6a818b8360",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "0e3cc30136908604",
+      "sha256": "0e3cc30136908604e48fdae572659b0d3eb86bc9c0dade0bbc4e6ede30bf4d27",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "b6af2aebea84b1ae",
+      "sha256": "b6af2aebea84b1aea74c2008545dfbff6a630c774d8f2ba9d0b3ea4492177f28",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "b916eeea3c71d0bc",
+      "sha256": "b916eeea3c71d0bcc7d724e4c1304e25eda9facea5116b754267e250f16927aa",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "5ef1a7f7625bc112",
+      "sha256": "5ef1a7f7625bc11239d4bd7619720988f3a44e0d6761e9623bb09c7702cd41dc",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "313da1583d1fbc57",
+      "sha256": "313da1583d1fbc57984842a492dbde98ca662b9281173b77fd2a43d871fb35f1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "396e929127d90c18",
+      "sha256": "396e929127d90c1829b5734cd71d7dca11d0e0bd45dc2c57ca7b139848849b5d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "1acb7a2052cdebb3",
+      "sha256": "1acb7a2052cdebb35aea9bd9068e65a170dfce2e1f28fae50bcfe3625a17d0b6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "40afdc499e922baa",
+      "sha256": "40afdc499e922baa48edc4c4d2035c965823b575c13fd2db3a7eae5897bab1aa",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "36762eb0f17b55f7",
+      "sha256": "36762eb0f17b55f7da5574d1c44e42ccc361275d221d31e254fadc02dd1c6850",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8e543faeaea3a658",
+      "sha256": "8e543faeaea3a658e8e8fddf1e5a59fe36e48a36478436329e0c25a93d85477b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "66d72f91f424df9d",
+      "sha256": "66d72f91f424df9da79b8e31868f73b75a31bed9eb08f89bd6967225082bc5f1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "858de650462c4ab0",
+      "sha256": "858de650462c4ab05d413809ab44deafbf048c3637376999777c40799421b4b1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9b3b97b202b322ec",
+      "sha256": "9b3b97b202b322ec96ffa81690acdf767107c3b311a0d1fdedb22684f441d167",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "64b56c92c9b7f438",
+      "sha256": "64b56c92c9b7f438f9c36c7d30889564649b62267c0dd6f11325685a794062c6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "0dde95a7c4abf246",
+      "sha256": "0dde95a7c4abf246e5bca39cde08e3171cc713ab45b9d18af113752b4aa105d7",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7457c0b5d11d9efa",
+      "sha256": "7457c0b5d11d9eface966be739ab16643cf61deccc3c041ab7dd8d7894f10afd",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "481fb69d35236f9d",
+      "sha256": "481fb69d35236f9d35b5b656d89f7aaceb9bcc48ef02486e2687abeca35b49ed",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "97f55d6ecf930d95",
+      "sha256": "97f55d6ecf930d95071652ecd0badd82e4628ad1465f6894858e906bb92d8afb",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "5a7a27cba4543f36",
+      "sha256": "5a7a27cba4543f36a3994a6892cbbc4de5d1b157d0210f9230cd8895f004e782",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c879564429bb1f19",
+      "sha256": "c879564429bb1f1959bea76477e8af4c1a6f272e0934ef6ba9398f644816a77c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "a515b0a2d27ba922",
+      "sha256": "a515b0a2d27ba922df6c201f9a5f1445d6d6756f351489c45e0fa94bc26ad146",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "e787edca40d1a5ef",
+      "sha256": "e787edca40d1a5ef5e75830448f49fa4ab19b62ebd5ea073772ff462a733e648",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "edcf628465a229c6",
+      "sha256": "edcf628465a229c6a39c4d59cb16d44edf1cc2f4074c1980a4ec8afa1d99271b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "322ee83b71bcffbe",
+      "sha256": "322ee83b71bcffbefc71f9cc233b2f8534aed3cf2e1c722dca4dea9097a1f93e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8eb0129a22fd709b",
+      "sha256": "8eb0129a22fd709b89192ce0389054f411438b0e3a98888c6487e292309871d6",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4e3aa7caa0ddb360",
+      "sha256": "4e3aa7caa0ddb360fd99e8d58bef9f8350a0c31dcc42802b8c21a12f25715054",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "cc350741299e33c9",
+      "sha256": "cc350741299e33c987735f7421f2ac9dccf2aef8d7b8706e257c0bd074707e56",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "747099ebfca253a7",
+      "sha256": "747099ebfca253a7f435256eb3feb41bbf54092b6ffb413594e6fa8354819ae4",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8dc85db1a7592aee",
+      "sha256": "8dc85db1a7592aee733fa502b4506b967501e595db95da5c32d602dda09fd64b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "0d978e1a03db9c10",
+      "sha256": "0d978e1a03db9c10453d9f6976262d22a4d9dd1baf01a4b742b887f25e563eba",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "84bec4ba2d8bd5bf",
+      "sha256": "84bec4ba2d8bd5bfff54dbeff149b99a15fa4a1685421f68eab9ee9d9352fc1e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "5923c32a63b4986b",
+      "sha256": "5923c32a63b4986bea0f59f9300146a8f3b30c5db4e0b85631cde952b33a54e9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "00b571af9541a552",
+      "sha256": "00b571af9541a5524d7a78803970c954d40b0c6bcbc17bfac4804f9a89700ebd",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "09fa69a86b6d3362",
+      "sha256": "09fa69a86b6d3362f6b9e0397b60ab22d43cbba7783b2a31c0887ab3d67313ee",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c8f24b4ad5e4eeb4",
+      "sha256": "c8f24b4ad5e4eeb44b075d19fa54cbc2dcf28f8734b052d0d164e28a36355181",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8d16c11e8395276a",
+      "sha256": "8d16c11e8395276ab0117ce32de50919c66644e18073883e260fc65fdd1ccc11",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "3abf5145625c6e6d",
+      "sha256": "3abf5145625c6e6d39b3fcb76cc7978c2bceb043ca0f682f8848c07f79c04ec1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fb85da56cfaf9e11",
+      "sha256": "fb85da56cfaf9e119f8496f2d3d375453d509198a95ecf821cd10d3054d98301",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c3e224ae32d294d6",
+      "sha256": "c3e224ae32d294d6357677777db19cf2823d2becb5aa4a2623163774175f0d8c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "96946ab68dcab36e",
+      "sha256": "96946ab68dcab36ea17ceb5e0f91b202f390d0c7bb482e4e9ea88663a80b4ed5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "45d592367d47c2ff",
+      "sha256": "45d592367d47c2ff94011a8f8e4ef4b0d4698f84c7cc847cde1a6b2916d181f2",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "3a91988675ede9c4",
+      "sha256": "3a91988675ede9c4100b8a07be87cec23f8684d538190be5b74ad92278f6ca01",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fb06bff8aee65109",
+      "sha256": "fb06bff8aee651091c0bb74a6ed4978fb11a9f2528ba03440a9b42b6e905e296",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "1a0733b0cba8007a",
+      "sha256": "1a0733b0cba8007a24ae5f3ba402091cff958fb68b1131adf4534afcc2326a9a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "48d2b8432a774e59",
+      "sha256": "48d2b8432a774e593f553816dd5202679e6ac67b4595c4299307860355a7f93d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "320d1079e1c19093",
+      "sha256": "320d1079e1c190932bb81c6e1d8775240b6488557c7533cb0ac9a8a1a96493e8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "6adc5f13fca67ebb",
+      "sha256": "6adc5f13fca67ebb82da772bb669132f1609ff16b033085ecd286391dd1f032e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "52428b7f3b2242a4",
+      "sha256": "52428b7f3b2242a46efa555e3186e614aa19233d2eb0eaa3ffc5748770fdba04",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f53f0a7ea9da6e35",
+      "sha256": "f53f0a7ea9da6e35282f73acf0077a379abf709e65dc1be3fe2196dfe617fe4f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8d863361d15b9653",
+      "sha256": "8d863361d15b9653b81739226ffdce2a056ac4015a8ed972cb95651eb547de68",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "b7d4d0c4fc2ba2b2",
+      "sha256": "b7d4d0c4fc2ba2b2122f33a7c0eed46febea0fb0e2b3b1918097fde6a8289d5f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "bc47151b043bc28a",
+      "sha256": "bc47151b043bc28a700d1ed97dd5ec3d5848840e70cea99f92247a6ce02072a4",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fe46d097dee537e4",
+      "sha256": "fe46d097dee537e4c9eb570683e0c96642c829225b11704f36b8a0dd5799ea08",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "40ff49fd0ad0a930",
+      "sha256": "40ff49fd0ad0a930602e2a1b8865212887cc2e1ffd8d1afc0370f309cd2183d7",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "dae338100dd7bd99",
+      "sha256": "dae338100dd7bd997d5da15b85986e5756021fdb157a0294c58cf9758d3cc04d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "01c755fb03db6184",
+      "sha256": "01c755fb03db618496f222fa057f8ea9131965061ba09598a5d6cff655369f1b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "be0fc42c38135568",
+      "sha256": "be0fc42c3813556861bc8d248b34736e833dc17771af0e5ef80afb5d288953be",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9d6d1be48a487f13",
+      "sha256": "9d6d1be48a487f13d41b6aafa2097ba682e664d8ab03c6377dfb3f0db858c25c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "50dd5dc052369ce5",
+      "sha256": "50dd5dc052369ce5aae6681eae21dd093b8a8a867f04147abdbfbc982aae8f58",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "97e6a7f9d033b425",
+      "sha256": "97e6a7f9d033b42520f98604c35175424ac0c79c42ccf660d4550dd1deda0abc",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4d6ab4e3827e90e3",
+      "sha256": "4d6ab4e3827e90e31e73f36a7c14b4430110fe172eb93077a5a2338ef608e74c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "886d2168a2cfe29d",
+      "sha256": "886d2168a2cfe29d022e0ec59b14c163d633444a549ff331df2bc88c2fe24883",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "bf7f19c5dc520256",
+      "sha256": "bf7f19c5dc520256b68061f694abb67cebc21293d81e3eafb6d9fe8df97147e2",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fd89df27da52b898",
+      "sha256": "fd89df27da52b898b8ada10498c13976e6caf13b25e2a29674953da579434818",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f17b19ebd57172f4",
+      "sha256": "f17b19ebd57172f45067d45b9188474abc2ddfa2b68ff96d12bf11986d859554",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "e174d138e65be137",
+      "sha256": "e174d138e65be1379fdf80ffd3edcf78b65860071e70358bfb2bb553ea4e46e4",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "0199e6779b19cea5",
+      "sha256": "0199e6779b19cea519dd0a689e00b9ac2190827e5392aefd1cba8c97f1fdb083",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "2fca44bfb196b69e",
+      "sha256": "2fca44bfb196b69e7bb52b090a3131cbd0cbf446eea3a2bf21ca5ebf8eebe9ec",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9a4564992ee08aa3",
+      "sha256": "9a4564992ee08aa3d70ddd3089a28b7b9ac71e6f8422f679745943311eecb29f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "1413c1cf1af854a0",
+      "sha256": "1413c1cf1af854a071292f1fbc2b32aa7e98f3a6c9a9423c14e4e65306c3e65f",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "6522646f8af398f4",
+      "sha256": "6522646f8af398f42325a56133fbe575b501de5bc2d76bc5c806a78cf8db2119",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f0857ac48458d3cd",
+      "sha256": "f0857ac48458d3cd2aea5c47a42d0689ba1a4ca0ca3604d516a0bfa8c98f43c9",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "784bb5a0a0e17084",
+      "sha256": "784bb5a0a0e17084cf7fbfa7f592e6f06933f080f836c3f9f60786e787f908dc",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "cdbb9f27da6fa1c2",
+      "sha256": "cdbb9f27da6fa1c243d334075f4a8e7eefc72c199ae8838d5a12b280b32fddfb",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "3500ac34051f5984",
+      "sha256": "3500ac34051f5984d97ba29ffd50109c6336dee49b32e96eac5d2684392d2b77",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7fbb85e9134696bc",
+      "sha256": "7fbb85e9134696bc881aec3c250f242a43167f9929196bb93b47575602a24b4a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "a310b38f71d516ee",
+      "sha256": "a310b38f71d516ee6cf45e1943427ee2f332a74e5f4b9dbb90616b59a58664ff",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "fb919e611ade9b89",
+      "sha256": "fb919e611ade9b896e244a6329143db72aa4ba7ec87f7ee993c68cd80dc5aa7a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7c7ea3b393c3a341",
+      "sha256": "7c7ea3b393c3a3413c48e791ba833e3b02e5288af0f64aa35428595e55a0e4f3",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "169f9d04bf425c15",
+      "sha256": "169f9d04bf425c15879f309525b6f4eee82c5631551bf0bc953fbaabaccbc36e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "b63c758ac3ed16c5",
+      "sha256": "b63c758ac3ed16c558f8e3bf833bbaafd0ab215fc4df8b9fe8953e2e2b6583b7",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4320a05d118ecbea",
+      "sha256": "4320a05d118ecbea77660f360e83da3d076c1dec66ce2dae3e47420539898967",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "01c0bec069a525ac",
+      "sha256": "01c0bec069a525ac1428af22ba8fd4e5e33fac1dadefeb31a063cde5e705d869",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "d2b48305189d69ae",
+      "sha256": "d2b48305189d69aed648f359d97b7c9cf715e104c1d183422790ae6048bc1d52",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "51c009195a8a3a23",
+      "sha256": "51c009195a8a3a232dcd94cfd9911d5bd2a6990596af9ec319f6f5af6ff0acc1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "698beaeb82acad2e",
+      "sha256": "698beaeb82acad2e6705f14f73e85eb30a67111f86c8d4f2d935181c0264aec1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "64cf0fae466e2028",
+      "sha256": "64cf0fae466e202877a58e3b7ef8fc3e011f0892ef5ac442eda8d2e88fe1c9c2",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "7e01b8d16552399a",
+      "sha256": "7e01b8d16552399aebd14384c369832b329188f91e398c208b9a17d90f30522a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "339fe1eb5dc2a12c",
+      "sha256": "339fe1eb5dc2a12cabec53b3548c9bade02848f16bebf233216204c4d6368930",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "4289b7f1110fd3b5",
+      "sha256": "4289b7f1110fd3b52af3cb5287f784a1910c598b4372cd5c1eb95d8fceb9c43a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "2535b0dc5cc4b12e",
+      "sha256": "2535b0dc5cc4b12e10c7a555a823b5a14bfe54d5937dbcf9a0a5fc06251ed38c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "f62e2015bc97e8db",
+      "sha256": "f62e2015bc97e8db6e242794f646cb84a3e44a63d35451d9fac8a3a357419d13",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "e6013e412b07ef38",
+      "sha256": "e6013e412b07ef381df4762cebd3f0abea933e4b5418f3cbfaaba6fa4b0238da",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "381824da36ea3db2",
+      "sha256": "381824da36ea3db272e90f587bd0820223a33f61ddd9a72f6b128a864f12b6f1",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c841acf6d3817e2a",
+      "sha256": "c841acf6d3817e2a6b515cb7e258ce955c0ace37b2aeedb6be086a8af317c453",
+      "publishedDate": "2025-05-20",
+      "dateEvidence": "공개 메이크업 기사 게시일 확인"
+    },
+    {
+      "id": "ec680c61e2e935e4",
+      "sha256": "ec680c61e2e935e4529c8a037d872b8ff4d749d0ed8cdeca0d329ffea66e961e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "424158e22aed84e6",
+      "sha256": "424158e22aed84e68d7837b4f770ba7d8d0333b97912c17fa9fd7b47aae9947b",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "ff26d2e478985c32",
+      "sha256": "ff26d2e478985c327a48603afc949024622fad56f32333dc7bdfd74ac208f093",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "1c61d98f2fe1a3e3",
+      "sha256": "1c61d98f2fe1a3e3451032a70a86a8b1950d7d2575b877384621fef185bf0f17",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8df37debac74b667",
+      "sha256": "8df37debac74b667b239c39e02460611befe23e6d8cb52918fe4c835c877376d",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "8761bdce20f940cd",
+      "sha256": "8761bdce20f940cd17c267df99975a9021cc6af0f2715eaea130e27ce5ee29de",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "9824c8671158fb1c",
+      "sha256": "9824c8671158fb1c9cea9ba1776cd3c3b7e0c6d487a9606974a12f220963d2e8",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "b874e67fc780b9fe",
+      "sha256": "b874e67fc780b9fe98f5cd017201bd01cad04f6b61f904891fd7357d8c120691",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "a06dffb95752ce72",
+      "sha256": "a06dffb95752ce725247c50a9fe45145a4376570a4707973ce07cf3e18fede4c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "ea8914042e4ee6e4",
+      "sha256": "ea8914042e4ee6e45db293d5ab8a422646e7354f5c212afacff8de5eb2f54f74",
+      "publishedDate": "2023-03-09",
+      "dateEvidence": "공개 인터뷰 게시일 확인"
+    },
+    {
+      "id": "e7abf7e5ff641eb2",
+      "sha256": "e7abf7e5ff641eb2823d3cc9a4bb102e84743fe16374da7b5994072e09ab3a6a",
+      "publishedDate": "2026-06-15",
+      "dateEvidence": "공개 페이지에 2026-06-15 게시일 표시"
+    },
+    {
+      "id": "3b57e8a71b80063e",
+      "sha256": "3b57e8a71b80063e4240d7e21f9e23597bd70a49a11ebb2ee84d2d65e891224a",
+      "publishedDate": "2024-12-13",
+      "dateEvidence": "관찰한 공개 네일 기사 페이지 상단에 12/13/2024 게시일이 표시됨."
+    },
+    {
+      "id": "14130c55c911d9d2",
+      "sha256": "14130c55c911d9d2e96c5743e349c33b55b9b64fd250eaf7de432f97d5dc6828",
+      "publishedDate": "2025-11-04",
+      "dateEvidence": "관찰한 공개 헤어 트렌드 기사에 2025-11-04 게시일이 표시되고 2025년 한국 헤어 트렌드의 저채도 뉴트럴 컬러를 설명. 촬영일은 미확인."
+    },
+    {
+      "id": "86db20030d7cee66",
+      "sha256": "86db20030d7cee66239acfedcb5927516df0aad18f4ed154955d22c73987d4eb",
+      "publishedDate": "2024-09-24",
+      "dateEvidence": "관찰한 공개 네일 기사 상단에 09/24/2024 게시일 표시. 촬영일은 미확인."
+    },
+    {
+      "id": "6bfec886a2a93979",
+      "sha256": "6bfec886a2a93979492ee2236de4301374e2f7bd2f0ae5f5ba8f22a12adc913a",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 날짜를 추정하지 않음."
+    },
+    {
+      "id": "959ba45e3658b555",
+      "sha256": "959ba45e3658b5558b81e72240906b5ae98ab9e65edae693618787aca270dd8e",
+      "publishedDate": "2025-12-11",
+      "dateEvidence": "관찰한 공개 게시물 화면에 2025-12-11 날짜 표시. 촬영일은 미확인."
+    },
+    {
+      "id": "463b3feb258ffc88",
+      "sha256": "463b3feb258ffc880573f47d640a1d1cc5ea529acd264d13ad523c13a0d3c577",
+      "publishedDate": "2024-08-09",
+      "dateEvidence": "공개 게시물 화면에 2024-08-09 표시; 촬영일은 확인되지 않음."
+    },
+    {
+      "id": "9b0c90bc05fcc3f6",
+      "sha256": "9b0c90bc05fcc3f6999535b698e94c0ee7336dd06b0a5912e3dbe4511aac8758",
+      "publishedDate": "2025-08-27",
+      "dateEvidence": "공개 게시물 화면의 게시일 2025-08-27 확인; 촬영일은 확인되지 않음."
+    },
+    {
+      "id": "c486ca5190b79f6a",
+      "sha256": "c486ca5190b79f6a322cfd59363cb723ba2164ceb171ac1dbad7b4666c6f5ff5",
+      "publishedDate": "2025-12-01",
+      "dateEvidence": "공개 게시물 화면에 2025-12-01 표시; 사진 촬영일은 확인되지 않음."
+    },
+    {
+      "id": "28f2adf7eac657d3",
+      "sha256": "28f2adf7eac657d3dacdd67f00b37610bea07c7afafd67c62acedb379939f8da",
+      "publishedDate": "2022-12-15",
+      "dateEvidence": "Observed article page displayed Published: Dec 15, 2022; this is the article publication date."
+    },
+    {
+      "id": "41c5e7601720cd3f",
+      "sha256": "41c5e7601720cd3f97d9816e49b20a70ddf752739cf3b6507674be188452784c",
+      "publishedDate": "2024-01-08",
+      "dateEvidence": "사진 상세 패널에 게시일 2024-01-08 표시."
+    },
+    {
+      "id": "6f949b9f9d72303a",
+      "sha256": "6f949b9f9d72303aa997123505020a7170faee74dc2856e4e9225319aa884e0e",
+      "publishedDate": null,
+      "dateEvidence": "공개 상세 화면에 게시일 미표시. 최근 사진으로 추정하지 않음."
+    },
+    {
+      "id": "2855024ed24be134",
+      "sha256": "2855024ed24be13475a381eae4b2100ccc3ed3fc2486102dd4d1cfa041b0e28c",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "36192cdbf68ce314",
+      "sha256": "36192cdbf68ce31447c23ca05dc9917bfdc8631e5c5963a3f21c4e3cc64694e5",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "6adbd1c20b99a13b",
+      "sha256": "6adbd1c20b99a13b53bbc29603854ad03f21d387f3bfe8aba825220c8637c92e",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "861dfbd48207cb72",
+      "sha256": "861dfbd48207cb7227e6247565dc7e4514532fdf8a47d123ec85b0f319aadfca",
+      "publishedDate": null,
+      "dateEvidence": "게시일 미확인. 기존 업로드는 날짜 규칙으로 소급 제외하지 않음."
+    },
+    {
+      "id": "c2704805c6cf2ce9",
+      "sha256": "c2704805c6cf2ce9550444bf9f475a657c0a67d991f824b4912463a90e6270b4",
+      "publishedDate": "2025-07-30",
+      "dateEvidence": "공개 게시물 화면에 2025년 7월 30일 표시. 사진 자체에는 작은 작가 서명만 있음."
+    },
+    {
+      "id": "0b147057e43cda17",
+      "sha256": "0b147057e43cda17b62fe08dc0651e033d1ca873630364a9817bf46ccf6dfeb3",
+      "publishedDate": null,
+      "dateEvidence": "공개 페이지에서 게시일을 확인할 수 없음. 이미지 경로의 연월 표기는 게시일로 간주하지 않음."
+    },
+    {
+      "id": "87ef8bd8abb53f19",
+      "sha256": "87ef8bd8abb53f19245fb3d878a1b3afb2f413b916999f32037eeb4f15ba0741",
+      "publishedDate": "2024-06-03",
+      "dateEvidence": "공개 기사 본문에 2024년 6월 3일 표시; 사진 자체에는 작은 서명만 있음."
+    },
+    {
+      "id": "e25c86f9fda3ee1e",
+      "sha256": "e25c86f9fda3ee1eaa81a56f46a31fd65e12ba553ad7aed8c80665cab70b1a3f",
+      "publishedDate": "2025-01-12",
+      "dateEvidence": "공개 기사 페이지 게시일 2025-01-12 확인; 사진에 작은 작가 서명 표시."
+    },
+    {
+      "id": "f8b603ac2cd0480c",
+      "sha256": "f8b603ac2cd0480c9d298952cda8e084a8fadcf19d8958b4fd2ccb69ad82951f",
+      "publishedDate": "2022-10-11",
+      "dateEvidence": "공개 기사 제목에 2022년 10월 11일 표시되고 본문이 가을 웜톤 메이크업으로 설명. 저장 이미지의 코랄 블러셔와 립 색감도 일치."
+    },
+    {
+      "id": "7934ce01e68762b3",
+      "sha256": "7934ce01e68762b372b7604bd58929f0595d3c1bdace8884177a7cea3e710619",
+      "publishedDate": "2024-03-04",
+      "dateEvidence": "공개 Allure Korea 기사 화면의 날짜 2024.03.04; 기사 문맥은 대담한/맥시멀 네일 디자인이며 이미지의 네이비 스틸레토와 금색 스터드 장식이 선명함."
+    },
+    {
+      "id": "682934c7ac7223f0",
+      "sha256": "682934c7ac7223f0a69d78ccf3a22382041923d9bcdeb9a0e9a1caabc5adef41",
+      "publishedDate": "2025-01-12",
+      "dateEvidence": "Vogue Korea 원문 기사 상단 게시일 2025-01-12; 본문 보이시 커트 섹션에 동일 이미지가 배치됨. 이미지 내부 UI 없음."
     }
   ]
 }
